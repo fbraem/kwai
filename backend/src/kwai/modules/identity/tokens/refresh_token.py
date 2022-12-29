@@ -1,5 +1,5 @@
 """Module for a refresh token entity."""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 
 from kwai.core.domain.entity import Entity
@@ -14,9 +14,13 @@ class RefreshToken:
 
     identifier: TokenIdentifier
     expiration: datetime
+    is_expired: bool = field(init=False)
     access_token: AccessTokenEntity
     revoked: bool = False
     traceable_time: TraceableTime = TraceableTime()
+
+    def __post_init__(self):
+        self.is_expired = self.expiration < datetime.utcnow()
 
 
 class RefreshTokenEntity(Entity[RefreshToken]):
