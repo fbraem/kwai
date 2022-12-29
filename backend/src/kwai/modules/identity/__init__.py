@@ -1,7 +1,7 @@
 from .authenticate_user import (
     AuthenticateUser,
     AuthenticateUserCommand,
-    AuthenticationException,
 )
+from .exceptions import AuthenticationException
 
-__all__ = ["AuthenticateUser", "AuthenticateUserCommand", "AuthenticationException"]
+__all__ = ["AuthenticationException", "AuthenticateUser", "AuthenticateUserCommand"]

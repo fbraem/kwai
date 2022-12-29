@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta
 
 from kwai.core.domain.value_objects import EmailAddress
+from kwai.modules.identity import AuthenticationException
 from kwai.modules.identity.tokens import (
     RefreshTokenRepository,
     AccessTokenRepository,
@@ -22,10 +23,6 @@ class AuthenticateUserCommand:
     password: str
     access_token_expiry_minutes: int = 60 * 2  # 2 hours
     refresh_token_expiry_minutes: int = 60 * 24 * 60  # 2 months
-
-
-class AuthenticationException(Exception):
-    """Raised when authentication is not allowed."""
 
 
 class AuthenticateUser:
