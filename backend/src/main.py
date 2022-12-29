@@ -1,3 +1,4 @@
+import os
 import sys
 import uuid
 
@@ -20,8 +21,8 @@ if settings.logger:
     def log_format(record):
         """Change the format when a request_id is set in extra."""
         if "request_id" in record["extra"]:
-            return "{time} - {level} - ({extra[request_id]}) - {message}\n"
-        return "{time} - {level} - {message}\n"
+            return "{time} - {level} - ({extra[request_id]}) - {message}" + os.linesep
+        return "{time} - {level} - {message}" + os.linesep
 
     logger.add(
         settings.logger.file or sys.stderr,
