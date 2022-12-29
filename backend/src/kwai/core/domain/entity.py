@@ -15,3 +15,6 @@ class Entity(Generic[T]):
     def __call__(self, *args, **kwargs) -> T:
         """A shortcut for getting the domain object."""
         return self.domain
+
+    def __getattr__(self, item):
+        return getattr(self.domain, item)

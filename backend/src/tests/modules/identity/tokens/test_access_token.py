@@ -24,3 +24,19 @@ def test_create():
     )
 
     assert token.revoked is False, "A new token should not be revoked."
+
+
+def test_get_attr():
+    entity = UserAccountEntity(
+        id=1,
+        domain=UserAccount(
+            password=Password.create_from_string("Test1234"),
+            user=User(
+                uuid=UniqueId.generate(),
+                name=Name(first_name="Jigoro", last_name="Kano"),
+                email=EmailAddress("jigoro.kano@kwai.com"),
+            ),
+        ),
+    )
+
+    assert entity.user.name.first_name == "Jigoro", "The firstname should be Jigoro"
