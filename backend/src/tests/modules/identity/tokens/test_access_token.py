@@ -5,19 +5,22 @@ from kwai.core.domain.value_objects import UniqueId, Name, EmailAddress
 from kwai.core.domain.value_objects.password import Password
 from kwai.modules.identity.tokens.access_token import AccessToken
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
-from kwai.modules.identity.users import User, UserEntity
+from kwai.modules.identity.users import User, UserAccountEntity, UserAccount
 
 
 def test_create():
-    user = User(
-        uuid=UniqueId.generate(),
-        name=Name(first_name="Jigoro", last_name="Kano"),
-        email=EmailAddress("jigoro.kano@kwai.com"),
+    account = UserAccount(
+        password=Password.create_from_string("Test1234"),
+        user=User(
+            uuid=UniqueId.generate(),
+            name=Name(first_name="Jigoro", last_name="Kano"),
+            email=EmailAddress("jigoro.kano@kwai.com"),
+        ),
     )
     token = AccessToken(
         identifier=TokenIdentifier.generate(),
         expiration=datetime.utcnow(),
-        user=UserEntity(id=1, domain=user),
+        user_account=UserAccountEntity(id=1, domain=account),
     )
 
     assert token.revoked is False, "A new token should not be revoked."
