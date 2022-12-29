@@ -1,0 +1,3 @@
+/backend/src/.pytest_cache/
+/backend/.env
+/backend/*.log
