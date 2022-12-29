@@ -43,15 +43,15 @@ def shutdown():
 
 app = FastAPI(on_startup=[startup], on_shutdown=[shutdown])
 
-origins = []
+if len(settings.cors_origin) > 0:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.cors_origin,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 app.include_router(api_router, prefix="/api/v1")
 
 
