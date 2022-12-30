@@ -18,7 +18,7 @@ class UserAccountRepository:
 
     @abstractmethod
     def update(self, user_account_entity: UserAccountEntity):
-        """Save a new user account."""
+        """Save a user account."""
         raise NotImplementedError
 
     @abstractmethod
