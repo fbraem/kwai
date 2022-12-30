@@ -6,6 +6,8 @@ from kwai.modules.identity.users.user_account import UserAccountEntity, UserAcco
 
 
 class UserAccountRepository:
+    """Interface for a user account repository."""
+
     @abstractmethod
     def get_user_by_email(self, email: EmailAddress) -> UserAccountEntity:
         """Get a user account with the given email address."""
