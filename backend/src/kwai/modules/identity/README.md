@@ -21,7 +21,7 @@ sequenceDiagram
     end
     AuthenticateUser->>AccessTokenRepository: create
     AuthenticateUser->>RefreshTokenRepository: create
-    AuthenticateUser-->>API: refresh_token
+    AuthenticateUser-->>API: << return >>
 ```
 
 ## Refresh Token
@@ -32,6 +32,9 @@ Use case for refreshing the access token. On each request, also a new refresh to
 sequenceDiagram
     API->>RefreshAccessToken: execute
     RefreshAccessToken->>RefreshTokenRepository: get_by_token_identifier
+    break when the token with the given identifier doesnot exist
+        RefreshTokenRepository->>RefreshAccessToken: raise RefreshTokenNotFoundException
+    end
     RefreshTokenRepository-->>RefreshToken: << create >>
     RefreshToken-->>AccessToken: << create >>
     AccessToken-->>UserAccount: << create >> 
