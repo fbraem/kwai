@@ -22,6 +22,10 @@ class AccessToken:
     def __post_init__(self):
         self.is_expired = self.expiration < datetime.utcnow()
 
+    def revoke(self):
+        """Revoke the access token."""
+        self.revoked = True
+
 
 class AccessTokenEntity(Entity[AccessToken]):
     """An entity for an access token domain object."""
