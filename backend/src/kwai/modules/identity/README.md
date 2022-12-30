@@ -7,11 +7,11 @@ Use case for authenticating a user. When a user is successfully authenticated th
 ```mermaid
 sequenceDiagram
     API->>AuthenticateUser: execute
-    AuthenticateUser->>UserAccountRepo: get_user_by_email
+    AuthenticateUser->>UserAccountRepository: get_user_by_email
     break when the user with the given email doesnot exist
-        UserAccountRepo->>AuthenticateUser: raise UserAccountNotFoundException
+        UserAccountRepository->>AuthenticateUser: raise UserAccountNotFoundException
     end
-    UserAccountRepo-->>AuthenticateUser: user_account
+    UserAccountRepository-->>AuthenticateUser: user_account
     break when the user is revoked
         AuthenticateUser->>API: raise AuthenticationException
     end
@@ -19,7 +19,39 @@ sequenceDiagram
     break when password is wrong
         AuthenticateUser->>API: raise AuthenticationException
     end
-    AuthenticateUser->>AccessTokenRepo: create
-    AuthenticateUser->>RefreshTokenRepo: create
+    AuthenticateUser->>AccessTokenRepository: create
+    AuthenticateUser->>RefreshTokenRepository: create
     AuthenticateUser-->>API: refresh_token
+```
+
+## Refresh Token
+
+Use case for refreshing the access token. On each request, also a new refresh token will be returned.
+
+```mermaid
+sequenceDiagram
+    API->>RefreshAccessToken: execute
+    RefreshAccessToken->>RefreshTokenRepository: get_by_token_identifier
+    RefreshTokenRepository-->>RefreshToken: << create >>
+    RefreshToken-->>AccessToken: << create >>
+    AccessToken-->>UserAccount: << create >> 
+    RefreshToken-->>RefreshAccessToken: << return >>
+    break when refresh token is expired
+        RefreshAccessToken->>API: raise AuthenticationException
+    end
+    break when refresh token is revoked
+        RefreshAccessToken->>API: raise AuthenticationException
+    end
+    break when user is revoked
+        RefreshAccessToken->>API: raise AuthenticationException
+    end
+    RefreshAccessToken->>AccessToken: revoke
+    RefreshAccessToken->>RefreshToken: revoke
+    RefreshAccessToken->>RefreshTokenRepository: update
+    RefreshAccessToken->>AccessTokenRepository: update
+    RefreshAccessToken-->>AccessToken: << create >>
+    RefreshAccessToken->>AccessTokenRepository: create
+    RefreshAccessToken-->>RefreshToken: << create >>
+    RefreshAccessToken->>RefreshTokenRepository: create
+    RefreshToken-->>API: << return >>
 ```
