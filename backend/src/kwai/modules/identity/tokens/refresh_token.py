@@ -22,6 +22,10 @@ class RefreshToken:
     def __post_init__(self):
         self.is_expired = self.expiration < datetime.utcnow()
 
+    def revoke(self):
+        """Revoke the refresh token."""
+        self.revoked = True
+
 
 class RefreshTokenEntity(Entity[RefreshToken]):
     """An entity for a refresh token."""
