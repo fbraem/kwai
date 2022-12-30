@@ -17,4 +17,5 @@ class Entity(Generic[T]):
         return self.domain
 
     def __getattr__(self, item):
+        """Will return the item from the domain object."""
         return getattr(self.domain, item)
