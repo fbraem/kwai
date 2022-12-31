@@ -3,7 +3,7 @@ from datetime import datetime
 from dataclasses import dataclass, field
 
 from kwai.core.db import table
-from kwai.core.domain.value_objects import UniqueId, Name, EmailAddress
+from kwai.core.domain.value_objects import UniqueId, Name, EmailAddress, TraceableTime
 from kwai.core.domain.value_objects.password import Password
 from kwai.modules.identity.users import User, UserEntity
 from kwai.modules.identity.users.user_account import UserAccountEntity, UserAccount
@@ -55,6 +55,10 @@ class UserMapper:
                     last_name=self.users_table.last_name,
                 ),
                 email=EmailAddress(self.users_table.email),
+                traceable_time=TraceableTime(
+                    created_at=self.users_table.created_at,
+                    updated_at=self.users_table.updated_at,
+                ),
             ),
         )
 
@@ -120,6 +124,10 @@ class UserAccountMapper:
                         last_name=self.user_accounts_table.last_name,
                     ),
                     email=EmailAddress(self.user_accounts_table.email),
+                    traceable_time=TraceableTime(
+                        created_at=self.user_accounts_table.created_at,
+                        updated_at=self.user_accounts_table.updated_at,
+                    ),
                 ),
             ),
         )
