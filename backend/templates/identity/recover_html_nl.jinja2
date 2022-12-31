@@ -1,0 +1,37 @@
+{%  extends "layout.jinja2" %}
+{%  block title %} {{ website.name }} {% endblock %}
+{%  block content %}
+<h2>Paswoord Herstellen</h2>
+<p>
+    Beste <strong>{{ name }},</strong>
+</p>
+<p>
+    Jouw paswoord vergeten? Geen probleem. Met een klik op onderstaande knop kan je een nieuw
+    paswoord instellen.
+</p>
+<p style="text-align: center">
+    <a href="{{ website.url }}/auth/reset?uuid={{ uuid }}"
+       class="button"
+    >
+        Wijzig mijn paswoord
+    </a>
+</p>
+<p>
+    Wanneer de knop niet werkt, of u wilt het paswoord herstellen via onze
+    <a href="{{ website.url }}">website</a> zonder gebruik te maken
+    van deze knop, gebruik dan de volgende code:
+</p>
+<p class="center">
+    <strong>{{ uuid }}</strong>
+</p>
+<p>
+    Heeft u hulp nodig, of heeft u dit verzoek niet gemaakt, gelieve dan contact op te nemen
+    met onze webmaster via <a href="mailto:{{ website.email }}">{{ website.email }}</a>.
+</p>
+<p>
+    Let op: Deze code vervalt binnen {{ expires }} uren.
+</p>
+<p>
+    Met vriendelijke groeten, <br />
+    {{ website.name }}
+</p>

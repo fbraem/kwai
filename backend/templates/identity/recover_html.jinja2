@@ -1,0 +1,38 @@
+{%  extends "layout.jinja2" %}
+{%  block title %} {{ website.name }} {% endblock %}
+{%  block content %}
+<h2>Password Reset Request</h2>
+<p>
+    Dear <strong>{{ name }},</strong>
+</p>
+<p>
+    Did you forget your password? No problem. With a click on the button below, you can
+    reset your password.
+</p>
+<p style="text-align: center">
+    <a href="{{ website.url }}/auth/reset?uuid={{ uuid }}"
+       class="button"
+    >
+        Reset My Password
+    </a>
+</p>
+<p>
+    When the button is not working, or you would like to reset your password on
+    our <a href="{{ website.url }}/auth">website</a> without using the button, use the
+    following code:
+</p>
+<p class="center">
+    <strong>{{ uuid }}</strong>
+</p>
+<p>
+    If you need assistance, or you did not make this request, please contact our webmaster
+    <a href="mailto:{{ website.email }}">{{ website.email }}</a>.
+</p>
+<p>
+    Note: This code will expire within {{ expires }} hours.
+</p>
+<p>
+    Best regards,<br />
+    {{ website.name }}
+</p>
+{% endblock %}
