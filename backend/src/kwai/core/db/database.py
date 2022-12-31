@@ -1,4 +1,5 @@
 """Module for database classes/functions."""
+import dataclasses
 import logging
 from typing import Any, Generator, Iterator
 
@@ -7,6 +8,7 @@ from fastapi import Depends
 from loguru import logger
 from sql_smith import QueryFactory
 from sql_smith.engine import MysqlEngine
+from sql_smith.functions import field
 from sql_smith.query import AbstractQuery
 
 from kwai.core.db.exceptions import DatabaseException, QueryException
@@ -113,6 +115,46 @@ class Database:
                 cursor.reset()  # To avoid "unread result found" when not fetching all rows
         except Exception as exc:
             raise QueryException(compiled_query.sql) from exc
+
+    def insert(self, table_data: Any) -> int:
+        """Inserts a dataclass into the given table."""
+        assert dataclasses.is_dataclass(table_data) and hasattr(
+            table_data, "__table_name__"
+        ), "Data should be decorated with @table"
+
+        record = dataclasses.asdict(table_data)
+        del record["id"]
+        query = (
+            self.create_query_factory()
+            .insert(table_data.__table_name__)
+            .columns(*record.keys())
+            .values(*record.values())
+        )
+        last_insert_id = self.execute(query)
+        return last_insert_id
+
+    def update(self, id_: Any, table_data: Any):
+        """Updates a dataclass in the given table."""
+        assert dataclasses.is_dataclass(table_data) and hasattr(
+            table_data, "__table_name__"
+        ), "Data should be decorated with @table"
+
+        record = dataclasses.asdict(table_data)
+        del record["id"]
+        query = (
+            self.create_query_factory()
+            .update(table_data.__table_name__)
+            .set(record)
+            .where(field("id").eq(id_))
+        )
+        self.execute(query)
+
+    def delete(self, id_: Any, table_name: str):
+        """Deletes a row from the table using the id field."""
+        query = (
+            self.create_query_factory().delete(table_name).where(field("id").eq(id_))
+        )
+        self.execute(query)
 
     def log_query(self, query: str):
         db_logger = logger.bind(database=self._settings.name)
