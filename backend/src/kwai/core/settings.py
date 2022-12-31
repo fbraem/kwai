@@ -1,8 +1,15 @@
 """Module for the settings of this application."""
-import logging
 from functools import lru_cache
 
 from pydantic import BaseSettings, BaseModel
+
+
+class WebsiteSettings(BaseModel):
+    """Settings about the website."""
+
+    url: str
+    email: str
+    name: str
 
 
 class DatabaseSettings(BaseModel):
@@ -15,6 +22,8 @@ class DatabaseSettings(BaseModel):
 
 
 class LoggerSettings(BaseModel):
+    """Settings for the logger."""
+
     file: str = "kwai.log"
     level: str = "DEBUG"
     retention: str = "7 days"
@@ -37,6 +46,8 @@ class Settings(BaseSettings):
     logger: LoggerSettings | None = None
 
     db: DatabaseSettings
+
+    website: WebsiteSettings
 
     class Config:
         env_file = ".env"
