@@ -30,6 +30,8 @@ class Settings(BaseSettings):
     jwt_secret: str
     jwt_refresh_secret: str
 
+    template_path: str
+
     cors_origin: list[str] = []
 
     logger: LoggerSettings | None = None
