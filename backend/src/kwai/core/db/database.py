@@ -1,6 +1,5 @@
 """Module for database classes/functions."""
 import dataclasses
-import logging
 from typing import Any, Generator, Iterator
 
 import mysql.connector as db
