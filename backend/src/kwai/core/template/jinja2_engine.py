@@ -1,9 +1,9 @@
 """Modules that implements the template engine interface for jinja2."""
 from typing import Any
 
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader, select_autoescape, TemplatesNotFound
 
-from kwai.core.template import TemplateEngine, Template
+from kwai.core.template import TemplateEngine, Template, TemplateNotFoundException
 from kwai.core.template.jinja2_template import Jinja2Template
 
 JINJA2_FILE_EXTENSION = ".jinja2"
@@ -30,10 +30,17 @@ class Jinja2Engine(TemplateEngine):
 
     def create(self, template_file_path: str, lang: str = "nl") -> Template:
         """Create a jinja2 template."""
-        template = self._env.select_template(
-            [
-                template_file_path + "_" + lang + JINJA2_FILE_EXTENSION,
-                template_file_path + JINJA2_FILE_EXTENSION,
-            ]
-        )
-        return Jinja2Template(template, self._variables)
+        print(template_file_path)
+        try:
+            template = self._env.select_template(
+                [
+                    template_file_path + "_" + lang + JINJA2_FILE_EXTENSION,
+                    template_file_path + JINJA2_FILE_EXTENSION,
+                ]
+            )
+        except TemplatesNotFound as exc:
+            raise TemplateNotFoundException(
+                f"Could not find a template with name '{template_file_path}'"
+            ) from exc
+
+        return Jinja2Template(template, **self._variables)
