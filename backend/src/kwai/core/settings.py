@@ -34,6 +34,8 @@ class EmailSettings(BaseModel):
     """Settings for sending emails."""
 
     host: str
+    port: int
+    user: str
     password: str
     address: str = Field(alias="from")
 
