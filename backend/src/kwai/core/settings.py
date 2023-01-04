@@ -1,7 +1,7 @@
 """Module for the settings of this application."""
 from functools import lru_cache
 
-from pydantic import BaseSettings, BaseModel
+from pydantic import BaseSettings, BaseModel, Field
 
 
 class WebsiteSettings(BaseModel):
@@ -30,6 +30,14 @@ class LoggerSettings(BaseModel):
     rotation: str = "1 day"
 
 
+class EmailSettings(BaseModel):
+    """Settings for sending emails."""
+
+    host: str
+    password: str
+    address: str = Field(alias="from")
+
+
 class Settings(BaseSettings):
     """Class with settings."""
 
@@ -48,6 +56,8 @@ class Settings(BaseSettings):
     db: DatabaseSettings
 
     website: WebsiteSettings
+
+    email: EmailSettings
 
     class Config:
         env_file = ".env"
