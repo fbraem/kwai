@@ -51,6 +51,5 @@ apt-get install -y erlang-base \
     erlang-syntax-tools erlang-tftp erlang-tools erlang-xmerl
 apt-get install rabbitmq-server -y --fix-missing
 
-rabbitmq-plugins list
 rabbitmq-plugins enable rabbitmq_management
 echo "$KWAI_RABBITMQ_PASSWORD" | rabbitmqctl add_user "$KWAI_RABBITMQ_USER"
