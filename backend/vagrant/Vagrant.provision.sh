@@ -53,3 +53,5 @@ apt-get install rabbitmq-server -y --fix-missing
 
 rabbitmq-plugins enable rabbitmq_management
 echo "$KWAI_RABBITMQ_PASSWORD" | rabbitmqctl add_user "$KWAI_RABBITMQ_USER"
+rabbitmqctl add_vhost kwai
+rabbitmqctl set_permissions -p "kwai" "$KWAI_RABBITMQ_USER" ".*" ".*" ".*"
