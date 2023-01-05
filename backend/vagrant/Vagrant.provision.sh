@@ -4,6 +4,8 @@ export DEBIAN_FRONTEND=noninteractive
 KWAI_DATABASE_NAME=$1
 KWAI_DATABASE_USER=$2
 KWAI_DATABASE_PASSWORD=$3
+KWAI_RABBITMQ_USER=$4
+KWAI_RABBITMQ_PASSWORD=$5
 
 # MySQL
 debconf-set-selections <<< "mysql-server mysql-server/root_password password $KWAI_DATABASE_PASSWORD"
@@ -51,3 +53,4 @@ apt-get install rabbitmq-server -y --fix-missing
 
 rabbitmq-plugins list
 rabbitmq-plugins enable rabbitmq_management
+echo "$KWAI_RABBITMQ_PASSWORD" | rabbitmqctl add_user "$KWAI_RABBITMQ_USER"

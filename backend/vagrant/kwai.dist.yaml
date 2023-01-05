@@ -3,3 +3,6 @@ database:
   name: ""
   user: ""
   password: ""
+rabbitmq:
+  user: ""
+  password: ""
