@@ -40,6 +40,12 @@ class EmailSettings(BaseModel):
     address: str = Field(alias="from")
 
 
+class CelerySettings(BaseModel):
+    name: str = "kwai"
+    broker: str
+    logger: LoggerSettings | None = None
+
+
 class Settings(BaseSettings):
     """Class with settings."""
 
@@ -60,6 +66,8 @@ class Settings(BaseSettings):
     website: WebsiteSettings
 
     email: EmailSettings
+
+    celery: CelerySettings
 
     class Config:
         env_file = ".env"
