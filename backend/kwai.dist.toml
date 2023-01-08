@@ -1,0 +1,37 @@
+# Rename this file to kwai.toml and set the env KWAI_SETTINGS_FILE to the path of this file.
+[security]
+access_token_expires_in=60  # 60 minutes
+refresh_token_expires_in=43200  # 30 days
+jwt_algorithm="HS256"
+jwt_secret=""
+jwt_refresh_secret=""
+
+[logger]
+file="kwai.log"
+
+[db]
+host=""
+name=""
+user=""
+password=""
+
+[template]
+path=""
+
+[website]
+url=""
+email=""
+name=""
+
+[email]
+host=""
+port=2525
+password=""
+user=""
+from=""
+
+[celery]
+broker=""
+
+[celery.logger]
+file=""

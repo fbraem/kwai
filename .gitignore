@@ -1,5 +1,5 @@
 /backend/src/.pytest_cache/
-/backend/.env
 /backend/*.log
 /backend/vagrant/kwai.development.yaml
 /backend/vagrant/.vagrant/
+/backend/kwai.toml

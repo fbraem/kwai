@@ -1,7 +1,15 @@
 """Module for the settings of this application."""
+import os
 from functools import lru_cache
 
-from pydantic import BaseSettings, BaseModel, Field
+import tomli
+from pydantic import BaseModel, Field
+
+ENV_SETTINGS_FILE = "KWAI_SETTINGS_FILE"
+
+
+class SettingsException(Exception):
+    """Raised when a problem occurred while loading the settings."""
 
 
 class WebsiteSettings(BaseModel):
@@ -46,18 +54,25 @@ class CelerySettings(BaseModel):
     logger: LoggerSettings | None = None
 
 
-class Settings(BaseSettings):
-    """Class with settings."""
-
+class SecuritySettings(BaseModel):
     access_token_expires_in: int
     refresh_token_expires_in: int
     jwt_algorithm: str
     jwt_secret: str
     jwt_refresh_secret: str
-
-    template_path: str
-
     cors_origin: list[str] = []
+
+
+class TemplateSettings(BaseModel):
+    path: str
+
+
+class Settings(BaseModel):
+    """Class with settings."""
+
+    security: SecuritySettings
+
+    template: TemplateSettings
 
     logger: LoggerSettings | None = None
 
@@ -69,12 +84,24 @@ class Settings(BaseSettings):
 
     celery: CelerySettings
 
-    class Config:
-        env_file = ".env"
-        env_nested_delimiter = "__"
-
 
 @lru_cache()
-def get_settings():
-    """Dependency function for creating the Settings instance."""
-    return Settings()
+def get_settings() -> Settings:
+    """Dependency function for creating the Settings instance.
+
+    The settings are cached with lru_cache, which means the file is only loaded ounce.
+
+    :raises:
+        core.settings.SettingsException: Raised when the env variable is not set, or when the file
+            can't be read.
+    """
+    if ENV_SETTINGS_FILE in os.environ:
+        settings_file = os.environ.get(ENV_SETTINGS_FILE)
+        try:
+            with open(settings_file, mode="rb") as f:
+                return Settings.parse_obj(tomli.load(f))
+        except OSError as exc:
+            raise SettingsException(f"Could not load {settings_file}") from exc
+    raise SettingsException(
+        f"{ENV_SETTINGS_FILE} should be set as environment variable"
+    )

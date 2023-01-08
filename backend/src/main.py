@@ -2,19 +2,24 @@ import os
 import sys
 import uuid
 
-import loguru
+from loguru import logger
 import uvicorn
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from kwai.api.v1.auth.api import api_router
-from kwai.core.settings import get_settings
+from kwai.core.settings import get_settings, SettingsException
 
-settings = get_settings()
+settings = None
+try:
+    settings = get_settings()
+except SettingsException as se:
+    logger.error(f"Could not load the settings: {se}!")
+    exit(1)
+
 
 # Setup the logger.
-logger = loguru.logger
 if settings.logger:
     logger.remove(0)  # Remove the default logger
 
@@ -44,10 +49,10 @@ def shutdown():
 
 app = FastAPI(on_startup=[startup], on_shutdown=[shutdown])
 
-if len(settings.cors_origin) > 0:
+if len(settings.security.cors_origin) > 0:
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=settings.cors_origin,
+        allow_origins=settings.security.cors_origin,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],

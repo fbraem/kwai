@@ -1,11 +1,11 @@
 import os
 import sys
 
-import loguru
+from loguru import logger
 from kombu import Queue, Exchange
 
 from kwai.core.events.celery import get_celery_app
-from kwai.core.settings import get_settings
+from kwai.core.settings import get_settings, SettingsException
 
 _QUEUES = ("kwai", "identity")
 
@@ -19,9 +19,13 @@ app.conf.task_routes = {
     "identity.*": {"queue": "identity"},
 }
 
+settings = None
+try:
+    settings = get_settings()
+except SettingsException as se:
+    logger.error(f"Could not load the settings: {se}!")
+    exit(1)
 
-settings = get_settings()
-logger = loguru.logger
 if settings.celery.logger:
     logger.remove(0)  # Remove the default logger
 
