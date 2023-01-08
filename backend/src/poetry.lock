@@ -1620,7 +1620,7 @@ full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart", "pyyam
 name = "tomli"
 version = "2.0.1"
 description = "A lil' TOML parser"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -2037,4 +2037,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "492169577abf1caca1fe7cda01a4bdb0f004af3eb83f23c675702653efec1ffb"
+content-hash = "eba3c50dc74ab17d83cabe72e31a7c9c9300d43d2af9210d353b86d12abf3b34"
