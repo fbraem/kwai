@@ -1,4 +1,5 @@
 """Module that defines the interface for a bus."""
+import re
 from abc import abstractmethod
 from typing import Any
 
@@ -9,11 +10,11 @@ class Bus:
     """Interface for a message bus."""
 
     @abstractmethod
-    def publish_event(self, topic: str, event: Event):
-        """Publish an event on the given topic."""
+    def publish(self, event: Event):
+        """Publish an event."""
         raise NotImplementedError
 
     @abstractmethod
-    def subscribe(self, topic: str, task: Any):
-        """Subscribe on a topic."""
+    def subscribe(self, event: type[Event], task: Any):
+        """Subscribe on an event."""
         raise NotImplementedError
