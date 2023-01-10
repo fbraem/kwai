@@ -4,8 +4,13 @@ import sys
 from loguru import logger
 from kombu import Queue, Exchange
 
+from kwai.core.events import CeleryBus
 from kwai.core.events.celery import get_celery_app
 from kwai.core.settings import get_settings, SettingsException
+from kwai.modules.identity.user_recoveries.user_recovery_events import (
+    UserRecoveryCreatedEvent,
+)
+from kwai.tasks.identity.user_recovery_tasks import EmailUserRecoveryTask
 
 _QUEUES = ("kwai", "identity")
 
@@ -27,7 +32,7 @@ except SettingsException as se:
     exit(1)
 
 if settings.celery.logger:
-    logger.remove(0)  # Remove the default logger
+    # logger.remove(0)  # Remove the default logger
 
     def log_format(record):
         if "task_id" in record["extra"] and "task_name" in record["extra"]:
@@ -45,3 +50,8 @@ if settings.celery.logger:
         retention=settings.celery.logger.retention,
         rotation=settings.celery.logger.rotation,
     )
+
+app.register_task(EmailUserRecoveryTask())
+
+celery_bus = CeleryBus()
+celery_bus.subscribe(UserRecoveryCreatedEvent, EmailUserRecoveryTask())
