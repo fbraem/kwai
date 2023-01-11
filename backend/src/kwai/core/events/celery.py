@@ -12,12 +12,12 @@ class EventTask(Task, ABC):
 
     def __call__(self, *args, **kwargs):
         with logger.contextualize(task_id=self.request.id, task_name=self.request.task):
-            logger.info(f"{self.request.task}: start")
+            logger.info("start")
             try:
                 self.run(*args, **kwargs)
-                logger.info(f"{self.request.task}: ended")
+                logger.info("ended")
             except Exception as exc:
-                logger.error(f"{self.request.task} failed: {exc}")
+                logger.error(f"failed: {exc}")
                 raise
 
 
