@@ -1,6 +1,4 @@
 """Module that implements a message bus with Celery."""
-from typing import Any
-
 import celery
 from celery import Task
 
@@ -16,20 +14,20 @@ class CeleryBus(Bus):
         self._jobs = {}
 
     def subscribe(self, event: type[Event], task: Task):
-        key = (event.name, task)
+        key = (event.meta.name, task)
         if key not in self._subscribed:
             self._subscribed.add(key)
             self._jobs = {}
 
     def publish(self, event: Event):
-        result = self._get_jobs(event).delay(event.__dict__)
-        return result
+        result = self._get_jobs(event).delay(event.data)
 
     def _get_jobs(self, event: Event):
-        if event.name not in self._jobs:
+        """Find all tasks for the given event."""
+        if event.meta.name not in self._jobs:
             jobs = []
             for job in self._subscribed:
-                if job[0] == event.name:
+                if job[0] == event.meta.name:
                     jobs.append(job[1].s())
-            self._jobs[event.name] = celery.group(jobs)
-        return self._jobs[event.name]
+            self._jobs[event.meta.name] = celery.group(jobs)
+        return self._jobs[event.meta.name]

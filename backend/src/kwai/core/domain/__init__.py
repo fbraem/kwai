@@ -1,3 +1,3 @@
-from .event import Event
+from .event import EventMeta, Event
 
-__all__ = ["Event"]
+__all__ = ["EventMeta", "Event"]
