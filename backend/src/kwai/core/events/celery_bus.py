@@ -6,7 +6,11 @@ from kwai.core.events import Event, Bus
 
 
 class CeleryBus(Bus):
-    """Message bus using Celery."""
+    """Message bus using Celery.
+
+    Remark:
+        Derived from https://github.com/Mulugruntz/celery-pubsub
+    """
 
     def __init__(self):
         self._subscribed = set()
