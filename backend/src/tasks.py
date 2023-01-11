@@ -32,7 +32,7 @@ except SettingsException as se:
     exit(1)
 
 if settings.celery.logger:
-    # logger.remove(0)  # Remove the default logger
+    logger.remove()  # Remove the default logger
 
     def log_format(record):
         if "task_id" in record["extra"] and "task_name" in record["extra"]:
