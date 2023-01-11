@@ -1,5 +1,4 @@
 """Module that defines the interface for a bus."""
-import re
 from abc import abstractmethod
 from typing import Any
 
