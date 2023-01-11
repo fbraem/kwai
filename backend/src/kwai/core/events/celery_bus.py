@@ -2,8 +2,7 @@
 import celery
 from celery import Task
 
-from kwai.core.domain import Event
-from kwai.core.events import Bus
+from kwai.core.events import Event, Bus
 
 
 class CeleryBus(Bus):

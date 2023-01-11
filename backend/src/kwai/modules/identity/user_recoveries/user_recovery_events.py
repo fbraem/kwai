@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 from typing import ClassVar
 
-from kwai.core.domain import EventMeta, Event
+from kwai.core.events import EventMeta, Event
 
 
 @dataclass(kw_only=True, frozen=True)

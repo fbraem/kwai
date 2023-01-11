@@ -2,7 +2,7 @@
 from abc import abstractmethod
 from typing import Any
 
-from kwai.core.domain import Event
+from kwai.core.events import Event
 
 
 class Bus:
