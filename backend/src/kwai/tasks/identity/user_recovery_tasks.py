@@ -6,7 +6,6 @@ from kwai.core.events.celery import EventTask
 
 class EmailUserRecoveryTask(EventTask):
     name: str = "identity.user_recovery.email"
-    queue: str = "identity"
 
     def run(self, *args, **kwargs):
         """A task used to send a mail for a user recovery."""
