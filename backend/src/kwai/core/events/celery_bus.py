@@ -17,6 +17,10 @@ class CeleryBus(Bus):
         self._jobs = {}
 
     def subscribe(self, event: type[Event], task: celery.Task):
+        """Subscribes the event to the given task.
+
+        The task will be registered in Celery, when this is not done yet.
+        """
         if task.name not in self._celery_app.tasks:
             self._celery_app.register_task(task)
         key = (event.meta.name, task)
