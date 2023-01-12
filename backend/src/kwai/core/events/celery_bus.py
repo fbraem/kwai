@@ -22,8 +22,8 @@ class CeleryBus(Bus):
             self._subscribed.add(key)
             self._jobs = {}
 
-    def publish(self, event: Event):
-        result = self._get_jobs(event).delay(event.data)
+    def publish(self, event: Event) -> None:
+        self._get_jobs(event).delay(event.data)
 
     def _get_jobs(self, event: Event):
         """Find all tasks for the given event."""
