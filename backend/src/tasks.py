@@ -40,7 +40,5 @@ if settings.celery.logger:
         rotation=settings.celery.logger.rotation,
     )
 
-app.register_task(EmailUserRecoveryTask())
-
-celery_bus = CeleryBus()
+celery_bus = CeleryBus(app)
 celery_bus.subscribe(UserRecoveryCreatedEvent, EmailUserRecoveryTask())

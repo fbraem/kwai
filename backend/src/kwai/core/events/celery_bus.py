@@ -1,6 +1,5 @@
 """Module that implements a message bus with Celery."""
 import celery
-from celery import Task
 
 from kwai.core.events import Event, Bus
 
@@ -12,11 +11,14 @@ class CeleryBus(Bus):
         Derived from https://github.com/Mulugruntz/celery-pubsub
     """
 
-    def __init__(self):
+    def __init__(self, celery_app: celery):
+        self._celery_app = celery_app
         self._subscribed = set()
         self._jobs = {}
 
-    def subscribe(self, event: type[Event], task: Task):
+    def subscribe(self, event: type[Event], task: celery.Task):
+        if task.name not in self._celery_app.tasks:
+            self._celery_app.register_task(task)
         key = (event.meta.name, task)
         if key not in self._subscribed:
             self._subscribed.add(key)
