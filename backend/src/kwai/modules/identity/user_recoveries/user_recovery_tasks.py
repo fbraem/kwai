@@ -1,6 +1,4 @@
 """Module that defines entry points for tasks for user recoveries."""
-from celery import Task
-
 from kwai.core.events.celery import EventTask
 
 
