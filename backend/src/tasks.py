@@ -9,7 +9,9 @@ from kwai.core.settings import get_settings, SettingsException
 from kwai.modules.identity.user_recoveries.user_recovery_events import (
     UserRecoveryCreatedEvent,
 )
-from kwai.tasks.identity.user_recovery_tasks import EmailUserRecoveryTask
+from kwai.modules.identity.user_recoveries.user_recovery_tasks import (
+    EmailUserRecoveryTask,
+)
 
 settings = None
 try:
