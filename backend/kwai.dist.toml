@@ -30,8 +30,8 @@ password=""
 user=""
 from=""
 
-[celery]
-broker=""
+[broker]
+url="" # use name to set the vhost. By default the name is "kwai"
 
-[celery.logger]
-file=""
+[broker.logger]
+file="kwai.tasks.log"

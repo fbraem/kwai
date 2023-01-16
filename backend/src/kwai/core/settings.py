@@ -48,9 +48,9 @@ class EmailSettings(BaseModel):
     address: str = Field(alias="from")
 
 
-class CelerySettings(BaseModel):
+class BrokerSettings(BaseModel):
     name: str = "kwai"
-    broker: str
+    url: str
     logger: LoggerSettings | None = None
 
 
@@ -82,7 +82,7 @@ class Settings(BaseModel):
 
     email: EmailSettings
 
-    celery: CelerySettings
+    broker: BrokerSettings
 
 
 @lru_cache()
