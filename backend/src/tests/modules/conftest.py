@@ -5,6 +5,8 @@ from kwai.core.db import Database
 from kwai.core.domain.value_objects import EmailAddress
 from kwai.core.mail import Mailer, Recipients, Recipient
 from kwai.core.settings import get_settings
+from kwai.core.template import TemplateEngine
+from kwai.core.template.jinja2_engine import Jinja2Engine
 
 
 @pytest.fixture(scope="module")
@@ -33,3 +35,10 @@ def recipients() -> Recipients:
         from_=Recipient(email=EmailAddress("webmaster@kwai.com"), name="Webmaster"),
         to=[Recipient(email=EmailAddress("jigoro.kano@kwai.com"), name="Jigoro Kano")],
     )
+
+
+@pytest.fixture
+def template_engine() -> TemplateEngine:
+    """Fixture for getting a template engine."""
+    settings = get_settings()
+    return Jinja2Engine(settings.template.path, website=settings.website)
