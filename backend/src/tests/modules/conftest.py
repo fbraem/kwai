@@ -2,7 +2,8 @@
 import pytest
 
 from kwai.core.db import Database
-from kwai.core.mail import Mailer
+from kwai.core.domain.value_objects import EmailAddress
+from kwai.core.mail import Mailer, Recipients, Recipient
 from kwai.core.settings import get_settings
 
 
@@ -23,3 +24,12 @@ def mailer() -> Mailer:
     m = SmtpMailer(settings.email.host, settings.email.port)
     m.connect(settings.email.user, settings.email.password)
     return m
+
+
+@pytest.fixture
+def recipients() -> Recipients:
+    """Fixture for getting recipients."""
+    return Recipients(
+        from_=Recipient(email=EmailAddress("webmaster@kwai.com"), name="Webmaster"),
+        to=[Recipient(email=EmailAddress("jigoro.kano@kwai.com"), name="Jigoro Kano")],
+    )
