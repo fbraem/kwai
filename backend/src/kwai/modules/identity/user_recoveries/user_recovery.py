@@ -16,11 +16,16 @@ class UserRecovery:
     user: UserEntity
     remark: str | None = None
     confirmation: datetime | None = None
+    mailed: datetime | None = None
     traceable_time: TraceableTime = TraceableTime()
 
     def confirm(self):
         """Confirms the user recovery."""
         self.confirmation = datetime.utcnow()
+
+    def mail_send(self):
+        """Sets the timestamp when mail has been sent."""
+        self.mailed = datetime.utcnow()
 
 
 class UserRecoveryEntity(Entity[UserRecovery]):
