@@ -16,6 +16,7 @@ class UserRecoveriesTable:
     expired_at: datetime
     expired_at_timezone: str
     confirmed_at: datetime | None
+    mailed_at: datetime | None
     remark: str | None
     created_at: datetime
     updated_at: datetime | None
@@ -29,6 +30,7 @@ class UserRecoveriesTable:
             expired_at=user_recovery.expiration.timestamp,
             expired_at_timezone=user_recovery.expiration.timezone,
             confirmed_at=user_recovery.confirmation,
+            mailed_at=user_recovery.mailed,
             remark=user_recovery.remark,
             created_at=user_recovery.traceable_time.created_at,
             updated_at=user_recovery.traceable_time.updated_at,
