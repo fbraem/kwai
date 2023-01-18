@@ -23,6 +23,11 @@ class UserRecovery:
         """Confirms the user recovery."""
         self.confirmation = datetime.utcnow()
 
+    @property
+    def confirmed(self) -> bool:
+        """Returns True when this user recovery was confirmed."""
+        return self.confirmation is not None
+
     def mail_send(self):
         """Sets the timestamp when mail has been sent."""
         self.mailed = datetime.utcnow()
