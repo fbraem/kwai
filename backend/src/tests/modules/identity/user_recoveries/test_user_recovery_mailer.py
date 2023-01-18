@@ -35,14 +35,14 @@ def user_recovery() -> UserRecoveryEntity:
 def test_user_recovery_mailer_send(
     mailer: Mailer,
     recipients: Recipients,
-    mail_template: MailTemplate,
+    recovery_mail_template: MailTemplate,
     user_recovery: UserRecoveryEntity,
 ):
     """Test user recovery mailer send"""
     mail = UserRecoveryMailer(
         mailer,
         recipients,
-        mail_template,
+        recovery_mail_template,
         user_recovery,
     ).send()
 
