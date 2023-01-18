@@ -33,12 +33,14 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
 
     def create(self, user_recovery: UserRecovery) -> UserRecoveryEntity:
         id_ = self._database.insert(UserRecoveriesTable.persist(user_recovery))
+        self._database.commit()
         return UserRecoveryEntity(id=id_, domain=user_recovery)
 
     def update(self, user_recovery: UserRecoveryEntity):
         self._database.update(
             user_recovery.id, UserRecoveriesTable.persist(user_recovery.domain)
         )
+        self._database.commit()
 
     def get_by_uuid(self, uuid: UniqueId) -> UserRecoveryEntity:
         query = (
