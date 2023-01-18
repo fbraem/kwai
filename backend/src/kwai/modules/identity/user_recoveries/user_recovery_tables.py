@@ -54,6 +54,7 @@ class UserRecoveryMapper:
                 ),
                 remark=self.user_recoveries_table.remark,
                 confirmation=self.user_recoveries_table.confirmed_at,
+                mailed=self.user_recoveries_table.mailed_at,
                 traceable_time=TraceableTime(
                     created_at=self.user_recoveries_table.created_at,
                     updated_at=self.user_recoveries_table.updated_at,
