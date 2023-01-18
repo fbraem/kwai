@@ -37,7 +37,7 @@ def recipients() -> Recipients:
     )
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def template_engine() -> TemplateEngine:
     """Fixture for getting a template engine."""
     settings = get_settings()
