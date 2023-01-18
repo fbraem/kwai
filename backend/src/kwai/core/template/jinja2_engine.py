@@ -30,7 +30,6 @@ class Jinja2Engine(TemplateEngine):
 
     def create(self, template_file_path: str, lang: str = "nl") -> Template:
         """Create a jinja2 template."""
-        print(template_file_path)
         try:
             template = self._env.select_template(
                 [
