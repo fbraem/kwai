@@ -4,7 +4,6 @@ import pytest
 
 from kwai.core.domain.value_objects import UniqueId, LocalTimestamp, EmailAddress, Name
 from kwai.core.mail import Recipients, Mailer
-from kwai.core.template import TemplateEngine
 from kwai.core.template.mail_template import MailTemplate
 from kwai.modules.identity.user_recoveries import UserRecovery, UserRecoveryEntity
 from kwai.modules.identity.user_recoveries.user_recovery_mailer import (
@@ -36,17 +35,14 @@ def user_recovery() -> UserRecoveryEntity:
 def test_user_recovery_mailer_send(
     mailer: Mailer,
     recipients: Recipients,
-    template_engine: TemplateEngine,
+    mail_template: MailTemplate,
     user_recovery: UserRecoveryEntity,
 ):
     """Test user recovery mailer send"""
     mail = UserRecoveryMailer(
         mailer,
         recipients,
-        MailTemplate(
-            template_engine.create("identity/recover_html"),
-            template_engine.create("identity/recover_txt"),
-        ),
+        mail_template,
         user_recovery,
     ).send()
 
