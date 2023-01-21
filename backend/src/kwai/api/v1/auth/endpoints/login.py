@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from kwai.core.db.database import get_database, Database
 from kwai.core.dependencies import container
 from kwai.core.domain.value_objects import InvalidEmailException
-from kwai.core.settings import Settings
+from kwai.core.settings import Settings, SecuritySettings
 from kwai.modules.identity import (
     AuthenticateUser,
     AuthenticateUserCommand,
@@ -72,7 +72,7 @@ async def login(
             status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc)
         ) from exc
 
-    return encode_token(refresh_token, settings)
+    return encode_token(refresh_token, settings.security)
 
 
 @router.post(
@@ -107,7 +107,7 @@ async def renew_access_token(
             status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc)
         ) from exc
 
-    return encode_token(new_refresh_token, settings)
+    return encode_token(new_refresh_token, settings.security)
 
 
 class ResetPasswordSchema(BaseModel):
@@ -126,7 +126,7 @@ async def reset_password(db=Depends(get_database)):
     pass
 
 
-def encode_token(refresh_token: RefreshTokenEntity, settings: Settings):
+def encode_token(refresh_token: RefreshTokenEntity, settings: SecuritySettings):
     """Encode the access and refresh token with JWT."""
     return {
         "access_token": jwt.encode(
@@ -137,8 +137,8 @@ def encode_token(refresh_token: RefreshTokenEntity, settings: Settings):
                 "sub": str(refresh_token.access_token.user_account.user.uuid),
                 "scope": [],
             },
-            settings.security.jwt_secret,
-            settings.security.jwt_algorithm,
+            settings.jwt_secret,
+            settings.jwt_algorithm,
         ),
         "refresh_token": jwt.encode(
             {
@@ -146,8 +146,8 @@ def encode_token(refresh_token: RefreshTokenEntity, settings: Settings):
                 "exp": refresh_token.expiration,
                 "jti": str(refresh_token.identifier),
             },
-            settings.security.jwt_refresh_secret,
-            settings.security.jwt_algorithm,
+            settings.jwt_refresh_secret,
+            settings.jwt_algorithm,
         ),
         "expiration": refresh_token.access_token.expiration.isoformat(" ", "seconds"),
     }
