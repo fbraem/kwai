@@ -5,13 +5,13 @@ from dramatiq import actor
 from loguru import logger
 
 from kwai.core.db import Database
+from kwai.core.dependencies import container
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects import EmailAddress
 from kwai.core.events.logging_actor import LoggingActor
-from kwai.core.mail import Recipients, Recipient
-from kwai.core.mail.smtp_mailer import SmtpMailer
-from kwai.core.settings import get_settings
-from kwai.core.template.jinja2_engine import Jinja2Engine
+from kwai.core.mail import Recipients, Recipient, Mailer
+from kwai.core.settings import Settings
+from kwai.core.template import TemplateEngine
 from kwai.core.template.mail_template import MailTemplate
 from kwai.modules.identity.mail_user_recovery import (
     MailUserRecovery,
@@ -27,12 +27,10 @@ from kwai.modules.identity.user_recoveries import (
 def email_user_recovery_task(event: dict[str, Any]):
     """Actor for sending a user recovery mail."""
     logger.info(f"Trying to handle event {event['meta']['name']}")
-    settings = get_settings()
-    mailer = SmtpMailer(settings.email.host, settings.email.port)
-    mailer.connect(settings.email.user, settings.email.password)
-    template_engine = Jinja2Engine(settings.template.path, website=settings.website)
 
-    database = Database(settings.db)
+    mailer = container[Mailer]
+    template_engine = container[TemplateEngine]
+    database = container[Database]
     database.connect()
 
     command = MailUserRecoveryCommand(uuid=event["data"]["uuid"])
@@ -43,8 +41,8 @@ def email_user_recovery_task(event: dict[str, Any]):
             mailer,
             Recipients(
                 from_=Recipient(
-                    email=EmailAddress(settings.website.email),
-                    name=settings.website.name,
+                    email=EmailAddress(container[Settings].website.email),
+                    name=container[Settings].website.name,
                 )
             ),
             MailTemplate(

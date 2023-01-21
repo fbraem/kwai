@@ -1,0 +1,28 @@
+"""
+Module that defines a dependency injector container.
+
+Auto-wiring is avoided. It should be clear why and when a class is loaded.
+"""
+from lagom import Container, dependency_definition, ExplicitContainer, Singleton
+
+from kwai.core.db import Database
+from kwai.core.mail import Mailer
+from kwai.core.mail.smtp_mailer import SmtpMailer
+from kwai.core.settings import Settings, get_settings
+from kwai.core.template import TemplateEngine
+from kwai.core.template.jinja2_engine import Jinja2Engine
+
+container = ExplicitContainer()
+
+container[Settings] = Singleton(lambda: get_settings())
+container[Database] = lambda c: Database(c[Settings].db)
+container[TemplateEngine] = lambda c: Jinja2Engine(
+    c[Settings].template.path, website=c[Settings].website
+)
+
+
+@dependency_definition(container)
+def create_mailer(c: Container) -> Mailer:
+    mailer = SmtpMailer(c[Settings].email.host, c[Settings].email.port)
+    mailer.connect(c[Settings].email.user, c[Settings].email.password)
+    return mailer

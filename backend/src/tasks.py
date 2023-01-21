@@ -6,14 +6,11 @@ import dramatiq.brokers.rabbitmq
 from dramatiq.middleware import CurrentMessage
 from loguru import logger
 
+from kwai.core.dependencies import container
 from kwai.core.events.dramatiq_bus import DramatiqBus
-from kwai.core.settings import get_settings, SettingsException
+from kwai.core.settings import Settings
 
-try:
-    settings = get_settings()
-except SettingsException as se:
-    logger.error(f"Could not load the settings: {se}!")
-    sys.exit(1)
+settings = container[Settings]
 
 if settings.broker.logger:
     logger.remove(0)  # Remove the default logger

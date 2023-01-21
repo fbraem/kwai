@@ -972,6 +972,45 @@ MarkupSafe = ">=2.0"
 i18n = ["Babel (>=2.7)"]
 
 [[package]]
+name = "lagom"
+version = "2.2.0"
+description = "Lagom is a dependency injection container designed to give you 'just enough' help with building your dependencies."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "lagom-2.2.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:2a84397581307f2a7f7d673c06440f74811a8bc3756a2a5a162f9e54cf9d405b"},
+    {file = "lagom-2.2.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:0d5d50e81d2d37e13fbb5ca656b5fe8e1c883954b7ecd2bcd963fc8a5a0422c4"},
+    {file = "lagom-2.2.0-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:6049188436c3f8523ee4f9a5c80cb0ad2662301d3ed5988b5e89e4c036b4f0ac"},
+    {file = "lagom-2.2.0-cp310-cp310-win32.whl", hash = "sha256:2421f6faaddf3c01b78fd20efb5790369932bfa78eb7b7d7f155dec0479e3278"},
+    {file = "lagom-2.2.0-cp310-cp310-win_amd64.whl", hash = "sha256:83723b2bd4b5803d365f91cfa6cd2ac9fcfc2211cd5891dd3f1e63b5a4665514"},
+    {file = "lagom-2.2.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:e4b866945c2c5718b9a646417bee8ed7f6268d4c7ef2ce13a6fa5a26cd44e059"},
+    {file = "lagom-2.2.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b9744afa26e93a0e031f2653aed279a3ca7aaff9fed242d0e28b108ffc7ed2ef"},
+    {file = "lagom-2.2.0-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:a7b3f7dc7c5cc3d99732fd3d488c738ba692d63845db5f26879396e096afb828"},
+    {file = "lagom-2.2.0-cp311-cp311-win32.whl", hash = "sha256:5bf79e4616292f611e154128c8e23bb4030c6f357983868162241276b6e2a599"},
+    {file = "lagom-2.2.0-cp311-cp311-win_amd64.whl", hash = "sha256:775226cb1eae928825acd398b70c8e8bc328134d1ab1e0a11c0ce7517a7f5aa3"},
+    {file = "lagom-2.2.0-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:cb9e11a7f2a5cd13452e8f7f7df8fa36fe1703fef9d4d72e70339f19ca3b2b8d"},
+    {file = "lagom-2.2.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:72c9f67d31df72e83885d9c74a81a20ff3f988a6de119248f6964d3a747e7aa9"},
+    {file = "lagom-2.2.0-cp37-cp37m-musllinux_1_1_x86_64.whl", hash = "sha256:5179e439135ff07e9c73f5f2ad6e8ebb54155f60a0e93826dfbf8d2238233e8a"},
+    {file = "lagom-2.2.0-cp37-cp37m-win32.whl", hash = "sha256:af2ce7569ed3f1ab19b17099b10c62e1090cc160a47e3eefeb0b83229de585fa"},
+    {file = "lagom-2.2.0-cp37-cp37m-win_amd64.whl", hash = "sha256:c1e98d18457aa9f6ced64cb179f5076ca9448d1df7ce7f4d7acc79decb5d4f19"},
+    {file = "lagom-2.2.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:f0470096acde88625ae034c5cbd7d744f45bc0dc8092ecc0a3256244f1ec9a4d"},
+    {file = "lagom-2.2.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a3dea612d94e3e3a65df42244a4124a3a0e03c0e25b11e66f7242e2ef349b0f6"},
+    {file = "lagom-2.2.0-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:d75f59b45fc3a911de57e5d7d17df67b1ba0306ed570db8fe39976894465c2ca"},
+    {file = "lagom-2.2.0-cp38-cp38-win32.whl", hash = "sha256:46b70501cb62dcdaf6138e04a76af2a025a1916e998233a3745807cc7e8efe53"},
+    {file = "lagom-2.2.0-cp38-cp38-win_amd64.whl", hash = "sha256:81e30da8a0adc45c0500f1f94ace3045a21dbbb32871f3f6def8355cde89044f"},
+    {file = "lagom-2.2.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:73fc974518264bcd380bfd0882b87d69db89b525a7d93c1fae086a481c1f2177"},
+    {file = "lagom-2.2.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:338c7c59dff4dba471e4455ba5acabf3229f1e85e868ce26b4d87d9f25c781f2"},
+    {file = "lagom-2.2.0-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:986da0393ee8b54a2fd68b086eca2fa1073e0736979c88038ea45bf9bb05dfaa"},
+    {file = "lagom-2.2.0-cp39-cp39-win32.whl", hash = "sha256:ce727b7cc88e61264f818c4e9a40f92949a18a0efbe26ac8c29c6932447575f3"},
+    {file = "lagom-2.2.0-cp39-cp39-win_amd64.whl", hash = "sha256:794496aa2fedf7b0b6586b929e626a14b6de5549159386067282076a0906da00"},
+    {file = "lagom-2.2.0-py3-none-any.whl", hash = "sha256:e5359ac8cd67ddbcd13a452d137489359b6438a13f6f3639e6d8d89821467903"},
+]
+
+[package.extras]
+env = ["pydantic (>=1.0.0,<2.0.0)"]
+
+[[package]]
 name = "lazy-object-proxy"
 version = "1.9.0"
 description = "A fast and thorough lazy object proxy."
@@ -2449,4 +2488,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "c8dbb53f62f5bf4bcfec058b2b2e4ac4b5e723835bcdeed73d266c228504a7de"
+content-hash = "792e7a833892df83bc232613798196b313f2a53e6e15fafae45b96a2c7e6a99c"

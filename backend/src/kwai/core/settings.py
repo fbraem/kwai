@@ -1,6 +1,5 @@
 """Module for the settings of this application."""
 import os
-from functools import lru_cache
 
 import tomli
 from pydantic import BaseModel, Field
@@ -85,7 +84,6 @@ class Settings(BaseModel):
     broker: BrokerSettings
 
 
-@lru_cache()
 def get_settings() -> Settings:
     """Dependency function for creating the Settings instance.
 

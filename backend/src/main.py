@@ -4,14 +4,10 @@ from loguru import logger
 import uvicorn
 
 from kwai.app import create_app
-from kwai.core.settings import get_settings, SettingsException
+from kwai.core.dependencies import container
+from kwai.core.settings import Settings
 
-try:
-    settings = get_settings()
-except SettingsException as se:
-    logger.error(f"Could not load the settings: {se}!")
-    sys.exit(1)
-
+settings = container[Settings]
 
 if __name__ == "__main__":
     uvicorn.run(create_app(settings), host="0.0.0.0", port=8000)
