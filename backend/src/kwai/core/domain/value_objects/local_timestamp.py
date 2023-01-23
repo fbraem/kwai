@@ -1,6 +1,6 @@
 """Module that defines a value object for a local timestamp."""
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 @dataclass
@@ -12,3 +12,13 @@ class LocalTimestamp:
 
     timestamp: datetime
     timezone: str
+
+    @classmethod
+    def create_future(cls, **kwargs):
+        """Creates a local timestamp in the future.
+
+        The timezone will be UTC.
+        """
+        return LocalTimestamp(
+            timestamp=datetime.now() + timedelta(**kwargs), timezone="UTC"
+        )
