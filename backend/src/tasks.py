@@ -8,9 +8,13 @@ from loguru import logger
 
 from kwai.core.dependencies import container
 from kwai.core.events.dramatiq_bus import DramatiqBus
-from kwai.core.settings import Settings
+from kwai.core.settings import Settings, SettingsException
 
-settings = container[Settings]
+try:
+    settings = container[Settings]
+except SettingsException as se:
+    logger.error(f"Could not load settings: {se}")
+    sys.exit(0)
 
 if settings.broker.logger:
     logger.remove(0)  # Remove the default logger
