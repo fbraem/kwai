@@ -1,23 +1,27 @@
-"""Module for defining the security dependency."""
+"""Module that integrates the dependencies in FastAPI."""
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
+from lagom.integrations.fast_api import FastApiIntegration
 
-from kwai.core.db.database import get_database
-from kwai.core.security.system_user import SystemUser
-from kwai.core.settings import get_settings
+from kwai.core.db import Database
+from kwai.core.dependencies import container
+from kwai.core.security import SystemUser
+from kwai.core.settings import Settings
 from kwai.modules.identity.tokens import (
     AccessTokenDbRepository,
     AccessTokenNotFoundException,
     TokenIdentifier,
 )
 
+deps = FastApiIntegration(container)
+
 oauth = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 
 def get_current_user(
-    settings=Depends(get_settings),
-    db=Depends(get_database),
+    settings=deps.depends(Settings),
+    db=deps.depends(Database),
     token: str = Depends(oauth),
 ) -> SystemUser:
     """Try to get the current user from the access token.
@@ -26,7 +30,9 @@ def get_current_user(
     or when the user is revoked.
     """
     payload = jwt.decode(
-        token, settings.jwt_secret, algorithms=[settings.jwt_algorithm]
+        token,
+        settings.security.jwt_secret,
+        algorithms=[settings.security.jwt_algorithm],
     )
     access_token_repo = AccessTokenDbRepository(db)
     try:

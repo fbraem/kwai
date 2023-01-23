@@ -14,13 +14,6 @@ from kwai.core.db.exceptions import DatabaseException, QueryException
 from kwai.core.settings import get_settings, Settings, DatabaseSettings
 
 
-def get_database(settings: Settings = Depends(get_settings)) -> Generator:
-    """Dependency that returns a connected database."""
-    database = Database(settings.db)
-    database.connect()
-    yield database
-
-
 class Database:
     """Wrapper for a database connection."""
 

@@ -2,11 +2,10 @@
 from fastapi import APIRouter, Depends, status, HTTPException, Form
 from fastapi.security import OAuth2PasswordRequestForm
 from jose import jwt
-from lagom.integrations.fast_api import FastApiIntegration
 from pydantic import BaseModel
 
-from kwai.core.db.database import get_database, Database
-from kwai.core.dependencies import container
+from kwai.api.dependencies import deps
+from kwai.core.db.database import Database
 from kwai.core.domain.value_objects import InvalidEmailException
 from kwai.core.settings import Settings, SecuritySettings
 from kwai.modules.identity import (
@@ -24,8 +23,6 @@ from kwai.modules.identity.tokens import (
     RefreshTokenEntity,
 )
 from kwai.modules.identity.users import UserAccountDbRepository
-
-deps = FastApiIntegration(container)
 
 
 class TokenSchema(BaseModel):
@@ -122,7 +119,7 @@ class ResetPasswordSchema(BaseModel):
     response_model=TokenSchema,
     summary="Reset the password of a user.",
 )
-async def reset_password(db=Depends(get_database)):
+async def reset_password(db=deps.depends(Database)):
     pass
 
 
