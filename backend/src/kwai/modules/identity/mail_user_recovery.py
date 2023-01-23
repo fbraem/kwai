@@ -47,6 +47,7 @@ class MailUserRecovery:
         user_recovery = self._user_recovery_repo.get_by_uuid(
             UniqueId.create_from_string(command.uuid)
         )
+
         if user_recovery.mailed:
             raise UnprocessableException(
                 f"Mail already send for user recovery {command.uuid}"
