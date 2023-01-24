@@ -47,7 +47,7 @@ class RecoverUser:
         user_account = self._user_account_repo.get_user_by_email(
             EmailAddress(command.email)
         )
-        if user_account.is_revoked:
+        if user_account.revoked:
             raise UnprocessableException("User account is revoked")
 
         user_recovery = self._user_recovery_repo.create(
