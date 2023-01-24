@@ -2,17 +2,21 @@
 from fastapi import APIRouter, Depends, status, HTTPException, Form
 from fastapi.security import OAuth2PasswordRequestForm
 from jose import jwt
+from loguru import logger
 from pydantic import BaseModel
 
 from kwai.api.dependencies import deps
 from kwai.core.db.database import Database
+from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects import InvalidEmailException
+from kwai.core.events import Bus
 from kwai.core.settings import Settings, SecuritySettings
 from kwai.modules.identity import (
     AuthenticateUser,
     AuthenticateUserCommand,
     AuthenticationException,
 )
+from kwai.modules.identity.recover_user import RecoverUser, RecoverUserCommand
 from kwai.modules.identity.refresh_access_token import (
     RefreshAccessTokenCommand,
     RefreshAccessToken,
@@ -22,7 +26,11 @@ from kwai.modules.identity.tokens import (
     RefreshTokenDbRepository,
     RefreshTokenEntity,
 )
-from kwai.modules.identity.users import UserAccountDbRepository
+from kwai.modules.identity.user_recoveries import UserRecoveryDbRepository
+from kwai.modules.identity.users import (
+    UserAccountDbRepository,
+    UserAccountNotFoundException,
+)
 
 
 class TokenSchema(BaseModel):
@@ -105,6 +113,27 @@ async def renew_access_token(
         ) from exc
 
     return encode_token(new_refresh_token, settings.security)
+
+
+@router.post(
+    "/recover", summary="Initiate a password reset flow", status_code=status.HTTP_200_OK
+)
+async def recover_user(
+    email: str = Form(), db=deps.depends(Database), bus=deps.depends(Bus)
+):
+    """Initiates a recover password flow for the given email address.
+
+    To avoid leaking information, this api will always respond with 200
+    """
+    command = RecoverUserCommand(email=email)
+    try:
+        RecoverUser(
+            UserAccountDbRepository(db), UserRecoveryDbRepository(db), bus
+        ).execute(command)
+    except UserAccountNotFoundException:
+        logger.warning(f"Unknown email address used for a password recovery: {email}")
+    except UnprocessableException as ex:
+        logger.warning(f"User recovery could not be started: {ex}")
 
 
 class ResetPasswordSchema(BaseModel):
