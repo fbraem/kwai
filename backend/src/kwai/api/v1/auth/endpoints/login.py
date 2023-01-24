@@ -1,5 +1,5 @@
 """Module that implements all APIs for login."""
-from fastapi import APIRouter, Depends, status, HTTPException, Form
+from fastapi import APIRouter, Depends, status, HTTPException, Form, Response
 from fastapi.security import OAuth2PasswordRequestForm
 from jose import jwt
 from loguru import logger
@@ -116,11 +116,14 @@ async def renew_access_token(
 
 
 @router.post(
-    "/recover", summary="Initiate a password reset flow", status_code=status.HTTP_200_OK
+    "/recover",
+    summary="Initiate a password reset flow",
+    status_code=status.HTTP_200_OK,
+    response_class=Response,
 )
 async def recover_user(
     email: str = Form(), db=deps.depends(Database), bus=deps.depends(Bus)
-):
+) -> None:
     """Initiates a recover password flow for the given email address.
 
     To avoid leaking information, this api will always respond with 200
