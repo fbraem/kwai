@@ -12,7 +12,7 @@ from kwai.modules.identity.user_recoveries import (
 from kwai.modules.identity.user_recoveries.user_recovery_events import (
     UserRecoveryCreatedEvent,
 )
-from kwai.modules.identity.users import UserAccountRepository
+from kwai.modules.identity.users import UserAccountRepository, UserEntity
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -53,7 +53,10 @@ class RecoverUser:
         user_recovery = self._user_recovery_repo.create(
             UserRecovery(
                 uuid=UniqueId.generate(),
-                user=user_account.user,
+                user=UserEntity(
+                    id=user_account.id,
+                    domain=user_account.user,
+                ),
                 expiration=LocalTimestamp.create_future(hours=2),
             )
         )
