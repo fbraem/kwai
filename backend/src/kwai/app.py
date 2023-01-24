@@ -30,10 +30,14 @@ def create_app(settings: Settings) -> FastAPI:
         def log_format(record):
             """Change the format when a request_id is set in extra."""
             if "request_id" in record["extra"]:
-                return (
+                new_format = (
                     "{time} - {level} - ({extra[request_id]}) - {message}" + os.linesep
                 )
-            return "{time} - {level} - {message}" + os.linesep
+            else:
+                new_format = "{time} - {level} - {message}" + os.linesep
+            if record["exception"]:
+                new_format += "{exception}" + os.linesep
+            return new_format
 
         logger.add(
             settings.logger.file or sys.stderr,
@@ -42,6 +46,8 @@ def create_app(settings: Settings) -> FastAPI:
             colorize=True,
             retention=settings.logger.retention,
             rotation=settings.logger.rotation,
+            backtrace=False,
+            diagnose=False,
         )
 
     if len(settings.security.cors_origin) > 0:
@@ -66,6 +72,7 @@ def create_app(settings: Settings) -> FastAPI:
                 response = await call_next(request)
             except Exception as ex:
                 logger.error(f"{request.url} - Request failed: {ex}")
+                logger.exception(ex)
                 response = JSONResponse(
                     content={
                         "detail": str(ex),
