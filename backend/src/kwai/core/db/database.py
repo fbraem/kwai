@@ -1,9 +1,8 @@
 """Module for database classes/functions."""
 import dataclasses
-from typing import Any, Generator, Iterator
+from typing import Any, Iterator
 
 import mysql.connector as db
-from fastapi import Depends
 from loguru import logger
 from sql_smith import QueryFactory
 from sql_smith.engine import MysqlEngine
@@ -11,7 +10,7 @@ from sql_smith.functions import field
 from sql_smith.query import AbstractQuery
 
 from kwai.core.db.exceptions import DatabaseException, QueryException
-from kwai.core.settings import get_settings, Settings, DatabaseSettings
+from kwai.core.settings import DatabaseSettings
 
 
 class Database:
