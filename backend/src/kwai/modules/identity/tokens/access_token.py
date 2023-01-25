@@ -12,7 +12,7 @@ AccessTokenIdentifier = IntIdentifier
 
 @dataclasses.dataclass(kw_only=True, frozen=True)
 class AccessTokenEntity:
-    """An access token domain object."""
+    """An access token entity."""
 
     user_account: UserAccountEntity
     id: AccessTokenIdentifier = IntIdentifier()
