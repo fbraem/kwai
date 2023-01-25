@@ -3,7 +3,8 @@ from dataclasses import dataclass
 
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects import UniqueId
-from kwai.core.mail import Mailer, Recipients
+from kwai.core.mail.mailer import Mailer
+from kwai.core.mail.recipient import Recipients
 from kwai.core.template.mail_template import MailTemplate
 from kwai.modules.identity.user_recoveries import (
     UserRecoveryRepository,

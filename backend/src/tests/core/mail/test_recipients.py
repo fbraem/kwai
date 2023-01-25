@@ -1,5 +1,5 @@
 from kwai.core.domain.value_objects import EmailAddress
-from kwai.core.mail import Recipients, Recipient
+from kwai.core.mail.recipient import Recipients, Recipient
 
 
 def test_recipients_add_cc():

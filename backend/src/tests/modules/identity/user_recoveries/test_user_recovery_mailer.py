@@ -3,7 +3,8 @@ from datetime import datetime
 import pytest
 
 from kwai.core.domain.value_objects import UniqueId, LocalTimestamp, EmailAddress, Name
-from kwai.core.mail import Recipients, Mailer
+from kwai.core.mail.mailer import Mailer
+from kwai.core.mail.recipient import Recipients
 from kwai.core.template.mail_template import MailTemplate
 from kwai.modules.identity.user_recoveries import UserRecovery, UserRecoveryEntity
 from kwai.modules.identity.user_recoveries.user_recovery_mailer import (

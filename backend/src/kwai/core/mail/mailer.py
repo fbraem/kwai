@@ -1,7 +1,7 @@
 """Module that defines an interface for a mail service."""
 from abc import abstractmethod
 
-from kwai.core.mail import Message
+from .message import Message
 
 
 class MailerException(Exception):

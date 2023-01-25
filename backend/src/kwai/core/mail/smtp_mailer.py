@@ -4,7 +4,8 @@ import ssl
 from email.headerregistry import Address
 from email.message import EmailMessage
 
-from kwai.core.mail import Mailer, Message, MailerException
+from .mailer import Mailer, MailerException
+from .message import Message
 
 
 class SmtpMailer(Mailer):

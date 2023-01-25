@@ -1,7 +1,7 @@
 """Module that defines an interface for a mail message."""
 from abc import abstractmethod
 
-from kwai.core.mail import Recipients
+from .recipient import Recipients
 
 
 class Message:

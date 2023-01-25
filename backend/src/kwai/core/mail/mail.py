@@ -1,5 +1,6 @@
 """Module that implements the Message interface for a mail."""
-from kwai.core.mail import Message, Recipients
+from .message import Message
+from .recipient import Recipients
 
 
 class Mail(Message):
