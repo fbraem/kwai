@@ -1,10 +1,8 @@
 """Module that implements a User entity."""
 from dataclasses import dataclass
-from datetime import datetime
 
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects import EmailAddress, UniqueId, Name
-from kwai.core.domain.value_objects.password import Password
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 
 

@@ -19,8 +19,6 @@ from kwai.modules.identity.tokens.token_tables import (
     AccessTokenMapper,
 )
 from kwai.modules.identity.users.user_tables import (
-    UsersTable,
-    UserMapper,
     UserAccountMapper,
     UserAccountsTable,
 )

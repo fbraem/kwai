@@ -1,6 +1,6 @@
 """Modules that defines all table classes for a user."""
 from datetime import datetime
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 from kwai.core.db import table
 from kwai.core.domain.value_objects import UniqueId, Name, EmailAddress, TraceableTime

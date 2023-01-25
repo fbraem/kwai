@@ -1,6 +1,4 @@
 """Modules that implements the template engine interface for jinja2."""
-from typing import Any
-
 from jinja2 import Environment, FileSystemLoader, select_autoescape, TemplatesNotFound
 
 from kwai.core.template import TemplateEngine, Template, TemplateNotFoundException

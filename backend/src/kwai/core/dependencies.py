@@ -3,8 +3,6 @@ Module that defines a dependency injector container.
 
 Auto-wiring is avoided. It should be clear why and when a class is loaded.
 """
-from typing import Iterator
-
 import dramatiq.brokers.rabbitmq
 
 from lagom import Container, dependency_definition, ExplicitContainer, Singleton

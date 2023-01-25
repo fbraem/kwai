@@ -1,6 +1,4 @@
 """Module that implements the Template interface for a jinja2 template."""
-from typing import Any
-
 import jinja2
 
 from kwai.core.template import Template
