@@ -52,7 +52,7 @@ def get_current_user(
     if access_token.user_account().revoked:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED)
 
-    if access_token.is_expired:
+    if access_token.expired:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED)
 
     return SystemUser(

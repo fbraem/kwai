@@ -22,7 +22,7 @@ class AccessTokenEntity:
     traceable_time: TraceableTime = TraceableTime()
 
     @property
-    def is_expired(self) -> bool:
+    def expired(self) -> bool:
         return self.expiration < datetime.utcnow()
 
     def revoke(self) -> "AccessTokenEntity":
