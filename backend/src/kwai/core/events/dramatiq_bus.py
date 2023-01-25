@@ -2,7 +2,8 @@
 import dramatiq
 from dramatiq import Broker, group, GenericActor, Message, Actor, actor
 
-from kwai.core.events import Bus, Event
+from kwai.core.events.bus import Bus
+from kwai.core.events.event import Event
 
 
 class DramatiqBus(Bus):

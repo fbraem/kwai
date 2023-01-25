@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects import EmailAddress, LocalTimestamp, UniqueId
-from kwai.core.events import Bus
+from kwai.core.events.bus import Bus
 from kwai.modules.identity.user_recoveries import (
     UserRecoveryEntity,
     UserRecoveryRepository,

@@ -8,7 +8,8 @@ import dramatiq.brokers.rabbitmq
 from lagom import Container, dependency_definition, ExplicitContainer, Singleton
 
 from kwai.core.db import Database
-from kwai.core.events import Bus, DramatiqBus
+from kwai.core.events.bus import Bus
+from kwai.core.events.dramatiq_bus import DramatiqBus
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.smtp_mailer import SmtpMailer
 from kwai.core.settings import Settings, get_settings
