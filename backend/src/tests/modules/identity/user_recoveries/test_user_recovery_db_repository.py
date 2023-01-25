@@ -3,7 +3,10 @@ from datetime import datetime
 import pytest
 
 from kwai.core.db import Database
-from kwai.core.domain.value_objects import LocalTimestamp, UniqueId, EmailAddress, Name
+from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.name import Name
+from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_recoveries import (
     UserRecoveryRepository,
     UserRecoveryDbRepository,

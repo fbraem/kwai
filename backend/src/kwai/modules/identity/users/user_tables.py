@@ -3,8 +3,11 @@ from datetime import datetime
 from dataclasses import dataclass
 
 from kwai.core.db import table
-from kwai.core.domain.value_objects import UniqueId, Name, EmailAddress, TraceableTime
+from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.password import Password
+from kwai.core.domain.value_objects.traceable_time import TraceableTime
+from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.users.user import User, UserEntity
 from kwai.modules.identity.users.user_account import UserAccountEntity, UserAccount
 

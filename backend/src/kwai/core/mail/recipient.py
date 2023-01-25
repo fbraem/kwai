@@ -1,7 +1,7 @@
 """Module that defines a recipient."""
 from dataclasses import dataclass, field
 
-from kwai.core.domain.value_objects import EmailAddress
+from kwai.core.domain.value_objects.email_address import EmailAddress
 
 
 @dataclass(kw_only=True, frozen=True)

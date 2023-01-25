@@ -1,4 +1,4 @@
-from kwai.core.domain.value_objects import EmailAddress
+from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.mail.recipient import Recipients, Recipient
 
 

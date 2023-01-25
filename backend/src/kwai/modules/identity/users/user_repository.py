@@ -1,7 +1,8 @@
 """Module that defines the interface for a user repository."""
 from abc import ABC, abstractmethod
 
-from kwai.core.domain.value_objects import UniqueId, EmailAddress
+from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.users.user import UserEntity
 
 

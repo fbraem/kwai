@@ -1,7 +1,7 @@
 """Module that defines the system user"""
 from dataclasses import dataclass
 
-from kwai.core.domain.value_objects import UniqueId
+from kwai.core.domain.value_objects.unique_id import UniqueId
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

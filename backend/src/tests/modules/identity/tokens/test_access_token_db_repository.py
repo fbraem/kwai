@@ -4,8 +4,10 @@ from datetime import datetime
 import pytest
 
 from kwai.core.db import Database
-from kwai.core.domain.value_objects import UniqueId, EmailAddress, Name
+from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.password import Password
+from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
 )

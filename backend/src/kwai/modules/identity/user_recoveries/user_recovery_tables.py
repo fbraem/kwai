@@ -2,7 +2,9 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from kwai.core.db import table
-from kwai.core.domain.value_objects import UniqueId, LocalTimestamp, TraceableTime
+from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.traceable_time import TraceableTime
+from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_recoveries import UserRecovery, UserRecoveryEntity
 from kwai.modules.identity.users.user_tables import UserMapper
 

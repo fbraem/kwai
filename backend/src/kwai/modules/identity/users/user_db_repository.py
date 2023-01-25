@@ -1,6 +1,7 @@
 """Module for implementing a user repository with a database."""
 from kwai.core.db import Database
-from kwai.core.domain.value_objects import UniqueId, EmailAddress
+from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.identity.users.user_db_query import UserDbQuery
 from kwai.modules.identity.users.user_repository import (

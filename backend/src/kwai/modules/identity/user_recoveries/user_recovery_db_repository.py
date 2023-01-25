@@ -4,7 +4,7 @@ from typing import Any
 from sql_smith.functions import on
 
 from kwai.core.db import Database
-from kwai.core.domain.value_objects import UniqueId
+from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_recoveries import (
     UserRecoveryEntity,
     UserRecovery,

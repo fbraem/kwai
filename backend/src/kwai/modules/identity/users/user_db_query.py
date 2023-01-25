@@ -1,6 +1,7 @@
 """Module that implements the UserQuery interface for a database."""
 from kwai.core.db.database_query import DatabaseQuery
-from kwai.core.domain.value_objects import UniqueId, EmailAddress
+from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.users.user_query import UserQuery
 from kwai.modules.identity.users.user_tables import UsersTable
 

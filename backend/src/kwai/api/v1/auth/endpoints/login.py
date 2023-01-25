@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from kwai.api.dependencies import deps
 from kwai.core.db.database import Database
 from kwai.core.domain.exceptions import UnprocessableException
-from kwai.core.domain.value_objects import InvalidEmailException
+from kwai.core.domain.value_objects.email_address import InvalidEmailException
 from kwai.core.events.bus import Bus
 from kwai.core.settings import Settings, SecuritySettings
 from kwai.modules.identity.authenticate_user import (

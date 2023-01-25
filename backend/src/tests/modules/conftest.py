@@ -2,7 +2,7 @@
 import pytest
 
 from kwai.core.db import Database
-from kwai.core.domain.value_objects import EmailAddress
+from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipients, Recipient
 from kwai.core.settings import get_settings

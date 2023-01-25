@@ -1,7 +1,7 @@
 """Module that defines a repository for a user account."""
 from abc import abstractmethod
 
-from kwai.core.domain.value_objects import EmailAddress
+from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.modules.identity.users.user_account import UserAccountEntity, UserAccount
 
 

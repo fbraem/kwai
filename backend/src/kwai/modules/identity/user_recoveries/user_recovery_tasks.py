@@ -7,7 +7,7 @@ from loguru import logger
 from kwai.core.db import Database
 from kwai.core.dependencies import container
 from kwai.core.domain.exceptions import UnprocessableException
-from kwai.core.domain.value_objects import EmailAddress
+from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.events.logging_actor import LoggingActor
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipients, Recipient
