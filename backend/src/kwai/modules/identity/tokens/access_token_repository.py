@@ -2,8 +2,9 @@
 from abc import abstractmethod
 from typing import Iterator
 
-from kwai.modules.identity.tokens import AccessTokenQuery, TokenIdentifier
 from kwai.modules.identity.tokens.access_token import AccessTokenEntity
+from kwai.modules.identity.tokens.access_token_query import AccessTokenQuery
+from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 
 
 class AccessTokenNotFoundException(Exception):

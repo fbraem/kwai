@@ -5,16 +5,16 @@ import pytest
 
 from kwai.core.db import Database
 from kwai.core.domain.value_objects import EmailAddress, Name, UniqueId, Password
-from kwai.modules.identity.tokens import (
-    RefreshTokenDbRepository,
-    RefreshTokenRepository,
-    TokenIdentifier,
-)
 from kwai.modules.identity.tokens.access_token import (
     AccessTokenIdentifier,
     AccessTokenEntity,
 )
 from kwai.modules.identity.tokens.refresh_token import RefreshTokenEntity
+from kwai.modules.identity.tokens.refresh_token_db_repository import (
+    RefreshTokenDbRepository,
+)
+from kwai.modules.identity.tokens.refresh_token_repository import RefreshTokenRepository
+from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.users import User, UserAccountEntity, UserAccount
 
 

@@ -8,8 +8,8 @@ from kwai.modules.identity.tokens.refresh_token import (
     RefreshTokenEntity,
 )
 from kwai.modules.identity.tokens.refresh_token_db_query import RefreshTokenDbQuery
-from kwai.modules.identity.tokens import (
-    RefreshTokenQuery,
+from kwai.modules.identity.tokens.refresh_token_query import RefreshTokenQuery
+from kwai.modules.identity.tokens.refresh_token_repository import (
     RefreshTokenRepository,
     RefreshTokenNotFoundException,
 )

@@ -8,11 +8,13 @@ from kwai.core.db import Database
 from kwai.core.dependencies import container
 from kwai.core.security import SystemUser
 from kwai.core.settings import Settings
-from kwai.modules.identity.tokens import (
+from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
-    AccessTokenNotFoundException,
-    TokenIdentifier,
 )
+from kwai.modules.identity.tokens.access_token_repository import (
+    AccessTokenNotFoundException,
+)
+from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 
 deps = FastApiIntegration(container)
 

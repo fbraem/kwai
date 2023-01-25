@@ -3,17 +3,17 @@ import dataclasses
 from typing import Iterator
 
 from kwai.core.db import Database
-from kwai.modules.identity.tokens import (
-    AccessTokenRepository,
-    AccessTokenQuery,
-    AccessTokenNotFoundException,
-    TokenIdentifier,
-)
 from kwai.modules.identity.tokens.access_token import (
     AccessTokenIdentifier,
     AccessTokenEntity,
 )
 from kwai.modules.identity.tokens.access_token_db_query import AccessTokenDbQuery
+from kwai.modules.identity.tokens.access_token_query import AccessTokenQuery
+from kwai.modules.identity.tokens.access_token_repository import (
+    AccessTokenRepository,
+    AccessTokenNotFoundException,
+)
+from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.tokens.token_tables import (
     AccessTokenMapper,
     AccessTokensTable,

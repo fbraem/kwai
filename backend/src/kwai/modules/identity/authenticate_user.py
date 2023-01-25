@@ -4,13 +4,11 @@ from datetime import datetime, timedelta
 
 from kwai.core.domain.value_objects import EmailAddress
 from kwai.modules.identity import AuthenticationException
-from kwai.modules.identity.tokens import (
-    RefreshTokenRepository,
-    AccessTokenRepository,
-    TokenIdentifier,
-)
 from kwai.modules.identity.tokens.access_token import AccessTokenEntity
+from kwai.modules.identity.tokens.access_token_repository import AccessTokenRepository
 from kwai.modules.identity.tokens.refresh_token import RefreshTokenEntity
+from kwai.modules.identity.tokens.refresh_token_repository import RefreshTokenRepository
+from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.users import UserAccountRepository
 
 

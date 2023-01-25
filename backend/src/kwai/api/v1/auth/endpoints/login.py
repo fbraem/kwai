@@ -21,11 +21,13 @@ from kwai.modules.identity.refresh_access_token import (
     RefreshAccessTokenCommand,
     RefreshAccessToken,
 )
-from kwai.modules.identity.tokens import (
+from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
-    RefreshTokenDbRepository,
 )
 from kwai.modules.identity.tokens.refresh_token import RefreshTokenEntity
+from kwai.modules.identity.tokens.refresh_token_db_repository import (
+    RefreshTokenDbRepository,
+)
 from kwai.modules.identity.user_recoveries import UserRecoveryDbRepository
 from kwai.modules.identity.users import (
     UserAccountDbRepository,

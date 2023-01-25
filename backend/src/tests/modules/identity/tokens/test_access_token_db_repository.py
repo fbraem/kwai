@@ -6,7 +6,9 @@ import pytest
 from kwai.core.db import Database
 from kwai.core.domain.value_objects import UniqueId, EmailAddress, Name
 from kwai.core.domain.value_objects.password import Password
-from kwai.modules.identity.tokens import AccessTokenDbRepository
+from kwai.modules.identity.tokens.access_token_db_repository import (
+    AccessTokenDbRepository,
+)
 from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.access_token_repository import AccessTokenRepository
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
