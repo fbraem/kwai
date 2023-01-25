@@ -1,4 +1,1 @@
-"""Module repository"""
-from .query import Query
-
-__all__ = ["Query"]
+"""Package for all modules related to repositories."""

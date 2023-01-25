@@ -1,7 +1,7 @@
 """Module that defines the interface for a user query."""
 from abc import abstractmethod
 
-from kwai.core.domain.repository import Query
+from kwai.core.domain.repository.query import Query
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.unique_id import UniqueId
 

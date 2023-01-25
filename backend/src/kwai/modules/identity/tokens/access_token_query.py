@@ -1,7 +1,7 @@
 """Module that defines an interface for an access token query."""
 from abc import abstractmethod
 
-from kwai.core.domain.repository import Query
+from kwai.core.domain.repository.query import Query
 from .token_identifier import TokenIdentifier
 
 

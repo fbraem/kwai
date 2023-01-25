@@ -6,7 +6,7 @@ from sql_smith.functions import alias, func
 from sql_smith.query import SelectQuery
 
 from kwai.core.db import Database
-from kwai.core.domain.repository import Query
+from kwai.core.domain.repository.query import Query
 
 
 class DatabaseQuery(Query):
