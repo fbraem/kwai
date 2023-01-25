@@ -15,7 +15,7 @@ class AccessTokenEntity:
     """An access token entity."""
 
     user_account: UserAccountEntity
-    id: AccessTokenIdentifier = IntIdentifier()
+    id: AccessTokenIdentifier = AccessTokenIdentifier()
     identifier: TokenIdentifier = TokenIdentifier.generate()
     expiration: datetime = datetime.utcnow()
     revoked: bool = False
