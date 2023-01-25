@@ -1,5 +1,4 @@
 from .token_identifier import TokenIdentifier
-from .access_token import AccessToken, AccessTokenEntity
 from .access_token_query import AccessTokenQuery
 from .access_token_repository import AccessTokenRepository, AccessTokenNotFoundException
 from .access_token_db_repository import AccessTokenDbRepository
@@ -12,8 +11,6 @@ from .refresh_token_repository import (
 from .refresh_token_db_repository import RefreshTokenDbRepository
 
 __all__ = [
-    "AccessToken",
-    "AccessTokenEntity",
     "AccessTokenNotFoundException",
     "AccessTokenQuery",
     "AccessTokenRepository",

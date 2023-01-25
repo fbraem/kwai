@@ -18,6 +18,7 @@ class TestModel:
 def test_wrong_class():
     with pytest.raises(RuntimeError):
 
+        # noinspection PyUnusedLocal
         @table(name="wrong")
         class WrongModel:
             pass

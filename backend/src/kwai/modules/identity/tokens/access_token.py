@@ -1,31 +1,30 @@
 """Module that defines an access token entity."""
 from datetime import datetime
-from dataclasses import dataclass, field
+import dataclasses
 
-from kwai.core.domain.entity import Entity
+from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.users import UserAccountEntity
 
+AccessTokenIdentifier = IntIdentifier
 
-@dataclass(kw_only=True)
-class AccessToken:
+
+@dataclasses.dataclass(kw_only=True, frozen=True)
+class AccessTokenEntity:
     """An access token domain object."""
 
-    identifier: TokenIdentifier
-    expiration: datetime
-    is_expired: bool = field(init=False)
     user_account: UserAccountEntity
+    id: AccessTokenIdentifier = IntIdentifier()
+    identifier: TokenIdentifier = TokenIdentifier.generate()
+    expiration: datetime = datetime.utcnow()
     revoked: bool = False
     traceable_time: TraceableTime = TraceableTime()
 
-    def __post_init__(self):
-        self.is_expired = self.expiration < datetime.utcnow()
+    @property
+    def is_expired(self) -> bool:
+        return self.expiration < datetime.utcnow()
 
-    def revoke(self):
+    def revoke(self) -> "AccessTokenEntity":
         """Revoke the access token."""
-        self.revoked = True
-
-
-class AccessTokenEntity(Entity[AccessToken]):
-    """An entity for an access token domain object."""
+        return dataclasses.replace(self, revoked=True)

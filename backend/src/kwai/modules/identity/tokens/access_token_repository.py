@@ -3,7 +3,7 @@ from abc import abstractmethod
 from typing import Iterator
 
 from kwai.modules.identity.tokens import AccessTokenQuery, TokenIdentifier
-from kwai.modules.identity.tokens.access_token import AccessToken, AccessTokenEntity
+from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 
 
 class AccessTokenNotFoundException(Exception):
@@ -19,12 +19,12 @@ class AccessTokenRepository:
         raise NotImplementedError
 
     @abstractmethod
-    def create(self, access_token: AccessToken) -> AccessTokenEntity:
+    def create(self, access_token: AccessTokenEntity) -> AccessTokenEntity:
         """Save a new access token."""
         raise NotImplementedError
 
     @abstractmethod
-    def update(self, access_token: AccessToken):
+    def update(self, access_token: AccessTokenEntity):
         """Update the access token."""
         raise NotImplementedError
 

@@ -4,7 +4,10 @@ from datetime import datetime
 
 from kwai.core.db import table
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
-from kwai.modules.identity.tokens.access_token import AccessToken, AccessTokenEntity
+from kwai.modules.identity.tokens.access_token import (
+    AccessTokenEntity,
+    AccessTokenIdentifier,
+)
 from kwai.modules.identity.tokens.refresh_token import RefreshToken, RefreshTokenEntity
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.users.user_tables import UserAccountMapper
@@ -24,9 +27,9 @@ class AccessTokensTable:
     updated_at: datetime
 
     @classmethod
-    def persist(cls, access_token: AccessToken) -> "AccessTokensTable":
+    def persist(cls, access_token: AccessTokenEntity) -> "AccessTokensTable":
         return AccessTokensTable(
-            id=None,
+            id=access_token.id.value,
             identifier=str(access_token.identifier),
             expiration=access_token.expiration,
             user_id=access_token.user_account.id,
@@ -46,16 +49,14 @@ class AccessTokenMapper:
     def create_entity(self) -> AccessTokenEntity:
         """Creates an access token entity from a table row"""
         return AccessTokenEntity(
-            id=self.access_token_table.id,
-            domain=AccessToken(
-                identifier=TokenIdentifier(self.access_token_table.identifier),
-                expiration=self.access_token_table.expiration,
-                user_account=self.user_account_mapper.create_entity(),
-                revoked=self.access_token_table.revoked,
-                traceable_time=TraceableTime(
-                    created_at=self.access_token_table.created_at,
-                    updated_at=self.access_token_table.updated_at,
-                ),
+            id=AccessTokenIdentifier(self.access_token_table.id),
+            identifier=TokenIdentifier(self.access_token_table.identifier),
+            expiration=self.access_token_table.expiration,
+            user_account=self.user_account_mapper.create_entity(),
+            revoked=self.access_token_table.revoked,
+            traceable_time=TraceableTime(
+                created_at=self.access_token_table.created_at,
+                updated_at=self.access_token_table.updated_at,
             ),
         )
 
@@ -76,7 +77,7 @@ class RefreshTokensTable:
         return RefreshTokensTable(
             id=None,
             identifier=str(refresh_token.identifier),
-            access_token_id=refresh_token.access_token.id,
+            access_token_id=refresh_token.access_token.id.value,
             expiration=refresh_token.expiration,
             revoked=refresh_token.revoked,
             created_at=refresh_token.traceable_time.created_at,

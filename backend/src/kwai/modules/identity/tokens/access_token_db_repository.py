@@ -5,11 +5,13 @@ from typing import Iterator
 from kwai.core.db import Database
 from kwai.modules.identity.tokens import (
     AccessTokenRepository,
-    AccessToken,
     AccessTokenQuery,
-    AccessTokenEntity,
     AccessTokenNotFoundException,
     TokenIdentifier,
+)
+from kwai.modules.identity.tokens.access_token import (
+    AccessTokenIdentifier,
+    AccessTokenEntity,
 )
 from kwai.modules.identity.tokens.access_token_db_query import AccessTokenDbQuery
 from kwai.modules.identity.tokens.token_tables import (
@@ -68,7 +70,7 @@ class AccessTokenDbRepository(AccessTokenRepository):
         for row in query.fetch(limit, offset):
             yield map_access_token(row)
 
-    def create(self, access_token: AccessToken) -> AccessTokenEntity:
+    def create(self, access_token: AccessTokenEntity) -> AccessTokenEntity:
         record = dataclasses.asdict(AccessTokensTable.persist(access_token))
         del record["id"]
         query = (
@@ -79,7 +81,9 @@ class AccessTokenDbRepository(AccessTokenRepository):
         )
         last_insert_id = self._database.execute(query)
         self._database.commit()
-        return AccessTokenEntity(id=last_insert_id, domain=access_token)
+        return dataclasses.replace(
+            access_token, id=AccessTokenIdentifier(last_insert_id)
+        )
 
-    def update(self, access_token: AccessToken):
+    def update(self, access_token: AccessTokenEntity):
         pass

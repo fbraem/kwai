@@ -3,7 +3,7 @@ from datetime import datetime
 
 from kwai.core.domain.value_objects import UniqueId, Name, EmailAddress
 from kwai.core.domain.value_objects.password import Password
-from kwai.modules.identity.tokens.access_token import AccessToken
+from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.users import User, UserAccountEntity, UserAccount
 
@@ -17,7 +17,7 @@ def test_create():
             email=EmailAddress("jigoro.kano@kwai.com"),
         ),
     )
-    token = AccessToken(
+    token = AccessTokenEntity(
         identifier=TokenIdentifier.generate(),
         expiration=datetime.utcnow(),
         user_account=UserAccountEntity(id=1, domain=account),

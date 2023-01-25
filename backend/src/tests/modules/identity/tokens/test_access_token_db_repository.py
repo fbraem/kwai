@@ -7,7 +7,7 @@ from kwai.core.db import Database
 from kwai.core.domain.value_objects import UniqueId, EmailAddress, Name
 from kwai.core.domain.value_objects.password import Password
 from kwai.modules.identity.tokens import AccessTokenDbRepository
-from kwai.modules.identity.tokens.access_token import AccessTokenEntity, AccessToken
+from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.access_token_repository import AccessTokenRepository
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.users import User, UserAccountEntity, UserAccount
@@ -24,7 +24,7 @@ def access_token(
     repo: AccessTokenRepository,  # pylint: disable=redefined-outer-name
 ) -> AccessTokenEntity:
     """Fixture for creating an access token."""
-    token = AccessToken(
+    token = AccessTokenEntity(
         identifier=TokenIdentifier.generate(),
         expiration=datetime.utcnow(),
         user_account=UserAccountEntity(
@@ -54,7 +54,7 @@ def test_get_by_token_identifier(
     access_token: AccessTokenEntity,  # pylint: disable=redefined-outer-name
 ):
     """Test get_by_token_identifier."""
-    token = repo.get_by_identifier(access_token().identifier)
+    token = repo.get_by_identifier(access_token.identifier)
     assert token, "There should be a refresh token"
 
 

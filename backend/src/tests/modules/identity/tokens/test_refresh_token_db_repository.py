@@ -6,13 +6,15 @@ import pytest
 from kwai.core.db import Database
 from kwai.core.domain.value_objects import EmailAddress, Name, UniqueId, Password
 from kwai.modules.identity.tokens import (
-    AccessTokenEntity,
-    AccessToken,
     RefreshToken,
     RefreshTokenEntity,
     RefreshTokenDbRepository,
     RefreshTokenRepository,
     TokenIdentifier,
+)
+from kwai.modules.identity.tokens.access_token import (
+    AccessTokenIdentifier,
+    AccessTokenEntity,
 )
 from kwai.modules.identity.users import User, UserAccountEntity, UserAccount
 
@@ -32,19 +34,15 @@ def refresh_token(
         identifier=TokenIdentifier.generate(),
         expiration=datetime.utcnow(),
         access_token=AccessTokenEntity(
-            id=1,
-            domain=AccessToken(
-                identifier=TokenIdentifier.generate(),
-                expiration=datetime.utcnow(),
-                user_account=UserAccountEntity(
-                    id=1,
-                    domain=UserAccount(
-                        password=Password.create_from_string("Test1234"),
-                        user=User(
-                            uuid=UniqueId.generate(),
-                            email=EmailAddress("jigoro.kano@kwai.com"),
-                            name=Name(first_name="Jigoro", last_name="Kano"),
-                        ),
+            id=AccessTokenIdentifier(1),
+            user_account=UserAccountEntity(
+                id=1,
+                domain=UserAccount(
+                    password=Password.create_from_string("Test1234"),
+                    user=User(
+                        uuid=UniqueId.generate(),
+                        email=EmailAddress("jigoro.kano@kwai.com"),
+                        name=Name(first_name="Jigoro", last_name="Kano"),
                     ),
                 ),
             ),

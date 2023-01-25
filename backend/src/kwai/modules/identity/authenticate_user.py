@@ -7,11 +7,11 @@ from kwai.modules.identity import AuthenticationException
 from kwai.modules.identity.tokens import (
     RefreshTokenRepository,
     AccessTokenRepository,
-    AccessToken,
     TokenIdentifier,
     RefreshToken,
     RefreshTokenEntity,
 )
+from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.users import UserAccountRepository
 
 
@@ -64,7 +64,7 @@ class AuthenticateUser:
         self._user_account_repo.update(user_account)  # save the last successful login
 
         access_token = self._access_token_repo.create(
-            AccessToken(
+            AccessTokenEntity(
                 identifier=TokenIdentifier.generate(),
                 expiration=datetime.utcnow()
                 + timedelta(minutes=command.access_token_expiry_minutes),

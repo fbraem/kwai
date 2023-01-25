@@ -8,9 +8,9 @@ from kwai.modules.identity.tokens import (
     AccessTokenRepository,
     RefreshTokenEntity,
     TokenIdentifier,
-    AccessToken,
     RefreshToken,
 )
+from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -63,7 +63,7 @@ class RefreshAccessToken:
 
         # Create a new access and refresh token
         access_token = self._access_token_repo.create(
-            AccessToken(
+            AccessTokenEntity(
                 identifier=TokenIdentifier.generate(),
                 expiration=datetime.utcnow()
                 + timedelta(minutes=command.access_token_expiry_minutes),
