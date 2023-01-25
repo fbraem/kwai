@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 
 from kwai.api.dependencies import get_current_user
-from kwai.core.security import SystemUser
+from kwai.core.security.system_user import SystemUser
 
 router = APIRouter()
 

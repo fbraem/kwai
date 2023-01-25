@@ -6,7 +6,7 @@ from lagom.integrations.fast_api import FastApiIntegration
 
 from kwai.core.db import Database
 from kwai.core.dependencies import container
-from kwai.core.security import SystemUser
+from kwai.core.security.system_user import SystemUser
 from kwai.core.settings import Settings
 from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
