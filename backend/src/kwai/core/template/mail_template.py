@@ -4,7 +4,7 @@ from kwai.core.template import Template
 
 
 class MailTemplate:
-    """Defines a wrapper around template to generate a HTML and text mail."""
+    """Defines a wrapper around template to generate an HTML and text mail."""
 
     def __init__(self, html_template: Template, text_template: Template):
         self._html_template = html_template
