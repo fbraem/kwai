@@ -12,7 +12,7 @@ from kwai.core.events import Bus, DramatiqBus
 from kwai.core.mail import Mailer
 from kwai.core.mail.smtp_mailer import SmtpMailer
 from kwai.core.settings import Settings, get_settings
-from kwai.core.template import TemplateEngine
+from kwai.core.template.template_engine import TemplateEngine
 from kwai.core.template.jinja2_engine import Jinja2Engine
 
 container = ExplicitContainer()

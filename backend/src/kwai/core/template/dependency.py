@@ -2,7 +2,7 @@
 from fastapi import Depends
 
 from kwai.core.settings import get_settings
-from kwai.core.template import TemplateEngine
+from kwai.core.template.template_engine import TemplateEngine
 from kwai.core.template.jinja2_engine import Jinja2Engine
 
 

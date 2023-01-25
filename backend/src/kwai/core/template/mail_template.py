@@ -1,6 +1,6 @@
 """Module that defines a template for creating HTML/Text mails."""
 from kwai.core.mail import Recipients, Mail
-from kwai.core.template import Template
+from .template import Template
 
 
 class MailTemplate:

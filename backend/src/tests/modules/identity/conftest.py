@@ -1,7 +1,7 @@
 """Module that defines fixtures for user recovery testing."""
 import pytest
 
-from kwai.core.template import TemplateEngine
+from kwai.core.template.template_engine import TemplateEngine
 from kwai.core.template.mail_template import MailTemplate
 
 

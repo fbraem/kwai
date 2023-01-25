@@ -1,7 +1,7 @@
 """Module that implements the Template interface for a jinja2 template."""
 import jinja2
 
-from kwai.core.template import Template
+from .template import Template
 
 
 class Jinja2Template(Template):

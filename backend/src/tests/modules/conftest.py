@@ -5,7 +5,7 @@ from kwai.core.db import Database
 from kwai.core.domain.value_objects import EmailAddress
 from kwai.core.mail import Mailer, Recipients, Recipient
 from kwai.core.settings import get_settings
-from kwai.core.template import TemplateEngine
+from kwai.core.template.template_engine import TemplateEngine
 from kwai.core.template.jinja2_engine import Jinja2Engine
 
 

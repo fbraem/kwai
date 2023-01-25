@@ -1,7 +1,7 @@
 """Module that defines an interface for a template engine."""
 from abc import abstractmethod
 
-from kwai.core.template import Template
+from .template import Template
 
 
 class TemplateNotFoundException(Exception):
