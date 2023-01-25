@@ -1,2 +1,1 @@
-from .table import table
-from .database import Database, DatabaseException, QueryException
+"""Package for all modules related to a database."""

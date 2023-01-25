@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-from kwai.core.db import table
+from kwai.core.db.table import table
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.identity.tokens.access_token import (
     AccessTokenEntity,

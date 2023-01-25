@@ -3,7 +3,7 @@ from datetime import datetime
 
 import pytest
 
-from kwai.core.db import Database
+from kwai.core.db.database import Database
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp

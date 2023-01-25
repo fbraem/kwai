@@ -4,7 +4,7 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 from lagom.integrations.fast_api import FastApiIntegration
 
-from kwai.core.db import Database
+from kwai.core.db.database import Database
 from kwai.core.dependencies import container
 from kwai.core.security.system_user import SystemUser
 from kwai.core.settings import Settings

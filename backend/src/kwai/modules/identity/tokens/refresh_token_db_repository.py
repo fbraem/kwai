@@ -2,7 +2,7 @@
 import dataclasses
 from typing import Iterator
 
-from kwai.core.db import Database
+from kwai.core.db.database import Database
 from kwai.modules.identity.tokens.refresh_token import (
     RefreshTokenIdentifier,
     RefreshTokenEntity,

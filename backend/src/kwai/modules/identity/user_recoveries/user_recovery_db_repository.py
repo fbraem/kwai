@@ -3,7 +3,7 @@ from typing import Any
 
 from sql_smith.functions import on
 
-from kwai.core.db import Database
+from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_recoveries import (
     UserRecoveryEntity,

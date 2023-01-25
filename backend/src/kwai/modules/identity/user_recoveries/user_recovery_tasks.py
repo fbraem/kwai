@@ -4,7 +4,7 @@ from typing import Any
 from dramatiq import actor
 from loguru import logger
 
-from kwai.core.db import Database
+from kwai.core.db.database import Database
 from kwai.core.dependencies import container
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import EmailAddress

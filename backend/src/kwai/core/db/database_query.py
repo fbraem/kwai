@@ -5,7 +5,7 @@ from typing import Iterator
 from sql_smith.functions import alias, func
 from sql_smith.query import SelectQuery
 
-from kwai.core.db import Database
+from kwai.core.db.database import Database
 from kwai.core.domain.repository.query import Query
 
 

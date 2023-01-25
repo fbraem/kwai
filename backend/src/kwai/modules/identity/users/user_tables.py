@@ -2,7 +2,7 @@
 from datetime import datetime
 from dataclasses import dataclass
 
-from kwai.core.db import table
+from kwai.core.db.table import table
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.password import Password

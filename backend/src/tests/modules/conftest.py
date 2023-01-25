@@ -1,7 +1,7 @@
 """Module for sharing fixtures in this module."""
 import pytest
 
-from kwai.core.db import Database
+from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipients, Recipient

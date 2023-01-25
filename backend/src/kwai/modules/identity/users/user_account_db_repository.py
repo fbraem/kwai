@@ -2,7 +2,7 @@
 import dataclasses
 from typing import Any
 
-from kwai.core.db import Database
+from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.modules.identity.users.user_account import UserAccountEntity, UserAccount
 from kwai.modules.identity.users.user_account_repository import (
