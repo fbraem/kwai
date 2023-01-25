@@ -11,7 +11,7 @@ from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 RefreshTokenIdentifier = IntIdentifier
 
 
-@dataclass(frozen=True, kw_only=True)
+@dataclass(kw_only=True)
 class RefreshTokenEntity:
     """A refresh token entity."""
 
@@ -26,8 +26,7 @@ class RefreshTokenEntity:
     def expired(self) -> bool:
         return self.expiration < datetime.utcnow()
 
-    def revoke(self) -> "RefreshTokenEntity":
+    def revoke(self) -> None:
         """Revoke the refresh token."""
-        return dataclasses.replace(
-            self, revoked=True, access_token=self.access_token.revoke()
-        )
+        self.revoked = True
+        self.access_token.revoke = True

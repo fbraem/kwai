@@ -10,7 +10,7 @@ from kwai.modules.identity.users.user_account import UserAccountEntity
 AccessTokenIdentifier = IntIdentifier
 
 
-@dataclasses.dataclass(kw_only=True, frozen=True)
+@dataclasses.dataclass(kw_only=True)
 class AccessTokenEntity:
     """An access token entity."""
 
@@ -25,6 +25,6 @@ class AccessTokenEntity:
     def expired(self) -> bool:
         return self.expiration < datetime.utcnow()
 
-    def revoke(self) -> "AccessTokenEntity":
+    def revoke(self) -> None:
         """Revoke the access token."""
-        return dataclasses.replace(self, revoked=True)
+        self.revoked = True

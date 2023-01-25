@@ -50,7 +50,7 @@ class RefreshAccessToken:
             raise AuthenticationException("Refresh token is revoked")
 
         # Revoke the old refresh token and access token
-        refresh_token = refresh_token.revoke()
+        refresh_token.revoke()
         self._refresh_token_repo.update(refresh_token)
         # The access token is also revoked, so update it
         self._access_token_repo.update(refresh_token.access_token)
