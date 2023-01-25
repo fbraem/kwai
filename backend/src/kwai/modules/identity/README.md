@@ -24,6 +24,10 @@ sequenceDiagram
     AuthenticateUser-->>API: << return >>
 ```
 
+## Mail User Recovery
+
+## Recover User
+
 ## Refresh Token
 
 Use case for refreshing the access token. On each request, also a new refresh token will be returned.
