@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta
 
 from kwai.core.domain.value_objects import EmailAddress
-from kwai.modules.identity import AuthenticationException
+from kwai.modules.identity.exceptions import AuthenticationException
 from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.access_token_repository import AccessTokenRepository
 from kwai.modules.identity.tokens.refresh_token import RefreshTokenEntity
