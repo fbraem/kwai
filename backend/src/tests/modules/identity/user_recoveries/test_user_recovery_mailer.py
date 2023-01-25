@@ -9,7 +9,7 @@ from kwai.modules.identity.user_recoveries import UserRecovery, UserRecoveryEnti
 from kwai.modules.identity.user_recoveries.user_recovery_mailer import (
     UserRecoveryMailer,
 )
-from kwai.modules.identity.users import UserEntity, User
+from kwai.modules.identity.users.user import UserEntity, User
 
 
 @pytest.fixture(scope="module")

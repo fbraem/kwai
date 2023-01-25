@@ -5,7 +5,7 @@ import dataclasses
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
-from kwai.modules.identity.users import UserAccountEntity
+from kwai.modules.identity.users.user_account import UserAccountEntity
 
 AccessTokenIdentifier = IntIdentifier
 

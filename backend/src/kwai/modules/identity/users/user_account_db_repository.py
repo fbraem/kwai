@@ -4,9 +4,8 @@ from typing import Any
 
 from kwai.core.db import Database
 from kwai.core.domain.value_objects import EmailAddress
-from kwai.modules.identity.users import (
-    UserAccountEntity,
-    UserAccount,
+from kwai.modules.identity.users.user_account import UserAccountEntity, UserAccount
+from kwai.modules.identity.users.user_account_repository import (
     UserAccountRepository,
     UserAccountNotFoundException,
 )

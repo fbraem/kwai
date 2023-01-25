@@ -4,7 +4,7 @@ from datetime import datetime
 
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects import UniqueId, TraceableTime, LocalTimestamp
-from kwai.modules.identity.users import UserEntity
+from kwai.modules.identity.users.user import UserEntity
 
 
 @dataclass

@@ -4,7 +4,7 @@ from datetime import datetime
 
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.password import Password
-from kwai.modules.identity.users import User
+from kwai.modules.identity.users.user import User
 
 
 @dataclass(kw_only=True)

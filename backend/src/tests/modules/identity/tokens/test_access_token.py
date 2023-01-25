@@ -5,7 +5,8 @@ from kwai.core.domain.value_objects import UniqueId, Name, EmailAddress
 from kwai.core.domain.value_objects.password import Password
 from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
-from kwai.modules.identity.users import User, UserAccountEntity, UserAccount
+from kwai.modules.identity.users.user import User
+from kwai.modules.identity.users.user_account import UserAccount, UserAccountEntity
 
 
 def test_create():

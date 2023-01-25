@@ -11,7 +11,7 @@ from kwai.modules.identity.user_recoveries import (
     UserRecoveryEntity,
     UserRecoveryNotFoundException,
 )
-from kwai.modules.identity.users import UserEntity, User
+from kwai.modules.identity.users.user import UserEntity, User
 
 
 @pytest.fixture(scope="module")

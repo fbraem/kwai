@@ -1,11 +1,11 @@
 """Module for implementing a user repository with a database."""
 from kwai.core.db import Database
 from kwai.core.domain.value_objects import UniqueId, EmailAddress
-from kwai.modules.identity.users import (
-    UserEntity,
-    UserNotFoundException,
-    UserDbQuery,
+from kwai.modules.identity.users.user import UserEntity
+from kwai.modules.identity.users.user_db_query import UserDbQuery
+from kwai.modules.identity.users.user_repository import (
     UserRepository,
+    UserNotFoundException,
 )
 from kwai.modules.identity.users.user_tables import UserMapper, UsersTable
 

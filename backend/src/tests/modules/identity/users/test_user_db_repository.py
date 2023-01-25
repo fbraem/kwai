@@ -6,13 +6,14 @@ import pytest
 from kwai.core.db import Database
 from kwai.core.domain.value_objects import EmailAddress, Name, UniqueId
 from kwai.core.domain.value_objects.password import Password
-from kwai.modules.identity.users import (
-    UserRepository,
-    UserDbRepository,
-    User,
-    UserAccount,
+from kwai.modules.identity.users.user import User
+from kwai.modules.identity.users.user_account import UserAccount, UserAccountEntity
+from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
-    UserAccountEntity,
+)
+from kwai.modules.identity.users.user_db_repository import UserDbRepository
+from kwai.modules.identity.users.user_repository import (
+    UserRepository,
     UserNotFoundException,
 )
 

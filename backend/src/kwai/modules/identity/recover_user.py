@@ -12,7 +12,8 @@ from kwai.modules.identity.user_recoveries import (
 from kwai.modules.identity.user_recoveries.user_recovery_events import (
     UserRecoveryCreatedEvent,
 )
-from kwai.modules.identity.users import UserAccountRepository, UserEntity
+from kwai.modules.identity.users.user import UserEntity
+from kwai.modules.identity.users.user_account_repository import UserAccountRepository
 
 
 @dataclass(frozen=True, kw_only=True)

@@ -2,7 +2,7 @@
 from abc import ABC, abstractmethod
 
 from kwai.core.domain.value_objects import UniqueId, EmailAddress
-from kwai.modules.identity.users import UserEntity
+from kwai.modules.identity.users.user import UserEntity
 
 
 class UserNotFoundException(Exception):

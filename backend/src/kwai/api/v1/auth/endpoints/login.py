@@ -29,8 +29,10 @@ from kwai.modules.identity.tokens.refresh_token_db_repository import (
     RefreshTokenDbRepository,
 )
 from kwai.modules.identity.user_recoveries import UserRecoveryDbRepository
-from kwai.modules.identity.users import (
+from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
+)
+from kwai.modules.identity.users.user_account_repository import (
     UserAccountNotFoundException,
 )
 

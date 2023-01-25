@@ -1,6 +1,6 @@
 """Module for testing the user domain."""
 from kwai.core.domain.value_objects import UniqueId, Name, EmailAddress
-from kwai.modules.identity.users import User
+from kwai.modules.identity.users.user import User
 
 
 def test_create():

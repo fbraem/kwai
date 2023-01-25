@@ -9,7 +9,7 @@ from kwai.modules.identity.tokens.access_token_repository import AccessTokenRepo
 from kwai.modules.identity.tokens.refresh_token import RefreshTokenEntity
 from kwai.modules.identity.tokens.refresh_token_repository import RefreshTokenRepository
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
-from kwai.modules.identity.users import UserAccountRepository
+from kwai.modules.identity.users.user_account_repository import UserAccountRepository
 
 
 @dataclass(kw_only=True, frozen=True)
