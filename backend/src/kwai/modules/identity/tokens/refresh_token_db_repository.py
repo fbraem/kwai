@@ -3,10 +3,12 @@ import dataclasses
 from typing import Iterator
 
 from kwai.core.db import Database
+from kwai.modules.identity.tokens.refresh_token import (
+    RefreshTokenIdentifier,
+    RefreshTokenEntity,
+)
 from kwai.modules.identity.tokens.refresh_token_db_query import RefreshTokenDbQuery
 from kwai.modules.identity.tokens import (
-    RefreshToken,
-    RefreshTokenEntity,
     RefreshTokenQuery,
     RefreshTokenRepository,
     RefreshTokenNotFoundException,
@@ -78,7 +80,7 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
         for row in query.fetch(limit, offset):
             yield map_refresh_token(row)
 
-    def create(self, refresh_token: RefreshToken) -> RefreshTokenEntity:
+    def create(self, refresh_token: RefreshTokenEntity) -> RefreshTokenEntity:
         record = dataclasses.asdict(RefreshTokensTable.persist(refresh_token))
         del record["id"]
         query = (
@@ -89,7 +91,9 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
         )
         last_insert_id = self._database.execute(query)
         self._database.commit()
-        return RefreshTokenEntity(id=last_insert_id, domain=refresh_token)
+        return dataclasses.replace(
+            refresh_token, id=RefreshTokenIdentifier(last_insert_id)
+        )
 
     def update(self, refresh_token_entity: RefreshTokenEntity):
         pass

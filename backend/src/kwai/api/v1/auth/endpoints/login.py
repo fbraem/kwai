@@ -24,8 +24,8 @@ from kwai.modules.identity.refresh_access_token import (
 from kwai.modules.identity.tokens import (
     AccessTokenDbRepository,
     RefreshTokenDbRepository,
-    RefreshTokenEntity,
 )
+from kwai.modules.identity.tokens.refresh_token import RefreshTokenEntity
 from kwai.modules.identity.user_recoveries import UserRecoveryDbRepository
 from kwai.modules.identity.users import (
     UserAccountDbRepository,

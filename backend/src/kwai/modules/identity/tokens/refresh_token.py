@@ -1,31 +1,33 @@
 """Module for a refresh token entity."""
-from dataclasses import dataclass, field
+import dataclasses
+from dataclasses import dataclass
 from datetime import datetime
 
-from kwai.core.domain.entity import Entity
+from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 
+RefreshTokenIdentifier = IntIdentifier
 
-@dataclass(kw_only=True)
-class RefreshToken:
-    """A refresh token domain object."""
 
-    identifier: TokenIdentifier
-    expiration: datetime
-    is_expired: bool = field(init=False)
+@dataclass(frozen=True, kw_only=True)
+class RefreshTokenEntity:
+    """A refresh token entity."""
+
     access_token: AccessTokenEntity
+    id: RefreshTokenIdentifier = RefreshTokenIdentifier()
+    identifier: TokenIdentifier = TokenIdentifier.generate()
+    expiration: datetime = datetime.utcnow()
     revoked: bool = False
     traceable_time: TraceableTime = TraceableTime()
 
-    def __post_init__(self):
-        self.is_expired = self.expiration < datetime.utcnow()
+    @property
+    def expired(self) -> bool:
+        return self.expiration < datetime.utcnow()
 
-    def revoke(self):
+    def revoke(self) -> "RefreshTokenEntity":
         """Revoke the refresh token."""
-        self.revoked = True
-
-
-class RefreshTokenEntity(Entity[RefreshToken]):
-    """An entity for a refresh token."""
+        return dataclasses.replace(
+            self, revoked=True, access_token=self.access_token.revoke()
+        )

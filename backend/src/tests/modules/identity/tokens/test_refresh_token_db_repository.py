@@ -6,8 +6,6 @@ import pytest
 from kwai.core.db import Database
 from kwai.core.domain.value_objects import EmailAddress, Name, UniqueId, Password
 from kwai.modules.identity.tokens import (
-    RefreshToken,
-    RefreshTokenEntity,
     RefreshTokenDbRepository,
     RefreshTokenRepository,
     TokenIdentifier,
@@ -16,6 +14,7 @@ from kwai.modules.identity.tokens.access_token import (
     AccessTokenIdentifier,
     AccessTokenEntity,
 )
+from kwai.modules.identity.tokens.refresh_token import RefreshTokenEntity
 from kwai.modules.identity.users import User, UserAccountEntity, UserAccount
 
 
@@ -30,7 +29,7 @@ def refresh_token(
     repo: RefreshTokenRepository,  # pylint: disable=redefined-outer-name
 ) -> RefreshTokenEntity:
     """Fixture for creating a refresh token."""
-    token = RefreshToken(
+    token = RefreshTokenEntity(
         identifier=TokenIdentifier.generate(),
         expiration=datetime.utcnow(),
         access_token=AccessTokenEntity(
@@ -55,7 +54,7 @@ def test_create(
     refresh_token: RefreshTokenEntity,  # pylint: disable=redefined-outer-name
 ):
     """Test the create method."""
-    assert refresh_token.id, "There should be a refresh token entity"
+    assert not refresh_token.id.is_empty(), "There should be a refresh token entity"
 
 
 def test_get_by_token_identifier(
@@ -63,7 +62,7 @@ def test_get_by_token_identifier(
     refresh_token: RefreshTokenEntity,  # pylint: disable=redefined-outer-name
 ):
     """Test get_by_token_identifier."""
-    token = repo.get_by_token_identifier(refresh_token().identifier)
+    token = repo.get_by_token_identifier(refresh_token.identifier)
     assert token, "There should be a refresh token"
 
 

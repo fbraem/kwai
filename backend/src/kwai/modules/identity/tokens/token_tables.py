@@ -8,7 +8,10 @@ from kwai.modules.identity.tokens.access_token import (
     AccessTokenEntity,
     AccessTokenIdentifier,
 )
-from kwai.modules.identity.tokens.refresh_token import RefreshToken, RefreshTokenEntity
+from kwai.modules.identity.tokens.refresh_token import (
+    RefreshTokenEntity,
+    RefreshTokenIdentifier,
+)
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.users.user_tables import UserAccountMapper
 
@@ -73,9 +76,9 @@ class RefreshTokensTable:
     updated_at: datetime
 
     @classmethod
-    def persist(cls, refresh_token: RefreshToken) -> "RefreshTokensTable":
+    def persist(cls, refresh_token: RefreshTokenEntity) -> "RefreshTokensTable":
         return RefreshTokensTable(
-            id=None,
+            id=refresh_token.id.value,
             identifier=str(refresh_token.identifier),
             access_token_id=refresh_token.access_token.id.value,
             expiration=refresh_token.expiration,
@@ -83,10 +86,6 @@ class RefreshTokensTable:
             created_at=refresh_token.traceable_time.created_at,
             updated_at=refresh_token.traceable_time.updated_at,
         )
-
-    @classmethod
-    def persist_entity(cls, refresh_token: RefreshTokenEntity) -> "RefreshTokensTable":
-        return cls.persist(refresh_token()).replace(id=refresh_token.id)
 
 
 @dataclass(kw_only=True, frozen=True)
@@ -96,15 +95,13 @@ class RefreshTokenMapper:
 
     def create_entity(self) -> RefreshTokenEntity:
         return RefreshTokenEntity(
-            id=self.refresh_token_table.id,
-            domain=RefreshToken(
-                identifier=TokenIdentifier(self.refresh_token_table.identifier),
-                access_token=self.access_token_mapper.create_entity(),
-                expiration=self.refresh_token_table.expiration,
-                revoked=self.refresh_token_table.revoked,
-                traceable_time=TraceableTime(
-                    created_at=self.refresh_token_table.created_at,
-                    updated_at=self.refresh_token_table.updated_at,
-                ),
+            id=RefreshTokenIdentifier(self.refresh_token_table.id),
+            identifier=TokenIdentifier(self.refresh_token_table.identifier),
+            access_token=self.access_token_mapper.create_entity(),
+            expiration=self.refresh_token_table.expiration,
+            revoked=self.refresh_token_table.revoked,
+            traceable_time=TraceableTime(
+                created_at=self.refresh_token_table.created_at,
+                updated_at=self.refresh_token_table.updated_at,
             ),
         )

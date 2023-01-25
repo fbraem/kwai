@@ -6,11 +6,10 @@ from kwai.modules.identity import AuthenticationException
 from kwai.modules.identity.tokens import (
     RefreshTokenRepository,
     AccessTokenRepository,
-    RefreshTokenEntity,
     TokenIdentifier,
-    RefreshToken,
 )
 from kwai.modules.identity.tokens.access_token import AccessTokenEntity
+from kwai.modules.identity.tokens.refresh_token import RefreshTokenEntity
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -46,16 +45,16 @@ class RefreshAccessToken:
             TokenIdentifier(command.identifier)
         )
 
-        if refresh_token.is_expired:
+        if refresh_token.expired:
             raise AuthenticationException("Refresh token is expired")
 
         if refresh_token.revoked:
             raise AuthenticationException("Refresh token is revoked")
 
         # Revoke the old refresh token and access token
-        refresh_token.access_token.revoke()
-        refresh_token.revoke()
+        refresh_token = refresh_token.revoke()
         self._refresh_token_repo.update(refresh_token)
+        # The access token is also revoked, so update it
         self._access_token_repo.update(refresh_token.access_token)
 
         if refresh_token.access_token.user_account.revoked:
@@ -72,7 +71,7 @@ class RefreshAccessToken:
         )
 
         return self._refresh_token_repo.create(
-            RefreshToken(
+            RefreshTokenEntity(
                 identifier=TokenIdentifier.generate(),
                 expiration=datetime.utcnow()
                 + timedelta(minutes=command.refresh_token_expiry_minutes),

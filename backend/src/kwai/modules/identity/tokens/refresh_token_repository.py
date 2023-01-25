@@ -2,7 +2,7 @@
 from abc import abstractmethod
 from typing import Iterator
 
-from kwai.modules.identity.tokens.refresh_token import RefreshToken, RefreshTokenEntity
+from kwai.modules.identity.tokens.refresh_token import RefreshTokenEntity
 from kwai.modules.identity.tokens.refresh_token_query import RefreshTokenQuery
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 
@@ -42,7 +42,7 @@ class RefreshTokenRepository:
         raise NotImplementedError
 
     @abstractmethod
-    def create(self, refresh_token: RefreshToken) -> RefreshTokenEntity:
+    def create(self, refresh_token: RefreshTokenEntity) -> RefreshTokenEntity:
         """Save a new refresh token."""
         raise NotImplementedError
 
