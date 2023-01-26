@@ -1,5 +1,4 @@
 """Module for a refresh token entity."""
-import dataclasses
 from dataclasses import dataclass
 from datetime import datetime
 
