@@ -81,19 +81,9 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
             yield map_refresh_token(row)
 
     def create(self, refresh_token: RefreshTokenEntity) -> RefreshTokenEntity:
-        record = dataclasses.asdict(RefreshTokensTable.persist(refresh_token))
-        del record["id"]
-        query = (
-            self._database.create_query_factory()
-            .insert(RefreshTokensTable.__table_name__)  # pylint: disable=no-member
-            .columns(*record.keys())
-            .values(*record.values())
-        )
-        last_insert_id = self._database.execute(query)
+        new_id = self._database.insert(RefreshTokensTable.persist(refresh_token))
         self._database.commit()
-        return dataclasses.replace(
-            refresh_token, id=RefreshTokenIdentifier(last_insert_id)
-        )
+        return dataclasses.replace(refresh_token, id=RefreshTokenIdentifier(new_id))
 
     def update(self, refresh_token_entity: RefreshTokenEntity):
         pass

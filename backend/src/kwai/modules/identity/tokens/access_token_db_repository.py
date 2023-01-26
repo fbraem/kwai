@@ -71,19 +71,9 @@ class AccessTokenDbRepository(AccessTokenRepository):
             yield map_access_token(row)
 
     def create(self, access_token: AccessTokenEntity) -> AccessTokenEntity:
-        record = dataclasses.asdict(AccessTokensTable.persist(access_token))
-        del record["id"]
-        query = (
-            self._database.create_query_factory()
-            .insert(AccessTokensTable.__table_name__)
-            .columns(*record.keys())
-            .values(*record.values())
-        )
-        last_insert_id = self._database.execute(query)
+        new_id = self._database.insert(AccessTokensTable.persist(access_token))
         self._database.commit()
-        return dataclasses.replace(
-            access_token, id=AccessTokenIdentifier(last_insert_id)
-        )
+        return dataclasses.replace(access_token, id=AccessTokenIdentifier(new_id))
 
     def update(self, access_token: AccessTokenEntity):
         pass
