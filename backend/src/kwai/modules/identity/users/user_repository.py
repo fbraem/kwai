@@ -27,3 +27,8 @@ class UserRepository(ABC):
     def get_user_by_email(self, email: EmailAddress) -> UserEntity:
         """Get a user using his/her email address."""
         raise NotImplementedError
+
+    @abstractmethod
+    def update(self, user: UserEntity) -> None:
+        """Updates an existing user entity."""
+        raise NotImplementedError

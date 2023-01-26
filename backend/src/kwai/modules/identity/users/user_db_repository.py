@@ -14,6 +14,10 @@ from kwai.modules.identity.users.user_tables import UserMapper, UsersTable
 class UserDbRepository(UserRepository):
     """Database repository for the user entity."""
 
+    def update(self, user: UserEntity) -> None:
+        self._database.update(user.id.value, UsersTable.persist(user))
+        self._database.commit()
+
     def __init__(self, database: Database):
         self._database = database
 
