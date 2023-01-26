@@ -2,7 +2,10 @@
 from abc import abstractmethod
 from typing import Iterator
 
-from kwai.modules.identity.tokens.access_token import AccessTokenEntity
+from kwai.modules.identity.tokens.access_token import (
+    AccessTokenEntity,
+    AccessTokenIdentifier,
+)
 from kwai.modules.identity.tokens.access_token_query import AccessTokenQuery
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 
@@ -30,7 +33,7 @@ class AccessTokenRepository:
         raise NotImplementedError
 
     @abstractmethod
-    def get(self, id_: int) -> AccessTokenEntity:
+    def get(self, id_: AccessTokenIdentifier) -> AccessTokenEntity:
         """Get the access token with the given id."""
         raise NotImplementedError
 

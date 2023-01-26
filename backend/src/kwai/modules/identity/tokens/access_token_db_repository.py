@@ -40,9 +40,9 @@ class AccessTokenDbRepository(AccessTokenRepository):
     def create_query(self) -> AccessTokenQuery:
         return AccessTokenDbQuery(self._database)
 
-    def get(self, id_: int) -> AccessTokenEntity:
+    def get(self, id_: AccessTokenIdentifier) -> AccessTokenEntity:
         query = self.create_query()
-        query.filter_by_id(id_)
+        query.filter_by_id(id_.value)
 
         row = query.fetch_one()
         if row:
