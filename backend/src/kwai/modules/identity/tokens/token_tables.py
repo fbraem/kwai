@@ -35,7 +35,7 @@ class AccessTokensTable:
             id=access_token.id.value,
             identifier=str(access_token.identifier),
             expiration=access_token.expiration,
-            user_id=access_token.user_account.id,
+            user_id=access_token.user_account.id.value,
             revoked=access_token.revoked,
             created_at=access_token.traceable_time.created_at,
             updated_at=access_token.traceable_time.updated_at,

@@ -2,17 +2,20 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 
-from kwai.core.domain.entity import Entity
+from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.password import Password
-from kwai.modules.identity.users.user import User
+from kwai.modules.identity.users.user import UserEntity
+
+UserAccountIdentifier = IntIdentifier
 
 
 @dataclass(kw_only=True)
-class UserAccount:
-    """A user account domain"""
+class UserAccountEntity:
+    """A user account entity"""
 
-    user: User
+    user: UserEntity
     password: Password = field(repr=False)
+    id: UserAccountIdentifier = UserAccountIdentifier()
     last_login: datetime = None
     last_unsuccessful_login: datetime = None
     revoked: bool = False
@@ -30,7 +33,3 @@ class UserAccount:
 
         self.last_unsuccessful_login = datetime.utcnow()
         return False
-
-
-class UserAccountEntity(Entity[UserAccount]):
-    """User account entity."""

@@ -7,7 +7,6 @@ from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.password import Password
-from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.tokens.access_token import (
     AccessTokenIdentifier,
     AccessTokenEntity,
@@ -18,8 +17,8 @@ from kwai.modules.identity.tokens.refresh_token_db_repository import (
 )
 from kwai.modules.identity.tokens.refresh_token_repository import RefreshTokenRepository
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
-from kwai.modules.identity.users.user import User
-from kwai.modules.identity.users.user_account import UserAccountEntity, UserAccount
+from kwai.modules.identity.users.user import UserEntity
+from kwai.modules.identity.users.user_account import UserAccountEntity
 
 
 @pytest.fixture(scope="module")
@@ -39,14 +38,10 @@ def refresh_token(
         access_token=AccessTokenEntity(
             id=AccessTokenIdentifier(1),
             user_account=UserAccountEntity(
-                id=1,
-                domain=UserAccount(
-                    password=Password.create_from_string("Test1234"),
-                    user=User(
-                        uuid=UniqueId.generate(),
-                        email=EmailAddress("jigoro.kano@kwai.com"),
-                        name=Name(first_name="Jigoro", last_name="Kano"),
-                    ),
+                password=Password.create_from_string("Test1234"),
+                user=UserEntity(
+                    email=EmailAddress("jigoro.kano@kwai.com"),
+                    name=Name(first_name="Jigoro", last_name="Kano"),
                 ),
             ),
         ),

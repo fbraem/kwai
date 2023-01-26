@@ -13,7 +13,7 @@ from kwai.modules.identity.user_recoveries import UserRecovery, UserRecoveryEnti
 from kwai.modules.identity.user_recoveries.user_recovery_mailer import (
     UserRecoveryMailer,
 )
-from kwai.modules.identity.users.user import UserEntity, User
+from kwai.modules.identity.users.user import UserEntity
 
 
 @pytest.fixture(scope="module")
@@ -25,12 +25,8 @@ def user_recovery() -> UserRecoveryEntity:
             uuid=UniqueId.generate(),
             expiration=LocalTimestamp(timestamp=datetime.utcnow(), timezone="UTC"),
             user=UserEntity(
-                id=1,
-                domain=User(
-                    uuid=UniqueId.generate(),
-                    email=EmailAddress("jigoro.kano@kwai.com"),
-                    name=Name(first_name="Jigoro", last_name="Kano"),
-                ),
+                email=EmailAddress("jigoro.kano@kwai.com"),
+                name=Name(first_name="Jigoro", last_name="Kano"),
             ),
         ),
     )

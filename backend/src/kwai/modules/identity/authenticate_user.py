@@ -49,10 +49,10 @@ class AuthenticateUser:
         user_account = self._user_account_repo.get_user_by_email(
             EmailAddress(command.username)
         )
-        if user_account().revoked:
+        if user_account.revoked:
             raise AuthenticationException("User account is revoked")
 
-        if not user_account().login(command.password):
+        if not user_account.login(command.password):
             self._user_account_repo.update(
                 user_account
             )  # save the last unsuccessful login

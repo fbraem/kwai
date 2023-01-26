@@ -4,7 +4,10 @@ from typing import Any
 
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.modules.identity.users.user_account import UserAccountEntity, UserAccount
+from kwai.modules.identity.users.user_account import (
+    UserAccountEntity,
+    UserAccountIdentifier,
+)
 from kwai.modules.identity.users.user_account_repository import (
     UserAccountRepository,
     UserAccountNotFoundException,
@@ -40,7 +43,7 @@ class UserAccountDbRepository(UserAccountRepository):
 
         raise UserAccountNotFoundException()
 
-    def create(self, user_account: UserAccount) -> UserAccountEntity:
+    def create(self, user_account: UserAccountEntity) -> UserAccountEntity:
         record = dataclasses.asdict(UserAccountsTable.persist(user_account))
         del record["id"]
         query = (
@@ -51,18 +54,18 @@ class UserAccountDbRepository(UserAccountRepository):
         )
         last_insert_id = self._database.execute(query)
         self._database.commit()
-        return UserAccountEntity(id=last_insert_id, domain=user_account)
+        return dataclasses.replace(
+            user_account, id=UserAccountIdentifier(last_insert_id)
+        )
 
     def update(self, user_account_entity: UserAccountEntity):
-        record = dataclasses.asdict(
-            UserAccountsTable.persist(user_account_entity.domain)
-        )
+        record = dataclasses.asdict(UserAccountsTable.persist(user_account_entity))
         del record["id"]
         query = (
             self._database.create_query_factory()
             .update(UserAccountsTable.__table_name__)
             .set(record)
-            .where(UserAccountsTable.field("id").eq(user_account_entity.id))
+            .where(UserAccountsTable.field("id").eq(user_account_entity.id.value))
         )
         self._database.execute(query)
         self._database.commit()
@@ -71,7 +74,7 @@ class UserAccountDbRepository(UserAccountRepository):
         query = (
             self._database.create_query_factory()
             .delete(UserAccountsTable.__table_name__)
-            .where(UserAccountsTable.field("id").eq(user_account_entity.id))
+            .where(UserAccountsTable.field("id").eq(user_account_entity.id.value))
         )
         self._database.execute(query)
         self._database.commit()

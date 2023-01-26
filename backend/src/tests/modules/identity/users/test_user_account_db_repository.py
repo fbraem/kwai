@@ -7,9 +7,8 @@ from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.password import Password
-from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.identity.users.user import User
-from kwai.modules.identity.users.user_account import UserAccount, UserAccountEntity
+from kwai.modules.identity.users.user import UserEntity
+from kwai.modules.identity.users.user_account import UserAccountEntity
 from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
 )
@@ -30,10 +29,9 @@ def user_account(repo: UserAccountRepository):
     """Fixture for creating a user account."""
     number = randint(1, 99)
     email = f"jigoro.kano{number:02d}@kwai.com"
-    user_account = UserAccount(
+    user_account = UserAccountEntity(
         password=Password.create_from_string("Test1234"),
-        user=User(
-            uuid=UniqueId.generate(),
+        user=UserEntity(
             email=EmailAddress(email),
             name=Name(first_name="Jigoro", last_name="Kano"),
         ),
@@ -48,16 +46,16 @@ def test_create(user_account: UserAccountEntity):
 
 def test_get_by_email(repo: UserAccountRepository, user_account: UserAccountEntity):
     """Test if the user account can be fetched with email address."""
-    result = repo.get_user_by_email(user_account().user.email)
+    result = repo.get_user_by_email(user_account.user.email)
     assert result, "There should be a user account with the given email"
 
 
 def test_update(repo: UserAccountRepository, user_account: UserAccountEntity):
     """Test if the user account can be updated."""
-    user_account().revoked = True
+    user_account.revoked = True
     repo.update(user_account)
-    result = repo.get_user_by_email(user_account().user.email)
-    assert result().revoked is True, "The user should be revoked"
+    result = repo.get_user_by_email(user_account.user.email)
+    assert result.revoked is True, "The user should be revoked"
 
 
 def test_delete(repo: UserAccountRepository, user_account: UserAccountEntity):
@@ -65,4 +63,4 @@ def test_delete(repo: UserAccountRepository, user_account: UserAccountEntity):
     repo.delete(user_account)
 
     with pytest.raises(UserAccountNotFoundException):
-        repo.get_user_by_email(user_account().user.email)
+        repo.get_user_by_email(user_account.user.email)

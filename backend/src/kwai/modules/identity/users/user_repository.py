@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.identity.users.user import UserEntity
+from kwai.modules.identity.users.user import UserEntity, UserIdentifier
 
 
 class UserNotFoundException(Exception):
@@ -14,7 +14,7 @@ class UserRepository(ABC):
     """A user repository interface."""
 
     @abstractmethod
-    def get_user_by_id(self, id_: int) -> UserEntity:
+    def get_user_by_id(self, id_: UserIdentifier) -> UserEntity:
         """Get a user using the id."""
         raise NotImplementedError
 

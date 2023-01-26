@@ -14,8 +14,8 @@ from kwai.modules.identity.tokens.access_token_db_repository import (
 from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.access_token_repository import AccessTokenRepository
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
-from kwai.modules.identity.users.user import User
-from kwai.modules.identity.users.user_account import UserAccountEntity, UserAccount
+from kwai.modules.identity.users.user import UserEntity
+from kwai.modules.identity.users.user_account import UserAccountEntity
 
 
 @pytest.fixture(scope="module")
@@ -33,14 +33,11 @@ def access_token(
         identifier=TokenIdentifier.generate(),
         expiration=datetime.utcnow(),
         user_account=UserAccountEntity(
-            id=1,
-            domain=UserAccount(
-                password=Password.create_from_string("Test1234"),
-                user=User(
-                    uuid=UniqueId.generate(),
-                    email=EmailAddress("jigoro.kano@kwai.com"),
-                    name=Name(first_name="Jigoro", last_name="Kano"),
-                ),
+            password=Password.create_from_string("Test1234"),
+            user=UserEntity(
+                uuid=UniqueId.generate(),
+                email=EmailAddress("jigoro.kano@kwai.com"),
+                name=Name(first_name="Jigoro", last_name="Kano"),
             ),
         ),
     )

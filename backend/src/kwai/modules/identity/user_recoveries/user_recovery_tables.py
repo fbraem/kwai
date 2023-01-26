@@ -27,7 +27,7 @@ class UserRecoveriesTable:
     def persist(cls, user_recovery: UserRecovery) -> "UserRecoveriesTable":
         return UserRecoveriesTable(
             id=None,
-            user_id=user_recovery.user.id,
+            user_id=user_recovery.user.id.value,
             uuid=str(user_recovery.uuid),
             expired_at=user_recovery.expiration.timestamp,
             expired_at_timezone=user_recovery.expiration.timezone,

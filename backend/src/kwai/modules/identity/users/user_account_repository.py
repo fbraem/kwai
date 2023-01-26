@@ -2,7 +2,7 @@
 from abc import abstractmethod
 
 from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.modules.identity.users.user_account import UserAccountEntity, UserAccount
+from kwai.modules.identity.users.user_account import UserAccountEntity
 
 
 class UserAccountRepository:
@@ -14,7 +14,7 @@ class UserAccountRepository:
         raise NotImplementedError
 
     @abstractmethod
-    def create(self, user_account: UserAccount) -> UserAccountEntity:
+    def create(self, user_account: UserAccountEntity) -> UserAccountEntity:
         """Save a new user account."""
         raise NotImplementedError
 

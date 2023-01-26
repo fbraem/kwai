@@ -45,18 +45,18 @@ def get_current_user(
         raise HTTPException(status.HTTP_401_UNAUTHORIZED)
 
     # Check if the access token is assigned to the user we have in the subject of JWT.
-    if not access_token.user_account().user.uuid == payload["sub"]:
+    if not access_token.user_account.user.uuid == payload["sub"]:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED)
 
     if access_token.revoked:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED)
 
-    if access_token.user_account().revoked:
+    if access_token.user_account.revoked:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED)
 
     if access_token.expired:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED)
 
     return SystemUser(
-        id=access_token.user_account.id, uuid=access_token.user_account().user.uuid
+        id=access_token.user_account.id.value, uuid=access_token.user_account.user.uuid
     )

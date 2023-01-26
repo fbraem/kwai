@@ -8,8 +8,11 @@ from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.password import Password
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.identity.users.user import User, UserEntity
-from kwai.modules.identity.users.user_account import UserAccountEntity, UserAccount
+from kwai.modules.identity.users.user import UserEntity, UserIdentifier
+from kwai.modules.identity.users.user_account import (
+    UserAccountEntity,
+    UserAccountIdentifier,
+)
 
 
 # pylint: disable=too-many-instance-attributes
@@ -29,9 +32,9 @@ class UsersTable:
     member_id: int | None
 
     @classmethod
-    def persist(cls, user: User) -> "UsersTable":
+    def persist(cls, user: UserEntity) -> "UsersTable":
         return UsersTable(
-            id=None,
+            id=user.id.value,
             email=str(user.email),
             first_name=user.name.first_name,
             last_name=user.name.last_name,
@@ -50,18 +53,16 @@ class UserMapper:
     def create_entity(self) -> UserEntity:
         """Creates a user entity from a table row."""
         return UserEntity(
-            id=self.users_table.id,
-            domain=User(
-                uuid=UniqueId.create_from_string(self.users_table.uuid),
-                name=Name(
-                    first_name=self.users_table.first_name,
-                    last_name=self.users_table.last_name,
-                ),
-                email=EmailAddress(self.users_table.email),
-                traceable_time=TraceableTime(
-                    created_at=self.users_table.created_at,
-                    updated_at=self.users_table.updated_at,
-                ),
+            id=UserIdentifier(self.users_table.id),
+            uuid=UniqueId.create_from_string(self.users_table.uuid),
+            name=Name(
+                first_name=self.users_table.first_name,
+                last_name=self.users_table.last_name,
+            ),
+            email=EmailAddress(self.users_table.email),
+            traceable_time=TraceableTime(
+                created_at=self.users_table.created_at,
+                updated_at=self.users_table.updated_at,
             ),
         )
 
@@ -87,9 +88,9 @@ class UserAccountsTable:
     admin: int
 
     @classmethod
-    def persist(cls, user_account: UserAccount) -> "UserAccountsTable":
+    def persist(cls, user_account: UserAccountEntity) -> "UserAccountsTable":
         return UserAccountsTable(
-            id=None,
+            id=user_account.id.value,
             email=str(user_account.user.email),
             first_name=user_account.user.name.first_name,
             last_name=user_account.user.name.last_name,
@@ -113,24 +114,22 @@ class UserAccountMapper:
     def create_entity(self) -> UserAccountEntity:
         """Creates a user entity from a table row."""
         return UserAccountEntity(
-            id=self.user_accounts_table.id,
-            domain=UserAccount(
-                password=Password(hashed_password=self.user_accounts_table.password),
-                last_login=self.user_accounts_table.last_login,
-                last_unsuccessful_login=self.user_accounts_table.last_unsuccessful_login,
-                revoked=self.user_accounts_table.revoked == 1,
-                admin=self.user_accounts_table.admin == 1,
-                user=User(
-                    uuid=UniqueId.create_from_string(self.user_accounts_table.uuid),
-                    name=Name(
-                        first_name=self.user_accounts_table.first_name,
-                        last_name=self.user_accounts_table.last_name,
-                    ),
-                    email=EmailAddress(self.user_accounts_table.email),
-                    traceable_time=TraceableTime(
-                        created_at=self.user_accounts_table.created_at,
-                        updated_at=self.user_accounts_table.updated_at,
-                    ),
+            id=UserAccountIdentifier(self.user_accounts_table.id),
+            password=Password(hashed_password=self.user_accounts_table.password),
+            last_login=self.user_accounts_table.last_login,
+            last_unsuccessful_login=self.user_accounts_table.last_unsuccessful_login,
+            revoked=self.user_accounts_table.revoked == 1,
+            admin=self.user_accounts_table.admin == 1,
+            user=UserEntity(
+                uuid=UniqueId.create_from_string(self.user_accounts_table.uuid),
+                name=Name(
+                    first_name=self.user_accounts_table.first_name,
+                    last_name=self.user_accounts_table.last_name,
+                ),
+                email=EmailAddress(self.user_accounts_table.email),
+                traceable_time=TraceableTime(
+                    created_at=self.user_accounts_table.created_at,
+                    updated_at=self.user_accounts_table.updated_at,
                 ),
             ),
         )
