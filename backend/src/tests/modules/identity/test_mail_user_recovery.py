@@ -5,9 +5,7 @@ import pytest
 
 from kwai.core.db.database import Database
 from kwai.core.domain.exceptions import UnprocessableException
-from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
-from kwai.core.domain.value_objects.name import Name
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipients
 from kwai.core.template.mail_template import MailTemplate
@@ -31,13 +29,10 @@ def repo(database: Database) -> UserRecoveryRepository:
 
 
 @pytest.fixture(scope="module")
-def user_recovery(repo: UserRecoveryRepository) -> UserRecoveryEntity:
+def user_recovery(repo: UserRecoveryRepository, user: UserEntity) -> UserRecoveryEntity:
     user_recovery = UserRecoveryEntity(
         expiration=LocalTimestamp(timestamp=datetime.utcnow(), timezone="UTC"),
-        user=UserEntity(
-            email=EmailAddress("jigoro.kano@kwai.com"),
-            name=Name(first_name="Jigoro", last_name="Kano"),
-        ),
+        user=user,
     )
     entity = repo.create(user_recovery)
     yield entity
