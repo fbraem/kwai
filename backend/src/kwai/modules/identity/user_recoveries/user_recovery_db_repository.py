@@ -41,7 +41,7 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
 
     def update(self, user_recovery: UserRecoveryEntity):
         self._database.update(
-            user_recovery.id, UserRecoveriesTable.persist(user_recovery)
+            user_recovery.id.value, UserRecoveriesTable.persist(user_recovery)
         )
         self._database.commit()
 
