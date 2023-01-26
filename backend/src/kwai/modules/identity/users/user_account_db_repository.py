@@ -4,6 +4,7 @@ from typing import Any
 
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.modules.identity.users.user import UserIdentifier
 from kwai.modules.identity.users.user_account import (
     UserAccountEntity,
     UserAccountIdentifier,
@@ -55,7 +56,11 @@ class UserAccountDbRepository(UserAccountRepository):
         last_insert_id = self._database.execute(query)
         self._database.commit()
         return dataclasses.replace(
-            user_account, id=UserAccountIdentifier(last_insert_id)
+            user_account,
+            id=UserAccountIdentifier(last_insert_id),
+            user=dataclasses.replace(
+                user_account.user, id=UserIdentifier(last_insert_id)
+            ),
         )
 
     def update(self, user_account_entity: UserAccountEntity):
