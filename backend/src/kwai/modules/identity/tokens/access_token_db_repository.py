@@ -76,4 +76,7 @@ class AccessTokenDbRepository(AccessTokenRepository):
         return dataclasses.replace(access_token, id=AccessTokenIdentifier(new_id))
 
     def update(self, access_token: AccessTokenEntity):
-        pass
+        self._database.update(
+            access_token.id.value, AccessTokensTable.persist(access_token)
+        )
+        self._database.commit()

@@ -85,5 +85,7 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
         self._database.commit()
         return dataclasses.replace(refresh_token, id=RefreshTokenIdentifier(new_id))
 
-    def update(self, refresh_token_entity: RefreshTokenEntity):
-        pass
+    def update(self, refresh_token: RefreshTokenEntity):
+        self._database.update(
+            refresh_token.id.value, RefreshTokensTable.persist(refresh_token)
+        )
