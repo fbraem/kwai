@@ -38,6 +38,14 @@ max-line-length = "88"
 
 [tool.mypy]
 
+[[tool.mypy.overrides]]
+module = "sql_smith.*"
+ignore_missing_imports = true
+
+[tool.ruff]
+select = ["E", "F", "B", "D", "I", "N"]
+ignore = ["D203", "D213", "N818"]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
