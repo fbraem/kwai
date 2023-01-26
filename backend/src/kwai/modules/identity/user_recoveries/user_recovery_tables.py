@@ -29,7 +29,7 @@ class UserRecoveriesTable:
     @classmethod
     def persist(cls, user_recovery: UserRecoveryEntity) -> "UserRecoveriesTable":
         return UserRecoveriesTable(
-            id=None,
+            id=user_recovery.id.value,
             user_id=user_recovery.user.id.value,
             uuid=str(user_recovery.uuid),
             expired_at=user_recovery.expiration.timestamp,
