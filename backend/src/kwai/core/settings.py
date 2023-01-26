@@ -48,12 +48,16 @@ class EmailSettings(BaseModel):
 
 
 class BrokerSettings(BaseModel):
+    """Settings for a broker."""
+
     name: str = "kwai"
     url: str
     logger: LoggerSettings | None = None
 
 
 class SecuritySettings(BaseModel):
+    """Setting or security."""
+
     access_token_expires_in: int
     refresh_token_expires_in: int
     jwt_algorithm: str
@@ -63,6 +67,8 @@ class SecuritySettings(BaseModel):
 
 
 class TemplateSettings(BaseModel):
+    """Settings for template."""
+
     path: str
 
 
@@ -90,14 +96,15 @@ def get_settings() -> Settings:
     The settings are cached with lru_cache, which means the file is only loaded ounce.
 
     :raises:
-        core.settings.SettingsException: Raised when the env variable is not set, or when the file
+        core.settings.SettingsException: Raised when the env variable is not set, or
+            when the file
             can't be read.
     """
     if ENV_SETTINGS_FILE in os.environ:
         settings_file = os.environ.get(ENV_SETTINGS_FILE, "")
         try:
-            with open(settings_file, mode="rb") as f:
-                return Settings.parse_obj(tomli.load(f))
+            with open(settings_file, mode="rb") as file_handle:
+                return Settings.parse_obj(tomli.load(file_handle))
         except OSError as exc:
             raise SettingsException(f"Could not load {settings_file}") from exc
     raise SettingsException(
