@@ -4,15 +4,13 @@ from dataclasses import dataclass
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
-from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.core.events.bus import Bus
-from kwai.modules.identity.user_recoveries import (
-    UserRecoveryEntity,
-    UserRecoveryRepository,
-    UserRecovery,
-)
+from kwai.modules.identity.user_recoveries.user_recovery import UserRecoveryEntity
 from kwai.modules.identity.user_recoveries.user_recovery_events import (
     UserRecoveryCreatedEvent,
+)
+from kwai.modules.identity.user_recoveries.user_recovery_repository import (
+    UserRecoveryRepository,
 )
 from kwai.modules.identity.users.user_account_repository import UserAccountRepository
 
@@ -53,8 +51,7 @@ class RecoverUser:
             raise UnprocessableException("User account is revoked")
 
         user_recovery = self._user_recovery_repo.create(
-            UserRecovery(
-                uuid=UniqueId.generate(),
+            UserRecoveryEntity(
                 user=user_account.user,
                 expiration=LocalTimestamp.create_future(hours=2),
             )

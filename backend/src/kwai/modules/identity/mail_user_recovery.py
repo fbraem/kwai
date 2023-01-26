@@ -6,12 +6,12 @@ from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipients
 from kwai.core.template.mail_template import MailTemplate
-from kwai.modules.identity.user_recoveries import (
-    UserRecoveryRepository,
-    UserRecoveryEntity,
-)
+from kwai.modules.identity.user_recoveries.user_recovery import UserRecoveryEntity
 from kwai.modules.identity.user_recoveries.user_recovery_mailer import (
     UserRecoveryMailer,
+)
+from kwai.modules.identity.user_recoveries.user_recovery_repository import (
+    UserRecoveryRepository,
 )
 
 

@@ -12,14 +12,16 @@ from kwai.core.events.logging_actor import LoggingActor
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipients, Recipient
 from kwai.core.settings import Settings
-from kwai.core.template.template_engine import TemplateEngine
 from kwai.core.template.mail_template import MailTemplate
+from kwai.core.template.template_engine import TemplateEngine
 from kwai.modules.identity.mail_user_recovery import (
     MailUserRecovery,
     MailUserRecoveryCommand,
 )
-from kwai.modules.identity.user_recoveries import (
+from kwai.modules.identity.user_recoveries.user_recovery_db_repository import (
     UserRecoveryDbRepository,
+)
+from kwai.modules.identity.user_recoveries.user_recovery_repository import (
     UserRecoveryNotFoundException,
 )
 

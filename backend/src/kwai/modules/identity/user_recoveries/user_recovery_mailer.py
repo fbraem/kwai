@@ -4,7 +4,7 @@ from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.message import Message
 from kwai.core.mail.recipient import Recipients, Recipient
 from kwai.core.template.mail_template import MailTemplate
-from kwai.modules.identity.user_recoveries import UserRecoveryEntity
+from kwai.modules.identity.user_recoveries.user_recovery import UserRecoveryEntity
 
 
 class UserRecoveryMailer(MailerService):

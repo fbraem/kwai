@@ -2,7 +2,7 @@
 from abc import abstractmethod
 
 from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.identity.user_recoveries import UserRecovery, UserRecoveryEntity
+from kwai.modules.identity.user_recoveries.user_recovery import UserRecoveryEntity
 
 
 class UserRecoveryRepository:
@@ -14,7 +14,7 @@ class UserRecoveryRepository:
         raise NotImplementedError
 
     @abstractmethod
-    def create(self, user_recovery: UserRecovery) -> UserRecoveryEntity:
+    def create(self, user_recovery: UserRecoveryEntity) -> UserRecoveryEntity:
         """Save a new user recovery."""
         raise NotImplementedError
 

@@ -1,13 +1,16 @@
 """Module that implements a user recovery repository interface for a database."""
+import dataclasses
 from typing import Any
 
 from sql_smith.functions import on
 
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.identity.user_recoveries import (
+from kwai.modules.identity.user_recoveries.user_recovery import (
+    UserRecoveryIdentifier,
     UserRecoveryEntity,
-    UserRecovery,
+)
+from kwai.modules.identity.user_recoveries.user_recovery_repository import (
     UserRecoveryRepository,
     UserRecoveryNotFoundException,
 )
@@ -31,14 +34,14 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
     def __init__(self, database: Database):
         self._database = database
 
-    def create(self, user_recovery: UserRecovery) -> UserRecoveryEntity:
-        id_ = self._database.insert(UserRecoveriesTable.persist(user_recovery))
+    def create(self, user_recovery: UserRecoveryEntity) -> UserRecoveryEntity:
+        new_id = self._database.insert(UserRecoveriesTable.persist(user_recovery))
         self._database.commit()
-        return UserRecoveryEntity(id=id_, domain=user_recovery)
+        return dataclasses.replace(user_recovery, id=UserRecoveryIdentifier(new_id))
 
     def update(self, user_recovery: UserRecoveryEntity):
         self._database.update(
-            user_recovery.id, UserRecoveriesTable.persist(user_recovery.domain)
+            user_recovery.id, UserRecoveriesTable.persist(user_recovery)
         )
         self._database.commit()
 

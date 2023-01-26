@@ -5,7 +5,10 @@ from kwai.core.db.table import table
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.identity.user_recoveries import UserRecovery, UserRecoveryEntity
+from kwai.modules.identity.user_recoveries.user_recovery import (
+    UserRecoveryIdentifier,
+    UserRecoveryEntity,
+)
 from kwai.modules.identity.users.user_tables import UserMapper
 
 
@@ -24,7 +27,7 @@ class UserRecoveriesTable:
     updated_at: datetime | None
 
     @classmethod
-    def persist(cls, user_recovery: UserRecovery) -> "UserRecoveriesTable":
+    def persist(cls, user_recovery: UserRecoveryEntity) -> "UserRecoveriesTable":
         return UserRecoveriesTable(
             id=None,
             user_id=user_recovery.user.id.value,
@@ -46,20 +49,18 @@ class UserRecoveryMapper:
 
     def create_entity(self) -> UserRecoveryEntity:
         return UserRecoveryEntity(
-            id=self.user_recoveries_table.id,
-            domain=UserRecovery(
-                uuid=UniqueId.create_from_string(self.user_recoveries_table.uuid),
-                user=self.user_mapper.create_entity(),
-                expiration=LocalTimestamp(
-                    self.user_recoveries_table.expired_at,
-                    self.user_recoveries_table.expired_at_timezone,
-                ),
-                remark=self.user_recoveries_table.remark,
-                confirmation=self.user_recoveries_table.confirmed_at,
-                mailed=self.user_recoveries_table.mailed_at,
-                traceable_time=TraceableTime(
-                    created_at=self.user_recoveries_table.created_at,
-                    updated_at=self.user_recoveries_table.updated_at,
-                ),
+            id=UserRecoveryIdentifier(self.user_recoveries_table.id),
+            uuid=UniqueId.create_from_string(self.user_recoveries_table.uuid),
+            user=self.user_mapper.create_entity(),
+            expiration=LocalTimestamp(
+                self.user_recoveries_table.expired_at,
+                self.user_recoveries_table.expired_at_timezone,
+            ),
+            remark=self.user_recoveries_table.remark,
+            confirmation=self.user_recoveries_table.confirmed_at,
+            mailed=self.user_recoveries_table.mailed_at,
+            traceable_time=TraceableTime(
+                created_at=self.user_recoveries_table.created_at,
+                updated_at=self.user_recoveries_table.updated_at,
             ),
         )
