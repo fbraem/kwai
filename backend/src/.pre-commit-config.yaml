@@ -5,13 +5,10 @@ repos:
     rev: 22.12.0
     hooks:
       - id: black
-        args: [--diff, --check]
 
-  - repo: local
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.0.138
     hooks:
-      - id: pylint
-        name: pylint
-        entry: pylint
-        language: system
-        types: [python]
-        args: [--disable=all, --enable=unused-import]
+      - id: ruff
+        args:
+        - --fix
