@@ -64,5 +64,7 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
         raise UserRecoveryNotFoundException()
 
     def delete(self, user_recovery: UserRecoveryEntity):
-        self._database.delete(user_recovery.id, UserRecoveriesTable.__table_name__)
+        self._database.delete(
+            user_recovery.id.value, UserRecoveriesTable.__table_name__
+        )
         self._database.commit()
