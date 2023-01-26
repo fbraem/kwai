@@ -94,7 +94,7 @@ def get_settings() -> Settings:
             can't be read.
     """
     if ENV_SETTINGS_FILE in os.environ:
-        settings_file = os.environ.get(ENV_SETTINGS_FILE)
+        settings_file = os.environ.get(ENV_SETTINGS_FILE, "")
         try:
             with open(settings_file, mode="rb") as f:
                 return Settings.parse_obj(tomli.load(f))
