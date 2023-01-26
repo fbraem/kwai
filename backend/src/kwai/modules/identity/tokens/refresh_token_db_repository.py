@@ -61,9 +61,9 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
 
         raise RefreshTokenNotFoundException()
 
-    def get(self, id_: int) -> RefreshTokenEntity:
+    def get(self, id_: RefreshTokenIdentifier) -> RefreshTokenEntity:
         query = self.create_query()
-        query.filter_by_id(id_)
+        query.filter_by_id(id_.value)
         row = query.fetch_one()
         if row:
             return map_refresh_token(row)
