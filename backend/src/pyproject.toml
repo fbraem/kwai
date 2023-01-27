@@ -31,6 +31,11 @@ pre-commit = "^3.0.1"
 ruff = "^0.0.235"
 pytest-sugar = "^0.9.6"
 
+[tool.pytest.ini_options]
+markers = [
+    "integration: Mark an integration test"
+]
+
 [tool.pylint.'MESSAGES CONTROL']
 extension-pkg-whitelist = "pydantic"
 
