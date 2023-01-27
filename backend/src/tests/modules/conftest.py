@@ -67,7 +67,7 @@ def user_account(database: Database) -> UserAccountEntity:
     )
     repo = UserAccountDbRepository(database)
     user_account = repo.create(user_account)
-    yield user_account.user
+    yield user_account
     repo.delete(user_account)
 
 
