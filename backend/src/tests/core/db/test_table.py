@@ -9,13 +9,16 @@ from kwai.core.db.table import table
 
 @table(name="users")
 @dataclass(kw_only=True, frozen=True, slots=True)
-class TestModel:
+class ModelTest:
+    """Simple test class that implements a table structure."""
+
     id: str
     name: str
     age: int
 
 
 def test_wrong_class():
+    """Test if the check for a dataclass works."""
     with pytest.raises(RuntimeError):
 
         # noinspection PyUnusedLocal
@@ -25,12 +28,14 @@ def test_wrong_class():
 
 
 def test_create_aliases():
-    aliases = TestModel.aliases()
+    """Test the creation of column aliases."""
+    aliases = ModelTest.aliases()
     assert len(aliases) == 3, "There should be at least 3 aliases"
     assert aliases[0].sql(CommonEngine()), '"users"."id" AS "users_id"'
 
 
 def test_create_aliases_with_other_table_name():
-    aliases = TestModel.aliases("my_users")
+    """Test the creation of column aliases when the table name is also aliased."""
+    aliases = ModelTest.aliases("my_users")
     assert len(aliases) == 3, "There should be at least 3 aliases"
     assert aliases[0].sql(CommonEngine()), '"my_users"."id" AS "my_users_id"'
