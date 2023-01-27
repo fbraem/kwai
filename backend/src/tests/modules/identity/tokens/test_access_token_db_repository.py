@@ -4,17 +4,12 @@ from datetime import datetime
 import pytest
 
 from kwai.core.db.database import Database
-from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.core.domain.value_objects.name import Name
-from kwai.core.domain.value_objects.password import Password
-from kwai.core.domain.value_objects.unique_id import UniqueId
+from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
 )
-from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.access_token_repository import AccessTokenRepository
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
-from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.identity.users.user_account import UserAccountEntity
 
 
@@ -26,20 +21,13 @@ def repo(database: Database) -> AccessTokenRepository:
 
 @pytest.fixture(scope="module")
 def access_token(
-    repo: AccessTokenRepository,  # pylint: disable=redefined-outer-name
+    repo: AccessTokenRepository, user_account: UserAccountEntity
 ) -> AccessTokenEntity:
     """Fixture for creating an access token."""
     token = AccessTokenEntity(
         identifier=TokenIdentifier.generate(),
         expiration=datetime.utcnow(),
-        user_account=UserAccountEntity(
-            password=Password.create_from_string("Test1234"),
-            user=UserEntity(
-                uuid=UniqueId.generate(),
-                email=EmailAddress("jigoro.kano@kwai.com"),
-                name=Name(first_name="Jigoro", last_name="Kano"),
-            ),
-        ),
+        user_account=user_account,
     )
 
     return repo.create(token)
@@ -48,6 +36,7 @@ def access_token(
 def test_create(
     access_token: AccessTokenEntity,  # pylint: disable=redefined-outer-name
 ):
+    """Test the creation of an access_token."""
     assert access_token.id, "There should be an access token entity"
 
 
