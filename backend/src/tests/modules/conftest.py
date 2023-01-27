@@ -6,7 +6,7 @@ from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.password import Password
 from kwai.core.mail.mailer import Mailer
-from kwai.core.mail.recipient import Recipients, Recipient
+from kwai.core.mail.recipient import Recipient, Recipients
 from kwai.core.settings import get_settings
 from kwai.core.template.jinja2_engine import Jinja2Engine
 from kwai.core.template.template_engine import TemplateEngine
@@ -53,7 +53,7 @@ def template_engine() -> TemplateEngine:
 
 
 @pytest.fixture(scope="module")
-def user(database: Database) -> UserEntity:
+def user_account(database: Database) -> UserAccountEntity:
     """Fixture that provides a user account in the database.
 
     The user will be removed again after running the tests.
@@ -69,3 +69,12 @@ def user(database: Database) -> UserEntity:
     user_account = repo.create(user_account)
     yield user_account.user
     repo.delete(user_account)
+
+
+@pytest.fixture(scope="module")
+def user(user_account: UserAccountEntity) -> UserEntity:
+    """Fixture that provides a user account in the database.
+
+    The user will be removed again after running the tests.
+    """
+    return user_account.user
