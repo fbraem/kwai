@@ -3,7 +3,7 @@ import datetime
 from dataclasses import dataclass, field
 
 
-@dataclass(kw_only=True)
+@dataclass(frozen=True, kw_only=True)
 class TraceableTime:
     """A value object to track creation/update time."""
 
@@ -15,6 +15,8 @@ class TraceableTime:
         """Is this entity updated?"""
         return self.updated_at is not None
 
-    def mark_for_update(self):
+    def mark_for_update(self) -> "TraceableTime":
         """Set the update time to the current time."""
-        self.updated_at = datetime.datetime.utcnow()
+        return TraceableTime(
+            created_at=self.created_at, updated_at=datetime.datetime.utcnow()
+        )

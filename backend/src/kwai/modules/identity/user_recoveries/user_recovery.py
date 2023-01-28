@@ -27,6 +27,7 @@ class UserRecoveryEntity:
     def confirm(self):
         """Confirms the user recovery."""
         self.confirmation = datetime.utcnow()
+        self.traceable_time = self.traceable_time.mark_for_update()
 
     @property
     def confirmed(self) -> bool:
@@ -36,3 +37,4 @@ class UserRecoveryEntity:
     def mail_send(self):
         """Sets the timestamp when mail has been sent."""
         self.mailed = datetime.utcnow()
+        self.traceable_time = self.traceable_time.mark_for_update()

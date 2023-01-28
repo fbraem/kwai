@@ -66,7 +66,6 @@ class MailUserRecovery:
         ).send()
 
         user_recovery.mail_send()
-        user_recovery.traceable_time.mark_for_update()
 
         self._user_recovery_repo.update(user_recovery)
 
