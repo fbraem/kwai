@@ -10,7 +10,7 @@ from kwai.core.domain.value_objects.unique_id import UniqueId
 UserIdentifier = IntIdentifier
 
 
-@dataclass(frozen=True, kw_only=True)
+@dataclass(kw_only=True)
 class UserEntity:
     """A user entity."""
 
