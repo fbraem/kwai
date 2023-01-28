@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta
 
 
-@dataclass
+@dataclass(frozen=True)
 class LocalTimestamp:
     """A value object for a timestamp with a timezone.
 
