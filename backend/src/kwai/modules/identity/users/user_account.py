@@ -1,4 +1,4 @@
-"""Module that implements a user account entity"""
+"""Module that implements a user account entity."""
 from dataclasses import dataclass, field
 from datetime import datetime
 
@@ -11,7 +11,7 @@ UserAccountIdentifier = IntIdentifier
 
 @dataclass(kw_only=True)
 class UserAccountEntity:
-    """A user account entity"""
+    """A user account entity."""
 
     user: UserEntity
     password: Password = field(repr=False)
@@ -22,7 +22,7 @@ class UserAccountEntity:
     admin: bool = False
 
     def login(self, password) -> bool:
-        """Checks if the given password is correct.
+        """Check if the given password is correct.
 
         When login succeeds, last_login will be updated.
         When login fails, last_unsuccessful_login will be updated.
