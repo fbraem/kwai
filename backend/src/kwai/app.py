@@ -8,8 +8,8 @@ from fastapi.responses import JSONResponse
 from loguru import logger
 from starlette.middleware.cors import CORSMiddleware
 
-from kwai.core.settings import Settings
 from kwai.api.v1.auth.api import api_router
+from kwai.core.settings import Settings
 
 
 def create_app(settings: Settings) -> FastAPI:
@@ -82,7 +82,8 @@ def create_app(settings: Settings) -> FastAPI:
             finally:
                 response.headers["X-Request-ID"] = request_id
                 logger.info(
-                    f"{request.url} - {request.method } - Request ended: {response.status_code}"
+                    f"{request.url} - {request.method } - Request ended: "
+                    f"{response.status_code}"
                 )
 
             return response

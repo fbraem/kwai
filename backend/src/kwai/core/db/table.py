@@ -7,7 +7,7 @@ from sql_smith.functions import alias, field as sql_field
 
 
 def table(name: str):
-    """A decorator that will add some methods to a dataclass for working with database tables.
+    """A decorator that will add methods to a dataclass for handling database tables.
 
     The table name will be stored in the __table_name__ class variable.
     """

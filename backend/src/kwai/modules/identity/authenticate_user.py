@@ -39,12 +39,14 @@ class AuthenticateUser:
         self._refresh_token_repo = refresh_token_repo
 
     def execute(self, command: AuthenticateUserCommand) -> RefreshTokenEntity:
-        """Executes the use case.
+        """Execute the use case.
 
         :raises:
-            core.domain.value_objects.InvalidEmailException: Raised when the username contains an invalid email address.
+            core.domain.value_objects.InvalidEmailException: Raised when the username
+            contains an invalid email address.
         :raises:
-            UserAccountNotFoundException: Raised when the user with the given email address doesn't exist.
+            UserAccountNotFoundException: Raised when the user with the given email
+            address doesn't exist.
         """
         user_account = self._user_account_repo.get_user_by_email(
             EmailAddress(command.username)

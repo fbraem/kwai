@@ -34,7 +34,9 @@ class DatabaseQuery(Query):
         return "id"
 
     def count(self) -> int:
-        """Executes the query and uses the count_column to count the number of records."""
+        """Execute the query and uses the count_column to count the number of
+        records.
+        """
 
         # Reset limit/offset to avoid a wrong result
         self._query.limit(None)

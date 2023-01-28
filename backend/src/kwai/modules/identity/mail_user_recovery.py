@@ -17,6 +17,8 @@ from kwai.modules.identity.user_recoveries.user_recovery_repository import (
 
 @dataclass(frozen=True, kw_only=True)
 class MailUserRecoveryCommand:
+    """Command for the use case MailUserRecovery."""
+
     uuid: str
 
 
@@ -39,8 +41,8 @@ class MailUserRecovery:
         """Executes the use case.
 
         :raises:
-            kwai.modules.identity.user_recoveries.UserRecoveryNotFoundException: Raised when the user
-                recovery cannot be found.
+            kwai.modules.identity.user_recoveries.UserRecoveryNotFoundException: Raised
+                when the user recovery cannot be found.
             kwai.core.domain.exceptions.UnprocessableException:
                 Raised when the mail was already send.
                 Raised when the user recovery was already confirmed.

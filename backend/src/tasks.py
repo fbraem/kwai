@@ -53,8 +53,8 @@ dramatiq.set_broker(broker)
 def create_bus():
     """Wrap the creation of the bus in this method.
 
-    :remark: We must be sure that the @actor decorators are run after setting the broker. That's why all actors
-    are imported here.
+    :remark: We must be sure that the @actor decorators are run after setting the
+    broker. That's why all actors are imported here.
     """
     bus = DramatiqBus()
 

@@ -76,7 +76,8 @@ class Database:
                 cursor.execute(compiled_query.sql, compiled_query.params)
                 column_names = [column[0] for column in cursor.description]
                 for row in cursor:
-                    cursor.reset()  # To avoid "unread result found" when not fetching all rows
+                    # To avoid "unread result found" when not fetching all rows
+                    cursor.reset()
                     return {
                         column_name: column
                         for column, column_name in zip(row, column_names)
@@ -103,7 +104,8 @@ class Database:
                         column_name: column
                         for column, column_name in zip(row, column_names)
                     }
-                cursor.reset()  # To avoid "unread result found" when not fetching all rows
+                # To avoid "unread result found" when not fetching all rows
+                cursor.reset()
         except Exception as exc:
             raise QueryException(compiled_query.sql) from exc
 

@@ -20,5 +20,8 @@ class Query:
     def fetch(
         self, limit: int | None = None, offset: int | None = None
     ) -> Iterator[dict[str, Any]]:
-        """Fetch all rows. A generator should be returned to avoid reading all rows at once."""
+        """Fetch all rows.
+
+        A generator should be returned to avoid reading all rows at once.
+        """
         raise NotImplementedError

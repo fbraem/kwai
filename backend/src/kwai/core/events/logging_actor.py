@@ -5,7 +5,9 @@ from loguru import logger
 
 
 class LoggingActor(Actor):
-    """A base actor that makes message_id, actor_name and queue_name available to the logger."""
+    """A base actor that makes message_id, actor_name and queue_name available to the
+    logger.
+    """
 
     def __call__(self, *args, **kwargs):
         """Add a logger context for an actor."""

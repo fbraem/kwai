@@ -20,7 +20,10 @@ class RefreshAccessTokenCommand:
 
 
 class RefreshAccessToken:
-    """Use case for refreshing an access token. A new access token will also result in a new refresh token."""
+    """Use case for refreshing an access token.
+
+    A new access token will also result in a new refresh token.
+    """
 
     def __init__(
         self,
@@ -36,8 +39,8 @@ class RefreshAccessToken:
         :raises:
             RefreshTokenNotFoundException: Raised when the refresh token does not exist.
         :raises:
-            AuthenticationException: Raised when the refresh token is expired, the refresh token is revoked or the user
-                is revoked.
+            AuthenticationException: Raised when the refresh token is expired, the
+            refresh token is revoked or the user is revoked.
         """
         refresh_token = self._refresh_token_repo.get_by_token_identifier(
             TokenIdentifier(command.identifier)

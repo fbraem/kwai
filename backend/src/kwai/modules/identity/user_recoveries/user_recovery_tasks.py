@@ -57,5 +57,6 @@ def email_user_recovery_task(event: dict[str, Any]):
         logger.error(f"Task not processed: {ue}")
     except UserRecoveryNotFoundException:
         logger.error(
-            f"Mail not send because user recovery does not exist with uuid {command.uuid}"
+            f"Mail not send because user recovery does not exist "
+            f"with uuid {command.uuid}"
         )
