@@ -1,9 +1,10 @@
 """Modules that defines all table classes for a user."""
-from datetime import datetime
 from dataclasses import dataclass
+from datetime import datetime
 
 from kwai.core.db.table import table
 from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.password import Password
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
@@ -99,8 +100,8 @@ class UserAccountsTable:
             created_at=user_account.user.traceable_time.created_at,
             updated_at=user_account.user.traceable_time.updated_at,
             member_id=None,
-            last_login=user_account.last_login,
-            last_unsuccessful_login=user_account.last_unsuccessful_login,
+            last_login=user_account.last_login.timestamp,
+            last_unsuccessful_login=user_account.last_unsuccessful_login.timestamp,
             password=str(user_account.password),
             revoked=1 if user_account.revoked else 0,
             admin=1 if user_account.admin else 0,
@@ -116,8 +117,10 @@ class UserAccountMapper:
         return UserAccountEntity(
             id=UserAccountIdentifier(self.user_accounts_table.id),
             password=Password(hashed_password=self.user_accounts_table.password),
-            last_login=self.user_accounts_table.last_login,
-            last_unsuccessful_login=self.user_accounts_table.last_unsuccessful_login,
+            last_login=LocalTimestamp(self.user_accounts_table.last_login),
+            last_unsuccessful_login=LocalTimestamp(
+                self.user_accounts_table.last_unsuccessful_login
+            ),
             revoked=self.user_accounts_table.revoked == 1,
             admin=self.user_accounts_table.admin == 1,
             user=UserEntity(

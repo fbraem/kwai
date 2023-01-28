@@ -1,8 +1,8 @@
 """Module that implements a user account entity."""
 from dataclasses import dataclass, field
-from datetime import datetime
 
 from kwai.core.domain.value_objects.identifier import IntIdentifier
+from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.password import Password
 from kwai.modules.identity.users.user import UserEntity
 
@@ -16,8 +16,8 @@ class UserAccountEntity:
     user: UserEntity
     password: Password = field(repr=False)
     id: UserAccountIdentifier = UserAccountIdentifier()
-    last_login: datetime = None
-    last_unsuccessful_login: datetime = None
+    last_login: LocalTimestamp = LocalTimestamp()
+    last_unsuccessful_login: LocalTimestamp = LocalTimestamp()
     revoked: bool = False
     admin: bool = False
 
@@ -28,10 +28,10 @@ class UserAccountEntity:
         When login fails, last_unsuccessful_login will be updated.
         """
         if self.password.verify(password):
-            self.last_login = datetime.utcnow()
+            self.last_login = LocalTimestamp.create_now()
             return True
 
-        self.last_unsuccessful_login = datetime.utcnow()
+        self.last_unsuccessful_login = LocalTimestamp.create_now()
         return False
 
     def revoke(self):
