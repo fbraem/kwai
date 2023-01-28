@@ -30,7 +30,7 @@ create table if not exists user_recoveries
     mailed_at           datetime                            null
 ) charset = utf8mb3;
 
-create table oauth_access_tokens
+create table if not exists oauth_access_tokens
 (
     id         int unsigned auto_increment          primary key,
     identifier varchar(128)                         not null,
@@ -41,7 +41,7 @@ create table oauth_access_tokens
     updated_at timestamp                            null
 ) charset = utf8mb3;
 
-create table oauth_refresh_tokens
+create table if not exists oauth_refresh_tokens
 (
     id              int unsigned auto_increment          primary key,
     identifier      varchar(128)                         not null,
