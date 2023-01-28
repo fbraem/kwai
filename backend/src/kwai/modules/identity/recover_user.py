@@ -36,7 +36,7 @@ class RecoverUser:
         self._event_bus = event_bus
 
     def execute(self, command: RecoverUserCommand) -> UserRecoveryEntity:
-        """Executes the use case.
+        """Execute the use case.
 
         :raises:
             kwai.modules.identity.users.user_repository.UserAccountNotFoundException:
