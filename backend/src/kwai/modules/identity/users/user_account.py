@@ -33,3 +33,8 @@ class UserAccountEntity:
 
         self.last_unsuccessful_login = datetime.utcnow()
         return False
+
+    def revoke(self):
+        """Revoke a user account."""
+        self.revoked = True
+        self.user.traceable_time = self.user.traceable_time.mark_for_update()
