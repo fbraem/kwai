@@ -27,6 +27,10 @@ mysql -uroot -p"$KWAI_DATABASE_PASSWORD" < /var/tmp/mysql_setup.sql
 sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
 service mysql restart
 
+# install dbmate
+sudo curl -fsSL -o /usr/local/bin/dbmate https://github.com/amacneil/dbmate/releases/latest/download/dbmate-linux-amd64
+sudo chmod +x /usr/local/bin/dbmate
+
 # Install RabbitMQ
 
 apt-get install curl gnupg apt-transport-https -y
