@@ -61,3 +61,7 @@ echo "$KWAI_RABBITMQ_PASSWORD" | rabbitmqctl add_user "$KWAI_RABBITMQ_USER"
 rabbitmqctl add_vhost "$KWAI_RABBITMQ_VHOST"
 rabbitmqctl set_user_tags "$KWAI_RABBITMQ_USER" administrator
 rabbitmqctl set_permissions -p "$KWAI_RABBITMQ_VHOST" "$KWAI_RABBITMQ_USER" ".*" ".*" ".*"
+
+# Mailcatcher
+sudo apt-get -y install ruby-full  build-essential
+gem install mailcatcher
