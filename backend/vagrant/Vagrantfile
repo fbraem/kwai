@@ -35,8 +35,7 @@ Vagrant.configure("2") do |config|
     ]
 
   # Mailcatcher
-  config.vm "forward_port", guest: 1080, host: 1080
   config.trigger.after :up do |trigger|
-    trigger.run_remote = {inline: "/usr/local/bin/mailcatcher --http-ip 0.0.0.0"}
+    trigger.run_remote = {inline: "/usr/local/bin/mailcatcher --smtp-ip 0.0.0.0 --http-ip 0.0.0.0"}
   end
 end
