@@ -8,6 +8,8 @@ KWAI_RABBITMQ_VHOST=$4
 KWAI_RABBITMQ_USER=$5
 KWAI_RABBITMQ_PASSWORD=$6
 
+apt-get update
+
 # MySQL
 debconf-set-selections <<< "mysql-server mysql-server/root_password password $KWAI_DATABASE_PASSWORD"
 debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $KWAI_DATABASE_PASSWORD"
