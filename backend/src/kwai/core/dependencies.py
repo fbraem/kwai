@@ -3,8 +3,9 @@ Module that defines a dependency injector container.
 
 Auto-wiring is avoided. It should be clear why and when a class is loaded.
 """
-import dramatiq.brokers.rabbitmq
+from typing import Iterator
 
+import dramatiq.brokers.rabbitmq
 from lagom import Container, dependency_definition, ExplicitContainer, Singleton
 
 from kwai.core.db.database import Database
@@ -13,8 +14,8 @@ from kwai.core.events.dramatiq_bus import DramatiqBus
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.smtp_mailer import SmtpMailer
 from kwai.core.settings import Settings, get_settings
-from kwai.core.template.template_engine import TemplateEngine
 from kwai.core.template.jinja2_engine import Jinja2Engine
+from kwai.core.template.template_engine import TemplateEngine
 
 container = ExplicitContainer()
 
@@ -32,11 +33,20 @@ def create_database(c: Container) -> Database:
 
 
 @dependency_definition(container)
-def create_mailer(c: Container) -> Mailer:
+def create_mailer(c: Container) -> Iterator[Mailer]:
     """Creates the mailer."""
-    mailer = SmtpMailer(c[Settings].email.host, c[Settings].email.port)
-    mailer.connect(c[Settings].email.user, c[Settings].email.password)
-    return mailer
+    mailer = SmtpMailer(
+        host=c[Settings].email.host,
+        port=c[Settings].email.port,
+        tls=c[Settings].email.tls,
+    )
+    try:
+        mailer.connect()
+        if c[Settings].email.user:
+            mailer.login(c[Settings].email.user, c[Settings].email.password)
+        yield mailer
+    finally:
+        mailer.disconnect()
 
 
 @dependency_definition(container)

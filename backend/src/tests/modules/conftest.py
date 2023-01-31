@@ -1,4 +1,6 @@
 """Module for sharing fixtures in this module."""
+from typing import Iterator
+
 import pytest
 
 from kwai.core.db.database import Database
@@ -26,14 +28,21 @@ def database():
 
 
 @pytest.fixture
-def mailer() -> Mailer:
+def mailer() -> Iterator[Mailer]:
     """Fixture for getting a mailer."""
     from kwai.core.mail.smtp_mailer import SmtpMailer
 
     settings = get_settings()
-    m = SmtpMailer(settings.email.host, settings.email.port)
-    m.connect(settings.email.user, settings.email.password)
-    return m
+    mailer = SmtpMailer(
+        host=settings.email.host, port=settings.email.port, tls=settings.email.tls
+    )
+    try:
+        mailer.connect()
+        if settings.email.user:
+            mailer.login(settings.email.user, settings.email.password)
+        yield mailer
+    finally:
+        mailer.disconnect()
 
 
 @pytest.fixture
@@ -53,7 +62,7 @@ def template_engine() -> TemplateEngine:
 
 
 @pytest.fixture(scope="module")
-def user_account(database: Database) -> UserAccountEntity:
+def user_account(database: Database) -> Iterator[UserAccountEntity]:
     """Fixture that provides a user account in the database.
 
     The user will be removed again after running the tests.
