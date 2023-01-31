@@ -15,6 +15,8 @@ Eventually the code will be moved to this repository.
 Unlike the [other version](https://github.com/fbraem/kwai-api) which is written in PHP, this backend is written in 
 Python and uses [FastAPI](https://fastapi.tiangolo.com/) as web framework to provide an API for Kwai.
 
+For more information about the backend: [README.md](./backend)
+
 At the moment there is no release available yet.
 
 ## Acknowledgments
