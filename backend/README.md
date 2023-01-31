@@ -27,7 +27,7 @@ Kwai needs a database. Migration files are available in the folder migrations.
 [Dbmate](https://github.com/amacneil/dbmate) is used as migration tool.
 
 ````shell
-dbmate -d "./migrations" --url promysql://user:password@host:port/database migrate
+dbmate -d "./migrations" --url protocol://user:password@host:port/database migrate
 ````
 
 > Note: we only provide "up" migrations. Create a backup of the database before 
