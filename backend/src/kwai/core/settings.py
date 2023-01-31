@@ -42,8 +42,8 @@ class EmailSettings(BaseModel):
 
     host: str
     port: int
-    user: str
-    password: str
+    user: str | None = None
+    password: str | None = None
     address: str = Field(alias="from")
 
 
