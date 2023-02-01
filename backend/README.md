@@ -34,7 +34,31 @@ dbmate -d "./migrations" --url protocol://user:password@host:port/database migra
 > running the migrations. Although dbmate can run "down" migrations, they are not
 > used because these are hard to test and can generate more problems than they solve.
 
-## structure
+## Project Structure
+
+### migrations
+
+This folder contains all database migrations.
+
+### src
+
+This folder contains all Python code.
+
+### templates
+
+This folder contains all templates used by kwai.
+
+### vagrant
+
+This folder contains the scripts to set up a vagrant environment. This vagrant setup will create
++ A MySQL database.
++ dbmate for running migrations.
++ A RabbitMQ broker for pub/sub.
++ Mailcatcher to test sending emails.
+
+Use the `kwai.dist.yaml` file to create `kwai.yaml`. This file must contain settings.
+
+## Code
 
 ### api
 
