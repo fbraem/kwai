@@ -8,6 +8,8 @@ from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipients, Recipient
 from kwai.core.settings import get_settings
 
+pytestmark = pytest.mark.integration
+
 
 @pytest.fixture
 def mailer() -> Iterator[Mailer]:

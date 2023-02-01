@@ -19,6 +19,8 @@ from kwai.modules.identity.users.user_repository import (
     UserNotFoundException,
 )
 
+pytestmark = pytest.mark.integration
+
 
 @pytest.fixture(scope="module")
 def repo(database: Database) -> UserRepository:
