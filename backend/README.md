@@ -30,8 +30,9 @@ Kwai needs a database. Migration files are available in the folder migrations.
 dbmate -d "./migrations" --url protocol://user:password@host:port/database migrate
 ````
 
-> Note: we only provide "up" migrations. Create a backup of the database before 
-> running the migrations.
+> Note: only "up" migrations are provided. Create a backup of the database before 
+> running the migrations. Although dbmate can run "down" migrations, they are not
+> used because these are hard to test and can generate more problems than they solve.
 
 ## structure
 
