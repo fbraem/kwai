@@ -1,3 +1,4 @@
+"""Module for testing smtp mailer."""
 from typing import Iterator
 
 import pytest
@@ -17,19 +18,20 @@ def mailer() -> Iterator[Mailer]:
     from kwai.core.mail.smtp_mailer import SmtpMailer
 
     settings = get_settings()
-    mailer = SmtpMailer(
+    smtp_mailer = SmtpMailer(
         host=settings.email.host, port=settings.email.port, tls=settings.email.tls
     )
     try:
-        mailer.connect()
+        smtp_mailer.connect()
         if settings.email.user:
-            mailer.login(settings.email.user, settings.email.password)
-        yield mailer
+            smtp_mailer.login(settings.email.user, settings.email.password)
+        yield smtp_mailer
     finally:
-        mailer.disconnect()
+        smtp_mailer.disconnect()
 
 
-def test_text_message(mailer):
+def test_text_message(mailer: Mailer):  # pylint: disable=redefined-outer-name
+    """Test sending a text message."""
     mail = Mail(
         subject="test_text_message",
         recipients=Recipients(
