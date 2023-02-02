@@ -19,6 +19,13 @@ class LocalTimestamp:
         """Is the timestamp known?"""
         return self.timestamp is None
 
+    @property
+    def is_past(self) -> bool:
+        """Is the timestamp in the past?"""
+        assert not self.empty, "No datetime set"
+
+        return self.timestamp < datetime.utcnow()
+
     @classmethod
     def create_future(cls, **kwargs):
         """Create a local timestamp in the future.
