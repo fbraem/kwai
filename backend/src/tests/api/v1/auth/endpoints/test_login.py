@@ -58,3 +58,20 @@ def test_renew_access_token(client: TestClient, user_account: UserAccountEntity)
     assert "access_token" in json
     assert "refresh_token" in json
     assert "expiration" in json
+
+
+def test_recover_user(client: TestClient, user_account: UserAccountEntity):
+    """Test the recover user api."""
+
+    response = client.post(
+        "/api/v1/auth/recover", data={"email": str(user_account.user.email)}
+    )
+    assert response.status_code == status.HTTP_200_OK
+
+
+def test_recover_unknown_user(client: TestClient, user_account: UserAccountEntity):
+    """Test the recover user api with an unknown user."""
+
+    response = client.post("/api/v1/auth/recover", data={"email": "unknown@kwai.com"})
+    # A wrong user also results in http status code 200.
+    assert response.status_code == status.HTTP_200_OK
