@@ -1,7 +1,7 @@
-/backend/src/.pytest_cache/
-/backend/*.log
+.pytest_cache
+*.log
 /backend/vagrant/kwai.development.yaml
 /backend/vagrant/.vagrant/
 /backend/kwai.toml
-/backend/src/.ruff_cache/
-/backend/src/.mypy_cache/
+.ruff_cache
+.mypy_cache
