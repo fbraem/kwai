@@ -10,7 +10,7 @@ from kwai.modules.identity.users.user import UserEntity
 UserRecoveryIdentifier = IntIdentifier
 
 
-@dataclass
+@dataclass(kw_only=True)
 class UserRecoveryEntity:
     """A user recovery domain."""
 
@@ -32,6 +32,11 @@ class UserRecoveryEntity:
     def confirmed(self) -> bool:
         """Returns True when this user recovery was confirmed."""
         return not self.confirmation.empty
+
+    @property
+    def is_expired(self) -> bool:
+        """Return True when the user recovery is expired."""
+        return self.expiration.is_past
 
     @property
     def mailed(self) -> bool:
