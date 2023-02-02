@@ -32,7 +32,7 @@ def repo(database: Database) -> UserRecoveryRepository:
 @pytest.fixture(scope="module")
 def user_recovery(repo: UserRecoveryRepository, user: UserEntity) -> UserRecoveryEntity:
     user_recovery = UserRecoveryEntity(
-        expiration=LocalTimestamp.create_future(hours=2),
+        expiration=LocalTimestamp.create_with_delta(hours=2),
         user=user,
     )
     entity = repo.create(user_recovery)

@@ -53,7 +53,7 @@ class RecoverUser:
         user_recovery = self._user_recovery_repo.create(
             UserRecoveryEntity(
                 user=user_account.user,
-                expiration=LocalTimestamp.create_future(hours=2),
+                expiration=LocalTimestamp.create_with_delta(hours=2),
             )
         )
 

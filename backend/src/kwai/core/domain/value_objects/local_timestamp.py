@@ -27,8 +27,8 @@ class LocalTimestamp:
         return self.timestamp < datetime.utcnow()
 
     @classmethod
-    def create_future(cls, **kwargs):
-        """Create a local timestamp in the future.
+    def create_with_delta(cls, **kwargs):
+        """Create a current local timestamp and applies the delta.
 
         The timezone will be UTC.
         """

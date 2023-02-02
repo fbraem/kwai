@@ -12,7 +12,7 @@ def test_expired_user_recovery():
             email=EmailAddress("jigoro.kano@kwai.com"),
             name=Name(first_name="Jigoro", last_name="Kano"),
         ),
-        expiration=LocalTimestamp.create_future(hours=-2),
+        expiration=LocalTimestamp.create_with_delta(hours=-2),
     )
 
     assert user_recovery.is_expired
