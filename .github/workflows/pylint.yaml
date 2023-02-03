@@ -34,10 +34,10 @@ jobs:
       run: |
         poetry install --no-interaction --no-root
     - name: Analysing the code with pylint
-      working-directory: ./backend/src/kwai
+      working-directory: ./backend/src
       run: |
-        poetry run pylint
+        poetry run pylint ./kwai
     - name: Analysing the tests with pylint
-      working-directory: ./backend/src/tests
+      working-directory: ./backend/src
       run: |
         poetry run pylint ./tests
