@@ -13,7 +13,7 @@ from kwai.core.settings import Settings
 
 
 def create_app(settings: Settings) -> FastAPI:
-    """Creates the FastAPI application."""
+    """Create the FastAPI application."""
 
     def startup():
         logger.info("KWAI is starting")
@@ -68,9 +68,10 @@ def create_app(settings: Settings) -> FastAPI:
         with logger.contextualize(request_id=request_id):
             logger.info(f"{request.url} - {request.method} - Request started")
 
+            response = None  # Make pylint happy...
             try:
                 response = await call_next(request)
-            except Exception as ex:
+            except Exception as ex:  # pylint: disable=W0703
                 logger.error(f"{request.url} - Request failed: {ex}")
                 logger.exception(ex)
                 response = JSONResponse(
