@@ -16,11 +16,13 @@ from kwai.modules.identity.authenticate_user import (
     AuthenticateUserCommand,
     AuthenticationException,
 )
+from kwai.modules.identity.exceptions import NotAllowedException
 from kwai.modules.identity.recover_user import RecoverUser, RecoverUserCommand
 from kwai.modules.identity.refresh_access_token import (
     RefreshAccessTokenCommand,
     RefreshAccessToken,
 )
+from kwai.modules.identity.reset_password import ResetPasswordCommand, ResetPassword
 from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
 )
@@ -30,6 +32,9 @@ from kwai.modules.identity.tokens.refresh_token_db_repository import (
 )
 from kwai.modules.identity.user_recoveries.user_recovery_db_repository import (
     UserRecoveryDbRepository,
+)
+from kwai.modules.identity.user_recoveries.user_recovery_repository import (
+    UserRecoveryNotFoundException,
 )
 from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
@@ -149,20 +154,25 @@ async def recover_user(
         logger.warning(f"User recovery could not be started: {ex}")
 
 
-class ResetPasswordSchema(BaseModel):
-    """Schema for reset password."""
-
-    uuid: str
-    password: str
-
-
 @router.post(
     "/reset",
-    response_model=TokenSchema,
     summary="Reset the password of a user.",
+    status_code=status.HTTP_200_OK,
 )
-async def reset_password(db=deps.depends(Database)):
-    pass
+async def reset_password(uuid=Form(), password=Form(), db=deps.depends(Database)):
+    """Reset the password of the user by executing the ResetPassword use case."""
+    command = ResetPasswordCommand(uuid=uuid, password=password)
+    try:
+        ResetPassword(
+            user_account_repo=UserAccountDbRepository(db),
+            user_recovery_repo=UserRecoveryDbRepository(db),
+        ).execute(command)
+    except UserRecoveryNotFoundException:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+    except UserAccountNotFoundException:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
+    except NotAllowedException:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
 
 
 def encode_token(refresh_token: RefreshTokenEntity, settings: SecuritySettings):

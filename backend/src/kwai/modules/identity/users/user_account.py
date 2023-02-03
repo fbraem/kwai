@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.password import Password
+from kwai.modules.identity.exceptions import NotAllowedException
 from kwai.modules.identity.users.user import UserEntity
 
 UserAccountIdentifier = IntIdentifier
@@ -33,6 +34,14 @@ class UserAccountEntity:
 
         self.last_unsuccessful_login = LocalTimestamp.create_now()
         return False
+
+    def reset_password(self, password: Password):
+        """Reset the password of the user account."""
+        if self.revoked:
+            raise NotAllowedException()
+
+        self.password = password
+        self.user.traceable_time = self.user.traceable_time.mark_for_update()
 
     def revoke(self):
         """Revoke a user account."""

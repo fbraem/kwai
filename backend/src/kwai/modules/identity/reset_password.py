@@ -1,0 +1,60 @@
+"""Module that implements the reset password use case."""
+from dataclasses import dataclass
+
+from kwai.core.domain.value_objects.password import Password
+from kwai.core.domain.value_objects.unique_id import UniqueId
+from kwai.modules.identity.user_recoveries.user_recovery_repository import (
+    UserRecoveryRepository,
+)
+from kwai.modules.identity.users.user_account_repository import UserAccountRepository
+
+
+class UserRecoveryExpiredException(Exception):
+    """Raised when the user recovery is expired."""
+
+
+@dataclass(frozen=True, kw_only=True)
+class ResetPasswordCommand:
+    """Command for the reset password use case."""
+
+    uuid: str
+    password: str
+
+
+class ResetPassword:
+    """Use case: reset password."""
+
+    def __init__(
+        self,
+        user_account_repo: UserAccountRepository,
+        user_recovery_repo: UserRecoveryRepository,
+    ):
+        self._user_account_repo = user_account_repo
+        self._user_recovery_repo = user_recovery_repo
+
+    def execute(self, command: ResetPasswordCommand) -> None:
+        """Executes the use case.
+
+        :raises:
+            :exc:`~.user_recovery_repository.UserRecoveryNotFoundException`
+                Raised when the user recovery with the given uuid does not exist.
+            :exc:`UserRecoveryExpiredException`
+                Raised when the user recovery is expired.
+            :exc:`~.user_account_repository.UserAccountNotFoundException`
+                Raised when the user with the email address that belongs to the
+                user recovery, does not exist.
+            :exc:`NotAllowedException`
+                Raised when the user is revoked.
+        """
+        user_recovery = self._user_recovery_repo.get_by_uuid(
+            UniqueId.create_from_string(command.uuid)
+        )
+        if user_recovery.is_expired:
+            raise UserRecoveryExpiredException()
+
+        user_account = self._user_account_repo.get_user_by_email(
+            user_recovery.user.email
+        )
+
+        user_account.reset_password(Password.create_from_string(command.password))
+        self._user_account_repo.update(user_account)
