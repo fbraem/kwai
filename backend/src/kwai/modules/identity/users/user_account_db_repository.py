@@ -19,6 +19,9 @@ from kwai.modules.identity.users.user_tables import (
 )
 
 
+# pylint: disable=no-member
+
+
 def map_user_account(row: dict[str, Any]) -> UserAccountEntity:
     """Create a user account entity from a row."""
     return UserAccountMapper(
@@ -27,6 +30,8 @@ def map_user_account(row: dict[str, Any]) -> UserAccountEntity:
 
 
 class UserAccountDbRepository(UserAccountRepository):
+    """User account repository for a database."""
+
     def __init__(self, database: Database):
         self._database = database
 
@@ -63,23 +68,23 @@ class UserAccountDbRepository(UserAccountRepository):
             ),
         )
 
-    def update(self, user_account_entity: UserAccountEntity):
-        record = dataclasses.asdict(UserAccountsTable.persist(user_account_entity))
+    def update(self, user_account: UserAccountEntity):
+        record = dataclasses.asdict(UserAccountsTable.persist(user_account))
         del record["id"]
         query = (
             self._database.create_query_factory()
             .update(UserAccountsTable.__table_name__)
             .set(record)
-            .where(UserAccountsTable.field("id").eq(user_account_entity.id.value))
+            .where(UserAccountsTable.field("id").eq(user_account.id.value))
         )
         self._database.execute(query)
         self._database.commit()
 
-    def delete(self, user_account_entity):
+    def delete(self, user_account):
         query = (
             self._database.create_query_factory()
             .delete(UserAccountsTable.__table_name__)
-            .where(UserAccountsTable.field("id").eq(user_account_entity.id.value))
+            .where(UserAccountsTable.field("id").eq(user_account.id.value))
         )
         self._database.execute(query)
         self._database.commit()

@@ -24,6 +24,7 @@ class ResetPasswordCommand:
 class ResetPassword:
     """Use case: reset password."""
 
+    # pylint: disable=too-few-public-methods
     def __init__(
         self,
         user_account_repo: UserAccountRepository,

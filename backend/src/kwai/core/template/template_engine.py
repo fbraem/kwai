@@ -11,6 +11,7 @@ class TemplateNotFoundException(Exception):
 class TemplateEngine:
     """Interface for a template engine."""
 
+    # pylint: disable=too-few-public-methods
     @abstractmethod
     def create(self, template_file_path: str, lang: str = "nl") -> Template:
         """Create a template from the given file path.

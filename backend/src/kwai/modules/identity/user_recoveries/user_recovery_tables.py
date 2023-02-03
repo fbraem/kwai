@@ -1,3 +1,4 @@
+"""Module that defines the table for a user recovery."""
 from dataclasses import dataclass
 from datetime import datetime
 
@@ -15,6 +16,10 @@ from kwai.modules.identity.users.user_tables import UserMapper
 @table(name="user_recoveries")
 @dataclass
 class UserRecoveriesTable:
+    """Table for a user recovery."""
+
+    # pylint: disable=too-many-instance-attributes
+
     id: int | None
     user_id: int
     uuid: str
@@ -28,6 +33,7 @@ class UserRecoveriesTable:
 
     @classmethod
     def persist(cls, user_recovery: UserRecoveryEntity) -> "UserRecoveriesTable":
+        """Map a user recovery entity to a table record."""
         return UserRecoveriesTable(
             id=user_recovery.id.value,
             user_id=user_recovery.user.id.value,
@@ -44,10 +50,13 @@ class UserRecoveriesTable:
 
 @dataclass(kw_only=True, frozen=True)
 class UserRecoveryMapper:
+    """Mapper for creating a user recovery entity from a table record."""
+
     user_recoveries_table: UserRecoveriesTable
     user_mapper: UserMapper
 
     def create_entity(self) -> UserRecoveryEntity:
+        """Create the entity."""
         return UserRecoveryEntity(
             id=UserRecoveryIdentifier(self.user_recoveries_table.id),
             uuid=UniqueId.create_from_string(self.user_recoveries_table.uuid),

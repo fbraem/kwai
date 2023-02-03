@@ -2,10 +2,11 @@
 from sql_smith.functions import on
 
 from kwai.core.db.database_query import DatabaseQuery
+from kwai.modules.identity.users.user_tables import UserAccountsTable
+
 from .access_token_query import AccessTokenQuery
 from .token_identifier import TokenIdentifier
 from .token_tables import AccessTokensTable
-from kwai.modules.identity.users.user_tables import UserAccountsTable
 
 
 class AccessTokenDbQuery(AccessTokenQuery, DatabaseQuery):

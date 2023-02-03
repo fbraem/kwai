@@ -1,6 +1,6 @@
 """Module that defines an access token entity."""
-from datetime import datetime
 import dataclasses
+from datetime import datetime
 
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
@@ -23,6 +23,7 @@ class AccessTokenEntity:
 
     @property
     def expired(self) -> bool:
+        """Return true when the access token is expired."""
         return self.expiration < datetime.utcnow()
 
     def revoke(self) -> None:

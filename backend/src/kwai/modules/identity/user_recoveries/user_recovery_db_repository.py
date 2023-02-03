@@ -21,7 +21,11 @@ from kwai.modules.identity.user_recoveries.user_recovery_tables import (
 from kwai.modules.identity.users.user_tables import UserMapper, UsersTable
 
 
+# pylint: disable=(no-member)
+
+
 def map_user_recovery(row: dict[str, Any]) -> UserRecoveryEntity:
+    """Map the user recovery record to an entity."""
     return UserRecoveryMapper(
         user_recoveries_table=UserRecoveriesTable.map_row(row),
         user_mapper=UserMapper(users_table=UsersTable.map_row(row)),

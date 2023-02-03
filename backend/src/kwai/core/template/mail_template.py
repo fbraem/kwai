@@ -14,12 +14,15 @@ class MailTemplate:
         self._text_template = text_template
 
     def render_html(self, **kwargs: dict[str, Any]) -> str:
+        """Render the HTML template."""
         return self._html_template.render(**kwargs)
 
     def render_text(self, **kwargs: dict[str, Any]) -> str:
+        """Render the text template."""
         return self._text_template.render(**kwargs)
 
     def create_mail(self, recipients: Recipients, subject: str, **kwargs):
+        """Create the mail with HTML and text template."""
         return Mail(
             recipients,
             subject,

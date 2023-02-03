@@ -1,9 +1,9 @@
 """Modules that implements the template engine interface for jinja2."""
-from jinja2 import Environment, FileSystemLoader, select_autoescape, TemplatesNotFound
+from jinja2 import Environment, FileSystemLoader, TemplatesNotFound, select_autoescape
 
+from .jinja2_template import Jinja2Template
 from .template import Template
 from .template_engine import TemplateEngine, TemplateNotFoundException
-from .jinja2_template import Jinja2Template
 
 JINJA2_FILE_EXTENSION = ".jinja2"
 
@@ -11,8 +11,9 @@ JINJA2_FILE_EXTENSION = ".jinja2"
 class Jinja2Engine(TemplateEngine):
     """Implements the TemplateEngine interface for Jinja2."""
 
+    # pylint: disable=too-few-public-methods
     def __init__(self, template_path: str, **kwargs):
-        """Constructor.
+        """Construct a Jinja2Engine.
 
         kwargs will be merged to the variables that are used to render a template.
         Use it for variables that are used in all templates.

@@ -9,6 +9,7 @@ from .template import Template
 class Jinja2Template(Template):
     """A jinja2 template."""
 
+    # pylint: disable=too-few-public-methods
     def __init__(self, template: jinja2.Template, **kwargs: dict[str, Any]):
         """Constructor.
 

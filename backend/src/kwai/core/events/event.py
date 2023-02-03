@@ -6,6 +6,8 @@ from typing import ClassVar
 
 @dataclass(kw_only=True, frozen=True)
 class EventMeta:
+    """Metadata for the event."""
+
     name: str
 
 

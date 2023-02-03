@@ -41,8 +41,8 @@ def get_current_user(
         access_token = access_token_repo.get_by_identifier(
             TokenIdentifier(payload["jti"])
         )
-    except AccessTokenNotFoundException:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED)
+    except AccessTokenNotFoundException as exc:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED) from exc
 
     # Check if the access token is assigned to the user we have in the subject of JWT.
     if not access_token.user_account.user.uuid == payload["sub"]:

@@ -23,6 +23,7 @@ class RefreshTokenEntity:
 
     @property
     def expired(self) -> bool:
+        """Return True when the token is expired."""
         return self.expiration < datetime.utcnow()
 
     def revoke(self) -> None:

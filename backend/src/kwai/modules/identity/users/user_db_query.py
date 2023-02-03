@@ -6,6 +6,8 @@ from kwai.modules.identity.users.user import UserIdentifier
 from kwai.modules.identity.users.user_query import UserQuery
 from kwai.modules.identity.users.user_tables import UsersTable
 
+# pylint: disable=no-member
+
 
 class UserDbQuery(UserQuery, DatabaseQuery):
     """A user query for a database."""

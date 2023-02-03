@@ -1,3 +1,4 @@
+"""Module that defines the auth apis."""
 from fastapi import APIRouter
 
 from kwai.api.v1.auth.endpoints import login, user

@@ -50,6 +50,6 @@ class RefreshTokenRepository:
         raise NotImplementedError
 
     @abstractmethod
-    def update(self, refresh_token_entity: RefreshTokenEntity):
+    def update(self, refresh_token: RefreshTokenEntity):
         """Update the refresh token."""
         raise NotImplementedError

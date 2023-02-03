@@ -19,13 +19,13 @@ class UserAccountRepository:
         raise NotImplementedError
 
     @abstractmethod
-    def update(self, user_account_entity: UserAccountEntity):
+    def update(self, user_account: UserAccountEntity):
         """Save a user account."""
         raise NotImplementedError
 
     @abstractmethod
-    def delete(self, user_account_entity):
-        """Deletes a user account."""
+    def delete(self, user_account):
+        """Delete a user account."""
         raise NotImplementedError
 
 

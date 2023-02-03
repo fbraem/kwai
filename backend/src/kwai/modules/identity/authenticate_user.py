@@ -28,6 +28,7 @@ class AuthenticateUser:
     A refresh token will be returned when the user is successfully authenticated.
     """
 
+    # pylint: disable=too-few-public-methods
     def __init__(
         self,
         user_account_repo: UserAccountRepository,

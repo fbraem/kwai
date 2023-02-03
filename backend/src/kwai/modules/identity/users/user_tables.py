@@ -20,7 +20,7 @@ from kwai.modules.identity.users.user_account import (
 @table(name="users")
 @dataclass(kw_only=True, frozen=True, slots=True)
 class UsersTable:
-    """Represents the users table"""
+    """Represent the users table."""
 
     id: int | None
     email: str
@@ -34,6 +34,7 @@ class UsersTable:
 
     @classmethod
     def persist(cls, user: UserEntity) -> "UsersTable":
+        """Transform a user entity into a table record."""
         return UsersTable(
             id=user.id.value,
             email=str(user.email),
@@ -49,10 +50,12 @@ class UsersTable:
 
 @dataclass(kw_only=True, frozen=True)
 class UserMapper:
+    """Transform a table record into a user entity."""
+
     users_table: UsersTable
 
     def create_entity(self) -> UserEntity:
-        """Creates a user entity from a table row."""
+        """Create a user entity from a table row."""
         return UserEntity(
             id=UserIdentifier(self.users_table.id),
             uuid=UniqueId.create_from_string(self.users_table.uuid),
@@ -90,6 +93,7 @@ class UserAccountsTable:
 
     @classmethod
     def persist(cls, user_account: UserAccountEntity) -> "UserAccountsTable":
+        """Transform a user account entity into a table record."""
         return UserAccountsTable(
             id=user_account.id.value,
             email=str(user_account.user.email),
@@ -110,10 +114,12 @@ class UserAccountsTable:
 
 @dataclass(kw_only=True, frozen=True)
 class UserAccountMapper:
+    """Transform a table record into a user account entity."""
+
     user_accounts_table: UserAccountsTable
 
     def create_entity(self) -> UserAccountEntity:
-        """Creates a user entity from a table row."""
+        """Create a user entity from a table row."""
         return UserAccountEntity(
             id=UserAccountIdentifier(self.user_accounts_table.id),
             password=Password(hashed_password=self.user_accounts_table.password),

@@ -31,6 +31,7 @@ class AccessTokensTable:
 
     @classmethod
     def persist(cls, access_token: AccessTokenEntity) -> "AccessTokensTable":
+        """Persist an access token entity to a table record."""
         return AccessTokensTable(
             id=access_token.id.value,
             identifier=str(access_token.identifier),
@@ -50,7 +51,7 @@ class AccessTokenMapper:
     user_account_mapper: UserAccountMapper
 
     def create_entity(self) -> AccessTokenEntity:
-        """Creates an access token entity from a table row"""
+        """Create an access token entity from a table row."""
         return AccessTokenEntity(
             id=AccessTokenIdentifier(self.access_token_table.id),
             identifier=TokenIdentifier(self.access_token_table.identifier),
@@ -67,6 +68,8 @@ class AccessTokenMapper:
 @table(name="oauth_refresh_tokens")
 @dataclass(kw_only=True, frozen=True, slots=True)
 class RefreshTokensTable:
+    """Table for refresh tokens."""
+
     id: int | None
     identifier: str
     access_token_id: int
@@ -77,6 +80,7 @@ class RefreshTokensTable:
 
     @classmethod
     def persist(cls, refresh_token: RefreshTokenEntity) -> "RefreshTokensTable":
+        """Transform a refresh token entity into a table record."""
         return RefreshTokensTable(
             id=refresh_token.id.value,
             identifier=str(refresh_token.identifier),
@@ -90,10 +94,13 @@ class RefreshTokensTable:
 
 @dataclass(kw_only=True, frozen=True)
 class RefreshTokenMapper:
+    """Transforms a row into a refresh token entity."""
+
     refresh_token_table: RefreshTokensTable
     access_token_mapper: AccessTokenMapper
 
     def create_entity(self) -> RefreshTokenEntity:
+        """Create a refresh token entity from a table record."""
         return RefreshTokenEntity(
             id=RefreshTokenIdentifier(self.refresh_token_table.id),
             identifier=TokenIdentifier(self.refresh_token_table.identifier),

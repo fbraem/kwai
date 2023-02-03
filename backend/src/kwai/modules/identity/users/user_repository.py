@@ -7,7 +7,7 @@ from kwai.modules.identity.users.user import UserEntity, UserIdentifier
 
 
 class UserNotFoundException(Exception):
-    pass
+    """Raised when a user could not be found."""
 
 
 class UserRepository(ABC):

@@ -4,25 +4,26 @@ from typing import Iterator
 
 from kwai.core.db.database import Database
 from kwai.modules.identity.tokens.access_token import (
-    AccessTokenIdentifier,
     AccessTokenEntity,
+    AccessTokenIdentifier,
 )
 from kwai.modules.identity.tokens.access_token_db_query import AccessTokenDbQuery
 from kwai.modules.identity.tokens.access_token_query import AccessTokenQuery
 from kwai.modules.identity.tokens.access_token_repository import (
-    AccessTokenRepository,
     AccessTokenNotFoundException,
+    AccessTokenRepository,
 )
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.tokens.token_tables import (
     AccessTokenMapper,
     AccessTokensTable,
 )
-from kwai.modules.identity.users.user_tables import UserAccountsTable, UserAccountMapper
+from kwai.modules.identity.users.user_tables import UserAccountMapper, UserAccountsTable
 
 
 def map_access_token(row) -> AccessTokenEntity:
     """Create an access token entity from a row."""
+    # pylint: disable=no-member
     return AccessTokenMapper(
         access_token_table=AccessTokensTable.map_row(row),
         user_account_mapper=UserAccountMapper(

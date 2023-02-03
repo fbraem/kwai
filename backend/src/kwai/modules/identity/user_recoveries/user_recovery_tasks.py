@@ -53,8 +53,8 @@ def email_user_recovery_task(event: dict[str, Any]):
                 template_engine.create("identity/recover_txt"),
             ),
         ).execute(command)
-    except UnprocessableException as ue:
-        logger.error(f"Task not processed: {ue}")
+    except UnprocessableException as ex:
+        logger.error(f"Task not processed: {ex}")
     except UserRecoveryNotFoundException:
         logger.error(
             f"Mail not send because user recovery does not exist "

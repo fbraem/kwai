@@ -25,6 +25,7 @@ class RefreshAccessToken:
     A new access token will also result in a new refresh token.
     """
 
+    # pylint: disable=too-few-public-methods
     def __init__(
         self,
         refresh_token_repo: RefreshTokenRepository,
