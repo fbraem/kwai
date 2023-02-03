@@ -1,7 +1,8 @@
+"""Module for starting the api server."""
 import sys
 
-from loguru import logger
 import uvicorn
+from loguru import logger
 
 from kwai.app import create_app
 from kwai.core.dependencies import container
