@@ -48,9 +48,7 @@ def refresh_token_repo(database: Database) -> RefreshTokenRepository:
 
 @pytest.fixture(scope="module")
 def refresh_token(
-    refresh_token_repo: RefreshTokenRepository,
-    access_token: AccessTokenEntity,
-    user_account: UserAccountEntity,
+    refresh_token_repo: RefreshTokenRepository, access_token: AccessTokenEntity
 ) -> RefreshTokenEntity:
     """Fixture for creating a refresh token."""
     token = RefreshTokenEntity(
