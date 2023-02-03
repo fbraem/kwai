@@ -167,12 +167,12 @@ async def reset_password(uuid=Form(), password=Form(), db=deps.depends(Database)
             user_account_repo=UserAccountDbRepository(db),
             user_recovery_repo=UserRecoveryDbRepository(db),
         ).execute(command)
-    except UserRecoveryNotFoundException:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
-    except UserAccountNotFoundException:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
-    except NotAllowedException:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
+    except UserRecoveryNotFoundException as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND) from exc
+    except UserAccountNotFoundException as exc:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY) from exc
+    except NotAllowedException as exc:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN) from exc
 
 
 def encode_token(refresh_token: RefreshTokenEntity, settings: SecuritySettings):
