@@ -5,7 +5,7 @@ from pyisemail import is_email
 
 
 class InvalidEmailException(Exception):
-    pass
+    """Raised when the email address is not valid."""
 
 
 @dataclass(frozen=True, slots=True)
@@ -15,9 +15,10 @@ class EmailAddress:
     email: str
 
     def __post_init__(self):
-        """Checks if the email address is valid."""
+        """Check if the email address is valid."""
         if not is_email(self.email):
             raise InvalidEmailException()
 
     def __str__(self):
+        """Return the string representation of an email address."""
         return self.email

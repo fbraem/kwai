@@ -11,15 +11,18 @@ class UniqueId:
 
     @classmethod
     def generate(cls):
-        """Creates a new unique id (UUID4)."""
+        """Create a new unique id (UUID4)."""
         return UniqueId(id=uuid.uuid4())
 
     @classmethod
-    def create_from_string(cls, s: str):
-        return UniqueId(id=uuid.UUID(s))
+    def create_from_string(cls, uuid_str: str):
+        """Create a unique id from te string."""
+        return UniqueId(id=uuid.UUID(uuid_str))
 
     def __eq__(self, other):
+        """Check if a unique id equals the given id."""
         return str(self) == str(other)
 
     def __str__(self):
+        """Return a string representation."""
         return str(self.id)

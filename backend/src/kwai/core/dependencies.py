@@ -19,7 +19,9 @@ from kwai.core.template.template_engine import TemplateEngine
 
 container = ExplicitContainer()
 
-container[Settings] = Singleton(lambda: get_settings())
+# pylint: disable=invalid-name
+
+container[Settings] = Singleton(get_settings)
 container[TemplateEngine] = lambda c: Jinja2Engine(
     c[Settings].template.path, website=c[Settings].website
 )
@@ -27,6 +29,7 @@ container[TemplateEngine] = lambda c: Jinja2Engine(
 
 @dependency_definition(container)
 def create_database(c: Container) -> Database:
+    """Create the database dependency."""
     database = Database(c[Settings].db)
     database.connect()
     return database
@@ -34,7 +37,7 @@ def create_database(c: Container) -> Database:
 
 @dependency_definition(container)
 def create_mailer(c: Container) -> Iterator[Mailer]:
-    """Creates the mailer."""
+    """Create the mailer dependency."""
     mailer = SmtpMailer(
         host=c[Settings].email.host,
         port=c[Settings].email.port,
@@ -51,7 +54,7 @@ def create_mailer(c: Container) -> Iterator[Mailer]:
 
 @dependency_definition(container)
 def create_event_bus(c: Container) -> Bus:
-    """Creates the event bus."""
+    """Create the event bus dependency."""
     broker = dramatiq.brokers.rabbitmq.RabbitmqBroker(
         url=c[Settings].broker.url + "/" + c[Settings].broker.name
     )

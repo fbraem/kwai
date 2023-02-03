@@ -20,13 +20,13 @@ class DatabaseQuery(Query):
     @abstractmethod
     def init(self):
         """Override this method to create the base query."""
-        pass
+        raise NotImplementedError
 
     @property
     @abstractmethod
     def columns(self):
         """Returns the columns used in the query."""
-        pass
+        raise NotImplementedError
 
     @property
     def count_column(self) -> str:
@@ -34,10 +34,10 @@ class DatabaseQuery(Query):
         return "id"
 
     def count(self) -> int:
-        """Execute the query and uses the count_column to count the number of
-        records.
-        """
+        """Execute the query and counts the number of records.
 
+        The `count_column` is used as column for a distinct count.
+        """
         # Reset limit/offset to avoid a wrong result
         self._query.limit(None)
         self._query.offset(None)
@@ -49,12 +49,14 @@ class DatabaseQuery(Query):
         return int(result["c"])
 
     def fetch_one(self):
+        """Fetch only one record from this query."""
         self._query.columns(*self.columns)
         return self._database.fetch_one(self._query)
 
     def fetch(
         self, limit: int | None = None, offset: int | None = None
     ) -> Iterator[dict[str, any]]:
+        """Fetch all records from this query."""
         self._query.limit(limit)
         self._query.offset(offset)
         self._query.columns(*self.columns)

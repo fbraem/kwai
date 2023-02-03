@@ -21,11 +21,15 @@ class Database:
         self._settings = settings
 
     def __del__(self):
+        """Destructor.
+
+        Closes the connection.
+        """
         if self._connection:
             self._connection.close()
 
     def connect(self):
-        """Connects to the database."""
+        """Connect to the database."""
         try:
             self._connection = db.connect(
                 host=self._settings.host,
@@ -40,7 +44,7 @@ class Database:
 
     @classmethod
     def create_query_factory(cls) -> QueryFactory:
-        """Returns a query factory for the current database engine."""
+        """Return a query factory for the current database engine."""
         return QueryFactory(MysqlEngine())
 
     def commit(self):
@@ -48,7 +52,7 @@ class Database:
         self._connection.commit()
 
     def execute(self, query: AbstractQuery) -> int | None:
-        """Executes a query.
+        """Execute a query.
 
         The last rowid from the cursor is returned when the query executed
         successfully. On insert, this can be used to determine the new id of a row.
@@ -64,7 +68,7 @@ class Database:
                 raise QueryException(compiled_query.sql) from exc
 
     def fetch_one(self, query: AbstractQuery) -> dict[str, Any] | None:
-        """Executes a query and returns the first row.
+        """Execute a query and returns the first row.
 
         A row is a dictionary build from the column names retrieved from the cursor.
         """
@@ -80,7 +84,7 @@ class Database:
                     cursor.reset()
                     return {
                         column_name: column
-                        for column, column_name in zip(row, column_names)
+                        for column, column_name in zip(row, column_names, strict=True)
                     }
         except Exception as exc:
             raise QueryException(compiled_query.sql) from exc
@@ -88,7 +92,7 @@ class Database:
         return None  # Nothing found
 
     def fetch(self, query: AbstractQuery) -> Iterator[dict[str, Any]]:
-        """Executes a query and yields each row.
+        """Execute a query and yields each row.
 
         A row is a dictionary build from the column names retrieved from the cursor.
         """
@@ -102,7 +106,7 @@ class Database:
                 for row in cursor:
                     yield {
                         column_name: column
-                        for column, column_name in zip(row, column_names)
+                        for column, column_name in zip(row, column_names, strict=True)
                     }
                 # To avoid "unread result found" when not fetching all rows
                 cursor.reset()
@@ -110,7 +114,7 @@ class Database:
             raise QueryException(compiled_query.sql) from exc
 
     def insert(self, table_data: Any) -> int:
-        """Inserts a dataclass into the given table."""
+        """Insert a dataclass into the given table."""
         assert dataclasses.is_dataclass(table_data) and hasattr(
             table_data, "__table_name__"
         ), "Data should be decorated with @table"
@@ -127,7 +131,7 @@ class Database:
         return last_insert_id
 
     def update(self, id_: Any, table_data: Any):
-        """Updates a dataclass in the given table."""
+        """Update a dataclass in the given table."""
         assert dataclasses.is_dataclass(table_data) and hasattr(
             table_data, "__table_name__"
         ), "Data should be decorated with @table"
@@ -143,13 +147,14 @@ class Database:
         self.execute(query)
 
     def delete(self, id_: Any, table_name: str):
-        """Deletes a row from the table using the id field."""
+        """Delete a row from the table using the id field."""
         query = (
             self.create_query_factory().delete(table_name).where(field("id").eq(id_))
         )
         self.execute(query)
 
     def log_query(self, query: str):
+        """Log a query."""
         db_logger = logger.bind(database=self._settings.name)
         db_logger.info(
             "DB: {database} - Query: {query}", database=self._settings.name, query=query
