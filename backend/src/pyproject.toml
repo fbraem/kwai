@@ -36,6 +36,9 @@ markers = [
     "integration: Mark an integration test"
 ]
 
+[tool.pylint]
+good-names = "db,id,ex"
+
 [tool.pylint.'MESSAGES CONTROL']
 extension-pkg-whitelist = "pydantic"
 
