@@ -42,6 +42,7 @@ msg-template= "{path}:{line}:{column}:{C}:({symbol}) {msg}"
 
 [tool.pylint.'MESSAGES CONTROL']
 extension-pkg-whitelist = "pydantic"
+disable="duplicate-code"
 
 [tool.pylint.format]
 max-line-length = "88"
