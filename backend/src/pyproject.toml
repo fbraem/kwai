@@ -37,7 +37,7 @@ markers = [
 ]
 
 [tool.pylint]
-good-names = "db,id,ex"
+good-names = "db,id,ex,to,cc"
 
 [tool.pylint.'MESSAGES CONTROL']
 extension-pkg-whitelist = "pydantic"
