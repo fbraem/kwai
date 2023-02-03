@@ -3,6 +3,12 @@ import pytest
 from fastapi import status
 from fastapi.testclient import TestClient
 
+from kwai.core.db.database import Database
+from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
+from kwai.modules.identity.user_recoveries.user_recovery import UserRecoveryEntity
+from kwai.modules.identity.user_recoveries.user_recovery_db_repository import (
+    UserRecoveryDbRepository,
+)
 from kwai.modules.identity.users.user_account import UserAccountEntity
 
 pytestmark = pytest.mark.integration
@@ -74,4 +80,21 @@ def test_recover_unknown_user(client: TestClient, user_account: UserAccountEntit
 
     response = client.post("/api/v1/auth/recover", data={"email": "unknown@kwai.com"})
     # A wrong user also results in http status code 200.
+    assert response.status_code == status.HTTP_200_OK
+
+
+def test_reset_password(
+    client: TestClient, user_account: UserAccountEntity, database: Database
+):
+    """Test the reset password api."""
+    user_recovery = UserRecoveryEntity(
+        expiration=LocalTimestamp.create_with_delta(hours=2),
+        user=user_account.user,
+    )
+    user_recovery = UserRecoveryDbRepository(database).create(user_recovery)
+
+    response = client.post(
+        "/api/v1/auth/reset",
+        data={"uuid": str(user_recovery.uuid), "password": "Nage-waza/1882"},
+    )
     assert response.status_code == status.HTTP_200_OK
