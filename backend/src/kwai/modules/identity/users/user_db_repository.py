@@ -10,6 +10,8 @@ from kwai.modules.identity.users.user_repository import (
 )
 from kwai.modules.identity.users.user_tables import UserMapper, UsersTable
 
+# pylint: disable=no-member
+
 
 class UserDbRepository(UserRepository):
     """Database repository for the user entity."""
