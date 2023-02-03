@@ -1,8 +1,10 @@
+"""Module for testing Recipients class."""
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.mail.recipient import Recipients, Recipient
 
 
 def test_recipients_add_cc():
+    """Test adding cc."""
     recipients = Recipients(
         Recipient(email=EmailAddress("jigoro.kano@kwai.com"), name="Jigoro Kano")
     )
@@ -18,6 +20,7 @@ def test_recipients_add_cc():
 
 
 def test_recipients_with_cc():
+    """Test with cc."""
     recipients = Recipients(
         Recipient(email=EmailAddress("jigoro.kano@kwai.com"), name="Jigoro Kano")
     )
@@ -32,6 +35,7 @@ def test_recipients_with_cc():
 
 
 def test_recipients_add_to():
+    """Test adding receivers."""
     recipients = Recipients(
         Recipient(email=EmailAddress("jigoro.kano@kwai.com"), name="Jigoro Kano")
     )
@@ -47,6 +51,7 @@ def test_recipients_add_to():
 
 
 def test_recipients_with_to():
+    """Test setting a receiver."""
     recipients = Recipients(
         Recipient(email=EmailAddress("jigoro.kano@kwai.com"), name="Jigoro Kano")
     )
@@ -61,6 +66,7 @@ def test_recipients_with_to():
 
 
 def test_recipients_add_bcc():
+    """Test adding bcc."""
     recipients = Recipients(
         Recipient(email=EmailAddress("jigoro.kano@kwai.com"), name="Jigoro Kano")
     )
@@ -76,6 +82,7 @@ def test_recipients_add_bcc():
 
 
 def test_recipients_with_bcc():
+    """Test setting bcc."""
     recipients = Recipients(
         Recipient(email=EmailAddress("jigoro.kano@kwai.com"), name="Jigoro Kano")
     )

@@ -13,8 +13,9 @@ pytestmark = pytest.mark.integration
 
 
 @pytest.fixture
-def mailer() -> Iterator[Mailer]:
+def smtp_mailer() -> Iterator[Mailer]:
     """Fixture for getting a mailer."""
+    # pylint: disable=import-outside-toplevel
     from kwai.core.mail.smtp_mailer import SmtpMailer
 
     settings = get_settings()
@@ -30,7 +31,7 @@ def mailer() -> Iterator[Mailer]:
         smtp_mailer.disconnect()
 
 
-def test_text_message(mailer: Mailer):  # pylint: disable=redefined-outer-name
+def test_text_message(smtp_mailer: Mailer):  # pylint: disable=redefined-outer-name
     """Test sending a text message."""
     mail = Mail(
         subject="test_text_message",
@@ -45,4 +46,4 @@ def test_text_message(mailer: Mailer):  # pylint: disable=redefined-outer-name
         text="Hell world",
         html="<b>Hello World</b>",
     )
-    mailer.send(mail)
+    smtp_mailer.send(mail)

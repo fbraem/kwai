@@ -7,6 +7,7 @@ from kwai.modules.identity.users.user import UserEntity
 
 
 def test_expired_user_recovery():
+    """Test expire of a user recovery."""
     user_recovery = UserRecoveryEntity(
         user=UserEntity(
             email=EmailAddress("jigoro.kano@kwai.com"),

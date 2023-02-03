@@ -1,3 +1,4 @@
+"""Module with tests for the user recovery mailer."""
 from datetime import datetime
 
 import pytest

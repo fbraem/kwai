@@ -27,9 +27,10 @@ def database():
     return database
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def mailer() -> Iterator[Mailer]:
     """Fixture for getting a mailer."""
+    # pylint: disable=import-outside-toplevel
     from kwai.core.mail.smtp_mailer import SmtpMailer
 
     settings = get_settings()
@@ -75,6 +76,7 @@ def user_account(database: Database) -> Iterator[UserAccountEntity]:
         password=Password.create_from_string("Nage-waza/1882"),
     )
     repo = UserAccountDbRepository(database)
+    # pylint: disable=unused-argument
     user_account = repo.create(user_account)
     yield user_account
     repo.delete(user_account)

@@ -26,11 +26,13 @@ pytestmark = pytest.mark.integration
 
 @pytest.fixture(scope="module")
 def repo(database: Database) -> UserRecoveryRepository:
+    """Create a user recovery repository."""
     return UserRecoveryDbRepository(database)
 
 
 @pytest.fixture(scope="module")
 def user_recovery(repo: UserRecoveryRepository, user: UserEntity) -> UserRecoveryEntity:
+    """Create a user recovery."""
     user_recovery = UserRecoveryEntity(
         expiration=LocalTimestamp.create_with_delta(hours=2),
         user=user,
@@ -47,6 +49,7 @@ def test_mail_user_recovery(
     recipients: Recipients,
     recovery_mail_template: MailTemplate,
 ):
+    """Test use case mail user recovery."""
     command = MailUserRecoveryCommand(uuid=str(user_recovery.uuid))
     updated_user_recovery = MailUserRecovery(
         repo,
@@ -65,6 +68,7 @@ def test_mail_user_recovery_already_mailed(
     recipients: Recipients,
     recovery_mail_template: MailTemplate,
 ):
+    """Test when a user recovery is already mailed."""
     command = MailUserRecoveryCommand(uuid=str(user_recovery.uuid))
     with pytest.raises(UnprocessableException):
         MailUserRecovery(

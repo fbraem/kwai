@@ -5,6 +5,7 @@ from kwai.modules.identity.users.user import UserEntity
 
 
 def test_create():
+    """Test user constructor."""
     user = UserEntity(
         name=Name(first_name="Jigoro", last_name="Kano"),
         email=EmailAddress("jigoro.kano@kwai.com"),

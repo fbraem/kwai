@@ -12,6 +12,7 @@ from kwai.modules.identity.users.user_account import UserAccountEntity
 
 
 def test_create():
+    """Test creation of an access token."""
     account = UserAccountEntity(
         password=Password.create_from_string("Test1234"),
         user=UserEntity(
