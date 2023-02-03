@@ -2,13 +2,14 @@
 from sql_smith.functions import on
 
 from kwai.core.db.database_query import DatabaseQuery
+from kwai.modules.identity.users.user_tables import UserAccountsTable
+
 from .refresh_token_query import RefreshTokenQuery
 from .token_identifier import TokenIdentifier
 from .token_tables import (
-    RefreshTokensTable,
     AccessTokensTable,
+    RefreshTokensTable,
 )
-from kwai.modules.identity.users.user_tables import UserAccountsTable
 
 
 class RefreshTokenDbQuery(RefreshTokenQuery, DatabaseQuery):
