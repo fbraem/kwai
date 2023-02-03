@@ -40,4 +40,4 @@ jobs:
     - name: Analysing the tests with pylint
       working-directory: ./backend/src
       run: |
-        poetry run pylint ./tests
+        poetry run pylint ./tests --disable==redefined-outer-name
