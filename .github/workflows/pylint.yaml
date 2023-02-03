@@ -32,9 +32,9 @@ jobs:
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       working-directory: backend/src
       run: |
-        pwd
         poetry install --no-interaction --no-root
     - name: Analysing the code with pylint
       working-directory: ./backend/src
       run: |
-        poetry run pylint --recursive=y
+        poetry run pylint ./kwai
+        poetry run pylint ./tests
