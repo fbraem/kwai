@@ -1,3 +1,6 @@
+"""Module that defines common identity exceptions."""
+
+
 class AuthenticationException(Exception):
     """Raised when authentication is not allowed."""
 
