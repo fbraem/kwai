@@ -9,11 +9,17 @@ from loguru import logger
 from starlette.middleware.cors import CORSMiddleware
 
 from kwai.api.v1.auth.api import api_router
-from kwai.core.settings import Settings
+from kwai.core.dependencies import container
+from kwai.core.settings import Settings, SettingsException
 
 
-def create_app(settings: Settings) -> FastAPI:
+def create_app() -> FastAPI:
     """Create the FastAPI application."""
+    try:
+        settings = container[Settings]
+    except SettingsException as se:
+        logger.error(f"Could not load settings: {se}")
+        sys.exit(0)
 
     def startup():
         logger.info("KWAI is starting")
