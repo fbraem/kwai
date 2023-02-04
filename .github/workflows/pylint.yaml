@@ -7,7 +7,7 @@ on:
       - backend/tests/**
 
 jobs:
-  setup:
+  pylint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -34,22 +34,10 @@ jobs:
       working-directory: backend/src
       run: |
         poetry install --no-interaction --no-root
-
-  check_code:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
     - name: Analysing the code with pylint
       working-directory: backend/src
       run: |
-        pwd
-        ls -lart
         poetry run pylint ./kwai
-
-  check_tests:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
     - name: Analysing the tests with pylint
       working-directory: backend/src
       run: |
