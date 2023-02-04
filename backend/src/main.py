@@ -1,18 +1,29 @@
 """Module for starting the api server."""
-import sys
+import argparse
 
 import uvicorn
-from loguru import logger
 
-from kwai.app import create_app
-from kwai.core.dependencies import container
-from kwai.core.settings import Settings, SettingsException
+
+def create_args():
+    """Parse and create cli arguments."""
+    parser = argparse.ArgumentParser(description="kwai backend")
+    parser.add_argument(
+        "--reload",
+        action=argparse.BooleanOptionalAction,
+        help="Watch for code changes or not",
+    )
+    parser.add_argument(
+        "--port", type=int, default=8000, help="The port of the api server."
+    )
+    return parser.parse_args()
+
 
 if __name__ == "__main__":
-    try:
-        settings = container[Settings]
-    except SettingsException as se:
-        logger.error(f"Could not load settings: {se}")
-        sys.exit(0)
-
-    uvicorn.run(create_app(settings), host="0.0.0.0", port=8000)
+    args = create_args()
+    uvicorn.run(
+        "kwai.app:create_app",
+        host="0.0.0.0",
+        port=args.port,
+        factory=True,
+        reload=args.reload,
+    )
