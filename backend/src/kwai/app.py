@@ -1,4 +1,4 @@
-"""Module that implements create_app method."""
+"""Module that implements a factory method for a FastAPI application."""
 import os
 import sys
 import uuid
