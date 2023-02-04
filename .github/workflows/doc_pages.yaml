@@ -1,3 +1,5 @@
+name: sphinx
+
 on:
   push:
     tags: '*'
