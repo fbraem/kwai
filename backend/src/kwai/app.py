@@ -17,8 +17,8 @@ def create_app() -> FastAPI:
     """Create the FastAPI application."""
     try:
         settings = container[Settings]
-    except SettingsException as se:
-        logger.error(f"Could not load settings: {se}")
+    except SettingsException as ex:
+        logger.error(f"Could not load settings: {ex}")
         sys.exit(0)
 
     def startup():
