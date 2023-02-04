@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Analysing the code with pylint
-      working-directory: ./backend/src
+      working-directory: backend/src
       run: |
         poetry run pylint ./kwai
 
@@ -49,6 +49,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Analysing the tests with pylint
-      working-directory: ./backend/src
+      working-directory: backend/src
       run: |
         poetry run pylint ./tests --disable=redefined-outer-name
