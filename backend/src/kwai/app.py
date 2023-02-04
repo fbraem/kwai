@@ -13,13 +13,14 @@ from kwai.core.dependencies import container
 from kwai.core.settings import Settings, SettingsException
 
 
-def create_app() -> FastAPI:
+def create_app(settings: Settings | None = None) -> FastAPI:
     """Create the FastAPI application."""
-    try:
-        settings = container[Settings]
-    except SettingsException as ex:
-        logger.error(f"Could not load settings: {ex}")
-        sys.exit(0)
+    if settings is None:
+        try:
+            settings = container[Settings]
+        except SettingsException as ex:
+            logger.error(f"Could not load settings: {ex}")
+            sys.exit(0)
 
     def startup():
         logger.info("KWAI is starting")
