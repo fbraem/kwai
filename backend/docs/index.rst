@@ -3,11 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Kwai backend
-============
-
-The kwai backend provides an api for kwai. All server side code is written with Python.
-FastAPI_ is used as web framework.
+.. include:: ../README.rst
 
 Prerequisites
 -------------
@@ -36,9 +32,10 @@ dbmate_ is used as migration tool.
    dbmate -d "./migrations" --url protocol://user:password@host:port/database migrate
 ..
 
-    **Note:** only "up" migrations are provided. Create a backup of the database before
-    running the migrations. Although dbmate can run "down" migrations, they are not
-    used because these are hard to test and can generate more problems than they solve.
+.. note::
+   only "up" migrations are provided. Create a backup of the database before
+   running the migrations. Although dbmate can run "down" migrations, they are not
+   used because these are hard to test and can generate more problems than they solve.
 
 .. toctree::
    :maxdepth: 1
@@ -54,6 +51,5 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
-.. _FastAPI: https://fastapi.tiangolo.com
 .. _Poetry: https://python-poetry.org
 .. _dbmate: https://github.com/amacneil/dbmate
