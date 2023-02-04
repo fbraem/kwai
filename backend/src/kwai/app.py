@@ -14,7 +14,13 @@ from kwai.core.settings import Settings, SettingsException
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
-    """Create the FastAPI application."""
+    """Create the FastAPI application.
+
+    When settings is None (the default), the dependency container will
+    load the settings.
+
+    :parameter settings: Settings to use in this application.
+    """
     if settings is None:
         try:
             settings = container[Settings]
