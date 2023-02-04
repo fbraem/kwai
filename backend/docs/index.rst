@@ -24,7 +24,7 @@ available from the internet.
 
 Database
 ````````
-Kwai needs a database. Migration files are available in the folder migrations.
+The kwai backend needs a database. Migration files are available in the folder ``migrations``.
 dbmate_ is used as migration tool.
 
 .. code-block:: sh
