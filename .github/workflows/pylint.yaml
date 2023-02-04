@@ -42,6 +42,8 @@ jobs:
     - name: Analysing the code with pylint
       working-directory: backend/src
       run: |
+        pwd
+        ls -lart
         poetry run pylint ./kwai
 
   check_tests:
