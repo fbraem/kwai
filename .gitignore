@@ -5,3 +5,6 @@
 /backend/kwai.toml
 .ruff_cache
 .mypy_cache
+/backend/docs/_build/
+/backend/docs/_static/
+/backend/docs/_templates/
