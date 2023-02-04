@@ -8,3 +8,5 @@
 /backend/docs/_build/
 /backend/docs/_static/
 /backend/docs/_templates/
+/backend/docs/kwai/
+/backend/docs/tests/
