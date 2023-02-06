@@ -1,5 +1,7 @@
 site_name: kwai API
 site_description: kwai, the sports club management system.
+site_dir: ./_site
+docs_dir: ./docs
 
 theme:
   name: "material"
