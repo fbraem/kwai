@@ -25,11 +25,8 @@ jobs:
         mkdir -p gh-pages/backend
         touch gh-pages/.nojekyll
         cd backend/src
-        poetry run sphinx-apidoc -o ../docs/kwai ./kwai
-        poetry run sphinx-apidoc -o ../docs/tests ./tests
-        cd backend/docs
-        make html
-        cp -r _build/* ../../gh-pages/backend        
+        poetry run mkdocs build -f ../mkdocs.yml
+        cp -r _site/* ../../gh-pages/backend
     - name: Deploy documentation
       if: ${{ github.event_name == 'push' }}
       uses: JamesIves/github-pages-deploy-action@4.1.4
