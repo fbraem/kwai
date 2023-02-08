@@ -18,7 +18,7 @@ class table:  # pylint: disable=invalid-name, too-few-public-methods
         self._table_name = name
 
     def __call__(self, data_class: Any):
-        """Wrapping the dataclass with Table class."""
+        """Wrap the dataclass with Table class."""
         assert is_dataclass(data_class)
 
         class Table(data_class):
