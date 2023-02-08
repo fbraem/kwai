@@ -25,7 +25,7 @@ lagom = "^2.2.0"
 pytest = "^7.2.0"
 pylint = "^2.15.9"
 black = {extras = ["d"], version = "^22.12.0"}
-mypy = "^0.991"
+mypy = "^1.0.0"
 ruff = "^0.0.235"
 pytest-sugar = "^0.9.6"
 httpx = "^0.23.3"
@@ -50,6 +50,7 @@ disable="duplicate-code"
 max-line-length = "88"
 
 [tool.mypy]
+plugins = "kwai_mypy.py"
 
 [[tool.mypy.overrides]]
 module = "sql_smith.*"
