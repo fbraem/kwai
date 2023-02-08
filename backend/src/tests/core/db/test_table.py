@@ -19,7 +19,7 @@ class ModelTest:
 
 def test_wrong_class():
     """Test if the check for a dataclass works."""
-    with pytest.raises(RuntimeError):
+    with pytest.raises(AssertionError):
 
         # pylint: disable=unused-variable,too-few-public-methods
         @table(name="wrong")
@@ -33,6 +33,12 @@ def test_create_aliases():
     aliases = ModelTest.aliases()
     assert len(aliases) == 3, "There should be at least 3 aliases"
     assert aliases[0].sql(CommonEngine()), '"users"."id" AS "users_id"'
+
+
+def test_column():
+    """Test the column method."""
+    column = ModelTest.column("name")
+    assert column, "users.name"
 
 
 def test_create_aliases_with_other_table_name():
