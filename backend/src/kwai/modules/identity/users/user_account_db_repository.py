@@ -38,41 +38,20 @@ class UserAccountDbRepository(UserAccountRepository):
         raise UserAccountNotFoundException()
 
     def create(self, user_account: UserAccountEntity) -> UserAccountEntity:
-        record = dataclasses.asdict(UserAccountsTable.persist(user_account))
-        del record["id"]
-        query = (
-            self._database.create_query_factory()
-            .insert(UserAccountsTable.__table_name__)
-            .columns(*record.keys())
-            .values(*record.values())
-        )
-        last_insert_id = self._database.execute(query)
+        new_id = self._database.insert(UserAccountsTable.persist(user_account))
         self._database.commit()
         return dataclasses.replace(
             user_account,
-            id=UserAccountIdentifier(last_insert_id),
-            user=dataclasses.replace(
-                user_account.user, id=UserIdentifier(last_insert_id)
-            ),
+            id=UserAccountIdentifier(new_id),
+            user=dataclasses.replace(user_account.user, id=UserIdentifier(new_id)),
         )
 
     def update(self, user_account: UserAccountEntity):
-        record = dataclasses.asdict(UserAccountsTable.persist(user_account))
-        del record["id"]
-        query = (
-            self._database.create_query_factory()
-            .update(UserAccountsTable.__table_name__)
-            .set(record)
-            .where(UserAccountsTable.field("id").eq(user_account.id.value))
+        self._database.update(
+            user_account.id.value, UserAccountsTable.persist(user_account)
         )
-        self._database.execute(query)
         self._database.commit()
 
     def delete(self, user_account):
-        query = (
-            self._database.create_query_factory()
-            .delete(UserAccountsTable.__table_name__)
-            .where(UserAccountsTable.field("id").eq(user_account.id.value))
-        )
-        self._database.execute(query)
+        self._database.delete(user_account.id.value, UserAccountsTable.__table_name__)
         self._database.commit()
