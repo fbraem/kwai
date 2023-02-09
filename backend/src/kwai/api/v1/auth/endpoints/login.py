@@ -1,7 +1,7 @@
 """Module that implements all APIs for login."""
+import jwt
 from fastapi import APIRouter, Depends, status, HTTPException, Form, Response
 from fastapi.security import OAuth2PasswordRequestForm
-from jose import jwt
 from loguru import logger
 from pydantic import BaseModel
 

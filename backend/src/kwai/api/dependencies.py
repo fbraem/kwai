@@ -1,7 +1,7 @@
 """Module that integrates the dependencies in FastAPI."""
+import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from jose import jwt
 from lagom.integrations.fast_api import FastApiIntegration
 
 from kwai.core.db.database import Database
