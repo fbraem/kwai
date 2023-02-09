@@ -94,6 +94,7 @@ class UserAccountsTable:
             revoked=self.revoked == 1,
             admin=self.admin == 1,
             user=UserEntity(
+                id=UserIdentifier(self.id),
                 uuid=UniqueId.create_from_string(self.uuid),
                 name=Name(
                     first_name=self.first_name,
