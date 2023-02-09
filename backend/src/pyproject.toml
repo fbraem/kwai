@@ -51,7 +51,7 @@ disable="duplicate-code"
 max-line-length = "88"
 
 [tool.mypy]
-plugins = "kwai_mypy.py"
+plugins = "kwai/kwai_mypy.py"
 
 [[tool.mypy.overrides]]
 module = "sql_smith.*"
