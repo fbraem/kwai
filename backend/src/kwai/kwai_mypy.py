@@ -1,5 +1,5 @@
 """Module that defines a plugin for MyPy."""
-
+# pylint: skip-file
 from mypy.nodes import Var, SymbolTableNode, MDEF
 from mypy.plugin import Plugin
 
