@@ -13,7 +13,7 @@ from kwai.modules.identity.tokens.refresh_token import (
     RefreshTokenIdentifier,
 )
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
-from kwai.modules.identity.users.user_tables import UserAccountMapper
+from kwai.modules.identity.users.user_account import UserAccountEntity
 
 
 @table(name="oauth_access_tokens")
@@ -29,6 +29,20 @@ class AccessTokensTable:
     created_at: datetime
     updated_at: datetime
 
+    def create_entity(self, user_account: UserAccountEntity) -> AccessTokenEntity:
+        """Create an entity from the table row."""
+        return AccessTokenEntity(
+            id=AccessTokenIdentifier(self.id),
+            identifier=TokenIdentifier(self.identifier),
+            expiration=self.expiration,
+            user_account=user_account,
+            revoked=self.revoked,
+            traceable_time=TraceableTime(
+                created_at=self.created_at,
+                updated_at=self.updated_at,
+            ),
+        )
+
     @classmethod
     def persist(cls, access_token: AccessTokenEntity) -> "AccessTokensTable":
         """Persist an access token entity to a table record."""
@@ -40,28 +54,6 @@ class AccessTokensTable:
             revoked=access_token.revoked,
             created_at=access_token.traceable_time.created_at,
             updated_at=access_token.traceable_time.updated_at,
-        )
-
-
-@dataclass(kw_only=True, frozen=True)
-class AccessTokenMapper:
-    """Transforms a row into an access token entity."""
-
-    access_token_table: AccessTokensTable
-    user_account_mapper: UserAccountMapper
-
-    def create_entity(self) -> AccessTokenEntity:
-        """Create an access token entity from a table row."""
-        return AccessTokenEntity(
-            id=AccessTokenIdentifier(self.access_token_table.id),
-            identifier=TokenIdentifier(self.access_token_table.identifier),
-            expiration=self.access_token_table.expiration,
-            user_account=self.user_account_mapper.create_entity(),
-            revoked=self.access_token_table.revoked,
-            traceable_time=TraceableTime(
-                created_at=self.access_token_table.created_at,
-                updated_at=self.access_token_table.updated_at,
-            ),
         )
 
 
@@ -78,6 +70,20 @@ class RefreshTokensTable:
     created_at: datetime
     updated_at: datetime
 
+    def create_entity(self, access_token: AccessTokenEntity) -> RefreshTokenEntity:
+        """Create a refresh token entity from the table row."""
+        return RefreshTokenEntity(
+            id=RefreshTokenIdentifier(self.id),
+            identifier=TokenIdentifier(self.identifier),
+            access_token=access_token,
+            expiration=self.expiration,
+            revoked=self.revoked,
+            traceable_time=TraceableTime(
+                created_at=self.created_at,
+                updated_at=self.updated_at,
+            ),
+        )
+
     @classmethod
     def persist(cls, refresh_token: RefreshTokenEntity) -> "RefreshTokensTable":
         """Transform a refresh token entity into a table record."""
@@ -89,26 +95,4 @@ class RefreshTokensTable:
             revoked=refresh_token.revoked,
             created_at=refresh_token.traceable_time.created_at,
             updated_at=refresh_token.traceable_time.updated_at,
-        )
-
-
-@dataclass(kw_only=True, frozen=True)
-class RefreshTokenMapper:
-    """Transforms a row into a refresh token entity."""
-
-    refresh_token_table: RefreshTokensTable
-    access_token_mapper: AccessTokenMapper
-
-    def create_entity(self) -> RefreshTokenEntity:
-        """Create a refresh token entity from a table record."""
-        return RefreshTokenEntity(
-            id=RefreshTokenIdentifier(self.refresh_token_table.id),
-            identifier=TokenIdentifier(self.refresh_token_table.identifier),
-            access_token=self.access_token_mapper.create_entity(),
-            expiration=self.refresh_token_table.expiration,
-            revoked=self.refresh_token_table.revoked,
-            traceable_time=TraceableTime(
-                created_at=self.refresh_token_table.created_at,
-                updated_at=self.refresh_token_table.updated_at,
-            ),
         )

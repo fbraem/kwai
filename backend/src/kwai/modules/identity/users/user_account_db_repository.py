@@ -1,6 +1,5 @@
 """Module that implements a user account repository for a database."""
 import dataclasses
-from typing import Any
 
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
@@ -15,18 +14,7 @@ from kwai.modules.identity.users.user_account_repository import (
 )
 from kwai.modules.identity.users.user_tables import (
     UserAccountsTable,
-    UserAccountMapper,
 )
-
-
-# pylint: disable=no-member
-
-
-def map_user_account(row: dict[str, Any]) -> UserAccountEntity:
-    """Create a user account entity from a row."""
-    return UserAccountMapper(
-        user_accounts_table=UserAccountsTable.map_row(row)
-    ).create_entity()
 
 
 class UserAccountDbRepository(UserAccountRepository):
@@ -45,7 +33,7 @@ class UserAccountDbRepository(UserAccountRepository):
         )
         row = self._database.fetch_one(query)
         if row:
-            return map_user_account(row)
+            return UserAccountsTable.map_row(row).create_entity()
 
         raise UserAccountNotFoundException()
 

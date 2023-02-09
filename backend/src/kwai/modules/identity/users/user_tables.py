@@ -32,6 +32,22 @@ class UsersTable:
     updated_at: datetime | None
     member_id: int | None
 
+    def create_entity(self) -> UserEntity:
+        """Create a user entity from a table row."""
+        return UserEntity(
+            id=UserIdentifier(self.id),
+            uuid=UniqueId.create_from_string(self.uuid),
+            name=Name(
+                first_name=self.first_name,
+                last_name=self.last_name,
+            ),
+            email=EmailAddress(self.email),
+            traceable_time=TraceableTime(
+                created_at=self.created_at,
+                updated_at=self.updated_at,
+            ),
+        )
+
     @classmethod
     def persist(cls, user: UserEntity) -> "UsersTable":
         """Transform a user entity into a table record."""
@@ -45,29 +61,6 @@ class UsersTable:
             created_at=user.traceable_time.created_at,
             updated_at=user.traceable_time.updated_at,
             member_id=None,
-        )
-
-
-@dataclass(kw_only=True, frozen=True)
-class UserMapper:
-    """Transform a table record into a user entity."""
-
-    users_table: UsersTable
-
-    def create_entity(self) -> UserEntity:
-        """Create a user entity from a table row."""
-        return UserEntity(
-            id=UserIdentifier(self.users_table.id),
-            uuid=UniqueId.create_from_string(self.users_table.uuid),
-            name=Name(
-                first_name=self.users_table.first_name,
-                last_name=self.users_table.last_name,
-            ),
-            email=EmailAddress(self.users_table.email),
-            traceable_time=TraceableTime(
-                created_at=self.users_table.created_at,
-                updated_at=self.users_table.updated_at,
-            ),
         )
 
 
@@ -91,6 +84,29 @@ class UserAccountsTable:
     revoked: int
     admin: int
 
+    def create_entity(self) -> UserAccountEntity:
+        """Create a user account entity from the table row."""
+        return UserAccountEntity(
+            id=UserAccountIdentifier(self.id),
+            password=Password(hashed_password=self.password),
+            last_login=LocalTimestamp(self.last_login),
+            last_unsuccessful_login=LocalTimestamp(self.last_unsuccessful_login),
+            revoked=self.revoked == 1,
+            admin=self.admin == 1,
+            user=UserEntity(
+                uuid=UniqueId.create_from_string(self.uuid),
+                name=Name(
+                    first_name=self.first_name,
+                    last_name=self.last_name,
+                ),
+                email=EmailAddress(self.email),
+                traceable_time=TraceableTime(
+                    created_at=self.created_at,
+                    updated_at=self.updated_at,
+                ),
+            ),
+        )
+
     @classmethod
     def persist(cls, user_account: UserAccountEntity) -> "UserAccountsTable":
         """Transform a user account entity into a table record."""
@@ -109,36 +125,4 @@ class UserAccountsTable:
             password=str(user_account.password),
             revoked=1 if user_account.revoked else 0,
             admin=1 if user_account.admin else 0,
-        )
-
-
-@dataclass(kw_only=True, frozen=True)
-class UserAccountMapper:
-    """Transform a table record into a user account entity."""
-
-    user_accounts_table: UserAccountsTable
-
-    def create_entity(self) -> UserAccountEntity:
-        """Create a user entity from a table row."""
-        return UserAccountEntity(
-            id=UserAccountIdentifier(self.user_accounts_table.id),
-            password=Password(hashed_password=self.user_accounts_table.password),
-            last_login=LocalTimestamp(self.user_accounts_table.last_login),
-            last_unsuccessful_login=LocalTimestamp(
-                self.user_accounts_table.last_unsuccessful_login
-            ),
-            revoked=self.user_accounts_table.revoked == 1,
-            admin=self.user_accounts_table.admin == 1,
-            user=UserEntity(
-                uuid=UniqueId.create_from_string(self.user_accounts_table.uuid),
-                name=Name(
-                    first_name=self.user_accounts_table.first_name,
-                    last_name=self.user_accounts_table.last_name,
-                ),
-                email=EmailAddress(self.user_accounts_table.email),
-                traceable_time=TraceableTime(
-                    created_at=self.user_accounts_table.created_at,
-                    updated_at=self.user_accounts_table.updated_at,
-                ),
-            ),
         )

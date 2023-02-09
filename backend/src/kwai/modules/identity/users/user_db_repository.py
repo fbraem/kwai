@@ -8,9 +8,7 @@ from kwai.modules.identity.users.user_repository import (
     UserRepository,
     UserNotFoundException,
 )
-from kwai.modules.identity.users.user_tables import UserMapper, UsersTable
-
-# pylint: disable=no-member
+from kwai.modules.identity.users.user_tables import UsersTable
 
 
 class UserDbRepository(UserRepository):
@@ -37,7 +35,7 @@ class UserDbRepository(UserRepository):
 
         row = query.fetch_one()
         if row:
-            return UserMapper(users_table=UsersTable.map_row(row)).create_entity()
+            return UsersTable.map_row(row).create_entity()
 
         raise UserNotFoundException()
 
@@ -51,7 +49,7 @@ class UserDbRepository(UserRepository):
 
         row = query.fetch_one()
         if row:
-            return UserMapper(users_table=UsersTable.map_row(row)).create_entity()
+            return UsersTable.map_row(row).create_entity()
 
         raise UserNotFoundException()
 
@@ -65,6 +63,6 @@ class UserDbRepository(UserRepository):
 
         row = query.fetch_one()
         if row:
-            return UserMapper(users_table=UsersTable.map_row(row)).create_entity()
+            return UsersTable.map_row(row).create_entity()
 
         raise UserNotFoundException()

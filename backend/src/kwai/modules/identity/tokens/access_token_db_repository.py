@@ -1,6 +1,6 @@
 """Module that implements an access token repository for a database."""
 import dataclasses
-from typing import Iterator
+from typing import Iterator, Any
 
 from kwai.core.db.database import Database
 from kwai.modules.identity.tokens.access_token import (
@@ -15,21 +15,16 @@ from kwai.modules.identity.tokens.access_token_repository import (
 )
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.tokens.token_tables import (
-    AccessTokenMapper,
     AccessTokensTable,
 )
-from kwai.modules.identity.users.user_tables import UserAccountMapper, UserAccountsTable
+from kwai.modules.identity.users.user_tables import UserAccountsTable
 
 
-def map_access_token(row) -> AccessTokenEntity:
+def _create_entity(row: dict[str, Any]) -> AccessTokenEntity:
     """Create an access token entity from a row."""
-    # pylint: disable=no-member
-    return AccessTokenMapper(
-        access_token_table=AccessTokensTable.map_row(row),
-        user_account_mapper=UserAccountMapper(
-            user_accounts_table=UserAccountsTable.map_row(row)
-        ),
-    ).create_entity()
+    return AccessTokensTable.map_row(row).create_entity(
+        UserAccountsTable.map_row(row).create_entity()
+    )
 
 
 class AccessTokenDbRepository(AccessTokenRepository):
@@ -47,7 +42,7 @@ class AccessTokenDbRepository(AccessTokenRepository):
 
         row = query.fetch_one()
         if row:
-            return map_access_token(row)
+            return _create_entity(row)
 
         raise AccessTokenNotFoundException
 
@@ -57,7 +52,7 @@ class AccessTokenDbRepository(AccessTokenRepository):
 
         row = query.fetch_one()
         if row:
-            return map_access_token(row)
+            return _create_entity(row)
 
         raise AccessTokenNotFoundException
 
@@ -69,7 +64,7 @@ class AccessTokenDbRepository(AccessTokenRepository):
     ) -> Iterator[AccessTokenEntity]:
         query = query or self.create_query()
         for row in query.fetch(limit, offset):
-            yield map_access_token(row)
+            yield _create_entity(row)
 
     def create(self, access_token: AccessTokenEntity) -> AccessTokenEntity:
         new_id = self._database.insert(AccessTokensTable.persist(access_token))

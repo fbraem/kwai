@@ -10,7 +10,7 @@ from kwai.modules.identity.user_recoveries.user_recovery import (
     UserRecoveryIdentifier,
     UserRecoveryEntity,
 )
-from kwai.modules.identity.users.user_tables import UserMapper
+from kwai.modules.identity.users.user import UserEntity
 
 
 @table(name="user_recoveries")
@@ -31,6 +31,25 @@ class UserRecoveriesTable:
     created_at: datetime
     updated_at: datetime | None
 
+    def create_entity(self, user: UserEntity) -> UserRecoveryEntity:
+        """Create a user recovery entity from the table row."""
+        return UserRecoveryEntity(
+            id=UserRecoveryIdentifier(self.id),
+            uuid=UniqueId.create_from_string(self.uuid),
+            user=user,
+            expiration=LocalTimestamp(
+                self.expired_at,
+                self.expired_at_timezone,
+            ),
+            remark=self.remark,
+            confirmation=LocalTimestamp(self.confirmed_at),
+            mailed_at=LocalTimestamp(self.mailed_at),
+            traceable_time=TraceableTime(
+                created_at=self.created_at,
+                updated_at=self.updated_at,
+            ),
+        )
+
     @classmethod
     def persist(cls, user_recovery: UserRecoveryEntity) -> "UserRecoveriesTable":
         """Map a user recovery entity to a table record."""
@@ -45,31 +64,4 @@ class UserRecoveriesTable:
             remark=user_recovery.remark,
             created_at=user_recovery.traceable_time.created_at,
             updated_at=user_recovery.traceable_time.updated_at,
-        )
-
-
-@dataclass(kw_only=True, frozen=True)
-class UserRecoveryMapper:
-    """Mapper for creating a user recovery entity from a table record."""
-
-    user_recoveries_table: UserRecoveriesTable
-    user_mapper: UserMapper
-
-    def create_entity(self) -> UserRecoveryEntity:
-        """Create the entity."""
-        return UserRecoveryEntity(
-            id=UserRecoveryIdentifier(self.user_recoveries_table.id),
-            uuid=UniqueId.create_from_string(self.user_recoveries_table.uuid),
-            user=self.user_mapper.create_entity(),
-            expiration=LocalTimestamp(
-                self.user_recoveries_table.expired_at,
-                self.user_recoveries_table.expired_at_timezone,
-            ),
-            remark=self.user_recoveries_table.remark,
-            confirmation=LocalTimestamp(self.user_recoveries_table.confirmed_at),
-            mailed_at=LocalTimestamp(self.user_recoveries_table.mailed_at),
-            traceable_time=TraceableTime(
-                created_at=self.user_recoveries_table.created_at,
-                updated_at=self.user_recoveries_table.updated_at,
-            ),
         )

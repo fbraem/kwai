@@ -17,27 +17,19 @@ from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.tokens.token_tables import (
     RefreshTokensTable,
     AccessTokensTable,
-    RefreshTokenMapper,
-    AccessTokenMapper,
 )
 from kwai.modules.identity.users.user_tables import (
-    UserAccountMapper,
     UserAccountsTable,
 )
 
 
-def map_refresh_token(row) -> RefreshTokenEntity:
+def _create_entity(row) -> RefreshTokenEntity:
     """Create a refresh token entity from a row."""
-    # pylint: disable=no-member
-    return RefreshTokenMapper(
-        refresh_token_table=RefreshTokensTable.map_row(row),
-        access_token_mapper=AccessTokenMapper(
-            access_token_table=AccessTokensTable.map_row(row),
-            user_account_mapper=UserAccountMapper(
-                user_accounts_table=UserAccountsTable.map_row(row)
-            ),
-        ),
-    ).create_entity()
+    return RefreshTokensTable.map_row(row).create_entity(
+        AccessTokensTable.map_row(row).create_entity(
+            UserAccountsTable.map_row(row).create_entity()
+        )
+    )
 
 
 class RefreshTokenDbRepository(RefreshTokenRepository):
@@ -57,7 +49,7 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
 
         row = query.fetch_one()
         if row:
-            return map_refresh_token(row)
+            return _create_entity(row)
 
         raise RefreshTokenNotFoundException()
 
@@ -66,7 +58,7 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
         query.filter_by_id(id_.value)
         row = query.fetch_one()
         if row:
-            return map_refresh_token(row)
+            return _create_entity(row)
 
         raise RefreshTokenNotFoundException()
 
@@ -78,7 +70,7 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
     ) -> Iterator[RefreshTokenEntity]:
         query = query or self.create_query()
         for row in query.fetch(limit, offset):
-            yield map_refresh_token(row)
+            yield _create_entity(row)
 
     def create(self, refresh_token: RefreshTokenEntity) -> RefreshTokenEntity:
         new_id = self._database.insert(RefreshTokensTable.persist(refresh_token))

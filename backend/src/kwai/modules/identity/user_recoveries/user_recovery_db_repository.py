@@ -16,20 +16,15 @@ from kwai.modules.identity.user_recoveries.user_recovery_repository import (
 )
 from kwai.modules.identity.user_recoveries.user_recovery_tables import (
     UserRecoveriesTable,
-    UserRecoveryMapper,
 )
-from kwai.modules.identity.users.user_tables import UserMapper, UsersTable
+from kwai.modules.identity.users.user_tables import UsersTable
 
 
-# pylint: disable=(no-member)
-
-
-def map_user_recovery(row: dict[str, Any]) -> UserRecoveryEntity:
+def _create_entity(row: dict[str, Any]) -> UserRecoveryEntity:
     """Map the user recovery record to an entity."""
-    return UserRecoveryMapper(
-        user_recoveries_table=UserRecoveriesTable.map_row(row),
-        user_mapper=UserMapper(users_table=UsersTable.map_row(row)),
-    ).create_entity()
+    return UserRecoveriesTable.map_row(row).create_entity(
+        UsersTable.map_row(row).create_entity()
+    )
 
 
 class UserRecoveryDbRepository(UserRecoveryRepository):
@@ -63,7 +58,7 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
         )
         row = self._database.fetch_one(query)
         if row:
-            return map_user_recovery(row)
+            return _create_entity(row)
 
         raise UserRecoveryNotFoundException()
 
