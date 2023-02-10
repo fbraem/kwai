@@ -113,34 +113,30 @@ class Database:
         except Exception as exc:
             raise QueryException(compiled_query.sql) from exc
 
-    def insert(self, table_data: Any) -> int:
+    def insert(self, table_name: str, table_data: Any) -> int:
         """Insert a dataclass into the given table."""
-        assert dataclasses.is_dataclass(table_data) and hasattr(
-            table_data, "__table_name__"
-        ), "Data should be decorated with @table"
+        assert dataclasses.is_dataclass(table_data), "table_data should be a dataclass"
 
         record = dataclasses.asdict(table_data)
         del record["id"]
         query = (
             self.create_query_factory()
-            .insert(table_data.__table_name__)
+            .insert(table_name)
             .columns(*record.keys())
             .values(*record.values())
         )
         last_insert_id = self.execute(query)
         return last_insert_id
 
-    def update(self, id_: Any, table_data: Any):
+    def update(self, id_: Any, table_name: str, table_data: Any):
         """Update a dataclass in the given table."""
-        assert dataclasses.is_dataclass(table_data) and hasattr(
-            table_data, "__table_name__"
-        ), "Data should be decorated with @table"
+        assert dataclasses.is_dataclass(table_data), "table_data should be a dataclass"
 
         record = dataclasses.asdict(table_data)
         del record["id"]
         query = (
             self.create_query_factory()
-            .update(table_data.__table_name__)
+            .update(table_name)
             .set(record)
             .where(field("id").eq(id_))
         )

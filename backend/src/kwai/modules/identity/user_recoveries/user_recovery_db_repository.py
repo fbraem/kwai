@@ -16,15 +16,14 @@ from kwai.modules.identity.user_recoveries.user_recovery_repository import (
 )
 from kwai.modules.identity.user_recoveries.user_recovery_tables import (
     UserRecoveriesTable,
+    UserRecoveryRow,
 )
 from kwai.modules.identity.users.user_tables import UsersTable
 
 
 def _create_entity(row: dict[str, Any]) -> UserRecoveryEntity:
     """Map the user recovery record to an entity."""
-    return UserRecoveriesTable.map_row(row).create_entity(
-        UsersTable.map_row(row).create_entity()
-    )
+    return UserRecoveriesTable(row).create_entity(UsersTable(row).create_entity())
 
 
 class UserRecoveryDbRepository(UserRecoveryRepository):
@@ -34,13 +33,17 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
         self._database = database
 
     def create(self, user_recovery: UserRecoveryEntity) -> UserRecoveryEntity:
-        new_id = self._database.insert(UserRecoveriesTable.persist(user_recovery))
+        new_id = self._database.insert(
+            UserRecoveriesTable.table_name, UserRecoveryRow.persist(user_recovery)
+        )
         self._database.commit()
         return dataclasses.replace(user_recovery, id=UserRecoveryIdentifier(new_id))
 
     def update(self, user_recovery: UserRecoveryEntity):
         self._database.update(
-            user_recovery.id.value, UserRecoveriesTable.persist(user_recovery)
+            user_recovery.id.value,
+            UserRecoveriesTable.table_name,
+            UserRecoveryRow.persist(user_recovery),
         )
         self._database.commit()
 
@@ -49,9 +52,9 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
             self._database.create_query_factory()
             .select()
             .columns(*(UserRecoveriesTable.aliases() + UsersTable.aliases()))
-            .from_(UserRecoveriesTable.__table_name__)
+            .from_(UserRecoveriesTable.table_name)
             .join(
-                UsersTable.__table_name__,
+                UsersTable.table_name,
                 on(UserRecoveriesTable.column("user_id"), UsersTable.column("id")),
             )
             .and_where(UserRecoveriesTable.field("uuid").eq(str(uuid)))
@@ -63,7 +66,5 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
         raise UserRecoveryNotFoundException()
 
     def delete(self, user_recovery: UserRecoveryEntity):
-        self._database.delete(
-            user_recovery.id.value, UserRecoveriesTable.__table_name__
-        )
+        self._database.delete(user_recovery.id.value, UserRecoveriesTable.table_name)
         self._database.commit()

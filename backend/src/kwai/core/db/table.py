@@ -1,68 +1,67 @@
 """Module for the table decorator."""
 
 from dataclasses import fields, is_dataclass
-from typing import Any
+from typing import Any, TypeVar, Generic, Callable
 
 from sql_smith.functions import alias
 from sql_smith.functions import field as sql_field
 
+T = TypeVar("T", bound=Callable)
 
-# noinspection PyPep8Naming
-class table:  # pylint: disable=invalid-name, too-few-public-methods
-    """A decorator that will add methods to a dataclass for handling database tables.
 
-    The table name will be stored in the __table_name__ class variable.
+class Table(Generic[T]):
+    """Represent a table in the database.
+
+    With this class a table row can be transformed into a dataclass. It can also
+    be used to generate columns or aliases for queries.
     """
 
-    def __init__(self, name: str):
-        self._table_name = name
-
-    def __call__(self, data_class: Any):
-        """Wrap the dataclass with Table class."""
+    def __init__(self, table_name: str, data_class: T):
         assert is_dataclass(data_class)
+        self._table_name: str = table_name
+        self._data_class: T = data_class
 
-        class Table(data_class):
-            """A class that represents a table record."""
+    @property
+    def table_name(self) -> str:
+        """Return the table name."""
+        return self._table_name
 
-            __table_name__: str = self._table_name
+    def __call__(self, row: dict[str, Any]):
+        """Shortcut for map_row."""
+        return self.map_row(row)
 
-            @classmethod
-            def aliases(
-                cls, table_name=self._table_name
-            ):  # pylint: disable=protected-access
-                """Return aliases for all fields of the dataclass."""
-                return [
-                    alias(table_name + "." + prop.name, table_name + "_" + prop.name)
-                    for prop in fields(cls)
-                ]
+    def aliases(self, table_name: str | None = None):
+        """Return aliases for all fields of the dataclass."""
+        table_name = table_name or self._table_name
+        return [
+            alias(table_name + "." + prop.name, table_name + "_" + prop.name)
+            for prop in fields(self._data_class)
+        ]
 
-            @classmethod
-            def column(cls, column_name: str) -> str:
-                """Return column as <table>.<column>."""
-                return cls.__table_name__ + "." + column_name
+    def column(self, column_name: str) -> str:
+        """Return column as <table>.<column>."""
+        return self._table_name + "." + column_name
 
-            @classmethod
-            def field(cls, column_name: str):
-                """Call sql-smith field with the given column.
+    def field(self, column_name: str):
+        """Call sql-smith field with the given column.
 
-                short-cut for: field(table.__table__name__ + '.' + column_name)
-                """
-                return sql_field(cls.column(column_name))
+        short-cut for: field(table.table_name + '.' + column_name)
+        """
+        return sql_field(self.column(column_name))
 
-            @classmethod
-            def map_row(
-                cls,
-                row: dict[str, Any],
-                table_name=self._table_name,  # pylint: disable=protected-access
-            ) -> data_class:
-                """Map the data of a row to the dataclass."""
-                table_alias = table_name + "_"
-                # First, only select the values that belong to this table.
-                filtered = {
-                    k.removeprefix(table_alias): v
-                    for (k, v) in row.items()
-                    if k.startswith(table_alias)
-                }
-                return data_class(**filtered)
+    def map_row(self, row: dict[str, Any], table_name: str | None = None) -> T:
+        """Map the data of a row to the dataclass.
 
-        return Table
+        Only the fields that have the alias prefix for this table will be selected.
+        This makes it possible to pass it a row that contains data from multiple
+        tables (which can be the case with a join).
+        """
+        table_name = table_name or self._table_name
+        table_alias = table_name + "_"
+        # First, only select the values that belong to this table.
+        filtered = {
+            k.removeprefix(table_alias): v
+            for (k, v) in row.items()
+            if k.startswith(table_alias)
+        }
+        return self._data_class(**filtered)

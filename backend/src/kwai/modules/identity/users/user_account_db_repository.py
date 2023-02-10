@@ -14,6 +14,7 @@ from kwai.modules.identity.users.user_account_repository import (
 )
 from kwai.modules.identity.users.user_tables import (
     UserAccountsTable,
+    UserAccountRow,
 )
 
 
@@ -27,18 +28,20 @@ class UserAccountDbRepository(UserAccountRepository):
         query = (
             self._database.create_query_factory()
             .select()
-            .from_(UserAccountsTable.__table_name__)
+            .from_(UserAccountsTable.table_name)
             .columns(*UserAccountsTable.aliases())
             .and_where(UserAccountsTable.field("email").eq(str(email)))
         )
         row = self._database.fetch_one(query)
         if row:
-            return UserAccountsTable.map_row(row).create_entity()
+            return UserAccountsTable(row).create_entity()
 
         raise UserAccountNotFoundException()
 
     def create(self, user_account: UserAccountEntity) -> UserAccountEntity:
-        new_id = self._database.insert(UserAccountsTable.persist(user_account))
+        new_id = self._database.insert(
+            UserAccountsTable.table_name, UserAccountRow.persist(user_account)
+        )
         self._database.commit()
         return dataclasses.replace(
             user_account,
@@ -48,10 +51,12 @@ class UserAccountDbRepository(UserAccountRepository):
 
     def update(self, user_account: UserAccountEntity):
         self._database.update(
-            user_account.id.value, UserAccountsTable.persist(user_account)
+            user_account.id.value,
+            UserAccountsTable.table_name,
+            UserAccountRow.persist(user_account),
         )
         self._database.commit()
 
     def delete(self, user_account):
-        self._database.delete(user_account.id.value, UserAccountsTable.__table_name__)
+        self._database.delete(user_account.id.value, UserAccountsTable.table_name)
         self._database.commit()

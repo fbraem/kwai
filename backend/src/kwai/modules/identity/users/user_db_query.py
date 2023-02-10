@@ -11,7 +11,7 @@ class UserDbQuery(UserQuery, DatabaseQuery):
     """A user query for a database."""
 
     def init(self):
-        self._query.from_(UsersTable.__table_name__)
+        self._query.from_(UsersTable.table_name)
 
     @property
     def columns(self):

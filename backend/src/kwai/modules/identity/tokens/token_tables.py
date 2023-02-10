@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-from kwai.core.db.table import table
+from kwai.core.db.table import Table
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.identity.tokens.access_token import (
     AccessTokenEntity,
@@ -16,10 +16,9 @@ from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.users.user_account import UserAccountEntity
 
 
-@table(name="oauth_access_tokens")
 @dataclass(kw_only=True, frozen=True, slots=True)
-class AccessTokensTable:
-    """Table for access tokens."""
+class AccessTokenRow:
+    """Represent a table row in the access tokens table."""
 
     id: int | None
     identifier: str
@@ -44,9 +43,9 @@ class AccessTokensTable:
         )
 
     @classmethod
-    def persist(cls, access_token: AccessTokenEntity) -> "AccessTokensTable":
+    def persist(cls, access_token: AccessTokenEntity) -> "AccessTokenRow":
         """Persist an access token entity to a table record."""
-        return AccessTokensTable(
+        return AccessTokenRow(
             id=access_token.id.value,
             identifier=str(access_token.identifier),
             expiration=access_token.expiration,
@@ -57,10 +56,12 @@ class AccessTokensTable:
         )
 
 
-@table(name="oauth_refresh_tokens")
+AccessTokensTable = Table("oauth_access_tokens", AccessTokenRow)
+
+
 @dataclass(kw_only=True, frozen=True, slots=True)
-class RefreshTokensTable:
-    """Table for refresh tokens."""
+class RefreshTokenRow:
+    """Represent a table row in the refresh token table."""
 
     id: int | None
     identifier: str
@@ -85,9 +86,9 @@ class RefreshTokensTable:
         )
 
     @classmethod
-    def persist(cls, refresh_token: RefreshTokenEntity) -> "RefreshTokensTable":
+    def persist(cls, refresh_token: RefreshTokenEntity) -> "RefreshTokenRow":
         """Transform a refresh token entity into a table record."""
-        return RefreshTokensTable(
+        return RefreshTokenRow(
             id=refresh_token.id.value,
             identifier=str(refresh_token.identifier),
             access_token_id=refresh_token.access_token.id.value,
@@ -96,3 +97,6 @@ class RefreshTokensTable:
             created_at=refresh_token.traceable_time.created_at,
             updated_at=refresh_token.traceable_time.updated_at,
         )
+
+
+RefreshTokensTable = Table("oauth_refresh_tokens", RefreshTokenRow)

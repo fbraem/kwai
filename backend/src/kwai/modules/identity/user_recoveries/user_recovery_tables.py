@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-from kwai.core.db.table import table
+from kwai.core.db.table import Table
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
@@ -13,10 +13,9 @@ from kwai.modules.identity.user_recoveries.user_recovery import (
 from kwai.modules.identity.users.user import UserEntity
 
 
-@table(name="user_recoveries")
 @dataclass
-class UserRecoveriesTable:
-    """Table for a user recovery."""
+class UserRecoveryRow:
+    """Represent a row in the user recovery table."""
 
     # pylint: disable=too-many-instance-attributes
 
@@ -51,9 +50,9 @@ class UserRecoveriesTable:
         )
 
     @classmethod
-    def persist(cls, user_recovery: UserRecoveryEntity) -> "UserRecoveriesTable":
+    def persist(cls, user_recovery: UserRecoveryEntity) -> "UserRecoveryRow":
         """Map a user recovery entity to a table record."""
-        return UserRecoveriesTable(
+        return UserRecoveryRow(
             id=user_recovery.id.value,
             user_id=user_recovery.user.id.value,
             uuid=str(user_recovery.uuid),
@@ -65,3 +64,6 @@ class UserRecoveriesTable:
             created_at=user_recovery.traceable_time.created_at,
             updated_at=user_recovery.traceable_time.updated_at,
         )
+
+
+UserRecoveriesTable = Table("user_recoveries", UserRecoveryRow)

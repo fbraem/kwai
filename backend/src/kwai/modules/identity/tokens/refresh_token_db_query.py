@@ -15,14 +15,14 @@ class RefreshTokenDbQuery(RefreshTokenQuery, DatabaseQuery):
     """A refresh token query for a database."""
 
     def init(self):
-        self._query.from_(RefreshTokensTable.__table_name__).join(
-            AccessTokensTable.__table_name__,
+        self._query.from_(RefreshTokensTable.table_name).join(
+            AccessTokensTable.table_name,
             on(
                 RefreshTokensTable.column("access_token_id"),
                 AccessTokensTable.column("id"),
             ),
         ).join(
-            UserAccountsTable.__table_name__,
+            UserAccountsTable.table_name,
             on(AccessTokensTable.column("user_id"), UserAccountsTable.column("id")),
         )
 

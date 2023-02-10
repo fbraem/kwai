@@ -16,15 +16,14 @@ from kwai.modules.identity.tokens.access_token_repository import (
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.tokens.token_tables import (
     AccessTokensTable,
+    AccessTokenRow,
 )
 from kwai.modules.identity.users.user_tables import UserAccountsTable
 
 
 def _create_entity(row: dict[str, Any]) -> AccessTokenEntity:
     """Create an access token entity from a row."""
-    return AccessTokensTable.map_row(row).create_entity(
-        UserAccountsTable.map_row(row).create_entity()
-    )
+    return AccessTokensTable(row).create_entity(UserAccountsTable(row).create_entity())
 
 
 class AccessTokenDbRepository(AccessTokenRepository):
@@ -67,12 +66,16 @@ class AccessTokenDbRepository(AccessTokenRepository):
             yield _create_entity(row)
 
     def create(self, access_token: AccessTokenEntity) -> AccessTokenEntity:
-        new_id = self._database.insert(AccessTokensTable.persist(access_token))
+        new_id = self._database.insert(
+            AccessTokensTable.table_name, AccessTokenRow.persist(access_token)
+        )
         self._database.commit()
         return dataclasses.replace(access_token, id=AccessTokenIdentifier(new_id))
 
     def update(self, access_token: AccessTokenEntity):
         self._database.update(
-            access_token.id.value, AccessTokensTable.persist(access_token)
+            access_token.id.value,
+            AccessTokensTable.table_name,
+            AccessTokenRow.persist(access_token),
         )
         self._database.commit()

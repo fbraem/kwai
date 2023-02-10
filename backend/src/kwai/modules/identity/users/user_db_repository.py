@@ -1,4 +1,5 @@
 """Module for implementing a user repository with a database."""
+
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.unique_id import UniqueId
@@ -8,14 +9,16 @@ from kwai.modules.identity.users.user_repository import (
     UserRepository,
     UserNotFoundException,
 )
-from kwai.modules.identity.users.user_tables import UsersTable
+from kwai.modules.identity.users.user_tables import UsersTable, UserRow
 
 
 class UserDbRepository(UserRepository):
     """Database repository for the user entity."""
 
     def update(self, user: UserEntity) -> None:
-        self._database.update(user.id.value, UsersTable.persist(user))
+        self._database.update(
+            user.id.value, UsersTable.table_name, UserRow.persist(user)
+        )
         self._database.commit()
 
     def __init__(self, database: Database):
@@ -35,7 +38,7 @@ class UserDbRepository(UserRepository):
 
         row = query.fetch_one()
         if row:
-            return UsersTable.map_row(row).create_entity()
+            return UsersTable(row).create_entity()
 
         raise UserNotFoundException()
 
@@ -49,7 +52,7 @@ class UserDbRepository(UserRepository):
 
         row = query.fetch_one()
         if row:
-            return UsersTable.map_row(row).create_entity()
+            return UsersTable(row).create_entity()
 
         raise UserNotFoundException()
 
@@ -63,6 +66,6 @@ class UserDbRepository(UserRepository):
 
         row = query.fetch_one()
         if row:
-            return UsersTable.map_row(row).create_entity()
+            return UsersTable(row).create_entity()
 
         raise UserNotFoundException()

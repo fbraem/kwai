@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-from kwai.core.db.table import table
+from kwai.core.db.table import Table
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.name import Name
@@ -17,10 +17,9 @@ from kwai.modules.identity.users.user_account import (
 
 
 # pylint: disable=too-many-instance-attributes
-@table(name="users")
 @dataclass(kw_only=True, frozen=True, slots=True)
-class UsersTable:
-    """Represent the users table."""
+class UserRow:
+    """Represent a row in the users table."""
 
     id: int | None
     email: str
@@ -49,9 +48,9 @@ class UsersTable:
         )
 
     @classmethod
-    def persist(cls, user: UserEntity) -> "UsersTable":
+    def persist(cls, user: UserEntity) -> "UserRow":
         """Transform a user entity into a table record."""
-        return UsersTable(
+        return UserRow(
             id=user.id.value,
             email=str(user.email),
             first_name=user.name.first_name,
@@ -64,10 +63,12 @@ class UsersTable:
         )
 
 
-@table("users")
+UsersTable = Table("users", UserRow)
+
+
 @dataclass(kw_only=True, frozen=True)
-class UserAccountsTable:
-    """Table for user accounts."""
+class UserAccountRow:
+    """Represent a row in the user table with user account information."""
 
     id: int | None
     email: str
@@ -109,9 +110,9 @@ class UserAccountsTable:
         )
 
     @classmethod
-    def persist(cls, user_account: UserAccountEntity) -> "UserAccountsTable":
+    def persist(cls, user_account: UserAccountEntity) -> "UserAccountRow":
         """Transform a user account entity into a table record."""
-        return UserAccountsTable(
+        return UserAccountRow(
             id=user_account.id.value,
             email=str(user_account.user.email),
             first_name=user_account.user.name.first_name,
@@ -127,3 +128,6 @@ class UserAccountsTable:
             revoked=1 if user_account.revoked else 0,
             admin=1 if user_account.admin else 0,
         )
+
+
+UserAccountsTable = Table("users", UserAccountRow)

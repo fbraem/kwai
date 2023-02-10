@@ -12,8 +12,8 @@ class AccessTokenDbQuery(AccessTokenQuery, DatabaseQuery):
     """An access token query for a database."""
 
     def init(self):
-        self._query.from_(AccessTokensTable.__table_name__).join(
-            UserAccountsTable.__table_name__,
+        self._query.from_(AccessTokensTable.table_name).join(
+            UserAccountsTable.table_name,
             on(AccessTokensTable.column("user_id"), UserAccountsTable.column("id")),
         )
 
