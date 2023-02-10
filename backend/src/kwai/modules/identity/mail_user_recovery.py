@@ -57,6 +57,11 @@ class MailUserRecovery:
                 f"Mail already send for user recovery {command.uuid}"
             )
 
+        if user_recovery.is_expired:
+            raise UnprocessableException(
+                f"User recovery {command.uuid} already expired"
+            )
+
         if user_recovery.confirmed:
             raise UnprocessableException(
                 f"User recovery {command.uuid} already confirmed"
