@@ -3,7 +3,6 @@ Module that defines a dependency injector container.
 
 Auto-wiring is avoided. It should be clear why and when a class is loaded.
 """
-from typing import Iterator
 
 import dramatiq.brokers.rabbitmq
 from lagom import Container, dependency_definition, ExplicitContainer, Singleton
@@ -36,20 +35,18 @@ def create_database(c: Container) -> Database:
 
 
 @dependency_definition(container)
-def create_mailer(c: Container) -> Iterator[Mailer]:
+def create_mailer(c: Container) -> Mailer:
     """Create the mailer dependency."""
     mailer = SmtpMailer(
         host=c[Settings].email.host,
         port=c[Settings].email.port,
+        ssl_=c[Settings].email.ssl,
         tls=c[Settings].email.tls,
     )
-    try:
-        mailer.connect()
-        if c[Settings].email.user:
-            mailer.login(c[Settings].email.user, c[Settings].email.password)
-        yield mailer
-    finally:
-        mailer.disconnect()
+    mailer.connect()
+    if c[Settings].email.user:
+        mailer.login(c[Settings].email.user, c[Settings].email.password)
+    return mailer
 
 
 @dependency_definition(container)
