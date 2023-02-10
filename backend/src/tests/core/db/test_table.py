@@ -53,12 +53,12 @@ def test_create_aliases_with_other_table_name():
 def test_map_row():
     """Test map row."""
     row = ModelTable.map_row({"users_id": "1", "users_name": "Jigoro", "users_age": 77})
-    assert type(row) == ModelRow
+    assert isinstance(row, ModelRow)
     assert row == ModelRow(id="1", name="Jigoro", age=77)
 
 
 def test_map_with_call():
     """Test map row using the shortcut (__call__)"""
     row = ModelTable({"users_id": "1", "users_name": "Jigoro", "users_age": 77})
-    assert type(row) == ModelRow
+    assert isinstance(row, ModelRow)
     assert row == ModelRow(id="1", name="Jigoro", age=77)
