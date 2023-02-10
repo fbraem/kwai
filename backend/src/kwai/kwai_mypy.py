@@ -9,7 +9,7 @@ class KwaiPlugin(Plugin):
 
     def get_class_decorator_hook(self, fullname: str):
         """Create the hook."""
-        if fullname == "test.table":
+        if fullname == "core.db.table":
             return table_decorator_hook
         return None
 
