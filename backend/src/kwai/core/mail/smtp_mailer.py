@@ -33,11 +33,12 @@ class SmtpMailer(Mailer):
             self._server = smtplib.SMTP_SSL(self._host, self._port, context=context)
         else:
             self._server = smtplib.SMTP(self._host, self._port)
-            if self._tls:
-                try:
-                    self._server.starttls(context=context)
-                except smtplib.SMTPException as exc:
-                    raise MailerException("STARTTLS failed.") from exc
+
+        if self._tls:
+            try:
+                self._server.starttls(context=context)
+            except smtplib.SMTPException as exc:
+                raise MailerException("STARTTLS failed.") from exc
 
     def login(self, user: str, password: str):
         """Login to the SMTP server."""
