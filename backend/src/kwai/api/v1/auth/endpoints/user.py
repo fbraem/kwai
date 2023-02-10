@@ -8,6 +8,6 @@ router = APIRouter()
 
 
 @router.get("/user")
-async def get(user: SystemUser = Depends(get_current_user)):
+def get(user: SystemUser = Depends(get_current_user)):
     """Get the current user."""
     return {"id": str(user.uuid)}

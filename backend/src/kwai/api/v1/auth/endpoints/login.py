@@ -60,7 +60,7 @@ router = APIRouter()
     response_model=TokenSchema,
     summary="Create access and refresh token for a user.",
 )
-async def login(
+def login(
     settings=deps.depends(Settings),
     db=deps.depends(Database),
     form_data: OAuth2PasswordRequestForm = Depends(),
@@ -100,7 +100,7 @@ async def login(
     response_model=TokenSchema,
     summary="Renew an access token using a refresh token.",
 )
-async def renew_access_token(
+def renew_access_token(
     settings=deps.depends(Settings),
     db=deps.depends(Database),
     refresh_token: str = Form(),
@@ -136,7 +136,7 @@ async def renew_access_token(
     status_code=status.HTTP_200_OK,
     response_class=Response,
 )
-async def recover_user(
+def recover_user(
     email: str = Form(), db=deps.depends(Database), bus=deps.depends(Bus)
 ) -> None:
     """Initiates a recover password flow for the given email address.
@@ -159,7 +159,7 @@ async def recover_user(
     summary="Reset the password of a user.",
     status_code=status.HTTP_200_OK,
 )
-async def reset_password(uuid=Form(), password=Form(), db=deps.depends(Database)):
+def reset_password(uuid=Form(), password=Form(), db=deps.depends(Database)):
     """Reset the password of the user by executing the ResetPassword use case."""
     command = ResetPasswordCommand(uuid=uuid, password=password)
     try:
