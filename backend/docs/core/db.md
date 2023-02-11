@@ -6,4 +6,6 @@
 
 ::: kwai.core.db.database_query
 
+::: kwai.core.db.exceptions
+
 ::: kwai.core.db.table
