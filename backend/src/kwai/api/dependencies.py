@@ -39,7 +39,7 @@ def get_current_user(
     access_token_repo = AccessTokenDbRepository(db)
     try:
         access_token = access_token_repo.get_by_identifier(
-            TokenIdentifier(bytes=payload["jti"])
+            TokenIdentifier(hex_string=payload["jti"])
         )
     except AccessTokenNotFoundException as exc:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED) from exc

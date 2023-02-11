@@ -44,7 +44,7 @@ class RefreshAccessToken:
             refresh token is revoked or the user is revoked.
         """
         refresh_token = self._refresh_token_repo.get_by_token_identifier(
-            TokenIdentifier(bytes=command.identifier)
+            TokenIdentifier(hex_string=command.identifier)
         )
 
         if refresh_token.expired:

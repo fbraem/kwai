@@ -7,12 +7,12 @@ from secrets import token_hex
 class TokenIdentifier:
     """A value object for a token identifier."""
 
-    bytes: str
+    hex_string: str
 
     @classmethod
     def generate(cls):
         """Creates a new token identifier with a random text string."""
-        return TokenIdentifier(bytes=token_hex(40))
+        return TokenIdentifier(hex_string=token_hex(40))
 
     def __str__(self):
-        return self.bytes
+        return self.hex_string
