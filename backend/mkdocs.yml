@@ -32,6 +32,7 @@ plugins:
 
 nav:
   - index.md
+  - source: core/index.md
   - api:
     - auth: api/api_auth.md
 
