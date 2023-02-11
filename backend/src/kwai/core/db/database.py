@@ -7,7 +7,7 @@ from loguru import logger
 from sql_smith import QueryFactory
 from sql_smith.engine import MysqlEngine
 from sql_smith.functions import field
-from sql_smith.query import AbstractQuery
+from sql_smith.query import AbstractQuery, SelectQuery
 
 from kwai.core.db.exceptions import DatabaseException, QueryException
 from kwai.core.settings import DatabaseSettings
@@ -67,7 +67,7 @@ class Database:
             except Exception as exc:
                 raise QueryException(compiled_query.sql) from exc
 
-    def fetch_one(self, query: AbstractQuery) -> dict[str, Any] | None:
+    def fetch_one(self, query: SelectQuery) -> dict[str, Any] | None:
         """Execute a query and returns the first row.
 
         A row is a dictionary build from the column names retrieved from the cursor.
@@ -91,7 +91,7 @@ class Database:
 
         return None  # Nothing found
 
-    def fetch(self, query: AbstractQuery) -> Iterator[dict[str, Any]]:
+    def fetch(self, query: SelectQuery) -> Iterator[dict[str, Any]]:
         """Execute a query and yields each row.
 
         A row is a dictionary build from the column names retrieved from the cursor.
