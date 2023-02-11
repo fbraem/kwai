@@ -98,3 +98,21 @@ def test_reset_password(
         data={"uuid": str(user_recovery.uuid), "password": "Nage-waza/1882"},
     )
     assert response.status_code == status.HTTP_200_OK
+
+
+def test_logout(client: TestClient, user_account: UserAccountEntity):
+    """Test the logout api."""
+    response = client.post(
+        "/api/v1/auth/login",
+        data={"username": str(user_account.user.email), "password": "Nage-waza/1882"},
+    )
+    json = response.json()
+    access_token = json["access_token"]
+    response = client.post(
+        "/api/v1/auth/logout",
+        headers={"Authorization": f"Bearer {access_token}"},
+        data={
+            "refresh_token": json["refresh_token"],
+        },
+    )
+    assert response.status_code == status.HTTP_200_OK

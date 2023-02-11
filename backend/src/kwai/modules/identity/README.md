@@ -24,6 +24,8 @@ sequenceDiagram
     AuthenticateUser-->>API: << return >>
 ```
 
+## Logout
+
 ## Mail User Recovery
 
 ## Recover User

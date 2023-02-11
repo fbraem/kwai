@@ -1,34 +1,39 @@
 """Module that implements all APIs for login."""
 import jwt
-from fastapi import APIRouter, Depends, status, HTTPException, Form, Response
+from fastapi import APIRouter, Depends, Form, HTTPException, Response, status
 from fastapi.security import OAuth2PasswordRequestForm
 from loguru import logger
 from pydantic import BaseModel
 
-from kwai.api.dependencies import deps
+from kwai.api.dependencies import deps, get_current_user
 from kwai.core.db.database import Database
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import InvalidEmailException
 from kwai.core.events.bus import Bus
-from kwai.core.settings import Settings, SecuritySettings
+from kwai.core.security.system_user import SystemUser
+from kwai.core.settings import SecuritySettings, Settings
 from kwai.modules.identity.authenticate_user import (
     AuthenticateUser,
     AuthenticateUserCommand,
     AuthenticationException,
 )
 from kwai.modules.identity.exceptions import NotAllowedException
+from kwai.modules.identity.logout import Logout, LogoutCommand
 from kwai.modules.identity.recover_user import RecoverUser, RecoverUserCommand
 from kwai.modules.identity.refresh_access_token import (
-    RefreshAccessTokenCommand,
     RefreshAccessToken,
+    RefreshAccessTokenCommand,
 )
-from kwai.modules.identity.reset_password import ResetPasswordCommand, ResetPassword
+from kwai.modules.identity.reset_password import ResetPassword, ResetPasswordCommand
 from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
 )
 from kwai.modules.identity.tokens.refresh_token import RefreshTokenEntity
 from kwai.modules.identity.tokens.refresh_token_db_repository import (
     RefreshTokenDbRepository,
+)
+from kwai.modules.identity.tokens.refresh_token_repository import (
+    RefreshTokenNotFoundException,
 )
 from kwai.modules.identity.user_recoveries.user_recovery_db_repository import (
     UserRecoveryDbRepository,
@@ -93,6 +98,31 @@ def login(
         ) from exc
 
     return encode_token(refresh_token, settings.security)
+
+
+@router.post("/logout", summary="Logout the current user")
+def logout(
+    settings=deps.depends(Settings),
+    db: Database = deps.depends(Database),
+    user: SystemUser = Depends(get_current_user),  # pylint: disable=unused-argument
+    refresh_token: str = Form(),
+):
+    """API to log out the current user."""
+    decoded_refresh_token = jwt.decode(
+        refresh_token,
+        key=settings.security.jwt_refresh_secret,
+        algorithms=[settings.security.jwt_algorithm],
+    )
+    command = LogoutCommand(identifier=decoded_refresh_token["jti"])
+    try:
+        Logout(
+            refresh_token_repository=RefreshTokenDbRepository(db),
+            access_token_repository=AccessTokenDbRepository(db),
+        ).execute(command)
+    except RefreshTokenNotFoundException as ex:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
+        ) from ex
 
 
 @router.post(
