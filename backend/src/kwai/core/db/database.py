@@ -63,8 +63,8 @@ class Database:
 
         Returns:
             (QueryFactory): The query factory from sql-smith.
-                Currently, it returns a query factory for the mysql engine. In the future
-                it can provide other engines.
+                Currently, it returns a query factory for the mysql engine. In the
+                future it can provide other engines.
         """
         return QueryFactory(MysqlEngine())
 
