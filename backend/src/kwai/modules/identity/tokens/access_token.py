@@ -29,3 +29,4 @@ class AccessTokenEntity:
     def revoke(self) -> None:
         """Revoke the access token."""
         self.revoked = True
+        self.traceable_time = self.traceable_time.mark_for_update()
