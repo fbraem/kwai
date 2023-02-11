@@ -32,7 +32,7 @@ class AccessTokenRow:
         """Create an entity from the table row."""
         return AccessTokenEntity(
             id=AccessTokenIdentifier(self.id),
-            identifier=TokenIdentifier(self.identifier),
+            identifier=TokenIdentifier(bytes=self.identifier),
             expiration=self.expiration,
             user_account=user_account,
             revoked=self.revoked,
@@ -75,7 +75,7 @@ class RefreshTokenRow:
         """Create a refresh token entity from the table row."""
         return RefreshTokenEntity(
             id=RefreshTokenIdentifier(self.id),
-            identifier=TokenIdentifier(self.identifier),
+            identifier=TokenIdentifier(bytes=self.identifier),
             access_token=access_token,
             expiration=self.expiration,
             revoked=self.revoked,
