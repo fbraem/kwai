@@ -14,7 +14,15 @@ from kwai.core.settings import DatabaseSettings
 
 
 class Database:
-    """Wrapper for a database connection."""
+    """Class for communicating with a database.
+
+    When the instance is destroyed and there is a connection, the connection will be
+    closed automatically.
+
+    Attributes:
+        _connection: The connection handle
+        _settings (DatabaseSettings): The settings for this database connection.
+    """
 
     def __init__(self, settings: DatabaseSettings):
         self._connection = None
@@ -29,7 +37,11 @@ class Database:
             self._connection.close()
 
     def connect(self):
-        """Connect to the database."""
+        """Connect to the database.
+
+        Raises:
+            (DatabaseException): Raised when the connection fails.
+        """
         try:
             self._connection = db.connect(
                 host=self._settings.host,
@@ -44,7 +56,16 @@ class Database:
 
     @classmethod
     def create_query_factory(cls) -> QueryFactory:
-        """Return a query factory for the current database engine."""
+        """Return a query factory for the current database engine.
+
+        The query factory is used to start creating a SELECT, INSERT, UPDATE or
+        DELETE query.
+
+        Returns:
+            (QueryFactory): The query factory from sql-smith.
+                Currently, it returns a query factory for the mysql engine. In the future
+                it can provide other engines.
+        """
         return QueryFactory(MysqlEngine())
 
     def commit(self):
@@ -56,6 +77,16 @@ class Database:
 
         The last rowid from the cursor is returned when the query executed
         successfully. On insert, this can be used to determine the new id of a row.
+
+        Args:
+            query (AbstractQuery): The query to execute.
+
+        Returns:
+            (int): When the query is an insert query, it will return the last rowid.
+            (None): When there is no last rowid.
+
+        Raises:
+            (QueryException): Raised when the query contains an error.
         """
         compiled_query = query.compile()
         self.log_query(compiled_query.sql)
@@ -68,9 +99,18 @@ class Database:
                 raise QueryException(compiled_query.sql) from exc
 
     def fetch_one(self, query: SelectQuery) -> dict[str, Any] | None:
-        """Execute a query and returns the first row.
+        """Execute a query and return the first row.
 
-        A row is a dictionary build from the column names retrieved from the cursor.
+        Args:
+            query (SelectQuery): The query to execute.
+
+        Returns:
+            (dict[str, Any]): A row is a dictionary using the column names
+                as key and the column values as value.
+            (None): The query resulted in no rows found.
+
+        Raises:
+            (QueryException): Raised when the query contains an error.
         """
         compiled_query = query.compile()
         self.log_query(compiled_query.sql)
@@ -94,7 +134,15 @@ class Database:
     def fetch(self, query: SelectQuery) -> Iterator[dict[str, Any]]:
         """Execute a query and yields each row.
 
-        A row is a dictionary build from the column names retrieved from the cursor.
+        Args:
+            query (SelectQuery): The query to execute.
+
+        Yields:
+            (dict[str, Any]): A row is a dictionary using the column names
+                as key and the column values as value.
+
+        Raises:
+            (QueryException): Raised when the query contains an error.
         """
         compiled_query = query.compile()
         self.log_query(compiled_query.sql)
@@ -114,7 +162,18 @@ class Database:
             raise QueryException(compiled_query.sql) from exc
 
     def insert(self, table_name: str, table_data: Any) -> int:
-        """Insert a dataclass into the given table."""
+        """Insert a dataclass into the given table.
+
+        Args:
+            table_name (str): The name of the table
+            table_data (Any): A dataclass containing the values
+
+        Returns:
+            (int): The last inserted id
+
+        Raises:
+            (QueryException): Raised when the query contains an error.
+        """
         assert dataclasses.is_dataclass(table_data), "table_data should be a dataclass"
 
         record = dataclasses.asdict(table_data)
@@ -129,7 +188,16 @@ class Database:
         return last_insert_id
 
     def update(self, id_: Any, table_name: str, table_data: Any):
-        """Update a dataclass in the given table."""
+        """Update a dataclass in the given table.
+
+        Args:
+            id_ (Any): The id of the data to update.
+            table_name: The name of the table.
+            table_data: The dataclass containing the data.
+
+        Raises:
+            (QueryException): Raised when the query contains an error.
+        """
         assert dataclasses.is_dataclass(table_data), "table_data should be a dataclass"
 
         record = dataclasses.asdict(table_data)
@@ -143,14 +211,26 @@ class Database:
         self.execute(query)
 
     def delete(self, id_: Any, table_name: str):
-        """Delete a row from the table using the id field."""
+        """Delete a row from the table using the id field.
+
+        Args:
+            id_ (Any): The id of the row to delete.
+            table_name (str): The name of the table.
+
+        Raises:
+            (QueryException): Raised when the query results in an error.
+        """
         query = (
             self.create_query_factory().delete(table_name).where(field("id").eq(id_))
         )
         self.execute(query)
 
     def log_query(self, query: str):
-        """Log a query."""
+        """Log a query.
+
+        Args:
+            query (str): The query to log.
+        """
         db_logger = logger.bind(database=self._settings.name)
         db_logger.info(
             "DB: {database} - Query: {query}", database=self._settings.name, query=query
