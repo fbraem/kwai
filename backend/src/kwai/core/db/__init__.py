@@ -1,1 +1,8 @@
-"""Package for all modules related to a database."""
+"""Package for all database related modules.
+
+ORM (Object-relational mapping) software (like SQLAlchemy) is not used. Instead, the
+repository pattern is used. A repository is responsible for saving, creating, querying
+and deleting entities. [sql-smith][sql-smith] is used to build queries.
+
+[sql-smith]: https://github.com/fbraem/sql-smith
+"""
