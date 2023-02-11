@@ -29,4 +29,5 @@ class RefreshTokenEntity:
     def revoke(self) -> None:
         """Revoke the refresh token."""
         self.revoked = True
-        self.access_token.revoke = True
+        self.access_token.revoke()
+        self.traceable_time = self.traceable_time.mark_for_update()
