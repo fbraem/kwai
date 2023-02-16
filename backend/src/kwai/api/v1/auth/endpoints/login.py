@@ -50,7 +50,13 @@ from kwai.modules.identity.users.user_account_repository import (
 
 
 class TokenSchema(BaseModel):
-    """The schema for an access/refresh token."""
+    """The response schema for an access/refresh token.
+
+    Attributes:
+        access_token(str):
+        refresh_token(str):
+        expiration(str): Timestamp in format YYYY-MM-DD HH:MM:SS
+    """
 
     access_token: str
     refresh_token: str
@@ -70,7 +76,19 @@ def login(
     db=deps.depends(Database),
     form_data: OAuth2PasswordRequestForm = Depends(),
 ):
-    """Implements the login API."""
+    """API to login.
+
+    The response is a TokenSchema.
+
+    Note:
+        This request expects a form (application/x-www-form-urlencoded).
+
+    Args:
+        settings(Settings): Settings dependency
+        db(Database): Database dependency
+        form_data(OAuth2PasswordRequestForm): Form data that contains the username and
+            password
+    """
     command = AuthenticateUserCommand(
         username=form_data.username,
         password=form_data.password,
@@ -107,7 +125,21 @@ def logout(
     user: SystemUser = Depends(get_current_user),  # pylint: disable=unused-argument
     refresh_token: str = Form(),
 ):
-    """API to log out the current user."""
+    """API to log out the current user.
+
+    A user is logged out by revoking the refresh token. The associated access token
+    will also be revoked.
+
+    Args:
+        settings(Settings): Settings dependency
+        db(Database): Database dependency
+        user(SystemUser): The currently logged in user
+        refresh_token(str): The active refresh token of the user
+
+    Returns:
+        Http code 200 on success, 401 when the user is not logged in,
+        404 when the refresh token is not found.
+    """
     decoded_refresh_token = jwt.decode(
         refresh_token,
         key=settings.security.jwt_refresh_secret,
@@ -135,7 +167,16 @@ def renew_access_token(
     db=deps.depends(Database),
     refresh_token: str = Form(),
 ):
-    """Implements the refresh access token API."""
+    """API to refresh the access token.
+
+    Args:
+        settings(Settings): Settings dependency
+        db(Database): Database dependency
+        refresh_token(str): The active refresh token of the user
+
+    Returns:
+        TokenSchema: On success a new TokenSchema is returned.
+    """
     decoded_refresh_token = jwt.decode(
         refresh_token,
         key=settings.security.jwt_refresh_secret,
@@ -169,9 +210,17 @@ def renew_access_token(
 def recover_user(
     email: str = Form(), db=deps.depends(Database), bus=deps.depends(Bus)
 ) -> None:
-    """Initiates a recover password flow for the given email address.
+    """API to start a recover password flow for the given email address.
 
-    To avoid leaking information, this api will always respond with 200
+    A mail with a unique id will be send using the message bus.
+
+    Note:
+        To avoid leaking information, this api will always respond with 200
+
+    Args:
+        email(str): The email of the user that wants to reset the password.
+        db(Database): Database dependency
+        bus(Bus): A message bus used to publish the event
     """
     command = RecoverUserCommand(email=email)
     try:
@@ -190,7 +239,17 @@ def recover_user(
     status_code=status.HTTP_200_OK,
 )
 def reset_password(uuid=Form(), password=Form(), db=deps.depends(Database)):
-    """Reset the password of the user by executing the ResetPassword use case."""
+    """API to reset the password of the user.
+
+    Args:
+        uuid(str): The unique id of the password recovery.
+        password(str): The new password
+        db(Database): Database dependency
+
+    Returns:
+        Http code 200 on success, 404 when the unique is invalid, 422 when the
+        request can't be processed, 403 when the request is forbidden.
+    """
     command = ResetPasswordCommand(uuid=uuid, password=password)
     try:
         ResetPassword(
@@ -206,7 +265,16 @@ def reset_password(uuid=Form(), password=Form(), db=deps.depends(Database)):
 
 
 def encode_token(refresh_token: RefreshTokenEntity, settings: SecuritySettings):
-    """Encode the access and refresh token with JWT."""
+    """Encode the access and refresh token with JWT.
+
+    Args:
+        refresh_token(RefreshTokenEntity):
+        settings(SecuritySettings):
+
+    Returns:
+        dict[str, str]: A dictionary with the access token, refresh token and
+            expiration timestamp.
+    """
     return {
         "access_token": jwt.encode(
             {
