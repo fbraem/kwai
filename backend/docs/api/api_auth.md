@@ -1,6 +1,11 @@
+# Auth API's
 ::: kwai.api.v1.auth.endpoints.login
-    options:
-      members:
-        - login
-        - recover_user
-      heading_level: 2
+    selection:
+        members: no
+
+::: kwai.api.v1.auth.endpoints.login.login
+::: kwai.api.v1.auth.endpoints.login.recover_user
+
+# Auth Responses
+
+::: kwai.api.v1.auth.endpoints.login.TokenSchema
