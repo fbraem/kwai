@@ -1,5 +1,5 @@
 """Module that implements a user recovery entity."""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
@@ -16,13 +16,13 @@ class UserRecoveryEntity:
 
     # pylint: disable=too-many-instance-attributes
     user: UserEntity
-    expiration: LocalTimestamp = LocalTimestamp()
-    id: UserRecoveryIdentifier = UserRecoveryIdentifier(0)
-    uuid: UniqueId = UniqueId.generate()
+    expiration: LocalTimestamp = field(default_factory=LocalTimestamp)
+    id: UserRecoveryIdentifier = field(default_factory=UserRecoveryIdentifier)
+    uuid: UniqueId = field(default_factory=UniqueId.generate)
     remark: str | None = None
-    confirmation: LocalTimestamp() = LocalTimestamp()
-    mailed_at: LocalTimestamp() = LocalTimestamp()
-    traceable_time: TraceableTime = TraceableTime()
+    confirmation: LocalTimestamp() = field(default_factory=LocalTimestamp)
+    mailed_at: LocalTimestamp() = field(default_factory=LocalTimestamp)
+    traceable_time: TraceableTime = field(default_factory=TraceableTime)
 
     def confirm(self):
         """Confirm the user recovery."""

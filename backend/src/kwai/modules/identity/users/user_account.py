@@ -16,9 +16,9 @@ class UserAccountEntity:
 
     user: UserEntity
     password: Password = field(repr=False)
-    id: UserAccountIdentifier = UserAccountIdentifier()
-    last_login: LocalTimestamp = LocalTimestamp()
-    last_unsuccessful_login: LocalTimestamp = LocalTimestamp()
+    id: UserAccountIdentifier = field(default_factory=UserAccountIdentifier)
+    last_login: LocalTimestamp = field(default_factory=LocalTimestamp)
+    last_unsuccessful_login: LocalTimestamp = field(default_factory=LocalTimestamp)
     revoked: bool = False
     admin: bool = False
 

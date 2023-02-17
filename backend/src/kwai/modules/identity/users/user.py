@@ -1,5 +1,5 @@
 """Module that implements a User entity."""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.identifier import IntIdentifier
@@ -16,7 +16,7 @@ class UserEntity:
 
     name: Name
     email: EmailAddress
-    id: UserIdentifier = UserIdentifier(0)
-    uuid: UniqueId = UniqueId.generate()
+    id: UserIdentifier = field(default_factory=UserIdentifier)
+    uuid: UniqueId = field(default_factory=UniqueId.generate)
     remark: str | None = None
-    traceable_time: TraceableTime = TraceableTime()
+    traceable_time: TraceableTime = field(default_factory=TraceableTime)

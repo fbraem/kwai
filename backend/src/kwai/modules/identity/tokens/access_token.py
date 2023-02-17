@@ -1,5 +1,5 @@
 """Module that defines an access token entity."""
-import dataclasses
+from dataclasses import dataclass, field
 from datetime import datetime
 
 from kwai.core.domain.value_objects.identifier import IntIdentifier
@@ -10,16 +10,16 @@ from kwai.modules.identity.users.user_account import UserAccountEntity
 AccessTokenIdentifier = IntIdentifier
 
 
-@dataclasses.dataclass(kw_only=True)
+@dataclass(kw_only=True)
 class AccessTokenEntity:
     """An access token entity."""
 
     user_account: UserAccountEntity
-    id: AccessTokenIdentifier = AccessTokenIdentifier()
-    identifier: TokenIdentifier = TokenIdentifier.generate()
-    expiration: datetime = datetime.utcnow()
+    id: AccessTokenIdentifier = field(default_factory=AccessTokenIdentifier)
+    identifier: TokenIdentifier = field(default_factory=TokenIdentifier.generate)
+    expiration: datetime = field(default_factory=datetime.utcnow)
     revoked: bool = False
-    traceable_time: TraceableTime = TraceableTime()
+    traceable_time: TraceableTime = field(default_factory=TraceableTime)
 
     @property
     def expired(self) -> bool:
