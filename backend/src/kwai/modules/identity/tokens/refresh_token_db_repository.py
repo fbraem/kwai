@@ -84,3 +84,4 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
             RefreshTokensTable.table_name,
             RefreshTokenRow.persist(refresh_token),
         )
+        self._database.commit()
