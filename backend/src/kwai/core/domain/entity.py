@@ -8,7 +8,7 @@ T = TypeVar("T", bound=Identifier)
 
 
 class Entity(Generic[T]):
-    """A generic wrapper around a domain object for adding an id."""
+    """A base class for an entity."""
 
     def __init__(self, id_: T):
         self._id = id_
