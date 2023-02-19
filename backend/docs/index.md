@@ -1,4 +1,4 @@
-# Welcome to kwai API
+# Welcome to the backend of kwai.
 
 [![pylint](https://github.com/fbraem/kwai/actions/workflows/pylint.yaml/badge.svg)](https://github.com/fbraem/kwai/actions/workflows/pylint.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

@@ -1,51 +1,12 @@
-site_name: kwai API
-site_description: kwai, the sports club management system.
-site_dir: ./_site
-docs_dir: ./docs
-
-theme:
-  name: "material"
-  palette:
-  - media: '(prefers-color-scheme: light)'
-    scheme: default
-    accent: blue
-    toggle:
-      icon: material/lightbulb
-      name: Switch to light mode
-  - media: '(prefers-color-scheme: dark)'
-    scheme: slate
-    accent: blue
-    toggle:
-      icon: material/lightbulb-outline
-      name: Switch to dark mode
-  icon:
-    repo: fontawesome/brands/github-alt
-
-plugins:
-- mkdocstrings:
-    handlers:
-      python:
-        paths: ['./src']
-        options:
-          show_root_heading: true
-          show_source: false
+site_name: kwai backend
+site_description: kwai backend, the API for the sports club management system.
+docs_dir: docs
 
 nav:
-  - index.md
+  - Intro: index.md
   - source: core/index.md
   - api:
     - auth: api/api_auth.md
-
-repo_name: fbraem/kwai
-repo_url: https://github.com/fbraem/kwai
-
-extra_css:
-  - stylesheets/extra.css
-markdown_extensions:
-  - toc:
-      permalink: true
-  - admonition
-  - codehilite
 
 watch:
   - src

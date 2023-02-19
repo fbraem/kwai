@@ -16,17 +16,18 @@ jobs:
         fetch-depth: 0
     - uses: actions/setup-python@v2
       with:
-        python-version: 3.9
+        python-version: 3.10
     - uses: snok/install-poetry@v1
     - name: install
       run: poetry install
     - name: Build documentation
       run: |
-        mkdir -p gh-pages/backend
+        mkdir -p gh-pages
         touch gh-pages/.nojekyll
         cd backend/src
-        poetry run mkdocs build -f ../mkdocs.yml
-        cp -r _site/* ../../gh-pages/backend
+        poetry run mkdocs build -f ../../mkdocs.yml
+        cd ../..
+        cp -r _site/* ../../gh-pages
     - name: Deploy documentation
       if: ${{ github.event_name == 'push' }}
       uses: JamesIves/github-pages-deploy-action@4.1.4

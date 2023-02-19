@@ -1,0 +1,6 @@
+site_name: kwai frontend
+site_description: kwai frontend, the UI for the sports club management system.
+docs_dir: docs
+
+nav:
+  - Intro: index.md
