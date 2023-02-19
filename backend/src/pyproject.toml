@@ -3,7 +3,6 @@ name = "kwai"
 version = "0.1.0"
 description = "KWAI Sport Club Management - API"
 authors = ["Franky Braem <franky.braem@gmail.com>"]
-readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
