@@ -17,14 +17,14 @@ jobs:
         python-version: "3.10"
     - uses: snok/install-poetry@v1
     - name: install
+      working-directory: backend/src
       run: poetry install
     - name: Build documentation
+      working-directory: backend/src
       run: |
         mkdir -p gh-pages
         touch gh-pages/.nojekyll
-        cd backend/src
         poetry run mkdocs build -f ../../mkdocs.yml
-        cd ../..
         cp -r _site/* ../../gh-pages
     - name: Deploy documentation
       if: ${{ github.event_name == 'push' }}
