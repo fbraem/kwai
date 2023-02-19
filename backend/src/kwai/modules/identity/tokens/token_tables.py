@@ -31,7 +31,7 @@ class AccessTokenRow:
     def create_entity(self, user_account: UserAccountEntity) -> AccessTokenEntity:
         """Create an entity from the table row."""
         return AccessTokenEntity(
-            id=AccessTokenIdentifier(self.id),
+            id_=AccessTokenIdentifier(self.id),
             identifier=TokenIdentifier(hex_string=self.identifier),
             expiration=self.expiration,
             user_account=user_account,
@@ -74,7 +74,7 @@ class RefreshTokenRow:
     def create_entity(self, access_token: AccessTokenEntity) -> RefreshTokenEntity:
         """Create a refresh token entity from the table row."""
         return RefreshTokenEntity(
-            id=RefreshTokenIdentifier(self.id),
+            id_=RefreshTokenIdentifier(self.id),
             identifier=TokenIdentifier(hex_string=self.identifier),
             access_token=access_token,
             expiration=self.expiration,

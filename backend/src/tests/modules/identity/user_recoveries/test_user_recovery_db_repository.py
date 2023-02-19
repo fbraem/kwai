@@ -50,7 +50,7 @@ def test_update(repo: UserRecoveryRepository, user_recovery: UserRecoveryEntity)
     user_recovery.confirm()
     repo.update(user_recovery)
     recovery = repo.get_by_uuid(user_recovery.uuid)
-    assert recovery.confirmation, "There should be a confirmation date"
+    assert recovery.confirmed_at, "There should be a confirmation date"
 
 
 def test_delete(repo: UserRecoveryRepository, user_recovery: UserRecoveryEntity):

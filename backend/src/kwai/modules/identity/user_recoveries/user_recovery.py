@@ -1,6 +1,6 @@
 """Module that implements a user recovery entity."""
-from dataclasses import dataclass, field
 
+from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
@@ -10,41 +10,86 @@ from kwai.modules.identity.users.user import UserEntity
 UserRecoveryIdentifier = IntIdentifier
 
 
-@dataclass(kw_only=True)
-class UserRecoveryEntity:
+class UserRecoveryEntity(Entity[UserRecoveryIdentifier]):
     """A user recovery domain."""
 
-    # pylint: disable=too-many-instance-attributes
-    user: UserEntity
-    expiration: LocalTimestamp = field(default_factory=LocalTimestamp)
-    id: UserRecoveryIdentifier = field(default_factory=UserRecoveryIdentifier)
-    uuid: UniqueId = field(default_factory=UniqueId.generate)
-    remark: str | None = None
-    confirmation: LocalTimestamp() = field(default_factory=LocalTimestamp)
-    mailed_at: LocalTimestamp() = field(default_factory=LocalTimestamp)
-    traceable_time: TraceableTime = field(default_factory=TraceableTime)
+    def __init__(
+        self,
+        *,
+        id_: UserRecoveryIdentifier | None = None,
+        user: UserEntity,
+        expiration: LocalTimestamp | None = None,
+        uuid: UniqueId | None = None,
+        remark: str = "",
+        confirmation: LocalTimestamp | None = None,
+        mailed_at: LocalTimestamp | None = None,
+        traceable_time: TraceableTime | None = None,
+    ):
+        super().__init__(id_ or UserRecoveryIdentifier())
+        self._user = user
+        self._expiration = expiration or LocalTimestamp()
+        self._uuid = uuid or UniqueId.generate()
+        self._remark = remark
+        self._confirmation = confirmation or LocalTimestamp()
+        self._mailed_at = mailed_at or LocalTimestamp()
+        self._traceable_time = traceable_time or TraceableTime()
 
     def confirm(self):
         """Confirm the user recovery."""
-        self.confirmation = LocalTimestamp.create_now()
-        self.traceable_time = self.traceable_time.mark_for_update()
+        self._confirmation = LocalTimestamp.create_now()
+        self._traceable_time = self._traceable_time.mark_for_update()
 
     @property
     def confirmed(self) -> bool:
         """Return True when this user recovery was confirmed."""
-        return not self.confirmation.empty
+        return not self._confirmation.empty
+
+    @property
+    def confirmed_at(self) -> LocalTimestamp:
+        """Return the timestamp of the confirmation."""
+        return self._confirmation
+
+    @property
+    def expiration(self) -> LocalTimestamp:
+        """Return the expiration timestamp."""
+        return self._expiration
 
     @property
     def is_expired(self) -> bool:
         """Return True when the user recovery is expired."""
-        return self.expiration.is_past
+        return self._expiration.is_past
 
     @property
     def mailed(self) -> bool:
         """Return True when the mail was already send."""
-        return not self.mailed_at.empty
+        return not self._mailed_at.empty
+
+    @property
+    def mailed_at(self) -> LocalTimestamp:
+        """Return the timestamp of mail."""
+        return self._mailed_at
 
     def mail_send(self):
         """Set the timestamp when mail has been sent."""
-        self.mailed_at = LocalTimestamp.create_now()
-        self.traceable_time = self.traceable_time.mark_for_update()
+        self._mailed_at = LocalTimestamp.create_now()
+        self._traceable_time = self._traceable_time.mark_for_update()
+
+    @property
+    def remark(self) -> str:
+        """Return the remark."""
+        return self._remark
+
+    @property
+    def traceable_time(self) -> TraceableTime:
+        """Return the creation/modification timestamps."""
+        return self._traceable_time
+
+    @property
+    def user(self) -> UserEntity:
+        """Return the user."""
+        return self._user
+
+    @property
+    def uuid(self) -> UniqueId:
+        """Return the unique id of the user recovery."""
+        return self._uuid

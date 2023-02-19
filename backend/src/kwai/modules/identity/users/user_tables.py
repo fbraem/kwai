@@ -34,12 +34,13 @@ class UserRow:
     def create_entity(self) -> UserEntity:
         """Create a user entity from a table row."""
         return UserEntity(
-            id=UserIdentifier(self.id),
+            id_=UserIdentifier(self.id),
             uuid=UniqueId.create_from_string(self.uuid),
             name=Name(
                 first_name=self.first_name,
                 last_name=self.last_name,
             ),
+            remark=self.remark,
             email=EmailAddress(self.email),
             traceable_time=TraceableTime(
                 created_at=self.created_at,
@@ -55,7 +56,7 @@ class UserRow:
             email=str(user.email),
             first_name=user.name.first_name,
             last_name=user.name.last_name,
-            remark=None,
+            remark=user.remark,
             uuid=str(user.uuid),
             created_at=user.traceable_time.created_at,
             updated_at=user.traceable_time.updated_at,
@@ -88,14 +89,14 @@ class UserAccountRow:
     def create_entity(self) -> UserAccountEntity:
         """Create a user account entity from the table row."""
         return UserAccountEntity(
-            id=UserAccountIdentifier(self.id),
+            id_=UserAccountIdentifier(self.id),
             password=Password(hashed_password=self.password),
             last_login=LocalTimestamp(self.last_login),
             last_unsuccessful_login=LocalTimestamp(self.last_unsuccessful_login),
             revoked=self.revoked == 1,
             admin=self.admin == 1,
             user=UserEntity(
-                id=UserIdentifier(self.id),
+                id_=UserIdentifier(self.id),
                 uuid=UniqueId.create_from_string(self.uuid),
                 name=Name(
                     first_name=self.first_name,

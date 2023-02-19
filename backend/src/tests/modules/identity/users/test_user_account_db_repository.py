@@ -54,7 +54,7 @@ def test_get_by_email(repo: UserAccountRepository, user_account: UserAccountEnti
 
 def test_update(repo: UserAccountRepository, user_account: UserAccountEntity):
     """Test if the user account can be updated."""
-    user_account.revoked = True
+    user_account.revoke()
     repo.update(user_account)
     result = repo.get_user_by_email(user_account.user.email)
     assert result.revoked is True, "The user should be revoked"

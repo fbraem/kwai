@@ -33,7 +33,7 @@ class UserRecoveryRow:
     def create_entity(self, user: UserEntity) -> UserRecoveryEntity:
         """Create a user recovery entity from the table row."""
         return UserRecoveryEntity(
-            id=UserRecoveryIdentifier(self.id),
+            id_=UserRecoveryIdentifier(self.id),
             uuid=UniqueId.create_from_string(self.uuid),
             user=user,
             expiration=LocalTimestamp(
@@ -58,7 +58,7 @@ class UserRecoveryRow:
             uuid=str(user_recovery.uuid),
             expired_at=user_recovery.expiration.timestamp,
             expired_at_timezone=user_recovery.expiration.timezone,
-            confirmed_at=user_recovery.confirmation.timestamp,
+            confirmed_at=user_recovery.confirmed_at.timestamp,
             mailed_at=user_recovery.mailed_at.timestamp,
             remark=user_recovery.remark,
             created_at=user_recovery.traceable_time.created_at,

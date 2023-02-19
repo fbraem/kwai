@@ -1,10 +1,10 @@
 """Module that implements a user recovery repository interface for a database."""
-import dataclasses
 from typing import Any
 
 from sql_smith.functions import on
 
 from kwai.core.db.database import Database
+from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_recoveries.user_recovery import (
     UserRecoveryIdentifier,
@@ -37,7 +37,7 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
             UserRecoveriesTable.table_name, UserRecoveryRow.persist(user_recovery)
         )
         self._database.commit()
-        return dataclasses.replace(user_recovery, id=UserRecoveryIdentifier(new_id))
+        return Entity.replace(user_recovery, id_=UserRecoveryIdentifier(new_id))
 
     def update(self, user_recovery: UserRecoveryEntity):
         self._database.update(
