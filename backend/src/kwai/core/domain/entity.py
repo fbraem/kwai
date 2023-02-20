@@ -31,7 +31,7 @@ class Entity(Generic[T]):
         """Return a new entity from the existing entity.
 
         Args:
-            entity(Entity[T]: The entity to copy the values from
+            entity(Entity[T]): The entity to copy the values from
             changes: the values to override when creating the new entity.
 
         Use the same keyword arguments as used on the class constructor (__init__) to
