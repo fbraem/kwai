@@ -36,5 +36,5 @@ class LocalTimestamp:
 
     @classmethod
     def create_now(cls):
-        """Create a timestamp with the current time."""
+        """Create a timestamp with the current UTC time."""
         return LocalTimestamp(timestamp=datetime.utcnow())
