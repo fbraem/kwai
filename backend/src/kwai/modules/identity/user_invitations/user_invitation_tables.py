@@ -53,6 +53,14 @@ class UserInvitationRow:
     updated_at: datetime | None
 
     def create_entity(self, user: UserEntity) -> UserInvitationEntity:
+        """Create a user invitation entity from the table row.
+
+        Args:
+            user(UserEntity): The associated user entity
+
+        Returns:
+            (UserInvitationEntity)
+        """
         return UserInvitationEntity(
             id_=UserInvitationIdentifier(self.id),
             email=EmailAddress(self.email),
@@ -62,7 +70,7 @@ class UserInvitationRow:
             user=user,
             remark=self.remark or "",
             confirmed_at=LocalTimestamp(self.confirmed_at),
-            revoked=True if self.revoked == 1 else False,
+            revoked=self.revoked == 1,
             traceable_time=TraceableTime(
                 created_at=self.created_at, updated_at=self.updated_at
             ),
@@ -70,6 +78,14 @@ class UserInvitationRow:
 
     @classmethod
     def persist(cls, invitation: UserInvitationEntity) -> "UserInvitationRow":
+        """Persist a user invitation entity into a table row.
+
+        Args:
+            invitation(UserInvitationEntity): The user invitation entity to persist.
+
+        Returns:
+            (UserInvitationRow): A dataclass containing the table row data.
+        """
         return UserInvitationRow(
             id=invitation.id.value,
             email=str(invitation.email),
