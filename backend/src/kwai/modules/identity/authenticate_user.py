@@ -14,7 +14,16 @@ from kwai.modules.identity.users.user_account_repository import UserAccountRepos
 
 @dataclass(kw_only=True, frozen=True)
 class AuthenticateUserCommand:
-    """Input for the AuthenticateUser use case."""
+    """Input for the (AuthenticateUser) use case.
+
+    Attributes:
+        username: The email address of the user.
+        password: The password of the user.
+        access_token_expiry_minutes: Minutes before expiring the access token.
+            Default is 2 hours.
+        refresh_token_expiry_minutes: Minutes before expiring the refresh token.
+            Default is 2 months.
+    """
 
     username: str
     password: str
@@ -23,10 +32,7 @@ class AuthenticateUserCommand:
 
 
 class AuthenticateUser:
-    """Authenticate user.
-
-    A refresh token will be returned when the user is successfully authenticated.
-    """
+    """Use case to authenticate a user."""
 
     # pylint: disable=too-few-public-methods
     def __init__(
@@ -42,12 +48,17 @@ class AuthenticateUser:
     def execute(self, command: AuthenticateUserCommand) -> RefreshTokenEntity:
         """Execute the use case.
 
-        :raises:
-            core.domain.value_objects.InvalidEmailException: Raised when the username
-            contains an invalid email address.
-        :raises:
+        Args:
+            command: The input for this use case.
+
+        Returns:
+            RefreshTokenEntity: On success, a refresh token entity will be returned.
+
+        Raises:
+            InvalidEmailException: Raised when the username
+                contains an invalid email address.
             UserAccountNotFoundException: Raised when the user with the given email
-            address doesn't exist.
+                address doesn't exist.
         """
         user_account = self._user_account_repo.get_user_by_email(
             EmailAddress(command.username)

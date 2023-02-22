@@ -5,6 +5,7 @@ docs_dir: docs
 nav:
   - Intro: index.md
   - source: core/index.md
+  - Modules: modules/index.md
   - api:
     - auth: api/api_auth.md
 
