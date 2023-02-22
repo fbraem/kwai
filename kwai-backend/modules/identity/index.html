@@ -1667,36 +1667,9 @@ Default is 2 months.</p></td>
   <div class="doc doc-contents ">
 
   
-      <p>Use case: reset password.</p>
-
-  <p><strong>Attributes:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>_user_account_repo</code></td>
-          <td>
-                <code><span title="kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</span></code>
-          </td>
-          <td><p>The repository for getting the
-user account</p></td>
-        </tr>
-        <tr>
-          <td><code>_user_recovery_repo</code></td>
-          <td>
-                <code><span title="kwai.modules.identity.user_recoveries.user_recovery_repository.UserRecoveryRepository">UserRecoveryRepository</span></code>
-          </td>
-          <td><p>The repository for getting and
-updating the user recovery</p></td>
-        </tr>
-    </tbody>
-  </table>
+      <p>Reset password use case.</p>
+<p>This use case will try to reset the password of a user. A user can reset the
+password with a unique id. This unique id is linked to a user recovery.</p>
 
 
 
@@ -1711,6 +1684,60 @@ updating the user recovery</p></td>
 
 
 
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="kwai.modules.identity.reset_password.ResetPassword.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">user_account_repo</span><span class="p">,</span> <span class="n">user_recovery_repo</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.identity.reset_password.ResetPassword.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize the use case.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>user_account_repo</code></td>
+          <td>
+                <code><span title="kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</span></code>
+          </td>
+          <td><p>The repository for getting the
+user account.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>user_recovery_repo</code></td>
+          <td>
+                <code><span title="kwai.modules.identity.user_recoveries.user_recovery_repository.UserRecoveryRepository">UserRecoveryRepository</span></code>
+          </td>
+          <td><p>The repository for getting and
+updating the user recovery.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
 
 <div class="doc doc-object doc-function">
 
@@ -1771,6 +1798,13 @@ given uuid does not exist.</p></td>
                 <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.reset_password.UserRecoveryExpiredException" href="#kwai.modules.identity.reset_password.UserRecoveryExpiredException">UserRecoveryExpiredException</a></code>
           </td>
           <td><p>Raised when the user recovery is expired.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.reset_password.UserRecoveryConfirmedException" href="#kwai.modules.identity.reset_password.UserRecoveryConfirmedException">UserRecoveryConfirmedException</a></code>
+          </td>
+          <td><p>Raised when the user recovery is already
+used.</p></td>
         </tr>
         <tr>
           <td>
@@ -1864,6 +1898,30 @@ that belongs to the user recovery, does not exist.</p></td>
 
 
   </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="kwai.modules.identity.reset_password.UserRecoveryConfirmedException" class="doc doc-heading">
+        <code>UserRecoveryConfirmedException</code>
+
+
+<a href="#kwai.modules.identity.reset_password.UserRecoveryConfirmedException" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents ">
+      <p class="doc doc-class-bases">
+        Bases: <code>Exception</code></p>
+
+  
+      <p>Raised when the user recovery was already used.</p>
+
+
 
   </div>
 
