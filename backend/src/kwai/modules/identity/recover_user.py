@@ -23,7 +23,16 @@ class RecoverUserCommand:
 
 
 class RecoverUser:
-    """Use case: recover user."""
+    """Use case: recover user.
+
+    Attributes:
+        _user_account_repo (UserAccountRepository): The repository for getting the
+            user account.
+        _user_recovery_repo (UserRecoveryRepository): The repository for creating a
+            user recovery.
+        _event_bus (Bus): An event bus for dispatching the UserRecoveryCreatedEvent
+            event.
+    """
 
     # pylint: disable=too-few-public-methods
     def __init__(
@@ -39,11 +48,13 @@ class RecoverUser:
     def execute(self, command: RecoverUserCommand) -> UserRecoveryEntity:
         """Execute the use case.
 
-        :raises:
-            kwai.modules.identity.users.user_repository.UserAccountNotFoundException:
-                Raised when the user with the given email address does not exist.
-            kwai.core.domain.exceptions.UnprocessableException:
-                Raised when the user is revoked
+        Args:
+            command: The input for this use case.
+
+        Raises:
+            UserAccountNotFoundException: Raised when the user with the given email
+                address does not exist.
+            UnprocessableException: Raised when the user is revoked
         """
         user_account = self._user_account_repo.get_user_by_email(
             EmailAddress(command.email)

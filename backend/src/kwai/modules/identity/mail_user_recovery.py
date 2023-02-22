@@ -17,7 +17,11 @@ from kwai.modules.identity.user_recoveries.user_recovery_repository import (
 
 @dataclass(frozen=True, kw_only=True)
 class MailUserRecoveryCommand:
-    """Command for the use case MailUserRecovery."""
+    """Command for the use case MailUserRecovery.
+
+    Attributes:
+        uuid: The unique id of the user recovery.
+    """
 
     uuid: str
 
@@ -41,11 +45,13 @@ class MailUserRecovery:
     def execute(self, command: MailUserRecoveryCommand) -> UserRecoveryEntity:
         """Executes the use case.
 
-        :raises:
-            kwai.modules.identity.user_recoveries.UserRecoveryNotFoundException: Raised
-                when the user recovery cannot be found.
-            kwai.core.domain.exceptions.UnprocessableException:
-                Raised when the mail was already send.
+        Args:
+            command: The input for this use case.
+
+        Raises:
+            UserRecoveryNotFoundException: Raised when
+                the user recovery cannot be found.
+            UnprocessableException: Raised when the mail was already send.
                 Raised when the user recovery was already confirmed.
         """
         user_recovery = self._user_recovery_repo.get_by_uuid(

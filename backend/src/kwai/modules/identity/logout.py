@@ -24,9 +24,9 @@ class Logout:  # pylint: disable=too-few-public-methods
     related to this refresh token will also be revoked.
 
     Attributes:
-        _refresh_token_repository(RefreshTokenRepository): The repository to
+        _refresh_token_repository (RefreshTokenRepository): The repository to
             get and update the refresh token.
-        _access_token_repository(AccessTokenRepository): The repository to
+        _access_token_repository (AccessTokenRepository): The repository to
             get and update the access token.
     """
 
@@ -42,7 +42,7 @@ class Logout:  # pylint: disable=too-few-public-methods
         """Execute the use case.
 
         Args:
-            command (LogoutCommand)
+            command: The input for this use case.
 
         Raises:
             RefreshTokenNotFoundException: The refresh token with the identifier

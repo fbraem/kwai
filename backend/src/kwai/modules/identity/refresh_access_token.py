@@ -12,7 +12,15 @@ from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 
 @dataclass(kw_only=True, frozen=True, slots=True)
 class RefreshAccessTokenCommand:
-    """Input for the refresh access token use case."""
+    """Input for the refresh access token use case.
+
+    Attributes:
+        identifier: The identifier of the refresh token.
+        access_token_expiry_minutes: Minutes before expiring the access token.
+            Default is 2 hours.
+        refresh_token_expiry_minutes: Minutes before expiring the refresh token.
+            Default is 2 months.
+    """
 
     identifier: str  # The identifier of the refresh token.
     access_token_expiry_minutes: int = 60 * 2  # 2 hours
@@ -22,7 +30,14 @@ class RefreshAccessTokenCommand:
 class RefreshAccessToken:
     """Use case for refreshing an access token.
 
-    A new access token will also result in a new refresh token.
+    Attributes:
+        _refresh_token_repo (RefreshTokenRepository): The repo for getting and creating
+            a new refresh token.
+        _access_token_repo (AccessTokenRepository): The repo for updating and creating
+            an access token.
+
+    Note:
+        A new access token will also result in a new refresh token.
     """
 
     # pylint: disable=too-few-public-methods
@@ -37,11 +52,13 @@ class RefreshAccessToken:
     def execute(self, command: RefreshAccessTokenCommand) -> RefreshTokenEntity:
         """Executes the use case.
 
-        :raises:
+        Args:
+            command: The input for this use case.
+
+        Raises:
             RefreshTokenNotFoundException: Raised when the refresh token does not exist.
-        :raises:
             AuthenticationException: Raised when the refresh token is expired, the
-            refresh token is revoked or the user is revoked.
+                refresh token is revoked or the user is revoked.
         """
         refresh_token = self._refresh_token_repo.get_by_token_identifier(
             TokenIdentifier(hex_string=command.identifier)

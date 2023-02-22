@@ -32,7 +32,16 @@ class AuthenticateUserCommand:
 
 
 class AuthenticateUser:
-    """Use case to authenticate a user."""
+    """Use case to authenticate a user.
+
+    Attributes:
+        _user_account_repo (UserAccountRepository): The repository for getting the
+            user account.
+        _access_token_repo (UserAccountRepository): The repository for creating the
+            access token.
+        _refresh_token_repo (UserAccountRepository): The repository for creating the
+            refresh token.
+    """
 
     # pylint: disable=too-few-public-methods
     def __init__(

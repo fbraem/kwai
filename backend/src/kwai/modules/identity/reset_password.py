@@ -15,14 +15,26 @@ class UserRecoveryExpiredException(Exception):
 
 @dataclass(frozen=True, kw_only=True)
 class ResetPasswordCommand:
-    """Command for the reset password use case."""
+    """Command for the reset password use case.
+
+    Attributes:
+        uuid: The unique id of the user recovery
+        password: The new password.
+    """
 
     uuid: str
     password: str
 
 
 class ResetPassword:
-    """Use case: reset password."""
+    """Use case: reset password.
+
+    Attributes:
+        _user_account_repo (UserAccountRepository): The repository for getting the
+            user account
+        _user_recovery_repo (UserRecoveryRepository): The repository for getting and
+            updating the user recovery
+    """
 
     # pylint: disable=too-few-public-methods
     def __init__(
@@ -36,16 +48,16 @@ class ResetPassword:
     def execute(self, command: ResetPasswordCommand) -> None:
         """Executes the use case.
 
-        :raises:
-            :exc:`~.user_recovery_repository.UserRecoveryNotFoundException`
-                Raised when the user recovery with the given uuid does not exist.
-            :exc:`UserRecoveryExpiredException`
-                Raised when the user recovery is expired.
-            :exc:`~.user_account_repository.UserAccountNotFoundException`
-                Raised when the user with the email address that belongs to the
-                user recovery, does not exist.
-            :exc:`NotAllowedException`
-                Raised when the user is revoked.
+        Args:
+            command: The input for this use case.
+
+        Raises:
+            UserRecoveryNotFoundException: Raised when the user recovery with the
+                given uuid does not exist.
+            UserRecoveryExpiredException: Raised when the user recovery is expired.
+            UserAccountNotFoundException: Raised when the user with the email address
+                that belongs to the user recovery, does not exist.
+            NotAllowedException: Raised when the user is revoked.
         """
         user_recovery = self._user_recovery_repo.get_by_uuid(
             UniqueId.create_from_string(command.uuid)
