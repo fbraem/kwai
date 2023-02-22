@@ -52,6 +52,22 @@ create table if not exists oauth_refresh_tokens
     updated_at      timestamp                            null
 ) charset = utf8mb3;
 
+create table user_invitations
+(
+    id                  int unsigned auto_increment          primary key,
+    email               varchar(255)                         not null,
+    first_name          varchar(255)                         not null,
+    last_name           varchar(255)                         not null,
+    uuid                varchar(255)                         not null,
+    expired_at          datetime                             not null,
+    expired_at_timezone varchar(255)                         not null,
+    remark              text                                 null,
+    user_id             int                                  not null,
+    created_at          timestamp  default CURRENT_TIMESTAMP not null,
+    updated_at          timestamp                            null,
+    revoked             tinyint(1) default 0                 not null,
+    confirmed_at        datetime                             null
+)
+    charset = utf8mb3;
 
 -- migrate:down
-
