@@ -8,6 +8,3 @@ nav:
   - Modules: modules/index.md
   - api:
     - auth: api/api_auth.md
-
-watch:
-  - src
