@@ -56,6 +56,18 @@ def test_get_by_uuid(repo: UserInvitationRepository, invitation: UserInvitationE
     assert entity.id == invitation.id
 
 
+def test_get_all(repo: UserInvitationRepository):
+    assert (
+        len(list(repo.get_all(repo.create_query()))) > 0
+    ), "There should be at least 1 row"
+
+
+def test_query_filter_by_email(repo: UserInvitationRepository):
+    query = repo.create_query()
+    query.filter_by_email(EmailAddress("ichiro.abe@kwai.com"))
+    assert len(list(repo.get_all(query))) > 0, "There should be at least 1 row"
+
+
 def test_delete(repo: UserInvitationRepository, invitation: UserInvitationEntity):
     """Test if the invitation can be deleted."""
     repo.delete(invitation)

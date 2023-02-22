@@ -1,4 +1,6 @@
 """Module that implements a user invitation repository for a database."""
+from typing import Iterator
+
 from kwai.core.db.database import Database
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.unique_id import UniqueId
@@ -39,12 +41,16 @@ class InvitationDbRepository(UserInvitationRepository):
         self._database = database
 
     def create_query(self) -> UserInvitationQuery:
-        """Create a UserInvitationQuery.
-
-        Returns:
-            (UserInvitationQuery)
-        """
         return UserInvitationDbQuery(self._database)
+
+    def get_all(
+        self,
+        query: UserInvitationQuery,
+        limit: int | None = None,
+        offset: int | None = None,
+    ) -> Iterator[UserInvitationEntity]:
+        for row in query.fetch():
+            yield _create_entity(row)
 
     def get_invitation_by_id(
         self, id_: UserInvitationIdentifier

@@ -2,6 +2,7 @@
 from abc import ABC
 
 from kwai.core.domain.repository.query import Query
+from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_invitations.user_invitation import (
     UserInvitationIdentifier,
@@ -30,5 +31,16 @@ class UserInvitationQuery(Query, ABC):
 
         Returns:
             (UserInvitationQuery): The active query
+        """
+        raise NotImplementedError
+
+    def filter_by_email(self, email: EmailAddress) -> "UserInvitationQuery":
+        """Add a filter on the user invitation for the email address.
+
+        Args:
+            email: An email address.
+
+        Returns:
+            The active query
         """
         raise NotImplementedError

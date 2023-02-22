@@ -2,6 +2,7 @@
 from sql_smith.functions import on
 
 from kwai.core.db.database_query import DatabaseQuery
+from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_invitations.user_invitation import (
     UserInvitationIdentifier,
@@ -34,4 +35,8 @@ class UserInvitationDbQuery(UserInvitationQuery, DatabaseQuery):
 
     def filter_by_uuid(self, uuid: UniqueId) -> "UserInvitationQuery":
         self._query.and_where(UserInvitationsTable.field("uuid").eq(str(uuid)))
+        return self
+
+    def filter_by_email(self, email: EmailAddress) -> "UserInvitationQuery":
+        self._query.and_where(UserInvitationsTable.field("email").eq(str(email)))
         return self
