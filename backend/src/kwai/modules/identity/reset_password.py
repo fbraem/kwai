@@ -13,6 +13,10 @@ class UserRecoveryExpiredException(Exception):
     """Raised when the user recovery is expired."""
 
 
+class UserRecoveryConfirmedException(Exception):
+    """Raised when the user recovery was already used."""
+
+
 @dataclass(frozen=True, kw_only=True)
 class ResetPasswordCommand:
     """Command for the reset password use case.
@@ -60,6 +64,8 @@ class ResetPassword:
             UserRecoveryNotFoundException: Raised when the user recovery with the
                 given uuid does not exist.
             UserRecoveryExpiredException: Raised when the user recovery is expired.
+            UserRecoveryConfirmedException: Raised when the user recovery is already
+                used.
             UserAccountNotFoundException: Raised when the user with the email address
                 that belongs to the user recovery, does not exist.
             NotAllowedException: Raised when the user is revoked.
@@ -69,6 +75,8 @@ class ResetPassword:
         )
         if user_recovery.is_expired:
             raise UserRecoveryExpiredException()
+        if user_recovery.confirmed:
+            raise UserRecoveryConfirmedException()
 
         user_account = self._user_account_repo.get_user_by_email(
             user_recovery.user.email
@@ -76,3 +84,6 @@ class ResetPassword:
 
         user_account.reset_password(Password.create_from_string(command.password))
         self._user_account_repo.update(user_account)
+
+        user_recovery.confirm()
+        self._user_recovery_repo.update(user_recovery)
