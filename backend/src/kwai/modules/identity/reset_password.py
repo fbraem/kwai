@@ -27,13 +27,10 @@ class ResetPasswordCommand:
 
 
 class ResetPassword:
-    """Use case: reset password.
+    """Reset password use case.
 
-    Attributes:
-        _user_account_repo (UserAccountRepository): The repository for getting the
-            user account
-        _user_recovery_repo (UserRecoveryRepository): The repository for getting and
-            updating the user recovery
+    This use case will try to reset the password of a user. A user can reset the
+    password with a unique id. This unique id is linked to a user recovery.
     """
 
     # pylint: disable=too-few-public-methods
@@ -42,6 +39,14 @@ class ResetPassword:
         user_account_repo: UserAccountRepository,
         user_recovery_repo: UserRecoveryRepository,
     ):
+        """Initialize the use case.
+
+        Args:
+            user_account_repo (UserAccountRepository): The repository for getting the
+                user account.
+            user_recovery_repo (UserRecoveryRepository): The repository for getting and
+                updating the user recovery.
+        """
         self._user_account_repo = user_account_repo
         self._user_recovery_repo = user_recovery_repo
 
