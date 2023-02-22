@@ -9,6 +9,8 @@ from kwai.modules.identity.user_invitations.user_invitation import (
 
 
 class UserInvitationQuery(Query, ABC):
+    """An interface for querying user invitations."""
+
     def filter_by_id(self, id_: UserInvitationIdentifier) -> "UserInvitationQuery":
         """Add a filter on the user invitation for id.
 

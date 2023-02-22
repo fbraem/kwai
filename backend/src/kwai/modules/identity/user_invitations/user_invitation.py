@@ -18,7 +18,8 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
 
     A user invitation is a request to someone to become a member of the site.
 
-    Attributes:
+    Attributes
+    ----------
         _email(EmailAddress): The email address that receives the invitation.
         _name(Name): The name of the invited
         _uuid(UniqueId): The unique id to use to validate this invitation.
@@ -31,7 +32,7 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
             invitation.
 
     Note:
-        All attributes are by default privated. Properties are defined for getting
+        All attributes are by default private. Properties are defined for getting
         the values.
     """
 
@@ -97,7 +98,7 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
 
     @property
     def revoked(self) -> bool:
-        """Is this invitation revoked?"""
+        """Is this invitation revoked?."""
         return self._revoked
 
     @property

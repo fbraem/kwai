@@ -39,6 +39,11 @@ class InvitationDbRepository(UserInvitationRepository):
         self._database = database
 
     def create_query(self) -> UserInvitationQuery:
+        """Create a UserInvitationQuery.
+
+        Returns:
+            (UserInvitationQuery)
+        """
         return UserInvitationDbQuery(self._database)
 
     def get_invitation_by_id(
