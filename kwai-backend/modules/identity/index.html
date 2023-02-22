@@ -494,6 +494,43 @@
   
       <p>Use case to authenticate a user.</p>
 
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>_user_account_repo</code></td>
+          <td>
+                <code><span title="kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</span></code>
+          </td>
+          <td><p>The repository for getting the
+user account.</p></td>
+        </tr>
+        <tr>
+          <td><code>_access_token_repo</code></td>
+          <td>
+                <code><span title="kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</span></code>
+          </td>
+          <td><p>The repository for creating the
+access token.</p></td>
+        </tr>
+        <tr>
+          <td><code>_refresh_token_repo</code></td>
+          <td>
+                <code><span title="kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</span></code>
+          </td>
+          <td><p>The repository for creating the
+refresh token.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
 
 
   
@@ -750,15 +787,17 @@ related to this refresh token will also be revoked.</p>
     </thead>
     <tbody>
         <tr>
-          <td><code>_refresh_token_repository(RefreshTokenRepository)</code></td>
+          <td><code>_refresh_token_repository</code></td>
           <td>
+                <code><span title="kwai.modules.identity.tokens.refresh_token_repository.RefreshTokenRepository">RefreshTokenRepository</span></code>
           </td>
           <td><p>The repository to
 get and update the refresh token.</p></td>
         </tr>
         <tr>
-          <td><code>_access_token_repository(AccessTokenRepository)</code></td>
+          <td><code>_access_token_repository</code></td>
           <td>
+                <code><span title="kwai.modules.identity.tokens.access_token_repository.AccessTokenRepository">AccessTokenRepository</span></code>
           </td>
           <td><p>The repository to
 get and update the access token.</p></td>
@@ -793,6 +832,30 @@ get and update the access token.</p></td>
   <div class="doc doc-contents ">
   
       <p>Execute the use case.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>command</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.logout.LogoutCommand" href="#kwai.modules.identity.logout.LogoutCommand">LogoutCommand</a></code>
+          </td>
+          <td><p>The input for this use case.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
 
   <p><strong>Raises:</strong></p>
   <table>
@@ -963,12 +1026,56 @@ could not be found.</p></td>
   <div class="doc doc-contents ">
   
       <p>Executes the use case.</p>
-<p>:raises:
-    kwai.modules.identity.user_recoveries.UserRecoveryNotFoundException: Raised
-        when the user recovery cannot be found.
-    kwai.core.domain.exceptions.UnprocessableException:
-        Raised when the mail was already send.
-        Raised when the user recovery was already confirmed.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>command</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.mail_user_recovery.MailUserRecoveryCommand" href="#kwai.modules.identity.mail_user_recovery.MailUserRecoveryCommand">MailUserRecoveryCommand</a></code>
+          </td>
+          <td><p>The input for this use case.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>UserRecoveryNotFoundException</code>
+          </td>
+          <td><p>Raised when
+the user recovery cannot be found.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><span title="kwai.core.domain.exceptions.UnprocessableException">UnprocessableException</span></code>
+          </td>
+          <td><p>Raised when the mail was already send.
+Raised when the user recovery was already confirmed.</p></td>
+        </tr>
+    </tbody>
+  </table>
 
   </div>
 
@@ -1001,6 +1108,26 @@ could not be found.</p></td>
 
   
       <p>Command for the use case MailUserRecovery.</p>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>uuid</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The unique id of the user recovery.</p></td>
+        </tr>
+    </tbody>
+  </table>
 
 
 
@@ -1074,6 +1201,43 @@ could not be found.</p></td>
   
       <p>Use case: recover user.</p>
 
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>_user_account_repo</code></td>
+          <td>
+                <code><span title="kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</span></code>
+          </td>
+          <td><p>The repository for getting the
+user account.</p></td>
+        </tr>
+        <tr>
+          <td><code>_user_recovery_repo</code></td>
+          <td>
+                <code><span title="kwai.modules.identity.user_recoveries.user_recovery_repository.UserRecoveryRepository">UserRecoveryRepository</span></code>
+          </td>
+          <td><p>The repository for creating a
+user recovery.</p></td>
+        </tr>
+        <tr>
+          <td><code>_event_bus</code></td>
+          <td>
+                <code><span title="kwai.core.events.bus.Bus">Bus</span></code>
+          </td>
+          <td><p>An event bus for dispatching the UserRecoveryCreatedEvent
+event.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
 
 
   
@@ -1101,11 +1265,55 @@ could not be found.</p></td>
   <div class="doc doc-contents ">
   
       <p>Execute the use case.</p>
-<p>:raises:
-    kwai.modules.identity.users.user_repository.UserAccountNotFoundException:
-        Raised when the user with the given email address does not exist.
-    kwai.core.domain.exceptions.UnprocessableException:
-        Raised when the user is revoked</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>command</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.recover_user.RecoverUserCommand" href="#kwai.modules.identity.recover_user.RecoverUserCommand">RecoverUserCommand</a></code>
+          </td>
+          <td><p>The input for this use case.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>UserAccountNotFoundException</code>
+          </td>
+          <td><p>Raised when the user with the given email
+address does not exist.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><span title="kwai.core.domain.exceptions.UnprocessableException">UnprocessableException</span></code>
+          </td>
+          <td><p>Raised when the user is revoked</p></td>
+        </tr>
+    </tbody>
+  </table>
 
   </div>
 
@@ -1210,8 +1418,40 @@ could not be found.</p></td>
 
   
       <p>Use case for refreshing an access token.</p>
-<p>A new access token will also result in a new refresh token.</p>
 
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>_refresh_token_repo</code></td>
+          <td>
+                <code><span title="kwai.modules.identity.tokens.refresh_token_repository.RefreshTokenRepository">RefreshTokenRepository</span></code>
+          </td>
+          <td><p>The repo for getting and creating
+a new refresh token.</p></td>
+        </tr>
+        <tr>
+          <td><code>_access_token_repo</code></td>
+          <td>
+                <code><span title="kwai.modules.identity.tokens.access_token_repository.AccessTokenRepository">AccessTokenRepository</span></code>
+          </td>
+          <td><p>The repo for updating and creating
+an access token.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="note">
+  <summary>Note</summary>
+  <p>A new access token will also result in a new refresh token.</p>
+</details>
 
 
   
@@ -1239,11 +1479,55 @@ could not be found.</p></td>
   <div class="doc doc-contents ">
   
       <p>Executes the use case.</p>
-<p>:raises:
-    RefreshTokenNotFoundException: Raised when the refresh token does not exist.
-:raises:
-    AuthenticationException: Raised when the refresh token is expired, the
-    refresh token is revoked or the user is revoked.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>command</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.refresh_access_token.RefreshAccessTokenCommand" href="#kwai.modules.identity.refresh_access_token.RefreshAccessTokenCommand">RefreshAccessTokenCommand</a></code>
+          </td>
+          <td><p>The input for this use case.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>RefreshTokenNotFoundException</code>
+          </td>
+          <td><p>Raised when the refresh token does not exist.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><span title="kwai.modules.identity.authenticate_user.AuthenticationException">AuthenticationException</span></code>
+          </td>
+          <td><p>Raised when the refresh token is expired, the
+refresh token is revoked or the user is revoked.</p></td>
+        </tr>
+    </tbody>
+  </table>
 
   </div>
 
@@ -1276,6 +1560,42 @@ could not be found.</p></td>
 
   
       <p>Input for the refresh access token use case.</p>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>identifier</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The identifier of the refresh token.</p></td>
+        </tr>
+        <tr>
+          <td><code>access_token_expiry_minutes</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>Minutes before expiring the access token.
+Default is 2 hours.</p></td>
+        </tr>
+        <tr>
+          <td><code>refresh_token_expiry_minutes</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>Minutes before expiring the refresh token.
+Default is 2 months.</p></td>
+        </tr>
+    </tbody>
+  </table>
 
 
 
@@ -1349,6 +1669,35 @@ could not be found.</p></td>
   
       <p>Use case: reset password.</p>
 
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>_user_account_repo</code></td>
+          <td>
+                <code><span title="kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</span></code>
+          </td>
+          <td><p>The repository for getting the
+user account</p></td>
+        </tr>
+        <tr>
+          <td><code>_user_recovery_repo</code></td>
+          <td>
+                <code><span title="kwai.modules.identity.user_recoveries.user_recovery_repository.UserRecoveryRepository">UserRecoveryRepository</span></code>
+          </td>
+          <td><p>The repository for getting and
+updating the user recovery</p></td>
+        </tr>
+    </tbody>
+  </table>
+
 
 
   
@@ -1376,16 +1725,68 @@ could not be found.</p></td>
   <div class="doc doc-contents ">
   
       <p>Executes the use case.</p>
-<p>:raises:
-    :exc:<code>~.user_recovery_repository.UserRecoveryNotFoundException</code>
-        Raised when the user recovery with the given uuid does not exist.
-    :exc:<code>UserRecoveryExpiredException</code>
-        Raised when the user recovery is expired.
-    :exc:<code>~.user_account_repository.UserAccountNotFoundException</code>
-        Raised when the user with the email address that belongs to the
-        user recovery, does not exist.
-    :exc:<code>NotAllowedException</code>
-        Raised when the user is revoked.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>command</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.reset_password.ResetPasswordCommand" href="#kwai.modules.identity.reset_password.ResetPasswordCommand">ResetPasswordCommand</a></code>
+          </td>
+          <td><p>The input for this use case.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>UserRecoveryNotFoundException</code>
+          </td>
+          <td><p>Raised when the user recovery with the
+given uuid does not exist.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.reset_password.UserRecoveryExpiredException" href="#kwai.modules.identity.reset_password.UserRecoveryExpiredException">UserRecoveryExpiredException</a></code>
+          </td>
+          <td><p>Raised when the user recovery is expired.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code>UserAccountNotFoundException</code>
+          </td>
+          <td><p>Raised when the user with the email address
+that belongs to the user recovery, does not exist.</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code>NotAllowedException</code>
+          </td>
+          <td><p>Raised when the user is revoked.</p></td>
+        </tr>
+    </tbody>
+  </table>
 
   </div>
 
@@ -1418,6 +1819,33 @@ could not be found.</p></td>
 
   
       <p>Command for the reset password use case.</p>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>uuid</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The unique id of the user recovery</p></td>
+        </tr>
+        <tr>
+          <td><code>password</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The new password.</p></td>
+        </tr>
+    </tbody>
+  </table>
 
 
 
