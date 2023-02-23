@@ -3,6 +3,7 @@ from abc import ABC
 
 from kwai.core.domain.repository.query import Query
 from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_invitations.user_invitation import (
     UserInvitationIdentifier,
@@ -45,8 +46,8 @@ class UserInvitationQuery(Query, ABC):
         """
         raise NotImplementedError
 
-    def filter_not_expired(self) -> "UserInvitationQuery":
-        """Add a filter to only return the invitations that are not expired.
+    def filter_active(self, timestamp: LocalTimestamp) -> "UserInvitationQuery":
+        """Add a filter to only return the active invitations at the given time.
 
         Returns:
             The active query
