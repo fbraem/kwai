@@ -44,3 +44,11 @@ class UserInvitationQuery(Query, ABC):
             The active query
         """
         raise NotImplementedError
+
+    def filter_not_expired(self) -> "UserInvitationQuery":
+        """Add a filter to only return the invitations that are not expired.
+
+        Returns:
+            The active query
+        """
+        raise NotImplementedError
