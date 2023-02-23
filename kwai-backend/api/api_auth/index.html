@@ -581,31 +581,31 @@
     </thead>
     <tbody>
         <tr>
-          <td><code>settings(Settings)</code></td>
+          <td><code>settings</code></td>
           <td>
           </td>
           <td><p>Settings dependency</p></td>
           <td>
-              <em>required</em>
+                <code>deps.depends(Settings)</code>
           </td>
         </tr>
         <tr>
-          <td><code>db(Database)</code></td>
+          <td><code>db</code></td>
           <td>
           </td>
           <td><p>Database dependency</p></td>
           <td>
-              <em>required</em>
+                <code>deps.depends(Database)</code>
           </td>
         </tr>
         <tr>
-          <td><code>form_data(OAuth2PasswordRequestForm)</code></td>
+          <td><code>form_data</code></td>
           <td>
+                <code><span title="fastapi.security.OAuth2PasswordRequestForm">OAuth2PasswordRequestForm</span></code>
           </td>
-          <td><p>Form data that contains the username and
-password</p></td>
+          <td><p>Form data that contains the username and password</p></td>
           <td>
-              <em>required</em>
+                <code>Depends()</code>
           </td>
         </tr>
     </tbody>
@@ -709,20 +709,23 @@ password</p></td>
     </thead>
     <tbody>
         <tr>
-          <td><code>access_token(str)</code></td>
+          <td><code>access_token</code></td>
           <td>
+                <code>str</code>
           </td>
           <td></td>
         </tr>
         <tr>
-          <td><code>refresh_token(str)</code></td>
+          <td><code>refresh_token</code></td>
           <td>
+                <code>str</code>
           </td>
           <td></td>
         </tr>
         <tr>
-          <td><code>expiration(str)</code></td>
+          <td><code>expiration</code></td>
           <td>
+                <code>str</code>
           </td>
           <td><p>Timestamp in format YYYY-MM-DD HH:MM:SS</p></td>
         </tr>

@@ -737,6 +737,311 @@ Default is 2 months.</p></td>
 
 
 
+<h2 id="kwai.modules.identity.invite_user" class="doc doc-heading">
+          <code>kwai.modules.identity.invite_user</code>
+
+
+<a href="#kwai.modules.identity.invite_user" class="headerlink" title="Permanent link">&para;</a></h2>
+
+  <div class="doc doc-contents first">
+  
+      <p>Module for the invite user use case.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="kwai.modules.identity.invite_user.InviteUser" class="doc doc-heading">
+        <code>InviteUser</code>
+
+
+<a href="#kwai.modules.identity.invite_user.InviteUser" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Invite user use case.</p>
+<p>This use case will try to create an invitation for a user.</p>
+
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="kwai.modules.identity.invite_user.InviteUser.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">user_repo</span><span class="p">,</span> <span class="n">user_invitation_repo</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.identity.invite_user.InviteUser.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize the use case.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>user</code></td>
+          <td>
+                <code><span title="kwai.modules.identity.users.user.UserEntity">UserEntity</span></code>
+          </td>
+          <td><p>The inviter.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>user_repo</code></td>
+          <td>
+                <code><span title="kwai.modules.identity.users.user_repository.UserRepository">UserRepository</span></code>
+          </td>
+          <td><p>The repository to check if the email address is still free.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>user_invitation_repo</code></td>
+          <td>
+                <code><span title="kwai.modules.identity.user_invitations.user_invitation_repository.UserInvitationRepository">UserInvitationRepository</span></code>
+          </td>
+          <td><p>The repository for creating an invitation.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="kwai.modules.identity.invite_user.InviteUser.execute" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.identity.invite_user.InviteUser.execute" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Executes the use case.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>command</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.invite_user.InviteUserCommand" href="#kwai.modules.identity.invite_user.InviteUserCommand">InviteUserCommand</a></code>
+          </td>
+          <td><p>The input for this use case.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity">UserInvitationEntity</span></code>
+          </td>
+          <td><p>A user invitation</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="kwai.core.domain.exceptions.UnprocessableException">UnprocessableException</span></code>
+          </td>
+          <td><p>raised when the email address is already in use or
+when there are still pending invitations for the email address.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="kwai.modules.identity.invite_user.InviteUserCommand" class="doc doc-heading">
+        <code>InviteUserCommand</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.invite_user.InviteUserCommand" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Input for the <a class="autorefs autorefs-internal" href="#kwai.modules.identity.invite_user.InviteUser">InviteUser</a> use
+case.</p>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>first_name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>Firstname of the invited</p></td>
+        </tr>
+        <tr>
+          <td><code>last_name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>Lastname of the invited</p></td>
+        </tr>
+        <tr>
+          <td><code>email</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>Email address of the invited</p></td>
+        </tr>
+        <tr>
+          <td><code>expiration_in_days</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>After how many days will the invitation expire?</p></td>
+        </tr>
+        <tr>
+          <td><code>remark</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>A remark about this invitation</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h2 id="kwai.modules.identity.logout" class="doc doc-heading">
           <code>kwai.modules.identity.logout</code>
 
