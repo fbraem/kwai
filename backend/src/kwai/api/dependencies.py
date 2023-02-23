@@ -6,7 +6,6 @@ from lagom.integrations.fast_api import FastApiIntegration
 
 from kwai.core.db.database import Database
 from kwai.core.dependencies import container
-from kwai.core.security.system_user import SystemUser
 from kwai.core.settings import Settings
 from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
@@ -15,6 +14,7 @@ from kwai.modules.identity.tokens.access_token_repository import (
     AccessTokenNotFoundException,
 )
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
+from kwai.modules.identity.users.user import UserEntity
 
 deps = FastApiIntegration(container)
 
@@ -25,7 +25,7 @@ def get_current_user(
     settings=deps.depends(Settings),
     db=deps.depends(Database),
     token: str = Depends(oauth),
-) -> SystemUser:
+) -> UserEntity:
     """Try to get the current user from the access token.
 
     Not authorized will be raised when the access token is not found, expired, revoked
@@ -57,6 +57,4 @@ def get_current_user(
     if access_token.expired:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED)
 
-    return SystemUser(
-        id=access_token.user_account.id.value, uuid=access_token.user_account.user.uuid
-    )
+    return access_token.user_account.user

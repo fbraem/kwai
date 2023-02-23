@@ -10,7 +10,6 @@ from kwai.core.db.database import Database
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import InvalidEmailException
 from kwai.core.events.bus import Bus
-from kwai.core.security.system_user import SystemUser
 from kwai.core.settings import SecuritySettings, Settings
 from kwai.modules.identity.authenticate_user import (
     AuthenticateUser,
@@ -41,6 +40,7 @@ from kwai.modules.identity.user_recoveries.user_recovery_db_repository import (
 from kwai.modules.identity.user_recoveries.user_recovery_repository import (
     UserRecoveryNotFoundException,
 )
+from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
 )
@@ -53,9 +53,9 @@ class TokenSchema(BaseModel):
     """The response schema for an access/refresh token.
 
     Attributes:
-        access_token(str):
-        refresh_token(str):
-        expiration(str): Timestamp in format YYYY-MM-DD HH:MM:SS
+        access_token:
+        refresh_token:
+        expiration: Timestamp in format YYYY-MM-DD HH:MM:SS
     """
 
     access_token: str
@@ -84,10 +84,9 @@ def login(
         This request expects a form (application/x-www-form-urlencoded).
 
     Args:
-        settings(Settings): Settings dependency
-        db(Database): Database dependency
-        form_data(OAuth2PasswordRequestForm): Form data that contains the username and
-            password
+        settings: Settings dependency
+        db: Database dependency
+        form_data: Form data that contains the username and password
     """
     command = AuthenticateUserCommand(
         username=form_data.username,
@@ -122,7 +121,7 @@ def login(
 def logout(
     settings=deps.depends(Settings),
     db: Database = deps.depends(Database),
-    user: SystemUser = Depends(get_current_user),  # pylint: disable=unused-argument
+    user: UserEntity = Depends(get_current_user),  # pylint: disable=unused-argument
     refresh_token: str = Form(),
 ):
     """API to log out the current user.
@@ -131,10 +130,10 @@ def logout(
     will also be revoked.
 
     Args:
-        settings(Settings): Settings dependency
-        db(Database): Database dependency
-        user(SystemUser): The currently logged in user
-        refresh_token(str): The active refresh token of the user
+        settings: Settings dependency
+        db: Database dependency
+        user: The currently logged-in user
+        refresh_token: The active refresh token of the user
 
     Returns:
         Http code 200 on success, 401 when the user is not logged in,
