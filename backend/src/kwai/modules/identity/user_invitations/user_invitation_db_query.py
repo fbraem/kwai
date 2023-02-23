@@ -30,6 +30,10 @@ class UserInvitationDbQuery(UserInvitationQuery, DatabaseQuery):
     def columns(self):
         return UserInvitationsTable.aliases() + UsersTable.aliases()
 
+    @property
+    def count_column(self) -> str:
+        return UserInvitationsTable.column("id")
+
     def filter_by_id(self, id_: UserInvitationIdentifier) -> "UserInvitationQuery":
         self._query.and_where(UserInvitationsTable.field("id").eq(id_.value))
         return self
