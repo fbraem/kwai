@@ -26,6 +26,18 @@ class LocalTimestamp:
 
         return self.timestamp < datetime.utcnow()
 
+    def __str__(self) -> str:
+        """Return a string representation.
+
+        Returns:
+            A formatted timestamp in format YYYY-MM-DD HH:mm:ss.
+            An empty string will be returned, when no timestamp is available.
+        """
+        if self.empty:
+            return ""
+
+        return self.timestamp.strftime("%Y-%m-%d %H:%M:%S")
+
     @classmethod
     def create_with_delta(cls, **kwargs):
         """Create a current local timestamp and applies the delta.
