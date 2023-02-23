@@ -3,6 +3,7 @@ from sql_smith.functions import on
 
 from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_invitations.user_invitation import (
     UserInvitationIdentifier,
@@ -39,4 +40,16 @@ class UserInvitationDbQuery(UserInvitationQuery, DatabaseQuery):
 
     def filter_by_email(self, email: EmailAddress) -> "UserInvitationQuery":
         self._query.and_where(UserInvitationsTable.field("email").eq(str(email)))
+        return self
+
+    def filter_active(self, timestamp: LocalTimestamp) -> "UserInvitationQuery":
+        self._query.and_where(
+            UserInvitationsTable.field("expired_at")
+            .gt(str(timestamp))
+            .and_(
+                UserInvitationsTable.field("confirmed_at")
+                .is_null()
+                .and_(UserInvitationsTable.field("revoked").not_eq(1))
+            )
+        )
         return self
