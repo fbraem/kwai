@@ -57,12 +57,14 @@ def test_get_by_uuid(repo: UserInvitationRepository, invitation: UserInvitationE
 
 
 def test_get_all(repo: UserInvitationRepository):
+    """Test get all."""
     assert (
         len(list(repo.get_all(repo.create_query()))) > 0
     ), "There should be at least 1 row"
 
 
 def test_query_filter_by_email(repo: UserInvitationRepository):
+    """Test the filter by email query."""
     query = repo.create_query()
     query.filter_by_email(EmailAddress("ichiro.abe@kwai.com"))
     assert len(list(repo.get_all(query))) > 0, "There should be at least 1 row"
