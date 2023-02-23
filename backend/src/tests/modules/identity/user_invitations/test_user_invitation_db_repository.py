@@ -3,6 +3,7 @@ import pytest
 
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.name import Name
 from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
@@ -67,7 +68,14 @@ def test_query_filter_by_email(repo: UserInvitationRepository):
     """Test the filter by email query."""
     query = repo.create_query()
     query.filter_by_email(EmailAddress("ichiro.abe@kwai.com"))
-    assert len(list(repo.get_all(query))) > 0, "There should be at least 1 row"
+    assert query.count() > 0, "There should be at least 1 row"
+
+
+def test_query_filter_active(repo: UserInvitationRepository):
+    """Test the filter active query."""
+    query = repo.create_query()
+    query.filter_active(LocalTimestamp.create_now())
+    assert query.count() > 0, "There should be at least 1 row"
 
 
 def test_delete(repo: UserInvitationRepository, invitation: UserInvitationEntity):
