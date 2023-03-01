@@ -17,6 +17,7 @@ class Member:
 
     @jsonapi.attribute(name="name")
     def get_name(self):
+        """Return the attribute 'name'."""
         return self.name
 
 
@@ -30,10 +31,12 @@ class Team(BaseModel):
 
     @jsonapi.attribute(name="name")
     def get_name(self) -> str:
+        """Return the attribute 'name'."""
         return self.name
 
     @jsonapi.relationship(name="members")
     def get_members(self) -> list[Member]:
+        """Return the relationship 'members'."""
         return self.members
 
 
@@ -50,18 +53,22 @@ class Coach:
         self._team = team
 
     def id(self):
+        """Return the id."""
         return self._id
 
     @jsonapi.attribute()
     def name(self) -> str:
+        """Return the attribute 'name'."""
         return self._name
 
     @jsonapi.attribute(name="year_of_birth")
     def year_of_birth(self) -> int:
+        """Return the attribute 'year_of_birth'."""
         return self._year_of_birth
 
     @jsonapi.relationship()
     def team(self) -> Team | None:
+        """Return the relationship 'team'."""
         return self._team
 
 

@@ -137,7 +137,7 @@ class Document:
         if len(self._meta) > 0:
             json_data["meta"] = self._meta
 
-        if type(self._data) is list:
+        if isinstance(self._data, list):
             json_data["data"] = []
             for data in self._data:
                 json_data["data"].append(self._transform_object(data))
@@ -191,9 +191,9 @@ class Document:
             when the relation contains multiple resources.
         """
         if data is None:
-            return
+            return None
 
-        if type(data) is list:
+        if isinstance(data, list):
             result = []
             for linked_resource in data:
                 if linked_resource is not None:
