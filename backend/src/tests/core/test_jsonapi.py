@@ -1,10 +1,10 @@
 """Module that defines tests for JSON:API."""
-import json
 from dataclasses import dataclass
 
 from pydantic import BaseModel, Field
 
 from kwai.core import json_api
+from kwai.core.json_api import JsonApiRelationship, JsonApiResourceIdentifier
 
 
 @json_api.resource(type_="members")
@@ -77,31 +77,31 @@ def test_jsonapi_common_class():
     coach = Coach(id_=1, name="Jigoro Kano", year_of_birth=1882)
 
     doc = json_api.Document(coach)
-    json_api_response = json.loads(doc.serialize())
-    assert json_api_response["data"]["type"] == "coaches"
-    assert json_api_response["data"]["id"] == "1"
-    assert json_api_response["data"]["attributes"]["name"] == "Jigoro Kano"
-    assert json_api_response["data"]["attributes"]["year_of_birth"] == 1882
+    json_api_document = doc.serialize()
+    assert json_api_document.data.type == "coaches"
+    assert json_api_document.data.id == "1"
+    assert json_api_document.data.attributes["name"] == "Jigoro Kano"
+    assert json_api_document.data.attributes["year_of_birth"] == 1882
 
 
 def test_jsonapi_pydantic():
     """Test with a Pydantic class."""
     team = Team(id=1, name="U15")
     doc = json_api.Document(team)
-    json_api_response = json.loads(doc.serialize())
-    assert json_api_response["data"]["type"] == "teams"
-    assert json_api_response["data"]["id"] == "1"
-    assert json_api_response["data"]["attributes"]["name"] == "U15"
+    json_api_document = doc.serialize()
+    assert json_api_document.data.type == "teams"
+    assert json_api_document.data.id == "1"
+    assert json_api_document.data.attributes["name"] == "U15"
 
 
 def test_jsonapi_dataclass():
     """Test with a dataclass class."""
     member = Member(id=1, name="Kyuzo Mifune")
     doc = json_api.Document(member)
-    json_api_response = json.loads(doc.serialize())
-    assert json_api_response["data"]["type"] == "members"
-    assert json_api_response["data"]["id"] == "1"
-    assert json_api_response["data"]["attributes"]["name"] == "Kyuzo Mifune"
+    json_api_document = doc.serialize()
+    assert json_api_document.data.type == "members"
+    assert json_api_document.data.id == "1"
+    assert json_api_document.data.attributes["name"] == "Kyuzo Mifune"
 
 
 def test_jsonapi_relationship():
@@ -111,11 +111,14 @@ def test_jsonapi_relationship():
     )
 
     doc = json_api.Document(coach)
-    json_api_response = json.loads(doc.serialize())
-    assert json_api_response["data"]["type"] == "coaches"
-    assert json_api_response["data"]["id"] == "1"
-    assert json_api_response["data"]["attributes"]["name"] == "Jigoro Kano"
-    assert json_api_response["data"]["relationships"]["team"] == {
-        "data": {"type": "teams", "id": "1"}
-    }
-    assert "included" in json_api_response
+    json_api_document = doc.serialize()
+    assert json_api_document.data.type == "coaches"
+    assert json_api_document.data.id == "1"
+    assert json_api_document.data.attributes["name"] == "Jigoro Kano"
+    assert json_api_document.data.relationships["team"] == JsonApiRelationship(
+        data=JsonApiResourceIdentifier(type="teams", id="1")
+    )
+    assert len(json_api_document.included) == 1, "There should be an included resource"
+    assert json_api_document.included[0].type == "teams"
+    assert json_api_document.included[0].id == "1"
+    assert json_api_document.included[0].attributes["name"] == "U15"

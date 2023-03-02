@@ -1,7 +1,44 @@
 """Module that defines some jsonapi related models."""
-import json
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Tuple
+
+from pydantic import BaseModel, Field, conlist
+
+
+class JsonApiResourceIdentifier(BaseModel):
+    """Define a JSONAPI resource identifier."""
+
+    id: str
+    type: str
+
+
+class JsonApiRelationship(BaseModel):
+    """Define a JSONAPI relationship."""
+
+    data: JsonApiResourceIdentifier | list[JsonApiResourceIdentifier]
+
+
+class JsonApiData(BaseModel):
+    """Define a JSONAPI data."""
+
+    id: str
+    type: str
+    attributes: dict[str, Any]
+    relationships: dict[str, JsonApiRelationship] | None = None
+
+
+class JsonApiDocument(BaseModel):
+    """Define a JSONAPI document."""
+
+    meta: dict[str, Any] | None = None
+    data: JsonApiData | list[JsonApiData] = Field(default_factory=list)
+    included: conlist(item_type=JsonApiData, unique_items=True) | None = None
+
+    def json(self, *args, **kwargs) -> dict[str, Any]:
+        """
+        Override the default json method to exclude None values
+        """
+        return super().json(*args, exclude_none=True, **kwargs)
 
 
 @dataclass(kw_only=True)
@@ -112,8 +149,8 @@ class Document:
             A resource is a class decorated with @jsonapi.resource.
         """
         self._data = data
-        self._meta = {}
-        self._included = {}
+        self._meta: dict[str, Any] = {}
+        self._included: dict[Tuple[str, str], JsonApiData] = {}
 
     def set_meta(self, *args, **kwargs: dict[str, Any]):
         """Set the meta information.
@@ -127,46 +164,46 @@ class Document:
         if kwargs:
             self._meta |= kwargs
 
-    def serialize(self) -> str:
+    def serialize(self) -> JsonApiDocument:
         """Serialize the data and returns a JSON:API structure.
 
         Returns:
             A string with the JSON:API structure.
         """
-        json_data: dict[str, Any] = {}
-        if len(self._meta) > 0:
-            json_data["meta"] = self._meta
-
         if isinstance(self._data, list):
-            json_data["data"] = []
+            json_data = []
             for data in self._data:
-                json_data["data"].append(self._transform_object(data))
+                json_data.append(self._transform_object(data))
         else:
-            json_data["data"] = self._transform_object(self._data)
+            json_data = self._transform_object(self._data)
 
         if len(self._included):
-            json_data["included"] = list(self._included.values())
+            return JsonApiDocument(
+                meta=self._meta, data=json_data, included=list(self._included.values())
+            )
+        return JsonApiDocument(meta=self._meta, data=json_data)
 
-        return json.dumps(json_data)
-
-    def _transform_object(self, data: object) -> dict[str, Any]:
+    def _transform_object(self, data: object) -> JsonApiData:
         """Transform a resource into a JSON:API data structure."""
         assert hasattr(data, "__json_api_resource__")
         # noinspection PyUnresolvedReferences
         jsonapi_resource: Resource = data.__json_api_resource__
 
-        result = {"type": jsonapi_resource.type}
         id_attr = getattr(data, jsonapi_resource.id, None)
-        if id_attr:
-            if callable(id_attr):
-                result["id"] = str(id_attr())
-            else:
-                result["id"] = str(id_attr)
+        assert id_attr is not None, "No id attribute found in resource"
+
+        if callable(id_attr):
+            id_ = str(id_attr())
+        else:
+            id_ = str(id_attr)
 
         attributes = {}
         for attr_name, attr_value in jsonapi_resource.attributes.items():
             attributes[attr_name] = attr_value(data)
-        result["attributes"] = attributes
+
+        json_api_data = JsonApiData(
+            type=jsonapi_resource.type, id=id_, attributes=attributes
+        )
 
         relationships = {}
         for rel_name, rel_method in jsonapi_resource.relationships.items():
@@ -174,13 +211,13 @@ class Document:
             if linked_resource is not None:
                 relationships[rel_name] = linked_resource
         if len(relationships) > 0:
-            result["relationships"] = relationships
+            json_api_data.relationships = relationships
 
-        return result
+        return json_api_data
 
     def _process_linked_resource(
         self, data: object | list
-    ) -> dict[str, list[dict[str, str]]] | dict[str, dict[str, str]] | None:
+    ) -> JsonApiRelationship | None:
         """Process a resource or list of resources that is/are a relation of a resource.
 
         Args:
@@ -200,26 +237,25 @@ class Document:
                     relationship_data = self._transform_object(linked_resource)
                     self._include(relationship_data)
                     result.append(
-                        {
-                            "type": relationship_data["type"],
-                            "id": relationship_data["id"],
-                        }
+                        JsonApiResourceIdentifier(
+                            type=relationship_data.type, id=relationship_data.id
+                        )
                     )
-            return {"data": result}
+            return JsonApiRelationship(data=result)
 
         relationship_data = self._transform_object(data)
         self._include(relationship_data)
-        return {
-            "data": {
-                "type": str(relationship_data["type"]),
-                "id": str(relationship_data["id"]),
-            }
-        }
+        return JsonApiRelationship(
+            data=JsonApiResourceIdentifier(
+                type=relationship_data.type,
+                id=relationship_data.id,
+            )
+        )
 
-    def _include(self, data: dict[str, Any]):
+    def _include(self, data: JsonApiData):
         """Add resource to included.
 
         To make sure that the included list contains unique values, a tuple with
         the type and id is used as key for the dictionary.
         """
-        self._included[(data["type"], data["id"])] = data
+        self._included[(data.type, data.id)] = data
