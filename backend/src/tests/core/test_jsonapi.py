@@ -102,3 +102,20 @@ def test_jsonapi_dataclass():
     assert json_api["data"]["type"] == "members"
     assert json_api["data"]["id"] == "1"
     assert json_api["data"]["attributes"]["name"] == "Kyuzo Mifune"
+
+
+def test_jsonapi_relationship():
+    """Test a relationship."""
+    coach = Coach(
+        id_=1, name="Jigoro Kano", year_of_birth=1882, team=Team(id=1, name="U15")
+    )
+
+    doc = jsonapi.Document(coach)
+    json_api = json.loads(doc.serialize())
+    assert json_api["data"]["type"] == "coaches"
+    assert json_api["data"]["id"] == "1"
+    assert json_api["data"]["attributes"]["name"] == "Jigoro Kano"
+    assert json_api["data"]["relationships"]["team"] == {
+        "data": {"type": "teams", "id": "1"}
+    }
+    assert "included" in json_api
