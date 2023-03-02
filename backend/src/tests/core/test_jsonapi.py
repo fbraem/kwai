@@ -119,6 +119,7 @@ def test_jsonapi_relationship():
         data=JsonApiResourceIdentifier(type="teams", id="1")
     )
     assert len(json_api_document.included) == 1, "There should be an included resource"
+    # pylint: disable=unsubscriptable-object
     assert json_api_document.included[0].type == "teams"
     assert json_api_document.included[0].id == "1"
     assert json_api_document.included[0].attributes["name"] == "U15"
