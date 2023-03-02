@@ -1,4 +1,4 @@
-"""Module that defines test for JSONAPI models."""
+"""Module that defines tests for JSON:API."""
 import json
 from dataclasses import dataclass
 
