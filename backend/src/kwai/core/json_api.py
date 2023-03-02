@@ -208,8 +208,7 @@ class Document:
         relationships = {}
         for rel_name, rel_method in jsonapi_resource.relationships.items():
             linked_resource = self._process_linked_resource(rel_method(data))
-            if linked_resource is not None:
-                relationships[rel_name] = linked_resource
+            relationships[rel_name] = linked_resource
         if len(relationships) > 0:
             json_api_data.relationships = relationships
 
