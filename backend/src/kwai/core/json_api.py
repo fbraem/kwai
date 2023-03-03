@@ -63,15 +63,8 @@ class Resource:
     relationships: dict[str, Any] = field(default_factory=dict)
 
 
-def resource(type_: str, id_: str = "id", auto: bool = True):
+class resource:  # pylint: disable=invalid-name
     """A decorator that defines a class as resource.
-
-    Args:
-        type_: The type of the source
-        id_: The name of the method or property that is used to get the id of the
-            resource. The default is "id".
-        auto: When True, which is the default, dataclass and BaseModel classes are
-            inspected for attributes and relationships automatically.
 
     This decorator will instantiate a Resource object and sets the
     __json_api_resource__ attribute of the wrapped class with this object.
@@ -80,74 +73,104 @@ def resource(type_: str, id_: str = "id", auto: bool = True):
         The id will always be converted to a string.
     """
 
-    def decorator(cls):
-        json_api_resource = Resource(type=type_, id=id_)
-        for method_name in dir(cls):
-            method = getattr(cls, method_name)
-            if hasattr(method, "__json_attribute__"):
-                json_api_resource.attributes[method.__json_attribute__] = method
-            elif hasattr(method, "__json_relationship__"):
-                json_api_resource.relationships[method.__json_relationship__] = method
+    def __init__(self, type_: str, id_: str = "id", auto: bool = True):
+        """
+        Args:
+            type_: The type of the source
+            id_: The name of the method or property that is used to get the id of the
+                resource. The default is "id".
+            auto: When True, which is the default, dataclass and BaseModel classes are
+                inspected for attributes and relationships automatically.
+        """
+        self._type = type_
+        self._id = id_
+        self._auto = auto
+        self._resource = Resource(type=self._type, id=self._id)
 
-        cls.__json_api_resource__ = json_api_resource
+    @staticmethod
+    def create_getter(attribute_name: str):
+        """A function that creates a method for getting the value of an attribute."""
 
-        if not auto:
-            return cls
+        def get(self):
+            return getattr(self, attribute_name)
 
-        def create_getter(attribute_name: str):
-            def get(self):
-                return getattr(self, attribute_name)
+        return get
 
-            return get
+    def __call__(self, cls):
+        cls.__json_api_resource__ = self._resource
 
-        # Try to detect attributes/relationships on a dataclass
-        if dataclasses.is_dataclass(cls):
-            for field_ in dataclasses.fields(cls):
-                if field_.name == "id":
-                    continue
+        self._scan_class(cls)
 
-                if (
-                    field_.name in json_api_resource.attributes
-                    or field_.name in json_api_resource.relationships
-                ):
-                    # Skip the field when it was already registered with a decorator.
-                    continue
-
-                if hasattr(field_.type, "__json_api_resource__"):
-                    json_api_resource.relationships[field_.name] = create_getter(
-                        field_.name
-                    )
-                else:
-                    json_api_resource.attributes[field_.name] = create_getter(
-                        field_.name
-                    )
-            return cls
-
-        # Try to detect attributes/relationships on a Pydantic model
-        if issubclass(cls, BaseModel):
-            for field_ in cls.__fields__.values():
-                if field_.name == "id":
-                    continue
-
-                if (
-                    field_.name in json_api_resource.attributes
-                    or field_.name in json_api_resource.relationships
-                ):
-                    # Skip the field when it was already registered with a decorator.
-                    continue
-
-                if hasattr(field_.type_, "__json_api_resource__"):
-                    json_api_resource.relationships[field_.name] = create_getter(
-                        field_.name
-                    )
-                else:
-                    json_api_resource.attributes[field_.name] = create_getter(
-                        field_.name
-                    )
+        if self._auto:
+            if dataclasses.is_dataclass(cls):
+                self._scan_dataclass(cls)
+            elif issubclass(cls, BaseModel):
+                self._scan_base_model(cls)
 
         return cls
 
-    return decorator
+    def _scan_class(self, cls):
+        """Search methods that are wrapped with a decorator.
+
+        A method with an attribute __json_attribute__ will be used to define an
+        attribute.
+        A method with an attribute __json_relationship__ will be used to define a
+        relationship.
+        """
+        for method_name in dir(cls):
+            method = getattr(cls, method_name)
+            if hasattr(method, "__json_attribute__"):
+                self._resource.attributes[method.__json_attribute__] = method
+            elif hasattr(method, "__json_relationship__"):
+                self._resource.relationships[method.__json_relationship__] = method
+
+    def _scan_dataclass(self, cls):
+        """Search for attributes and relationships on a dataclass.
+
+        A relationship is added when the type of the field contains
+        the __json_api_resource__ attribute.
+        """
+        for field_ in dataclasses.fields(cls):
+            if field_.name == "id":
+                continue
+
+            if (
+                field_.name in self._resource.attributes
+                or field_.name in self._resource.relationships
+            ):
+                # Skip the field when it was already registered with a decorator.
+                continue
+
+            if hasattr(field_.type, "__json_api_resource__"):
+                self._resource.relationships[field_.name] = self.create_getter(
+                    field_.name
+                )
+            else:
+                self._resource.attributes[field_.name] = self.create_getter(field_.name)
+
+    def _scan_base_model(self, cls):
+        """Search for attributes and relationships on a BaseModel class.
+
+        A relationship is added when the type of the field contains
+        the __json_api_resource__ attribute.
+        """
+        for field_ in cls.__fields__.values():
+            if field_.name == "id":
+                continue
+
+            if (
+                field_.name in self._resource.attributes
+                or field_.name in self._resource.relationships
+            ):
+                # Skip the field when it was already registered with a decorator.
+                continue
+
+            if hasattr(field_.type_, "__json_api_resource__"):
+                self._resource.relationships[field_.name] = self.create_getter(
+                    field_.name
+                )
+            else:
+                self._resource.attributes[field_.name] = self.create_getter(field_.name)
 
 
 def attribute(name: str | None = None):
