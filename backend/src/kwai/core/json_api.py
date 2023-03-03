@@ -3,7 +3,7 @@ import dataclasses
 from dataclasses import dataclass, field
 from typing import Any, Tuple
 
-from pydantic import BaseModel, Field, conlist
+from pydantic import BaseModel, Field
 
 
 class JsonApiResourceIdentifier(BaseModel):
@@ -33,7 +33,7 @@ class JsonApiDocument(BaseModel):
 
     meta: dict[str, Any] | None = None
     data: JsonApiData | list[JsonApiData] = Field(default_factory=list)
-    included: conlist(item_type=JsonApiData, unique_items=True) | None = None
+    included: list[JsonApiData] | None = Field(default=None, unique_items=True)
 
     def json(self, *args, **kwargs) -> str:
         """
