@@ -250,12 +250,14 @@ class Document:
         Returns:
             A string with the JSON:API structure.
         """
+        json_data: list[JsonApiData] | JsonApiData
+
         if isinstance(self._data, list):
-            json_data: list[JsonApiData] = []
+            json_data = []
             for data in self._data:
                 json_data.append(self._transform_object(data))
         else:
-            json_data: JsonApiData = self._transform_object(self._data)
+            json_data = self._transform_object(self._data)
 
         if len(self._included):
             return JsonApiDocument(
