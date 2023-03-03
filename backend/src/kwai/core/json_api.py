@@ -1,4 +1,5 @@
 """Module that defines some jsonapi related models."""
+import dataclasses
 from dataclasses import dataclass, field
 from typing import Any, Tuple
 
@@ -34,7 +35,7 @@ class JsonApiDocument(BaseModel):
     data: JsonApiData | list[JsonApiData] = Field(default_factory=list)
     included: conlist(item_type=JsonApiData, unique_items=True) | None = None
 
-    def json(self, *args, **kwargs) -> dict[str, Any]:
+    def json(self, *args, **kwargs) -> str:
         """
         Override the default json method to exclude None values
         """
@@ -62,13 +63,15 @@ class Resource:
     relationships: dict[str, Any] = field(default_factory=dict)
 
 
-def resource(type_: str, id_: str = "id"):
+def resource(type_: str, id_: str = "id", auto: bool = True):
     """A decorator that defines a class as resource.
 
     Args:
         type_: The type of the source
         id_: The name of the method or property that is used to get the id of the
             resource. The default is "id".
+        auto: When True, which is the default, dataclass and BaseModel classes are
+            inspected for attributes and relationships automatically.
 
     This decorator will instantiate a Resource object and sets the
     __json_api_resource__ attribute of the wrapped class with this object.
@@ -78,15 +81,69 @@ def resource(type_: str, id_: str = "id"):
     """
 
     def decorator(cls):
-        cls.__json_api_resource__ = Resource(type=type_, id=id_)
+        json_api_resource = Resource(type=type_, id=id_)
         for method_name in dir(cls):
             method = getattr(cls, method_name)
             if hasattr(method, "__json_attribute__"):
-                cls.__json_api_resource__.attributes[method.__json_attribute__] = method
+                json_api_resource.attributes[method.__json_attribute__] = method
             elif hasattr(method, "__json_relationship__"):
-                cls.__json_api_resource__.relationships[
-                    method.__json_relationship__
-                ] = method
+                json_api_resource.relationships[method.__json_relationship__] = method
+
+        cls.__json_api_resource__ = json_api_resource
+
+        if not auto:
+            return cls
+
+        def create_getter(attribute_name: str):
+            def get(self):
+                return getattr(self, attribute_name)
+
+            return get
+
+        # Try to detect attributes/relationships on a dataclass
+        if dataclasses.is_dataclass(cls):
+            for field_ in dataclasses.fields(cls):
+                if field_.name == "id":
+                    continue
+
+                if (
+                    field_.name in json_api_resource.attributes
+                    or field_.name in json_api_resource.relationships
+                ):
+                    # Skip the field when it was already registered with a decorator.
+                    continue
+
+                if hasattr(field_.type, "__json_api_resource__"):
+                    json_api_resource.relationships[field_.name] = create_getter(
+                        field_.name
+                    )
+                else:
+                    json_api_resource.attributes[field_.name] = create_getter(
+                        field_.name
+                    )
+            return cls
+
+        # Try to detect attributes/relationships on a Pydantic model
+        if issubclass(cls, BaseModel):
+            for field_ in cls.__fields__.values():
+                if field_.name == "id":
+                    continue
+
+                if (
+                    field_.name in json_api_resource.attributes
+                    or field_.name in json_api_resource.relationships
+                ):
+                    # Skip the field when it was already registered with a decorator.
+                    continue
+
+                if hasattr(field_.type_, "__json_api_resource__"):
+                    json_api_resource.relationships[field_.name] = create_getter(
+                        field_.name
+                    )
+                else:
+                    json_api_resource.attributes[field_.name] = create_getter(
+                        field_.name
+                    )
 
         return cls
 
@@ -171,11 +228,11 @@ class Document:
             A string with the JSON:API structure.
         """
         if isinstance(self._data, list):
-            json_data = []
+            json_data: list[JsonApiData] = []
             for data in self._data:
                 json_data.append(self._transform_object(data))
         else:
-            json_data = self._transform_object(self._data)
+            json_data: JsonApiData = self._transform_object(self._data)
 
         if len(self._included):
             return JsonApiDocument(

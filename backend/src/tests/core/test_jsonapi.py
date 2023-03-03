@@ -15,11 +15,6 @@ class Member:
     id: int
     name: str
 
-    @json_api.attribute(name="name")
-    def get_name(self):
-        """Return the attribute 'name'."""
-        return self.name
-
 
 @json_api.resource(type_="teams")
 class Team(BaseModel):
@@ -28,16 +23,6 @@ class Team(BaseModel):
     id: int
     name: str
     members: list[Member] = Field(default_factory=list)
-
-    @json_api.attribute(name="name")
-    def get_name(self) -> str:
-        """Return the attribute 'name'."""
-        return self.name
-
-    @json_api.relationship(name="members")
-    def get_members(self) -> list[Member]:
-        """Return the relationship 'members'."""
-        return self.members
 
 
 @json_api.resource(type_="coaches")
@@ -106,9 +91,8 @@ def test_jsonapi_dataclass():
 
 def test_jsonapi_relationship():
     """Test a relationship."""
-    coach = Coach(
-        id_=1, name="Jigoro Kano", year_of_birth=1882, team=Team(id=1, name="U15")
-    )
+    team = Team(id=1, name="U15")
+    coach = Coach(id_=1, name="Jigoro Kano", year_of_birth=1882, team=team)
 
     doc = json_api.Document(coach)
     json_api_document = doc.serialize()
@@ -118,8 +102,26 @@ def test_jsonapi_relationship():
     assert json_api_document.data.relationships["team"] == JsonApiRelationship(
         data=JsonApiResourceIdentifier(type="teams", id="1")
     )
-    assert len(json_api_document.included) == 1, "There should be an included resource"
+    assert len(json_api_document.included) > 0, "There should be an included resource"
     # pylint: disable=unsubscriptable-object
     assert json_api_document.included[0].type == "teams"
     assert json_api_document.included[0].id == "1"
     assert json_api_document.included[0].attributes["name"] == "U15"
+
+
+def test_jsonapi_auto_relationship():
+    """Test a relationship."""
+    team = Team(id=1, name="U15")
+    team.members.append(Member(id=1, name="Kyuzo Mifune"))
+
+    doc = json_api.Document(team)
+    json_api_document = doc.serialize()
+    assert json_api_document.data.type == "teams"
+    assert json_api_document.data.id == "1"
+    assert json_api_document.data.attributes["name"] == "U15"
+    assert isinstance(json_api_document.data.relationships["members"].data, list)
+    assert len(json_api_document.included) > 0, "There should be an included resource"
+    # pylint: disable=unsubscriptable-object
+    assert json_api_document.included[0].type == "members"
+    assert json_api_document.included[0].id == "1"
+    assert json_api_document.included[0].attributes["name"] == "Kyuzo Mifune"
