@@ -49,6 +49,7 @@ class Database:
                 user=self._settings.user,
                 password=self._settings.password,
             )
+            self._connection.time_zone = "UTC"
         except Exception as exc:
             raise DatabaseException(
                 f"Connecting to {self._settings.name} failed."
