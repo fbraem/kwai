@@ -25,7 +25,7 @@ class JsonApiData(BaseModel):
     id: str
     type: str
     attributes: dict[str, Any]
-    relationships: dict[str, JsonApiRelationship] | None = None
+    relationships: dict[str, JsonApiRelationship | None] | None = None
 
 
 class JsonApiDocument(BaseModel):
