@@ -43,8 +43,8 @@ class UserRow:
             remark=self.remark,
             email=EmailAddress(self.email),
             traceable_time=TraceableTime(
-                created_at=self.created_at,
-                updated_at=self.updated_at,
+                created_at=LocalTimestamp(timestamp=self.created_at),
+                updated_at=LocalTimestamp(timestamp=self.updated_at),
             ),
         )
 
@@ -58,8 +58,8 @@ class UserRow:
             last_name=user.name.last_name,
             remark=user.remark,
             uuid=str(user.uuid),
-            created_at=user.traceable_time.created_at,
-            updated_at=user.traceable_time.updated_at,
+            created_at=user.traceable_time.created_at.timestamp,
+            updated_at=user.traceable_time.updated_at.timestamp,
             member_id=None,
         )
 
@@ -104,8 +104,8 @@ class UserAccountRow:
                 ),
                 email=EmailAddress(self.email),
                 traceable_time=TraceableTime(
-                    created_at=self.created_at,
-                    updated_at=self.updated_at,
+                    created_at=LocalTimestamp(self.created_at),
+                    updated_at=LocalTimestamp(self.updated_at),
                 ),
             ),
         )
@@ -120,8 +120,8 @@ class UserAccountRow:
             last_name=user_account.user.name.last_name,
             remark=None,
             uuid=str(user_account.user.uuid),
-            created_at=user_account.user.traceable_time.created_at,
-            updated_at=user_account.user.traceable_time.updated_at,
+            created_at=user_account.user.traceable_time.created_at.timestamp,
+            updated_at=user_account.user.traceable_time.updated_at.timestamp,
             member_id=None,
             last_login=user_account.last_login.timestamp,
             last_unsuccessful_login=user_account.last_unsuccessful_login.timestamp,

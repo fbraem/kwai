@@ -72,7 +72,8 @@ class UserInvitationRow:
             confirmed_at=LocalTimestamp(self.confirmed_at),
             revoked=self.revoked == 1,
             traceable_time=TraceableTime(
-                created_at=self.created_at, updated_at=self.updated_at
+                created_at=LocalTimestamp(self.created_at),
+                updated_at=LocalTimestamp(self.updated_at),
             ),
         )
 
@@ -98,8 +99,8 @@ class UserInvitationRow:
             user_id=invitation.user.id.value,
             confirmed_at=invitation.confirmed_at.timestamp,
             revoked=1 if invitation.revoked else 0,
-            created_at=invitation.traceable_time.created_at,
-            updated_at=invitation.traceable_time.updated_at,
+            created_at=invitation.traceable_time.created_at.timestamp,
+            updated_at=invitation.traceable_time.updated_at.timestamp,
         )
 
 

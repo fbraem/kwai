@@ -44,8 +44,8 @@ class UserRecoveryRow:
             confirmation=LocalTimestamp(self.confirmed_at),
             mailed_at=LocalTimestamp(self.mailed_at),
             traceable_time=TraceableTime(
-                created_at=self.created_at,
-                updated_at=self.updated_at,
+                created_at=LocalTimestamp(timestamp=self.created_at),
+                updated_at=LocalTimestamp(timestamp=self.updated_at),
             ),
         )
 
@@ -61,8 +61,8 @@ class UserRecoveryRow:
             confirmed_at=user_recovery.confirmed_at.timestamp,
             mailed_at=user_recovery.mailed_at.timestamp,
             remark=user_recovery.remark,
-            created_at=user_recovery.traceable_time.created_at,
-            updated_at=user_recovery.traceable_time.updated_at,
+            created_at=user_recovery.traceable_time.created_at.timestamp,
+            updated_at=user_recovery.traceable_time.updated_at.timestamp,
         )
 
 

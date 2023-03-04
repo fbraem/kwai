@@ -277,7 +277,7 @@ def encode_token(refresh_token: RefreshTokenEntity, settings: SecuritySettings):
     return {
         "access_token": jwt.encode(
             {
-                "iat": refresh_token.access_token.traceable_time.created_at,
+                "iat": refresh_token.access_token.traceable_time.created_at.timestamp,
                 "exp": refresh_token.access_token.expiration,
                 "jti": str(refresh_token.access_token.identifier),
                 "sub": str(refresh_token.access_token.user_account.user.uuid),
@@ -288,7 +288,7 @@ def encode_token(refresh_token: RefreshTokenEntity, settings: SecuritySettings):
         ),
         "refresh_token": jwt.encode(
             {
-                "iat": refresh_token.traceable_time.created_at,
+                "iat": refresh_token.traceable_time.created_at.timestamp,
                 "exp": refresh_token.expiration,
                 "jti": str(refresh_token.identifier),
             },

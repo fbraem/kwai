@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from kwai.core.db.table import Table
+from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.identity.tokens.access_token import (
     AccessTokenEntity,
@@ -37,8 +38,8 @@ class AccessTokenRow:
             user_account=user_account,
             revoked=self.revoked,
             traceable_time=TraceableTime(
-                created_at=self.created_at,
-                updated_at=self.updated_at,
+                created_at=LocalTimestamp(timestamp=self.created_at),
+                updated_at=LocalTimestamp(timestamp=self.updated_at),
             ),
         )
 
@@ -51,8 +52,8 @@ class AccessTokenRow:
             expiration=access_token.expiration,
             user_id=access_token.user_account.id.value,
             revoked=access_token.revoked,
-            created_at=access_token.traceable_time.created_at,
-            updated_at=access_token.traceable_time.updated_at,
+            created_at=access_token.traceable_time.created_at.timestamp,
+            updated_at=access_token.traceable_time.updated_at.timestamp,
         )
 
 
@@ -80,8 +81,8 @@ class RefreshTokenRow:
             expiration=self.expiration,
             revoked=self.revoked,
             traceable_time=TraceableTime(
-                created_at=self.created_at,
-                updated_at=self.updated_at,
+                created_at=LocalTimestamp(timestamp=self.created_at),
+                updated_at=LocalTimestamp(timestamp=self.updated_at),
             ),
         )
 
@@ -94,8 +95,8 @@ class RefreshTokenRow:
             access_token_id=refresh_token.access_token.id.value,
             expiration=refresh_token.expiration,
             revoked=refresh_token.revoked,
-            created_at=refresh_token.traceable_time.created_at,
-            updated_at=refresh_token.traceable_time.updated_at,
+            created_at=refresh_token.traceable_time.created_at.timestamp,
+            updated_at=refresh_token.traceable_time.updated_at.timestamp,
         )
 
 
