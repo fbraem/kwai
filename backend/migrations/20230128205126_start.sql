@@ -52,7 +52,7 @@ create table if not exists oauth_refresh_tokens
     updated_at      timestamp                            null
 ) charset = utf8mb3;
 
-create table user_invitations
+create table if not exists user_invitations
 (
     id                  int unsigned auto_increment          primary key,
     email               varchar(255)                         not null,
