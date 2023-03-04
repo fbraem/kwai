@@ -211,7 +211,7 @@ def recover_user(
 ) -> None:
     """API to start a recover password flow for the given email address.
 
-    A mail with a unique id will be send using the message bus.
+    A mail with a unique id will be sent using the message bus.
 
     Note:
         To avoid leaking information, this api will always respond with 200
