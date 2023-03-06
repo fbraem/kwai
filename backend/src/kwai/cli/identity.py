@@ -6,7 +6,7 @@ Note:
 import os
 
 import typer
-from rich import print
+from rich import print  # pylint: disable=redefined-builtin
 from typer import Typer
 
 from kwai.core.db.database import Database
@@ -26,6 +26,7 @@ app = Typer(pretty_exceptions_short=True)
 
 @app.callback()
 def check():
+    """Check if the environment variable is set. If not, stop the cli."""
     if ENV_SETTINGS_FILE not in os.environ:
         print(
             f"[bold red]Please set env variable {ENV_SETTINGS_FILE} to "
