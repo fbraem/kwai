@@ -1,7 +1,7 @@
 # Command Line Interface
 A command line interface (CLI) is provided to help managing the kwai system. To run the cli, use the cli.py script:
 
-`cli.py --help`
+`kwai_cli.py --help`
 
 ::: kwai.cli.identity
     options:
