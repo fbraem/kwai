@@ -751,6 +751,289 @@ Default is 2 months.</p></td>
 
 
 
+<h2 id="kwai.modules.identity.create_user" class="doc doc-heading">
+          <code>kwai.modules.identity.create_user</code>
+
+
+<a href="#kwai.modules.identity.create_user" class="headerlink" title="Permanent link">&para;</a></h2>
+
+  <div class="doc doc-contents first">
+  
+      <p>Use case: create a user.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="kwai.modules.identity.create_user.CreateUser" class="doc doc-heading">
+        <code>CreateUser</code>
+
+
+<a href="#kwai.modules.identity.create_user.CreateUser" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Use case for creating a new user.</p>
+
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="kwai.modules.identity.create_user.CreateUser.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">user_account_repo</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.identity.create_user.CreateUser.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Constructor.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>user_account_repo</code></td>
+          <td>
+                <code><span title="kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</span></code>
+          </td>
+          <td><p>Repository that creates a new user account.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="kwai.modules.identity.create_user.CreateUser.execute" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.identity.create_user.CreateUser.execute" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Execute the use case.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>command</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.create_user.CreateUserCommand" href="#kwai.modules.identity.create_user.CreateUserCommand">CreateUserCommand</a></code>
+          </td>
+          <td><p>The input for this use case.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="kwai.modules.identity.users.user_account.UserAccountEntity">UserAccountEntity</span></code>
+          </td>
+          <td><p>An entity for a user account.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="kwai.core.domain.exceptions.UnprocessableException">UnprocessableException</span></code>
+          </td>
+          <td><p>when the email address is already used by another
+user.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="kwai.modules.identity.create_user.CreateUserCommand" class="doc doc-heading">
+        <code>CreateUserCommand</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.create_user.CreateUserCommand" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Input for the (CreateUser) use case.</p>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>email</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The email address for the new user.</p></td>
+        </tr>
+        <tr>
+          <td><code>first_name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The first name of the new user.</p></td>
+        </tr>
+        <tr>
+          <td><code>last_name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The last name of the new user.</p></td>
+        </tr>
+        <tr>
+          <td><code>password</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The password for the new user.</p></td>
+        </tr>
+        <tr>
+          <td><code>remark</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>A remark about the new user.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h2 id="kwai.modules.identity.invite_user" class="doc doc-heading">
           <code>kwai.modules.identity.invite_user</code>
 
