@@ -12,7 +12,9 @@ from kwai.modules.identity.users.user_account_repository import UserAccountRepos
 
 @dataclass(kw_only=True, frozen=True, slots=False)
 class CreateUserCommand:
-    """Input for the (CreateUser) use case.
+    """Input for the CreateUser use case.
+
+    See: [CreateUser][kwai.modules.identity.create_user.CreateUser]
 
     Attributes:
         email: The email address for the new user.
