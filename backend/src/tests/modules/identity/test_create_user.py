@@ -11,6 +11,7 @@ pytestmark = pytest.mark.integration
 
 
 def test_create_user(database: Database):
+    """Test the use case CreateUser."""
     user_account_repo = UserAccountDbRepository(database)
     command = CreateUserCommand(
         email="ichiro.abe@kwai.com",
