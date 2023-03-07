@@ -13,6 +13,17 @@ class UserAccountRepository:
         """Get a user account with the given email address."""
         raise NotImplementedError
 
+    def exists_with_email(self, email: EmailAddress) -> bool:
+        """Check if a user account with the given email address already exists.
+
+        Args:
+            email: The email address to check.
+
+        Returns:
+            True when a user with the given email address exists.
+        """
+        raise NotImplementedError
+
     @abstractmethod
     def create(self, user_account: UserAccountEntity) -> UserAccountEntity:
         """Save a new user account."""

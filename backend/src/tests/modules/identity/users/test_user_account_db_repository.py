@@ -52,6 +52,14 @@ def test_get_by_email(repo: UserAccountRepository, user_account: UserAccountEnti
     assert result, "There should be a user account with the given email"
 
 
+def test_exists_with_email(
+    repo: UserAccountRepository, user_account: UserAccountEntity
+):
+    """Test if the user account exists with the given email address."""
+    exists = repo.exists_with_email(user_account.user.email)
+    assert exists, "There should be a user account with the given email"
+
+
 def test_update(repo: UserAccountRepository, user_account: UserAccountEntity):
     """Test if the user account can be updated."""
     user_account.revoke()

@@ -37,6 +37,14 @@ class UserAccountDbRepository(UserAccountRepository):
 
         raise UserAccountNotFoundException()
 
+    def exists_with_email(self, email: EmailAddress) -> bool:
+        try:
+            self.get_user_by_email(email)
+        except UserAccountNotFoundException:
+            return False
+
+        return True
+
     def create(self, user_account: UserAccountEntity) -> UserAccountEntity:
         new_id = self._database.insert(
             UserAccountsTable.table_name, UserAccountRow.persist(user_account)
