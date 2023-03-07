@@ -11,12 +11,9 @@ from typer import Typer
 
 from kwai.core.db.database import Database
 from kwai.core.dependencies import container
-from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.core.domain.value_objects.name import Name
-from kwai.core.domain.value_objects.password import Password
+from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.settings import ENV_SETTINGS_FILE
-from kwai.modules.identity.users.user import UserEntity
-from kwai.modules.identity.users.user_account import UserAccountEntity
+from kwai.modules.identity.create_user import CreateUserCommand, CreateUser
 from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
 )
@@ -60,13 +57,19 @@ def create(
         last_name: The lastname of the new user
         password: The password of the new user
     """
-    user_account = UserAccountEntity(
-        user=UserEntity(
-            name=Name(first_name=first_name, last_name=last_name),
-            email=EmailAddress(email),
-            remark="This user was created using the CLI",
-        ),
-        password=Password.create_from_string(password),
+    command = CreateUserCommand(
+        email=email,
+        first_name=first_name,
+        last_name=last_name,
+        password=password,
+        remark="This user was created using the CLI",
     )
-    repo = UserAccountDbRepository(container[Database])
-    repo.create(user_account)
+    try:
+        CreateUser(UserAccountDbRepository(container[Database])).execute(command)
+        print(
+            f"[bold green]Success![/bold green] User created with email address {email}"
+        )
+    except UnprocessableException as ex:
+        print("[bold red]Failed![/bold red] User could not created:")
+        print(ex)
+        raise typer.Exit(code=1)
