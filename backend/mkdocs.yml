@@ -3,9 +3,9 @@ site_description: kwai backend, the API for the sports club management system.
 docs_dir: docs
 
 nav:
-  - Intro: index.md
-  - api:
+  - index.md
+  - API:
     - auth: api/api_auth.md
-  - CLI: cli.md
-  - source: core/index.md
-  - Modules: modules/index.md
+  - cli.md
+  - source.md
+  - modules/index.md

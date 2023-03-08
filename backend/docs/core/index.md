@@ -1,3 +1,6 @@
+---
+title: Core Source Code
+---
 # Core
 
 This package contains the core code of the kwai backend.
