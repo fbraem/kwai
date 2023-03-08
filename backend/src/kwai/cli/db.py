@@ -27,6 +27,7 @@ app = Typer(pretty_exceptions_short=True, callback=check)
 
 @app.command(help="Show the database settings.")
 def show(password: bool = typer.Option(False, help="Show the password")):
+    """Command for showing the active database settings."""
     try:
         settings = container[Settings]
         print(f"Host: [bold]{settings.db.host}[/bold]")
@@ -35,17 +36,18 @@ def show(password: bool = typer.Option(False, help="Show the password")):
         if password:
             print(f"Password: [bold]{settings.db.password}[/bold]")
     except Exception as ex:
-        print(f"[bold red]Failed! [/bold red] Could not load the settings!")
+        print("[bold red]Failed! [/bold red] Could not load the settings!")
         print(ex)
         raise typer.Exit(code=1)
 
 
 @app.command(help="Test the database connection.")
 def test():
+    """Command for testing the database connection."""
     try:
-        database = container[Database]
+        container[Database]
     except Exception as ex:
-        print(f"[bold red]Failed! [/bold red] Could not connect to the database!")
+        print("[bold red]Failed! [/bold red] Could not connect to the database!")
         print(ex)
         raise typer.Exit(code=1)
     else:
