@@ -8,3 +8,12 @@ script:
     options:
         show_root_full_path: False
         show_signature: False
+        members:
+            - create
+
+::: kwai.cli.test
+    options:
+        show_root_full_path: False
+        show_signature: False
+        members:
+            - db
