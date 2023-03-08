@@ -51,7 +51,7 @@ class Database:
             )
         except Exception as exc:
             raise DatabaseException(
-                f"Connecting to {self._settings.name} failed."
+                f"Connecting to {self._settings.name} failed"
             ) from exc
 
     @classmethod
@@ -235,3 +235,12 @@ class Database:
         db_logger.info(
             "DB: {database} - Query: {query}", database=self._settings.name, query=query
         )
+
+    @property
+    def settings(self) -> DatabaseSettings:
+        """Return the database settings.
+
+        This property is immutable: the returned value is a copy of the current
+        settings.
+        """
+        return self._settings.copy()
