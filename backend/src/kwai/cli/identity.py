@@ -18,10 +18,7 @@ from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
 )
 
-app = Typer(pretty_exceptions_short=True)
 
-
-@app.callback()
 def check():
     """Check if the environment variable is set. If not, stop the cli."""
     if ENV_SETTINGS_FILE not in os.environ:
@@ -30,6 +27,9 @@ def check():
             f"the configuration file.[/bold red]"
         )
         raise typer.Exit(code=1)
+
+
+app = Typer(pretty_exceptions_short=True, callback=check)
 
 
 @app.command(help="Create a user account.")
