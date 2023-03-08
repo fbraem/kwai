@@ -27,7 +27,11 @@ app = Typer(pretty_exceptions_short=True, callback=check)
 
 @app.command(help="Show the database settings.")
 def show(password: bool = typer.Option(False, help="Show the password")):
-    """Command for showing the active database settings."""
+    """Command for showing the active database settings.
+
+    Args:
+        password: show or hide the password (default is hide).
+    """
     try:
         settings = container[Settings]
         print(f"Host: [bold]{settings.db.host}[/bold]")
