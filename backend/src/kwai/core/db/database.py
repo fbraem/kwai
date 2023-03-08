@@ -51,7 +51,7 @@ class Database:
             )
         except Exception as exc:
             raise DatabaseException(
-                f"Connecting to {self._settings.name} failed"
+                f"Connecting to {self._settings.name} failed: {exc}"
             ) from exc
 
     @classmethod
