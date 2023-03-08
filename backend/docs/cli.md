@@ -11,7 +11,7 @@ script:
         members:
             - create
 
-::: kwai.cli.test
+::: kwai.cli.db
     options:
         show_root_full_path: False
         show_signature: False
