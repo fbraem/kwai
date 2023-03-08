@@ -16,4 +16,5 @@ script:
         show_root_full_path: False
         show_signature: False
         members:
-            - db
+            - show
+            - test
