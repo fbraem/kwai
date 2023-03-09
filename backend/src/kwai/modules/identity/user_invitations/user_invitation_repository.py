@@ -56,7 +56,7 @@ class UserInvitationRepository(ABC):
         raise NotImplementedError
 
     def get_invitation_by_uuid(self, uuid: UniqueId) -> UserInvitationEntity:
-        """Get an invitation using the uniqued id.
+        """Get an invitation using the unique id.
 
         Args:
             uuid(UniqueId): The unique id to use for searching the invitation.
