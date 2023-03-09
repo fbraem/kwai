@@ -54,7 +54,5 @@ def test():
         print("[bold red]Failed! [/bold red] Could not connect to the database!")
         print(ex)
         raise typer.Exit(code=1)
-    else:
-        print(
-            "[bold green]Success! [/bold green] Connection to the database established!"
-        )
+
+    print("[bold green]Success! [/bold green] Connection to the database established!")
