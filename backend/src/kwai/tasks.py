@@ -24,7 +24,10 @@ def create_bus():
         sys.exit(0)
 
     if settings.broker.logger:
-        logger.remove(0)  # Remove the default logger
+        try:
+            logger.remove(0)  # Remove the default logger
+        except ValueError:
+            pass
 
         def log_format(record):
             """Create a logging format for a message."""

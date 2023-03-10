@@ -38,7 +38,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     # Setup the logger.
     if settings.logger:
-        logger.remove(0)  # Remove the default logger
+        try:
+            logger.remove(0)  # Remove the default logger
+        except ValueError:
+            pass
 
         def log_format(record):
             """Change the format when a request_id is set in extra."""
