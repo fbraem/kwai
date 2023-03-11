@@ -34,7 +34,6 @@ def email_user_recovery_task(event: dict[str, Any]):
     mailer = container[Mailer]
     template_engine = container[TemplateEngine]
     database = container[Database]
-    database.connect()
 
     command = MailUserRecoveryCommand(uuid=event["data"]["uuid"])
 
