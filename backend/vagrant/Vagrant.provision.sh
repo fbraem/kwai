@@ -67,3 +67,8 @@ rabbitmqctl set_permissions -p "$KWAI_RABBITMQ_VHOST" "$KWAI_RABBITMQ_USER" ".*"
 # Mailcatcher
 sudo apt-get -y install ruby-full  build-essential
 gem install mailcatcher
+
+# Redis
+apt-get install redis-server -y
+echo "bind 0.0.0.0" > /etc/redis/redis.conf
+sudo /etc/init.d/redis-server start
