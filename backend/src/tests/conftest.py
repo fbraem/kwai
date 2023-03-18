@@ -1,4 +1,5 @@
 """Module for sharing fixtures in this module."""
+import asyncio
 from typing import Iterator
 
 import pytest
@@ -17,6 +18,17 @@ from kwai.modules.identity.users.user_account import UserAccountEntity
 from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
 )
+
+
+@pytest.fixture(scope="session")
+def event_loop():
+    """Fixture for the event loop.
+
+    Without this fixture some async test methods fail.
+    """
+    loop = asyncio.get_event_loop()
+    yield loop
+    loop.close()
 
 
 @pytest.fixture(scope="module")
