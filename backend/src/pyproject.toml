@@ -40,6 +40,7 @@ pytest-asyncio = "^0.20.3"
 markers = [
     "integration: Mark an integration test"
 ]
+asyncio_mode = "auto"
 
 [tool.pylint]
 good-names = "db,id,ex,to,cc"
