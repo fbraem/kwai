@@ -1,6 +1,7 @@
 """Module that defines the base class Event."""
 import dataclasses
 from dataclasses import dataclass
+from datetime import datetime
 from typing import ClassVar
 
 
@@ -21,6 +22,9 @@ class Event:
     def data(self) -> dict:
         """Returns a dict that can be used to serialize the event."""
         return {
-            "meta": {**dataclasses.asdict(self.__class__.meta)},
+            "meta": {
+                **dataclasses.asdict(self.__class__.meta),
+                "date": datetime.utcnow().isoformat(sep=" ", timespec="milliseconds"),
+            },
             "data": {**dataclasses.asdict(self)},
         }
