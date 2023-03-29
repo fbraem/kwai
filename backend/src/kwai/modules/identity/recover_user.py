@@ -45,7 +45,7 @@ class RecoverUser:
         self._user_recovery_repo = user_recovery_repo
         self._event_bus = event_bus
 
-    def execute(self, command: RecoverUserCommand) -> UserRecoveryEntity:
+    async def execute(self, command: RecoverUserCommand) -> UserRecoveryEntity:
         """Execute the use case.
 
         Args:
@@ -69,6 +69,8 @@ class RecoverUser:
             )
         )
 
-        self._event_bus.publish(UserRecoveryCreatedEvent(uuid=str(user_recovery.uuid)))
+        await self._event_bus.publish(
+            UserRecoveryCreatedEvent(uuid=str(user_recovery.uuid))
+        )
 
         return user_recovery

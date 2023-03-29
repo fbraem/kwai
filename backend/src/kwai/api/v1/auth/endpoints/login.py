@@ -206,7 +206,7 @@ def renew_access_token(
     status_code=status.HTTP_200_OK,
     response_class=Response,
 )
-def recover_user(
+async def recover_user(
     email: str = Form(), db=deps.depends(Database), bus=deps.depends(Bus)
 ) -> None:
     """API to start a recover password flow for the given email address.
@@ -223,7 +223,7 @@ def recover_user(
     """
     command = RecoverUserCommand(email=email)
     try:
-        RecoverUser(
+        await RecoverUser(
             UserAccountDbRepository(db), UserRecoveryDbRepository(db), bus
         ).execute(command)
     except UserAccountNotFoundException:
