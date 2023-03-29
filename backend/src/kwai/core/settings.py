@@ -49,11 +49,11 @@ class EmailSettings(BaseModel):
     address: str = Field(alias="from")
 
 
-class BrokerSettings(BaseModel):
-    """Settings for a broker."""
+class RedisSettings(BaseModel):
+    """Settings for redis."""
 
-    name: str = "kwai"
-    url: str
+    host: str
+    port: int | None
     logger: LoggerSettings | None = None
 
 
@@ -89,7 +89,7 @@ class Settings(BaseModel):
 
     email: EmailSettings
 
-    broker: BrokerSettings
+    redis: RedisSettings
 
 
 def get_settings() -> Settings:

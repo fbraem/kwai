@@ -30,8 +30,9 @@ password=""
 user=""
 from=""
 
-[broker]
-url="" # use name to set the vhost. By default the name is "kwai"
+[redis]
+host=""
+port=6379
 
-[broker.logger]
-file="kwai.tasks.log"
+[redis.logger]
+file="kwai.redis.log"

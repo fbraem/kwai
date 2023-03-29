@@ -1,14 +1,12 @@
 """Module that defines entry points for tasks for user recoveries."""
 from typing import Any
 
-from dramatiq import actor
 from loguru import logger
 
 from kwai.core.db.database import Database
 from kwai.core.dependencies import container
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.core.events.logging_actor import LoggingActor
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipients, Recipient
 from kwai.core.settings import Settings
@@ -26,7 +24,6 @@ from kwai.modules.identity.user_recoveries.user_recovery_repository import (
 )
 
 
-@actor(actor_name="identity.user_recovery.email", actor_class=LoggingActor)
 def email_user_recovery_task(event: dict[str, Any]):
     """Actor for sending a user recovery mail."""
     logger.info(f"Trying to handle event {event['meta']['name']}")

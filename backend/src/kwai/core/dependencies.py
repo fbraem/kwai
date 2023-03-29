@@ -4,12 +4,12 @@ Module that defines a dependency injector container.
 Auto-wiring is avoided. It should be clear why and when a class is loaded.
 """
 
-import dramatiq.brokers.rabbitmq
 from lagom import Container, dependency_definition, ExplicitContainer, Singleton
+from redis.asyncio import Redis
 
 from kwai.core.db.database import Database
 from kwai.core.events.bus import Bus
-from kwai.core.events.dramatiq_bus import DramatiqBus
+from kwai.core.events.redis_bus import RedisBus
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.smtp_mailer import SmtpMailer
 from kwai.core.settings import Settings, get_settings
@@ -50,10 +50,12 @@ def create_mailer(c: Container) -> Mailer:
 
 
 @dependency_definition(container)
+def create_redis(c: Container) -> Redis:
+    """Create the redis dependency."""
+    return Redis(host=c[Settings].redis.host, port=c[Settings].redis.port or 6379)
+
+
+@dependency_definition(container)
 def create_event_bus(c: Container) -> Bus:
     """Create the event bus dependency."""
-    broker = dramatiq.brokers.rabbitmq.RabbitmqBroker(
-        url=c[Settings].broker.url + "/" + c[Settings].broker.name
-    )
-    dramatiq.set_broker(broker)
-    return DramatiqBus(broker)
+    return RedisBus(c[Redis])
