@@ -53,7 +53,7 @@ class RedisSettings(BaseModel):
     """Settings for redis."""
 
     host: str
-    port: int | None
+    port: int = 6379
     logger: LoggerSettings | None = None
 
 
