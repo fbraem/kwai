@@ -1,5 +1,5 @@
 """Tests for the Redis Consumer."""
-from asyncio import sleep
+import asyncio
 
 import pytest
 
@@ -13,14 +13,17 @@ async def test_consumer(stream: RedisStream):
     await stream.create_group("kwai_test_group")
     await stream.add(RedisMessage(data={"text": "Hello consumer!"}))
 
-    def out():
+    def out(message: RedisMessage) -> bool:  # pylint: disable=unused-argument
         out.counter = getattr(out, "counter", 0) + 1
+        return True
 
     consumer = RedisConsumer(stream, "kwai_test_group", out)
-    consumer.consume("kwai_test_consumer")
-
+    task = asyncio.create_task(consumer.consume("kwai_test_consumer"))
     await stream.add(RedisMessage(data={"text": "Hello runnable consumer!"}))
-    await sleep(4)
+    try:
+        await asyncio.wait_for(task, 2)
+    except asyncio.TimeoutError:
+        pass
 
     # noinspection PyUnresolvedReferences
     assert out.counter == 2, "The callback should be called twice"
