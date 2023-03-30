@@ -3,8 +3,8 @@ from asyncio import sleep
 
 import pytest
 
-from kwai.core.events.redis.consumer import RedisConsumer
-from kwai.core.events.redis.stream import RedisMessage, RedisStream
+from kwai.core.events.consumer import RedisConsumer
+from kwai.core.events.stream import RedisMessage, RedisStream
 
 
 @pytest.mark.asyncio

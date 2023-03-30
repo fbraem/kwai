@@ -5,7 +5,7 @@ from json import JSONDecodeError
 from typing import Any
 
 import redis.exceptions
-from redis import Redis
+from redis.asyncio import Redis
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -36,9 +36,11 @@ class RedisMessageException(Exception):
 
     @property
     def message_id(self) -> str:
+        """Return the message id of the message that raised this exception."""
         return self._message_id
 
     def __str__(self):
+        """Return a string representation of this exception."""
         return f"({self._message_id}) " + super().__str__()
 
 
@@ -51,6 +53,7 @@ class RedisMessage:
 
     @classmethod
     def create_from_redis(cls, messages: list):
+        """Create a RedisMessage from messages retrieved from a Redis stream."""
         # A nested list is returned from Redis. For each stream (we only have one here),
         # a list of entries read is returned. Because count was 1, this contains only 1
         # element. An entry is a tuple with the message id and the message content.
@@ -62,7 +65,7 @@ class RedisMessage:
             try:
                 json.loads(message[0][1][b"data"])
             except JSONDecodeError as ex:
-                raise RedisMessageException(message_id, str(ex))
+                raise RedisMessageException(message_id, str(ex)) from ex
             return RedisMessage(
                 id=message_id,
                 data=json.loads(message[0][1][b"data"]),
@@ -73,14 +76,25 @@ class RedisMessage:
 class RedisStream:
     """A stream using Redis.
 
-    A stream will be created when a first group is created.
+    Attributes:
+        _redis: Redis connection.
+        _stream_name: Name of the Redis stream.
+
+    A stream will be created when a first group is created or when a first message is
+    added.
     """
 
-    def __init__(self, redis: Redis, stream_name: str):
-        self._redis = redis
+    def __init__(self, redis_: Redis, stream_name: str):
+        self._redis = redis_
         self._stream_name = stream_name
 
     async def ack(self, group_name: str, id_: str):
+        """Acknowledge the message with the given id for the given group.
+
+        Args:
+            group_name: The name of the group.
+            id_: The id of the message to acknowledge.
+        """
         await self._redis.xack(self._stream_name, group_name, id_)
 
     async def add(self, message: RedisMessage) -> RedisMessage:
@@ -104,6 +118,14 @@ class RedisStream:
     async def consume(
         self, group_name: str, consumer_name: str, id_=">", block: int | None = None
     ) -> RedisMessage | None:
+        """Consume a message from a stream.
+
+        Args:
+            group_name: Name of the group.
+            consumer_name: Name of the consumer.
+            id_: The id to start from (default is >)
+            block: milliseconds to wait for an entry. Use None to not block.
+        """
         messages = await self._redis.xreadgroup(
             group_name, consumer_name, {self._stream_name: id_}, 1, block
         )

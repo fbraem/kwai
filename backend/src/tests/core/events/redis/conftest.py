@@ -3,7 +3,7 @@
 import pytest
 from redis.asyncio import Redis
 
-from kwai.core.events.redis.stream import RedisStream
+from kwai.core.events.stream import RedisStream
 
 
 @pytest.fixture(scope="session")

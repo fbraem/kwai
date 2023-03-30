@@ -2,7 +2,7 @@
 
 import pytest
 
-from kwai.core.events.redis.stream import RedisStream, RedisMessage
+from kwai.core.events.stream import RedisStream, RedisMessage
 
 
 @pytest.mark.asyncio

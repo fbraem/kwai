@@ -1,3 +1,4 @@
+"""Entry point for starting the event bus."""
 import asyncio
 import os
 import sys
@@ -11,6 +12,7 @@ from kwai.core.settings import Settings, SettingsException
 
 
 def create_bus():
+    """Create the event bus."""
     try:
         settings = container[Settings]
     except SettingsException as ex:
@@ -54,12 +56,5 @@ def create_bus():
     return bus
 
 
-async def main():
-    bus = create_bus()
-    await bus.run()
-    while True:
-        await asyncio.sleep(1)
-
-
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(create_bus().run())

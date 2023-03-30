@@ -6,9 +6,9 @@ from typing import Any, Callable
 from redis import Redis
 
 from kwai.core.events.bus import Bus
+from kwai.core.events.consumer import RedisConsumer
 from kwai.core.events.event import Event
-from kwai.core.events.redis.consumer import RedisConsumer
-from kwai.core.events.redis.stream import RedisMessage, RedisStream
+from kwai.core.events.stream import RedisMessage, RedisStream
 
 
 class RedisBus(Bus):
@@ -47,7 +47,6 @@ class RedisBus(Bus):
 
     async def _trigger_event(self, message: RedisMessage) -> bool:
         """Call all callbacks that are linked to the event."""
-
         if "meta" not in message.data:
             return False
 
@@ -69,8 +68,10 @@ class RedisBus(Bus):
     async def run(self):
         """Start all consumers.
 
-        For each stream a consumer will be started.
+        For each stream a consumer will be started. This method will wait for all tasks
+        to end.
         """
+        tasks = []
         self._consumers = []
         for stream_name in self._stream_names:
             event_consumer = RedisConsumer(
@@ -80,7 +81,10 @@ class RedisBus(Bus):
             )
             self._consumers.append(event_consumer)
             # noinspection PyAsyncCall
-            asyncio.shield(event_consumer.consume(f"{stream_name}.consumer"))
+            tasks.append(
+                asyncio.shield(event_consumer.consume(f"{stream_name}.consumer"))
+            )
+        await asyncio.gather(*tasks)
 
     async def cancel(self):
         """Cancel all consumers."""
