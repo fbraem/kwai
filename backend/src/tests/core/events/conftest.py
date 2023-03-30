@@ -4,12 +4,14 @@ import pytest
 from redis.asyncio import Redis
 
 from kwai.core.events.stream import RedisStream
+from kwai.core.settings import get_settings
 
 
 @pytest.fixture(scope="session")
 async def redis() -> Redis:
     """Fixture for a redis instance."""
-    redis = Redis(host="api.kwai.com")
+    settings = get_settings()
+    redis = Redis(host=settings.redis.host, port=settings.redis.port)
     yield redis
     await redis.close()
 
