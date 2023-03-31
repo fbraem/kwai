@@ -4,9 +4,7 @@ export DEBIAN_FRONTEND=noninteractive
 KWAI_DATABASE_NAME=$1
 KWAI_DATABASE_USER=$2
 KWAI_DATABASE_PASSWORD=$3
-KWAI_RABBITMQ_VHOST=$4
-KWAI_RABBITMQ_USER=$5
-KWAI_RABBITMQ_PASSWORD=$6
+KWAI_REDIS_PASSWORD=$4
 
 apt-get update
 
@@ -33,42 +31,23 @@ service mysql restart
 sudo curl -fsSL -o /usr/local/bin/dbmate https://github.com/amacneil/dbmate/releases/latest/download/dbmate-linux-amd64
 sudo chmod +x /usr/local/bin/dbmate
 
-# Install RabbitMQ
-
-apt-get install curl gnupg apt-transport-https -y
-
-curl -1sLf "https://keys.openpgp.org/vks/v1/by-fingerprint/0A9AF2115F4687BD29803A206B73A36E6026DFCA" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/com.rabbitmq.team.gpg > /dev/null
-curl -1sLf "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf77f1eda57ebb1cc" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg > /dev/null
-curl -1sLf "https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey" | sudo gpg --dearmor | sudo tee /usr/share/keyrings/io.packagecloud.rabbitmq.gpg > /dev/null
-
-RABBITMQ_LIST=$(cat <<EOF
-deb [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu jammy main
-deb-src [signed-by=/usr/share/keyrings/net.launchpad.ppa.rabbitmq.erlang.gpg] http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu jammy main
-deb [signed-by=/usr/share/keyrings/io.packagecloud.rabbitmq.gpg] https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ jammy main
-deb-src [signed-by=/usr/share/keyrings/io.packagecloud.rabbitmq.gpg] https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ jammy main
-EOF
-)
-echo "${RABBITMQ_LIST}" > /etc/apt/sources.list.d/rabbitmq.list
-
-apt-get update -y
-apt-get install -y erlang-base \
-    erlang-asn1 erlang-crypto erlang-eldap erlang-ftp erlang-inets \
-    erlang-mnesia erlang-os-mon erlang-parsetools erlang-public-key \
-    erlang-runtime-tools erlang-snmp erlang-ssl \
-    erlang-syntax-tools erlang-tftp erlang-tools erlang-xmerl
-apt-get install rabbitmq-server -y --fix-missing
-
-rabbitmq-plugins enable rabbitmq_management
-echo "$KWAI_RABBITMQ_PASSWORD" | rabbitmqctl add_user "$KWAI_RABBITMQ_USER"
-rabbitmqctl add_vhost "$KWAI_RABBITMQ_VHOST"
-rabbitmqctl set_user_tags "$KWAI_RABBITMQ_USER" administrator
-rabbitmqctl set_permissions -p "$KWAI_RABBITMQ_VHOST" "$KWAI_RABBITMQ_USER" ".*" ".*" ".*"
-
 # Mailcatcher
 sudo apt-get -y install ruby-full  build-essential
 gem install mailcatcher
 
 # Redis
 apt-get install redis-server -y
-echo "bind 0.0.0.0" > /etc/redis/redis.conf
-sudo /etc/init.d/redis-server start
+REDIS_CONFIG=$(cat <<EOF
+port 6379
+daemonize yes
+save 60 1
+bind 0.0.0.0
+tcp-keepalive 300
+dbfilename dump.rdb
+dir /var/lib/redis
+rdbcompression yes
+requirepass ${KWAI_REDIS_PASSWORD}
+EOF
+)
+echo "${REDIS_CONFIG}" > /etc/redis/redis.conf
+sudo /etc/init.d/redis-server restart

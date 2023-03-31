@@ -3,7 +3,5 @@ database:
   name: ""
   user: ""
   password: ""
-rabbitmq:
-  vhost: ""
-  user: ""
+redis:
   password: ""
