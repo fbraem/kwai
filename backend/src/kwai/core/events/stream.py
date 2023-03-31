@@ -48,6 +48,7 @@ class RedisMessageException(Exception):
 class RedisMessage:
     """Dataclass for a message on a stream."""
 
+    stream: str | None = None
     id: str = "*"
     data: dict[str, Any] = field(default_factory=dict)
 
@@ -57,8 +58,8 @@ class RedisMessage:
         # A nested list is returned from Redis. For each stream (we only have one here),
         # a list of entries read is returned. Because count was 1, this contains only 1
         # element. An entry is a tuple with the message id and the message content.
-        print(messages)
         message = messages[0]  # we only have one stream, so use index 0
+        stream_name = message[0].decode("utf-8")
         message = message[1]  # This is a list with all returned tuple entries
         message_id = message[0][0].decode("utf-8")
         if b"data" in message[0][1]:
@@ -67,6 +68,7 @@ class RedisMessage:
             except JSONDecodeError as ex:
                 raise RedisMessageException(message_id, str(ex)) from ex
             return RedisMessage(
+                stream=stream_name,
                 id=message_id,
                 data=json.loads(message[0][1][b"data"]),
             )
