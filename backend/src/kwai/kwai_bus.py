@@ -29,7 +29,7 @@ def create_bus():
         """Create a logging format for an event."""
         new_format = "{time} - {level}"
         if "event_id" in record["extra"]:
-            new_format += " - ({extra[event_id})"
+            new_format += " - ({extra[event_id]})"
         if "message_id" in record["extra"] and "stream" in record["extra"]:
             new_format += " - ({extra[stream]} id: {extra[message_id]}"
         new_format += " - {message}" + os.linesep
