@@ -11,7 +11,11 @@ from kwai.core.settings import get_settings
 async def redis() -> Redis:
     """Fixture for a redis instance."""
     settings = get_settings()
-    redis = Redis(host=settings.redis.host, port=settings.redis.port)
+    redis = Redis(
+        host=settings.redis.host,
+        port=settings.redis.port,
+        password=settings.redis.password,
+    )
     yield redis
     await redis.close()
 

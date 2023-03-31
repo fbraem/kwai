@@ -52,7 +52,12 @@ def create_mailer(c: Container) -> Mailer:
 @dependency_definition(container)
 def create_redis(c: Container) -> Redis:
     """Create the redis dependency."""
-    return Redis(host=c[Settings].redis.host, port=c[Settings].redis.port or 6379)
+    redis_settings = c[Settings].redis
+    return Redis(
+        host=redis_settings.host,
+        port=redis_settings.port or 6379,
+        password=redis_settings.password,
+    )
 
 
 @dependency_definition(container)

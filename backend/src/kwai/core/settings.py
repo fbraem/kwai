@@ -54,6 +54,7 @@ class RedisSettings(BaseModel):
 
     host: str
     port: int = 6379
+    password: str | None = None
     logger: LoggerSettings | None = None
 
 
