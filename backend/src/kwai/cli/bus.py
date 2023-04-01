@@ -1,11 +1,14 @@
 """bus contains subcommands for the event bus."""
 import os
+from asyncio import run
 
 import typer
+from redis.asyncio import Redis
 from rich import print  # pylint: disable=redefined-builtin
 from typer import Typer
 
 from kwai.core.dependencies import container
+from kwai.core.events.stream import RedisStream
 from kwai.core.settings import ENV_SETTINGS_FILE, Settings
 
 
@@ -38,6 +41,44 @@ def show(password: bool = typer.Option(False, help="Show the password")):
         if password:
             print(f"Password: [bold]{settings.redis.password}[/bold]")
     except Exception as ex:
-        print("[bold red]Failed! [/bold red] Could not load the settings!")
+        print("[bold red]Failed![/bold red] Could not load the settings!")
         print(ex)
         raise typer.Exit(code=1)
+
+
+@app.command(help="Test the redis connection.")
+def test():
+    """Command for testing the redis connection."""
+    try:
+        container[Redis]
+    except Exception as ex:
+        print("[bold red]Failed![/bold red] Could not connect to redis!")
+        print(ex)
+        raise typer.Exit(code=1)
+
+    print("[bold green]Success![/bold green] Connection to redis established!")
+
+
+@app.command(help="Get information about a stream")
+def stream(name: str = typer.Option(..., help="The name of the stream")):
+    """Command for getting information about a stream.
+
+    Args:
+        name: The name of the stream.
+    """
+    try:
+        redis = container[Redis]
+    except Exception as ex:
+        print("[bold red]Failed![/bold red] Could not connect to redis!")
+        print(ex)
+        raise typer.Exit(code=1)
+
+    async def _info():
+        stream_ = RedisStream(redis, f"kwai.{name}")
+        info = await stream_.info()
+        print(f"Stream: [bold]{stream_.name}[/bold]")
+        print(f"Number of messages: [bold]{info.length}[/bold]")
+        print(f"First entry: [bold]{info.first_entry}[/bold]")
+        print(f"Last entry: [bold]{info.last_entry}[/bold]")
+
+    run(_info())
