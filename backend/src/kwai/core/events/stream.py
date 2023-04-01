@@ -98,6 +98,11 @@ class RedisStream:
         self._redis = redis_
         self._stream_name = stream_name
 
+    @property
+    def name(self) -> str:
+        """Return the name of the stream."""
+        return self._stream_name
+
     async def ack(self, group_name: str, id_: str):
         """Acknowledge the message with the given id for the given group.
 
