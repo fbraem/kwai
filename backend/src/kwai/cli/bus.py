@@ -43,7 +43,7 @@ def show(password: bool = typer.Option(False, help="Show the password")):
     except Exception as ex:
         print("[bold red]Failed![/bold red] Could not load the settings!")
         print(ex)
-        raise typer.Exit(code=1)
+        raise typer.Exit(code=1) from None
 
 
 @app.command(help="Test the redis connection.")
@@ -54,7 +54,7 @@ def test():
     except Exception as ex:
         print("[bold red]Failed![/bold red] Could not connect to redis!")
         print(ex)
-        raise typer.Exit(code=1)
+        raise typer.Exit(code=1) from None
 
     print("[bold green]Success![/bold green] Connection to redis established!")
 
@@ -71,7 +71,7 @@ def stream(name: str = typer.Option(..., help="The name of the stream")):
     except Exception as ex:
         print("[bold red]Failed![/bold red] Could not connect to redis!")
         print(ex)
-        raise typer.Exit(code=1)
+        raise typer.Exit(code=1) from None
 
     async def _info():
         stream_ = RedisStream(redis, f"kwai.{name}")
