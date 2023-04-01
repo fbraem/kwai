@@ -28,16 +28,20 @@ class RedisConsumer:
         self._callback = callback
         self._is_stopping = Event()
 
-    async def consume(self, consumer_name: str, id_: str = ">"):
+    async def consume(self, consumer_name: str, check_backlog: bool = True):
         """Consume messages from a stream.
 
         Args:
             consumer_name: The name of the consumer.
-            id_: The id to start consuming (default is >).
+            check_backlog: When True, all pending messages will be processed first.
         """
         await self._stream.create_group(self._group_name)
 
         while True:
+            if check_backlog:
+                id_ = "0-0"
+            else:
+                id_ = ">"
             try:
                 message = await self._stream.consume(
                     self._group_name, consumer_name, id_
@@ -49,6 +53,8 @@ class RedisConsumer:
                         print(f"Exception: {ex}")
                         # avoid a break of the loop
                         continue
+                else:
+                    check_backlog = False
             except asyncio.CancelledError:
                 # happens on shutdown, ignore
                 return
