@@ -31,7 +31,7 @@ def create_bus():
         if "event_id" in record["extra"]:
             new_format += " - ({extra[event_id]})"
         if "message_id" in record["extra"] and "stream" in record["extra"]:
-            new_format += " - ({extra[stream]} id: {extra[message_id]})"
+            new_format += " - ({extra[stream]}: {extra[message_id]})"
         new_format += " - {message}" + os.linesep
 
         return new_format
