@@ -3,6 +3,7 @@ import asyncio
 import inspect
 from typing import Any, Callable
 
+from loguru import logger
 from redis import Redis
 
 from kwai.core.events.bus import Bus
@@ -47,22 +48,44 @@ class RedisBus(Bus):
 
     async def _trigger_event(self, message: RedisMessage) -> bool:
         """Call all callbacks that are linked to the event."""
+        with logger.contextualize(stream=message.stream, message_id=message.id):
+            logger.info("An event received.")
+            if not self._is_valid_event(message):
+                return False
+
+            event_name = message.data["meta"]["name"]
+            callbacks = self._events.get(event_name, [])
+            if len(callbacks) == 0:
+                logger.warning(
+                    f"Event ignored: No handlers found for event 'f{event_name}'."
+                    f" Check the subscriptions."
+                )
+            for callback in callbacks:
+                logger.info(
+                    f"Calling event handler "
+                    f"'{callback.__module__}.{callback.__qualname__}'"
+                )
+                try:
+                    if inspect.iscoroutinefunction(callback):
+                        await callback(message.data)
+                    else:
+                        callback(message.data)
+                except Exception as ex:  # pylint: disable=broad-exception-caught
+                    logger.warning(f"The handler raised an exception: {ex}")
+
+            logger.info("All handlers are called.")
+
+        return True
+
+    @classmethod
+    def _is_valid_event(cls, message: RedisMessage):
+        """Check the event message."""
         if "meta" not in message.data:
+            logger.warning("Event ignored: The event does not contain meta data.")
             return False
-
-        event_name = message.data["meta"]["name"]
-        callbacks = self._events.get(event_name, [])
-        if len(callbacks) == 0:
-            print(f'No subscriptions found for event "f{event_name}"')
-        for callback in callbacks:
-            try:
-                if inspect.iscoroutinefunction(callback):
-                    await callback(message.data)
-                else:
-                    callback(message.data)
-            except Exception as ex:  # pylint: disable=broad-exception-caught
-                print(f"Callback Exception: {ex}")
-
+        if "name" not in message.data["meta"]:
+            logger.warning("Event ignored: The event meta does not contain a name.")
+            return False
         return True
 
     async def run(self):
