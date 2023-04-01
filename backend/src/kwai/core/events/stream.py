@@ -30,9 +30,15 @@ class RedisGroupInfo:
 class RedisMessageException(Exception):
     """Exception raised when the message is not a RedisMessage."""
 
-    def __init__(self, message_id: str, message: str):
+    def __init__(self, stream_name: str, message_id: str, message: str):
+        self._stream_name = stream_name
         self._message_id = message_id
         super().__init__(message)
+
+    @property
+    def stream_name(self) -> str:
+        """Return the stream of the message."""
+        return self._stream_name
 
     @property
     def message_id(self) -> str:
@@ -41,7 +47,7 @@ class RedisMessageException(Exception):
 
     def __str__(self):
         """Return a string representation of this exception."""
-        return f"({self._message_id}) " + super().__str__()
+        return f"({self._stream_name} - {self._message_id}) " + super().__str__()
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -53,7 +59,7 @@ class RedisMessage:
     data: dict[str, Any] = field(default_factory=dict)
 
     @classmethod
-    def create_from_redis(cls, messages: list):
+    def create_from_redis(cls, messages: list) -> "RedisMessage":
         """Create a RedisMessage from messages retrieved from a Redis stream."""
         # A nested list is returned from Redis. For each stream (we only have one here),
         # a list of entries read is returned. Because count was 1, this contains only 1
@@ -66,13 +72,15 @@ class RedisMessage:
             try:
                 json.loads(message[0][1][b"data"])
             except JSONDecodeError as ex:
-                raise RedisMessageException(message_id, str(ex)) from ex
+                raise RedisMessageException(stream_name, message_id, str(ex)) from ex
             return RedisMessage(
                 stream=stream_name,
                 id=message_id,
                 data=json.loads(message[0][1][b"data"]),
             )
-        raise RedisMessageException(message_id, "No data key found in redis message")
+        raise RedisMessageException(
+            stream_name, message_id, "No data key found in redis message"
+        )
 
 
 class RedisStream:
@@ -133,8 +141,12 @@ class RedisStream:
         )
         if messages is None:
             return
-
         if len(messages) == 0:
+            return
+
+        # Check if there is a message returned for our stream.
+        _, stream_messages = messages[0]
+        if len(stream_messages) == 0:
             return
 
         return RedisMessage.create_from_redis(messages)
