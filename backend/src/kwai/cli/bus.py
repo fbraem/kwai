@@ -5,6 +5,7 @@ from asyncio import run
 import typer
 from redis.asyncio import Redis
 from rich import print  # pylint: disable=redefined-builtin
+from rich.tree import Tree
 from typer import Typer
 
 from kwai.core.dependencies import container
@@ -89,9 +90,35 @@ def stream(
         print(f"Last entry: [bold]{info.last_entry}[/bold]")
 
         if messages:
+            if info.length > 100:
+                confirm = typer.confirm(
+                    f"You are about to browse {info.length} messages. Are you sure?"
+                )
+                if not confirm:
+                    return
+
             """Closure for handling the async code."""
             stream_ = RedisStream(redis, stream_name)
-            message = await stream_.read("0-0")
-            print(message)
+
+            tree = Tree("Messages")
+            last_id = "0-0"
+            while True:
+                message = await stream_.read(last_id)
+                if message is None:
+                    break
+                last_id = message.id
+
+                leaf = tree.add(f"[bold]{message.id}[/bold]")
+                if "meta" in message.data:
+                    text = ""
+                    if "name" in message.data["meta"]:
+                        text += f"[green][bold]{message.data['meta']['name']}[/bold][/green]:"
+                    if "date" in message.data["meta"]:
+                        text += f" {message.data['meta']['date']}"
+                    if len(text) > 0:
+                        leaf = leaf.add(text)
+                leaf.add(str(message.data["data"]))
+
+            print(tree)
 
     run(_main())
