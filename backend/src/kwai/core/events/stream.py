@@ -284,5 +284,7 @@ class RedisStream:
         messages = await self._redis.xread({self._stream_name: last_id}, 1, block)
         if messages is None:  # No message read
             return
+        if len(messages) == 0:
+            return
 
         return RedisMessage.create_from_redis(messages)
