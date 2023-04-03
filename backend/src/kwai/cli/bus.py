@@ -97,7 +97,6 @@ def stream(
                 if not confirm:
                     return
 
-            """Closure for handling the async code."""
             stream_ = RedisStream(redis, stream_name)
 
             tree = Tree("Messages")
@@ -112,7 +111,11 @@ def stream(
                 if "meta" in message.data:
                     text = ""
                     if "name" in message.data["meta"]:
-                        text += f"[green][bold]{message.data['meta']['name']}[/bold][/green]:"
+                        text += (
+                            "[green]"
+                            f"[bold]{message.data['meta']['name']}[/bold]"
+                            "[/green]:"
+                        )
                     if "date" in message.data["meta"]:
                         text += f" {message.data['meta']['date']}"
                     if len(text) > 0:
