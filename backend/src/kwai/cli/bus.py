@@ -60,11 +60,15 @@ def test():
 
 
 @app.command(help="Get information about a stream")
-def stream(name: str = typer.Option(..., help="The name of the stream")):
+def stream(
+    name: str = typer.Option(..., help="The name of the stream"),
+    messages: bool = typer.Option(False, help="List all messages"),
+):
     """Command for getting information about a stream.
 
     Args:
         name: The name of the stream.
+        messages: List all messages or not? Default is False.
     """
     try:
         redis = container[Redis]
@@ -73,12 +77,21 @@ def stream(name: str = typer.Option(..., help="The name of the stream")):
         print(ex)
         raise typer.Exit(code=1) from None
 
-    async def _info():
-        stream_ = RedisStream(redis, f"kwai.{name}")
+    stream_name = f"kwai.{name}"
+
+    async def _main():
+        """Closure for handling the async code."""
+        stream_ = RedisStream(redis, stream_name)
         info = await stream_.info()
         print(f"Stream: [bold]{stream_.name}[/bold]")
         print(f"Number of messages: [bold]{info.length}[/bold]")
         print(f"First entry: [bold]{info.first_entry}[/bold]")
         print(f"Last entry: [bold]{info.last_entry}[/bold]")
 
-    run(_info())
+        if messages:
+            """Closure for handling the async code."""
+            stream_ = RedisStream(redis, stream_name)
+            message = await stream_.read("0-0")
+            print(message)
+
+    run(_main())
