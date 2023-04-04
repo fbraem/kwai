@@ -21,7 +21,7 @@ def create_args():
 if __name__ == "__main__":
     args = create_args()
     uvicorn.run(
-        "kwai.app:create_app",
+        "kwai.api.app:create_app",
         host="0.0.0.0",
         port=args.port,
         factory=True,

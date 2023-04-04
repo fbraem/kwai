@@ -2,7 +2,7 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from kwai.app import create_app
+from kwai.api.app import create_app
 from kwai.core.settings import get_settings
 from kwai.modules.identity.users.user_account import UserAccountEntity
 
