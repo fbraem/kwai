@@ -9,6 +9,7 @@ from kwai.api.schemas.user_invitation import (
     UserInvitationsDocument,
     UserInvitationData,
     UserInvitationAttributes,
+    Meta,
 )
 from kwai.core.db.database import Database
 from kwai.modules.identity.get_invitations import GetInvitations, GetInvitationsCommand
@@ -75,7 +76,7 @@ def get_user_invitations(
 ) -> UserInvitationsDocument:
     """Get all user invitations."""
     command = GetInvitationsCommand(offset=pagination.offset, limit=pagination.limit)
-    invitations = GetInvitations(InvitationDbRepository(db)).execute(command)
+    count, invitations = GetInvitations(InvitationDbRepository(db)).execute(command)
 
     result: list[UserInvitationData] = []
 
@@ -89,11 +90,22 @@ def get_user_invitations(
                     last_name=invitation.name.last_name,
                     remark=invitation.remark,
                     expired_at=str(invitation.expired_at),
-                    confirmed_at=str(invitation.confirmed_at),
+                    confirmed_at=(
+                        None
+                        if invitation.confirmed_at.empty
+                        else str(invitation.confirmed_at)
+                    ),
                     created_at=str(invitation.traceable_time.created_at),
-                    updated_at=str(invitation.traceable_time.updated_at),
+                    updated_at=(
+                        None
+                        if invitation.traceable_time.updated_at.empty
+                        else str(invitation.traceable_time.updated_at)
+                    ),
                 ),
             )
         )
 
-    return UserInvitationsDocument(data=result)
+    return UserInvitationsDocument(
+        meta=Meta(count=count, offset=pagination.offset or 0, limit=pagination.limit),
+        data=result,
+    )

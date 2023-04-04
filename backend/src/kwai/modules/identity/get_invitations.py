@@ -1,6 +1,6 @@
 """Implement the use case: get user invitations."""
 from dataclasses import dataclass
-from typing import Iterator
+from typing import Iterator, Tuple
 
 from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
 from kwai.modules.identity.user_invitations.user_invitation_repository import (
@@ -39,16 +39,21 @@ class GetInvitations:
         """
         self._user_invitation_repo = user_invitation_repo
 
-    def execute(self, command: GetInvitationsCommand) -> Iterator[UserInvitationEntity]:
+    def execute(
+        self, command: GetInvitationsCommand
+    ) -> Tuple[int, Iterator[UserInvitationEntity]]:
         """Execute the use case.
 
         Args:
             command: The input for this use case.
 
         Returns:
-            An iterator for invitation entities.
+            A tuple with the number of entities and an iterator for invitation entities.
         """
         query = self._user_invitation_repo.create_query()
-        return self._user_invitation_repo.get_all(
-            query=query, offset=command.offset, limit=command.limit
+        return (
+            query.count(),
+            self._user_invitation_repo.get_all(
+                query=query, offset=command.offset, limit=command.limit
+            ),
         )

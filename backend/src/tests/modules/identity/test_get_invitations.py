@@ -1,4 +1,6 @@
 """Tests for the user get invitations."""
+from types import GeneratorType
+
 import pytest
 
 from kwai.core.db.database import Database
@@ -23,6 +25,9 @@ def repo(database: Database) -> UserInvitationRepository:
 def test_get_invitations(repo: UserInvitationRepository):
     """Test the use case: get invitations."""
     command = GetInvitationsCommand()
-    invitations = list(GetInvitations(repo).execute(command))
+    count, invitations = GetInvitations(repo).execute(command)
 
-    assert isinstance(invitations, list), "There should be a list of entities"
+    assert count >= 0, "Count must be 0 or greater"
+    assert isinstance(
+        invitations, GeneratorType
+    ), "A list of entities should be yielded"

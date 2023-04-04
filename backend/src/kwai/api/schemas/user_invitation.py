@@ -3,6 +3,8 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
+from kwai.api.schemas.meta import Meta
+
 
 class UserInvitationResourceIdentifier(BaseModel):
     """The identifier for a user invitation resource."""
@@ -39,4 +41,5 @@ class UserInvitationDocument(BaseModel):
 class UserInvitationsDocument(BaseModel):
     """Document for a list of user invitation resources."""
 
+    meta: Meta | None
     data: list[UserInvitationData] = Field(default_factory=list)
