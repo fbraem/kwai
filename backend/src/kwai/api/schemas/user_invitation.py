@@ -3,7 +3,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-from kwai.api.schemas.meta import Meta
+from kwai.api.schemas.jsonapi import Meta
 
 
 class UserInvitationResourceIdentifier(BaseModel):

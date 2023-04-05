@@ -1,15 +1,14 @@
 """Module that implements all user endpoints."""
 
-from fastapi import APIRouter, Depends, Query
-from pydantic import BaseModel, Field
+from fastapi import APIRouter, Depends
 
 from kwai.api.dependencies import get_current_user, deps
+from kwai.api.schemas.jsonapi import PaginationModel, Meta
 from kwai.api.schemas.user_invitation import (
     UserInvitationDocument,
     UserInvitationsDocument,
     UserInvitationData,
     UserInvitationAttributes,
-    Meta,
 )
 from kwai.core.db.database import Database
 from kwai.modules.identity.get_invitations import GetInvitations, GetInvitationsCommand
@@ -51,21 +50,6 @@ def create_user_invitation(
     resource.data.attributes.created_at = str(invitation.traceable_time.created_at)
 
     return resource
-
-
-class PaginationModel(BaseModel):
-    """A model for pagination query parameters.
-
-    Use this as a dependency on a route. This will handle the page[offset]
-    and page[limit] query parameters.
-
-    Attributes:
-        offset: The value of the page[offset] query parameter. Default is None.
-        limit: The value of the page[limit] query parameter. Default is None.
-    """
-
-    offset: int | None = Field(Query(default=None, alias="page[offset]"))
-    limit: int | None = Field(Query(default=None, alias="page[limit]"))
 
 
 @router.get("/users/invitations")
