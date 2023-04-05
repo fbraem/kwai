@@ -36,6 +36,7 @@ class UserInvitationRow:
         revoked(bool): is the invitation revoked?
         created_at(datetime): the timestamp of creation
         updated_at(datetime|None): the timestamp of the last modification
+        mailed_at(datetime|None): the timestamp of sending the email
     """
 
     id: int
@@ -51,6 +52,7 @@ class UserInvitationRow:
     revoked: int
     created_at: datetime
     updated_at: datetime | None
+    mailed_at: datetime | None
 
     def create_entity(self, user: UserEntity) -> UserInvitationEntity:
         """Create a user invitation entity from the table row.
@@ -69,6 +71,7 @@ class UserInvitationRow:
             expired_at=LocalTimestamp(self.expired_at),
             user=user,
             remark=self.remark or "",
+            mailed_at=LocalTimestamp(self.mailed_at),
             confirmed_at=LocalTimestamp(self.confirmed_at),
             revoked=self.revoked == 1,
             traceable_time=TraceableTime(
@@ -95,6 +98,7 @@ class UserInvitationRow:
             uuid=str(invitation.uuid),
             expired_at=invitation.expired_at.timestamp,
             expired_at_timezone=invitation.expired_at.timezone,
+            mailed_at=invitation.mailed_at.timestamp,
             remark=invitation.remark,
             user_id=invitation.user.id.value,
             confirmed_at=invitation.confirmed_at.timestamp,

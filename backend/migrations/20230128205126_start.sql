@@ -66,7 +66,8 @@ create table if not exists user_invitations
     created_at          datetime   default CURRENT_TIMESTAMP not null,
     updated_at          datetime                             null,
     revoked             tinyint(1) default 0                 not null,
-    confirmed_at        datetime                             null
+    confirmed_at        datetime                             null,
+    mailed_at           datetime                             null
 )
     charset = utf8mb3;
 

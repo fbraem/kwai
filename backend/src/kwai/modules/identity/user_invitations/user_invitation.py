@@ -45,6 +45,7 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
         uuid: UniqueId | None = None,
         expired_at: LocalTimestamp | None = None,
         remark: str = "",
+        mailed_at: LocalTimestamp | None = None,
         user: UserEntity,
         confirmed_at: LocalTimestamp | None = None,
         revoked: bool = False,
@@ -56,6 +57,7 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
         self._uuid = uuid or UniqueId.generate()
         self._expired_at = expired_at or LocalTimestamp.create_with_delta(days=7)
         self._remark = remark
+        self._mailed_at = mailed_at or LocalTimestamp()
         self._user = user
         self._confirmed_at = confirmed_at or LocalTimestamp()
         self._revoked = revoked
@@ -80,6 +82,16 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
     def expired_at(self) -> LocalTimestamp:
         """Return when the invitation will expire."""
         return self._expired_at
+
+    @property
+    def mailed(self) -> bool:
+        """Return True if the email has already been sent."""
+        return not self._mailed_at.empty
+
+    @property
+    def mailed_at(self) -> LocalTimestamp:
+        """Return the timestamp of sending the email."""
+        return self._mailed_at
 
     @property
     def remark(self) -> str:
