@@ -61,7 +61,7 @@ class UserRecoveryEntity(Entity[UserRecoveryIdentifier]):
 
     @property
     def mailed(self) -> bool:
-        """Return True when the mail was already send."""
+        """Return True if the email has already been sent."""
         return not self._mailed_at.empty
 
     @property
