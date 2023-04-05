@@ -51,7 +51,7 @@ class MailUserRecovery:
         Raises:
             UserRecoveryNotFoundException: Raised when
                 the user recovery cannot be found.
-            UnprocessableException: Raised when the mail was already send.
+            UnprocessableException: Raised when the mail was already sent.
                 Raised when the user recovery was already confirmed.
         """
         user_recovery = self._user_recovery_repo.get_by_uuid(
