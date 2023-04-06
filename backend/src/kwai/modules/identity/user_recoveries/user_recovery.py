@@ -69,7 +69,7 @@ class UserRecoveryEntity(Entity[UserRecoveryIdentifier]):
         """Return the timestamp of mail."""
         return self._mailed_at
 
-    def mail_send(self):
+    def mail_sent(self):
         """Set the timestamp when mail has been sent."""
         self._mailed_at = LocalTimestamp.create_now()
         self._traceable_time = self._traceable_time.mark_for_update()
