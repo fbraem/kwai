@@ -24,7 +24,8 @@ def repo(database: Database) -> UserInvitationRepository:
     return InvitationDbRepository(database)
 
 
-def test_invite_user(
+@pytest.mark.asyncio
+async def test_invite_user(
     database: Database, repo: UserInvitationRepository, user: UserEntity, bus: Bus
 ):
     """Test use case: invite a user."""
@@ -35,15 +36,19 @@ def test_invite_user(
         last_name="Abe",
         remark="Created with pytest test_invite_user",
     )
-    user_invitation = InviteUser(
+    user_invitation = await InviteUser(
         user=user, user_repo=user_repo, user_invitation_repo=repo, bus=bus
     ).execute(command)
 
     assert user_invitation is not None, "There should be a user invitation"
 
 
-def test_user_already_exists(
-    database: Database, repo: UserInvitationRepository, user: UserEntity, bus: Bus
+@pytest.mark.asyncio
+async def test_user_already_exists(
+    database: Database,
+    repo: UserInvitationRepository,
+    user: UserEntity,
+    bus: Bus,
 ):
     """Test if an exception is raised when a user with the email already exists."""
     user_repo = UserDbRepository(database)
@@ -55,12 +60,13 @@ def test_user_already_exists(
     )
 
     with pytest.raises(UnprocessableException):
-        InviteUser(
+        await InviteUser(
             user=user, user_repo=user_repo, user_invitation_repo=repo, bus=bus
         ).execute(command)
 
 
-def test_already_invited_user(
+@pytest.mark.asyncio
+async def test_already_invited_user(
     database: Database, repo: UserInvitationRepository, user: UserEntity, bus: Bus
 ):
     """Test if an exception is raised when there is an invitation pending."""
@@ -73,6 +79,6 @@ def test_already_invited_user(
     )
 
     with pytest.raises(UnprocessableException):
-        InviteUser(
+        await InviteUser(
             user=user, user_repo=user_repo, user_invitation_repo=repo, bus=bus
         ).execute(command)
