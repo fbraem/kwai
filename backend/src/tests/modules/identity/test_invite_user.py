@@ -3,6 +3,7 @@ import pytest
 
 from kwai.core.db.database import Database
 from kwai.core.domain.exceptions import UnprocessableException
+from kwai.core.events.bus import Bus
 from kwai.modules.identity.invite_user import InviteUserCommand, InviteUser
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
     InvitationDbRepository,
@@ -24,7 +25,7 @@ def repo(database: Database) -> UserInvitationRepository:
 
 
 def test_invite_user(
-    database: Database, repo: UserInvitationRepository, user: UserEntity
+    database: Database, repo: UserInvitationRepository, user: UserEntity, bus: Bus
 ):
     """Test use case: invite a user."""
     user_repo = UserDbRepository(database)
@@ -35,14 +36,14 @@ def test_invite_user(
         remark="Created with pytest test_invite_user",
     )
     user_invitation = InviteUser(
-        user=user, user_repo=user_repo, user_invitation_repo=repo
+        user=user, user_repo=user_repo, user_invitation_repo=repo, bus=bus
     ).execute(command)
 
     assert user_invitation is not None, "There should be a user invitation"
 
 
 def test_user_already_exists(
-    database: Database, repo: UserInvitationRepository, user: UserEntity
+    database: Database, repo: UserInvitationRepository, user: UserEntity, bus: Bus
 ):
     """Test if an exception is raised when a user with the email already exists."""
     user_repo = UserDbRepository(database)
@@ -54,13 +55,13 @@ def test_user_already_exists(
     )
 
     with pytest.raises(UnprocessableException):
-        InviteUser(user=user, user_repo=user_repo, user_invitation_repo=repo).execute(
-            command
-        )
+        InviteUser(
+            user=user, user_repo=user_repo, user_invitation_repo=repo, bus=bus
+        ).execute(command)
 
 
 def test_already_invited_user(
-    database: Database, repo: UserInvitationRepository, user: UserEntity
+    database: Database, repo: UserInvitationRepository, user: UserEntity, bus: Bus
 ):
     """Test if an exception is raised when there is an invitation pending."""
     user_repo = UserDbRepository(database)
@@ -72,6 +73,6 @@ def test_already_invited_user(
     )
 
     with pytest.raises(UnprocessableException):
-        InviteUser(user=user, user_repo=user_repo, user_invitation_repo=repo).execute(
-            command
-        )
+        InviteUser(
+            user=user, user_repo=user_repo, user_invitation_repo=repo, bus=bus
+        ).execute(command)
