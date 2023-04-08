@@ -1,6 +1,7 @@
 """Module that implements all user endpoints."""
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
+from loguru import logger
 
 from kwai.api.dependencies import get_current_user, deps
 from kwai.api.schemas.jsonapi import PaginationModel, Meta
@@ -11,6 +12,9 @@ from kwai.api.schemas.user_invitation import (
     UserInvitationAttributes,
 )
 from kwai.core.db.database import Database
+from kwai.core.domain.exceptions import UnprocessableException
+from kwai.core.domain.value_objects.email_address import InvalidEmailException
+from kwai.core.events.bus import Bus
 from kwai.modules.identity.get_invitations import GetInvitations, GetInvitationsCommand
 from kwai.modules.identity.invite_user import InviteUserCommand, InviteUser
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
@@ -29,10 +33,11 @@ def get(user: UserEntity = Depends(get_current_user)):
 
 
 @router.post("/users/invitations")
-def create_user_invitation(
+async def create_user_invitation(
     resource: UserInvitationDocument,
     db=deps.depends(Database),
     user: UserEntity = Depends(get_current_user),
+    bus=deps.depends(Bus),
 ) -> UserInvitationDocument:
     """Create a user invitation."""
 
@@ -41,9 +46,21 @@ def create_user_invitation(
         last_name=resource.data.attributes.last_name,
         email=resource.data.attributes.email,
     )
-    invitation = InviteUser(
-        user, UserDbRepository(db), InvitationDbRepository(db)
-    ).execute(command)
+
+    try:
+        invitation = await InviteUser(
+            user, UserDbRepository(db), InvitationDbRepository(db), bus
+        ).execute(command)
+    except InvalidEmailException as exc:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Invalid email address",
+        ) from exc
+    except UnprocessableException as ex:
+        logger.warning(f"User invitation could not be processed: {ex}")
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ex)
+        ) from ex
 
     resource.data.id = str(invitation.id.value)
     resource.data.attributes.expired_at = str(invitation.expired_at)

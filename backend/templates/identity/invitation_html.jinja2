@@ -1,0 +1,37 @@
+{%  extends "layout.jinja2" %}
+{%  block title %} {{ website.name }} {% endblock %}
+{%  block content %}
+<h2>User Invitation</h2>
+<p>
+    Dear <strong>{{ name }},</strong>
+</p>
+<p>
+    You are invited to become a member of our website.
+</p>
+<p style="text-align: center">
+    <a href="{{ website.url }}/auth/invite?uuid={{ uuid }}"
+       class="button"
+    >
+        Accept Invitation
+    </a>
+</p>
+<p>
+    When the button is not working, or you would like to reset your password on
+    our <a href="{{ website.url }}/auth">website</a> without using the button, use the
+    following code:
+</p>
+<p class="center">
+    <strong>{{ uuid }}</strong>
+</p>
+<p>
+    If you need assistance, or you did not make this request, please contact our webmaster
+    <a href="mailto:{{ website.email }}">{{ website.email }}</a>.
+</p>
+<p>
+    Note: This invitation will expire within {{ expires }} hours.
+</p>
+<p>
+    Best regards,<br />
+    {{ website.name }}
+</p>
+{% endblock %}

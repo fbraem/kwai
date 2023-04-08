@@ -6,7 +6,11 @@ from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.unique_id import UniqueId
+from kwai.core.events.bus import Bus
 from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
+from kwai.modules.identity.user_invitations.user_invitation_events import (
+    UserInvitationCreatedEvent,
+)
 from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationRepository,
 )
@@ -51,6 +55,7 @@ class InviteUser:
         user: UserEntity,
         user_repo: UserRepository,
         user_invitation_repo: UserInvitationRepository,
+        bus: Bus,
     ):
         """Initialize the use case.
 
@@ -58,12 +63,14 @@ class InviteUser:
             user: The inviter.
             user_repo: The repository to check if the email address is still free.
             user_invitation_repo: The repository for creating an invitation.
+            bus: A message bus for publishing the user invitation created event.
         """
         self._user = user
         self._user_repo = user_repo
         self._user_invitation_repo = user_invitation_repo
+        self._bus = bus
 
-    def execute(self, command: InviteUserCommand) -> UserInvitationEntity:
+    async def execute(self, command: InviteUserCommand) -> UserInvitationEntity:
         """Executes the use case.
 
         Args:
@@ -93,13 +100,18 @@ class InviteUser:
                 f"There are still pending invitations for {command.email}"
             )
 
-        invitation = UserInvitationEntity(
-            email=email_address,
-            name=Name(first_name=command.first_name, last_name=command.last_name),
-            uuid=UniqueId.generate(),
-            expired_at=LocalTimestamp.create_with_delta(
-                days=command.expiration_in_days
-            ),
-            user=self._user,
+        invitation = self._user_invitation_repo.create(
+            UserInvitationEntity(
+                email=email_address,
+                name=Name(first_name=command.first_name, last_name=command.last_name),
+                uuid=UniqueId.generate(),
+                expired_at=LocalTimestamp.create_with_delta(
+                    days=command.expiration_in_days
+                ),
+                user=self._user,
+            )
         )
-        return self._user_invitation_repo.create(invitation)
+
+        await self._bus.publish(UserInvitationCreatedEvent(uuid=str(invitation.uuid)))
+
+        return invitation
