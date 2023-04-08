@@ -1,3 +1,4 @@
+"""Module for testing the use case mail a user invitation."""
 import pytest
 
 from kwai.core.db.database import Database
