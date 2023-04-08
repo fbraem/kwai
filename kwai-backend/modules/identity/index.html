@@ -1314,7 +1314,7 @@ user.</p></td>
 
 
 <h4 id="kwai.modules.identity.invite_user.InviteUser.__init__" class="doc doc-heading">
-<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">user_repo</span><span class="p">,</span> <span class="n">user_invitation_repo</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">user_repo</span><span class="p">,</span> <span class="n">user_invitation_repo</span><span class="p">,</span> <span class="n">bus</span><span class="p">)</span></code>
 
 <a href="#kwai.modules.identity.invite_user.InviteUser.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
 
@@ -1364,6 +1364,16 @@ user.</p></td>
               <em>required</em>
           </td>
         </tr>
+        <tr>
+          <td><code>bus</code></td>
+          <td>
+                <code><span title="kwai.core.events.bus.Bus">Bus</span></code>
+          </td>
+          <td><p>A message bus for publishing the user invitation created event.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
     </tbody>
   </table>
 
@@ -1377,6 +1387,10 @@ user.</p></td>
 
 <h4 id="kwai.modules.identity.invite_user.InviteUser.execute" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
 
 <a href="#kwai.modules.identity.invite_user.InviteUser.execute" class="headerlink" title="Permanent link">&para;</a></h4>
 
@@ -1896,7 +1910,7 @@ the user recovery cannot be found.</p></td>
           <td>
                 <code><span title="kwai.core.domain.exceptions.UnprocessableException">UnprocessableException</span></code>
           </td>
-          <td><p>Raised when the mail was already send.
+          <td><p>Raised when the mail was already sent.
 Raised when the user recovery was already confirmed.</p></td>
         </tr>
     </tbody>
