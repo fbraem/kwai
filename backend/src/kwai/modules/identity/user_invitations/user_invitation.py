@@ -17,23 +17,6 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
     """A user invitation entity.
 
     A user invitation is a request to someone to become a member of the site.
-
-    Attributes
-    ----------
-        _email(EmailAddress): The email address that receives the invitation.
-        _name(Name): The name of the invited
-        _uuid(UniqueId): The unique id to use to validate this invitation.
-        _expired_at(LocalTimestamp): The timestamp when the invitation expires.
-        _remark(str): A remark about the invitation
-        _user(UserEntity): The user that created the invitation
-        _confirmed_at(LocalTimestamp): The timestamp when the invitation was used
-        _revoked(bool): Is this invitation revoked?
-        _traceable_time(TraceableTime): The creation/modification timestamp of the
-            invitation.
-
-    Note:
-        All attributes are by default private. Properties are defined for getting
-        the values.
     """
 
     def __init__(
@@ -51,6 +34,21 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
         revoked: bool = False,
         traceable_time: TraceableTime | None = None,
     ):
+        """Construct a user invitation.
+
+        Args:
+            id_: The id of the user invitation.
+            email: The email address that receives the invitation.
+            name: The name of the invited
+            uuid: The unique id to use to validate this invitation.
+            expired_at: The timestamp when the invitation expires.
+            remark: A remark about the invitation.
+            mailed_at: The timestamp of sending out the email.
+            user: The user that created the invitation.
+            confirmed_at: The timestamp when the invitation was used.
+            revoked: Is this invitation revoked?
+            traceable_time: The creation/modification timestamp of the invitation.
+        """
         super().__init__(id_ or UserInvitationIdentifier())
         self._email = email
         self._name = name
