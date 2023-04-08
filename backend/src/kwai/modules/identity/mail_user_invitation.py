@@ -79,5 +79,6 @@ class MailUserInvitation:
         ).send()
 
         user_invitation.mail_sent()
+        self._user_invitation_repo.update(user_invitation)
 
         return user_invitation
