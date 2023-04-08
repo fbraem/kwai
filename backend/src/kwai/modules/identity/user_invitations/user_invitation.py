@@ -84,6 +84,11 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
         return self._expired_at
 
     @property
+    def is_expired(self) -> bool:
+        """Return True when the invitation is expired."""
+        return self._expired_at.is_past
+
+    @property
     def mailed(self) -> bool:
         """Return True if the email has already been sent."""
         return not self._mailed_at.empty
@@ -103,6 +108,16 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
         """Return the user that created this invitation."""
         return self._user
 
+    def confirm(self):
+        """Confirm the invitation, the invitation was used to create a new user."""
+        self._confirmed_at = LocalTimestamp.create_now()
+        self._traceable_time = self._traceable_time.mark_for_update()
+
+    @property
+    def confirmed(self) -> bool:
+        """Return True when the invitation was confirmed."""
+        return not self._confirmed_at.empty
+
     @property
     def confirmed_at(self) -> LocalTimestamp:
         """Return when this invitation was used."""
@@ -117,3 +132,8 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
     def traceable_time(self) -> TraceableTime:
         """Return the creation/modification timestamp of this invitation."""
         return self._traceable_time
+
+    def mail_sent(self):
+        """Set the timestamp when the mail has been sent."""
+        self._mailed_at = LocalTimestamp.create_now()
+        self._traceable_time = self._traceable_time.mark_for_update()
