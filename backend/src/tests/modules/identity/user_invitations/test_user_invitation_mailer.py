@@ -1,3 +1,4 @@
+"""Module for testing the user invitation mailer."""
 import pytest
 
 from kwai.core.domain.value_objects.email_address import EmailAddress
@@ -16,6 +17,7 @@ pytestmark = pytest.mark.integration
 
 @pytest.fixture(scope="module")
 def user_invitation(user: UserEntity) -> UserInvitationEntity:
+    """Fixture for a user invitation."""
     return UserInvitationEntity(
         email=EmailAddress("ichiro.abe@kwai.com"),
         name=Name(first_name="Ichiro", last_name="Abe"),
