@@ -9,3 +9,4 @@
 /backend/docs/tests/
 /_site/
 /backend/src/.venv/
+/backend/src/.coverage
