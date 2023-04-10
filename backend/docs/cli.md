@@ -4,12 +4,13 @@ script:
 
 `kwai_cli.py --help`
 
-::: kwai.cli.identity
+::: kwai.cli.bus
     options:
         show_root_full_path: False
         show_signature: False
         members:
-            - create
+            - show
+            - test
 
 ::: kwai.cli.db
     options:
@@ -18,3 +19,11 @@ script:
         members:
             - show
             - test
+
+::: kwai.cli.identity
+    options:
+        show_root_full_path: False
+        show_signature: False
+        members:
+            - create
+
