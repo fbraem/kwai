@@ -265,7 +265,7 @@ def reset_password(uuid=Form(), password=Form(), db=deps.depends(Database)):
 
 def encode_token(
     refresh_token: RefreshTokenEntity, settings: SecuritySettings
-) -> dict[str, str]:
+) -> TokenSchema:
     """Encode the access and refresh token with JWT.
 
     Args:
@@ -275,8 +275,8 @@ def encode_token(
     Returns:
         A dictionary with the access token, refresh token and expiration timestamp.
     """
-    return {
-        "access_token": jwt.encode(
+    return TokenSchema(
+        access_token=jwt.encode(
             {
                 "iat": refresh_token.access_token.traceable_time.created_at.timestamp,
                 "exp": refresh_token.access_token.expiration,
@@ -287,7 +287,7 @@ def encode_token(
             settings.jwt_secret,
             settings.jwt_algorithm,
         ),
-        "refresh_token": jwt.encode(
+        refresh_token=jwt.encode(
             {
                 "iat": refresh_token.traceable_time.created_at.timestamp,
                 "exp": refresh_token.expiration,
@@ -296,5 +296,5 @@ def encode_token(
             settings.jwt_refresh_secret,
             settings.jwt_algorithm,
         ),
-        "expiration": refresh_token.access_token.expiration.isoformat(" ", "seconds"),
-    }
+        expiration=refresh_token.access_token.expiration.isoformat(" ", "seconds"),
+    )
