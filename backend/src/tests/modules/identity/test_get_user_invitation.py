@@ -40,7 +40,7 @@ def repo(database: Database) -> UserInvitationRepository:
     return InvitationDbRepository(database)
 
 
-def test_get_invitations(
+def test_get_invitation(
     repo: UserInvitationRepository, user_invitation: UserInvitationEntity
 ):
     """Test the use case: get user invitation."""
