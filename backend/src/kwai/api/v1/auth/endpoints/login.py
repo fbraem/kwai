@@ -263,16 +263,17 @@ def reset_password(uuid=Form(), password=Form(), db=deps.depends(Database)):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN) from exc
 
 
-def encode_token(refresh_token: RefreshTokenEntity, settings: SecuritySettings):
+def encode_token(
+    refresh_token: RefreshTokenEntity, settings: SecuritySettings
+) -> dict[str, str]:
     """Encode the access and refresh token with JWT.
 
     Args:
-        refresh_token(RefreshTokenEntity):
-        settings(SecuritySettings):
+        refresh_token:
+        settings:
 
     Returns:
-        dict[str, str]: A dictionary with the access token, refresh token and
-            expiration timestamp.
+        A dictionary with the access token, refresh token and expiration timestamp.
     """
     return {
         "access_token": jwt.encode(
