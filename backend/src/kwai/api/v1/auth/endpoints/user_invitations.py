@@ -72,6 +72,7 @@ async def create_user_invitation(
         first_name=resource.data.attributes.first_name,
         last_name=resource.data.attributes.last_name,
         email=resource.data.attributes.email,
+        remark=resource.data.attributes.remark,
     )
 
     try:
