@@ -16,14 +16,47 @@ from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import InvalidEmailException
 from kwai.core.events.bus import Bus
 from kwai.modules.identity.get_invitations import GetInvitations, GetInvitationsCommand
+from kwai.modules.identity.get_user_invitation import (
+    GetUserInvitationCommand,
+    GetUserInvitation,
+)
 from kwai.modules.identity.invite_user import InviteUserCommand, InviteUser
+from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
     InvitationDbRepository,
+)
+from kwai.modules.identity.user_invitations.user_invitation_repository import (
+    UserInvitationNotFoundException,
 )
 from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.identity.users.user_db_repository import UserDbRepository
 
 router = APIRouter()
+
+
+def _create_user_invitation_data(
+    invitation: UserInvitationEntity,
+) -> UserInvitationData:
+    """Transform a user invitation entity into a JSONAPI resource"""
+    return UserInvitationData(
+        id=str(invitation.uuid),
+        attributes=UserInvitationAttributes(
+            email=str(invitation.email),
+            first_name=invitation.name.first_name,
+            last_name=invitation.name.last_name,
+            remark=invitation.remark,
+            expired_at=str(invitation.expired_at),
+            confirmed_at=(
+                None if invitation.confirmed_at.empty else str(invitation.confirmed_at)
+            ),
+            created_at=str(invitation.traceable_time.created_at),
+            updated_at=(
+                None
+                if invitation.traceable_time.updated_at.empty
+                else str(invitation.traceable_time.updated_at)
+            ),
+        ),
+    )
 
 
 @router.post("/invitations")
@@ -76,31 +109,27 @@ def get_user_invitations(
     result: list[UserInvitationData] = []
 
     for invitation in invitations:
-        result.append(
-            UserInvitationData(
-                id=str(invitation.id.value),
-                attributes=UserInvitationAttributes(
-                    email=str(invitation.email),
-                    first_name=invitation.name.first_name,
-                    last_name=invitation.name.last_name,
-                    remark=invitation.remark,
-                    expired_at=str(invitation.expired_at),
-                    confirmed_at=(
-                        None
-                        if invitation.confirmed_at.empty
-                        else str(invitation.confirmed_at)
-                    ),
-                    created_at=str(invitation.traceable_time.created_at),
-                    updated_at=(
-                        None
-                        if invitation.traceable_time.updated_at.empty
-                        else str(invitation.traceable_time.updated_at)
-                    ),
-                ),
-            )
-        )
+        result.append(_create_user_invitation_data(invitation))
 
     return UserInvitationsDocument(
         meta=Meta(count=count, offset=pagination.offset or 0, limit=pagination.limit),
         data=result,
     )
+
+
+@router.get("/invitations/{uuid}")
+def get_user_invitation(
+    uuid: str,
+    db=deps.depends(Database),
+    user: UserEntity = Depends(get_current_user),  # pylint: disable=unused-argument
+) -> UserInvitationDocument:
+    """Get the user invitation with the given unique id."""
+    command = GetUserInvitationCommand(uuid=uuid)
+    try:
+        invitation = GetUserInvitation(InvitationDbRepository(db)).execute(command)
+    except UserInvitationNotFoundException as ex:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
+        ) from ex
+
+    return UserInvitationDocument(data=_create_user_invitation_data(invitation))
