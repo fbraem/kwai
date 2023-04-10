@@ -6,7 +6,7 @@ from redis.asyncio import Redis
 from kwai.core.events.stream import RedisStream
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="module")
 async def stream(redis: Redis) -> RedisStream:
     """Fixture for a redis stream.
 
