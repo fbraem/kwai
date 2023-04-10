@@ -349,16 +349,23 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#kwai.cli.identity" class="md-nav__link">
-    identity
+  <a href="#kwai.cli.bus" class="md-nav__link">
+    bus
   </a>
   
-    <nav class="md-nav" aria-label="identity">
+    <nav class="md-nav" aria-label="bus">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kwai.cli.identity.create" class="md-nav__link">
-    create()
+  <a href="#kwai.cli.bus.show" class="md-nav__link">
+    show()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kwai.cli.bus.test" class="md-nav__link">
+    test()
   </a>
   
 </li>
@@ -386,6 +393,26 @@
           <li class="md-nav__item">
   <a href="#kwai.cli.db.test" class="md-nav__link">
     test()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kwai.cli.identity" class="md-nav__link">
+    identity
+  </a>
+  
+    <nav class="md-nav" aria-label="identity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kwai.cli.identity.create" class="md-nav__link">
+    create()
   </a>
   
 </li>
@@ -514,16 +541,23 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#kwai.cli.identity" class="md-nav__link">
-    identity
+  <a href="#kwai.cli.bus" class="md-nav__link">
+    bus
   </a>
   
-    <nav class="md-nav" aria-label="identity">
+    <nav class="md-nav" aria-label="bus">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kwai.cli.identity.create" class="md-nav__link">
-    create()
+  <a href="#kwai.cli.bus.show" class="md-nav__link">
+    show()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kwai.cli.bus.test" class="md-nav__link">
+    test()
   </a>
   
 </li>
@@ -560,6 +594,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#kwai.cli.identity" class="md-nav__link">
+    identity
+  </a>
+  
+    <nav class="md-nav" aria-label="identity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kwai.cli.identity.create" class="md-nav__link">
+    create()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -583,6 +637,194 @@
 script:</p>
 <p><code>kwai_cli.py --help</code></p>
 
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="kwai.cli.bus" class="doc doc-heading">
+          <code>bus</code>
+
+
+<a href="#kwai.cli.bus" class="headerlink" title="Permanent link">&para;</a></h2>
+
+  <div class="doc doc-contents first">
+  
+      <p>bus contains subcommands for the event bus.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="kwai.cli.bus.show" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">show</span></code>
+
+<a href="#kwai.cli.bus.show" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Command for showing the active database settings.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>password</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>show or hide the password (default is hide).</p></td>
+          <td>
+                <code>typer.Option(False, help=&#39;Show the password&#39;)</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="kwai.cli.bus.test" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">test</span></code>
+
+<a href="#kwai.cli.bus.test" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Command for testing the redis connection.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="kwai.cli.db" class="doc doc-heading">
+          <code>db</code>
+
+
+<a href="#kwai.cli.db" class="headerlink" title="Permanent link">&para;</a></h2>
+
+  <div class="doc doc-contents first">
+  
+      <p>db contains subcommands for the database.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="kwai.cli.db.show" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">show</span></code>
+
+<a href="#kwai.cli.db.show" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Command for showing the active database settings.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>password</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>show or hide the password (default is hide).</p></td>
+          <td>
+                <code>typer.Option(False, help=&#39;Show the password&#39;)</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="kwai.cli.db.test" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">test</span></code>
+
+<a href="#kwai.cli.db.test" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Command for testing the database connection.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
 
 <div class="doc doc-object doc-module">
 
@@ -682,100 +924,6 @@ script:</p>
         </tr>
     </tbody>
   </table>
-
-  </div>
-
-</div>
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-module">
-
-
-
-<h2 id="kwai.cli.db" class="doc doc-heading">
-          <code>db</code>
-
-
-<a href="#kwai.cli.db" class="headerlink" title="Permanent link">&para;</a></h2>
-
-  <div class="doc doc-contents first">
-  
-      <p>db contains subcommands for the database.</p>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h3 id="kwai.cli.db.show" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">show</span></code>
-
-<a href="#kwai.cli.db.show" class="headerlink" title="Permanent link">&para;</a></h3>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Command for showing the active database settings.</p>
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>password</code></td>
-          <td>
-                <code>bool</code>
-          </td>
-          <td><p>show or hide the password (default is hide).</p></td>
-          <td>
-                <code>typer.Option(False, help=&#39;Show the password&#39;)</code>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-
-<h3 id="kwai.cli.db.test" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">test</span></code>
-
-<a href="#kwai.cli.db.test" class="headerlink" title="Permanent link">&para;</a></h3>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Command for testing the database connection.</p>
 
   </div>
 

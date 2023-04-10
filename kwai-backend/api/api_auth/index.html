@@ -334,19 +334,46 @@
     login
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="login">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#kwai.api.v1.auth.endpoints.login.login" class="md-nav__link">
     login()
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
+  <a href="#kwai.api.v1.auth.endpoints.login.logout" class="md-nav__link">
+    logout()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#kwai.api.v1.auth.endpoints.login.recover_user" class="md-nav__link">
     recover_user()
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kwai.api.v1.auth.endpoints.login.renew_access_token" class="md-nav__link">
+    renew_access_token()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kwai.api.v1.auth.endpoints.login.reset_password" class="md-nav__link">
+    reset_password()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -494,19 +521,46 @@
     login
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="login">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#kwai.api.v1.auth.endpoints.login.login" class="md-nav__link">
     login()
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
+  <a href="#kwai.api.v1.auth.endpoints.login.logout" class="md-nav__link">
+    logout()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#kwai.api.v1.auth.endpoints.login.recover_user" class="md-nav__link">
     recover_user()
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kwai.api.v1.auth.endpoints.login.renew_access_token" class="md-nav__link">
+    renew_access_token()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kwai.api.v1.auth.endpoints.login.reset_password" class="md-nav__link">
+    reset_password()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -569,10 +623,10 @@
 
 
 
-<h2 id="kwai.api.v1.auth.endpoints.login.login" class="doc doc-heading">
+<h3 id="kwai.api.v1.auth.endpoints.login.login" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">kwai</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">endpoints</span><span class="o">.</span><span class="n">login</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Settings</span><span class="p">),</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">form_data</span><span class="o">=</span><span class="n">Depends</span><span class="p">())</span></code>
 
-<a href="#kwai.api.v1.auth.endpoints.login.login" class="headerlink" title="Permanent link">&para;</a></h2>
+<a href="#kwai.api.v1.auth.endpoints.login.login" class="headerlink" title="Permanent link">&para;</a></h3>
 
 
   <div class="doc doc-contents first">
@@ -634,14 +688,109 @@
 
 
 
-<h2 id="kwai.api.v1.auth.endpoints.login.recover_user" class="doc doc-heading">
+<h3 id="kwai.api.v1.auth.endpoints.login.logout" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">kwai</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">endpoints</span><span class="o">.</span><span class="n">login</span><span class="o">.</span><span class="n">logout</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Settings</span><span class="p">),</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">user</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">),</span> <span class="n">refresh_token</span><span class="o">=</span><span class="n">Form</span><span class="p">())</span></code>
+
+<a href="#kwai.api.v1.auth.endpoints.login.logout" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents first">
+  
+      <p>API to log out the current user.</p>
+<p>A user is logged out by revoking the refresh token. The associated access token
+will also be revoked.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>settings</code></td>
+          <td>
+          </td>
+          <td><p>Settings dependency</p></td>
+          <td>
+                <code>deps.depends(Settings)</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>db</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.core.db.database.Database" href="../../core/db/#kwai.core.db.database.Database">Database</a></code>
+          </td>
+          <td><p>Database dependency</p></td>
+          <td>
+                <code>deps.depends(Database)</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>user</code></td>
+          <td>
+                <code><span title="kwai.modules.identity.users.user.UserEntity">UserEntity</span></code>
+          </td>
+          <td><p>The currently logged-in user</p></td>
+          <td>
+                <code>Depends(get_current_user)</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>refresh_token</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The active refresh token of the user</p></td>
+          <td>
+                <code>Form()</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>Http code 200 on success, 401 when the user is not logged in,</p></td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td><p>404 when the refresh token is not found.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="kwai.api.v1.auth.endpoints.login.recover_user" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">kwai</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">endpoints</span><span class="o">.</span><span class="n">login</span><span class="o">.</span><span class="n">recover_user</span><span class="p">(</span><span class="n">email</span><span class="o">=</span><span class="n">Form</span><span class="p">(),</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">bus</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Bus</span><span class="p">))</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
   </span>
 
-<a href="#kwai.api.v1.auth.endpoints.login.recover_user" class="headerlink" title="Permanent link">&para;</a></h2>
+<a href="#kwai.api.v1.auth.endpoints.login.recover_user" class="headerlink" title="Permanent link">&para;</a></h3>
 
 
   <div class="doc doc-contents first">
@@ -696,6 +845,163 @@
 
   </div>
 
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="kwai.api.v1.auth.endpoints.login.renew_access_token" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">kwai</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">endpoints</span><span class="o">.</span><span class="n">login</span><span class="o">.</span><span class="n">renew_access_token</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Settings</span><span class="p">),</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">refresh_token</span><span class="o">=</span><span class="n">Form</span><span class="p">())</span></code>
+
+<a href="#kwai.api.v1.auth.endpoints.login.renew_access_token" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents first">
+  
+      <p>API to refresh the access token.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>settings(Settings)</code></td>
+          <td>
+          </td>
+          <td><p>Settings dependency</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>db(Database)</code></td>
+          <td>
+          </td>
+          <td><p>Database dependency</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>refresh_token(str)</code></td>
+          <td>
+          </td>
+          <td><p>The active refresh token of the user</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>TokenSchema</code></td>          <td>
+          </td>
+          <td><p>On success a new TokenSchema is returned.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="kwai.api.v1.auth.endpoints.login.reset_password" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">kwai</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">endpoints</span><span class="o">.</span><span class="n">login</span><span class="o">.</span><span class="n">reset_password</span><span class="p">(</span><span class="n">uuid</span><span class="o">=</span><span class="n">Form</span><span class="p">(),</span> <span class="n">password</span><span class="o">=</span><span class="n">Form</span><span class="p">(),</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">))</span></code>
+
+<a href="#kwai.api.v1.auth.endpoints.login.reset_password" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents first">
+  
+      <p>API to reset the password of the user.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>uuid(str)</code></td>
+          <td>
+          </td>
+          <td><p>The unique id of the password recovery.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>password(str)</code></td>
+          <td>
+          </td>
+          <td><p>The new password</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>db(Database)</code></td>
+          <td>
+          </td>
+          <td><p>Database dependency</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>Http code 200 on success, 404 when the unique is invalid, 422 when the</p></td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td><p>request can't be processed, 403 when the request is forbidden.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
 </div><h1 id="auth-responses">Auth Responses<a class="headerlink" href="#auth-responses" title="Permanent link">&para;</a></h1>
 
 
@@ -703,11 +1009,11 @@
 
 
 
-<h2 id="kwai.api.v1.auth.endpoints.login.TokenSchema" class="doc doc-heading">
+<h3 id="kwai.api.v1.auth.endpoints.login.TokenSchema" class="doc doc-heading">
         <code>kwai.api.v1.auth.endpoints.login.TokenSchema</code>
 
 
-<a href="#kwai.api.v1.auth.endpoints.login.TokenSchema" class="headerlink" title="Permanent link">&para;</a></h2>
+<a href="#kwai.api.v1.auth.endpoints.login.TokenSchema" class="headerlink" title="Permanent link">&para;</a></h3>
 
 
   <div class="doc doc-contents first">

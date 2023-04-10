@@ -316,6 +316,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    Redis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    CLI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#vagrant" class="md-nav__link">
     Vagrant
   </a>
@@ -585,6 +599,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    Redis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    CLI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#vagrant" class="md-nav__link">
     Vagrant
   </a>
@@ -695,13 +723,20 @@ available from the internet.</p>
 running the migrations. Although dbmate can run "down" migrations, they are not
 used because these are hard to test and can generate more problems than they solve.</p>
 </div>
+<h3 id="redis">Redis<a class="headerlink" href="#redis" title="Permanent link">&para;</a></h3>
+<p>kwai uses <a href="https://redis.io">Redis</a> for handling events. When an event is published, it will be put on a stream.
+Each module will have its own stream (for example: identity will have a stream <code>kwai.identity</code>).
+Make sure the settings for redis are set in the configuration file.</p>
+<p>A separate process is used to handle the events: <code>kwai_bus</code>.</p>
+<h3 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h3>
+<p>A CLI program can be used to test and interrogate the system. See <a href="cli/">CLI</a> for more information.</p>
 <h3 id="vagrant">Vagrant<a class="headerlink" href="#vagrant" title="Permanent link">&para;</a></h3>
 <p>A vagrant environment can be used to set up a test environment.
 This environment will install and create:</p>
 <ul>
 <li>A MySQL database.</li>
 <li>dbmate for running migrations.</li>
-<li>A RabbitMQ broker for pub/sub.</li>
+<li>redis for events.</li>
 <li>Mailcatcher for testing emails.</li>
 </ul>
 <p>Use the <code>kwai.dist.yaml</code> file to create <code>kwai.yaml</code>. This file must contain settings.</p>
