@@ -1,4 +1,4 @@
-"""Module that implements all user endpoints."""
+"""Module that implements invitations endpoints."""
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from loguru import logger
