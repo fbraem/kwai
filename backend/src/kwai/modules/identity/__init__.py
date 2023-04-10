@@ -10,6 +10,8 @@
 
 ::: kwai.modules.identity.logout
 
+::: kwai.modules.identity.mail_user_invitation
+
 ::: kwai.modules.identity.mail_user_recovery
 
 ::: kwai.modules.identity.recover_user
