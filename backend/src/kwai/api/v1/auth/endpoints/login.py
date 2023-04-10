@@ -114,7 +114,7 @@ def login(
             status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc)
         ) from exc
 
-    return encode_token(refresh_token, settings.security)
+    return _encode_token(refresh_token, settings.security)
 
 
 @router.post("/logout", summary="Logout the current user")
@@ -197,7 +197,7 @@ def renew_access_token(
             status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc)
         ) from exc
 
-    return encode_token(new_refresh_token, settings.security)
+    return _encode_token(new_refresh_token, settings.security)
 
 
 @router.post(
@@ -263,7 +263,7 @@ def reset_password(uuid=Form(), password=Form(), db=deps.depends(Database)):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN) from exc
 
 
-def encode_token(
+def _encode_token(
     refresh_token: RefreshTokenEntity, settings: SecuritySettings
 ) -> TokenSchema:
     """Encode the access and refresh token with JWT.
