@@ -1012,6 +1012,261 @@ user.</p></td>
 
 
 
+<h2 id="kwai.modules.identity.get_user_invitation" class="doc doc-heading">
+          <code>kwai.modules.identity.get_user_invitation</code>
+
+
+<a href="#kwai.modules.identity.get_user_invitation" class="headerlink" title="Permanent link">&para;</a></h2>
+
+  <div class="doc doc-contents first">
+  
+      <p>Implement the use case: get a user invitation.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="kwai.modules.identity.get_user_invitation.GetUserInvitation" class="doc doc-heading">
+        <code>GetUserInvitation</code>
+
+
+<a href="#kwai.modules.identity.get_user_invitation.GetUserInvitation" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Implements the use case 'get a user invitation'.</p>
+
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="kwai.modules.identity.get_user_invitation.GetUserInvitation.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">user_invitation_repo</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.identity.get_user_invitation.GetUserInvitation.__init__" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize the use case.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>user_invitation_repo</code></td>
+          <td>
+                <code><span title="kwai.modules.identity.user_invitations.user_invitation_repository.UserInvitationRepository">UserInvitationRepository</span></code>
+          </td>
+          <td><p>A repository for getting the user invitation.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="kwai.modules.identity.get_user_invitation.GetUserInvitation.execute" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.identity.get_user_invitation.GetUserInvitation.execute" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Execute the use case.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>command</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.get_user_invitation.GetUserInvitationCommand" href="#kwai.modules.identity.get_user_invitation.GetUserInvitationCommand">GetUserInvitationCommand</a></code>
+          </td>
+          <td><p>The input for this use case.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity">UserInvitationEntity</span></code>
+          </td>
+          <td><p>A user invitation entity</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>UserInvitationNotFoundException</code>
+          </td>
+          <td><p>Raised when then invitation is not found.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="kwai.modules.identity.get_user_invitation.GetUserInvitationCommand" class="doc doc-heading">
+        <code>GetUserInvitationCommand</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.get_user_invitation.GetUserInvitationCommand" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Input for the use case
+<a class="autorefs autorefs-internal" href="#kwai.modules.identity.get_user_invitation.GetUserInvitation">GetUserInvitation</a></p>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>uuid</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The unique id of the user invitation.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h2 id="kwai.modules.identity.get_invitations" class="doc doc-heading">
           <code>kwai.modules.identity.get_invitations</code>
 
