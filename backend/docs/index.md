@@ -49,6 +49,9 @@ Make sure the settings for redis are set in the configuration file.
 
 A separate process is used to handle the events: `kwai_bus`.
 
+### CLI
+A CLI program can be used to test and interrogate the system. See [CLI](cli.md) for more information.
+
 ### Vagrant
 
 A vagrant environment can be used to set up a test environment.
