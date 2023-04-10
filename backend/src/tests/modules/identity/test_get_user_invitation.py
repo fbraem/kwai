@@ -20,6 +20,12 @@ from kwai.modules.identity.users.user import UserEntity
 
 
 @pytest.fixture(scope="module")
+def repo(database: Database) -> UserInvitationRepository:
+    """Fixture for creating the invitation repository."""
+    return InvitationDbRepository(database)
+
+
+@pytest.fixture(scope="module")
 def user_invitation(
     repo: UserInvitationRepository, user: UserEntity
 ) -> UserInvitationEntity:
@@ -32,12 +38,6 @@ def user_invitation(
     )
     yield repo.create(invitation)
     repo.delete(invitation)
-
-
-@pytest.fixture(scope="module")
-def repo(database: Database) -> UserInvitationRepository:
-    """Create a user invitation repository."""
-    return InvitationDbRepository(database)
 
 
 def test_get_invitation(
