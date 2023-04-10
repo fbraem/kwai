@@ -49,7 +49,7 @@ This environment will install and create:
 
 + A MySQL database.
 + dbmate for running migrations.
-+ A RabbitMQ broker for pub/sub.
++ redis for events.
 + Mailcatcher for testing emails.
 
 Use the `kwai.dist.yaml` file to create `kwai.yaml`. This file must contain settings.
