@@ -42,6 +42,13 @@ dbmate -d "./migrations" --url protocol://user:password@host:port/database migra
     running the migrations. Although dbmate can run "down" migrations, they are not
     used because these are hard to test and can generate more problems than they solve.
 
+### Redis
+kwai uses [Redis](https://redis.io) for handling events. When an event is published, it will be put on a stream.
+Each module will have its own stream (for example: identity will have a stream `kwai.identity`).
+Make sure the settings for redis are set in the configuration file.
+
+A separate process is used to handle the events: `kwai_bus`.
+
 ### Vagrant
 
 A vagrant environment can be used to set up a test environment.
