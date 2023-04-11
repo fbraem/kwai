@@ -6,16 +6,12 @@ from fastapi import status
 from fastapi.testclient import TestClient
 
 from kwai.core.db.database import Database
-from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.core.domain.value_objects.name import Name
-from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
     InvitationDbRepository,
 )
 from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationRepository,
 )
-from kwai.modules.identity.users.user import UserEntity
 
 pytestmark = pytest.mark.integration
 
@@ -27,22 +23,15 @@ def repo(database: Database) -> UserInvitationRepository:
 
 
 @pytest.fixture(scope="module")
-def user_invitation(
-    repo: UserInvitationRepository, user: UserEntity
-) -> UserInvitationEntity:
-    """Fixture for a user invitation."""
-    invitation = UserInvitationEntity(
-        email=EmailAddress("ichiro.abe@kwai.com"),
-        name=Name(first_name="Ichiro", last_name="Abe"),
-        remark="Created with pytest",
-        user=user,
-    )
-    yield repo.create(invitation)
-    repo.delete(invitation)
+def invitation_data() -> list[str]:
+    """A fixture used to capture the uuid created in test_create_user_invitation."""
+    return []
 
 
 @pytest.mark.asyncio
-async def test_create_user_invitation(secure_client: TestClient):
+async def test_create_user_invitation(
+    secure_client: TestClient, invitation_data: list[str]
+):
     """Test POST users/invitations."""
     data = {
         "data": {
@@ -60,6 +49,8 @@ async def test_create_user_invitation(secure_client: TestClient):
     )
     assert response.status_code == status.HTTP_200_OK
 
+    invitation_data.append(response.json()["data"]["id"])
+
 
 def test_get_user_invitations(secure_client: TestClient):
     """Test GET users/invitations."""
@@ -68,10 +59,23 @@ def test_get_user_invitations(secure_client: TestClient):
 
 
 def test_get_user_invitation(
-    secure_client: TestClient, user_invitation: UserInvitationEntity
+    secure_client: TestClient,
+    invitation_data: list[str],
 ):
     """Test GET users/invitations/<uuid>"""
-    response = secure_client.get(
-        f"api/v1/auth/users/invitations/{user_invitation.uuid}"
+    assert (
+        len(invitation_data) > 0
+    ), "test_create_user_invitation should run before this test"
+    response = secure_client.get(f"api/v1/auth/users/invitations/{invitation_data[0]}")
+    assert response.status_code == status.HTTP_200_OK
+
+
+def test_delete_user_invitation(secure_client: TestClient, invitation_data: list[str]):
+    """Test DELETE users/invitations/<uuid>"""
+    assert (
+        len(invitation_data) > 0
+    ), "test_create_user_invitation should run before this test"
+    response = secure_client.delete(
+        f"api/v1/auth/users/invitations/{invitation_data[0]}"
     )
     assert response.status_code == status.HTTP_200_OK
