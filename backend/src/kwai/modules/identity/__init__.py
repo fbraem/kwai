@@ -4,6 +4,8 @@
 
 ::: kwai.modules.identity.create_user
 
+::: kwai.modules.identity.delete_user_invitation
+
 ::: kwai.modules.identity.get_user_invitation
 
 ::: kwai.modules.identity.get_invitations
