@@ -1,6 +1,6 @@
 """Module that implements invitations endpoints."""
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Response
 from loguru import logger
 
 from kwai.api.dependencies import get_current_user, deps
@@ -15,6 +15,10 @@ from kwai.core.db.database import Database
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import InvalidEmailException
 from kwai.core.events.bus import Bus
+from kwai.modules.identity.delete_user_invitation import (
+    DeleteUserInvitationCommand,
+    DeleteUserInvitation,
+)
 from kwai.modules.identity.get_invitations import GetInvitations, GetInvitationsCommand
 from kwai.modules.identity.get_user_invitation import (
     GetUserInvitationCommand,
@@ -91,6 +95,31 @@ async def create_user_invitation(
         ) from ex
 
     return UserInvitationDocument(data=_create_user_invitation_data(invitation))
+
+
+@router.delete(
+    "/invitations/{uuid}",
+    summary="Delete a user invitation",
+    status_code=status.HTTP_200_OK,
+    response_class=Response,
+)
+def delete_user_invitation(
+    uuid: str,
+    db=deps.depends(Database),
+    user: UserEntity = Depends(get_current_user),  # pylint: disable=unused-argument
+):
+    """Delete the user invitation with the given unique id."""
+    command = DeleteUserInvitationCommand(uuid=uuid)
+    try:
+        DeleteUserInvitation(InvitationDbRepository(db)).execute(command)
+    except UserInvitationNotFoundException as ex:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
+        ) from ex
+    except ValueError as ex:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ex)
+        ) from ex
 
 
 @router.get("/invitations")
