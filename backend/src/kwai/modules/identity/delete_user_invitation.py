@@ -7,10 +7,14 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
 )
 
 
+# pylint: disable=too-few-public-methods
+# pylint: disable=line-too-long
+
+
 @dataclass(kw_only=True, frozen=True, slots=True)
 class DeleteUserInvitationCommand:
     """Input for the use case
-    [DeleteUserInvitation][kwai.modules.identity.delete_user_invitation.DeleteUserInvitation.
+    [DeleteUserInvitation][kwai.modules.identity.delete_user_invitation.DeleteUserInvitation]
 
     Attributes:
         uuid: The unique id of the user invitation.
