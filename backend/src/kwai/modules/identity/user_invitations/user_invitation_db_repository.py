@@ -74,7 +74,9 @@ class InvitationDbRepository(UserInvitationRepository):
         if row:
             return _create_entity(row)
 
-        raise UserInvitationNotFoundException()
+        raise UserInvitationNotFoundException(
+            f"User invitation with {id} does not exist."
+        )
 
     def get_invitation_by_uuid(self, uuid: UniqueId) -> UserInvitationEntity:
         """Get the invitation with the given unique id.
@@ -96,7 +98,9 @@ class InvitationDbRepository(UserInvitationRepository):
         if row:
             return _create_entity(row)
 
-        raise UserInvitationNotFoundException()
+        raise UserInvitationNotFoundException(
+            f"User invitation with uuid {uuid} does not exist."
+        )
 
     def create(self, invitation: UserInvitationEntity) -> UserInvitationEntity:
         new_id = self._database.insert(
