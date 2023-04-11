@@ -90,11 +90,7 @@ async def create_user_invitation(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ex)
         ) from ex
 
-    resource.data.id = str(invitation.id.value)
-    resource.data.attributes.expired_at = str(invitation.expired_at)
-    resource.data.attributes.created_at = str(invitation.traceable_time.created_at)
-
-    return resource
+    return UserInvitationDocument(data=_create_user_invitation_data(invitation))
 
 
 @router.get("/invitations")
