@@ -10,3 +10,6 @@
 /_site/
 /backend/src/.venv/
 /backend/src/.coverage
+.turbo
+dist
+node_modules
