@@ -13,3 +13,4 @@
 .turbo
 dist
 node_modules
+public
