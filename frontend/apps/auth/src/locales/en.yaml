@@ -1,0 +1,137 @@
+home:
+  title: Authentication
+  problem: Having problems with authentication?
+  contact_us: Contact us
+  login:
+    title: Login
+    description: You want to login in our website.
+  logout:
+    title: Logout
+    description: You want to logout from our website.
+  change_password:
+    title: Change Password
+    description: You want to change your password.
+  forgot_password:
+    title: Forgotten Password?
+    description: You have forgotten your password? With a code you can reset it.
+login:
+  title: Login to your account
+  description:
+    intro: A club account is available for members of the board and coaches.
+    text: |
+      Depending on the role in the club you will be able to manage several parts of the club.
+      Such as adding news, writing content, add trainings, etc.
+  need_account: Need an account?
+  contact_us: Contact us
+  form:
+    email:
+      label: Email
+      placeholder: Enter your email
+    password:
+      label: Password
+      placeholder: Enter your password
+    submit:
+      label: Login
+  forgotten: Forgot password?
+  required: This is a required field.
+  invalid_email: This is not a valid email address.
+  failed: Login failed. Please check your email and/or password.
+  notifications:
+    logged_in: You are successfully logged in.
+recover_password:
+  title: Password forgotten?
+  problem: Can't solve the problem?
+  contact_us: Contact us
+  form:
+    email:
+      label: Email
+      placeholder: Enter your email
+      help: |
+        When your email address is known in our system, you will receive an email with a link
+        that you can use to set a new password.
+    submit:
+      label: Submit
+  required: This is a required field.
+  invalid_email: This is not a valid email address.
+reset_password:
+  title: Reset password
+  problem: Are you unable to set a new password?
+  contact_us: Contact us
+  form:
+    uuid:
+      label: Code
+      placeholder: Enter your code
+      help: This is the code you received from us via email. Didn't receive a code?
+    password:
+      label: New password
+      placeholder: Enter a new password
+      help: |
+        The password must contain at least one number, as well as one uppercase and lowercase letter.
+        The password must be at least 8 characters long.
+      strength: The password is not strong enough.
+    repeat_password:
+      label: Repeat Password
+      placeholder: Repeat the new password
+  required: This is a required field.
+  not_same: The passwords are not the same
+  failed: |
+    Something went wrong while setting the new password. Try again or
+    contact our webmaster.
+  expired: The code used has expired. Please generate a new code.
+  generate_code: Generate a new code
+invited:
+  title: Registration
+  problem: Problems with the registration?
+  contact_us: Contact us
+  form:
+    uuid:
+      label: Code
+      placeholder: Enter the code here
+      help: This is the code you received with an email.
+    first_name:
+      label: Firstname
+      placeholder: Enter your firstname
+    last_name:
+      label: Lastname
+      placeholder: Enter your lastname
+    password:
+      label: Password
+      placeholder: Enter your password
+      help: |
+        The password must contain at least one number, one uppercase and one lowercase character.
+        The password must be at least 8 characters long.
+      strength: The password is not strong enough.
+    repeat_password:
+      label: Repeat password
+      placeholder: Repeat the password
+    submit:
+      label: Submit
+  required: This is a required field.
+  not_same: The passwords are not the same
+  failed: |
+    Something went wrong with the registration. Try again or contact our webmaster.
+  expired: The invitation is expired. Contact our webmaster.
+change_password:
+  title: Change password
+  problem: Are you unable to change your password?
+  contact_us: Contact us
+  form:
+    password:
+      label: New password
+      placeholder: Enter a new password
+      help: |
+        The password must contain at least one number, as well as one uppercase and lowercase letter.
+        The password must be at least 8 characters long.
+      strength: The password is not strong enough.
+    repeat_password:
+      label: Repeat Password
+      placeholder: Repeat the new password
+    submit:
+      label: Submit
+  required: This field is required.
+  not_same: The passwords are not the same
+  failed: |
+    Something went wrong while changing the password. Try again or contact
+    our webmaster.
+  notifications:
+    password_changed: The password has been changed.

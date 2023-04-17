@@ -1,0 +1,18 @@
+[website]
+title = ""
+copyright = ""
+email = ""
+url = ""
+
+[portal]
+promotion = [
+    ""
+]
+[[portal.social_media]]
+title = ""
+account = ""
+icon = ""
+url = ""
+
+[api]
+base_url = ""

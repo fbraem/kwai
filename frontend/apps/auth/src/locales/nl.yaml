@@ -1,0 +1,138 @@
+home:
+  title: Authenticatie
+  problem: Heb je problemen met authenticatie?
+  contact_us: Contacteer ons
+  login:
+    title: Inloggen
+    description: Je wil inloggen op onze website.
+  logout:
+    title: Uitloggen
+    description: Je wil niet meer actief zijn op de website.
+  change_password:
+    title: Paswoord Wijzigen
+    description: Je wil jouw paswoord wijzigen.
+  forgot_password:
+    title: Paswoord Vergeten?
+    description: Je bent jouw paswoord vergeten? Met een code kan je het paswoord wijzigen.
+login:
+  title: Log in op jouw club
+  description:
+    intro: Toegang tot de club website is beschikbaar voor bestuursleden en trainers.
+    text: | 
+      Afhankelijk van je rol in de club zal je verschillende onderdelen van de club kunnen beheren.
+      Zoals daar zijn toevoegen van nieuws, teksten schrijven, trainingen toevoegen, etc...
+  need_account: Wil je toegang?
+  contact_us: Contacteer ons
+  form:
+    email:
+      label: Email
+      placeholder: Geef uw email in
+    password:
+      label: Paswoord
+      placeholder: Geef uw paswoord in
+    submit:
+      label: Login
+  forgotten: Paswoord vergeten?
+  required: Dit is een verplicht veld.
+  invalid_email: Dit is geen geldig email adres
+  failed: Log in mislukt. Controleer uw email en/of paswoord.
+  notifications:
+    logged_in: Je bent ingelogd.
+recover_password:
+  title: Paswoord vergeten?
+  problem: Kan het probleem niet opgelost worden?
+  contact_us: Contacteer ons
+  form:
+    email:
+      label: Email
+      placeholder: Geef uw email in
+      help: |
+        Wanneer jouw email adres bekend is binnen ons systeem, dan zal je een email krijgen met een link
+        dat je kan gebruiken om een nieuw paswoord in te stellen.
+    submit:
+      label: Verstuur
+  required: Dit is een verplicht veld.
+  invalid_email: Dit is geen geldig email adres
+reset_password:
+  title: Nieuw paswoord instellen
+  problem: Lukt het niet om een nieuw paswoord in te stellen?
+  contact_us: Contacteer ons
+  form:
+    uuid:
+      label: Code
+      placeholder: Geef hier de code in
+      help: Dit is de code die je van ons hebt ontvangen via email. Geen code ontvangen?
+    password:
+      label: Nieuw paswoord
+      placeholder: Geef een nieuw paswoord in
+      help: |
+        Het paswoord moet minstens één cijfer bevatten, alsook één hoofd- en kleine letter.
+        Het paswoord moet minstens 8 karakters lang zijn.
+      strength: Het paswoord is niet sterk genoeg.
+    repeat_password:
+      label: Herhaal paswoord
+      placeholder: Herhaal het nieuwe paswoord
+  required: Dit is een verplicht veld.
+  not_same: Het paswoord is niet gelijk
+  failed: |
+    Er is iets misgelopen bij het instellen van het nieuwe paswoord. Probeer opnieuw of
+    contacteer onze webmaster.
+  expired: De gebruikte code is vervallen. Gelieve een nieuwe code te genereren.
+  generate_code: Genereer nieuwe code
+invited:
+  title: Registratie
+  problem: Lukt het niet om te registreren?
+  contact_us: Contacteer ons
+  form:
+    uuid:
+      label: Code
+      placeholder: Geef hier de code in
+      help: Dit is de code die je van ons hebt ontvangen via email.
+    first_name:
+      label: Voornaam
+      placeholder: Geef hier uw voornaam in
+    last_name:
+      label: Familienaam
+      placeholder: Geef hier uw familienaam in
+    password:
+      label: Paswoord
+      placeholder: Geef een paswoord in
+      help: |
+        Het paswoord moet minstens één cijfer bevatten, alsook één hoofd- en kleine letter.
+        Het paswoord moet minstens 8 karakters lang zijn.
+      strength: Het paswoord is niet sterk genoeg.
+    repeat_password:
+      label: Herhaal paswoord
+      placeholder: Herhaal het nieuwe paswoord
+    submit:
+      label: Verstuur
+  required: Dit is een verplicht veld.
+  not_same: Het paswoord is niet gelijk
+  failed: |
+    Er is iets misgelopen bij de registratie. Probeer opnieuw of
+    contacteer onze webmaster.
+  expired: De uitnodiging is vervallen. Neem contact op met onze webmaster.
+change_password:
+  title: Wijzigen paswoord
+  problem: Lukt het niet om jouw paswoord te wijzigen?
+  contact_us: Contacteer ons
+  form:
+    password:
+      label: Nieuw paswoord
+      placeholder: Geef een nieuw paswoord in
+      help: |
+        Het paswoord moet minstens één cijfer bevatten, alsook één hoofd- en kleine letter.
+        Het paswoord moet minstens 8 karakters lang zijn.
+      strength: Het paswoord is niet sterk genoeg.
+    repeat_password:
+      label: Herhaal paswoord
+      placeholder: Herhaal het nieuwe paswoord
+    submit:
+      label: Verstuur
+  required: Dit is een verplicht veld.
+  not_same: Het paswoord is niet gelijk
+  failed: |
+    Er is iets misgelopen bij het instellen van het nieuwe paswoord. Probeer opnieuw of
+    contacteer onze webmaster.
+  notifications:
+    password_changed: Jouw paswoord werd succesvol gewijzigd.

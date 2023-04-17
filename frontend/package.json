@@ -1,0 +1,21 @@
+{
+  "name": "kwai",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev --parallel --continue",
+    "build": "turbo run build"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "eslint-config-kwai": "*",
+    "typescript": "^5.0.4",
+    "turbo": "latest",
+    "vite": "^4.2.1"
+  }
+}

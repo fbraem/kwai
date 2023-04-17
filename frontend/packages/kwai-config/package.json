@@ -1,0 +1,23 @@
+{
+  "name": "@kwai/config",
+  "private": true,
+  "version": "1.0.0",
+  "files": ["dist"],
+  "type": "module",
+  "main": "dist/kwai-config.umd.cjs",
+  "types": "dist/config.d.ts",
+  "module": "dist/kwai-config.js",
+  "exports": {
+    ".": {
+      "import": "./dist/kwai-config.js",
+      "require": "./dist/kwai-config.umd.cjs"
+    }
+  },
+  "scripts": {
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@fbraem/rollup-plugin-toml": "^0.0.4",
+    "vite-plugin-dts": "^1.4.1"
+  }
+}
