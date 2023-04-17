@@ -4,9 +4,9 @@ import sys
 import uuid
 
 from fastapi import FastAPI, Request, status
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from loguru import logger
-from starlette.middleware.cors import CORSMiddleware
 
 from kwai.api.v1.auth.api import api_router
 from kwai.core.dependencies import container
@@ -35,6 +35,16 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         logger.warning("KWAI has ended!")
 
     app = FastAPI(on_startup=[startup], on_shutdown=[shutdown])
+
+    # Setup CORS
+    if settings.cors:
+        app.add_middleware(
+            CORSMiddleware,
+            allow_origins=settings.cors.origins,
+            allow_credentials=True,
+            allow_methods=settings.cors.methods,
+            allow_headers=settings.cors.headers,
+        )
 
     # Setup the logger.
     if settings.logger:

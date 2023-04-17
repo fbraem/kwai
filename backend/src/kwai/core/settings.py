@@ -28,6 +28,12 @@ class DatabaseSettings(BaseModel):
     password: str
 
 
+class CORSSettings(BaseModel):
+    origins: list[str] = Field(default_factory=list([]))
+    methods: list[str] = Field(default_factory=list(["*"]))
+    headers: list[str] = Field(default_factory=list(["*"]))
+
+
 class LoggerSettings(BaseModel):
     """Settings for the logger."""
 
@@ -83,6 +89,8 @@ class Settings(BaseModel):
     template: TemplateSettings
 
     logger: LoggerSettings | None = None
+
+    cors: CORSSettings | None = None
 
     db: DatabaseSettings
 
