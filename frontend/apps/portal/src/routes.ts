@@ -4,7 +4,7 @@ import TrainingsPage from '@theme/pages/TrainingsPage.vue';
 import NewsPage from '@theme/pages/NewsPage.vue';
 import TrainingsArticlePage from '@theme/pages/trainings/TrainingsArticlePage.vue';
 import ApplicationPage from '@theme/pages/ApplicationPage.vue';
-import PortalToolbar from './components/PortalToolbar.vue';
+import PortalToolbar from './components/toolbar/PortalToolbar.vue';
 import { PortalLayout } from '@kwai/ui';
 
 const routes: RouteRecordRaw[] = [
