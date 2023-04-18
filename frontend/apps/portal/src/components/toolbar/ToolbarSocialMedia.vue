@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-4">
+  <div class="flex flex-col md:flex-row place-content-between">
     <template
       v-for="socialMedia in portal.social_media"
       :key="socialMedia.title"
