@@ -1,8 +1,8 @@
 <template>
-  <header class="container mx-auto p-4 lg:px-6 lg:max-w-6xl">
+  <header class="container mx-auto p-8 lg:px-6 lg:max-w-6xl">
     <div class="grid grid-flow-row lg:grid-flow-col space-y-4 items-center">
       <ToolbarLogo />
-      <div class="flex flex-col md:flex-row">
+      <div class="flex flex-col md:flex-row md:items-center">
         <ToolbarSocialMedia class="md:w-2/3" />
         <ToolbarUser class="md:w-1/3" />
       </div>
