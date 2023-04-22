@@ -625,6 +625,10 @@
 
 <h3 id="kwai.api.v1.auth.endpoints.login.login" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">kwai</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">endpoints</span><span class="o">.</span><span class="n">login</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Settings</span><span class="p">),</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">form_data</span><span class="o">=</span><span class="n">Depends</span><span class="p">())</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
 
 <a href="#kwai.api.v1.auth.endpoints.login.login" class="headerlink" title="Permanent link">&para;</a></h3>
 
@@ -690,6 +694,10 @@
 
 <h3 id="kwai.api.v1.auth.endpoints.login.logout" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">kwai</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">endpoints</span><span class="o">.</span><span class="n">login</span><span class="o">.</span><span class="n">logout</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Settings</span><span class="p">),</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">user</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">),</span> <span class="n">refresh_token</span><span class="o">=</span><span class="n">Form</span><span class="p">())</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
 
 <a href="#kwai.api.v1.auth.endpoints.login.logout" class="headerlink" title="Permanent link">&para;</a></h3>
 
@@ -853,6 +861,10 @@ will also be revoked.</p>
 
 <h3 id="kwai.api.v1.auth.endpoints.login.renew_access_token" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">kwai</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">endpoints</span><span class="o">.</span><span class="n">login</span><span class="o">.</span><span class="n">renew_access_token</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Settings</span><span class="p">),</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">refresh_token</span><span class="o">=</span><span class="n">Form</span><span class="p">())</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
 
 <a href="#kwai.api.v1.auth.endpoints.login.renew_access_token" class="headerlink" title="Permanent link">&para;</a></h3>
 
@@ -929,6 +941,10 @@ will also be revoked.</p>
 
 <h3 id="kwai.api.v1.auth.endpoints.login.reset_password" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">kwai</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">endpoints</span><span class="o">.</span><span class="n">login</span><span class="o">.</span><span class="n">reset_password</span><span class="p">(</span><span class="n">uuid</span><span class="o">=</span><span class="n">Form</span><span class="p">(),</span> <span class="n">password</span><span class="o">=</span><span class="n">Form</span><span class="p">(),</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">))</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
 
 <a href="#kwai.api.v1.auth.endpoints.login.reset_password" class="headerlink" title="Permanent link">&para;</a></h3>
 

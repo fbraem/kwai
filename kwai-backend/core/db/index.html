@@ -457,8 +457,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#kwai.core.db.database.Database.__del__" class="md-nav__link">
-    __del__()
+  <a href="#kwai.core.db.database.Database.close" class="md-nav__link">
+    close()
   </a>
   
 </li>
@@ -466,13 +466,6 @@
           <li class="md-nav__item">
   <a href="#kwai.core.db.database.Database.commit" class="md-nav__link">
     commit()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kwai.core.db.database.Database.connect" class="md-nav__link">
-    connect()
   </a>
   
 </li>
@@ -522,6 +515,13 @@
           <li class="md-nav__item">
   <a href="#kwai.core.db.database.Database.log_query" class="md-nav__link">
     log_query()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kwai.core.db.database.Database.setup" class="md-nav__link">
+    setup()
   </a>
   
 </li>
@@ -819,8 +819,6 @@ implement the Query interface.</p>
 
   
       <p>Class for communicating with a database.</p>
-<p>When the instance is destroyed and there is a connection, the connection will be
-closed automatically.</p>
 
   <p><strong>Attributes:</strong></p>
   <table>
@@ -835,8 +833,9 @@ closed automatically.</p>
         <tr>
           <td><code>_connection</code></td>
           <td>
+                <code>asyncmy.<span title="asyncmy.Connection">Connection</span> | None</code>
           </td>
-          <td><p>The connection handle</p></td>
+          <td><p>A connection</p></td>
         </tr>
         <tr>
           <td><code>_settings</code></td>
@@ -889,16 +888,19 @@ settings.</p>
 
 
 
-<h4 id="kwai.core.db.database.Database.__del__" class="doc doc-heading">
-<code class="codehilite language-python"><span class="fm">__del__</span><span class="p">()</span></code>
+<h4 id="kwai.core.db.database.Database.close" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">close</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
 
-<a href="#kwai.core.db.database.Database.__del__" class="headerlink" title="Permanent link">&para;</a></h4>
+<a href="#kwai.core.db.database.Database.close" class="headerlink" title="Permanent link">&para;</a></h4>
 
 
   <div class="doc doc-contents ">
   
-      <p>Destructor.</p>
-<p>Closes the connection.</p>
+      <p>Close the connection.</p>
 
   </div>
 
@@ -910,6 +912,10 @@ settings.</p>
 
 <h4 id="kwai.core.db.database.Database.commit" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">commit</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
 
 <a href="#kwai.core.db.database.Database.commit" class="headerlink" title="Permanent link">&para;</a></h4>
 
@@ -917,42 +923,6 @@ settings.</p>
   <div class="doc doc-contents ">
   
       <p>Commit all changes.</p>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-
-<h4 id="kwai.core.db.database.Database.connect" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">connect</span><span class="p">()</span></code>
-
-<a href="#kwai.core.db.database.Database.connect" class="headerlink" title="Permanent link">&para;</a></h4>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Connect to the database.</p>
-
-  <p><strong>Raises:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.core.db.exceptions.DatabaseException" href="#kwai.core.db.exceptions.DatabaseException">DatabaseException</a></code>
-          </td>
-          <td><p>Raised when the connection fails.</p></td>
-        </tr>
-    </tbody>
-  </table>
 
   </div>
 
@@ -1008,6 +978,10 @@ future it can provide other engines.</p></td>
 
 <h4 id="kwai.core.db.database.Database.delete" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">delete</span><span class="p">(</span><span class="n">id_</span><span class="p">,</span> <span class="n">table_name</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
 
 <a href="#kwai.core.db.database.Database.delete" class="headerlink" title="Permanent link">&para;</a></h4>
 
@@ -1078,6 +1052,10 @@ future it can provide other engines.</p></td>
 
 <h4 id="kwai.core.db.database.Database.execute" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
 
 <a href="#kwai.core.db.database.Database.execute" class="headerlink" title="Permanent link">&para;</a></h4>
 
@@ -1164,6 +1142,10 @@ successfully. On insert, this can be used to determine the new id of a row.</p>
 
 <h4 id="kwai.core.db.database.Database.fetch" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">fetch</span><span class="p">(</span><span class="n">query</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
 
 <a href="#kwai.core.db.database.Database.fetch" class="headerlink" title="Permanent link">&para;</a></h4>
 
@@ -1243,6 +1225,10 @@ as key and the column values as value.</p></td>
 
 <h4 id="kwai.core.db.database.Database.fetch_one" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">fetch_one</span><span class="p">(</span><span class="n">query</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
 
 <a href="#kwai.core.db.database.Database.fetch_one" class="headerlink" title="Permanent link">&para;</a></h4>
 
@@ -1328,6 +1314,10 @@ as key and the column values as value.</p></td>
 
 <h4 id="kwai.core.db.database.Database.insert" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">insert</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">table_data</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
 
 <a href="#kwai.core.db.database.Database.insert" class="headerlink" title="Permanent link">&para;</a></h4>
 
@@ -1456,8 +1446,34 @@ as key and the column values as value.</p></td>
 
 
 
+<h4 id="kwai.core.db.database.Database.setup" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">setup</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.core.db.database.Database.setup" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Set up the connection pool.</p>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
 <h4 id="kwai.core.db.database.Database.update" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">update</span><span class="p">(</span><span class="n">id_</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">table_data</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
 
 <a href="#kwai.core.db.database.Database.update" class="headerlink" title="Permanent link">&para;</a></h4>
 
@@ -1655,6 +1671,10 @@ as key and the column values as value.</p></td>
 
 <h4 id="kwai.core.db.database_query.DatabaseQuery.count" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">count</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
 
 <a href="#kwai.core.db.database_query.DatabaseQuery.count" class="headerlink" title="Permanent link">&para;</a></h4>
 
@@ -1692,6 +1712,10 @@ as key and the column values as value.</p></td>
 
 <h4 id="kwai.core.db.database_query.DatabaseQuery.fetch_one" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">fetch_one</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
 
 <a href="#kwai.core.db.database_query.DatabaseQuery.fetch_one" class="headerlink" title="Permanent link">&para;</a></h4>
 
