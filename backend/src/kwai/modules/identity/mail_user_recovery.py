@@ -42,7 +42,7 @@ class MailUserRecovery:
         self._recipients = recipients
         self._mail_template = mail_template
 
-    def execute(self, command: MailUserRecoveryCommand) -> UserRecoveryEntity:
+    async def execute(self, command: MailUserRecoveryCommand) -> UserRecoveryEntity:
         """Executes the use case.
 
         Args:
@@ -54,7 +54,7 @@ class MailUserRecovery:
             UnprocessableException: Raised when the mail was already sent.
                 Raised when the user recovery was already confirmed.
         """
-        user_recovery = self._user_recovery_repo.get_by_uuid(
+        user_recovery = await self._user_recovery_repo.get_by_uuid(
             UniqueId.create_from_string(command.uuid)
         )
 
@@ -79,6 +79,6 @@ class MailUserRecovery:
 
         user_recovery.mail_sent()
 
-        self._user_recovery_repo.update(user_recovery)
+        await self._user_recovery_repo.update(user_recovery)
 
         return user_recovery

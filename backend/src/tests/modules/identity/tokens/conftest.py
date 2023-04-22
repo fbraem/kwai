@@ -27,7 +27,7 @@ def access_token_repo(database: Database) -> AccessTokenRepository:
 
 
 @pytest.fixture(scope="module")
-def access_token(
+async def access_token(
     access_token_repo: AccessTokenRepository, user_account: UserAccountEntity
 ) -> AccessTokenEntity:
     """Fixture for creating an access token."""
@@ -37,7 +37,7 @@ def access_token(
         user_account=user_account,
     )
 
-    return access_token_repo.create(token)
+    return await access_token_repo.create(token)
 
 
 @pytest.fixture(scope="module")
@@ -47,7 +47,7 @@ def refresh_token_repo(database: Database) -> RefreshTokenRepository:
 
 
 @pytest.fixture(scope="module")
-def refresh_token(
+async def refresh_token(
     refresh_token_repo: RefreshTokenRepository, access_token: AccessTokenEntity
 ) -> RefreshTokenEntity:
     """Fixture for creating a refresh token."""
@@ -56,4 +56,4 @@ def refresh_token(
         expiration=datetime.utcnow(),
         access_token=access_token,
     )
-    return refresh_token_repo.create(token)
+    return await refresh_token_repo.create(token)

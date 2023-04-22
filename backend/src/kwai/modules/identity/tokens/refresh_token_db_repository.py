@@ -1,5 +1,5 @@
 """Module that implements a refresh token repository for a database."""
-from typing import Iterator
+from typing import AsyncIterator
 
 from kwai.core.db.database import Database
 from kwai.core.domain.entity import Entity
@@ -40,48 +40,48 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
     def create_query(self) -> RefreshTokenQuery:
         return RefreshTokenDbQuery(self._database)
 
-    def get_by_token_identifier(
+    async def get_by_token_identifier(
         self, identifier: TokenIdentifier
     ) -> RefreshTokenEntity:
         query = self.create_query()
         query.filter_by_token_identifier(identifier)
 
-        row = query.fetch_one()
+        row = await query.fetch_one()
         if row:
             return _create_entity(row)
 
         raise RefreshTokenNotFoundException()
 
-    def get(self, id_: RefreshTokenIdentifier) -> RefreshTokenEntity:
+    async def get(self, id_: RefreshTokenIdentifier) -> RefreshTokenEntity:
         query = self.create_query()
         query.filter_by_id(id_.value)
-        row = query.fetch_one()
+        row = await query.fetch_one()
         if row:
             return _create_entity(row)
 
         raise RefreshTokenNotFoundException()
 
-    def get_all(
+    async def get_all(
         self,
         query: RefreshTokenDbQuery | None = None,
         limit: int | None = None,
         offset: int | None = None,
-    ) -> Iterator[RefreshTokenEntity]:
+    ) -> AsyncIterator[RefreshTokenEntity]:
         query = query or self.create_query()
-        for row in query.fetch(limit, offset):
+        async for row in query.fetch(limit, offset):
             yield _create_entity(row)
 
-    def create(self, refresh_token: RefreshTokenEntity) -> RefreshTokenEntity:
-        new_id = self._database.insert(
+    async def create(self, refresh_token: RefreshTokenEntity) -> RefreshTokenEntity:
+        new_id = await self._database.insert(
             RefreshTokensTable.table_name, RefreshTokenRow.persist(refresh_token)
         )
-        self._database.commit()
+        await self._database.commit()
         return Entity.replace(refresh_token, id_=RefreshTokenIdentifier(new_id))
 
-    def update(self, refresh_token: RefreshTokenEntity):
-        self._database.update(
+    async def update(self, refresh_token: RefreshTokenEntity):
+        await self._database.update(
             refresh_token.id.value,
             RefreshTokensTable.table_name,
             RefreshTokenRow.persist(refresh_token),
         )
-        self._database.commit()
+        await self._database.commit()

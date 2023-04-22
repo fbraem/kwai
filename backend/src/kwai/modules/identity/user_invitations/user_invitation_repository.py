@@ -1,6 +1,6 @@
 """Module that defines an interface for an invitation repository."""
 from abc import ABC
-from typing import Iterator
+from typing import AsyncIterator
 
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_invitations.user_invitation import (
@@ -27,12 +27,12 @@ class UserInvitationRepository(ABC):
         """
         raise NotImplementedError
 
-    def get_all(
+    async def get_all(
         self,
         query: UserInvitationQuery,
         limit: int | None = None,
         offset: int | None = None,
-    ) -> Iterator[UserInvitationEntity]:
+    ) -> AsyncIterator[UserInvitationEntity]:
         """Return all user invitations from the query.
 
         Args:
@@ -45,7 +45,7 @@ class UserInvitationRepository(ABC):
         """
         raise NotImplementedError
 
-    def get_invitation_by_id(
+    async def get_invitation_by_id(
         self, id_: UserInvitationIdentifier
     ) -> UserInvitationEntity:
         """Get an invitation using the id.
@@ -55,7 +55,7 @@ class UserInvitationRepository(ABC):
         """
         raise NotImplementedError
 
-    def get_invitation_by_uuid(self, uuid: UniqueId) -> UserInvitationEntity:
+    async def get_invitation_by_uuid(self, uuid: UniqueId) -> UserInvitationEntity:
         """Get an invitation using the unique id.
 
         Args:
@@ -63,7 +63,7 @@ class UserInvitationRepository(ABC):
         """
         raise NotImplementedError
 
-    def create(self, invitation: UserInvitationEntity) -> UserInvitationEntity:
+    async def create(self, invitation: UserInvitationEntity) -> UserInvitationEntity:
         """Creates a new invitation.
 
         Args:
@@ -71,7 +71,7 @@ class UserInvitationRepository(ABC):
         """
         raise NotImplementedError
 
-    def update(self, invitation: UserInvitationEntity) -> None:
+    async def update(self, invitation: UserInvitationEntity) -> None:
         """Updates an existing invitation.
 
         Args:
@@ -79,7 +79,7 @@ class UserInvitationRepository(ABC):
         """
         raise NotImplementedError
 
-    def delete(self, invitation: UserInvitationEntity) -> None:
+    async def delete(self, invitation: UserInvitationEntity) -> None:
         """Deletes the invitation.
 
         Args:

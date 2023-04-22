@@ -21,12 +21,13 @@ def repo(database: Database) -> UserInvitationRepository:
     return InvitationDbRepository(database)
 
 
-def test_get_invitation(repo: UserInvitationRepository, create_user_invitation):
+@pytest.mark.asyncio
+async def test_get_invitation(repo: UserInvitationRepository, create_user_invitation):
     """Test the use case: get user invitation."""
-    user_invitation = create_user_invitation()
+    user_invitation = await create_user_invitation()
 
     command = GetUserInvitationCommand(uuid=str(user_invitation.uuid))
-    result = GetUserInvitation(repo).execute(command)
+    result = await GetUserInvitation(repo).execute(command)
 
     assert (
         result.uuid == user_invitation.uuid

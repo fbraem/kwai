@@ -85,7 +85,7 @@ class InviteUser:
         """
         email_address = EmailAddress(command.email)
         try:
-            self._user_repo.get_user_by_email(email_address)
+            await self._user_repo.get_user_by_email(email_address)
             raise UnprocessableException(f"{command.email} is already used.")
         except UserNotFoundException:
             pass
@@ -95,12 +95,12 @@ class InviteUser:
             .filter_by_email(email_address)
             .filter_active(LocalTimestamp.create_now())
         )
-        if query.count() > 0:
+        if await query.count() > 0:
             raise UnprocessableException(
                 f"There are still pending invitations for {command.email}"
             )
 
-        invitation = self._user_invitation_repo.create(
+        invitation = await self._user_invitation_repo.create(
             UserInvitationEntity(
                 email=email_address,
                 name=Name(first_name=command.first_name, last_name=command.last_name),

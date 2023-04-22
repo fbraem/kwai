@@ -1,4 +1,6 @@
 """Module for testing the use case authenticate user."""
+import pytest
+
 from kwai.core.db.database import Database
 from kwai.modules.identity.authenticate_user import (
     AuthenticateUserCommand,
@@ -16,13 +18,14 @@ from kwai.modules.identity.users.user_account_db_repository import (
 )
 
 
-def test_authenticate_user(database: Database, user_account: UserAccountEntity):
+@pytest.mark.asyncio
+async def test_authenticate_user(database: Database, user_account: UserAccountEntity):
     """Test the use case authenticate user."""
     command = AuthenticateUserCommand(
         username=str(user_account.user.email), password="Nage-waza/1882"
     )
 
-    refresh_token = AuthenticateUser(
+    refresh_token = await AuthenticateUser(
         UserAccountDbRepository(database),
         AccessTokenDbRepository(database),
         RefreshTokenDbRepository(database),

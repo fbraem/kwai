@@ -54,7 +54,7 @@ class AuthenticateUser:
         self._access_token_repo = access_token_repo
         self._refresh_token_repo = refresh_token_repo
 
-    def execute(self, command: AuthenticateUserCommand) -> RefreshTokenEntity:
+    async def execute(self, command: AuthenticateUserCommand) -> RefreshTokenEntity:
         """Execute the use case.
 
         Args:
@@ -69,21 +69,23 @@ class AuthenticateUser:
             UserAccountNotFoundException: Raised when the user with the given email
                 address doesn't exist.
         """
-        user_account = self._user_account_repo.get_user_by_email(
+        user_account = await self._user_account_repo.get_user_by_email(
             EmailAddress(command.username)
         )
         if user_account.revoked:
             raise AuthenticationException("User account is revoked")
 
         if not user_account.login(command.password):
-            self._user_account_repo.update(
+            await self._user_account_repo.update(
                 user_account
             )  # save the last unsuccessful login
             raise AuthenticationException("Invalid password")
 
-        self._user_account_repo.update(user_account)  # save the last successful login
+        await self._user_account_repo.update(
+            user_account
+        )  # save the last successful login
 
-        access_token = self._access_token_repo.create(
+        access_token = await self._access_token_repo.create(
             AccessTokenEntity(
                 identifier=TokenIdentifier.generate(),
                 expiration=datetime.utcnow()
@@ -92,7 +94,7 @@ class AuthenticateUser:
             )
         )
 
-        return self._refresh_token_repo.create(
+        return await self._refresh_token_repo.create(
             RefreshTokenEntity(
                 identifier=TokenIdentifier.generate(),
                 expiration=datetime.utcnow()

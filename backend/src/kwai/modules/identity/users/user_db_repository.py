@@ -15,20 +15,20 @@ from kwai.modules.identity.users.user_tables import UsersTable, UserRow
 class UserDbRepository(UserRepository):
     """Database repository for the user entity."""
 
-    def update(self, user: UserEntity) -> None:
-        self._database.update(
-            user.id.value, UsersTable.table_name, UserRow.persist(user)
-        )
-        self._database.commit()
-
     def __init__(self, database: Database):
         self._database = database
+
+    async def update(self, user: UserEntity) -> None:
+        await self._database.update(
+            user.id.value, UsersTable.table_name, UserRow.persist(user)
+        )
+        await self._database.commit()
 
     def create_query(self) -> UserDbQuery:
         """Create a user database query."""
         return UserDbQuery(self._database)
 
-    def get_user_by_id(self, id_: UserIdentifier) -> UserEntity:
+    async def get_user_by_id(self, id_: UserIdentifier) -> UserEntity:
         """Get the user with the given id.
 
         UserNotFoundException is raised when the user does not exist.
@@ -36,13 +36,13 @@ class UserDbRepository(UserRepository):
         query = self.create_query()
         query.filter_by_id(id_)
 
-        row = query.fetch_one()
+        row = await query.fetch_one()
         if row:
             return UsersTable(row).create_entity()
 
         raise UserNotFoundException()
 
-    def get_user_by_uuid(self, uuid: UniqueId) -> UserEntity:
+    async def get_user_by_uuid(self, uuid: UniqueId) -> UserEntity:
         """Get the user with the given uuid.
 
         UserNotFoundException is raised when the user does not exist.
@@ -50,13 +50,13 @@ class UserDbRepository(UserRepository):
         query = self.create_query()
         query.filter_by_uuid(uuid)
 
-        row = query.fetch_one()
+        row = await query.fetch_one()
         if row:
             return UsersTable(row).create_entity()
 
         raise UserNotFoundException()
 
-    def get_user_by_email(self, email: EmailAddress) -> UserEntity:
+    async def get_user_by_email(self, email: EmailAddress) -> UserEntity:
         """Get the user with the given email.
 
         UserNotFoundException is raised when the user does not exist.
@@ -64,7 +64,7 @@ class UserDbRepository(UserRepository):
         query = self.create_query()
         query.filter_by_email(email)
 
-        row = query.fetch_one()
+        row = await query.fetch_one()
         if row:
             return UsersTable(row).create_entity()
 

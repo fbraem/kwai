@@ -24,7 +24,8 @@ def repo(database: Database) -> UserInvitationRepository:
     return InvitationDbRepository(database)
 
 
-def test_mail_user_invitation(
+@pytest.mark.asyncio
+async def test_mail_user_invitation(
     repo: UserInvitationRepository,
     create_user_invitation,
     mailer: Mailer,
@@ -32,16 +33,17 @@ def test_mail_user_invitation(
     user_invitation_mail_template: MailTemplate,
 ):
     """Test use case mail user invitation"""
-    user_invitation = create_user_invitation()
+    user_invitation = await create_user_invitation()
     command = MailUserInvitationCommand(uuid=str(user_invitation.uuid))
-    updated_user_invitation = MailUserInvitation(
+    updated_user_invitation = await MailUserInvitation(
         repo, mailer, recipients, user_invitation_mail_template
     ).execute(command)
 
     assert updated_user_invitation.mailed is not None, "mailed should be set."
 
 
-def test_mail_user_invitation_already_mailed(
+@pytest.mark.asyncio
+async def test_mail_user_invitation_already_mailed(
     repo: UserInvitationRepository,
     create_user_invitation,
     mailer: Mailer,
@@ -49,12 +51,12 @@ def test_mail_user_invitation_already_mailed(
     user_invitation_mail_template: MailTemplate,
 ):
     """Test when a user invitation is already sent."""
-    user_invitation = create_user_invitation()
+    user_invitation = await create_user_invitation()
     user_invitation.mail_sent()
-    repo.update(user_invitation)
+    await repo.update(user_invitation)
 
     command = MailUserInvitationCommand(uuid=str(user_invitation.uuid))
     with pytest.raises(UnprocessableException):
-        MailUserInvitation(
+        await MailUserInvitation(
             repo, mailer, recipients, user_invitation_mail_template
         ).execute(command)

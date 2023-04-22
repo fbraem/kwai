@@ -14,18 +14,20 @@ def test_create(
     assert not refresh_token.id.is_empty(), "There should be a refresh token entity"
 
 
-def test_get_by_token_identifier(
+@pytest.mark.asyncio
+async def test_get_by_token_identifier(
     refresh_token_repo: RefreshTokenRepository,  # pylint: disable=redefined-outer-name
     refresh_token: RefreshTokenEntity,  # pylint: disable=redefined-outer-name
 ):
     """Test get_by_token_identifier."""
-    token = refresh_token_repo.get_by_token_identifier(refresh_token.identifier)
+    token = await refresh_token_repo.get_by_token_identifier(refresh_token.identifier)
     assert token, "There should be a refresh token"
 
 
-def test_query(
+@pytest.mark.asyncio
+async def test_query(
     refresh_token_repo: RefreshTokenRepository,  # pylint: disable=redefined-outer-name
 ):
     """Test query."""
-    tokens = list(refresh_token_repo.get_all(limit=10))
+    tokens = [token async for token in refresh_token_repo.get_all(limit=10)]
     assert len(tokens) > 0, "There should be at least 1 token"

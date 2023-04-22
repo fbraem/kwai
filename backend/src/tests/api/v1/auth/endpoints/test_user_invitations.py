@@ -29,9 +29,7 @@ def invitation_data() -> list[str]:
 
 
 @pytest.mark.asyncio
-async def test_create_user_invitation(
-    secure_client: TestClient, invitation_data: list[str]
-):
+def test_create_user_invitation(secure_client: TestClient, invitation_data: list[str]):
     """Test POST users/invitations."""
     data = {
         "data": {

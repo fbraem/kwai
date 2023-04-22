@@ -9,22 +9,22 @@ class UserRecoveryRepository:
     """Interface for a user recovery repository."""
 
     @abstractmethod
-    def get_by_uuid(self, uuid: UniqueId) -> UserRecoveryEntity:
+    async def get_by_uuid(self, uuid: UniqueId) -> UserRecoveryEntity:
         """Get a user recovery with the given unique id."""
         raise NotImplementedError
 
     @abstractmethod
-    def create(self, user_recovery: UserRecoveryEntity) -> UserRecoveryEntity:
+    async def create(self, user_recovery: UserRecoveryEntity) -> UserRecoveryEntity:
         """Save a new user recovery."""
         raise NotImplementedError
 
     @abstractmethod
-    def update(self, user_recovery: UserRecoveryEntity):
+    async def update(self, user_recovery: UserRecoveryEntity):
         """Save a user recovery."""
         raise NotImplementedError
 
     @abstractmethod
-    def delete(self, user_recovery: UserRecoveryEntity):
+    async def delete(self, user_recovery: UserRecoveryEntity):
         """Deletes a user recovery."""
         raise NotImplementedError
 

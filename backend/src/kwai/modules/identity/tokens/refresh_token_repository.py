@@ -1,6 +1,6 @@
 """Module that defines an interface for a refresh token repository."""
 from abc import abstractmethod
-from typing import Iterator
+from typing import AsyncIterator
 
 from kwai.modules.identity.tokens.refresh_token import (
     RefreshTokenEntity,
@@ -23,33 +23,33 @@ class RefreshTokenRepository:
         raise NotImplementedError
 
     @abstractmethod
-    def get_by_token_identifier(
+    async def get_by_token_identifier(
         self, identifier: TokenIdentifier
     ) -> RefreshTokenEntity:
         """Get the refresh token with the given token identifier."""
         raise NotImplementedError
 
     @abstractmethod
-    def get(self, id_: RefreshTokenIdentifier) -> RefreshTokenEntity:
+    async def get(self, id_: RefreshTokenIdentifier) -> RefreshTokenEntity:
         """Get the refresh token entity with the given id."""
         raise NotImplementedError
 
     @abstractmethod
-    def get_all(
+    async def get_all(
         self,
         query: RefreshTokenQuery | None = None,
         limit: int | None = None,
         offset: int | None = None,
-    ) -> Iterator[RefreshTokenEntity]:
+    ) -> AsyncIterator[RefreshTokenEntity]:
         """Get all refresh tokens."""
         raise NotImplementedError
 
     @abstractmethod
-    def create(self, refresh_token: RefreshTokenEntity) -> RefreshTokenEntity:
+    async def create(self, refresh_token: RefreshTokenEntity) -> RefreshTokenEntity:
         """Save a new refresh token."""
         raise NotImplementedError
 
     @abstractmethod
-    def update(self, refresh_token: RefreshTokenEntity):
+    async def update(self, refresh_token: RefreshTokenEntity):
         """Update the refresh token."""
         raise NotImplementedError

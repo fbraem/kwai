@@ -25,13 +25,15 @@ def repo(database: Database) -> UserRecoveryRepository:
 
 
 @pytest.fixture(scope="module")
-def user_recovery(repo: UserRecoveryRepository, user: UserEntity) -> UserRecoveryEntity:
+async def user_recovery(
+    repo: UserRecoveryRepository, user: UserEntity
+) -> UserRecoveryEntity:
     """Fixture for creating a user recovery entity."""
     user_recovery = UserRecoveryEntity(
         expiration=LocalTimestamp(timestamp=datetime.utcnow(), timezone="UTC"),
         user=user,
     )
-    return repo.create(user_recovery)
+    return await repo.create(user_recovery)
 
 
 def test_create(user_recovery: UserRecoveryEntity):
@@ -39,23 +41,28 @@ def test_create(user_recovery: UserRecoveryEntity):
     assert user_recovery.id, "There should be a user recovery created"
 
 
-def test_get_by_uuid(repo: UserRecoveryRepository, user_recovery: UserRecoveryEntity):
+@pytest.mark.asyncio
+async def test_get_by_uuid(
+    repo: UserRecoveryRepository, user_recovery: UserRecoveryEntity
+):
     """Test if the user recovery can be fetched with the uuid."""
-    recovery = repo.get_by_uuid(user_recovery.uuid)
+    recovery = await repo.get_by_uuid(user_recovery.uuid)
     assert recovery, "There should be a recovery with the given uuid"
 
 
-def test_update(repo: UserRecoveryRepository, user_recovery: UserRecoveryEntity):
+@pytest.mark.asyncio
+async def test_update(repo: UserRecoveryRepository, user_recovery: UserRecoveryEntity):
     """Test if the user recovery can be updated."""
     user_recovery.confirm()
-    repo.update(user_recovery)
-    recovery = repo.get_by_uuid(user_recovery.uuid)
+    await repo.update(user_recovery)
+    recovery = await repo.get_by_uuid(user_recovery.uuid)
     assert recovery.confirmed_at, "There should be a confirmation date"
 
 
-def test_delete(repo: UserRecoveryRepository, user_recovery: UserRecoveryEntity):
+@pytest.mark.asyncio
+async def test_delete(repo: UserRecoveryRepository, user_recovery: UserRecoveryEntity):
     """Test if the user recovery can be deleted."""
-    repo.delete(user_recovery)
+    await repo.delete(user_recovery)
 
     with pytest.raises(UserRecoveryNotFoundException):
-        repo.get_by_uuid(user_recovery.uuid)
+        await repo.get_by_uuid(user_recovery.uuid)

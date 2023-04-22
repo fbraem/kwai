@@ -83,7 +83,8 @@ def test_recover_unknown_user(client: TestClient):
     assert response.status_code == status.HTTP_200_OK
 
 
-def test_reset_password(
+@pytest.mark.asyncio
+async def test_reset_password(
     client: TestClient, user_account: UserAccountEntity, database: Database
 ):
     """Test the reset password api."""
@@ -91,7 +92,7 @@ def test_reset_password(
         expiration=LocalTimestamp.create_with_delta(hours=2),
         user=user_account.user,
     )
-    user_recovery = UserRecoveryDbRepository(database).create(user_recovery)
+    user_recovery = await UserRecoveryDbRepository(database).create(user_recovery)
 
     response = client.post(
         "/api/v1/auth/reset",

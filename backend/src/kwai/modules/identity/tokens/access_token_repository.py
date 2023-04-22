@@ -23,27 +23,27 @@ class AccessTokenRepository:
         raise NotImplementedError
 
     @abstractmethod
-    def create(self, access_token: AccessTokenEntity) -> AccessTokenEntity:
+    async def create(self, access_token: AccessTokenEntity) -> AccessTokenEntity:
         """Save a new access token."""
         raise NotImplementedError
 
     @abstractmethod
-    def update(self, access_token: AccessTokenEntity):
+    async def update(self, access_token: AccessTokenEntity):
         """Update the access token."""
         raise NotImplementedError
 
     @abstractmethod
-    def get(self, id_: AccessTokenIdentifier) -> AccessTokenEntity:
+    async def get(self, id_: AccessTokenIdentifier) -> AccessTokenEntity:
         """Get the access token with the given id."""
         raise NotImplementedError
 
     @abstractmethod
-    def get_by_identifier(self, identifier: TokenIdentifier) -> AccessTokenEntity:
+    async def get_by_identifier(self, identifier: TokenIdentifier) -> AccessTokenEntity:
         """Get the access token with the given identifier."""
         raise NotImplementedError
 
     @abstractmethod
-    def get_all(
+    async def get_all(
         self,
         query: AccessTokenQuery | None = None,
         limit: int | None = None,

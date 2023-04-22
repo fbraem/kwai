@@ -1,5 +1,5 @@
 """Module that implements an access token repository for a database."""
-from typing import Iterator, Any
+from typing import Any, AsyncIterator
 
 from kwai.core.db.database import Database
 from kwai.core.domain.entity import Entity
@@ -35,47 +35,47 @@ class AccessTokenDbRepository(AccessTokenRepository):
     def create_query(self) -> AccessTokenQuery:
         return AccessTokenDbQuery(self._database)
 
-    def get(self, id_: AccessTokenIdentifier) -> AccessTokenEntity:
+    async def get(self, id_: AccessTokenIdentifier) -> AccessTokenEntity:
         query = self.create_query()
         query.filter_by_id(id_.value)
 
-        row = query.fetch_one()
+        row = await query.fetch_one()
         if row:
             return _create_entity(row)
 
         raise AccessTokenNotFoundException
 
-    def get_by_identifier(self, identifier: TokenIdentifier) -> AccessTokenEntity:
+    async def get_by_identifier(self, identifier: TokenIdentifier) -> AccessTokenEntity:
         query = self.create_query()
         query.filter_by_token_identifier(identifier)
 
-        row = query.fetch_one()
+        row = await query.fetch_one()
         if row:
             return _create_entity(row)
 
         raise AccessTokenNotFoundException
 
-    def get_all(
+    async def get_all(
         self,
         query: AccessTokenQuery | None = None,
         limit: int | None = None,
         offset: int | None = None,
-    ) -> Iterator[AccessTokenEntity]:
+    ) -> AsyncIterator[AccessTokenEntity]:
         query = query or self.create_query()
-        for row in query.fetch(limit, offset):
+        async for row in query.fetch(limit, offset):
             yield _create_entity(row)
 
-    def create(self, access_token: AccessTokenEntity) -> AccessTokenEntity:
-        new_id = self._database.insert(
+    async def create(self, access_token: AccessTokenEntity) -> AccessTokenEntity:
+        new_id = await self._database.insert(
             AccessTokensTable.table_name, AccessTokenRow.persist(access_token)
         )
-        self._database.commit()
+        await self._database.commit()
         return Entity.replace(access_token, id_=AccessTokenIdentifier(new_id))
 
-    def update(self, access_token: AccessTokenEntity):
-        self._database.update(
+    async def update(self, access_token: AccessTokenEntity):
+        await self._database.update(
             access_token.id.value,
             AccessTokensTable.table_name,
             AccessTokenRow.persist(access_token),
         )
-        self._database.commit()
+        await self._database.commit()

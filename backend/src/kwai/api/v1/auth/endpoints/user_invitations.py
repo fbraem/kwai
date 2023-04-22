@@ -103,7 +103,7 @@ async def create_user_invitation(
     status_code=status.HTTP_200_OK,
     response_class=Response,
 )
-def delete_user_invitation(
+async def delete_user_invitation(
     uuid: str,
     db=deps.depends(Database),
     user: UserEntity = Depends(get_current_user),  # pylint: disable=unused-argument
@@ -111,7 +111,7 @@ def delete_user_invitation(
     """Delete the user invitation with the given unique id."""
     command = DeleteUserInvitationCommand(uuid=uuid)
     try:
-        DeleteUserInvitation(InvitationDbRepository(db)).execute(command)
+        await DeleteUserInvitation(InvitationDbRepository(db)).execute(command)
     except UserInvitationNotFoundException as ex:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
@@ -123,28 +123,32 @@ def delete_user_invitation(
 
 
 @router.get("/invitations")
-def get_user_invitations(
+async def get_user_invitations(
     pagination: PaginationModel = Depends(PaginationModel),
     db=deps.depends(Database),
     user: UserEntity = Depends(get_current_user),  # pylint: disable=unused-argument
 ) -> UserInvitationsDocument:
     """Get all user invitations."""
     command = GetInvitationsCommand(offset=pagination.offset, limit=pagination.limit)
-    count, invitations = GetInvitations(InvitationDbRepository(db)).execute(command)
+    count, invitations = await GetInvitations(InvitationDbRepository(db)).execute(
+        command
+    )
 
     result: list[UserInvitationData] = []
 
-    for invitation in invitations:
+    async for invitation in invitations:
         result.append(_create_user_invitation_data(invitation))
 
     return UserInvitationsDocument(
-        meta=Meta(count=count, offset=pagination.offset or 0, limit=pagination.limit),
+        meta=Meta(
+            count=count, offset=pagination.offset or 0, limit=pagination.limit or 0
+        ),
         data=result,
     )
 
 
 @router.get("/invitations/{uuid}")
-def get_user_invitation(
+async def get_user_invitation(
     uuid: str,
     db=deps.depends(Database),
     user: UserEntity = Depends(get_current_user),  # pylint: disable=unused-argument
@@ -152,7 +156,9 @@ def get_user_invitation(
     """Get the user invitation with the given unique id."""
     command = GetUserInvitationCommand(uuid=uuid)
     try:
-        invitation = GetUserInvitation(InvitationDbRepository(db)).execute(command)
+        invitation = await GetUserInvitation(InvitationDbRepository(db)).execute(
+            command
+        )
     except UserInvitationNotFoundException as ex:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)

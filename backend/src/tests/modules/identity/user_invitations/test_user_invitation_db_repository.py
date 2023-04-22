@@ -27,7 +27,7 @@ def repo(database: Database) -> UserInvitationRepository:
 
 
 @pytest.fixture(scope="module")
-def invitation(
+async def invitation(
     repo: UserInvitationRepository, user: UserEntity
 ) -> UserInvitationEntity:
     """Fixture for an invitation."""
@@ -37,7 +37,7 @@ def invitation(
         remark="Created with pytest",
         user=user,
     )
-    return repo.create(invitation)
+    return await repo.create(invitation)
 
 
 def test_create(invitation: UserInvitationEntity):
@@ -45,42 +45,51 @@ def test_create(invitation: UserInvitationEntity):
     assert not invitation.id.is_empty(), "There should be an invitation created"
 
 
-def test_get_by_id(repo: UserInvitationRepository, invitation: UserInvitationEntity):
+@pytest.mark.asyncio
+async def test_get_by_id(
+    repo: UserInvitationRepository, invitation: UserInvitationEntity
+):
     """Test if the invitation can be found with the id."""
-    entity = repo.get_invitation_by_id(invitation.id)
+    entity = await repo.get_invitation_by_id(invitation.id)
     assert entity.id == invitation.id
 
 
-def test_get_by_uuid(repo: UserInvitationRepository, invitation: UserInvitationEntity):
+@pytest.mark.asyncio
+async def test_get_by_uuid(
+    repo: UserInvitationRepository, invitation: UserInvitationEntity
+):
     """Test if the invitation can be found with the unique id."""
-    entity = repo.get_invitation_by_uuid(invitation.uuid)
+    entity = await repo.get_invitation_by_uuid(invitation.uuid)
     assert entity.id == invitation.id
 
 
-def test_get_all(repo: UserInvitationRepository):
+@pytest.mark.asyncio
+async def test_get_all(repo: UserInvitationRepository):
     """Test get all."""
-    assert (
-        len(list(repo.get_all(repo.create_query()))) > 0
-    ), "There should be at least 1 row"
+    invitations = [invitation async for invitation in repo.get_all(repo.create_query())]
+    assert len(invitations) > 0, "There should be at least 1 row"
 
 
-def test_query_filter_by_email(repo: UserInvitationRepository):
+@pytest.mark.asyncio
+async def test_query_filter_by_email(repo: UserInvitationRepository):
     """Test the filter by email query."""
     query = repo.create_query()
     query.filter_by_email(EmailAddress("ichiro.abe@kwai.com"))
-    assert query.count() > 0, "There should be at least 1 row"
+    assert await query.count() > 0, "There should be at least 1 row"
 
 
-def test_query_filter_active(repo: UserInvitationRepository):
+@pytest.mark.asyncio
+async def test_query_filter_active(repo: UserInvitationRepository):
     """Test the filter active query."""
     query = repo.create_query()
     query.filter_active(LocalTimestamp.create_now())
-    assert query.count() > 0, "There should be at least 1 row"
+    assert await query.count() > 0, "There should be at least 1 row"
 
 
-def test_delete(repo: UserInvitationRepository, invitation: UserInvitationEntity):
+@pytest.mark.asyncio
+async def test_delete(repo: UserInvitationRepository, invitation: UserInvitationEntity):
     """Test if the invitation can be deleted."""
-    repo.delete(invitation)
+    await repo.delete(invitation)
 
     with pytest.raises(UserInvitationNotFoundException):
-        repo.get_invitation_by_id(invitation.id)
+        await repo.get_invitation_by_id(invitation.id)

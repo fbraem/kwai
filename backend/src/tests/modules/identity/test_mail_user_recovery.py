@@ -31,18 +31,21 @@ def repo(database: Database) -> UserRecoveryRepository:
 
 
 @pytest.fixture(scope="module")
-def user_recovery(repo: UserRecoveryRepository, user: UserEntity) -> UserRecoveryEntity:
+async def user_recovery(
+    repo: UserRecoveryRepository, user: UserEntity
+) -> UserRecoveryEntity:
     """Create a user recovery."""
     user_recovery = UserRecoveryEntity(
         expiration=LocalTimestamp.create_with_delta(hours=2),
         user=user,
     )
-    entity = repo.create(user_recovery)
+    entity = await repo.create(user_recovery)
     yield entity
-    repo.delete(entity)
+    await repo.delete(entity)
 
 
-def test_mail_user_recovery(
+@pytest.mark.asyncio
+async def test_mail_user_recovery(
     repo: UserRecoveryRepository,
     user_recovery: UserRecoveryEntity,
     mailer: Mailer,
@@ -51,7 +54,7 @@ def test_mail_user_recovery(
 ):
     """Test use case mail user recovery."""
     command = MailUserRecoveryCommand(uuid=str(user_recovery.uuid))
-    updated_user_recovery = MailUserRecovery(
+    updated_user_recovery = await MailUserRecovery(
         repo,
         mailer,
         recipients,
@@ -61,7 +64,8 @@ def test_mail_user_recovery(
     assert updated_user_recovery.mailed is not None, "mailed should be set."
 
 
-def test_mail_user_recovery_already_mailed(
+@pytest.mark.asyncio
+async def test_mail_user_recovery_already_mailed(
     repo: UserRecoveryRepository,
     user_recovery: UserRecoveryEntity,
     mailer: Mailer,
@@ -71,7 +75,7 @@ def test_mail_user_recovery_already_mailed(
     """Test when a user recovery is already mailed."""
     command = MailUserRecoveryCommand(uuid=str(user_recovery.uuid))
     with pytest.raises(UnprocessableException):
-        MailUserRecovery(
+        await MailUserRecovery(
             repo,
             mailer,
             recipients,

@@ -36,10 +36,10 @@ def user_invitation_mail_template(template_engine: TemplateEngine) -> MailTempla
 def create_user_invitation(request, database: Database, user: UserEntity):
     """A factory fixture for creating a user invitation."""
 
-    def create(delete=True) -> UserInvitationEntity:
+    async def create(delete=True) -> UserInvitationEntity:
         """Create the user invitation and if requested, delete it after testing."""
         repo = InvitationDbRepository(database)
-        invitation = repo.create(
+        invitation = await repo.create(
             UserInvitationEntity(
                 email=EmailAddress("ichiro.abe@kwai.com"),
                 name=Name(first_name="Ichiro", last_name="Abe"),
@@ -50,8 +50,9 @@ def create_user_invitation(request, database: Database, user: UserEntity):
 
         # In a factory fixture, it's not possible to use yield, so, add a clean-up
         # function.
-        def cleanup():
-            repo.delete(invitation)
+
+        async def cleanup():
+            await repo.delete(invitation)
 
         if invitation is not None and delete:
             request.addfinalizer(cleanup)

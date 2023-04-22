@@ -1,8 +1,8 @@
 """Module for database classes/functions."""
 import dataclasses
-from typing import Any, Iterator
+from typing import Any, AsyncIterator
 
-import mysql.connector as db
+import asyncmy
 from loguru import logger
 from sql_smith import QueryFactory
 from sql_smith.engine import MysqlEngine
@@ -16,34 +16,19 @@ from kwai.core.settings import DatabaseSettings
 class Database:
     """Class for communicating with a database.
 
-    When the instance is destroyed and there is a connection, the connection will be
-    closed automatically.
-
     Attributes:
-        _connection: The connection handle
+        _connection: A connection
         _settings (DatabaseSettings): The settings for this database connection.
     """
 
     def __init__(self, settings: DatabaseSettings):
-        self._connection = None
+        self._connection: asyncmy.Connection | None = None
         self._settings = settings
 
-    def __del__(self):
-        """Destructor.
-
-        Closes the connection.
-        """
-        if self._connection:
-            self._connection.close()
-
-    def connect(self):
-        """Connect to the database.
-
-        Raises:
-            (DatabaseException): Raised when the connection fails.
-        """
+    async def setup(self):
+        """Set up the connection pool."""
         try:
-            self._connection = db.connect(
+            self._connection = await asyncmy.connect(
                 host=self._settings.host,
                 database=self._settings.name,
                 user=self._settings.user,
@@ -51,8 +36,19 @@ class Database:
             )
         except Exception as exc:
             raise DatabaseException(
-                f"Connecting to {self._settings.name} failed: {exc}"
+                f"Setting up connection for database {self._settings.name} "
+                f"failed: {exc}"
             ) from exc
+
+    async def check_connection(self):
+        if self._connection is None:
+            await self.setup()
+
+    async def close(self):
+        """Close the connection."""
+        if self._connection:
+            await self._connection.ensure_closed()
+            self._connection = None
 
     @classmethod
     def create_query_factory(cls) -> QueryFactory:
@@ -68,11 +64,12 @@ class Database:
         """
         return QueryFactory(MysqlEngine())
 
-    def commit(self):
+    async def commit(self):
         """Commit all changes."""
-        self._connection.commit()
+        await self.check_connection()
+        await self._connection.commit()
 
-    def execute(self, query: AbstractQuery) -> int | None:
+    async def execute(self, query: AbstractQuery) -> int | None:
         """Execute a query.
 
         The last rowid from the cursor is returned when the query executed
@@ -91,14 +88,15 @@ class Database:
         compiled_query = query.compile()
         self.log_query(compiled_query.sql)
 
-        with self._connection.cursor() as cursor:
+        await self.check_connection()
+        async with self._connection.cursor() as cursor:
             try:
-                cursor.execute(compiled_query.sql, compiled_query.params)
+                await cursor.execute(compiled_query.sql, compiled_query.params)
                 return cursor.lastrowid
             except Exception as exc:
                 raise QueryException(compiled_query.sql) from exc
 
-    def fetch_one(self, query: SelectQuery) -> dict[str, Any] | None:
+    async def fetch_one(self, query: SelectQuery) -> dict[str, Any] | None:
         """Execute a query and return the first row.
 
         Args:
@@ -115,13 +113,12 @@ class Database:
         compiled_query = query.compile()
         self.log_query(compiled_query.sql)
 
+        await self.check_connection()
         try:
-            with self._connection.cursor() as cursor:
-                cursor.execute(compiled_query.sql, compiled_query.params)
+            async with self._connection.cursor() as cursor:
+                await cursor.execute(compiled_query.sql, compiled_query.params)
                 column_names = [column[0] for column in cursor.description]
-                for row in cursor:
-                    # To avoid "unread result found" when not fetching all rows
-                    cursor.reset()
+                if row := await cursor.fetchone():
                     return {
                         column_name: column
                         for column, column_name in zip(row, column_names, strict=True)
@@ -131,7 +128,7 @@ class Database:
 
         return None  # Nothing found
 
-    def fetch(self, query: SelectQuery) -> Iterator[dict[str, Any]]:
+    async def fetch(self, query: SelectQuery) -> AsyncIterator[dict[str, Any]]:
         """Execute a query and yields each row.
 
         Args:
@@ -147,21 +144,20 @@ class Database:
         compiled_query = query.compile()
         self.log_query(compiled_query.sql)
 
+        await self.check_connection()
         try:
-            with self._connection.cursor() as cursor:
-                cursor.execute(compiled_query.sql, compiled_query.params)
+            async with self._connection.cursor() as cursor:
+                await cursor.execute(compiled_query.sql, compiled_query.params)
                 column_names = [column[0] for column in cursor.description]
-                for row in cursor:
+                while row := await cursor.fetchone():
                     yield {
                         column_name: column
                         for column, column_name in zip(row, column_names, strict=True)
                     }
-                # To avoid "unread result found" when not fetching all rows
-                cursor.reset()
         except Exception as exc:
             raise QueryException(compiled_query.sql) from exc
 
-    def insert(self, table_name: str, table_data: Any) -> int:
+    async def insert(self, table_name: str, table_data: Any) -> int:
         """Insert a dataclass into the given table.
 
         Args:
@@ -184,10 +180,10 @@ class Database:
             .columns(*record.keys())
             .values(*record.values())
         )
-        last_insert_id = self.execute(query)
+        last_insert_id = await self.execute(query)
         return last_insert_id
 
-    def update(self, id_: Any, table_name: str, table_data: Any):
+    async def update(self, id_: Any, table_name: str, table_data: Any):
         """Update a dataclass in the given table.
 
         Args:
@@ -208,9 +204,9 @@ class Database:
             .set(record)
             .where(field("id").eq(id_))
         )
-        self.execute(query)
+        await self.execute(query)
 
-    def delete(self, id_: Any, table_name: str):
+    async def delete(self, id_: Any, table_name: str):
         """Delete a row from the table using the id field.
 
         Args:
@@ -223,7 +219,7 @@ class Database:
         query = (
             self.create_query_factory().delete(table_name).where(field("id").eq(id_))
         )
-        self.execute(query)
+        await self.execute(query)
 
     def log_query(self, query: str):
         """Log a query.

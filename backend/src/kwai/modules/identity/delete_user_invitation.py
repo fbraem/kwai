@@ -34,7 +34,7 @@ class DeleteUserInvitation:
         """
         self._user_invitation_repo = user_invitation_repo
 
-    def execute(self, command: DeleteUserInvitationCommand):
+    async def execute(self, command: DeleteUserInvitationCommand):
         """Execute the use case.
 
         Args:
@@ -44,7 +44,7 @@ class DeleteUserInvitation:
             UserInvitationNotFoundException: Raised when then invitation is not found.
         """
 
-        entity = self._user_invitation_repo.get_invitation_by_uuid(
+        entity = await self._user_invitation_repo.get_invitation_by_uuid(
             UniqueId.create_from_string(command.uuid)
         )
-        self._user_invitation_repo.delete(entity)
+        await self._user_invitation_repo.delete(entity)

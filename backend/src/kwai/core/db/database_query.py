@@ -1,6 +1,6 @@
 """Module that implements a query for a database."""
 from abc import abstractmethod
-from typing import Iterator
+from typing import AsyncIterator, Any
 
 from sql_smith.functions import alias, func
 from sql_smith.query import SelectQuery
@@ -33,7 +33,7 @@ class DatabaseQuery(Query):
         """The column used to count records."""
         return "id"
 
-    def count(self) -> int:
+    async def count(self) -> int:
         """Execute the query and counts the number of records.
 
         The `count_column` is used as column for a distinct count.
@@ -45,17 +45,17 @@ class DatabaseQuery(Query):
         self._query.columns(
             alias(func("COUNT", func("DISTINCT", self.count_column)), "c")
         )
-        result = self._database.fetch_one(self._query)
+        result = await self._database.fetch_one(self._query)
         return int(result["c"])
 
-    def fetch_one(self):
+    async def fetch_one(self) -> dict[str, Any] | None:
         """Fetch only one record from this query."""
         self._query.columns(*self.columns)
-        return self._database.fetch_one(self._query)
+        return await self._database.fetch_one(self._query)
 
     def fetch(
         self, limit: int | None = None, offset: int | None = None
-    ) -> Iterator[dict[str, any]]:
+    ) -> AsyncIterator[dict[str, any]]:
         """Fetch all records from this query."""
         self._query.limit(limit)
         self._query.offset(offset)

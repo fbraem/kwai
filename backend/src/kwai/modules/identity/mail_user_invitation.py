@@ -42,7 +42,7 @@ class MailUserInvitation:
         self._recipients = recipients
         self._mail_template = mail_template
 
-    def execute(self, command: MailUserInvitationCommand) -> UserInvitationEntity:
+    async def execute(self, command: MailUserInvitationCommand) -> UserInvitationEntity:
         """Executes the use case.
 
         Args:
@@ -53,7 +53,7 @@ class MailUserInvitation:
             UnprocessableException: Raised when the mail was already sent.
                 Raised when the user recovery was already confirmed.
         """
-        user_invitation = self._user_invitation_repo.get_invitation_by_uuid(
+        user_invitation = await self._user_invitation_repo.get_invitation_by_uuid(
             UniqueId.create_from_string(command.uuid)
         )
         if user_invitation.mailed:
@@ -79,6 +79,6 @@ class MailUserInvitation:
         ).send()
 
         user_invitation.mail_sent()
-        self._user_invitation_repo.update(user_invitation)
+        await self._user_invitation_repo.update(user_invitation)
 
         return user_invitation

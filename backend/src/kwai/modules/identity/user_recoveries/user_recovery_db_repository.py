@@ -32,22 +32,22 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
     def __init__(self, database: Database):
         self._database = database
 
-    def create(self, user_recovery: UserRecoveryEntity) -> UserRecoveryEntity:
-        new_id = self._database.insert(
+    async def create(self, user_recovery: UserRecoveryEntity) -> UserRecoveryEntity:
+        new_id = await self._database.insert(
             UserRecoveriesTable.table_name, UserRecoveryRow.persist(user_recovery)
         )
-        self._database.commit()
+        await self._database.commit()
         return Entity.replace(user_recovery, id_=UserRecoveryIdentifier(new_id))
 
-    def update(self, user_recovery: UserRecoveryEntity):
-        self._database.update(
+    async def update(self, user_recovery: UserRecoveryEntity):
+        await self._database.update(
             user_recovery.id.value,
             UserRecoveriesTable.table_name,
             UserRecoveryRow.persist(user_recovery),
         )
-        self._database.commit()
+        await self._database.commit()
 
-    def get_by_uuid(self, uuid: UniqueId) -> UserRecoveryEntity:
+    async def get_by_uuid(self, uuid: UniqueId) -> UserRecoveryEntity:
         query = (
             self._database.create_query_factory()
             .select()
@@ -59,12 +59,13 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
             )
             .and_where(UserRecoveriesTable.field("uuid").eq(str(uuid)))
         )
-        row = self._database.fetch_one(query)
-        if row:
+        if row := await self._database.fetch_one(query):
             return _create_entity(row)
 
         raise UserRecoveryNotFoundException()
 
-    def delete(self, user_recovery: UserRecoveryEntity):
-        self._database.delete(user_recovery.id.value, UserRecoveriesTable.table_name)
-        self._database.commit()
+    async def delete(self, user_recovery: UserRecoveryEntity):
+        await self._database.delete(
+            user_recovery.id.value, UserRecoveriesTable.table_name
+        )
+        await self._database.commit()

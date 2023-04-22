@@ -29,7 +29,7 @@ def repo(database: Database) -> UserRepository:
 
 
 @pytest.fixture(scope="module")
-def user_account(database):
+async def user_account(database):
     """Fixture for creating a user account.
 
     The user repository does not provide a way to create a user. So, we need
@@ -45,7 +45,7 @@ def user_account(database):
             name=Name(first_name="Jigoro", last_name="Kano"),
         ),
     )
-    return UserAccountDbRepository(database).create(user_account)
+    return await UserAccountDbRepository(database).create(user_account)
 
 
 def test_create(user_account: UserAccountEntity):
@@ -53,29 +53,33 @@ def test_create(user_account: UserAccountEntity):
     assert user_account.id, "There should be a user account entity"
 
 
-def test_get_by_id(repo: UserRepository, user_account: UserAccountEntity):
+@pytest.mark.asyncio
+async def test_get_by_id(repo: UserRepository, user_account: UserAccountEntity):
     """Test if the user can be fetched with an id."""
-    result = repo.get_user_by_id(user_account.id)
+    result = await repo.get_user_by_id(user_account.id)
     assert result, "There should be a user with the given id"
 
 
-def test_get_by_uuid(repo: UserRepository, user_account: UserAccountEntity):
+@pytest.mark.asyncio
+async def test_get_by_uuid(repo: UserRepository, user_account: UserAccountEntity):
     """Test if the user can be fetched with an uuid."""
-    result = repo.get_user_by_uuid(user_account.user.uuid)
+    result = await repo.get_user_by_uuid(user_account.user.uuid)
     assert result, "There should be a user with the given uuid"
 
 
-def test_get_by_email(repo: UserRepository, user_account: UserAccountEntity):
+@pytest.mark.asyncio
+async def test_get_by_email(repo: UserRepository, user_account: UserAccountEntity):
     """Test if the user can be fetched with email address."""
-    result = repo.get_user_by_email(user_account.user.email)
+    result = await repo.get_user_by_email(user_account.user.email)
     assert result, "There should be a user with the given email"
 
 
-def test_delete(
+@pytest.mark.asyncio
+async def test_delete(
     repo: UserRepository, database: Database, user_account: UserAccountEntity
 ):
     """Test if the user can be deleted."""
-    UserAccountDbRepository(database).delete(user_account)
+    await UserAccountDbRepository(database).delete(user_account)
 
     with pytest.raises(UserNotFoundException):
-        repo.get_user_by_email(user_account.user.email)
+        await repo.get_user_by_email(user_account.user.email)

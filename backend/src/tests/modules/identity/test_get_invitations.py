@@ -1,5 +1,5 @@
 """Tests for the user get invitations."""
-from types import GeneratorType
+from types import AsyncGeneratorType
 
 import pytest
 
@@ -22,12 +22,13 @@ def repo(database: Database) -> UserInvitationRepository:
     return InvitationDbRepository(database)
 
 
-def test_get_invitations(repo: UserInvitationRepository):
+@pytest.mark.asyncio
+async def test_get_invitations(repo: UserInvitationRepository):
     """Test the use case: get invitations."""
     command = GetInvitationsCommand()
-    count, invitations = GetInvitations(repo).execute(command)
+    count, invitations = await GetInvitations(repo).execute(command)
 
     assert count >= 0, "Count must be 0 or greater"
     assert isinstance(
-        invitations, GeneratorType
+        invitations, AsyncGeneratorType
     ), "A list of entities should be yielded"

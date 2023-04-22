@@ -56,13 +56,13 @@ class RecoverUser:
                 address does not exist.
             UnprocessableException: Raised when the user is revoked
         """
-        user_account = self._user_account_repo.get_user_by_email(
+        user_account = await self._user_account_repo.get_user_by_email(
             EmailAddress(command.email)
         )
         if user_account.revoked:
             raise UnprocessableException("User account is revoked")
 
-        user_recovery = self._user_recovery_repo.create(
+        user_recovery = await self._user_recovery_repo.create(
             UserRecoveryEntity(
                 user=user_account.user,
                 expiration=LocalTimestamp.create_with_delta(hours=2),

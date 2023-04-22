@@ -49,7 +49,7 @@ class RefreshAccessToken:
         self._refresh_token_repo = refresh_token_repo
         self._access_token_repo = access_token_repo
 
-    def execute(self, command: RefreshAccessTokenCommand) -> RefreshTokenEntity:
+    async def execute(self, command: RefreshAccessTokenCommand) -> RefreshTokenEntity:
         """Executes the use case.
 
         Args:
@@ -60,7 +60,7 @@ class RefreshAccessToken:
             AuthenticationException: Raised when the refresh token is expired, the
                 refresh token is revoked or the user is revoked.
         """
-        refresh_token = self._refresh_token_repo.get_by_token_identifier(
+        refresh_token = await self._refresh_token_repo.get_by_token_identifier(
             TokenIdentifier(hex_string=command.identifier)
         )
 
@@ -72,15 +72,15 @@ class RefreshAccessToken:
 
         # Revoke the old refresh token and access token
         refresh_token.revoke()
-        self._refresh_token_repo.update(refresh_token)
+        await self._refresh_token_repo.update(refresh_token)
         # The access token is also revoked, so update it
-        self._access_token_repo.update(refresh_token.access_token)
+        await self._access_token_repo.update(refresh_token.access_token)
 
         if refresh_token.access_token.user_account.revoked:
             raise AuthenticationException("User is revoked")
 
         # Create a new access and refresh token
-        access_token = self._access_token_repo.create(
+        access_token = await self._access_token_repo.create(
             AccessTokenEntity(
                 identifier=TokenIdentifier.generate(),
                 expiration=datetime.utcnow()
@@ -89,7 +89,7 @@ class RefreshAccessToken:
             )
         )
 
-        return self._refresh_token_repo.create(
+        return await self._refresh_token_repo.create(
             RefreshTokenEntity(
                 identifier=TokenIdentifier.generate(),
                 expiration=datetime.utcnow()

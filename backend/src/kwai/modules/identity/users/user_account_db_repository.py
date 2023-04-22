@@ -23,7 +23,7 @@ class UserAccountDbRepository(UserAccountRepository):
     def __init__(self, database: Database):
         self._database = database
 
-    def get_user_by_email(self, email: EmailAddress) -> UserAccountEntity:
+    async def get_user_by_email(self, email: EmailAddress) -> UserAccountEntity:
         query = (
             self._database.create_query_factory()
             .select()
@@ -31,39 +31,39 @@ class UserAccountDbRepository(UserAccountRepository):
             .columns(*UserAccountsTable.aliases())
             .and_where(UserAccountsTable.field("email").eq(str(email)))
         )
-        row = self._database.fetch_one(query)
+        row = await self._database.fetch_one(query)
         if row:
             return UserAccountsTable(row).create_entity()
 
         raise UserAccountNotFoundException()
 
-    def exists_with_email(self, email: EmailAddress) -> bool:
+    async def exists_with_email(self, email: EmailAddress) -> bool:
         try:
-            self.get_user_by_email(email)
+            await self.get_user_by_email(email)
         except UserAccountNotFoundException:
             return False
 
         return True
 
-    def create(self, user_account: UserAccountEntity) -> UserAccountEntity:
-        new_id = self._database.insert(
+    async def create(self, user_account: UserAccountEntity) -> UserAccountEntity:
+        new_id = await self._database.insert(
             UserAccountsTable.table_name, UserAccountRow.persist(user_account)
         )
-        self._database.commit()
+        await self._database.commit()
         return Entity.replace(
             user_account,
             id_=UserAccountIdentifier(new_id),
             user=Entity.replace(user_account.user, id_=UserIdentifier(new_id)),
         )
 
-    def update(self, user_account: UserAccountEntity):
-        self._database.update(
+    async def update(self, user_account: UserAccountEntity):
+        await self._database.update(
             user_account.id.value,
             UserAccountsTable.table_name,
             UserAccountRow.persist(user_account),
         )
-        self._database.commit()
+        await self._database.commit()
 
-    def delete(self, user_account):
-        self._database.delete(user_account.id.value, UserAccountsTable.table_name)
-        self._database.commit()
+    async def delete(self, user_account):
+        await self._database.delete(user_account.id.value, UserAccountsTable.table_name)
+        await self._database.commit()

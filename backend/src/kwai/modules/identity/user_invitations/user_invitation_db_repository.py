@@ -1,5 +1,5 @@
 """Module that implements a user invitation repository for a database."""
-from typing import Iterator
+from typing import AsyncIterator
 
 from kwai.core.db.database import Database
 from kwai.core.domain.entity import Entity
@@ -43,16 +43,16 @@ class InvitationDbRepository(UserInvitationRepository):
     def create_query(self) -> UserInvitationQuery:
         return UserInvitationDbQuery(self._database)
 
-    def get_all(
+    async def get_all(
         self,
         query: UserInvitationQuery,
         limit: int | None = None,
         offset: int | None = None,
-    ) -> Iterator[UserInvitationEntity]:
-        for row in query.fetch():
+    ) -> AsyncIterator[UserInvitationEntity]:
+        async for row in query.fetch(limit, offset):
             yield _create_entity(row)
 
-    def get_invitation_by_id(
+    async def get_invitation_by_id(
         self, id_: UserInvitationIdentifier
     ) -> UserInvitationEntity:
         """Get the user invitation with the given id.
@@ -70,15 +70,14 @@ class InvitationDbRepository(UserInvitationRepository):
         query = self.create_query()
         query.filter_by_id(id_)
 
-        row = query.fetch_one()
-        if row:
+        if row := await query.fetch_one():
             return _create_entity(row)
 
         raise UserInvitationNotFoundException(
             f"User invitation with {id} does not exist."
         )
 
-    def get_invitation_by_uuid(self, uuid: UniqueId) -> UserInvitationEntity:
+    async def get_invitation_by_uuid(self, uuid: UniqueId) -> UserInvitationEntity:
         """Get the invitation with the given unique id.
 
         Args:
@@ -94,29 +93,30 @@ class InvitationDbRepository(UserInvitationRepository):
         query = self.create_query()
         query.filter_by_uuid(uuid)
 
-        row = query.fetch_one()
-        if row:
+        if row := await query.fetch_one():
             return _create_entity(row)
 
         raise UserInvitationNotFoundException(
             f"User invitation with uuid {uuid} does not exist."
         )
 
-    def create(self, invitation: UserInvitationEntity) -> UserInvitationEntity:
-        new_id = self._database.insert(
+    async def create(self, invitation: UserInvitationEntity) -> UserInvitationEntity:
+        new_id = await self._database.insert(
             UserInvitationsTable.table_name, UserInvitationRow.persist(invitation)
         )
-        self._database.commit()
+        await self._database.commit()
         return Entity.replace(invitation, id_=UserInvitationIdentifier(new_id))
 
-    def update(self, invitation: UserInvitationEntity) -> None:
-        self._database.update(
+    async def update(self, invitation: UserInvitationEntity) -> None:
+        await self._database.update(
             invitation.id.value,
             UserInvitationsTable.table_name,
             UserInvitationRow.persist(invitation),
         )
-        self._database.commit()
+        await self._database.commit()
 
-    def delete(self, invitation: UserInvitationEntity) -> None:
-        self._database.delete(invitation.id.value, UserInvitationsTable.table_name)
-        self._database.commit()
+    async def delete(self, invitation: UserInvitationEntity) -> None:
+        await self._database.delete(
+            invitation.id.value, UserInvitationsTable.table_name
+        )
+        await self._database.commit()

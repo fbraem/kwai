@@ -42,7 +42,7 @@ class CreateUser:  # pylint: disable=too-few-public-methods
         """
         self._user_account_repo = user_account_repo
 
-    def execute(self, command: CreateUserCommand) -> UserAccountEntity:
+    async def execute(self, command: CreateUserCommand) -> UserAccountEntity:
         """Execute the use case.
 
         Args:
@@ -56,7 +56,7 @@ class CreateUser:  # pylint: disable=too-few-public-methods
                 user.
         """
         email = EmailAddress(command.email)
-        if self._user_account_repo.exists_with_email(email):
+        if await self._user_account_repo.exists_with_email(email):
             raise UnprocessableException(
                 f"A user with email {command.email} already exists."
             )
@@ -69,4 +69,4 @@ class CreateUser:  # pylint: disable=too-few-public-methods
             ),
             password=Password.create_from_string(command.password),
         )
-        return self._user_account_repo.create(user_account)
+        return await self._user_account_repo.create(user_account)

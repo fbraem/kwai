@@ -30,7 +30,6 @@ container[TemplateEngine] = lambda c: Jinja2Engine(
 def create_database(c: Container) -> Database:
     """Create the database dependency."""
     database = Database(c[Settings].db)
-    database.connect()
     return database
 
 

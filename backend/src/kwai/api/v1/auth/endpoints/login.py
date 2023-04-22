@@ -1,4 +1,5 @@
 """Module that implements all APIs for login."""
+
 import jwt
 from fastapi import APIRouter, Depends, Form, HTTPException, Response, status
 from fastapi.security import OAuth2PasswordRequestForm
@@ -71,7 +72,7 @@ router = APIRouter()
     response_model=TokenSchema,
     summary="Create access and refresh token for a user.",
 )
-def login(
+async def login(
     settings=deps.depends(Settings),
     db=deps.depends(Database),
     form_data: OAuth2PasswordRequestForm = Depends(),
@@ -96,7 +97,7 @@ def login(
     )
 
     try:
-        refresh_token = AuthenticateUser(
+        refresh_token = await AuthenticateUser(
             UserAccountDbRepository(db),
             AccessTokenDbRepository(db),
             RefreshTokenDbRepository(db),
@@ -118,7 +119,7 @@ def login(
 
 
 @router.post("/logout", summary="Logout the current user")
-def logout(
+async def logout(
     settings=deps.depends(Settings),
     db: Database = deps.depends(Database),
     user: UserEntity = Depends(get_current_user),  # pylint: disable=unused-argument
@@ -146,7 +147,7 @@ def logout(
     )
     command = LogoutCommand(identifier=decoded_refresh_token["jti"])
     try:
-        Logout(
+        await Logout(
             refresh_token_repository=RefreshTokenDbRepository(db),
             access_token_repository=AccessTokenDbRepository(db),
         ).execute(command)
@@ -161,7 +162,7 @@ def logout(
     response_model=TokenSchema,
     summary="Renew an access token using a refresh token.",
 )
-def renew_access_token(
+async def renew_access_token(
     settings=deps.depends(Settings),
     db=deps.depends(Database),
     refresh_token: str = Form(),
@@ -189,7 +190,7 @@ def renew_access_token(
     )
 
     try:
-        new_refresh_token = RefreshAccessToken(
+        new_refresh_token = await RefreshAccessToken(
             RefreshTokenDbRepository(db), AccessTokenDbRepository(db)
         ).execute(command)
     except AuthenticationException as exc:
@@ -237,7 +238,7 @@ async def recover_user(
     summary="Reset the password of a user.",
     status_code=status.HTTP_200_OK,
 )
-def reset_password(uuid=Form(), password=Form(), db=deps.depends(Database)):
+async def reset_password(uuid=Form(), password=Form(), db=deps.depends(Database)):
     """API to reset the password of the user.
 
     Args:
@@ -251,7 +252,7 @@ def reset_password(uuid=Form(), password=Form(), db=deps.depends(Database)):
     """
     command = ResetPasswordCommand(uuid=uuid, password=password)
     try:
-        ResetPassword(
+        await ResetPassword(
             user_account_repo=UserAccountDbRepository(db),
             user_recovery_repo=UserRecoveryDbRepository(db),
         ).execute(command)

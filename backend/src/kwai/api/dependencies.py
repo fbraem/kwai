@@ -21,7 +21,7 @@ deps = FastApiIntegration(container)
 oauth = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 
-def get_current_user(
+async def get_current_user(
     settings=deps.depends(Settings),
     db=deps.depends(Database),
     token: str = Depends(oauth),
@@ -38,7 +38,7 @@ def get_current_user(
     )
     access_token_repo = AccessTokenDbRepository(db)
     try:
-        access_token = access_token_repo.get_by_identifier(
+        access_token = await access_token_repo.get_by_identifier(
             TokenIdentifier(hex_string=payload["jti"])
         )
     except AccessTokenNotFoundException as exc:

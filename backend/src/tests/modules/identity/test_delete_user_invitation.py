@@ -26,15 +26,16 @@ def repo(database: Database) -> UserInvitationRepository:
     return InvitationDbRepository(database)
 
 
-def test_delete_invitation(
+@pytest.mark.asyncio
+async def test_delete_invitation(
     repo: UserInvitationRepository,
     create_user_invitation,
 ):
     """Test the use case: delete user invitation."""
-    user_invitation = create_user_invitation(False)
+    user_invitation = await create_user_invitation(False)
     command = DeleteUserInvitationCommand(uuid=str(user_invitation.uuid))
-    DeleteUserInvitation(repo).execute(command)
+    await DeleteUserInvitation(repo).execute(command)
 
     command = GetUserInvitationCommand(uuid=str(user_invitation.uuid))
     with pytest.raises(UserInvitationNotFoundException):
-        GetUserInvitation(repo).execute(command)
+        await GetUserInvitation(repo).execute(command)

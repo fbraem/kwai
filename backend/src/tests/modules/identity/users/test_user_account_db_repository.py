@@ -27,7 +27,7 @@ def repo(database: Database) -> UserAccountRepository:
 
 
 @pytest.fixture(scope="module")
-def user_account(repo: UserAccountRepository):
+async def user_account(repo: UserAccountRepository):
     """Fixture for creating a user account."""
     number = randint(1, 99)
     email = f"jigoro.kano{number:02d}@kwai.com"
@@ -38,7 +38,7 @@ def user_account(repo: UserAccountRepository):
             name=Name(first_name="Jigoro", last_name="Kano"),
         ),
     )
-    return repo.create(user_account)
+    return await repo.create(user_account)
 
 
 def test_create(user_account: UserAccountEntity):
@@ -46,31 +46,37 @@ def test_create(user_account: UserAccountEntity):
     assert user_account.id, "There should be a user account entity"
 
 
-def test_get_by_email(repo: UserAccountRepository, user_account: UserAccountEntity):
+@pytest.mark.asyncio
+async def test_get_by_email(
+    repo: UserAccountRepository, user_account: UserAccountEntity
+):
     """Test if the user account can be fetched with email address."""
-    result = repo.get_user_by_email(user_account.user.email)
+    result = await repo.get_user_by_email(user_account.user.email)
     assert result, "There should be a user account with the given email"
 
 
-def test_exists_with_email(
+@pytest.mark.asyncio
+async def test_exists_with_email(
     repo: UserAccountRepository, user_account: UserAccountEntity
 ):
     """Test if the user account exists with the given email address."""
-    exists = repo.exists_with_email(user_account.user.email)
+    exists = await repo.exists_with_email(user_account.user.email)
     assert exists, "There should be a user account with the given email"
 
 
-def test_update(repo: UserAccountRepository, user_account: UserAccountEntity):
+@pytest.mark.asyncio
+async def test_update(repo: UserAccountRepository, user_account: UserAccountEntity):
     """Test if the user account can be updated."""
     user_account.revoke()
-    repo.update(user_account)
-    result = repo.get_user_by_email(user_account.user.email)
+    await repo.update(user_account)
+    result = await repo.get_user_by_email(user_account.user.email)
     assert result.revoked is True, "The user should be revoked"
 
 
-def test_delete(repo: UserAccountRepository, user_account: UserAccountEntity):
+@pytest.mark.asyncio
+async def test_delete(repo: UserAccountRepository, user_account: UserAccountEntity):
     """Test if the user account can be deleted."""
-    repo.delete(user_account)
+    await repo.delete(user_account)
 
     with pytest.raises(UserAccountNotFoundException):
-        repo.get_user_by_email(user_account.user.email)
+        await repo.get_user_by_email(user_account.user.email)

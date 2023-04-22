@@ -54,7 +54,7 @@ class ResetPassword:
         self._user_account_repo = user_account_repo
         self._user_recovery_repo = user_recovery_repo
 
-    def execute(self, command: ResetPasswordCommand) -> None:
+    async def execute(self, command: ResetPasswordCommand) -> None:
         """Executes the use case.
 
         Args:
@@ -70,7 +70,7 @@ class ResetPassword:
                 that belongs to the user recovery, does not exist.
             NotAllowedException: Raised when the user is revoked.
         """
-        user_recovery = self._user_recovery_repo.get_by_uuid(
+        user_recovery = await self._user_recovery_repo.get_by_uuid(
             UniqueId.create_from_string(command.uuid)
         )
         if user_recovery.is_expired:
@@ -78,12 +78,12 @@ class ResetPassword:
         if user_recovery.confirmed:
             raise UserRecoveryConfirmedException()
 
-        user_account = self._user_account_repo.get_user_by_email(
+        user_account = await self._user_account_repo.get_user_by_email(
             user_recovery.user.email
         )
 
         user_account.reset_password(Password.create_from_string(command.password))
-        self._user_account_repo.update(user_account)
+        await self._user_account_repo.update(user_account)
 
         user_recovery.confirm()
-        self._user_recovery_repo.update(user_recovery)
+        await self._user_recovery_repo.update(user_recovery)

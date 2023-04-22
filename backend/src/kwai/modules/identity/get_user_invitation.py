@@ -34,7 +34,7 @@ class GetUserInvitation:
         """
         self._user_invitation_repo = user_invitation_repo
 
-    def execute(self, command: GetUserInvitationCommand) -> UserInvitationEntity:
+    async def execute(self, command: GetUserInvitationCommand) -> UserInvitationEntity:
         """Execute the use case.
 
         Args:
@@ -47,7 +47,7 @@ class GetUserInvitation:
             UserInvitationNotFoundException: Raised when then invitation is not found.
         """
 
-        entity = self._user_invitation_repo.get_invitation_by_uuid(
+        entity = await self._user_invitation_repo.get_invitation_by_uuid(
             UniqueId.create_from_string(command.uuid)
         )
         return entity

@@ -38,7 +38,7 @@ class Logout:  # pylint: disable=too-few-public-methods
         self._refresh_token_repository = refresh_token_repository
         self._access_token_repository = access_token_repository
 
-    def execute(self, command: LogoutCommand):
+    async def execute(self, command: LogoutCommand):
         """Execute the use case.
 
         Args:
@@ -49,10 +49,10 @@ class Logout:  # pylint: disable=too-few-public-methods
                 could not be found.
         """
 
-        refresh_token = self._refresh_token_repository.get_by_token_identifier(
+        refresh_token = await self._refresh_token_repository.get_by_token_identifier(
             TokenIdentifier(hex_string=command.identifier)
         )
         refresh_token.revoke()
 
-        self._refresh_token_repository.update(refresh_token)
-        self._access_token_repository.update(refresh_token.access_token)
+        await self._refresh_token_repository.update(refresh_token)
+        await self._access_token_repository.update(refresh_token.access_token)

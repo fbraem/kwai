@@ -9,11 +9,11 @@ class UserAccountRepository:
     """Interface for a user account repository."""
 
     @abstractmethod
-    def get_user_by_email(self, email: EmailAddress) -> UserAccountEntity:
+    async def get_user_by_email(self, email: EmailAddress) -> UserAccountEntity:
         """Get a user account with the given email address."""
         raise NotImplementedError
 
-    def exists_with_email(self, email: EmailAddress) -> bool:
+    async def exists_with_email(self, email: EmailAddress) -> bool:
         """Check if a user account with the given email address already exists.
 
         Args:
@@ -25,17 +25,17 @@ class UserAccountRepository:
         raise NotImplementedError
 
     @abstractmethod
-    def create(self, user_account: UserAccountEntity) -> UserAccountEntity:
+    async def create(self, user_account: UserAccountEntity) -> UserAccountEntity:
         """Save a new user account."""
         raise NotImplementedError
 
     @abstractmethod
-    def update(self, user_account: UserAccountEntity):
+    async def update(self, user_account: UserAccountEntity):
         """Save a user account."""
         raise NotImplementedError
 
     @abstractmethod
-    def delete(self, user_account):
+    async def delete(self, user_account):
         """Delete a user account."""
         raise NotImplementedError
 

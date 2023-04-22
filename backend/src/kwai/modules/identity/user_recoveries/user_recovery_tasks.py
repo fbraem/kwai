@@ -24,7 +24,7 @@ from kwai.modules.identity.user_recoveries.user_recovery_repository import (
 )
 
 
-def email_user_recovery_task(event: dict[str, Any]):
+async def email_user_recovery_task(event: dict[str, Any]):
     """Actor for sending a user recovery mail."""
     logger.info(f"Trying to handle event {event['meta']['name']}")
 
@@ -35,7 +35,7 @@ def email_user_recovery_task(event: dict[str, Any]):
     command = MailUserRecoveryCommand(uuid=event["data"]["uuid"])
 
     try:
-        MailUserRecovery(
+        await MailUserRecovery(
             UserRecoveryDbRepository(database),
             mailer,
             Recipients(

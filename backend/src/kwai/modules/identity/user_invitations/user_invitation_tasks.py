@@ -24,7 +24,7 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
 )
 
 
-def email_user_invitation_task(event: dict[str, Any]):
+async def email_user_invitation_task(event: dict[str, Any]):
     """Task for sending the user invitation email."""
     logger.info(f"Trying to handle event {event['meta']['name']}.")
 
@@ -35,7 +35,7 @@ def email_user_invitation_task(event: dict[str, Any]):
     command = MailUserInvitationCommand(uuid=event["data"]["uuid"])
 
     try:
-        MailUserInvitation(
+        await MailUserInvitation(
             InvitationDbRepository(database),
             mailer,
             Recipients(

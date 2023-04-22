@@ -1,6 +1,6 @@
 """Module for sharing fixtures in this module."""
 import asyncio
-from typing import Iterator
+from typing import Iterator, AsyncIterator
 
 import pytest
 from redis.asyncio import Redis
@@ -35,11 +35,11 @@ def event_loop():
 
 
 @pytest.fixture(scope="module")
-def database():
-    """Fixture for getting a connected database."""
-    database = Database(get_settings().db)  # pylint: disable=redefined-outer-name
-    database.connect()
-    return database
+async def database():
+    """Fixture for getting a database."""
+    db = Database(get_settings().db)
+    yield db
+    await db.close()
 
 
 @pytest.fixture(scope="session")
@@ -97,7 +97,7 @@ def template_engine() -> TemplateEngine:
 
 
 @pytest.fixture(scope="module")
-def user_account(database: Database) -> Iterator[UserAccountEntity]:
+async def user_account(database: Database) -> AsyncIterator[UserAccountEntity]:
     """Fixture that provides a user account in the database.
 
     The user will be removed again after running the tests.
@@ -111,9 +111,9 @@ def user_account(database: Database) -> Iterator[UserAccountEntity]:
     )
     repo = UserAccountDbRepository(database)
     # pylint: disable=unused-argument
-    user_account = repo.create(user_account)
+    user_account = await repo.create(user_account)
     yield user_account
-    repo.delete(user_account)
+    await repo.delete(user_account)
 
 
 @pytest.fixture(scope="module")
