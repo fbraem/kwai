@@ -41,6 +41,7 @@ class Database:
             ) from exc
 
     async def check_connection(self):
+        """Check if the connection is set, if not it will try to connect."""
         if self._connection is None:
             await self.setup()
 
