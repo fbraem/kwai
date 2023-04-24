@@ -17,7 +17,7 @@ class Query:
         raise NotImplementedError
 
     @abstractmethod
-    async def fetch(
+    def fetch(
         self, limit: int | None = None, offset: int | None = None
     ) -> AsyncIterator[dict[str, Any]]:
         """Fetch all rows.
