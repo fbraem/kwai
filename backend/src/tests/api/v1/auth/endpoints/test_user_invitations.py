@@ -7,7 +7,7 @@ from fastapi.testclient import TestClient
 
 from kwai.core.db.database import Database
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
-    InvitationDbRepository,
+    UserInvitationDbRepository,
 )
 from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationRepository,
@@ -19,7 +19,7 @@ pytestmark = pytest.mark.integration
 @pytest.fixture(scope="module")
 def repo(database: Database) -> UserInvitationRepository:
     """Fixture for creating the invitation repository."""
-    return InvitationDbRepository(database)
+    return UserInvitationDbRepository(database)
 
 
 @pytest.fixture(scope="module")

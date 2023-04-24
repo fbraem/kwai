@@ -27,7 +27,7 @@ from kwai.modules.identity.get_user_invitation import (
 from kwai.modules.identity.invite_user import InviteUserCommand, InviteUser
 from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
-    InvitationDbRepository,
+    UserInvitationDbRepository,
 )
 from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationNotFoundException,
@@ -81,7 +81,7 @@ async def create_user_invitation(
 
     try:
         invitation = await InviteUser(
-            user, UserDbRepository(db), InvitationDbRepository(db), bus
+            user, UserDbRepository(db), UserInvitationDbRepository(db), bus
         ).execute(command)
     except InvalidEmailException as exc:
         raise HTTPException(
@@ -111,7 +111,7 @@ async def delete_user_invitation(
     """Delete the user invitation with the given unique id."""
     command = DeleteUserInvitationCommand(uuid=uuid)
     try:
-        await DeleteUserInvitation(InvitationDbRepository(db)).execute(command)
+        await DeleteUserInvitation(UserInvitationDbRepository(db)).execute(command)
     except UserInvitationNotFoundException as ex:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
@@ -130,7 +130,7 @@ async def get_user_invitations(
 ) -> UserInvitationsDocument:
     """Get all user invitations."""
     command = GetInvitationsCommand(offset=pagination.offset, limit=pagination.limit)
-    count, invitations = await GetInvitations(InvitationDbRepository(db)).execute(
+    count, invitations = await GetInvitations(UserInvitationDbRepository(db)).execute(
         command
     )
 
@@ -156,7 +156,7 @@ async def get_user_invitation(
     """Get the user invitation with the given unique id."""
     command = GetUserInvitationCommand(uuid=uuid)
     try:
-        invitation = await GetUserInvitation(InvitationDbRepository(db)).execute(
+        invitation = await GetUserInvitation(UserInvitationDbRepository(db)).execute(
             command
         )
     except UserInvitationNotFoundException as ex:

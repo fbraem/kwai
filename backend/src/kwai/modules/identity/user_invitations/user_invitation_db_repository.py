@@ -30,7 +30,7 @@ def _create_entity(row) -> UserInvitationEntity:
     return UserInvitationsTable(row).create_entity(UsersTable(row).create_entity())
 
 
-class InvitationDbRepository(UserInvitationRepository):
+class UserInvitationDbRepository(UserInvitationRepository):
     """A user invitation repository for a database.
 
     Attributes:

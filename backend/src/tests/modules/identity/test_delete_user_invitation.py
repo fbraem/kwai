@@ -12,7 +12,7 @@ from kwai.modules.identity.get_user_invitation import (
     GetUserInvitation,
 )
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
-    InvitationDbRepository,
+    UserInvitationDbRepository,
 )
 from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationRepository,
@@ -23,7 +23,7 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
 @pytest.fixture(scope="module")
 def repo(database: Database) -> UserInvitationRepository:
     """Fixture for creating the invitation repository."""
-    return InvitationDbRepository(database)
+    return UserInvitationDbRepository(database)
 
 
 @pytest.mark.asyncio

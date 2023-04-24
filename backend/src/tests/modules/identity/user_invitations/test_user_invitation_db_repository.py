@@ -7,7 +7,7 @@ from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.name import Name
 from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
-    InvitationDbRepository,
+    UserInvitationDbRepository,
 )
 from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationRepository,
@@ -23,7 +23,7 @@ pytestmark = pytest.mark.integration
 @pytest.fixture(scope="module")
 def repo(database: Database) -> UserInvitationRepository:
     """Fixture for creating the invitation repository."""
-    return InvitationDbRepository(database)
+    return UserInvitationDbRepository(database)
 
 
 @pytest.fixture(scope="module")

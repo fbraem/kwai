@@ -6,7 +6,7 @@ from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.events.bus import Bus
 from kwai.modules.identity.invite_user import InviteUserCommand, InviteUser
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
-    InvitationDbRepository,
+    UserInvitationDbRepository,
 )
 from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationRepository,
@@ -21,7 +21,7 @@ pytestmark = pytest.mark.integration
 @pytest.fixture(scope="module")
 def repo(database: Database) -> UserInvitationRepository:
     """Create a user invitation repository."""
-    return InvitationDbRepository(database)
+    return UserInvitationDbRepository(database)
 
 
 @pytest.mark.asyncio

@@ -17,7 +17,7 @@ from kwai.modules.identity.mail_user_invitation import (
     MailUserInvitation,
 )
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
-    InvitationDbRepository,
+    UserInvitationDbRepository,
 )
 from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationNotFoundException,
@@ -36,7 +36,7 @@ async def email_user_invitation_task(event: dict[str, Any]):
 
     try:
         await MailUserInvitation(
-            InvitationDbRepository(database),
+            UserInvitationDbRepository(database),
             mailer,
             Recipients(
                 from_=Recipient(

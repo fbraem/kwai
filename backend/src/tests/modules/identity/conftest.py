@@ -9,7 +9,7 @@ from kwai.core.template.mail_template import MailTemplate
 from kwai.core.template.template_engine import TemplateEngine
 from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
-    InvitationDbRepository,
+    UserInvitationDbRepository,
 )
 from kwai.modules.identity.users.user import UserEntity
 
@@ -38,7 +38,7 @@ def create_user_invitation(request, database: Database, user: UserEntity):
 
     async def create(delete=True) -> UserInvitationEntity:
         """Create the user invitation and if requested, delete it after testing."""
-        repo = InvitationDbRepository(database)
+        repo = UserInvitationDbRepository(database)
         invitation = await repo.create(
             UserInvitationEntity(
                 email=EmailAddress("ichiro.abe@kwai.com"),

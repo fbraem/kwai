@@ -11,7 +11,7 @@ from kwai.modules.identity.mail_user_invitation import (
     MailUserInvitation,
 )
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
-    InvitationDbRepository,
+    UserInvitationDbRepository,
 )
 from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationRepository,
@@ -21,7 +21,7 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
 @pytest.fixture(scope="module")
 def repo(database: Database) -> UserInvitationRepository:
     """Create a user invitation repository."""
-    return InvitationDbRepository(database)
+    return UserInvitationDbRepository(database)
 
 
 @pytest.mark.asyncio
