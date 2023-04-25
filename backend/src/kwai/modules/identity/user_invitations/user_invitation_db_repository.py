@@ -55,18 +55,6 @@ class UserInvitationDbRepository(UserInvitationRepository):
     async def get_invitation_by_id(
         self, id_: UserInvitationIdentifier
     ) -> UserInvitationEntity:
-        """Get the user invitation with the given id.
-
-        Args:
-            id_(UserInvitationIdentifier): The id of a user invitation.
-
-        Returns:
-            (UserInvitation): The user invitation with the given id.
-
-        Raises:
-            (UserInvitationNotFoundException): when the user invitation with the given
-                id does not exist.
-        """
         query = self.create_query()
         query.filter_by_id(id_)
 
@@ -78,18 +66,6 @@ class UserInvitationDbRepository(UserInvitationRepository):
         )
 
     async def get_invitation_by_uuid(self, uuid: UniqueId) -> UserInvitationEntity:
-        """Get the invitation with the given unique id.
-
-        Args:
-            uuid(UniqueId): The unique id of a user invitation.
-
-        Returns:
-            (UserInvitation): The user invitation with the given unique id.
-
-        Raises:
-            (UserInvitationNotFoundException): when the user invitation with the given
-                unique id does not exist.
-        """
         query = self.create_query()
         query.filter_by_uuid(uuid)
 
