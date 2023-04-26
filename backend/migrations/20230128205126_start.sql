@@ -77,4 +77,20 @@ alter table user_invitations add (
     mailed_at           datetime                             null
 );
 
+create table if not exists applications
+(
+  id                    int unsigned auto_increment          primary key,
+  title                 varchar(255)                         not null,
+  description           text                                 null,
+  remark                text                                 null,
+  created_at            datetime default CURRENT_TIMESTAMP   not null,
+  updated_at            datetime                             null,
+  short_description     varchar(255)                         not null,
+  name                  varchar(255)                         not null,
+  news                  tinyint(1) default 1                 not null,
+  pages                 tinyint(1) default 1                 not null,
+  events                tinyint(1) default 1                 not null,
+  weight                int default 0                        not null
+)
+
 -- migrate:down
