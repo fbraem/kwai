@@ -10,7 +10,7 @@ create table if not exists users (
     uuid                    varchar(255)                         not null,
     created_at              datetime   default CURRENT_TIMESTAMP not null,
     updated_at              datetime                             null,
-    member_id               int                                  null,
+    member_id               int                                  null
 ) charset = utf8mb3;
 
 alter table users add (
