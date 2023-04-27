@@ -56,10 +56,12 @@ class ApplicationDbRepository(ApplicationRepository):
 
     async def get_all(
         self,
-        query: ApplicationQuery,
+        query: ApplicationQuery | None = None,
         limit: int | None = None,
         offset: int | None = None,
     ) -> AsyncIterator[ApplicationEntity]:
+        if query is None:
+            query = self.create_query()
         async for row in query.fetch(limit, offset):
             yield _create_entity(row)
 

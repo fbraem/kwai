@@ -55,7 +55,7 @@ class ApplicationRepository(ABC):
     @abstractmethod
     async def get_all(
         self,
-        query: ApplicationQuery,
+        query: ApplicationQuery | None = None,
         limit: int | None = None,
         offset: int | None = None,
     ) -> AsyncIterator[ApplicationEntity]:
