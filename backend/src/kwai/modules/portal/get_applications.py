@@ -1,6 +1,8 @@
 """Module that defines the use case: get all applications for a portal."""
 from dataclasses import dataclass
 
+# pylint: disable=too-few-public-methods
+
 
 @dataclass(kw_only=True, frozen=True, slots=True)
 class GetApplicationsCommand:

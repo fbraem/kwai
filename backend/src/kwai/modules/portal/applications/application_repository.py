@@ -17,6 +17,11 @@ class ApplicationRepository(ABC):
     """An application repository interface."""
 
     @abstractmethod
+    def create_query(self) -> ApplicationQuery:
+        """Create a query for querying applications."""
+        raise NotImplementedError
+
+    @abstractmethod
     async def get_by_id(self, id_: ApplicationIdentifier) -> ApplicationEntity:
         """Get the application with the given id.
 

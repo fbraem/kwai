@@ -11,6 +11,9 @@ from kwai.modules.portal.applications.application import (
 )
 
 
+# pylint: disable=too-many-instance-attributes
+
+
 @dataclass(kw_only=True, frozen=True, slots=True)
 class ApplicationRow:
     """Represent a table row of the applications table.
@@ -44,6 +47,11 @@ class ApplicationRow:
     updated_at: datetime | None
 
     def create_entity(self) -> ApplicationEntity:
+        """Create an application entity from a table row.
+
+        Returns:
+            An application entity.
+        """
         return ApplicationEntity(
             id_=ApplicationIdentifier(self.id),
             title=self.title,
@@ -63,6 +71,14 @@ class ApplicationRow:
 
     @classmethod
     def persist(cls, application: ApplicationEntity) -> "ApplicationRow":
+        """Persist an application entity.
+
+        Args:
+            application: the entity to persist.
+
+        Returns:
+            A dataclass containing the table row data.
+        """
         return ApplicationRow(
             id=application.id.value,
             title=application.title,
