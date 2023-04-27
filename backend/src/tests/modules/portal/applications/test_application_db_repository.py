@@ -10,6 +10,8 @@ from kwai.modules.portal.applications.application_repository import (
     ApplicationNotFoundException,
 )
 
+pytestmark = pytest.mark.integration
+
 
 @pytest.fixture(scope="module")
 def repo(database: Database) -> ApplicationRepository:
