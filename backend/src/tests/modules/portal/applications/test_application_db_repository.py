@@ -48,6 +48,48 @@ async def test_get_by_name(repo: ApplicationRepository, application: Application
 
 
 @pytest.mark.asyncio
+async def test_query_for_news(
+    repo: ApplicationRepository, application: ApplicationEntity
+):
+    """Test if application can be found that can contain news."""
+    query = repo.create_query()
+    query.filter_only_news()
+    entities = [entity async for entity in repo.get_all(query)]
+    assert len(entities) > 0, "There should be an application"
+    assert (
+        entities[0].id == application.id
+    ), "The application should be found using the name"
+
+
+@pytest.mark.asyncio
+async def test_query_for_pages(
+    repo: ApplicationRepository, application: ApplicationEntity
+):
+    """Test if application can be found that can contain pages."""
+    query = repo.create_query()
+    query.filter_only_pages()
+    entities = [entity async for entity in repo.get_all(query)]
+    assert len(entities) > 0, "There should be an application"
+    assert (
+        entities[0].id == application.id
+    ), "The application should be found using the name"
+
+
+@pytest.mark.asyncio
+async def test_query_for_events(
+    repo: ApplicationRepository, application: ApplicationEntity
+):
+    """Test if application can be found that can contain events."""
+    query = repo.create_query()
+    query.filter_only_events()
+    entities = [entity async for entity in repo.get_all(query)]
+    assert len(entities) > 0, "There should be an application"
+    assert (
+        entities[0].id == application.id
+    ), "The application should be found using the name"
+
+
+@pytest.mark.asyncio
 async def test_delete(repo: ApplicationRepository, application: ApplicationEntity):
     """Test if the application can be deleted."""
     await repo.delete(application)

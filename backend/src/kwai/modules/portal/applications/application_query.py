@@ -25,3 +25,18 @@ class ApplicationQuery(Query, ABC):
             name: the name of an application.
         """
         raise NotImplementedError
+
+    @abstractmethod
+    def filter_only_news(self) -> "ApplicationQuery":
+        """Only return applications which can contain news."""
+        raise NotImplementedError
+
+    @abstractmethod
+    def filter_only_pages(self) -> "ApplicationQuery":
+        """Only return applications which can contain pages."""
+        raise NotImplementedError
+
+    @abstractmethod
+    def filter_only_events(self) -> "ApplicationQuery":
+        """Only return applications which can contain events."""
+        raise NotImplementedError

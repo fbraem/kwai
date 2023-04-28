@@ -22,3 +22,15 @@ class ApplicationDbQuery(ApplicationQuery, DatabaseQuery):
     def filter_by_name(self, name: str) -> "ApplicationQuery":
         self._query.and_where(ApplicationsTable.field("name").eq(name))
         return self
+
+    def filter_only_news(self) -> "ApplicationQuery":
+        self._query.and_where(ApplicationsTable.field("news").eq(True))
+        return self
+
+    def filter_only_pages(self) -> "ApplicationQuery":
+        self._query.and_where(ApplicationsTable.field("pages").eq(True))
+        return self
+
+    def filter_only_events(self) -> "ApplicationQuery":
+        self._query.and_where(ApplicationsTable.field("events").eq(True))
+        return self
