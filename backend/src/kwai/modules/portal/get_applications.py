@@ -12,7 +12,7 @@ from kwai.modules.portal.applications.application_repository import (
 @dataclass(kw_only=True, frozen=True, slots=True)
 class GetApplicationsCommand:
     """Input for the use case
-    [GetApplications][kwai.modules.portal.get_applications.GetApplication]
+    [GetApplications][kwai.modules.portal.get_applications.GetApplications]
 
     Attributes:
         name: Only return the application with the given name
