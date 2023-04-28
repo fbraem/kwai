@@ -45,4 +45,11 @@ class GetApplications:
             command: The input for this use case.
         """
         query = self._application_repo.create_query()
+        if command.events:
+            query.filter_only_events()
+        if command.news:
+            query.filter_only_news()
+        if command.pages:
+            query.filter_only_pages()
+
         return await query.count(), self._application_repo.get_all(query)
