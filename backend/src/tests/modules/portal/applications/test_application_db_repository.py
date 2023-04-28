@@ -1,3 +1,4 @@
+"""Module that defines tests for application database repository."""
 import pytest
 
 from kwai.core.db.database import Database
