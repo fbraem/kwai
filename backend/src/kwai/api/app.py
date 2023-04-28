@@ -30,12 +30,12 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             sys.exit(0)
 
     def startup():
-        logger.info("KWAI is starting")
+        logger.info("kwai is starting")
 
     def shutdown():
-        logger.warning("KWAI has ended!")
+        logger.warning("kwai has ended!")
 
-    app = FastAPI(on_startup=[startup], on_shutdown=[shutdown])
+    app = FastAPI(title="kwai", on_startup=[startup], on_shutdown=[shutdown])
 
     # Setup CORS
     if settings.cors:
