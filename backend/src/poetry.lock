@@ -2240,14 +2240,14 @@ files = [
 
 [[package]]
 name = "sql-smith"
-version = "1.0.1"
+version = "1.1.0"
 description = "sql-smith is an SQL query builder with zero dependencies and a fluent interface."
 category = "main"
 optional = false
-python-versions = "*"
+python-versions = ">=3.10,<4.0"
 files = [
-    {file = "sql-smith-1.0.1.tar.gz", hash = "sha256:54f80c0f8db1cd4477acffd8c60e57bc782888fd22c9cbe8dcf9506ee628750c"},
-    {file = "sql_smith-1.0.1-py3-none-any.whl", hash = "sha256:cbf7880cbde1a56baf5a75d920c12992bdebc16614a9c9aabc8aee2258251422"},
+    {file = "sql_smith-1.1.0-py3-none-any.whl", hash = "sha256:82748edc2bbed45139a18de6d8c318830afd28c90e3377ca84f809b270f2cc1c"},
+    {file = "sql_smith-1.1.0.tar.gz", hash = "sha256:7b20e994fccb663eab700585c85dc4de0a3a8c170e123852a3f920331527da6c"},
 ]
 
 [[package]]
