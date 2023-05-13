@@ -1,5 +1,6 @@
 """db contains subcommands for the database."""
 import os
+from asyncio import run
 
 import typer
 from rich import print  # pylint: disable=redefined-builtin
@@ -48,11 +49,20 @@ def show(password: bool = typer.Option(False, help="Show the password")):
 @app.command(help="Test the database connection.")
 def test():
     """Command for testing the database connection."""
-    try:
-        container[Database]
-    except Exception as ex:
-        print("[bold red]Failed! [/bold red] Could not connect to the database!")
-        print(ex)
-        raise typer.Exit(code=1)
 
-    print("[bold green]Success! [/bold green] Connection to the database established!")
+    async def _main():
+        """Closure for handling the async code."""
+        try:
+            database = container[Database]
+            await database.check_connection()
+            await database.close()
+        except Exception as ex:
+            print("[bold red]Failed! [/bold red] Could not connect to the database!")
+            print(ex)
+            raise typer.Exit(code=1)
+
+        print(
+            "[bold green]Success! [/bold green] Connection to the database established!"
+        )
+
+    run(_main())

@@ -4,6 +4,7 @@ Note:
     Make sure the environment variable KWAI_SETTINGS_FILE is set!
 """
 import os
+from asyncio import run
 
 import typer
 from rich import print  # pylint: disable=redefined-builtin
@@ -57,19 +58,27 @@ def create(
         last_name: The lastname of the new user
         password: The password of the new user
     """
-    command = CreateUserCommand(
-        email=email,
-        first_name=first_name,
-        last_name=last_name,
-        password=password,
-        remark="This user was created using the CLI",
-    )
-    try:
-        CreateUser(UserAccountDbRepository(container[Database])).execute(command)
-        print(
-            f"[bold green]Success![/bold green] User created with email address {email}"
+
+    async def _main():
+        """Closure for handling the async code."""
+
+        command = CreateUserCommand(
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            password=password,
+            remark="This user was created using the CLI",
         )
-    except UnprocessableException as ex:
-        print("[bold red]Failed![/bold red] User could not created:")
-        print(ex)
-        raise typer.Exit(code=1)
+        try:
+            await CreateUser(UserAccountDbRepository(container[Database])).execute(
+                command
+            )
+            print(
+                f"[bold green]Success![/bold green] User created with email address {email}"
+            )
+        except UnprocessableException as ex:
+            print("[bold red]Failed![/bold red] User could not created:")
+            print(ex)
+            raise typer.Exit(code=1)
+
+    run(_main())
