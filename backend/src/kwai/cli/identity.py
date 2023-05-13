@@ -74,7 +74,8 @@ def create(
                 command
             )
             print(
-                f"[bold green]Success![/bold green] User created with email address {email}"
+                f"[bold green]Success![/bold green] "
+                f"User created with email address {email}"
             )
         except UnprocessableException as ex:
             print("[bold red]Failed![/bold red] User could not created:")
