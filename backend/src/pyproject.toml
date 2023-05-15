@@ -9,7 +9,7 @@ python = "^3.10"
 fastapi = "^0.93.0"
 uvicorn = {extras = ["standard"], version = "^0.20.0"}
 mysql-connector-python = "^8.0.31"
-sql-smith = "^1.1.0"
+sql-smith = "^1.1.1"
 pyisemail = "^2.0.1"
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 python-multipart = "^0.0.6"
