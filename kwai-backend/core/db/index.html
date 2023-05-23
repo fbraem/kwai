@@ -695,6 +695,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#kwai.core.db.table.Table.alias_name" class="md-nav__link">
+    alias_name()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#kwai.core.db.table.Table.aliases" class="md-nav__link">
     aliases()
   </a>
@@ -1663,8 +1670,8 @@ as key and the column values as value.</p></td>
 <code class="codehilite language-python"><span class="n">columns</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
       <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 <a href="#kwai.core.db.database_query.DatabaseQuery.columns" class="headerlink" title="Permanent link">&para;</a></h4>
@@ -2030,6 +2037,78 @@ be used to generate columns or aliases for queries.</p>
   <div class="doc doc-contents ">
   
       <p>Shortcut for map_row.</p>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="kwai.core.db.table.Table.alias_name" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">alias_name</span><span class="p">(</span><span class="n">column_name</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#kwai.core.db.table.Table.alias_name" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return an alias for a column.</p>
+<p>The alias will be the name of the table delimited with an
+underscore: <table_name>_<column_name>.
+By default, the table name associated with the Table instance will be used.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>column_name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the column</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>table_name</code></td>
+          <td>
+                <code>str | None</code>
+          </td>
+          <td><p>To differ from the current table name, use this table name.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>The alias for the given column.</p></td>
+        </tr>
+    </tbody>
+  </table>
 
   </div>
 
