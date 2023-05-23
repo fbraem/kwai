@@ -1,7 +1,7 @@
 """Module for the table decorator."""
 
 from dataclasses import fields, is_dataclass
-from typing import Any, TypeVar, Generic, Callable
+from typing import Any, Callable, Generic, TypeVar
 
 from sql_smith.functions import alias
 from sql_smith.functions import field as sql_field
@@ -30,11 +30,28 @@ class Table(Generic[T]):
         """Shortcut for map_row."""
         return self.map_row(row)
 
+    def alias_name(self, column_name: str, table_name: str | None = None):
+        """Return an alias for a column.
+
+        The alias will be the name of the table delimited with an
+        underscore: <table_name>_<column_name>.
+        By default, the table name associated with the Table instance will be used.
+
+        Args:
+            column_name: The name of the column
+            table_name: To differ from the current table name, use this table name.
+
+        Returns:
+            The alias for the given column.
+        """
+        table_name = table_name or self._table_name
+        return table_name + "_" + column_name
+
     def aliases(self, table_name: str | None = None):
         """Return aliases for all fields of the dataclass."""
         table_name = table_name or self._table_name
         return [
-            alias(table_name + "." + prop.name, table_name + "_" + prop.name)
+            alias(table_name + "." + prop.name, self.alias_name(prop.name, table_name))
             for prop in fields(self._data_class)
         ]
 
