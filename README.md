@@ -8,8 +8,6 @@ this philosophy.
 
 ## Frontend
 The frontend consists of several single page applications. [Vue](https://vuejs.org) is used as JavaScript framework. 
-Currently, the source code is still located in a separate repository: [kwai-vite](https://github.com/fbraem/kwai-vite). 
-Eventually the code will be moved to this repository.
 
 ## Backend
 Unlike the [other version](https://github.com/fbraem/kwai-api) which is written in PHP, this backend is written in 
