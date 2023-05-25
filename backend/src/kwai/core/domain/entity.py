@@ -42,7 +42,7 @@ class Entity(Generic[T]):
 
         Note:
             To make it clear that the attributes of an entity are private, they are
-            prefixed with a underscore. The name of the keyword argument does not
+            prefixed with an underscore. The name of the keyword argument does not
             contain this underscore. This method will try to find the attribute first
             without underscore. When no attribute exists with that name, it will try
             to find it with an underscore.
