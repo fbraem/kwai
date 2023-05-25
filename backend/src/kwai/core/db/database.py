@@ -158,29 +158,34 @@ class Database:
         except Exception as exc:
             raise QueryException(compiled_query.sql) from exc
 
-    async def insert(self, table_name: str, table_data: Any) -> int:
-        """Insert a dataclass into the given table.
+    async def insert(self, table_name: str, *table_data: Any) -> int:
+        """Insert one or more instances of a dataclass into the given table.
 
         Args:
             table_name (str): The name of the table
-            table_data (Any): A dataclass containing the values
+            table_data (Any): One or more instances of a dataclass containing the values
 
         Returns:
-            (int): The last inserted id
+            (int): The last inserted id. When multiple inserts are performed, this will
+                be the id of the last executed insert.
 
         Raises:
             (QueryException): Raised when the query contains an error.
         """
-        assert dataclasses.is_dataclass(table_data), "table_data should be a dataclass"
+        assert dataclasses.is_dataclass(
+            table_data[0]
+        ), "table_data should be a dataclass"
 
-        record = dataclasses.asdict(table_data)
+        record = dataclasses.asdict(table_data[0])
         del record["id"]
-        query = (
-            self.create_query_factory()
-            .insert(table_name)
-            .columns(*record.keys())
-            .values(*record.values())
-        )
+        query = self.create_query_factory().insert(table_name).columns(*record.keys())
+
+        for data in table_data:
+            assert dataclasses.is_dataclass(data), "table_data should be a dataclass"
+            record = dataclasses.asdict(data)
+            del record["id"]
+            query = query.values(*record.values())
+
         last_insert_id = await self.execute(query)
         return last_insert_id
 
