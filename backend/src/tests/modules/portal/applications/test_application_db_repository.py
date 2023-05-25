@@ -2,6 +2,7 @@
 import pytest
 
 from kwai.core.db.database import Database
+from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,
@@ -12,6 +13,14 @@ from kwai.modules.portal.applications.application_repository import (
 )
 
 pytestmark = pytest.mark.integration
+
+
+def find(entity_list: list, id_: IntIdentifier):
+    """Search for an entity with the given id."""
+    for entity in entity_list:
+        if entity.id == id_:
+            return entity
+    return None
 
 
 @pytest.fixture(scope="module")
@@ -57,9 +66,9 @@ async def test_query_for_news(
     query.filter_only_news()
     entities = [entity async for entity in repo.get_all(query)]
     assert len(entities) > 0, "There should be an application"
-    assert (
-        entities[0].id == application.id
-    ), "The application should be found using the name"
+
+    entity = find(entities, application.id)
+    assert entity is not None, "The application should be found when looking for news"
 
 
 @pytest.mark.asyncio
@@ -71,9 +80,9 @@ async def test_query_for_pages(
     query.filter_only_pages()
     entities = [entity async for entity in repo.get_all(query)]
     assert len(entities) > 0, "There should be an application"
-    assert (
-        entities[0].id == application.id
-    ), "The application should be found using the name"
+
+    entity = find(entities, application.id)
+    assert entity is not None, "The application should be found when looking for pages"
 
 
 @pytest.mark.asyncio
@@ -85,9 +94,9 @@ async def test_query_for_events(
     query.filter_only_events()
     entities = [entity async for entity in repo.get_all(query)]
     assert len(entities) > 0, "There should be an application"
-    assert (
-        entities[0].id == application.id
-    ), "The application should be found using the name"
+
+    entity = find(entities, application.id)
+    assert entity is not None, "The application should be found when looking for events"
 
 
 @pytest.mark.asyncio
