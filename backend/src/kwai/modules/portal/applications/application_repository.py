@@ -94,6 +94,6 @@ class ApplicationRepository(ABC):
         """Delete an application entity.
 
         Args:
-            application: The appliation to delete.
+            application: The application to delete.
         """
         raise NotImplementedError
