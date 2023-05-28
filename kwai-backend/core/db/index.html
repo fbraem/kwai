@@ -1355,7 +1355,7 @@ as key and the column values as value.</p></td>
 
 
 <h4 id="kwai.core.db.database.Database.insert" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">insert</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">table_data</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">insert</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="o">*</span><span class="n">table_data</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -1366,7 +1366,7 @@ as key and the column values as value.</p></td>
 
   <div class="doc doc-contents ">
   
-      <p>Insert a dataclass into the given table.</p>
+      <p>Insert one or more instances of a dataclass into the given table.</p>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1394,9 +1394,9 @@ as key and the column values as value.</p></td>
           <td>
                 <code><span title="typing.Any">Any</span></code>
           </td>
-          <td><p>A dataclass containing the values</p></td>
+          <td><p>One or more instances of a dataclass containing the values</p></td>
           <td>
-              <em>required</em>
+                <code>()</code>
           </td>
         </tr>
     </tbody>
@@ -1415,7 +1415,8 @@ as key and the column values as value.</p></td>
           <td>
                 <code>int</code>
           </td>
-          <td><p>The last inserted id</p></td>
+          <td><p>The last inserted id. When multiple inserts are performed, this will
+be the id of the last executed insert.</p></td>
         </tr>
     </tbody>
   </table>
