@@ -7,6 +7,7 @@ from kwai.modules.news.stories.story_db_query import StoryDbQuery
 
 @pytest.mark.asyncio
 async def test_story_db_query(database: Database):
+    """Test the query."""
     query = StoryDbQuery(database)
     query.filter_by_active()
     count = await query.count()
