@@ -19,6 +19,9 @@ class Identifier(ABC, Generic[T]):
     def __eq__(self, other: "Identifier"):
         return self._id == other._id
 
+    def __hash__(self):
+        return hash(self._id)
+
     @abstractmethod
     def is_empty(self) -> bool:
         """Return true when the identifier is not set."""
