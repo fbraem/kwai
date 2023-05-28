@@ -177,13 +177,15 @@ class Database:
         ), "table_data should be a dataclass"
 
         record = dataclasses.asdict(table_data[0])
-        del record["id"]
+        if "id" in record:
+            del record["id"]
         query = self.create_query_factory().insert(table_name).columns(*record.keys())
 
         for data in table_data:
             assert dataclasses.is_dataclass(data), "table_data should be a dataclass"
             record = dataclasses.asdict(data)
-            del record["id"]
+            if "id" in record:
+                del record["id"]
             query = query.values(*record.values())
 
         last_insert_id = await self.execute(query)
