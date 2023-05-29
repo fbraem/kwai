@@ -2,7 +2,7 @@
 from datetime import datetime
 from typing import AsyncIterator
 
-from sql_smith.functions import on, criteria, func, literal, group
+from sql_smith.functions import on, criteria, func, literal, group, express
 
 from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
@@ -77,13 +77,13 @@ class StoryDbQuery(StoryQuery, DatabaseQuery):
         self, year: int, month: int | None = None
     ) -> "StoryQuery":
         condition = criteria(
-            "%s = %d", func("YEAR", StoriesTable.field("publish_date")), literal(year)
+            "{} = {}", func("YEAR", StoriesTable.column("publish_date")), literal(year)
         )
         if month is not None:
             condition.and_(
                 criteria(
-                    "%s = %d",
-                    func("MONTH", StoriesTable.field("publish_date")),
+                    "{} = {}",
+                    func("MONTH", StoriesTable.column("publish_date")),
                     literal(month),
                 )
             )
@@ -92,7 +92,7 @@ class StoryDbQuery(StoryQuery, DatabaseQuery):
 
     def filter_by_promoted(self) -> "StoryQuery":
         now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
-        condition = criteria(
+        condition = (
             StoriesTable.field("promotion")
             .gt(0)
             .and_(
@@ -104,6 +104,7 @@ class StoryDbQuery(StoryQuery, DatabaseQuery):
             )
         )
         self._query.and_where(condition)
+        self._query.order_by(StoriesTable.column("promotion"))
         return self
 
     def filter_by_application(self, application: int | str) -> "StoryQuery":
@@ -134,6 +135,19 @@ class StoryDbQuery(StoryQuery, DatabaseQuery):
         return self
 
     def filter_by_user(self, user: int | UniqueId) -> "StoryQuery":
+        inner_select = (
+            self._database.create_query_factory()
+            .select(AuthorsTable.column("id"))
+            .from_(AuthorsTable.table_name)
+        )
+        if isinstance(user, UniqueId):
+            inner_select.where(AuthorsTable.field("uuid").eq(str(user)))
+        else:
+            inner_select.where(AuthorsTable.field("id").eq(user))
+
+        self._main_query.and_where(
+            group(StoryContentsTable.field("user_id").in_(express("%s", inner_select)))
+        )
         return self
 
     def order_by_publication_date(self) -> "StoryQuery":
