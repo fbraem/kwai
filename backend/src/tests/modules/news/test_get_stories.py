@@ -19,12 +19,12 @@ def repo(database: Database) -> StoryRepository:
 async def test_get_stories(repo: StoryRepository):
     """Test the use case: get stories."""
     command = GetStoriesCommand()
-    count, stories = await GetStories(repo).execute(command)
+    count, story_iterator = await GetStories(repo).execute(command)
 
     assert count >= 0, "Count must be 0 or greater"
     assert isinstance(
-        stories, AsyncGeneratorType
+        story_iterator, AsyncGeneratorType
     ), "A list of stories should be yielded"
 
-    story_dict = {story.id: story async for story in stories}
+    story_dict = {story.id: story async for story in story_iterator}
     assert count == len(story_dict), "Count should be the same"
