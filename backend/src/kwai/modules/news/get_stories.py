@@ -4,6 +4,8 @@ from kwai.core.domain.use_case import UseCaseBrowseResult
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.news.stories.story_repository import StoryRepository
 
+# pylint: disable=too-few-public-methods
+
 
 class GetStoriesCommand:
     """Input for use case:
