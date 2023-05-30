@@ -1,8 +1,7 @@
 """Implement the use case: get news stories."""
-from typing import AsyncIterator
 
+from kwai.core.domain.use_case import UseCaseBrowseResult
 from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.news.stories.story import StoryEntity
 from kwai.modules.news.stories.story_repository import StoryRepository
 
 
@@ -40,9 +39,7 @@ class GetStories:
         """
         self._repo = repo
 
-    async def execute(
-        self, command: GetStoriesCommand
-    ) -> tuple[int, AsyncIterator[StoryEntity]]:
+    async def execute(self, command: GetStoriesCommand) -> UseCaseBrowseResult:
         """Execute the use case.
 
         Args:
@@ -73,7 +70,9 @@ class GetStories:
 
         query.order_by_publication_date()
 
-        return (
-            await query.count(),
-            self._repo.get_all(query=query, offset=command.offset, limit=command.limit),
+        return UseCaseBrowseResult(
+            count=await query.count(),
+            iterator=self._repo.get_all(
+                query=query, offset=command.offset, limit=command.limit
+            ),
         )
