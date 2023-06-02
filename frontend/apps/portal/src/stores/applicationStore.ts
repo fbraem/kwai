@@ -67,7 +67,7 @@ export const useApplicationStore = defineStore(
         'portal.applications',
         () => {
           const api = useHttp()
-            .url('/portal/applications');
+            .url('/v1/portal/applications');
           return api.get().json();
         },
         {
