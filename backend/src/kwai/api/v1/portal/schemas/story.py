@@ -1,9 +1,10 @@
 """Schemas for a story on a portal."""
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
-from kwai.api.schemas.jsonapi import Meta
+from kwai.api.schemas.application import ApplicationResourceIdentifier
+from kwai.api.schemas.jsonapi import RelationshipData, Document, Documents
 
 
 class PortalStoryResourceIdentifier(BaseModel):
@@ -30,20 +31,36 @@ class PortalStoryAttributes(BaseModel):
     promotion: int
 
 
+class PortalStoryRelationships(BaseModel):
+    """Relationships of a story."""
+
+    application: RelationshipData[ApplicationResourceIdentifier]
+
+
+class PortalStoryApplicationAttributes(BaseModel):
+    name: str
+    title: str
+
+
+class PortalStoryApplicationData(ApplicationResourceIdentifier):
+    attributes: PortalStoryApplicationAttributes
+
+    def __hash__(self):
+        return hash(self.id + "/" + self.type)
+
+
 class PortalStoryData(PortalStoryResourceIdentifier):
     """Data of a story on a portal."""
 
     attributes: PortalStoryAttributes
+    relationships: PortalStoryRelationships
 
 
-class PortalStoryDocument(BaseModel):
+class PortalStoryDocument(Document[PortalStoryData]):
     """Document for a story on a portal."""
 
-    data: PortalStoryData
 
-
-class PortalStoriesDocument(BaseModel):
+class PortalStoriesDocument(Documents[PortalStoryData]):
     """Document for a list of stories on a portal."""
 
-    meta: Meta | None
-    data: list[PortalStoryData] = Field(default_factory=list)
+    included: list[PortalStoryApplicationData]
