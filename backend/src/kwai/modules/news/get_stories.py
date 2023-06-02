@@ -7,6 +7,7 @@ from kwai.modules.news.stories.story_repository import StoryRepository
 
 
 # pylint: disable=too-few-public-methods
+# pylint: disable=too-many-instance-attributes
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

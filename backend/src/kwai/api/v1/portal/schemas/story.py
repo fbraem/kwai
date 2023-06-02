@@ -37,11 +37,15 @@ class PortalStoryRelationships(BaseModel):
 
 
 class PortalStoryApplicationAttributes(BaseModel):
+    """Attributes for an application."""
+
     name: str
     title: str
 
 
 class PortalStoryApplicationData(ApplicationResourceIdentifier):
+    """Data for an application."""
+
     attributes: PortalStoryApplicationAttributes
 
     def __hash__(self):
