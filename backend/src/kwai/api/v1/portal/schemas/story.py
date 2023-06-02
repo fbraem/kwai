@@ -59,6 +59,9 @@ class PortalStoryData(PortalStoryResourceIdentifier):
     relationships: PortalStoryRelationships
 
 
+# pylint: disable=too-few-public-methods
+
+
 class PortalStoryDocument(Document[PortalStoryData]):
     """Document for a story on a portal."""
 
