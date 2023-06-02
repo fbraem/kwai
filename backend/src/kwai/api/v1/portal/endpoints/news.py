@@ -36,7 +36,6 @@ def _create_story_data(story: StoryEntity) -> PortalStoryData:
                 for content in story.content
             ],
             publish_date=str(story.period.start_date),
-            promotion=story.promotion.priority,
         ),
         relationships=PortalStoryRelationships(
             application=RelationshipData(

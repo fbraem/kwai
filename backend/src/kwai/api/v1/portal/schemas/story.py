@@ -28,7 +28,6 @@ class PortalStoryAttributes(BaseModel):
 
     content: list[PortalStoryContent]
     publish_date: str
-    promotion: int
 
 
 class PortalStoryRelationships(BaseModel):
