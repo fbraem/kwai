@@ -1,7 +1,12 @@
 """Module that defines some common models for JSONAPI."""
+from typing import Generic, TypeVar
+
 from fastapi import Query
 from pydantic.fields import Field
+from pydantic.generics import GenericModel
 from pydantic.main import BaseModel
+
+T = TypeVar("T")
 
 
 class PaginationModel(BaseModel):
@@ -19,6 +24,12 @@ class PaginationModel(BaseModel):
     limit: int | None = Field(Query(default=None, alias="page[limit]"))
 
 
+class RelationshipData(GenericModel, Generic[T]):
+    """Data for a relationship."""
+
+    data: T
+
+
 class Meta(BaseModel):
     """Defines the metadata for a document that contains a list of resources.
 
@@ -33,3 +44,16 @@ class Meta(BaseModel):
     count: int
     offset: int = 0
     limit: int = 0
+
+
+class Document(GenericModel, Generic[T]):
+    """A document for a single resource."""
+
+    data: T
+
+
+class Documents(GenericModel, Generic[T]):
+    """A document for a single resource."""
+
+    meta: Meta | None
+    data: list[T] = Field(default_factory=list)
