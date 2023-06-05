@@ -1,16 +1,8 @@
 <template>
   <section class="py-24 bg-zinc-50">
     <div class="container mx-auto px-12 flex flex-col">
-      <div class="mb-12">
-        <h2 class="text-4xl font-medium text-center mb-6">
-          Hoogtepunten
-        </h2>
-        <p class="text-gray-600 text-center">
-          Het belangrijkste <strong>nieuws</strong> van onze club op een rijtje...
-        </p>
-      </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <NewsList :promoted="true">
+        <NewsList>
           <template #default="{ story }">
             <NewsCard :story="story" />
           </template>
