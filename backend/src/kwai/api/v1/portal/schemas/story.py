@@ -26,6 +26,7 @@ class PortalStoryContent(BaseModel):
 class PortalStoryAttributes(BaseModel):
     """Attributes for a story on a portal."""
 
+    priority: int
     content: list[PortalStoryContent]
     publish_date: str
 
