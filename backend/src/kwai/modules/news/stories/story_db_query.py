@@ -151,9 +151,9 @@ class StoryDbQuery(StoryQuery, DatabaseQuery):
         return self
 
     def order_by_publication_date(self) -> "StoryQuery":
-        self._main_query.order_by(StoriesTable.column("publish_date"))
+        self._main_query.order_by(StoriesTable.column("publish_date"), "DESC")
         # Also add the order to the CTE
-        self._query.order_by(StoriesTable.column("publish_date"))
+        self._query.order_by(StoriesTable.column("publish_date"), "DESC")
         return self
 
     def fetch(
