@@ -1,9 +1,11 @@
 """Module that implements news endpoints."""
+from typing import AsyncIterator
+
 from fastapi import APIRouter, Depends
 
 from kwai.api.dependencies import deps
 from kwai.api.schemas.application import ApplicationResourceIdentifier
-from kwai.api.schemas.jsonapi import Meta, PaginationModel
+from kwai.api.schemas.jsonapi import PaginationModel, Meta
 from kwai.api.v1.portal.schemas.story import (
     PortalStoryData,
     PortalStoryAttributes,
@@ -22,10 +24,36 @@ from kwai.modules.news.stories.story_db_repository import StoryDbRepository
 router = APIRouter()
 
 
+class PortalStoryResource:
+    def __init__(self):
+        pass
+
+    async def serialize(self, iterator: AsyncIterator) -> PortalStoriesDocument:
+        result: list[PortalStoryData] = []
+        included: set[PortalStoryApplicationData] = set()
+        async for story in iterator:
+            result.append(_create_story_data(story))
+            included.add(
+                PortalStoryApplicationData(
+                    id=story.application.id.value,
+                    attributes=PortalStoryApplicationAttributes(
+                        name=story.application.name,
+                        title=story.application.title,
+                    ),
+                )
+            )
+
+        return PortalStoriesDocument(
+            data=result,
+            included=included,
+        )
+
+
 def _create_story_data(story: StoryEntity) -> PortalStoryData:
     return PortalStoryData(
         id=str(story.id),
         attributes=PortalStoryAttributes(
+            priority=story.promotion.priority,
             content=[
                 PortalStoryContent(
                     locale=content.locale,
@@ -58,22 +86,9 @@ async def get_news(
     )
     count, story_iterator = await GetStories(StoryDbRepository(db)).execute(command)
 
-    result: list[PortalStoryData] = []
-    included: set[PortalStoryApplicationData] = set()
-    async for story in story_iterator:
-        result.append(_create_story_data(story))
-        included.add(
-            PortalStoryApplicationData(
-                id=story.application.id.value,
-                attributes=PortalStoryApplicationAttributes(
-                    name=story.application.name,
-                    title=story.application.title,
-                ),
-            )
-        )
-
-    return PortalStoriesDocument(
-        meta=Meta(count=count, offset=command.offset, limit=command.limit),
-        data=result,
-        included=included,
+    result: PortalStoriesDocument = await PortalStoryResource().serialize(
+        story_iterator
     )
+    result.meta = Meta(count=count, offset=command.offset, limit=command.limit)
+
+    return result
