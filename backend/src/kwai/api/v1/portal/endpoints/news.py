@@ -25,6 +25,8 @@ from kwai.modules.news.stories.story_db_repository import StoryDbRepository
 
 router = APIRouter()
 
+# pylint: disable=too-few-public-methods
+
 
 class DocumentConverter(ABC):
     """Interface for a document converter.
