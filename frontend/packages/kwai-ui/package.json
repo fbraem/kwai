@@ -21,15 +21,15 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
-    "@vitejs/plugin-vue": "^4.1.0",
+    "@vitejs/plugin-vue": "^4.2.3",
     "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.21",
-    "tailwindcss": "^3.3.1",
-    "vite-plugin-dts": "^2.2.0",
-    "vue": "^3.2.47"
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.3.2",
+    "vite-plugin-dts": "^2.3.0",
+    "vue": "^3.3.4"
   },
   "peerDependencies": {
-    "vue-router": "^4.1.6",
-    "vee-validate": "^4.8.4"
+    "vue-router": "^4.2.2",
+    "vee-validate": "^4.9.6"
   }
 }

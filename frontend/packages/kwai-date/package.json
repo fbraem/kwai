@@ -22,6 +22,6 @@
     "build": "vite build --config vite.config.js"
   },
   "dependencies": {
-    "dayjs": "^1.11.6"
+    "dayjs": "^1.11.8"
   }
 }
