@@ -7,19 +7,19 @@ from fastapi import APIRouter, Depends
 
 from kwai.api.dependencies import deps
 from kwai.api.schemas.application import ApplicationResourceIdentifier
-from kwai.api.schemas.jsonapi import PaginationModel, Meta
+from kwai.api.schemas.jsonapi import Meta, PaginationModel
 from kwai.api.v1.portal.schemas.story import (
-    PortalStoryData,
-    PortalStoryAttributes,
     PortalStoriesDocument,
-    PortalStoryContent,
-    PortalStoryApplicationData,
     PortalStoryApplicationAttributes,
-    RelationshipData,
+    PortalStoryApplicationData,
+    PortalStoryAttributes,
+    PortalStoryContent,
+    PortalStoryData,
     PortalStoryRelationships,
+    RelationshipData,
 )
 from kwai.core.db.database import Database
-from kwai.modules.news.get_stories import GetStoriesCommand, GetStories
+from kwai.modules.news.get_stories import GetStories, GetStoriesCommand
 from kwai.modules.news.stories.story import StoryEntity
 from kwai.modules.news.stories.story_db_repository import StoryDbRepository
 
