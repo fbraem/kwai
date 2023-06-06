@@ -66,6 +66,8 @@ class PortalStoryData(PortalStoryResourceIdentifier):
 class PortalStoryDocument(Document[PortalStoryData]):
     """Document for a story on a portal."""
 
+    included: list[PortalStoryApplicationData]
+
 
 class PortalStoriesDocument(Documents[PortalStoryData]):
     """Document for a list of stories on a portal."""
