@@ -27,18 +27,33 @@ router = APIRouter()
 
 
 class DocumentConverter(ABC):
+    """Interface for a document converter.
+
+    A converter will convert a certain format (markdown for example) into HTML.
+    """
+
     @abstractmethod
     def convert(self, content: str) -> str:
+        """Convert a string to HTML."""
         raise NotImplementedError
 
 
 class MarkdownConverter(DocumentConverter):
+    """Converter for converting markdown into HTML."""
+
     def convert(self, content: str) -> str:
         return markdown.markdown(content)
 
 
 class PortalStoryResource:
+    """Represent a JSONAPI resource for a news story."""
+
     def __init__(self, story: StoryEntity):
+        """Construct.
+
+        Args:
+            story: The story news entity that is transformed into a JSONAPI resource.
+        """
         self._story = story
 
     def _create_story_data(self) -> tuple[PortalStoryData, PortalStoryApplicationData]:
@@ -79,6 +94,7 @@ class PortalStoryResource:
 
     @classmethod
     async def serialize(cls, iterator: AsyncIterator) -> PortalStoriesDocument:
+        """Serialize multiple stories."""
         result: list[PortalStoryData] = []
         included: set[PortalStoryApplicationData] = set()
         async for story in iterator:
