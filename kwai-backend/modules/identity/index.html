@@ -13,7 +13,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
     
     
       
@@ -21,10 +21,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.85bb2934.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.26e3688c.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a6bdf11c.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ecc896b0.min.css">
       
       
 
@@ -506,24 +506,36 @@
           <td>
                 <code><span title="kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</span></code>
           </td>
-          <td><p>The repository for getting the
-user account.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository for getting the
+user account.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>_access_token_repo</code></td>
           <td>
                 <code><span title="kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</span></code>
           </td>
-          <td><p>The repository for creating the
-access token.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository for creating the
+access token.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>_refresh_token_repo</code></td>
           <td>
                 <code><span title="kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</span></code>
           </td>
-          <td><p>The repository for creating the
-refresh token.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository for creating the
+refresh token.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -576,7 +588,11 @@ refresh token.</p></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.authenticate_user.AuthenticateUserCommand" href="#kwai.modules.identity.authenticate_user.AuthenticateUserCommand">AuthenticateUserCommand</a></code>
           </td>
-          <td><p>The input for this use case.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -597,7 +613,11 @@ refresh token.</p></td>
 <td><code>RefreshTokenEntity</code></td>          <td>
                 <code><span title="kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity">RefreshTokenEntity</span></code>
           </td>
-          <td><p>On success, a refresh token entity will be returned.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>On success, a refresh token entity will be returned.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -615,15 +635,23 @@ refresh token.</p></td>
           <td>
                 <code>InvalidEmailException</code>
           </td>
-          <td><p>Raised when the username
-contains an invalid email address.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when the username
+contains an invalid email address.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code>UserAccountNotFoundException</code>
           </td>
-          <td><p>Raised when the user with the given email
-address doesn't exist.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when the user with the given email
+address doesn't exist.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -675,30 +703,46 @@ address doesn't exist.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The email address of the user.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The email address of the user.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>password</code></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The password of the user.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The password of the user.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>access_token_expiry_minutes</code></td>
           <td>
                 <code>int</code>
           </td>
-          <td><p>Minutes before expiring the access token.
-Default is 2 hours.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Minutes before expiring the access token.
+Default is 2 hours.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>refresh_token_expiry_minutes</code></td>
           <td>
                 <code>int</code>
           </td>
-          <td><p>Minutes before expiring the refresh token.
-Default is 2 months.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Minutes before expiring the refresh token.
+Default is 2 months.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -819,7 +863,11 @@ Default is 2 months.</p></td>
           <td>
                 <code><span title="kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</span></code>
           </td>
-          <td><p>Repository that creates a new user account.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Repository that creates a new user account.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -865,7 +913,11 @@ Default is 2 months.</p></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.create_user.CreateUserCommand" href="#kwai.modules.identity.create_user.CreateUserCommand">CreateUserCommand</a></code>
           </td>
-          <td><p>The input for this use case.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -886,7 +938,11 @@ Default is 2 months.</p></td>
           <td>
                 <code><span title="kwai.modules.identity.users.user_account.UserAccountEntity">UserAccountEntity</span></code>
           </td>
-          <td><p>An entity for a user account.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>An entity for a user account.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -904,8 +960,12 @@ Default is 2 months.</p></td>
           <td>
                 <code><span title="kwai.core.domain.exceptions.UnprocessableException">UnprocessableException</span></code>
           </td>
-          <td><p>when the email address is already used by another
-user.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>when the email address is already used by another
+user.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -958,35 +1018,55 @@ user.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The email address for the new user.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The email address for the new user.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>first_name</code></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The first name of the new user.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The first name of the new user.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>last_name</code></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The last name of the new user.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The last name of the new user.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>password</code></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The password for the new user.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The password for the new user.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>remark</code></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>A remark about the new user.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A remark about the new user.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -1107,7 +1187,11 @@ user.</p></td>
           <td>
                 <code><span title="kwai.modules.identity.user_invitations.user_invitation_repository.UserInvitationRepository">UserInvitationRepository</span></code>
           </td>
-          <td><p>A repository for deleting the user invitation.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A repository for deleting the user invitation.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1153,7 +1237,11 @@ user.</p></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.delete_user_invitation.DeleteUserInvitationCommand" href="#kwai.modules.identity.delete_user_invitation.DeleteUserInvitationCommand">DeleteUserInvitationCommand</a></code>
           </td>
-          <td><p>The input for this use case.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1174,7 +1262,11 @@ user.</p></td>
           <td>
                 <code>UserInvitationNotFoundException</code>
           </td>
-          <td><p>Raised when then invitation is not found.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when then invitation is not found.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -1227,7 +1319,11 @@ user.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The unique id of the user invitation.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The unique id of the user invitation.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -1348,7 +1444,11 @@ user.</p></td>
           <td>
                 <code><span title="kwai.modules.identity.user_invitations.user_invitation_repository.UserInvitationRepository">UserInvitationRepository</span></code>
           </td>
-          <td><p>A repository for getting the user invitation.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A repository for getting the user invitation.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1394,7 +1494,11 @@ user.</p></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.get_user_invitation.GetUserInvitationCommand" href="#kwai.modules.identity.get_user_invitation.GetUserInvitationCommand">GetUserInvitationCommand</a></code>
           </td>
-          <td><p>The input for this use case.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1415,7 +1519,11 @@ user.</p></td>
           <td>
                 <code><span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity">UserInvitationEntity</span></code>
           </td>
-          <td><p>A user invitation entity</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A user invitation entity</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -1433,7 +1541,11 @@ user.</p></td>
           <td>
                 <code>UserInvitationNotFoundException</code>
           </td>
-          <td><p>Raised when then invitation is not found.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when then invitation is not found.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -1486,7 +1598,11 @@ user.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The unique id of the user invitation.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The unique id of the user invitation.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -1608,7 +1724,11 @@ user.</p></td>
           <td>
                 <code><span title="kwai.modules.identity.user_invitations.user_invitation_repository.UserInvitationRepository">UserInvitationRepository</span></code>
           </td>
-          <td><p>A repository for getting the user invitations.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A repository for getting the user invitations.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1654,7 +1774,11 @@ user.</p></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.get_invitations.GetInvitationsCommand" href="#kwai.modules.identity.get_invitations.GetInvitationsCommand">GetInvitationsCommand</a></code>
           </td>
-          <td><p>The input for this use case.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1675,7 +1799,11 @@ user.</p></td>
           <td>
                 <code>tuple[int, <span title="typing.AsyncIterator">AsyncIterator</span>[<span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity">UserInvitationEntity</span>]]</code>
           </td>
-          <td><p>A tuple with the number of entities and an iterator for invitation entities.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A tuple with the number of entities and an iterator for invitation entities.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -1728,14 +1856,22 @@ user.</p></td>
           <td>
                 <code>int | None</code>
           </td>
-          <td><p>Offset to use. Default is None.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Offset to use. Default is None.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>limit</code></td>
           <td>
                 <code>int | None</code>
           </td>
-          <td><p>The max. number of elements to return. Default is None, which means all.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The max. number of elements to return. Default is None, which means all.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -1857,7 +1993,11 @@ user.</p></td>
           <td>
                 <code><span title="kwai.modules.identity.users.user.UserEntity">UserEntity</span></code>
           </td>
-          <td><p>The inviter.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The inviter.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1867,7 +2007,11 @@ user.</p></td>
           <td>
                 <code><span title="kwai.modules.identity.users.user_repository.UserRepository">UserRepository</span></code>
           </td>
-          <td><p>The repository to check if the email address is still free.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository to check if the email address is still free.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1877,7 +2021,11 @@ user.</p></td>
           <td>
                 <code><span title="kwai.modules.identity.user_invitations.user_invitation_repository.UserInvitationRepository">UserInvitationRepository</span></code>
           </td>
-          <td><p>The repository for creating an invitation.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository for creating an invitation.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1887,7 +2035,11 @@ user.</p></td>
           <td>
                 <code><span title="kwai.core.events.bus.Bus">Bus</span></code>
           </td>
-          <td><p>A message bus for publishing the user invitation created event.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A message bus for publishing the user invitation created event.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1933,7 +2085,11 @@ user.</p></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.invite_user.InviteUserCommand" href="#kwai.modules.identity.invite_user.InviteUserCommand">InviteUserCommand</a></code>
           </td>
-          <td><p>The input for this use case.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1954,7 +2110,11 @@ user.</p></td>
           <td>
                 <code><span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity">UserInvitationEntity</span></code>
           </td>
-          <td><p>A user invitation</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A user invitation</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -1972,8 +2132,12 @@ user.</p></td>
           <td>
                 <code><span title="kwai.core.domain.exceptions.UnprocessableException">UnprocessableException</span></code>
           </td>
-          <td><p>raised when the email address is already in use or
-when there are still pending invitations for the email address.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>raised when the email address is already in use or
+when there are still pending invitations for the email address.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -2026,35 +2190,55 @@ case.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>Firstname of the invited</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Firstname of the invited</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>last_name</code></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>Lastname of the invited</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Lastname of the invited</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>email</code></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>Email address of the invited</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Email address of the invited</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>expiration_in_days</code></td>
           <td>
                 <code>int</code>
           </td>
-          <td><p>After how many days will the invitation expire?</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>After how many days will the invitation expire?</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>remark</code></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>A remark about this invitation</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A remark about this invitation</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -2148,16 +2332,24 @@ related to this refresh token will also be revoked.</p>
           <td>
                 <code><span title="kwai.modules.identity.tokens.refresh_token_repository.RefreshTokenRepository">RefreshTokenRepository</span></code>
           </td>
-          <td><p>The repository to
-get and update the refresh token.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository to
+get and update the refresh token.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>_access_token_repository</code></td>
           <td>
                 <code><span title="kwai.modules.identity.tokens.access_token_repository.AccessTokenRepository">AccessTokenRepository</span></code>
           </td>
-          <td><p>The repository to
-get and update the access token.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository to
+get and update the access token.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -2210,7 +2402,11 @@ get and update the access token.</p></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.logout.LogoutCommand" href="#kwai.modules.identity.logout.LogoutCommand">LogoutCommand</a></code>
           </td>
-          <td><p>The input for this use case.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2231,8 +2427,12 @@ get and update the access token.</p></td>
           <td>
                 <code>RefreshTokenNotFoundException</code>
           </td>
-          <td><p>The refresh token with the identifier
-could not be found.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The refresh token with the identifier
+could not be found.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -2283,7 +2483,11 @@ could not be found.</p></td>
           <td><code>identifier(str)</code></td>
           <td>
           </td>
-          <td><p>The refresh token to revoke</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The refresh token to revoke</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -2408,7 +2612,11 @@ could not be found.</p></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.mail_user_invitation.MailUserInvitationCommand" href="#kwai.modules.identity.mail_user_invitation.MailUserInvitationCommand">MailUserInvitationCommand</a></code>
           </td>
-          <td><p>the input for this use case.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the input for this use case.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2429,15 +2637,23 @@ could not be found.</p></td>
           <td>
                 <code>UserInvitationNotFoundException</code>
           </td>
-          <td><p>Raised when
-the user invitation cannot be found.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when
+the user invitation cannot be found.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="kwai.core.domain.exceptions.UnprocessableException">UnprocessableException</span></code>
           </td>
-          <td><p>Raised when the mail was already sent.
-Raised when the user recovery was already confirmed.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when the mail was already sent.
+Raised when the user recovery was already confirmed.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -2489,7 +2705,11 @@ Raised when the user recovery was already confirmed.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The unique id of the user invitation.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The unique id of the user invitation.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -2614,7 +2834,11 @@ Raised when the user recovery was already confirmed.</p></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.mail_user_recovery.MailUserRecoveryCommand" href="#kwai.modules.identity.mail_user_recovery.MailUserRecoveryCommand">MailUserRecoveryCommand</a></code>
           </td>
-          <td><p>The input for this use case.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2635,15 +2859,23 @@ Raised when the user recovery was already confirmed.</p></td>
           <td>
                 <code>UserRecoveryNotFoundException</code>
           </td>
-          <td><p>Raised when
-the user recovery cannot be found.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when
+the user recovery cannot be found.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="kwai.core.domain.exceptions.UnprocessableException">UnprocessableException</span></code>
           </td>
-          <td><p>Raised when the mail was already sent.
-Raised when the user recovery was already confirmed.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when the mail was already sent.
+Raised when the user recovery was already confirmed.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -2695,7 +2927,11 @@ Raised when the user recovery was already confirmed.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The unique id of the user recovery.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The unique id of the user recovery.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -2787,24 +3023,36 @@ Raised when the user recovery was already confirmed.</p></td>
           <td>
                 <code><span title="kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</span></code>
           </td>
-          <td><p>The repository for getting the
-user account.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository for getting the
+user account.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>_user_recovery_repo</code></td>
           <td>
                 <code><span title="kwai.modules.identity.user_recoveries.user_recovery_repository.UserRecoveryRepository">UserRecoveryRepository</span></code>
           </td>
-          <td><p>The repository for creating a
-user recovery.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository for creating a
+user recovery.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>_event_bus</code></td>
           <td>
                 <code><span title="kwai.core.events.bus.Bus">Bus</span></code>
           </td>
-          <td><p>An event bus for dispatching the UserRecoveryCreatedEvent
-event.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>An event bus for dispatching the UserRecoveryCreatedEvent
+event.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -2857,7 +3105,11 @@ event.</p></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.recover_user.RecoverUserCommand" href="#kwai.modules.identity.recover_user.RecoverUserCommand">RecoverUserCommand</a></code>
           </td>
-          <td><p>The input for this use case.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2878,14 +3130,22 @@ event.</p></td>
           <td>
                 <code>UserAccountNotFoundException</code>
           </td>
-          <td><p>Raised when the user with the given email
-address does not exist.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when the user with the given email
+address does not exist.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="kwai.core.domain.exceptions.UnprocessableException">UnprocessableException</span></code>
           </td>
-          <td><p>Raised when the user is revoked</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when the user is revoked</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -3009,16 +3269,24 @@ address does not exist.</p></td>
           <td>
                 <code><span title="kwai.modules.identity.tokens.refresh_token_repository.RefreshTokenRepository">RefreshTokenRepository</span></code>
           </td>
-          <td><p>The repo for getting and creating
-a new refresh token.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repo for getting and creating
+a new refresh token.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>_access_token_repo</code></td>
           <td>
                 <code><span title="kwai.modules.identity.tokens.access_token_repository.AccessTokenRepository">AccessTokenRepository</span></code>
           </td>
-          <td><p>The repo for updating and creating
-an access token.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repo for updating and creating
+an access token.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -3075,7 +3343,11 @@ an access token.</p></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.refresh_access_token.RefreshAccessTokenCommand" href="#kwai.modules.identity.refresh_access_token.RefreshAccessTokenCommand">RefreshAccessTokenCommand</a></code>
           </td>
-          <td><p>The input for this use case.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -3096,14 +3368,22 @@ an access token.</p></td>
           <td>
                 <code>RefreshTokenNotFoundException</code>
           </td>
-          <td><p>Raised when the refresh token does not exist.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when the refresh token does not exist.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="kwai.modules.identity.authenticate_user.AuthenticationException">AuthenticationException</span></code>
           </td>
-          <td><p>Raised when the refresh token is expired, the
-refresh token is revoked or the user is revoked.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when the refresh token is expired, the
+refresh token is revoked or the user is revoked.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -3155,23 +3435,35 @@ refresh token is revoked or the user is revoked.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The identifier of the refresh token.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The identifier of the refresh token.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>access_token_expiry_minutes</code></td>
           <td>
                 <code>int</code>
           </td>
-          <td><p>Minutes before expiring the access token.
-Default is 2 hours.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Minutes before expiring the access token.
+Default is 2 hours.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>refresh_token_expiry_minutes</code></td>
           <td>
                 <code>int</code>
           </td>
-          <td><p>Minutes before expiring the refresh token.
-Default is 2 months.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Minutes before expiring the refresh token.
+Default is 2 months.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -3294,8 +3586,12 @@ password with a unique id. This unique id is linked to a user recovery.</p>
           <td>
                 <code><span title="kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</span></code>
           </td>
-          <td><p>The repository for getting the
-user account.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository for getting the
+user account.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -3305,8 +3601,12 @@ user account.</p></td>
           <td>
                 <code><span title="kwai.modules.identity.user_recoveries.user_recovery_repository.UserRecoveryRepository">UserRecoveryRepository</span></code>
           </td>
-          <td><p>The repository for getting and
-updating the user recovery.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository for getting and
+updating the user recovery.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -3352,7 +3652,11 @@ updating the user recovery.</p></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.reset_password.ResetPasswordCommand" href="#kwai.modules.identity.reset_password.ResetPasswordCommand">ResetPasswordCommand</a></code>
           </td>
-          <td><p>The input for this use case.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -3373,34 +3677,54 @@ updating the user recovery.</p></td>
           <td>
                 <code>UserRecoveryNotFoundException</code>
           </td>
-          <td><p>Raised when the user recovery with the
-given uuid does not exist.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when the user recovery with the
+given uuid does not exist.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.reset_password.UserRecoveryExpiredException" href="#kwai.modules.identity.reset_password.UserRecoveryExpiredException">UserRecoveryExpiredException</a></code>
           </td>
-          <td><p>Raised when the user recovery is expired.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when the user recovery is expired.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.reset_password.UserRecoveryConfirmedException" href="#kwai.modules.identity.reset_password.UserRecoveryConfirmedException">UserRecoveryConfirmedException</a></code>
           </td>
-          <td><p>Raised when the user recovery is already
-used.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when the user recovery is already
+used.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code>UserAccountNotFoundException</code>
           </td>
-          <td><p>Raised when the user with the email address
-that belongs to the user recovery, does not exist.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when the user with the email address
+that belongs to the user recovery, does not exist.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code>NotAllowedException</code>
           </td>
-          <td><p>Raised when the user is revoked.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when the user is revoked.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -3452,14 +3776,22 @@ that belongs to the user recovery, does not exist.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The unique id of the user recovery</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The unique id of the user recovery</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>password</code></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The new password.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The new password.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -3602,7 +3934,7 @@ that belongs to the user recovery, does not exist.</p></td>
     <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.b4d07000.min.js"></script>
       
     
   </body>
