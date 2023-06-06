@@ -1,6 +1,8 @@
 """Module that implements news endpoints."""
+from abc import ABC, abstractmethod
 from typing import AsyncIterator
 
+import markdown
 from fastapi import APIRouter, Depends
 
 from kwai.api.dependencies import deps
@@ -24,53 +26,72 @@ from kwai.modules.news.stories.story_db_repository import StoryDbRepository
 router = APIRouter()
 
 
-class PortalStoryResource:
-    def __init__(self):
-        pass
+class DocumentConverter(ABC):
+    @abstractmethod
+    def convert(self, content: str) -> str:
+        raise NotImplementedError
 
-    async def serialize(self, iterator: AsyncIterator) -> PortalStoriesDocument:
+
+class MarkdownConverter(DocumentConverter):
+    def convert(self, content: str) -> str:
+        return markdown.markdown(content)
+
+
+class PortalStoryResource:
+    def __init__(self, story: StoryEntity):
+        self._story = story
+
+    def _create_story_data(self) -> tuple[PortalStoryData, PortalStoryApplicationData]:
+        return (
+            PortalStoryData(
+                id=str(self._story.id),
+                attributes=PortalStoryAttributes(
+                    priority=self._story.promotion.priority,
+                    content=[
+                        PortalStoryContent(
+                            locale=content.locale,
+                            title=content.title,
+                            summary=MarkdownConverter().convert(content.summary),
+                            content=MarkdownConverter().convert(content.content)
+                            if content.content
+                            else None,
+                        )
+                        for content in self._story.content
+                    ],
+                    publish_date=str(self._story.period.start_date),
+                ),
+                relationships=PortalStoryRelationships(
+                    application=RelationshipData(
+                        data=ApplicationResourceIdentifier(
+                            id=self._story.application.id.value
+                        )
+                    )
+                ),
+            ),
+            PortalStoryApplicationData(
+                id=self._story.application.id.value,
+                attributes=PortalStoryApplicationAttributes(
+                    name=self._story.application.name,
+                    title=self._story.application.title,
+                ),
+            ),
+        )
+
+    @classmethod
+    async def serialize(cls, iterator: AsyncIterator) -> PortalStoriesDocument:
         result: list[PortalStoryData] = []
         included: set[PortalStoryApplicationData] = set()
         async for story in iterator:
-            result.append(_create_story_data(story))
-            included.add(
-                PortalStoryApplicationData(
-                    id=story.application.id.value,
-                    attributes=PortalStoryApplicationAttributes(
-                        name=story.application.name,
-                        title=story.application.title,
-                    ),
-                )
-            )
+            story_data, application_data = PortalStoryResource(
+                story
+            )._create_story_data()
+            result.append(story_data)
+            included.add(application_data)
 
         return PortalStoriesDocument(
             data=result,
             included=included,
         )
-
-
-def _create_story_data(story: StoryEntity) -> PortalStoryData:
-    return PortalStoryData(
-        id=str(story.id),
-        attributes=PortalStoryAttributes(
-            priority=story.promotion.priority,
-            content=[
-                PortalStoryContent(
-                    locale=content.locale,
-                    title=content.title,
-                    summary=content.summary,
-                    content=content.content,
-                )
-                for content in story.content
-            ],
-            publish_date=str(story.period.start_date),
-        ),
-        relationships=PortalStoryRelationships(
-            application=RelationshipData(
-                data=ApplicationResourceIdentifier(id=story.application.id.value)
-            )
-        ),
-    )
 
 
 @router.get("/news")
@@ -86,9 +107,7 @@ async def get_news(
     )
     count, story_iterator = await GetStories(StoryDbRepository(db)).execute(command)
 
-    result: PortalStoriesDocument = await PortalStoryResource().serialize(
-        story_iterator
-    )
+    result: PortalStoriesDocument = await PortalStoryResource.serialize(story_iterator)
     result.meta = Meta(count=count, offset=command.offset, limit=command.limit)
 
     return result
