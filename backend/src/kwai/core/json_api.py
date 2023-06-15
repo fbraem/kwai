@@ -1,7 +1,7 @@
 """Module that defines some jsonapi related models."""
 import dataclasses
 from types import NoneType
-from typing import Literal, Type, get_args, get_origin, Any
+from typing import Literal, Type, get_args, get_origin, Any, Optional
 
 from pydantic import BaseModel, create_model, Field
 
@@ -290,16 +290,25 @@ class Resource:
                     if rel.optional:
                         rel_type |= None
 
-                    relationships[rel.name] = (
-                        rel_type,
-                        ...,
+                    relationship_object_model = create_model(
+                        self.get_model_class_prefix()
+                        + rel.name.capitalize()
+                        + "Relationship",
+                        data=(rel_type, ...),
                     )
-                    break
+
+                    relationships[rel.name] = (
+                        Optional[relationship_object_model],
+                        None if rel.optional else ...,
+                    )
 
             self._relationships_model = create_model(
                 self.get_model_class_prefix() + "Relationships", **relationships
             )
-            resource_model_fields["relationships"] = (self._relationships_model, ...)
+            resource_model_fields["relationships"] = (
+                self._relationships_model,
+                ...,
+            )
 
         self._resource_model = create_model(
             self.get_model_class_prefix() + "Resource",
@@ -338,21 +347,23 @@ class Resource:
 
         relationships = {}
         for rel in self._relationships.values():
-            print(rel)
             rel_value = rel.getter(resource_instance)
+
+            relationship_model = self._relationships_model.__fields__[rel.name].type_
+
             if rel_value is None:
-                relationships[rel.name] = None
-                continue
-            if rel.iterable:
-                relationships[rel.name] = []
+                relationship_value = None
+            elif rel.iterable:
+                relationship_value = []
                 for value in rel_value:
-                    relationships[rel.name].append(
+                    relationship_value.append(
                         value.__json_api_resource__.get_resource_identifier(value)
                     )
             else:
-                relationships[
-                    rel.name
-                ] = rel_value.__json_api_resource__.get_resource_identifier(rel_value)
+                relationship_value = (
+                    rel_value.__json_api_resource__.get_resource_identifier(rel_value)
+                )
+            relationships[rel.name] = relationship_model(data=relationship_value)
 
         resource_model = self.get_resource_model()
         document_model = self.get_document_model()
