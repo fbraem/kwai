@@ -129,7 +129,7 @@ def test_resource_model():
     resource_instance = resource_model(
         id="1",
         attributes={"name": "Jigoro Kano", "year_of_birth": 1882},
-        relationships={"team": None},
+        relationships={"team": {"data": None}},
     )
     assert (
         resource_instance.attributes.name == "Jigoro Kano"
@@ -162,7 +162,6 @@ def test_jsonapi_pydantic():
     """Test with a Pydantic class."""
     team = Team(id=1, name="U15")
     json_api_document = team.serialize()
-    print(json_api_document)
     assert json_api_document.data.type == "teams"
     assert json_api_document.data.id == "1"
     assert json_api_document.data.attributes.name == "U15"
@@ -204,7 +203,7 @@ def test_jsonapi_auto_relationship():
     assert json_api_document.data.type == "teams"
     assert json_api_document.data.id == "1"
     assert json_api_document.data.attributes.name == "U15"
-    assert isinstance(json_api_document.data.relationships.members, list)
+    assert isinstance(json_api_document.data.relationships.members.data, list)
     # assert len(json_api_document.included) > 0, "There should be an included resource"
     # pylint: disable=unsubscriptable-object
     # assert json_api_document.included[0].type == "members"
