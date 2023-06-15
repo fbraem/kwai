@@ -1,9 +1,9 @@
 """Module that defines some jsonapi related models."""
 import dataclasses
 from types import NoneType
-from typing import Literal, Type, get_args, get_origin, Any, Optional, Union
+from typing import Any, Literal, Optional, Type, Union, get_args, get_origin
 
-from pydantic import BaseModel, create_model, Field
+from pydantic import BaseModel, Field, create_model
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True, slots=True)
@@ -158,7 +158,7 @@ class Resource:
         )
 
     def has_id(self) -> bool:
-        """Does the resource have a way to get the id?"""
+        """Check if there is an id available in the resource."""
         return self._id_getter is not None
 
     def get_resource_id(self, resource_instance):
@@ -228,7 +228,7 @@ class Resource:
 
     @classmethod
     def _create_getter(cls, attribute_name: str):
-        """A function that creates a method for getting the value of an attribute."""
+        """Create a method for getting the value of an attribute."""
 
         def get(self):
             return getattr(self, attribute_name)
@@ -413,7 +413,7 @@ class Resource:
 
 
 def resource(type_: str, auto: bool = True):
-    """Decorator to turn a class into a JSONAPI resource."""
+    """Turn a class into a JSONAPI resource with this decorator."""
 
     def decorator(cls):
         cls.__json_api_resource_type__ = type_
@@ -462,83 +462,3 @@ def id(_func=None):
         return inner_function
 
     return inner_function(_func)
-
-
-#
-# cls.__json_api_resource_identifier_model__ = ResourceIdentifier
-#
-# _scan_class(cls)
-# json_api_attributes_model = create_model(
-#     "Attributes", **cls.__json_api_attributes__
-# )
-#
-# json_api_relationship_model = {}
-# for (
-#         relationship_name,
-#         relationship_resource,
-# ) in cls.__json_api_relationships__.items():
-#     if isinstance(relationship_resource, UnionType):
-#         for relation_type in relationship_resource.__args__:
-#             if hasattr(relation_type, "__json_api_resource_identifier_model__"):
-#                 json_api_relationship_model[
-#                     relationship_name
-#                 ] = relation_type.__json_api_resource_identifier_model__
-#     else:
-#         json_api_relationship_model[
-#             relationship_name
-#         ] = relationship_resource.__json_api_resource_identifier_model__
-#
-#
-# class Resource(ResourceIdentifier):
-#     attributes: json_api_attributes_model
-#     relationships: create_model(
-#         "Relationships", **json_api_relationship_model
-#     ) | None
-#
-#
-# cls.__json_api_resource_model__ = Resource
-#
-#
-# class Document(BaseModel):
-#     data: Resource | list[Resource] = None
-#     included: None = None
-#
-#
-# def serialize(self):
-#     resource_id = None
-#     attributes = {}
-#     for attribute_name in cls.__json_api_attributes__:
-#         attribute_value = cls.__json_api_attribute_getters__[attribute_name](
-#             self
-#         )
-#         attributes[attribute_name] = attribute_value
-#
-#     for (
-#             relationship_name,
-#             relationship_getter,
-#     ) in cls.__json_api_relationships__.items():
-#         resource = cls.__json_api_relationship_getters__[relationship_name](
-#             self
-#         )
-#         print(resource)
-#         print(json_api_relationship_model[relationship_name]())
-#     #                if hasattr(class_attribute, "__json_api_id__"):
-#     #                    resource_id = str(class_attribute(self))
-#
-#     if resource_id is None:
-#         id_attr = getattr(self, "id", None)
-#         assert id_attr is not None, "No id attribute found in resource"
-#
-#         if callable(id_attr):
-#             resource_id = str(id_attr())
-#         else:
-#             resource_id = str(id_attr)
-#
-#     return Document(
-#         data=Resource(
-#             id=resource_id, attributes=json_api_attributes_model(**attributes)
-#         )
-#     )
-#
-#
-# cls.serialize = serialize
