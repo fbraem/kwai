@@ -1,7 +1,7 @@
 """Module that defines some jsonapi related models."""
 import dataclasses
 from types import NoneType
-from typing import Literal, Type, get_args, get_origin, Any, Optional
+from typing import Literal, Type, get_args, get_origin, Any, Optional, Union
 
 from pydantic import BaseModel, create_model, Field
 
@@ -102,6 +102,60 @@ class Resource:
 
     def get_type(self) -> str:
         return self._type
+
+    def get_resource_object(self, resource_instance) -> tuple:
+        """Get the resource from the resource instance.
+
+        It returns a tuple. The first value will contain the resource object, while
+        the second value will contain a list of the related resource objects.
+        """
+        attributes = self.get_resource_attributes(resource_instance)
+        related_resource_objects = []
+
+        relationships = {}
+        for rel in self._relationships.values():
+            rel_value = rel.getter(resource_instance)
+
+            relationship_model = self._relationships_model.__fields__[rel.name].type_
+
+            if rel_value is None:
+                relationship_value = None
+            elif rel.iterable:
+                relationship_value = []
+                for value in rel_value:
+                    relationship_value.append(
+                        value.__json_api_resource__.get_resource_identifier(value)
+                    )
+                    # Get all related resources.
+                    related_resource = value.__json_api_resource__.get_resource_object(
+                        value
+                    )
+                    related_resource_objects.append(related_resource[0])
+                    for r in related_resource[1]:
+                        related_resource_objects.append(r)
+            else:
+                relationship_value = (
+                    rel_value.__json_api_resource__.get_resource_identifier(rel_value)
+                )
+                # Get all related resources.
+                related_resource = rel_value.__json_api_resource__.get_resource_object(
+                    rel_value
+                )
+                related_resource_objects.append(related_resource[0])
+                for r in related_resource[1]:
+                    related_resource_objects.append(r)
+
+            relationships[rel.name] = relationship_model(data=relationship_value)
+
+        resource_model = self.get_resource_model()
+        return (
+            resource_model(
+                id=self.get_resource_id(resource_instance),
+                attributes=attributes,
+                relationships=relationships,
+            ),
+            related_resource_objects,
+        )
 
     def has_id(self) -> bool:
         """Does the resource have a way to get the id?"""
@@ -329,9 +383,14 @@ class Resource:
             "data": (resource_model | list[resource_model], Field(default_factory=list))
         }
         if len(self._relationships) > 0:
-            # TODO: get the resource models from the relationships.
+            # included is a list with all related resource types.
+            relation_types = tuple()
+            for rel in self._relationships.values():
+                relation_types = relation_types + (
+                    rel.resource_type.__json_api_resource__.get_resource_model(),
+                )
             document_fields["included"] = (
-                list[resource_model],
+                list[Union[relation_types]],
                 Field(default_factory=list),
             )
 
@@ -343,36 +402,13 @@ class Resource:
         return self._document_model
 
     def serialize(self, resource_instance):
-        attributes = self.get_resource_attributes(resource_instance)
-
-        relationships = {}
-        for rel in self._relationships.values():
-            rel_value = rel.getter(resource_instance)
-
-            relationship_model = self._relationships_model.__fields__[rel.name].type_
-
-            if rel_value is None:
-                relationship_value = None
-            elif rel.iterable:
-                relationship_value = []
-                for value in rel_value:
-                    relationship_value.append(
-                        value.__json_api_resource__.get_resource_identifier(value)
-                    )
-            else:
-                relationship_value = (
-                    rel_value.__json_api_resource__.get_resource_identifier(rel_value)
-                )
-            relationships[rel.name] = relationship_model(data=relationship_value)
-
-        resource_model = self.get_resource_model()
+        resource_object, related_objects = self.get_resource_object(resource_instance)
+        included = related_objects
         document_model = self.get_document_model()
+
         return document_model(
-            data=resource_model(
-                id=self.get_resource_id(resource_instance),
-                attributes=attributes,
-                relationships=relationships,
-            )
+            data=resource_object,
+            included=included,
         )
 
 
