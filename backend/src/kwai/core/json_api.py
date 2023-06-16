@@ -46,7 +46,11 @@ class Relationship:
 
 
 class Resource:
-    """A class that is responsible for generating all the models needed for JSON:API."""
+    """A class that is responsible for generating all the models needed for JSON:API.
+
+    Use the resource decorator to mark a class as a JSON:API resource. The decorator
+    will attach an instance of this class to the marked class.
+    """
 
     def __init__(self, resource):
         self._resource = resource
@@ -81,6 +85,10 @@ class Resource:
         return attr.getter(resource_instance)
 
     def get_resource_identifier(self, resource_instance):
+        """Get an instance of the resource identifier.
+
+        A resource identifier contains the id and the type of the resource.
+        """
         return self._resource_identifier_model(
             id=self.get_resource_id(resource_instance)
         )
@@ -107,6 +115,7 @@ class Resource:
         return values
 
     def get_type(self) -> str:
+        """Get the resource type."""
         return self._type
 
     def get_resource_object(self, resource_instance) -> tuple:
@@ -178,11 +187,12 @@ class Resource:
     def build(self, auto: bool = True) -> "Resource":
         """Build the JSONAPI resource models."""
         self._type = getattr(self._resource, "__json_api_resource_type__", "")
-        assert (
-            len(self._type) > 0,
-            "Is this a JSON_API resource? "
-            "Did you forget the json_api.resource decorator?",
+
+        assert len(self._type) > 0, (
+            "Is this a JSON_API resource? Did you forget the "
+            "json_api.resource decorator?"
         )
+
         self._scan_class_attributes()
         if auto:
             if dataclasses.is_dataclass(self._resource):
@@ -197,6 +207,11 @@ class Resource:
         return self
 
     def _scan_class_attributes(self):
+        """Search for attributes, id and relationships in the class.
+
+        This method will check the attributes of a class if they are decorated with
+        attribute, id or relationship decorators.
+        """
         for attribute_name in dir(self._resource):
             class_attribute = getattr(self._resource, attribute_name)
             if not callable(class_attribute):
@@ -242,6 +257,13 @@ class Resource:
         return get
 
     def _scan_dataclass(self):
+        """Search for attributes, id and relationships in a dataclass.
+
+        A field with a __json_api_resource__ attribute is a relationship. A field with
+        the name "id" will be used as id of the resource. All other fields are
+        attributes. When a field has a name that is already used with an
+        attribute, id or relationship decorator, it will be skipped.
+        """
         for field_ in dataclasses.fields(self._resource):
             # When the field name is 'id' and there is not a method decorated with
             # jsonapi.id, then this will be the id of the resource.
@@ -272,7 +294,13 @@ class Resource:
             )
 
     def _scan_base_model(self):
-        """Search for attributes and relationships on a BaseModel class."""
+        """Search for attributes and relationships on a BaseModel class.
+
+        A field with a __json_api_resource__ attribute is a relationship. A field with
+        the name "id" will be used as id of the resource. All other fields are
+        attributes. When a field has a name that is already used with an
+        attribute, id or relationship decorator, it will be skipped.
+        """
         for field_ in self._resource.__fields__.values():
             # When the field name is 'id' and there is not a method decorated with
             # jsonapi.id, then this will be the id of the resource.
@@ -303,6 +331,7 @@ class Resource:
             )
 
     def __str__(self) -> str:
+        """Use type as string representation."""
         return f"type: {self._type}"
 
     def _create_resource_identifier_model(self) -> None:
@@ -319,12 +348,21 @@ class Resource:
         )
 
     def get_resource_identifier_model(self):
+        """Return the resource identifier model.
+
+        The resource identifier model contains the id and type of the resource.
+        """
         return self._resource_identifier_model
 
     def get_model_class_prefix(self):
+        """Return the prefix used for creating the model classes.
+
+        The prefix is the capitalized type of the resource.
+        """
         return self._type.capitalize()
 
     def _create_resource_model(self):
+        """Create the resource model."""
         if self._resource_model is not None:
             return
 
@@ -377,9 +415,18 @@ class Resource:
         )
 
     def get_resource_model(self):
+        """Get the resource model.
+
+        The resource model contains the id, type, attributes and relationships of the
+        resource.
+        """
         return self._resource_model
 
     def _create_document_model(self):
+        """Create the document model.
+
+        The document model is the main model of the resource.
+        """
         if self._document_model is not None:
             return
 
@@ -405,9 +452,11 @@ class Resource:
         )
 
     def get_document_model(self):
+        """Get the document model."""
         return self._document_model
 
     def serialize(self, resource_instance):
+        """Serialize the resource instance into a document model."""
         resource_object, related_objects = self.get_resource_object(resource_instance)
         included = related_objects
         document_model = self.get_document_model()
@@ -438,6 +487,8 @@ def resource(type_: str, auto: bool = True):
 
 
 def attribute(_func=None, *, name: str | None = None):
+    """Define an attribute of a resource."""
+
     def inner_function(fn):
         fn.__json_api_attribute__ = name or fn.__name__
         return fn
@@ -449,6 +500,8 @@ def attribute(_func=None, *, name: str | None = None):
 
 
 def relationship(_func=None, *, name: str | None = None):
+    """Define a relationship of a resource."""
+
     def inner_function(fn):
         fn.__json_api_relationship__ = name or fn.__name__
         return fn
@@ -460,6 +513,8 @@ def relationship(_func=None, *, name: str | None = None):
 
 
 def id(_func=None):
+    """Define an id of the resource."""
+
     def inner_function(fn):
         fn.__json_api_id__ = True
         return fn
