@@ -84,15 +84,6 @@ class Resource:
             return
         return attr.getter(resource_instance)
 
-    def get_resource_identifier(self, resource_instance):
-        """Get an instance of the resource identifier.
-
-        A resource identifier contains the id and the type of the resource.
-        """
-        return self._resource_identifier_model(
-            id=self.get_resource_id(resource_instance)
-        )
-
     def get_resource_attributes(self, resource_instance) -> dict[str, Any]:
         """Get all attribute values from the resource instance."""
         values = {}
@@ -125,7 +116,7 @@ class Resource:
         the second value will contain a list of the related resource objects.
         """
         attributes = self.get_resource_attributes(resource_instance)
-        related_resource_objects = []
+        related_resource_objects = set()
 
         relationships = {}
         for rel in self._relationships.values():
@@ -145,9 +136,9 @@ class Resource:
                     related_resource = value.__json_api_resource__.get_resource_object(
                         value
                     )
-                    related_resource_objects.append(related_resource[0])
+                    related_resource_objects.add(related_resource[0])
                     for r in related_resource[1]:
-                        related_resource_objects.append(r)
+                        related_resource_objects.add(r)
             else:
                 relationship_value = (
                     rel_value.__json_api_resource__.get_resource_identifier(rel_value)
@@ -156,9 +147,9 @@ class Resource:
                 related_resource = rel_value.__json_api_resource__.get_resource_object(
                     rel_value
                 )
-                related_resource_objects.append(related_resource[0])
+                related_resource_objects.add(related_resource[0])
                 for r in related_resource[1]:
-                    related_resource_objects.append(r)
+                    related_resource_objects.add(r)
 
             relationships[rel.name] = relationship_model(data=relationship_value)
 
@@ -339,6 +330,10 @@ class Resource:
         if self._resource_identifier_model is not None:
             return
 
+        def hash_resource(resource_instance):
+            """Create a hash for a resource."""
+            return hash(resource_instance.type + "." + resource_instance.id)
+
         self._resource_identifier_model = create_model(
             self.get_model_class_prefix() + "ResourceIdentifier",
             **{
@@ -346,6 +341,7 @@ class Resource:
                 "type": (Literal[self._type], Field(default=self._type)),
             },
         )
+        self._resource_identifier_model.__hash__ = hash_resource
 
     def get_resource_identifier_model(self):
         """Return the resource identifier model.
@@ -353,6 +349,15 @@ class Resource:
         The resource identifier model contains the id and type of the resource.
         """
         return self._resource_identifier_model
+
+    def get_resource_identifier(self, resource_instance):
+        """Get an instance of the resource identifier.
+
+        A resource identifier contains the id and the type of the resource.
+        """
+        return self._resource_identifier_model(
+            id=self.get_resource_id(resource_instance)
+        )
 
     def get_model_class_prefix(self):
         """Return the prefix used for creating the model classes.
@@ -458,13 +463,22 @@ class Resource:
     def serialize(self, resource_instance):
         """Serialize the resource instance into a document model."""
         resource_object, related_objects = self.get_resource_object(resource_instance)
-        included = related_objects
+        included = set(related_objects)
         document_model = self.get_document_model()
 
-        return document_model(
-            data=resource_object,
-            included=included,
-        )
+        return document_model(data=resource_object, included=list(included))
+
+    def serialize_list(self, resource_instances: list[Any]):
+        """Serialize a list of resources into a document model."""
+        included = set()
+        resources = []
+        for resource_instance in resource_instances:
+            resource_object, related_objects = self.serialize(resource_instance)
+            resources.append(resource_object)
+            included += related_objects
+
+        document_model = self.get_document_model()
+        return document_model(data=resources, included=list(included))
 
 
 def resource(type_: str, auto: bool = True):
