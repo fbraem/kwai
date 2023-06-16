@@ -54,7 +54,6 @@ class Resource:
         self._id_getter = None
         self._attributes = {}
         self._relationships = {}
-        self._relationship_getters = {}
 
         self._resource_identifier_model = None
         self._attributes_model = None
