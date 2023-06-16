@@ -8,6 +8,8 @@ from pydantic import BaseModel, Field, create_model
 
 @dataclasses.dataclass(frozen=True, kw_only=True, slots=True)
 class Attribute:
+    """Dataclass for storing information about attributes."""
+
     name: str
     getter: callable
     type: Type
@@ -15,6 +17,8 @@ class Attribute:
 
 @dataclasses.dataclass(frozen=True, kw_only=True, slots=True)
 class Relationship:
+    """Dataclass for storing information about relationships."""
+
     name: str
     getter: callable
     type: Type
@@ -23,6 +27,7 @@ class Relationship:
     resource_type: Type = dataclasses.field(init=False)
 
     def __post_init__(self):
+        """Initialise the properties that depend on the type."""
         all_types = get_args(self.type)
         object.__setattr__(self, "optional", NoneType in all_types)
 
@@ -41,6 +46,8 @@ class Relationship:
 
 
 class Resource:
+    """A class that is responsible for generating all the models needed for JSON:API."""
+
     def __init__(self, resource):
         self._resource = resource
         self._type = ""
