@@ -226,12 +226,22 @@ def test_multiple_relationships():
     assert (
         len(json_api_document.included) == 2
     ), "There should be an 2 included resources"
-    assert json_api_document.included[0].type == "members"
-    assert json_api_document.included[0].id == "1"
-    assert json_api_document.included[0].attributes.name == "Kyuzo Mifune"
-    assert json_api_document.included[1].type == "members"
-    assert json_api_document.included[1].id == "2"
-    assert json_api_document.included[1].attributes.name == "Jigoro Kano"
+
+    def search_member(id: str):
+        for resource in json_api_document.included:
+            if resource.type == "members" and resource.id == id:
+                return resource
+
+    member = search_member("1")
+    assert member is not None, "There should be a member with id '1'"
+    assert (
+        member.attributes.name == "Kyuzo Mifune"
+    ), "The name of member '1' should be 'Kyuzo Mifune'"
+    member = search_member("2")
+    assert member is not None, "There should be a member with id '2'"
+    assert (
+        member.attributes.name == "Jigoro Kano"
+    ), "The name of member '2' should be 'Jigoro Kano'"
 
 
 def test_multiple_resource_list():
