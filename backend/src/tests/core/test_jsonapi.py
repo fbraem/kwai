@@ -213,3 +213,32 @@ def test_jsonapi_auto_relationship():
     assert json_api_document.included[0].type == "members"
     assert json_api_document.included[0].id == "1"
     assert json_api_document.included[0].attributes.name == "Kyuzo Mifune"
+
+
+def test_multiple_relationships():
+    """Test a resource with multiple relations."""
+
+    team = Team(id=1, name="U15")
+    team.members.append(Member(id=1, name="Kyuzo Mifune"))
+    team.members.append(Member(id=2, name="Jigoro Kano"))
+
+    json_api_document = team.serialize()
+    assert (
+        len(json_api_document.included) == 2
+    ), "There should be an 2 included resources"
+    assert json_api_document.included[0].type == "members"
+    assert json_api_document.included[0].id == "1"
+    assert json_api_document.included[0].attributes.name == "Kyuzo Mifune"
+    assert json_api_document.included[1].type == "members"
+    assert json_api_document.included[1].id == "2"
+    assert json_api_document.included[1].attributes.name == "Jigoro Kano"
+
+
+def test_multiple_resource_list():
+    teams = [
+        Team(id=1, name="U15", members=[Member(id=1, name="Jigoro Kano")]),
+        Team(id=2, name="U18", members=[Member(id=2, name="Kyuzo Mifune")]),
+    ]
+    json_api_document = Team.serialize_list(teams)
+    assert len(json_api_document.data) == 2, "There should be 2 team resources"
+    assert len(json_api_document.included) == 2, "There should be 2 related resources"
