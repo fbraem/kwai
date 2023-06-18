@@ -3,7 +3,18 @@ import dataclasses
 from types import NoneType
 from typing import Any, Literal, Optional, Type, Union, get_args, get_origin
 
-from pydantic import BaseModel, Field, create_model
+from pydantic import BaseModel, Field, create_model, Extra
+
+
+class Meta(BaseModel):
+    """Meta object for the document model."""
+
+    count: int | None = None
+    offset: int | None = None
+    limit: int | None = None
+
+    class Config:
+        extra = Extra.allow
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True, slots=True)
@@ -443,7 +454,11 @@ class Resource:
         resource_model = self.get_resource_model()
 
         document_fields = {
-            "data": (resource_model | list[resource_model], Field(default_factory=list))
+            "meta": (Meta, Field(default=None)),
+            "data": (
+                resource_model | list[resource_model],
+                Field(default_factory=list),
+            ),
         }
         if len(self._relationships) > 0:
             # included is a list with all related resource types.
