@@ -77,9 +77,9 @@ def test_jsonapi_dataclass_resource():
     """Test the resource class with a dataclass."""
     resource = json_api.Resource(Member).build()
     assert (
-        resource.get_attribute("name") is not None,
-        "There should be a name attribute",
-    )
+        resource.get_attribute("name") is not None
+    ), "There should be a name attribute"
+
     assert resource.has_id(), "There should be a way to get the id."
     assert resource.get_type() == "members", "The resource type should be 'members'."
 
@@ -88,9 +88,8 @@ def test_jsonapi_basemodel_resource():
     """Test the resource class with a pydantic BaseModel."""
     resource = json_api.Resource(Team).build()
     assert (
-        resource.get_attribute("name") is not None,
-        "There should be a name attribute",
-    )
+        resource.get_attribute("name") is not None
+    ), "There should be a name attribute"
     assert resource.has_id(), "There should be a way to get the id."
     assert resource.get_type() == "teams", "The resource type should be 'teams'."
     assert resource.get_relationship(
@@ -140,6 +139,7 @@ def test_resource_model():
 
 
 def test_document_model():
+    """Test the creation of a document model."""
     resource = json_api.Resource(Coach).build()
 
     document_model = resource.get_document_model()
@@ -217,7 +217,6 @@ def test_jsonapi_auto_relationship():
 
 def test_multiple_relationships():
     """Test a resource with multiple relations."""
-
     team = Team(id=1, name="U15")
     team.members.append(Member(id=1, name="Kyuzo Mifune"))
     team.members.append(Member(id=2, name="Jigoro Kano"))
@@ -245,6 +244,7 @@ def test_multiple_relationships():
 
 
 def test_multiple_resource_list():
+    """Test serializing a list of resources."""
     teams = [
         Team(id=1, name="U15", members=[Member(id=1, name="Jigoro Kano")]),
         Team(id=2, name="U18", members=[Member(id=2, name="Kyuzo Mifune")]),
