@@ -473,9 +473,11 @@ class Resource:
         included = set()
         resources = []
         for resource_instance in resource_instances:
-            resource_object, related_objects = self.serialize(resource_instance)
+            resource_object, related_objects = self.get_resource_object(
+                resource_instance
+            )
             resources.append(resource_object)
-            included += related_objects
+            included = included | related_objects
 
         document_model = self.get_document_model()
         return document_model(data=resources, included=list(included))
@@ -493,7 +495,11 @@ def resource(type_: str, auto: bool = True):
         def serialize(self):
             return json_api_resource.serialize(self)
 
+        def serialize_list(resource_list):
+            return json_api_resource.serialize_list(resource_list)
+
         cls.serialize = serialize
+        cls.serialize_list = serialize_list
 
         return cls
 
