@@ -195,6 +195,11 @@ class Resource:
         self._create_resource_model()
         self._create_document_model()
 
+        assert self._id_getter is not None, (
+            "Can't determine the id of the resource. "
+            "Use the id decorator or define an 'id' field."
+        )
+
         return self
 
     def _scan_class_attributes(self):
