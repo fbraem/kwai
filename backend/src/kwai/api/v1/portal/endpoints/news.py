@@ -11,8 +11,6 @@ from kwai.modules.news.stories.story_db_repository import StoryDbRepository
 
 router = APIRouter()
 
-# pylint: disable=too-few-public-methods
-
 
 @router.get("/news")
 async def get_news(
