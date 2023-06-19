@@ -57,46 +57,6 @@ class Coach:
         return self._team
 
 
-def test_jsonapi_resource():
-    """Test the resource class."""
-    resource = json_api.Resource(Coach).build()
-    assert (
-        resource.get_attribute("name") is not None
-    ), "There should be a name attribute."
-    assert (
-        resource.get_attribute("year_of_birth") is not None
-    ), "There should be a year of birth attribute."
-    assert resource.get_type() == "coaches", "The resource type should be 'coaches'."
-    assert resource.has_id(), "There should be a way to get the id."
-    assert (
-        resource.get_relationship("team") is not None
-    ), "There should be a 'team' relationship."
-
-
-def test_jsonapi_dataclass_resource():
-    """Test the resource class with a dataclass."""
-    resource = json_api.Resource(Member).build()
-    assert (
-        resource.get_attribute("name") is not None
-    ), "There should be a name attribute"
-
-    assert resource.has_id(), "There should be a way to get the id."
-    assert resource.get_type() == "members", "The resource type should be 'members'."
-
-
-def test_jsonapi_basemodel_resource():
-    """Test the resource class with a pydantic BaseModel."""
-    resource = json_api.Resource(Team).build()
-    assert (
-        resource.get_attribute("name") is not None
-    ), "There should be a name attribute"
-    assert resource.has_id(), "There should be a way to get the id."
-    assert resource.get_type() == "teams", "The resource type should be 'teams'."
-    assert resource.get_relationship(
-        "members"
-    ), "There should be a relationship 'members'."
-
-
 def test_jsonapi_resource_decorator():
     """Test if the class contains a resource and a type."""
     resource = getattr(Coach, "__json_api_resource__", None)
@@ -107,10 +67,53 @@ def test_jsonapi_resource_decorator():
     assert resource.get_type() == "coaches", "The type should be 'coaches'."
 
 
+def test_jsonapi_resource():
+    """Test the resource class."""
+    resource = json_api.Resource(Coach).build()
+    assert (
+        Coach.__json_api_resource__.get_attribute("name") is not None
+    ), "There should be a name attribute."
+    assert (
+        Coach.__json_api_resource__.get_attribute("year_of_birth") is not None
+    ), "There should be a year of birth attribute."
+    assert (
+        Coach.__json_api_resource__.get_type() == "coaches"
+    ), "The resource type should be 'coaches'."
+    assert Coach.__json_api_resource__.has_id(), "There should be a way to get the id."
+    assert (
+        Coach.__json_api_resource__.get_relationship("team") is not None
+    ), "There should be a 'team' relationship."
+
+
+def test_jsonapi_dataclass_resource():
+    """Test the resource class with a dataclass."""
+    assert (
+        Member.__json_api_resource__.get_attribute("name") is not None
+    ), "There should be a name attribute"
+
+    assert Member.__json_api_resource__.has_id(), "There should be a way to get the id."
+    assert (
+        Member.__json_api_resource__.get_type() == "members"
+    ), "The resource type should be 'members'."
+
+
+def test_jsonapi_basemodel_resource():
+    """Test the resource class with a pydantic BaseModel."""
+    assert (
+        Team.__json_api_resource__.get_attribute("name") is not None
+    ), "There should be a name attribute"
+    assert Team.__json_api_resource__.has_id(), "There should be a way to get the id."
+    assert (
+        Team.__json_api_resource__.get_type() == "teams"
+    ), "The resource type should be 'teams'."
+    assert Team.__json_api_resource__.get_relationship(
+        "members"
+    ), "There should be a relationship 'members'."
+
+
 def test_resource_identifier_model():
     """Test if the resource identifier model is created correctly."""
-    resource = json_api.Resource(Coach).build()
-    resource_identifier = resource.get_resource_identifier_model()
+    resource_identifier = Coach.__json_api_resource__.get_resource_identifier_model()
     assert (
         resource_identifier is not None
     ), "There should be a resource identifier model"
@@ -122,8 +125,7 @@ def test_resource_identifier_model():
 
 def test_resource_model():
     """Test if the resource identifier model is created correctly."""
-    resource = json_api.Resource(Coach).build()
-    resource_model = resource.get_resource_model()
+    resource_model = Coach.__json_api_resource__.get_resource_model()
     assert resource_model is not None, "There should be a resource model"
     resource_instance = resource_model(
         id="1",
@@ -140,9 +142,7 @@ def test_resource_model():
 
 def test_document_model():
     """Test the creation of a document model."""
-    resource = json_api.Resource(Coach).build()
-
-    document_model = resource.get_document_model()
+    document_model = Coach.get_document_model()
 
     assert document_model is not None, "There should be a document model"
 
