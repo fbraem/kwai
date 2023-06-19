@@ -15,7 +15,7 @@ router = APIRouter()
 @router.get("/news")
 async def get_news(
     pagination: PaginationModel = Depends(PaginationModel), db=deps.depends(Database)
-) -> PortalStoryResource.__json_api_resource__.get_document_model():
+) -> PortalStoryResource.get_document_model():
     """Get news stories for the portal.
 
     Only promoted news stories are returned for the portal.

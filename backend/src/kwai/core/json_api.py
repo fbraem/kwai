@@ -540,6 +540,8 @@ def resource(type_: str, auto: bool = True):
         cls.serialize = serialize
         cls.serialize_list = serialize_list
 
+        cls.get_document_model = lambda: json_api_resource.get_document_model()
+
         return cls
 
     return decorator
