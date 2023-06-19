@@ -3,7 +3,7 @@ import dataclasses
 from types import NoneType
 from typing import Any, Literal, Optional, Type, Union, get_args, get_origin
 
-from pydantic import BaseModel, Field, create_model, Extra
+from pydantic import BaseModel, Extra, Field, create_model
 
 
 class Meta(BaseModel):
@@ -14,7 +14,25 @@ class Meta(BaseModel):
     limit: int | None = None
 
     class Config:
+        """Allow extra attributes on the Meta object."""
+
         extra = Extra.allow
+
+
+class DocumentBaseModel(BaseModel):
+    """A basemodel for a document."""
+
+    meta: Meta | None = None
+
+    def dict(self, *args, **kwargs) -> dict[str, Any]:
+        """Overloads dict to remove 'meta' when it's None."""
+        if self.meta is None:
+            exclude = kwargs.get("exclude", None)
+            if exclude is None:
+                kwargs["exclude"] = {"meta"}
+            else:
+                kwargs["exclude"].add("meta")
+        return super().dict(*args, **kwargs)
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True, slots=True)
@@ -454,7 +472,6 @@ class Resource:
         resource_model = self.get_resource_model()
 
         document_fields = {
-            "meta": (Meta, Field(default=None)),
             "data": (
                 resource_model | list[resource_model],
                 Field(default_factory=list),
@@ -473,7 +490,9 @@ class Resource:
             )
 
         self._document_model = create_model(
-            self.get_model_class_prefix() + "Document", **document_fields
+            self.get_model_class_prefix() + "Document",
+            __base__=DocumentBaseModel,
+            **document_fields,
         )
 
     def get_document_model(self):
