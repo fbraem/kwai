@@ -530,16 +530,12 @@ def resource(type_: str, auto: bool = True):
 
         json_api_resource = Resource(cls).build(auto)
         cls.__json_api_resource__ = json_api_resource
-
-        def serialize(self):
-            return json_api_resource.serialize(self)
-
-        def serialize_list(resource_list):
-            return json_api_resource.serialize_list(resource_list)
-
-        cls.serialize = serialize
-        cls.serialize_list = serialize_list
-
+        cls.serialize = lambda resource_instance: json_api_resource.serialize(
+            resource_instance
+        )
+        cls.serialize_list = lambda resource_list: json_api_resource.serialize_list(
+            resource_list
+        )
         cls.get_document_model = lambda: json_api_resource.get_document_model()
 
         return cls
