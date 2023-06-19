@@ -7,7 +7,15 @@ from pydantic import BaseModel, Extra, Field, create_model
 
 
 class Meta(BaseModel):
-    """Meta object for the document model."""
+    """Defines the metadata for the document model.
+
+    Attributes:
+        count: The number of actual resources
+        offset: The offset of the returned resources (pagination)
+        limit: The maximum number of returned resources (pagination)
+
+    A limit of 0, means there was no limit was set.
+    """
 
     count: int | None = None
     offset: int | None = None
