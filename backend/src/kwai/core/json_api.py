@@ -546,7 +546,11 @@ def resource(type_: str, auto: bool = True):
 
 
 def attribute(_func=None, *, name: str | None = None):
-    """Define an attribute of a resource."""
+    """Turn a method into an attribute of a resource with this decorator.
+
+    When name is omitted, the name of the method is used. Brackets can be omitted when
+    no name is passed.
+    """
 
     def inner_function(fn):
         fn.__json_api_attribute__ = name or fn.__name__
@@ -559,7 +563,11 @@ def attribute(_func=None, *, name: str | None = None):
 
 
 def relationship(_func=None, *, name: str | None = None):
-    """Define a relationship of a resource."""
+    """Turn a method into a relationship of a resource with this decorator.
+
+    When name is omitted, the name of the method is used. Brackets can be omitted when
+    no name is passed.
+    """
 
     def inner_function(fn):
         fn.__json_api_relationship__ = name or fn.__name__
@@ -572,7 +580,10 @@ def relationship(_func=None, *, name: str | None = None):
 
 
 def id(_func=None):
-    """Define an id of the resource."""
+    """Mark this method as the way to get the id of the resource with this decorator.
+
+    Brackets can be omitted.
+    """
 
     def inner_function(fn):
         fn.__json_api_id__ = True
