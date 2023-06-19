@@ -1,7 +1,7 @@
 """Schemas for a story on a portal."""
 from pydantic import BaseModel
 
-from kwai.api.v1.portal.endpoints.news import MarkdownConverter
+from kwai.api.converter import MarkdownConverter
 from kwai.core import json_api
 from kwai.modules.news.stories.story import Application, StoryEntity
 
