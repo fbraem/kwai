@@ -1,21 +1,36 @@
 """Schemas for a story on a portal."""
-from typing import Literal
-
 from pydantic import BaseModel
 
-from kwai.api.schemas.application import ApplicationResourceIdentifier
-from kwai.api.schemas.jsonapi import RelationshipData, Document, Documents
+from kwai.api.v1.portal.endpoints.news import MarkdownConverter
+from kwai.core import json_api
+from kwai.modules.news.stories.story import Application, StoryEntity
 
 
-class PortalStoryResourceIdentifier(BaseModel):
-    """The identifier for a news story."""
+@json_api.resource(type_="applications")
+class PortalApplicationResource:
+    """JSON:API resource for an application."""
 
-    type: Literal["stories"] = "stories"
-    id: str | None
+    def __init__(self, application: Application):
+        self._application = application
+
+    @json_api.id
+    def get_id(self) -> str:
+        """Get the id."""
+        return str(self._application.id)
+
+    @json_api.attribute(name="name")
+    def get_name(self) -> str:
+        """Get the name of the application."""
+        return self._application.name
+
+    @json_api.attribute(name="title")
+    def get_title(self) -> str:
+        """Get the title of the application."""
+        return self._application.title
 
 
-class PortalStoryContent(BaseModel):
-    """Schema for content of a story."""
+class StoryContent(BaseModel):
+    """Schema for the content of a story."""
 
     locale: str
     title: str
@@ -23,53 +38,39 @@ class PortalStoryContent(BaseModel):
     content: str | None
 
 
-class PortalStoryAttributes(BaseModel):
-    """Attributes for a story on a portal."""
+@json_api.resource(type_="stories")
+class PortalStoryResource:
+    """Represent a JSONAPI resource for a news story."""
 
-    priority: int
-    content: list[PortalStoryContent]
-    publish_date: str
+    def __init__(self, story: StoryEntity):
+        """Construct.
 
+        Args:
+            story: The story news entity that is transformed into a JSONAPI resource.
+        """
+        self._story = story
 
-class PortalStoryRelationships(BaseModel):
-    """Relationships of a story."""
+    @json_api.id
+    def get_id(self) -> str:
+        """Get the id of the story."""
+        return str(self._story.id)
 
-    application: RelationshipData[ApplicationResourceIdentifier]
+    @json_api.attribute(name="content")
+    def get_content(self) -> list[StoryContent]:
+        """Get the content of the story."""
+        return [
+            StoryContent(
+                locale=content.locale,
+                title=content.title,
+                summary=MarkdownConverter().convert(content.summary),
+                content=MarkdownConverter().convert(content.content)
+                if content.content
+                else None,
+            )
+            for content in self._story.content
+        ]
 
-
-class PortalStoryApplicationAttributes(BaseModel):
-    """Attributes for an application."""
-
-    name: str
-    title: str
-
-
-class PortalStoryApplicationData(ApplicationResourceIdentifier):
-    """Data for an application."""
-
-    attributes: PortalStoryApplicationAttributes
-
-    def __hash__(self):
-        return hash(self.id + "/" + self.type)
-
-
-class PortalStoryData(PortalStoryResourceIdentifier):
-    """Data of a story on a portal."""
-
-    attributes: PortalStoryAttributes
-    relationships: PortalStoryRelationships
-
-
-# pylint: disable=too-few-public-methods
-
-
-class PortalStoryDocument(Document[PortalStoryData]):
-    """Document for a story on a portal."""
-
-    included: list[PortalStoryApplicationData]
-
-
-class PortalStoriesDocument(Documents[PortalStoryData]):
-    """Document for a list of stories on a portal."""
-
-    included: list[PortalStoryApplicationData]
+    @json_api.relationship(name="application")
+    def get_application(self) -> PortalApplicationResource:
+        """Get the application of the story."""
+        return PortalApplicationResource(self._story.application)
