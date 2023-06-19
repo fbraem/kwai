@@ -65,7 +65,7 @@ module = "sql_smith.*"
 ignore_missing_imports = true
 
 [tool.ruff]
-select = ["E", "F", "B", "D", "I", "N"]
+select = ["E", "W", "F", "C", "B", "D", "I", "N"]
 ignore = ["D107", "D203", "D213", "D406", "D407", "N818", "B008"]
 target-version = "py310"
 
