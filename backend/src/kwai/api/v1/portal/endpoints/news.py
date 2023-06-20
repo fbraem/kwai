@@ -28,8 +28,6 @@ async def get_news(
     document = PortalStoryResource.serialize_list(
         [PortalStoryResource(story) async for story in story_iterator]
     )
-    document.meta = Meta(
-        count=count, offset=command.offset, limit=command.limit, test="Hoi!"
-    )
+    document.meta = Meta(count=count, offset=command.offset, limit=command.limit)
 
     return document
