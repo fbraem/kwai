@@ -50,6 +50,12 @@ class Attribute:
     name: str
     getter: callable
     type: Type
+    optional: bool = dataclasses.field(init=False)
+
+    def __post_init__(self):
+        """Set the optional field."""
+        all_types = get_args(self.type)
+        object.__setattr__(self, "optional", NoneType in all_types)
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True, slots=True)
@@ -414,7 +420,13 @@ class Resource:
             return
 
         # Create a model for the attributes of the resource.
-        attributes = {attr.name: (attr.type, ...) for attr in self._attributes.values()}
+        attributes = {}
+        for attr in self._attributes.values():
+            if attr.optional:
+                attributes[attr.name] = (attr.type, Field(default=None))
+            else:
+                attributes[attr.name] = (attr.type, ...)
+
         self._attributes_model = create_model(
             self.get_model_class_prefix() + "Attributes", **attributes
         )
