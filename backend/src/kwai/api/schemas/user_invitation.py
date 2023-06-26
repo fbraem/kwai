@@ -1,45 +1,57 @@
 """Schemas for a user invitation resource."""
-from typing import Literal
 
-from pydantic import BaseModel, Field
-
-from kwai.api.schemas.jsonapi import Meta
+from kwai.core import json_api
+from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
 
 
-class UserInvitationResourceIdentifier(BaseModel):
-    """The identifier for a user invitation resource."""
+@json_api.resource(type_="user_invitations")
+class UserInvitationResource:
+    """Represent a JSON:API resource for a user invitation."""
 
-    type: Literal["user_invitations"] = "user_invitations"
-    id: str | None
+    def __init__(self, invitation: UserInvitationEntity):
+        self._invitation = invitation
 
+    @json_api.id
+    def get_id(self) -> str:
+        """Get the id of the user invitation."""
+        return str(self._invitation.uuid)
 
-class UserInvitationAttributes(BaseModel):
-    """Attributes for a user invitation resource."""
+    @json_api.attribute(name="email")
+    def get_email(self) -> str:
+        """Get the email address for the invitation."""
+        return str(self._invitation.email)
 
-    email: str
-    first_name: str
-    last_name: str
-    remark: str = ""
-    expired_at: str | None = None
-    confirmed_at: str | None = None
-    created_at: str | None = None
-    updated_at: str | None = None
+    @json_api.attribute(name="first_name")
+    def get_first_name(self) -> str:
+        """Get the first name of the receiver."""
+        return self._invitation.name.first_name
 
+    @json_api.attribute(name="last_name")
+    def get_last_name(self) -> str:
+        """Get the last name of the receiver."""
+        return self._invitation.name.last_name
 
-class UserInvitationData(UserInvitationResourceIdentifier):
-    """Data of the user invitation resource."""
+    @json_api.attribute(name="remark")
+    def get_remark(self) -> str:
+        """Get a remark about the invitation."""
+        return self._invitation.remark
 
-    attributes: UserInvitationAttributes
+    @json_api.attribute(name="expired_at")
+    def get_expired_at(self) -> str | None:
+        """Get the timestamp of expiration."""
+        return str(self._invitation.expired_at)
 
+    @json_api.attribute(name="confirmed_at")
+    def get_confirmed_at(self) -> str | None:
+        """Get the timestamp of confirmation."""
+        return str(self._invitation.confirmed_at)
 
-class UserInvitationDocument(BaseModel):
-    """Document for one user invitation resource."""
+    @json_api.attribute(name="created_at")
+    def get_created_at(self) -> str | None:
+        """Get the timestamp of creation."""
+        return str(self._invitation.traceable_time.created_at)
 
-    data: UserInvitationData
-
-
-class UserInvitationsDocument(BaseModel):
-    """Document for a list of user invitation resources."""
-
-    meta: Meta | None
-    data: list[UserInvitationData] = Field(default_factory=list)
+    @json_api.attribute(name="updated_at")
+    def get_updated_at(self) -> str | None:
+        """Get the timestamp of the last update."""
+        return str(self._invitation.traceable_time.updated_at)

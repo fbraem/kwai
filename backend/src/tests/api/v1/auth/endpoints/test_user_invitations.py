@@ -45,7 +45,7 @@ def test_create_user_invitation(secure_client: TestClient, invitation_data: list
     response = secure_client.post(
         "api/v1/auth/users/invitations", content=json.dumps(data)
     )
-    assert response.status_code == status.HTTP_200_OK
+    assert response.status_code == status.HTTP_200_OK, response.content
 
     invitation_data.append(response.json()["data"]["id"])
 

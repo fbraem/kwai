@@ -1,48 +1,59 @@
 """Schemas for an application resource."""
-from typing import Literal
-
-from pydantic import BaseModel, Field
-
-from kwai.api.schemas.jsonapi import Meta
+from kwai.core import json_api
+from kwai.modules.portal.applications.application import ApplicationEntity
 
 
-class ApplicationResourceIdentifier(BaseModel):
-    """The identifier for an application resource."""
+@json_api.resource(type_="applications")
+class ApplicationResource:
+    """Represents a JSON:API resource for applications."""
 
-    type: Literal["applications"] = "applications"
-    id: str | None
+    def __init__(self, application: ApplicationEntity):
+        self._application = application
 
+    @json_api.id
+    def get_id(self) -> str:
+        return str(self._application.id)
 
-class ApplicationAttributes(BaseModel):
-    """Attributes for an application resource."""
+    @json_api.attribute(name="name")
+    def get_name(self) -> str:
+        return self._application.name
 
-    name: str
-    title: str
-    description: str
-    short_description: str
-    remark: str = ""
-    news: bool
-    pages: bool
-    events: bool
-    weight: int
-    created_at: str | None = None
-    updated_at: str | None = None
+    @json_api.attribute(name="name")
+    def get_title(self) -> str:
+        return self._application.title
 
+    @json_api.attribute(name="name")
+    def get_description(self) -> str:
+        return self._application.description
 
-class ApplicationData(ApplicationResourceIdentifier):
-    """Data of the application resource."""
+    @json_api.attribute(name="name")
+    def get_short_description(self) -> str:
+        return self._application.short_description
 
-    attributes: ApplicationAttributes
+    @json_api.attribute(name="name")
+    def get_remark(self) -> str:
+        return self._application.remark
 
+    @json_api.attribute(name="name")
+    def get_news(self) -> bool:
+        return self._application.can_contain_news
 
-class ApplicationDocument(BaseModel):
-    """Document for one application resource."""
+    @json_api.attribute(name="name")
+    def get_pages(self) -> bool:
+        return self._application.can_contain_pages
 
-    data: ApplicationData
+    @json_api.attribute(name="name")
+    def get_events(self) -> bool:
+        return self._application.can_contain_events
 
+    @json_api.attribute(name="name")
+    def get_weight(self) -> int:
+        return self._application.weight
 
-class ApplicationsDocument(BaseModel):
-    """Document for a list of application resources."""
+    @json_api.attribute(name="name")
+    def get_created_at(self) -> str:
+        return str(self._application.traceable_time.created_at)
 
-    meta: Meta | None
-    data: list[ApplicationData] = Field(default_factory=list)
+    @json_api.attribute(name="name")
+    def get_updated_at(self) -> str:
+        return str(self._application.traceable_time.updated_at)
