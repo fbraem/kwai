@@ -3,9 +3,9 @@
 from fastapi import APIRouter, Depends
 
 from kwai.api.dependencies import deps
-from kwai.api.schemas.jsonapi import Meta, PaginationModel
 from kwai.api.v1.portal.schemas.story import PortalStoryResource
 from kwai.core.db.database import Database
+from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.news.get_stories import GetStories, GetStoriesCommand
 from kwai.modules.news.stories.story_db_repository import StoryDbRepository
 

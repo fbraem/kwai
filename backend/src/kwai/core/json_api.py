@@ -3,6 +3,7 @@ import dataclasses
 from types import NoneType
 from typing import Any, Literal, Optional, Type, Union, get_args, get_origin
 
+from fastapi import Query
 from pydantic import BaseModel, Extra, Field, create_model
 
 
@@ -611,3 +612,18 @@ def id(_func=None):
         return inner_function
 
     return inner_function(_func)
+
+
+class PaginationModel(BaseModel):
+    """A model for pagination query parameters.
+
+    Use this as a dependency on a route. This will handle the page[offset]
+    and page[limit] query parameters.
+
+    Attributes:
+        offset: The value of the page[offset] query parameter. Default is None.
+        limit: The value of the page[limit] query parameter. Default is None.
+    """
+
+    offset: int | None = Field(Query(default=None, alias="page[offset]"))
+    limit: int | None = Field(Query(default=None, alias="page[limit]"))
