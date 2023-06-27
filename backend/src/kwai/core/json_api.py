@@ -413,7 +413,7 @@ class Resource:
 
         The prefix is the capitalized type of the resource.
         """
-        return self._type.capitalize()
+        return self._resource.__name__.removesuffix("Resource") + "_"
 
     def _create_resource_model(self):
         """Create the resource model."""
