@@ -411,7 +411,7 @@ class Resource:
     def get_model_class_prefix(self):
         """Return the prefix used for creating the model classes.
 
-        The prefix is the capitalized type of the resource.
+        The prefix is the name of the class without the "Resource" suffix.
         """
         return self._resource.__name__.removesuffix("Resource") + "_"
 
