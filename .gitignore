@@ -16,3 +16,4 @@ node_modules
 public
 .idea
 /frontend/packages/kwai-config/src/config.toml
+*.pyc
