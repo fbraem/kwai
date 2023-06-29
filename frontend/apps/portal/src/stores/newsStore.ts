@@ -113,7 +113,7 @@ export const useNewsStore = defineStore('news', () => {
         if (result.success) {
           items.value = <NewsStory[]>toModel(result.data);
         } else {
-          console.log(result.error);
+          console.log(result);
         }
       }
     );
