@@ -57,10 +57,12 @@ class PortalStoryResource:
 
     @json_api.attribute(name="priority")
     def get_priority(self) -> int:
+        """Get the priority of the promotion."""
         return self._story.promotion.priority
 
     @json_api.attribute(name="publish_date")
     def get_publish_date(self) -> str:
+        """Get the publication date."""
         return str(self._story.period.start_date)
 
     @json_api.attribute(name="content")
