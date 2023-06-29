@@ -15,17 +15,22 @@ from kwai.modules.portal.get_applications import GetApplications, GetApplication
 router = APIRouter()
 
 
+ApplicationResourceDocument = ApplicationResource.get_document_model()
+
+
 @router.get("/applications")
 async def get_applications(
     db=deps.depends(Database),
-) -> ApplicationResource.get_document_model():
+) -> ApplicationResourceDocument:
     """Get all applications of kwai."""
     command = GetApplicationsCommand()
     count, application_iterator = await GetApplications(
         ApplicationDbRepository(db)
     ).execute(command)
 
-    document = ApplicationResource.serialize_list(
+    result: ApplicationResourceDocument = ApplicationResource.serialize_list(
         [ApplicationResource(application) async for application in application_iterator]
     )
-    document.meta = Meta(count=count)
+    result.meta = Meta(count=count)
+
+    return result
