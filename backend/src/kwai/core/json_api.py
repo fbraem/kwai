@@ -1,7 +1,7 @@
 """Module that defines some jsonapi related models."""
 import dataclasses
 from types import NoneType
-from typing import Any, Literal, Optional, Type, Union, get_args, get_origin, Callable
+from typing import Any, Callable, Literal, Optional, Type, Union, get_args, get_origin
 
 from fastapi import Query
 from pydantic import BaseModel, Extra, Field, create_model
