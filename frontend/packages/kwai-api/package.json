@@ -9,6 +9,7 @@
   "module": "dist/kwai-api.js",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/kwai-api.js",
       "require": "./dist/kwai-api.umd.cjs"
     }

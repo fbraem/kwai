@@ -9,6 +9,7 @@
   "module": "dist/kwai-date.js",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/kwai-date.js",
       "require": "./dist/kwai-date.umd.cjs"
     }
