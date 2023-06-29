@@ -408,7 +408,7 @@ class Resource:
             id=self.get_resource_id(resource_instance)
         )
 
-    def get_model_class_prefix(self):
+    def get_model_class_prefix(self) -> str:
         """Return the prefix used for creating the model classes.
 
         The prefix is the name of the class without the "Resource" suffix.
