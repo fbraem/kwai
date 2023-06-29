@@ -1,7 +1,7 @@
 """Module that defines some jsonapi related models."""
 import dataclasses
 from types import NoneType
-from typing import Any, Literal, Optional, Type, Union, get_args, get_origin
+from typing import Any, Literal, Optional, Type, Union, get_args, get_origin, Callable
 
 from fastapi import Query
 from pydantic import BaseModel, Extra, Field, create_model
@@ -49,7 +49,7 @@ class Attribute:
     """Dataclass for storing information about attributes."""
 
     name: str
-    getter: callable
+    getter: Callable
     type: Type
     optional: bool = dataclasses.field(init=False)
 
@@ -64,7 +64,7 @@ class Relationship:
     """Dataclass for storing information about relationships."""
 
     name: str
-    getter: callable
+    getter: Callable
     type: Type
     optional: bool = dataclasses.field(init=False)
     iterable: bool = dataclasses.field(init=False)
