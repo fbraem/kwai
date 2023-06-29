@@ -5,7 +5,7 @@
   "files": ["dist"],
   "type": "module",
   "main": "dist/kwai-config.umd.cjs",
-  "types": "dist/config.d.ts",
+  "types": "src/config.d.ts",
   "module": "dist/kwai-config.js",
   "exports": {
     ".": {
