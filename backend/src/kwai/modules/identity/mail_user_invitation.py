@@ -43,10 +43,11 @@ class MailUserInvitation:
         self._mail_template = mail_template
 
     async def execute(self, command: MailUserInvitationCommand) -> UserInvitationEntity:
-        """Executes the use case.
+        """Execute the use case.
 
         Args:
             command: the input for this use case.
+
         Raises:
             UserInvitationNotFoundException: Raised when
                 the user invitation cannot be found.

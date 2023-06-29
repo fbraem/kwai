@@ -14,12 +14,13 @@ class Password:
 
     @classmethod
     def create_from_string(cls, password: str) -> "Password":
-        """Factory method to create a password from a string."""
+        """Create a password from a string."""
         return Password(hashed_password=pwd_context.hash(password))
 
     def verify(self, password: str) -> bool:
-        """Verifies this password against the given password."""
+        """Verify this password against the given password."""
         return pwd_context.verify(password, self.hashed_password)
 
     def __str__(self):
+        """Return a string representation (hashed password)."""
         return self.hashed_password

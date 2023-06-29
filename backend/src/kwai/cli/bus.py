@@ -89,39 +89,41 @@ def stream(
         print(f"First entry: [bold]{info.first_entry}[/bold]")
         print(f"Last entry: [bold]{info.last_entry}[/bold]")
 
-        if messages:
-            if info.length > 100:
-                confirm = typer.confirm(
-                    f"You are about to browse {info.length} messages. Are you sure?"
-                )
-                if not confirm:
-                    return
+        if not messages:
+            return
 
-            stream_ = RedisStream(redis, stream_name)
+        if info.length > 100:
+            confirm = typer.confirm(
+                f"You are about to browse {info.length} messages. Are you sure?"
+            )
+            if not confirm:
+                return
 
-            tree = Tree("Messages")
-            last_id = "0-0"
-            while True:
-                message = await stream_.read(last_id)
-                if message is None:
-                    break
-                last_id = message.id
+        stream_ = RedisStream(redis, stream_name)
 
-                leaf = tree.add(f"[bold]{message.id}[/bold]")
-                if "meta" in message.data:
-                    text = ""
-                    if "name" in message.data["meta"]:
-                        text += (
-                            "[green]"
-                            f"[bold]{message.data['meta']['name']}[/bold]"
-                            "[/green]:"
-                        )
-                    if "date" in message.data["meta"]:
-                        text += f" {message.data['meta']['date']}"
-                    if len(text) > 0:
-                        leaf = leaf.add(text)
-                leaf.add(str(message.data["data"]))
+        tree = Tree("Messages")
+        last_id = "0-0"
+        while True:
+            message = await stream_.read(last_id)
+            if message is None:
+                break
+            last_id = message.id
 
-            print(tree)
+            leaf = tree.add(f"[bold]{message.id}[/bold]")
+            if "meta" in message.data:
+                text = ""
+                if "name" in message.data["meta"]:
+                    text += (
+                        "[green]"
+                        f"[bold]{message.data['meta']['name']}[/bold]"
+                        "[/green]:"
+                    )
+                if "date" in message.data["meta"]:
+                    text += f" {message.data['meta']['date']}"
+                if len(text) > 0:
+                    leaf = leaf.add(text)
+            leaf.add(str(message.data["data"]))
+
+        print(tree)
 
     run(_main())

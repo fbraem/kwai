@@ -55,7 +55,7 @@ class ResetPassword:
         self._user_recovery_repo = user_recovery_repo
 
     async def execute(self, command: ResetPasswordCommand) -> None:
-        """Executes the use case.
+        """Execute the use case.
 
         Args:
             command: The input for this use case.

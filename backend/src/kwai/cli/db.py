@@ -18,7 +18,7 @@ def check():
             f"[bold red]Please set env variable {ENV_SETTINGS_FILE} to "
             f"the configuration file.[/bold red]"
         )
-        raise typer.Exit(code=1)
+        raise typer.Exit(code=1) from None
     env_file = os.environ[ENV_SETTINGS_FILE]
     print(f"Settings will be loaded from [bold green]{env_file}[/bold green].")
 
@@ -43,7 +43,7 @@ def show(password: bool = typer.Option(False, help="Show the password")):
     except Exception as ex:
         print("[bold red]Failed! [/bold red] Could not load the settings!")
         print(ex)
-        raise typer.Exit(code=1)
+        raise typer.Exit(code=1) from None
 
 
 @app.command(help="Test the database connection.")
@@ -59,7 +59,7 @@ def test():
         except Exception as ex:
             print("[bold red]Failed! [/bold red] Could not connect to the database!")
             print(ex)
-            raise typer.Exit(code=1)
+            raise typer.Exit(code=1) from None
 
         print(
             "[bold green]Success! [/bold green] Connection to the database established!"

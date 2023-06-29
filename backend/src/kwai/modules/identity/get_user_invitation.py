@@ -7,13 +7,13 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationRepository,
 )
 
-
 # pylint: disable=too-few-public-methods
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
 class GetUserInvitationCommand:
-    """Input for the use case
+    """Input for the use case.
+
     [GetUserInvitation][kwai.modules.identity.get_user_invitation.GetUserInvitation]
 
     Attributes:
@@ -46,7 +46,6 @@ class GetUserInvitation:
         Raises:
             UserInvitationNotFoundException: Raised when then invitation is not found.
         """
-
         entity = await self._user_invitation_repo.get_invitation_by_uuid(
             UniqueId.create_from_string(command.uuid)
         )

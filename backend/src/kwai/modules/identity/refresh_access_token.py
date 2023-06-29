@@ -50,7 +50,7 @@ class RefreshAccessToken:
         self._access_token_repo = access_token_repo
 
     async def execute(self, command: RefreshAccessTokenCommand) -> RefreshTokenEntity:
-        """Executes the use case.
+        """Execute the use case.
 
         Args:
             command: The input for this use case.

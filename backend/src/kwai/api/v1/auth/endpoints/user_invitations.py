@@ -1,9 +1,9 @@
 """Module that implements invitations endpoints."""
 
-from fastapi import APIRouter, Depends, HTTPException, status, Response
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 from loguru import logger
 
-from kwai.api.dependencies import get_current_user, deps
+from kwai.api.dependencies import deps, get_current_user
 from kwai.api.schemas.user_invitation import UserInvitationResource
 from kwai.core.db.database import Database
 from kwai.core.domain.exceptions import UnprocessableException
@@ -11,15 +11,15 @@ from kwai.core.domain.value_objects.email_address import InvalidEmailException
 from kwai.core.events.bus import Bus
 from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.identity.delete_user_invitation import (
-    DeleteUserInvitationCommand,
     DeleteUserInvitation,
+    DeleteUserInvitationCommand,
 )
 from kwai.modules.identity.get_invitations import GetInvitations, GetInvitationsCommand
 from kwai.modules.identity.get_user_invitation import (
-    GetUserInvitationCommand,
     GetUserInvitation,
+    GetUserInvitationCommand,
 )
-from kwai.modules.identity.invite_user import InviteUserCommand, InviteUser
+from kwai.modules.identity.invite_user import InviteUser, InviteUserCommand
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
     UserInvitationDbRepository,
 )
@@ -40,7 +40,6 @@ async def create_user_invitation(
     bus=deps.depends(Bus),
 ) -> UserInvitationResource.get_document_model():
     """Create a user invitation."""
-
     command = InviteUserCommand(
         first_name=resource.data.attributes.first_name,
         last_name=resource.data.attributes.last_name,

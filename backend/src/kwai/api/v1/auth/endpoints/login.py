@@ -77,7 +77,7 @@ async def login(
     db=deps.depends(Database),
     form_data: OAuth2PasswordRequestForm = Depends(),
 ):
-    """API to login.
+    """Login a user.
 
     The response is a TokenSchema.
 
@@ -125,7 +125,7 @@ async def logout(
     user: UserEntity = Depends(get_current_user),  # pylint: disable=unused-argument
     refresh_token: str = Form(),
 ):
-    """API to log out the current user.
+    """Log out the current user.
 
     A user is logged out by revoking the refresh token. The associated access token
     will also be revoked.
@@ -167,7 +167,7 @@ async def renew_access_token(
     db=deps.depends(Database),
     refresh_token: str = Form(),
 ):
-    """API to refresh the access token.
+    """Refresh the access token.
 
     Args:
         settings(Settings): Settings dependency
@@ -210,7 +210,7 @@ async def renew_access_token(
 async def recover_user(
     email: str = Form(), db=deps.depends(Database), bus=deps.depends(Bus)
 ) -> None:
-    """API to start a recover password flow for the given email address.
+    """Start a recover password flow for the given email address.
 
     A mail with a unique id will be sent using the message bus.
 
@@ -239,7 +239,7 @@ async def recover_user(
     status_code=status.HTTP_200_OK,
 )
 async def reset_password(uuid=Form(), password=Form(), db=deps.depends(Database)):
-    """API to reset the password of the user.
+    """Reset the password of the user.
 
     Args:
         uuid(str): The unique id of the password recovery.
@@ -270,8 +270,8 @@ def _encode_token(
     """Encode the access and refresh token with JWT.
 
     Args:
-        refresh_token:
-        settings:
+        refresh_token: The refresh token entity.
+        settings: The security settings.
 
     Returns:
         A dictionary with the access token, refresh token and expiration timestamp.

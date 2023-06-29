@@ -2,9 +2,9 @@
 import asyncio
 import inspect
 from asyncio import Event
-from typing import Callable, Awaitable
+from typing import Awaitable, Callable
 
-from kwai.core.events.stream import RedisStream, RedisMessage
+from kwai.core.events.stream import RedisMessage, RedisStream
 
 
 class RedisConsumer:
@@ -63,7 +63,7 @@ class RedisConsumer:
                 continue
             finally:
                 if self._is_stopping.is_set():
-                    return  # pylint: disable=lost-exception
+                    return  # noqa
                 await asyncio.sleep(1)
 
     def cancel(self):

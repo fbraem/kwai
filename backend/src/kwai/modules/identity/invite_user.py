@@ -16,15 +16,16 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
 )
 from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.identity.users.user_repository import (
-    UserRepository,
     UserNotFoundException,
+    UserRepository,
 )
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
 class InviteUserCommand:
-    """Input for the [InviteUser][kwai.modules.identity.invite_user.InviteUser] use
-    case.
+    """Input for the use case.
+
+    [InviteUser][kwai.modules.identity.invite_user.InviteUser]
 
     Attributes:
         first_name: Firstname of the invited
@@ -71,7 +72,7 @@ class InviteUser:
         self._bus = bus
 
     async def execute(self, command: InviteUserCommand) -> UserInvitationEntity:
-        """Executes the use case.
+        """Execute the use case.
 
         Args:
             command: The input for this use case.

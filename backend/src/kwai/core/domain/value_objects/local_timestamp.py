@@ -16,12 +16,12 @@ class LocalTimestamp:
 
     @property
     def empty(self):
-        """Is the timestamp known?"""
+        """Return Tru when the timestamp is known."""
         return self.timestamp is None
 
     @property
     def is_past(self) -> bool:
-        """Is the timestamp in the past?"""
+        """Return True when the timestamp in the past."""
         assert not self.empty, "No datetime set"
 
         return self.timestamp < datetime.utcnow()

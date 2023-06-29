@@ -7,13 +7,13 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationRepository,
 )
 
-
 # pylint: disable=too-few-public-methods
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
 class GetInvitationsCommand:
-    """Input for the use case:
+    """Input for the use case.
+
     [GetInvitations][kwai.modules.identity.get_invitations.GetInvitations]
 
     Attributes:

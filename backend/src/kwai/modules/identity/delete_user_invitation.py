@@ -6,14 +6,14 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationRepository,
 )
 
-
 # pylint: disable=too-few-public-methods
 # pylint: disable=line-too-long
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
 class DeleteUserInvitationCommand:
-    """Input for the use case
+    """Input for the use case.
+
     [DeleteUserInvitation][kwai.modules.identity.delete_user_invitation.DeleteUserInvitation]
 
     Attributes:
@@ -43,7 +43,6 @@ class DeleteUserInvitation:
         Raises:
             UserInvitationNotFoundException: Raised when then invitation is not found.
         """
-
         entity = await self._user_invitation_repo.get_invitation_by_uuid(
             UniqueId.create_from_string(command.uuid)
         )

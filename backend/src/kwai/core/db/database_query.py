@@ -1,6 +1,6 @@
 """Module that implements a query for a database."""
 from abc import abstractmethod
-from typing import AsyncIterator, Any
+from typing import Any, AsyncIterator
 
 from sql_smith.functions import alias, func
 from sql_smith.query import SelectQuery

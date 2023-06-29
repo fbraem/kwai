@@ -3,6 +3,7 @@ from typing import Any
 
 from kwai.core.mail.mail import Mail
 from kwai.core.mail.recipient import Recipients
+
 from .template import Template
 
 

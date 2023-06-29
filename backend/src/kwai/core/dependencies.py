@@ -1,10 +1,9 @@
-"""
-Module that defines a dependency injector container.
+"""Module that defines a dependency injector container.
 
 Auto-wiring is avoided. It should be clear why and when a class is loaded.
 """
 
-from lagom import Container, dependency_definition, ExplicitContainer, Singleton
+from lagom import Container, ExplicitContainer, Singleton, dependency_definition
 from redis.asyncio import Redis
 
 from kwai.core.db.database import Database

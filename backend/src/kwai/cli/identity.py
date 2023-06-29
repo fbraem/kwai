@@ -2,6 +2,7 @@
 
 Note:
     Make sure the environment variable KWAI_SETTINGS_FILE is set!
+
 """
 import os
 from asyncio import run
@@ -14,7 +15,7 @@ from kwai.core.db.database import Database
 from kwai.core.dependencies import container
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.settings import ENV_SETTINGS_FILE
-from kwai.modules.identity.create_user import CreateUserCommand, CreateUser
+from kwai.modules.identity.create_user import CreateUser, CreateUserCommand
 from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
 )
@@ -27,7 +28,7 @@ def check():
             f"[bold red]Please set env variable {ENV_SETTINGS_FILE} to "
             f"the configuration file.[/bold red]"
         )
-        raise typer.Exit(code=1)
+        raise typer.Exit(code=1) from None
 
 
 app = Typer(pretty_exceptions_short=True, callback=check)
@@ -61,7 +62,6 @@ def create(
 
     async def _main():
         """Closure for handling the async code."""
-
         command = CreateUserCommand(
             email=email,
             first_name=first_name,
@@ -80,6 +80,6 @@ def create(
         except UnprocessableException as ex:
             print("[bold red]Failed![/bold red] User could not created:")
             print(ex)
-            raise typer.Exit(code=1)
+            raise typer.Exit(code=1) from None
 
     run(_main())

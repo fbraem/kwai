@@ -13,7 +13,7 @@ class TraceableTime:
 
     @property
     def is_updated(self):
-        """Is this entity updated?"""
+        """Check if this entity has been updated."""
         return not self.updated_at.empty()
 
     def mark_for_update(self) -> "TraceableTime":

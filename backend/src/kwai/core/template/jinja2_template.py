@@ -9,11 +9,11 @@ from .template import Template
 class Jinja2Template(Template):
     """A jinja2 template."""
 
-    # pylint: disable=too-few-public-methods
     def __init__(self, template: jinja2.Template, **kwargs: dict[str, Any]):
-        """Constructor.
+        """Construct a new template.
 
-        kwargs will be merged with the variables used in render."""
+        kwargs will be merged with the variables used in render.
+        """
         self._template = template
         self._variables = kwargs
 

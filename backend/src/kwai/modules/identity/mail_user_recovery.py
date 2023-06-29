@@ -43,7 +43,7 @@ class MailUserRecovery:
         self._mail_template = mail_template
 
     async def execute(self, command: MailUserRecoveryCommand) -> UserRecoveryEntity:
-        """Executes the use case.
+        """Execute the use case.
 
         Args:
             command: The input for this use case.

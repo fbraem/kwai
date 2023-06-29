@@ -48,7 +48,6 @@ class Logout:  # pylint: disable=too-few-public-methods
             RefreshTokenNotFoundException: The refresh token with the identifier
                 could not be found.
         """
-
         refresh_token = await self._refresh_token_repository.get_by_token_identifier(
             TokenIdentifier(hex_string=command.identifier)
         )

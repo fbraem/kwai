@@ -17,9 +17,11 @@ class Identifier(ABC, Generic[T]):
         return self._id
 
     def __eq__(self, other: "Identifier"):
+        """Check the equality of identifiers."""
         return self._id == other._id
 
     def __hash__(self):
+        """Create a hash for an identifier."""
         return hash(self._id)
 
     @abstractmethod

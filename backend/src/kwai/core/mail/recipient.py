@@ -25,29 +25,29 @@ class Recipients:
     bcc: list[Recipient] = field(default_factory=list)
 
     def with_from(self, from_) -> "Recipients":
-        """Set the sender"""
+        """Clone the recipients and set the sender."""
         return Recipients(from_, self.to, self.cc, self.bcc)
 
     def with_to(self, *to: Recipient) -> "Recipients":
-        """Set the receiver(s)"""
+        """Clone the recipients and set the receiver(s)."""
         return Recipients(self.from_, list(to), self.cc, self.bcc)
 
     def add_to(self, *to: Recipient) -> "Recipients":
-        """Add a receiver."""
+        """Clone the recipients and add a receiver."""
         return Recipients(self.from_, self.to + list(to), self.cc, self.bcc)
 
     def with_cc(self, *cc: Recipient) -> "Recipients":
-        """Set the copy recipient."""
+        """Clone the recipients and set the copy recipient."""
         return Recipients(self.from_, self.to, list(cc), self.bcc)
 
     def add_cc(self, *cc: Recipient) -> "Recipients":
-        """Add a copy recipient."""
+        """Clone the recipients and add a copy recipient."""
         return Recipients(self.from_, self.to, self.cc + list(cc), self.bcc)
 
     def with_bcc(self, *bcc: Recipient) -> "Recipients":
-        """Set the blind copy recipient"""
+        """Clone the recipients and set the blind copy recipient."""
         return Recipients(self.from_, self.to, self.cc, list(bcc))
 
     def add_bcc(self, *bcc: Recipient) -> "Recipients":
-        """Add a blind copy recipient."""
+        """Clone the recipients and add a blind copy recipient."""
         return Recipients(self.from_, self.to, self.cc, self.bcc + list(bcc))

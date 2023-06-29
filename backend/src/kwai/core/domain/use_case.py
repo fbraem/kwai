@@ -1,5 +1,5 @@
 """Module for defining common classes, functions, ... for use cases."""
-from typing import NamedTuple, AsyncIterator
+from typing import AsyncIterator, NamedTuple
 
 
 class UseCaseBrowseResult(NamedTuple):

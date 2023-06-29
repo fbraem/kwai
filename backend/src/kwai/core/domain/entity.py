@@ -1,6 +1,6 @@
 """Module that defines a generic entity."""
 import inspect
-from typing import Generic, TypeVar, Any
+from typing import Any, Generic, TypeVar
 
 from kwai.core.domain.value_objects.identifier import Identifier
 
@@ -19,7 +19,7 @@ class Entity(Generic[T]):
         return self._id
 
     def has_id(self) -> bool:
-        """Has this entity a valid id?
+        """Check if this entity has a valid id.
 
         Returns:
             bool: True when the id is not empty.

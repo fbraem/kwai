@@ -35,7 +35,7 @@ class CreateUser:  # pylint: disable=too-few-public-methods
     """Use case for creating a new user."""
 
     def __init__(self, user_account_repo: UserAccountRepository):
-        """Constructor.
+        """Create the use case.
 
         Args:
             user_account_repo: Repository that creates a new user account.

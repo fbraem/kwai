@@ -10,4 +10,5 @@ class Name:
     last_name: str | None
 
     def __str__(self):
+        """Return a string representation."""
         return " ".join(filter(None, [self.first_name, self.last_name]))

@@ -10,7 +10,7 @@ from kwai.core.json_api import Meta
 from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,
 )
-from kwai.modules.portal.get_applications import GetApplicationsCommand, GetApplications
+from kwai.modules.portal.get_applications import GetApplications, GetApplicationsCommand
 
 router = APIRouter()
 
