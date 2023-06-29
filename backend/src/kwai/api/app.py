@@ -77,15 +77,6 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             diagnose=False,
         )
 
-    if len(settings.security.cors_origin) > 0:
-        app.add_middleware(
-            CORSMiddleware,
-            allow_origins=settings.security.cors_origin,
-            allow_credentials=True,
-            allow_methods=["*"],
-            allow_headers=["*"],
-        )
-
     app.include_router(auth_api_router, prefix="/api/v1")
     app.include_router(portal_api_router, prefix="/api/v1")
 

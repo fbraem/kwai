@@ -74,7 +74,6 @@ class SecuritySettings(BaseModel):
     jwt_algorithm: str
     jwt_secret: str
     jwt_refresh_secret: str
-    cors_origin: list[str] = []
 
 
 class TemplateSettings(BaseModel):
