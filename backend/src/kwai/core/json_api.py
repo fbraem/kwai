@@ -1,7 +1,7 @@
 """Module that defines some jsonapi related models."""
 import dataclasses
 from types import NoneType
-from typing import Any, Callable, Literal, Optional, Type, Union, get_args, get_origin
+from typing import Any, Callable, Optional, Type, Union, get_args, get_origin
 
 from fastapi import Query
 from pydantic import BaseModel, Extra, Field, create_model
@@ -387,7 +387,7 @@ class Resource:
             self.get_model_class_prefix() + "ResourceIdentifier",
             **{
                 "id": (str | None, Field(default=None)),
-                "type": (Literal[self._type], Field(default=self._type)),
+                "type": (str, Field(const=True, default=self._type)),
             },
         )
         self._resource_identifier_model.__hash__ = hash_resource
@@ -505,10 +505,10 @@ class Resource:
                 relation_types = relation_types + (
                     rel.resource_type.__json_api_resource__.get_resource_model(),
                 )
-            document_fields["included"] = (
-                list[Union[relation_types]],
-                Field(default_factory=list),
-            )
+                document_fields["included"] = (
+                    list[Union[relation_types]],
+                    Field(default_factory=list),
+                )
 
         self._document_model = create_model(
             self.get_model_class_prefix() + "Document",
