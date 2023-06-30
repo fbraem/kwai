@@ -506,7 +506,7 @@ class Resource:
                     rel.resource_type.__json_api_resource__.get_resource_model(),
                 )
                 document_fields["included"] = (
-                    list[Union[relation_types]], # type: ignore
+                    list[Union[relation_types]],  # type: ignore
                     Field(default_factory=list),
                 )
 
