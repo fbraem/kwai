@@ -5,8 +5,8 @@
       :style="{ 'background-image' : `url(${trainingImage})` }"
     >
       <span class="absolute w-full h-full opacity-50 bg-gradient-to-br from-black to-red-600" />
-      <div class="container relative mx-auto h-full flex items-center p-4">
-        <div class="grid lg:grid-cols-2 gap-10 lg:justify-items-center lg:my-10">
+      <div class="container relative mx-auto h-full p-4">
+        <div class="grid lg:grid-cols-2 gap-10 justify-items-center lg:my-10">
           <div class="mx-auto">
             <img
               :src="sporthalImage"
