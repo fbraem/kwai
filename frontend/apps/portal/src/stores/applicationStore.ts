@@ -81,6 +81,8 @@ export const useApplicationStore = defineStore(
           const result = JsonApiApplicationDocument.safeParse(nv);
           if (result.success) {
             applications.value = <Application[]> toModel(result.data);
+          } else {
+            console.log(result.error);
           }
         }
       );
