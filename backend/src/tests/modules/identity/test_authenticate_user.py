@@ -3,8 +3,8 @@ import pytest
 
 from kwai.core.db.database import Database
 from kwai.modules.identity.authenticate_user import (
-    AuthenticateUserCommand,
     AuthenticateUser,
+    AuthenticateUserCommand,
 )
 from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
