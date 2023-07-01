@@ -1,7 +1,7 @@
 <template>
   <div class="mb-7 bg-white flex flex-col">
     <router-link
-      class="block flex items-end bg-cover"
+      class="flex items-end bg-cover"
       to="/news"
     >
       <div class="text-center p-2 bg-red-600 text-white min-w-fit">
@@ -23,17 +23,17 @@
         </h3>
       </div>
     </router-link>
-    <div class="p-6 bg-white flex-1 grid auto-rows-min">
+    <div class="p-6 bg-white flex flex-col">
       <p
-        class="text-gray-500 flex-grow"
+        class="text-gray-500"
         v-html="story.contents[0].summary"
       />
-      <div class="mt-6">
+      <div class="mt-6 self-end">
         <router-link
-          class="border border-red-600 bg-red-600 hover:bg-white hover:text-red-600 text-white rounded-full py-1.5 px-3"
+          class="border border-red-600 bg-red-600 hover:bg-white hover:text-red-600 text-sm text-white py-1 px-3"
           to="/news"
         >
-          Lees meer
+          Lees meer ...
         </router-link>
       </div>
     </div>
@@ -41,9 +41,6 @@
 </template>
 
 <script setup lang="ts">
-// eslint-disable-next-line import/no-absolute-path
-
-// eslint-disable-next-line import/no-absolute-path
 import type { NewsStory } from '@root/stores/newsStore';
 
 interface Props {
