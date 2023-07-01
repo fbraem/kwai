@@ -56,7 +56,7 @@ class ApplicationRow:
             id_=ApplicationIdentifier(self.id),
             title=self.title,
             name=self.name,
-            short_description=self.description,
+            short_description=self.short_description,
             description=self.description or "",
             remark=self.remark or "",
             news=self.news == 1,
