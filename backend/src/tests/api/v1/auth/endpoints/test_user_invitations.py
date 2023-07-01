@@ -18,13 +18,13 @@ pytestmark = pytest.mark.integration
 
 @pytest.fixture(scope="module")
 def repo(database: Database) -> UserInvitationRepository:
-    """Fixture for creating the invitation repository."""
+    """Create the invitation repository."""
     return UserInvitationDbRepository(database)
 
 
 @pytest.fixture(scope="module")
 def invitation_data() -> list[str]:
-    """A fixture used to capture the uuid created in test_create_user_invitation."""
+    """Create array to capture the uuid created in test_create_user_invitation."""
     return []
 
 
@@ -60,7 +60,7 @@ def test_get_user_invitation(
     secure_client: TestClient,
     invitation_data: list[str],
 ):
-    """Test GET users/invitations/<uuid>"""
+    """Test GET users/invitations/<uuid>."""
     assert (
         len(invitation_data) > 0
     ), "test_create_user_invitation should run before this test"
@@ -69,7 +69,7 @@ def test_get_user_invitation(
 
 
 def test_delete_user_invitation(secure_client: TestClient, invitation_data: list[str]):
-    """Test DELETE users/invitations/<uuid>"""
+    """Test DELETE users/invitations/<uuid>."""
     assert (
         len(invitation_data) > 0
     ), "test_create_user_invitation should run before this test"
