@@ -11,9 +11,6 @@ from kwai.modules.portal.applications.application import (
 )
 
 
-# pylint: disable=too-many-instance-attributes
-
-
 @dataclass(kw_only=True, frozen=True, slots=True)
 class ApplicationRow:
     """Represent a table row of the applications table.
