@@ -29,7 +29,7 @@ class UserRow:
     uuid: str
     created_at: datetime
     updated_at: datetime | None
-    member_id: int | None
+    person_id: int | None
 
     def create_entity(self) -> UserEntity:
         """Create a user entity from a table row."""
@@ -60,7 +60,7 @@ class UserRow:
             uuid=str(user.uuid),
             created_at=user.traceable_time.created_at.timestamp,
             updated_at=user.traceable_time.updated_at.timestamp,
-            member_id=None,
+            person_id=None,
         )
 
 
@@ -79,7 +79,7 @@ class UserAccountRow:
     uuid: str
     created_at: datetime
     updated_at: datetime | None
-    member_id: int | None
+    person_id: int | None
     last_login: datetime | None
     last_unsuccessful_login: datetime | None
     password: str
@@ -122,7 +122,7 @@ class UserAccountRow:
             uuid=str(user_account.user.uuid),
             created_at=user_account.user.traceable_time.created_at.timestamp,
             updated_at=user_account.user.traceable_time.updated_at.timestamp,
-            member_id=None,
+            person_id=None,
             last_login=user_account.last_login.timestamp,
             last_unsuccessful_login=user_account.last_unsuccessful_login.timestamp,
             password=str(user_account.password),
