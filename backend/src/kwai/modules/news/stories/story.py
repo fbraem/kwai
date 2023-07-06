@@ -5,6 +5,7 @@ from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.name import Name
+from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 
@@ -16,14 +17,6 @@ class Promotion:
     """Value object for handling promoted news stories."""
 
     priority: int = 0
-    end_date: LocalTimestamp = field(default_factory=LocalTimestamp)
-
-
-@dataclass(frozen=True, kw_only=True, slots=True)
-class Period:
-    """Value object for handling a period between dates."""
-
-    start_date: LocalTimestamp = field(default_factory=LocalTimestamp.create_now)
     end_date: LocalTimestamp = field(default_factory=LocalTimestamp)
 
 

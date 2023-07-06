@@ -6,6 +6,7 @@ from kwai.core.db.table import Table
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.name import Name
+from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.news.stories.story import (
@@ -13,7 +14,6 @@ from kwai.modules.news.stories.story import (
     StoryIdentifier,
     Application,
     Promotion,
-    Period,
     Content,
     Author,
 )
