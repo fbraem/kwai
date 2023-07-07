@@ -139,7 +139,7 @@ create table if not exists trainings (
     active              tinyint(1) default 1                 not null,
     cancelled           tinyint(1) default 0                 not null,
     location            varchar(255)                         null,
-    remark text
+    remark              text                                 null
 ) charset = utf8mb3;
 alter table trainings drop column time_zone;
 
