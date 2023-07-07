@@ -16,7 +16,7 @@ class Weekday(Enum):
     SUNDAY = 7
 
     @classmethod
-    def create_from_date(cls, date: datetime):
+    def create_from_date(cls, date: datetime) -> "Weekday":
         """Create a Weekday from a date.
 
         Args:
