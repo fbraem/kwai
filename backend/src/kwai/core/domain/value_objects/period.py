@@ -1,3 +1,4 @@
+"""Module that defines the value object Period."""
 from dataclasses import dataclass, field
 from datetime import timedelta
 
