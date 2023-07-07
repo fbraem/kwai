@@ -20,6 +20,7 @@ class Period:
         if self.start_date.timestamp > self.end_date.timestamp:
             raise ValueError("start_date should be before end_date")
 
-    def get_delta(self) -> timedelta:
+    @property
+    def delta(self) -> timedelta:
         """Return the delta between end and start time."""
         return self.end_date.timestamp - self.start_date.timestamp
