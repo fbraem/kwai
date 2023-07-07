@@ -26,7 +26,7 @@ class ApplicationEntity(Entity[ApplicationIdentifier]):
         weight: int = 0,
         traceable_time: TraceableTime | None = None,
     ):
-        """Constructor.
+        """Initialize the application.
 
         Args:
             id_: The id of the application entity
