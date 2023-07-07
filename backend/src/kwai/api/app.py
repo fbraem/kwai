@@ -10,6 +10,7 @@ from loguru import logger
 
 from kwai.api.v1.auth.api import api_router as auth_api_router
 from kwai.api.v1.portal.api import api_router as portal_api_router
+from kwai.api.v1.trainings.api import api_router as training_api_router
 from kwai.core.dependencies import container
 from kwai.core.settings import Settings, SettingsException
 
@@ -17,10 +18,11 @@ from kwai.core.settings import Settings, SettingsException
 def create_app(settings: Settings | None = None) -> FastAPI:
     """Create the FastAPI application.
 
+    Args:
+        settings: Settings to use in this application.
+
     When settings is None (the default), the dependency container will
     load the settings.
-
-    :parameter settings: Settings to use in this application.
     """
     if settings is None:
         try:
@@ -79,6 +81,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app.include_router(auth_api_router, prefix="/api/v1")
     app.include_router(portal_api_router, prefix="/api/v1")
+    app.include_router(training_api_router, prefix="/api/v1")
 
     @app.middleware("http")
     async def log(request: Request, call_next):
