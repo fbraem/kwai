@@ -7,12 +7,10 @@ from datetime import datetime, timedelta
 class LocalTimestamp:
     """A value object for a timestamp with a timezone.
 
-    The datetime should always be in UTC. The timezone can be used by the frontend
-    to convert the time to the original timezone.
+    The datetime should always be in UTC.
     """
 
     timestamp: datetime = None
-    timezone: str = "UTC"
 
     @property
     def empty(self):
