@@ -1,4 +1,6 @@
 """Module for testing the value object Period."""
+import datetime
+
 import pytest
 
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
@@ -13,6 +15,17 @@ def test_period_delta():
     )
 
     assert period.delta.days == 1, "The period should be one day"
+
+
+def test_initialize_period():
+    """Test the initialization of a period."""
+    period = Period(
+        start_date=LocalTimestamp(timestamp=datetime.datetime(1, 1, 1, 20, 0)),
+        end_date=LocalTimestamp(timestamp=datetime.datetime(1, 1, 1, 21, 0)),
+    )
+    assert (
+        period.delta.total_seconds() / (60 * 60) == 1
+    ), "The period should be one hour"
 
 
 def test_wrong_period():
