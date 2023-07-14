@@ -36,13 +36,21 @@ class LocalTimestamp:
 
         return self.timestamp.strftime("%Y-%m-%d %H:%M:%S")
 
+    def add_delta(self, **kwargs) -> "LocalTimestamp":
+        """Create a new timestamp by adding the delta to the timestamp.
+
+        Returns:
+            LocalTimestamp: A new timestamp with the delta.
+        """
+        return LocalTimestamp(self.timestamp + timedelta(**kwargs))
+
     @classmethod
     def create_with_delta(cls, **kwargs):
         """Create a current local timestamp and applies the delta.
 
         The timezone will be UTC.
         """
-        return LocalTimestamp(timestamp=datetime.utcnow() + timedelta(**kwargs))
+        return cls.create_now().add_delta(**kwargs)
 
     @classmethod
     def create_now(cls):
