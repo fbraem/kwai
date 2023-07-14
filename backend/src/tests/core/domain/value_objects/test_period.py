@@ -22,3 +22,12 @@ def test_wrong_period():
             start_date=LocalTimestamp.create_now(),
             end_date=LocalTimestamp.create_with_delta(days=-1),
         )
+
+
+def test_create_with_delta():
+    """Test the create_with_delta factory method."""
+    period = Period.create_from_delta(hours=1)
+
+    assert (
+        period.delta.total_seconds() / (60 * 60) == 1
+    ), "The period should be one hour"

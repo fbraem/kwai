@@ -10,7 +10,7 @@ class Period:
     """Value object for handling a period between dates."""
 
     start_date: LocalTimestamp = field(default_factory=LocalTimestamp.create_now)
-    end_date: LocalTimestamp = field(default_factory=LocalTimestamp)
+    end_date: LocalTimestamp
 
     def __post_init__(self):
         """Perform post initialization.
@@ -25,3 +25,9 @@ class Period:
     def delta(self) -> timedelta:
         """Return the delta between end and start time."""
         return self.end_date.timestamp - self.start_date.timestamp
+
+    @classmethod
+    def create_from_delta(cls, start_date: LocalTimestamp = None, **kwargs) -> "Period":
+        """Create a period from a delta."""
+        date = start_date or LocalTimestamp.create_now()
+        return Period(start_date=date, end_date=date.add_delta(**kwargs))
