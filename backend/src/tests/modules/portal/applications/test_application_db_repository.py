@@ -31,7 +31,7 @@ def repo(database: Database) -> ApplicationRepository:
 
 @pytest.fixture(scope="module")
 async def application(repo: ApplicationRepository) -> ApplicationEntity:
-    """Fixture for an application"""
+    """Fixture for an application."""
     application = ApplicationEntity(
         title="Test", name="test", short_description="An application used for testing"
     )
