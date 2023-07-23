@@ -193,7 +193,7 @@ class StoryRow:
             promotion=story.promotion.priority,
             promotion_end_date=story.promotion.end_date.timestamp,
             publish_date=story.period.start_date.timestamp,
-            end_date=story.period.end_date.timestamp,
+            end_date=None if story.period.endless else story.period.end_date.timestamp,
             remark=story.remark,
             application_id=story.application.id.value,
             created_at=story.traceable_time.created_at.timestamp,
