@@ -19,3 +19,4 @@ public
 *.pyc
 *.code-workspace
 __pycache__
+/.env
