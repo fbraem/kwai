@@ -29,7 +29,6 @@ class UserInvitationRow:
         last_name(str): the lastname of the invited
         uuid(str): a unique uuid for the invitation
         expired_at(datetime): the timestamp when the invitation expires
-        expired_at_timezone(str): the timezone of the expiration date
         remark(str|None): a remark about the invitation
         user_id(int): the user that created the invitation
         confirmed_at(datetime|None): the timestamp when the invitation was used
@@ -45,7 +44,6 @@ class UserInvitationRow:
     last_name: str
     uuid: str
     expired_at: datetime
-    expired_at_timezone: str
     remark: str | None
     user_id: int
     confirmed_at: datetime | None
@@ -97,7 +95,6 @@ class UserInvitationRow:
             last_name=invitation.name.last_name,
             uuid=str(invitation.uuid),
             expired_at=invitation.expired_at.timestamp,
-            expired_at_timezone=invitation.expired_at.timezone,
             mailed_at=invitation.mailed_at.timestamp,
             remark=invitation.remark,
             user_id=invitation.user.id.value,

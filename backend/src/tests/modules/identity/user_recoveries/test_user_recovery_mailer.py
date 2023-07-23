@@ -22,7 +22,7 @@ pytestmark = pytest.mark.integration
 def user_recovery() -> UserRecoveryEntity:
     """Fixture creating a user recovery entity."""
     return UserRecoveryEntity(
-        expiration=LocalTimestamp(timestamp=datetime.utcnow(), timezone="UTC"),
+        expiration=LocalTimestamp(timestamp=datetime.utcnow()),
         user=UserEntity(
             email=EmailAddress("jigoro.kano@kwai.com"),
             name=Name(first_name="Jigoro", last_name="Kano"),

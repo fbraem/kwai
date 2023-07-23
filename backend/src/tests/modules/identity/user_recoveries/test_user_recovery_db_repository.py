@@ -30,7 +30,7 @@ async def user_recovery(
 ) -> UserRecoveryEntity:
     """Fixture for creating a user recovery entity."""
     user_recovery = UserRecoveryEntity(
-        expiration=LocalTimestamp(timestamp=datetime.utcnow(), timezone="UTC"),
+        expiration=LocalTimestamp(timestamp=datetime.utcnow()),
         user=user,
     )
     return await repo.create(user_recovery)

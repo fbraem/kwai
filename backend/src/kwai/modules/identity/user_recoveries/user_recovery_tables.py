@@ -23,7 +23,6 @@ class UserRecoveryRow:
     user_id: int
     uuid: str
     expired_at: datetime
-    expired_at_timezone: str
     confirmed_at: datetime | None
     mailed_at: datetime | None
     remark: str | None
@@ -36,10 +35,7 @@ class UserRecoveryRow:
             id_=UserRecoveryIdentifier(self.id),
             uuid=UniqueId.create_from_string(self.uuid),
             user=user,
-            expiration=LocalTimestamp(
-                self.expired_at,
-                self.expired_at_timezone,
-            ),
+            expiration=LocalTimestamp(self.expired_at),
             remark=self.remark,
             confirmation=LocalTimestamp(self.confirmed_at),
             mailed_at=LocalTimestamp(self.mailed_at),
@@ -57,7 +53,6 @@ class UserRecoveryRow:
             user_id=user_recovery.user.id.value,
             uuid=str(user_recovery.uuid),
             expired_at=user_recovery.expiration.timestamp,
-            expired_at_timezone=user_recovery.expiration.timezone,
             confirmed_at=user_recovery.confirmed_at.timestamp,
             mailed_at=user_recovery.mailed_at.timestamp,
             remark=user_recovery.remark,
