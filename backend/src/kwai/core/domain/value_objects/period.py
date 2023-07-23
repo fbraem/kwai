@@ -10,7 +10,7 @@ class Period:
     """Value object for handling a period between dates."""
 
     start_date: LocalTimestamp = field(default_factory=LocalTimestamp.create_now)
-    end_date: LocalTimestamp
+    end_date: LocalTimestamp = field(default_factory=LocalTimestamp)
 
     def __post_init__(self):
         """Perform post initialization.
@@ -18,13 +18,21 @@ class Period:
         Raises:
             ValueError: when the start date is before the end date.
         """
-        if self.start_date.timestamp > self.end_date.timestamp:
-            raise ValueError("start_date should be before end_date")
+        if not self.end_date.empty:
+            if self.start_date.timestamp > self.end_date.timestamp:
+                raise ValueError("start_date should be before end_date")
 
     @property
-    def delta(self) -> timedelta:
+    def delta(self) -> timedelta | None:
         """Return the delta between end and start time."""
-        return self.end_date.timestamp - self.start_date.timestamp
+        if not self.end_date.empty:
+            return self.end_date.timestamp - self.start_date.timestamp
+        return None
+
+    @property
+    def endless(self) -> bool:
+        """Return True when end date is not set."""
+        return self.end_date.empty
 
     @classmethod
     def create_from_delta(cls, start_date: LocalTimestamp = None, **kwargs) -> "Period":
