@@ -8,8 +8,8 @@ from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,
 )
 from kwai.modules.portal.applications.application_repository import (
-    ApplicationRepository,
     ApplicationNotFoundException,
+    ApplicationRepository,
 )
 
 pytestmark = pytest.mark.integration
