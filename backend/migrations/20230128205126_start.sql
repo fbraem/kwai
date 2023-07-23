@@ -33,6 +33,8 @@ create table if not exists user_recoveries
     updated_at          datetime                            null,
     mailed_at           datetime                            null
 ) charset = utf8mb3;
+alter table user_recoveries drop column expired_at_timezone;
+
 
 create table if not exists oauth_access_tokens
 (
@@ -72,6 +74,7 @@ create table if not exists user_invitations
     revoked             tinyint(1) default 0                 not null,
     confirmed_at        datetime                             null
 ) charset = utf8mb3;
+alter table user_invitations drop column expired_at_timezone;
 
 alter table user_invitations add (
     mailed_at           datetime                             null
@@ -106,6 +109,7 @@ create table if not exists news_stories (
   created_at            datetime default current_timestamp   not null,
   updated_at            datetime                             null
 ) charset = utf8mb3;
+alter table news_stories drop column timezone;
 
 -- In kwai_api the table for news_contents was called news_contents_2,
 create table if not exists news_contents_2 (
