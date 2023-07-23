@@ -12,8 +12,7 @@ from kwai.modules.news.stories.story_repository import StoryRepository
 
 @dataclass(kw_only=True, frozen=True, slots=True)
 class GetStoriesCommand:
-    """Input for use case:
-    [GetStories][kwai.modules.news.get_stories.GetStories]
+    """Input for use case: [GetStories][kwai.modules.news.get_stories.GetStories].
 
     Attributes:
         offset: Offset to use. Default is None.
@@ -54,7 +53,6 @@ class GetStories:
         Returns:
             A tuple with the number of entities and an iterator for story entities.
         """
-
         query = self._repo.create_query()
 
         if command.enabled:
