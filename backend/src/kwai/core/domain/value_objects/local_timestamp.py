@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 @dataclass(frozen=True)
 class LocalTimestamp:
-    """A value object for a timestamp with a timezone.
+    """A value object for a timestamp.
 
     The datetime should always be in UTC.
     """
@@ -14,7 +14,7 @@ class LocalTimestamp:
 
     @property
     def empty(self):
-        """Return Tru when the timestamp is known."""
+        """Return True when the timestamp is unknown."""
         return self.timestamp is None
 
     @property
@@ -46,10 +46,7 @@ class LocalTimestamp:
 
     @classmethod
     def create_with_delta(cls, **kwargs):
-        """Create a current local timestamp and applies the delta.
-
-        The timezone will be UTC.
-        """
+        """Create a current local timestamp and applies the delta."""
         return cls.create_now().add_delta(**kwargs)
 
     @classmethod
