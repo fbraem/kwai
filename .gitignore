@@ -20,3 +20,4 @@ public
 *.code-workspace
 __pycache__
 /.env
+/backend/.vscode/
