@@ -1,24 +1,24 @@
 """Module that implements a story repository for a database."""
-from typing import AsyncIterator, Any
+from typing import Any, AsyncIterator
 
 from sql_smith.functions import field
 
 from kwai.core.db.database import Database
+from kwai.core.db.rows import OwnersTable
 from kwai.core.domain.entity import Entity
 from kwai.modules.news.stories.story import StoryEntity, StoryIdentifier
 from kwai.modules.news.stories.story_db_query import StoryDbQuery
 from kwai.modules.news.stories.story_query import StoryQuery
 from kwai.modules.news.stories.story_repository import (
-    StoryRepository,
     StoryNotFoundException,
+    StoryRepository,
 )
 from kwai.modules.news.stories.story_tables import (
-    StoriesTable,
     ApplicationsTable,
+    StoriesTable,
+    StoryContentRow,
     StoryContentsTable,
     StoryRow,
-    StoryContentRow,
-    AuthorsTable,
 )
 
 
@@ -28,7 +28,7 @@ def _create_entity(rows: list[dict[str, Any]]) -> StoryEntity:
         ApplicationsTable(rows[0]).create_application(),
         [
             StoryContentsTable(row).create_content(
-                author=AuthorsTable(row).create_author()
+                author=OwnersTable(row).create_owner()
             )
             for row in rows
         ],

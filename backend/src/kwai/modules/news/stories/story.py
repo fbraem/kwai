@@ -2,6 +2,7 @@
 from dataclasses import dataclass, field
 
 from kwai.core.domain.entity import Entity
+from kwai.core.domain.value_objects.content import Content
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.name import Name
@@ -36,19 +37,6 @@ class Author:
     id: IntIdentifier
     uuid: UniqueId
     name: Name
-
-
-@dataclass(frozen=True, kw_only=True, slots=True)
-class Content:
-    """Value object for the content of a news story."""
-
-    locale: str
-    format: str
-    title: str
-    content: str
-    summary: str
-    author: Author
-    traceable_time: TraceableTime = field(default_factory=TraceableTime)
 
 
 class StoryEntity(Entity[StoryIdentifier]):

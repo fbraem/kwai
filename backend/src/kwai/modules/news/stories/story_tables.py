@@ -2,70 +2,30 @@
 from dataclasses import dataclass
 from datetime import datetime
 
+from kwai.core.db.rows import ContentRow
 from kwai.core.db.table import Table
+from kwai.core.domain.value_objects.content import Content
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
-from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
-from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.news.stories.story import (
-    StoryEntity,
-    StoryIdentifier,
     Application,
     Promotion,
-    Content,
-    Author,
+    StoryEntity,
+    StoryIdentifier,
 )
 
 
-# pylint: disable=too-many-instance-attributes
-
-
 @dataclass(kw_only=True, frozen=True, slots=True)
-class StoryContentRow:
+class StoryContentRow(ContentRow):
     """Represent a row in the news_contents table.
 
     Attributes:
         news_id: The id of the news story
-        locale: The code of the locale of the text
-        format: The format of the text (md = markdown, html, ...)
-        title: The title of the news story
-        content: The long content of the news story
-        summary: A summary of the content
-        user_id: The id of the author
-        created_at: the timestamp of creation
-        updated_at: the timestamp of the last modification
     """
 
     news_id: int
-    locale: str
-    format: str
-    title: str
-    content: str
-    summary: str
-    user_id: int
-    created_at: datetime
-    updated_at: datetime | None
-
-    def create_content(self, author: Author):
-        """Create a Content value object from a row.
-
-        Args:
-            author: The author of the content.
-        """
-        return Content(
-            locale=self.locale,
-            format=self.format,
-            title=self.title,
-            content=self.content,
-            summary=self.summary,
-            author=author,
-            traceable_time=TraceableTime(
-                created_at=LocalTimestamp(timestamp=self.created_at),
-                updated_at=LocalTimestamp(timestamp=self.updated_at),
-            ),
-        )
 
     @classmethod
     def persist(cls, story: StoryEntity, content: Content):
@@ -105,27 +65,6 @@ class ApplicationRow:
 
 
 ApplicationsTable = Table("applications", ApplicationRow)
-
-
-@dataclass(kw_only=True, frozen=True, slots=True)
-class AuthorRow:
-    """Represent the author data of the story content."""
-
-    id: int
-    uuid: str
-    first_name: str
-    last_name: str
-
-    def create_author(self) -> Author:
-        """Create an Author value object from row data."""
-        return Author(
-            id=IntIdentifier(self.id),
-            uuid=UniqueId.create_from_string(self.uuid),
-            name=Name(first_name=self.first_name, last_name=self.last_name),
-        )
-
-
-AuthorsTable = Table("users", AuthorRow)
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

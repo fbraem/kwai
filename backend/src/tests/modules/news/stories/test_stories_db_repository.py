@@ -3,9 +3,9 @@
 import pytest
 
 from kwai.core.db.database import Database
+from kwai.core.domain.value_objects.content import Content
 from kwai.modules.news.stories.story import (
     StoryEntity,
-    Content,
     Author,
     Application,
 )

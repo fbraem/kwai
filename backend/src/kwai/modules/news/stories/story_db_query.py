@@ -2,18 +2,18 @@
 from datetime import datetime
 from typing import AsyncIterator
 
-from sql_smith.functions import on, criteria, func, literal, group, express
+from sql_smith.functions import criteria, express, func, group, literal, on
 
 from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
+from kwai.core.db.rows import OwnersTable
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.news.stories.story import StoryIdentifier
 from kwai.modules.news.stories.story_query import StoryQuery
 from kwai.modules.news.stories.story_tables import (
-    StoriesTable,
     ApplicationsTable,
+    StoriesTable,
     StoryContentsTable,
-    AuthorsTable,
 )
 
 
@@ -52,17 +52,15 @@ class StoryDbQuery(StoryQuery, DatabaseQuery):
                 on(StoryContentsTable.column("news_id"), StoriesTable.column("id")),
             )
             .join(
-                AuthorsTable.table_name,
-                on(AuthorsTable.column("id"), StoryContentsTable.column("user_id")),
+                OwnersTable.table_name,
+                on(OwnersTable.column("id"), StoryContentsTable.column("user_id")),
             )
         )
 
     @property
     def columns(self):
         return (
-            StoriesTable.aliases()
-            + ApplicationsTable.aliases()
-            + AuthorsTable.aliases()
+            StoriesTable.aliases() + ApplicationsTable.aliases() + OwnersTable.aliases()
         )
 
     @property
@@ -137,13 +135,13 @@ class StoryDbQuery(StoryQuery, DatabaseQuery):
     def filter_by_user(self, user: int | UniqueId) -> "StoryQuery":
         inner_select = (
             self._database.create_query_factory()
-            .select(AuthorsTable.column("id"))
-            .from_(AuthorsTable.table_name)
+            .select(OwnersTable.column("id"))
+            .from_(OwnersTable.table_name)
         )
         if isinstance(user, UniqueId):
-            inner_select.where(AuthorsTable.field("uuid").eq(str(user)))
+            inner_select.where(OwnersTable.field("uuid").eq(str(user)))
         else:
-            inner_select.where(AuthorsTable.field("id").eq(user))
+            inner_select.where(OwnersTable.field("id").eq(user))
 
         self._main_query.and_where(
             group(StoryContentsTable.field("user_id").in_(express("%s", inner_select)))
