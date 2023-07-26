@@ -13,15 +13,15 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
+      <meta name="generator" content="mkdocs-1.5.0, mkdocs-material-9.1.19">
     
     
       
-        <title>Database - KWAI</title>
+        <title>Database¶ - KWAI</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.26e3688c.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.eebd395e.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.ecc896b0.min.css">
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Database
+              Database&para;
             
           </span>
         </div>
@@ -765,7 +765,7 @@
 
 
 <h2 id="kwai.core.db" class="doc doc-heading">
-          <code>kwai.core.db</code>
+            <code>kwai.core.db</code>
 
 
 <a href="#kwai.core.db" class="headerlink" title="Permanent link">&para;</a></h2>
@@ -804,7 +804,7 @@ implement the Query interface.</p>
 
 
 <h2 id="kwai.core.db.database" class="doc doc-heading">
-          <code>kwai.core.db.database</code>
+            <code>kwai.core.db.database</code>
 
 
 <a href="#kwai.core.db.database" class="headerlink" title="Permanent link">&para;</a></h2>
@@ -829,7 +829,7 @@ implement the Query interface.</p>
 
 
 <h3 id="kwai.core.db.database.Database" class="doc doc-heading">
-        <code>Database</code>
+          <code>Database</code>
 
 
 <a href="#kwai.core.db.database.Database" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -839,6 +839,8 @@ implement the Query interface.</p>
 
   
       <p>Class for communicating with a database.</p>
+
+
 
   <p><strong>Attributes:</strong></p>
   <table>
@@ -876,7 +878,6 @@ implement the Query interface.</p>
   </table>
 
 
-
   
 
   <div class="doc doc-children">
@@ -912,6 +913,7 @@ settings.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -933,6 +935,7 @@ settings.</p>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -956,6 +959,7 @@ settings.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -978,6 +982,7 @@ settings.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -997,6 +1002,8 @@ settings.</p>
       <p>Return a query factory for the current database engine.</p>
 <p>The query factory is used to start creating a SELECT, INSERT, UPDATE or
 DELETE query.</p>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1026,6 +1033,7 @@ future it can provide other engines.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -1043,6 +1051,8 @@ future it can provide other engines.</p>
   <div class="doc doc-contents ">
   
       <p>Delete a row from the table using the id field.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1086,6 +1096,8 @@ future it can provide other engines.</p>
     </tbody>
   </table>
 
+
+
   <p><strong>Raises:</strong></p>
   <table>
     <thead>
@@ -1112,6 +1124,7 @@ future it can provide other engines.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -1131,6 +1144,8 @@ future it can provide other engines.</p>
       <p>Execute a query.</p>
 <p>The last rowid from the cursor is returned when the query executed
 successfully. On insert, this can be used to determine the new id of a row.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1159,6 +1174,8 @@ successfully. On insert, this can be used to determine the new id of a row.</p>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1192,6 +1209,8 @@ successfully. On insert, this can be used to determine the new id of a row.</p>
     </tbody>
   </table>
 
+
+
   <p><strong>Raises:</strong></p>
   <table>
     <thead>
@@ -1218,6 +1237,7 @@ successfully. On insert, this can be used to determine the new id of a row.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -1235,6 +1255,8 @@ successfully. On insert, this can be used to determine the new id of a row.</p>
   <div class="doc doc-contents ">
   
       <p>Execute a query and yields each row.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1263,6 +1285,8 @@ successfully. On insert, this can be used to determine the new id of a row.</p>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Yields:</strong></p>
   <table>
@@ -1287,6 +1311,8 @@ as key and the column values as value.</p>
     </tbody>
   </table>
 
+
+
   <p><strong>Raises:</strong></p>
   <table>
     <thead>
@@ -1313,6 +1339,7 @@ as key and the column values as value.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -1330,6 +1357,8 @@ as key and the column values as value.</p>
   <div class="doc doc-contents ">
   
       <p>Execute a query and return the first row.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1358,6 +1387,8 @@ as key and the column values as value.</p>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1392,6 +1423,8 @@ as key and the column values as value.</p>
     </tbody>
   </table>
 
+
+
   <p><strong>Raises:</strong></p>
   <table>
     <thead>
@@ -1418,6 +1451,7 @@ as key and the column values as value.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -1435,6 +1469,8 @@ as key and the column values as value.</p>
   <div class="doc doc-contents ">
   
       <p>Insert one or more instances of a dataclass into the given table.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1478,6 +1514,8 @@ as key and the column values as value.</p>
     </tbody>
   </table>
 
+
+
   <p><strong>Returns:</strong></p>
   <table>
     <thead>
@@ -1500,6 +1538,8 @@ be the id of the last executed insert.</p>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Raises:</strong></p>
   <table>
@@ -1527,6 +1567,7 @@ be the id of the last executed insert.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -1540,6 +1581,8 @@ be the id of the last executed insert.</p>
   <div class="doc doc-contents ">
   
       <p>Log a query.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1573,6 +1616,7 @@ be the id of the last executed insert.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -1595,6 +1639,7 @@ be the id of the last executed insert.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -1612,6 +1657,8 @@ be the id of the last executed insert.</p>
   <div class="doc doc-contents ">
   
       <p>Update a dataclass in the given table.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1669,6 +1716,8 @@ be the id of the last executed insert.</p>
     </tbody>
   </table>
 
+
+
   <p><strong>Raises:</strong></p>
   <table>
     <thead>
@@ -1717,7 +1766,7 @@ be the id of the last executed insert.</p>
 
 
 <h2 id="kwai.core.db.database_query" class="doc doc-heading">
-          <code>kwai.core.db.database_query</code>
+            <code>kwai.core.db.database_query</code>
 
 
 <a href="#kwai.core.db.database_query" class="headerlink" title="Permanent link">&para;</a></h2>
@@ -1742,19 +1791,18 @@ be the id of the last executed insert.</p>
 
 
 <h3 id="kwai.core.db.database_query.DatabaseQuery" class="doc doc-heading">
-        <code>DatabaseQuery</code>
+          <code>DatabaseQuery</code>
 
 
 <a href="#kwai.core.db.database_query.DatabaseQuery" class="headerlink" title="Permanent link">&para;</a></h3>
 
 
   <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="kwai.core.domain.repository.query.Query">Query</span></code></p>
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="kwai.core.domain.repository.query.Query">Query</span></code></p>
 
   
       <p>Creates a query using a database.</p>
-
 
 
   
@@ -1775,8 +1823,8 @@ be the id of the last executed insert.</p>
 <code class="codehilite language-python"><span class="n">columns</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
       <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 <a href="#kwai.core.db.database_query.DatabaseQuery.columns" class="headerlink" title="Permanent link">&para;</a></h4>
@@ -1812,6 +1860,7 @@ be the id of the last executed insert.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -1835,6 +1884,7 @@ be the id of the last executed insert.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -1852,6 +1902,7 @@ be the id of the last executed insert.</p>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1874,6 +1925,7 @@ be the id of the last executed insert.</p>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1919,7 +1971,7 @@ be the id of the last executed insert.</p>
 
 
 <h2 id="kwai.core.db.exceptions" class="doc doc-heading">
-          <code>kwai.core.db.exceptions</code>
+            <code>kwai.core.db.exceptions</code>
 
 
 <a href="#kwai.core.db.exceptions" class="headerlink" title="Permanent link">&para;</a></h2>
@@ -1944,19 +1996,18 @@ be the id of the last executed insert.</p>
 
 
 <h3 id="kwai.core.db.exceptions.DatabaseException" class="doc doc-heading">
-        <code>DatabaseException</code>
+          <code>DatabaseException</code>
 
 
 <a href="#kwai.core.db.exceptions.DatabaseException" class="headerlink" title="Permanent link">&para;</a></h3>
 
 
   <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code>Exception</code></p>
+          <p class="doc doc-class-bases">
+            Bases: <code>Exception</code></p>
 
   
       <p>Raised when a database error occurred.</p>
-
 
 
   
@@ -1984,19 +2035,18 @@ be the id of the last executed insert.</p>
 
 
 <h3 id="kwai.core.db.exceptions.QueryException" class="doc doc-heading">
-        <code>QueryException</code>
+          <code>QueryException</code>
 
 
 <a href="#kwai.core.db.exceptions.QueryException" class="headerlink" title="Permanent link">&para;</a></h3>
 
 
   <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.db.exceptions.DatabaseException" href="#kwai.core.db.exceptions.DatabaseException">DatabaseException</a></code></p>
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.db.exceptions.DatabaseException" href="#kwai.core.db.exceptions.DatabaseException">DatabaseException</a></code></p>
 
   
       <p>Raised when the execution of a query failed.</p>
-
 
 
   
@@ -2054,7 +2104,7 @@ be the id of the last executed insert.</p>
 
 
 <h2 id="kwai.core.db.table" class="doc doc-heading">
-          <code>kwai.core.db.table</code>
+            <code>kwai.core.db.table</code>
 
 
 <a href="#kwai.core.db.table" class="headerlink" title="Permanent link">&para;</a></h2>
@@ -2079,21 +2129,20 @@ be the id of the last executed insert.</p>
 
 
 <h3 id="kwai.core.db.table.Table" class="doc doc-heading">
-        <code>Table</code>
+          <code>Table</code>
 
 
 <a href="#kwai.core.db.table.Table" class="headerlink" title="Permanent link">&para;</a></h3>
 
 
   <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="typing.Generic">Generic</span>[<span title="kwai.core.db.table.T">T</span>]</code></p>
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="typing.Generic">Generic</span>[<span title="kwai.core.db.table.T">T</span>]</code></p>
 
   
       <p>Represent a table in the database.</p>
 <p>With this class a table row can be transformed into a dataclass. It can also
 be used to generate columns or aliases for queries.</p>
-
 
 
   
@@ -2129,6 +2178,7 @@ be used to generate columns or aliases for queries.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -2147,6 +2197,7 @@ be used to generate columns or aliases for queries.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -2163,6 +2214,8 @@ be used to generate columns or aliases for queries.</p>
 <p>The alias will be the name of the table delimited with an
 underscore: <table_name>_<column_name>.
 By default, the table name associated with the Table instance will be used.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -2206,6 +2259,8 @@ By default, the table name associated with the Table instance will be used.</p>
     </tbody>
   </table>
 
+
+
   <p><strong>Returns:</strong></p>
   <table>
     <thead>
@@ -2231,6 +2286,7 @@ By default, the table name associated with the Table instance will be used.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -2248,6 +2304,7 @@ By default, the table name associated with the Table instance will be used.</p>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -2267,6 +2324,7 @@ By default, the table name associated with the Table instance will be used.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -2285,6 +2343,7 @@ By default, the table name associated with the Table instance will be used.</p>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -2360,10 +2419,10 @@ tables (which can be the case with a join).</p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.b4d07000.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.220ee61c.min.js"></script>
       
     
   </body>
