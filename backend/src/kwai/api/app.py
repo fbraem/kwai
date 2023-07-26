@@ -2,6 +2,7 @@
 import os
 import sys
 import uuid
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,6 +14,14 @@ from kwai.api.v1.portal.api import api_router as portal_api_router
 from kwai.api.v1.trainings.api import api_router as training_api_router
 from kwai.core.dependencies import container
 from kwai.core.settings import Settings, SettingsException
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Log the start/stop of the application."""
+    logger.info("kwai is starting")
+    yield
+    logger.warning("kwai has ended!")
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
@@ -31,13 +40,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             logger.error(f"Could not load settings: {ex}")
             sys.exit(0)
 
-    def startup():
-        logger.info("kwai is starting")
-
-    def shutdown():
-        logger.warning("kwai has ended!")
-
-    app = FastAPI(title="kwai", on_startup=[startup], on_shutdown=[shutdown])
+    app = FastAPI(title="kwai", lifespan=lifespan)
 
     # Setup CORS
     if settings.cors:
