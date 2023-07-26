@@ -5,9 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: test
-        run: ls -l ${{ github.workspace }}
       - uses: chartboost/ruff-action@v1
         with:
           src: "${{ github.workspace }}/backend/src"
-          args: --config "${{ github.workspace }}/backend/pyproject.toml" --ignore D102
+          args: --ignore D102
