@@ -10,6 +10,8 @@ this philosophy.
 The frontend consists of several single page applications. [Vue](https://vuejs.org) is used as JavaScript framework. 
 
 ## Backend
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+
 Unlike the [other version](https://github.com/fbraem/kwai-api) which is written in PHP, this backend is written in 
 Python and uses [FastAPI](https://fastapi.tiangolo.com/) as web framework to provide an API for Kwai.
 
