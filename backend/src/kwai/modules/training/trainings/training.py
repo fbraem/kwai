@@ -2,6 +2,7 @@
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.period import Period
+from kwai.core.domain.value_objects.text import LocaleText
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.training.trainings.training_definition import (
     TrainingDefinitionEntity,
@@ -17,6 +18,7 @@ class TrainingEntity(Entity[TrainingIdentifier]):
         self,
         *,
         id_: TrainingIdentifier | None = None,
+        content: list[LocaleText],
         definition: TrainingDefinitionEntity | None,
         season: None = None,
         period: Period,
@@ -24,12 +26,13 @@ class TrainingEntity(Entity[TrainingIdentifier]):
         cancelled: bool = False,
         location: str = "",
         remark: str = "",
-        traceable_time: TraceableTime | None = None
+        traceable_time: TraceableTime | None = None,
     ):
         """Initialize a training.
 
         Args:
             id_: The id of the training
+            content: A list with text content
             definition: The related definition, when the training was created from a
                 definition.
             period: The period of the training.
@@ -41,6 +44,7 @@ class TrainingEntity(Entity[TrainingIdentifier]):
             traceable_time: The creation and modification timestamp of the training.
         """
         super().__init__(id_ or TrainingIdentifier())
+        self._content = content
         self._definition = definition
         self._season = season
         self._period = period

@@ -3,17 +3,17 @@ import dataclasses
 
 import pytest
 
-from kwai.core.domain.value_objects.content import Content, Text
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.owner import Owner
+from kwai.core.domain.value_objects.text import LocaleText, Text
 from kwai.core.domain.value_objects.unique_id import UniqueId
 
 
 @pytest.fixture()
 def content(locale: str):
     """Create a fixture for Content."""
-    return Content(
+    return LocaleText(
         locale=locale,
         format="MD",
         title="Test",

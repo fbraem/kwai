@@ -2,11 +2,11 @@
 from dataclasses import dataclass, field
 
 from kwai.core.domain.entity import Entity
-from kwai.core.domain.value_objects.content import Content
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.period import Period
+from kwai.core.domain.value_objects.text import LocaleText
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 
@@ -50,7 +50,7 @@ class StoryEntity(Entity[StoryIdentifier]):
         promotion: Promotion = None,
         period: Period = None,
         application: Application,
-        content: list[Content],
+        content: list[LocaleText],
         remark: str = "",
         traceable_time: TraceableTime | None = None,
     ):
@@ -89,7 +89,7 @@ class StoryEntity(Entity[StoryIdentifier]):
         return self._application
 
     @property
-    def content(self) -> list[Content]:
+    def content(self) -> list[LocaleText]:
         """Return the contents of the story.
 
         Remark:

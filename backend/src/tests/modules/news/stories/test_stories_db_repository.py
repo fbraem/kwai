@@ -3,16 +3,16 @@
 import pytest
 
 from kwai.core.db.database import Database
-from kwai.core.domain.value_objects.content import Content
+from kwai.core.domain.value_objects.owner import Owner
+from kwai.core.domain.value_objects.text import LocaleText
 from kwai.modules.news.stories.story import (
-    StoryEntity,
-    Author,
     Application,
+    StoryEntity,
 )
 from kwai.modules.news.stories.story_db_repository import StoryDbRepository
 from kwai.modules.news.stories.story_repository import (
-    StoryRepository,
     StoryNotFoundException,
+    StoryRepository,
 )
 
 
@@ -24,12 +24,12 @@ async def repo(database: Database) -> StoryRepository:
 
 @pytest.fixture(scope="module")
 async def story(
-    repo: StoryRepository, author: Author, application: Application
+    repo: StoryRepository, author: Owner, application: Application
 ) -> StoryEntity:
     """Fixture for a story."""
     story = StoryEntity(
         content=[
-            Content(
+            LocaleText(
                 format="md",
                 locale="nl",
                 title="test",

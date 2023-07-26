@@ -4,10 +4,10 @@ from datetime import datetime
 
 from kwai.core.db.rows import ContentRow
 from kwai.core.db.table import Table
-from kwai.core.domain.value_objects.content import Content
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.period import Period
+from kwai.core.domain.value_objects.text import LocaleText
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.news.stories.story import (
     Application,
@@ -28,7 +28,7 @@ class StoryContentRow(ContentRow):
     news_id: int
 
     @classmethod
-    def persist(cls, story: StoryEntity, content: Content):
+    def persist(cls, story: StoryEntity, content: LocaleText):
         """Persist a content value object to the table.
 
         Args:
@@ -96,7 +96,7 @@ class StoryRow:
     updated_at: datetime | None
 
     def create_entity(
-        self, application: Application, content: list[Content]
+        self, application: Application, content: list[LocaleText]
     ) -> StoryEntity:
         """Create a story entity from a table row."""
         return StoryEntity(

@@ -6,7 +6,7 @@ from kwai.core.domain.value_objects.traceable_time import TraceableTime
 
 
 @dataclass(frozen=True, kw_only=True, slots=True)
-class Content:
+class LocaleText:
     """Value object for the content of a news story.
 
     Attributes:
@@ -35,7 +35,7 @@ class Text:
     content is added, changed or removed.
     """
 
-    def __init__(self, content: dict[str, Content] = None):
+    def __init__(self, content: dict[str, LocaleText] = None):
         """Initialize the text value object with content.
 
         Args:
@@ -51,7 +51,7 @@ class Text:
         """
         return locale in self._content
 
-    def get_translation(self, locale: str) -> Content:
+    def get_translation(self, locale: str) -> LocaleText:
         """Get a translation.
 
         Args:
@@ -67,7 +67,7 @@ class Text:
             return self._content[locale]
         raise KeyError(f"{locale} is not found.")
 
-    def add_translation(self, content: Content) -> "Text":
+    def add_translation(self, content: LocaleText) -> "Text":
         """Add a new translation.
 
         Args:
@@ -84,7 +84,7 @@ class Text:
 
         raise KeyError(f"{content.locale} was already used.")
 
-    def remove_translation(self, content: Content) -> "Text":
+    def remove_translation(self, content: LocaleText) -> "Text":
         """Remove a translation.
 
         Args:
@@ -103,7 +103,7 @@ class Text:
         new_dict.pop(content.locale)
         return Text(new_dict)
 
-    def replace_translation(self, content: Content):
+    def replace_translation(self, content: LocaleText):
         """Replace a translation.
 
         Args:
