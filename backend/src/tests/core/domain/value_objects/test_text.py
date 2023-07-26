@@ -28,7 +28,7 @@ def content(locale: str):
 
 
 @pytest.mark.parametrize("locale", ["nl"])
-def test_add(locale, request):
+def test_add_translation(locale, request):
     """Test the add_translation method."""
     content = request.getfixturevalue("content")
     text = Text().add_translation(content)
@@ -38,7 +38,7 @@ def test_add(locale, request):
 
 
 @pytest.mark.parametrize("locale", ["nl"])
-def test_remove(locale, request):
+def test_remove_translation(locale, request):
     """Test the remove_translation method."""
     content = request.getfixturevalue("content")
     text = Text().add_translation(content).remove_translation(content)
@@ -48,7 +48,7 @@ def test_remove(locale, request):
 
 
 @pytest.mark.parametrize("locale", ["nl"])
-def test_replace(locale, request):
+def test_replace_translation(locale, request):
     """Test the replace_translation method."""
     content = request.getfixturevalue("content")
     new_content = dataclasses.replace(content, content="Updated")
