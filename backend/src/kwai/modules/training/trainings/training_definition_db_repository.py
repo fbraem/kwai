@@ -4,6 +4,7 @@
 from typing import Any, AsyncIterator
 
 from kwai.core.db.database import Database
+from kwai.core.db.rows import OwnersTable
 from kwai.core.domain.entity import Entity
 from kwai.modules.training.trainings.training_definition import (
     TrainingDefinitionEntity,
@@ -20,7 +21,6 @@ from kwai.modules.training.trainings.training_definition_repository import (
     TrainingDefinitionRepository,
 )
 from kwai.modules.training.trainings.training_tables import (
-    OwnersTable,
     TrainingDefinitionRow,
     TrainingDefinitionsTable,
 )

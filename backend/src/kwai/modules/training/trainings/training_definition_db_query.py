@@ -2,6 +2,7 @@
 from sql_smith.functions import on
 
 from kwai.core.db.database_query import DatabaseQuery
+from kwai.core.db.rows import OwnersTable
 from kwai.modules.training.trainings.training_definition import (
     TrainingDefinitionIdentifier,
 )
@@ -9,7 +10,6 @@ from kwai.modules.training.trainings.training_definition_query import (
     TrainingDefinitionQuery,
 )
 from kwai.modules.training.trainings.training_tables import (
-    OwnersTable,
     TrainingDefinitionsTable,
 )
 
