@@ -68,7 +68,7 @@ ignore_missing_imports = true
 [tool.ruff]
 select = ["E", "W", "F", "C", "B", "D", "I", "N"]
 fixable = ["I"]
-ignore = ["D107", "D203", "D213", "D406", "D407", "N818", "B008"]
+ignore = ["D107", "D203", "D213", "D406", "D407", "E501", "N818", "B008"]
 target-version = "py310"
 
 [tool.ruff.pydocstyle]
