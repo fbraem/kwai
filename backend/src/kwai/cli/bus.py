@@ -4,7 +4,7 @@ from asyncio import run
 
 import typer
 from redis.asyncio import Redis
-from rich import print  # pylint: disable=redefined-builtin
+from rich import print
 from rich.tree import Tree
 from typer import Typer
 
@@ -61,7 +61,7 @@ def test():
 
 
 @app.command(help="Get information about a stream")
-def stream(
+def stream(  # noqa
     name: str = typer.Option(..., help="The name of the stream"),
     messages: bool = typer.Option(False, help="List all messages"),
 ):
@@ -93,10 +93,9 @@ def stream(
             return
 
         if info.length > 100:
-            confirm = typer.confirm(
+            if not typer.confirm(
                 f"You are about to browse {info.length} messages. Are you sure?"
-            )
-            if not confirm:
+            ):
                 return
 
         stream_ = RedisStream(redis, stream_name)
@@ -111,13 +110,14 @@ def stream(
 
             leaf = tree.add(f"[bold]{message.id}[/bold]")
             if "meta" in message.data:
-                text = ""
                 if "name" in message.data["meta"]:
-                    text += (
+                    text = (
                         "[green]"
                         f"[bold]{message.data['meta']['name']}[/bold]"
                         "[/green]:"
                     )
+                else:
+                    text = ""
                 if "date" in message.data["meta"]:
                     text += f" {message.data['meta']['date']}"
                 if len(text) > 0:
