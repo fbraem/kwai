@@ -71,6 +71,9 @@ fixable = ["I"]
 ignore = ["D107", "D203", "D213", "D406", "D407", "N818", "B008"]
 target-version = "py310"
 
+[tool.ruff.pydocstyle]
+convention = "google"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
