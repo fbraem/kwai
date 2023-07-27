@@ -24,6 +24,7 @@ class SmtpMailer(Mailer):
         self._tls = tls
 
     def __del__(self):
+        """Disconnect from the mailer."""
         self.disconnect()
 
     def connect(self):
