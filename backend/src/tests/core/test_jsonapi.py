@@ -69,7 +69,7 @@ def test_jsonapi_resource_decorator():
 
 def test_jsonapi_resource():
     """Test the resource class."""
-    resource = json_api.Resource(Coach).build()
+    json_api.Resource(Coach).build()
     assert (
         Coach.__json_api_resource__.get_attribute("name") is not None
     ), "There should be a name attribute."
