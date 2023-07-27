@@ -1,5 +1,5 @@
 """Module that defines an interface for an application query."""
-from abc import abstractmethod, ABC
+from abc import ABC, abstractmethod
 
 from kwai.core.domain.repository.query import Query
 from kwai.modules.portal.applications.application import ApplicationIdentifier

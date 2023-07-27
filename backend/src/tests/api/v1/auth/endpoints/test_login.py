@@ -47,7 +47,6 @@ def test_login_with_wrong_password(client: TestClient, user_account: UserAccount
 
 def test_renew_access_token(client: TestClient, user_account: UserAccountEntity):
     """Test the renewal of an access token."""
-
     # First login to get an access and refresh token.
     response = client.post(
         "/api/v1/auth/login",
@@ -68,7 +67,6 @@ def test_renew_access_token(client: TestClient, user_account: UserAccountEntity)
 
 def test_recover_user(client: TestClient, user_account: UserAccountEntity):
     """Test the recover user api."""
-
     response = client.post(
         "/api/v1/auth/recover", data={"email": str(user_account.user.email)}
     )
@@ -77,7 +75,6 @@ def test_recover_user(client: TestClient, user_account: UserAccountEntity):
 
 def test_recover_unknown_user(client: TestClient):
     """Test the recover user api with an unknown user."""
-
     response = client.post("/api/v1/auth/recover", data={"email": "unknown@kwai.com"})
     # A wrong user also results in http status code 200.
     assert response.status_code == status.HTTP_200_OK

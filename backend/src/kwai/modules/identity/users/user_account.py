@@ -34,7 +34,7 @@ class UserAccountEntity(Entity[UserAccountIdentifier]):
 
     @property
     def admin(self) -> bool:
-        """Is this user an administrator?"""
+        """Check if this user an administrator."""
         return self._admin
 
     @property
@@ -87,7 +87,7 @@ class UserAccountEntity(Entity[UserAccountIdentifier]):
 
     @property
     def revoked(self) -> bool:
-        """Is the user revoked?"""
+        """Check if this user is revoked."""
         return self._revoked
 
     @property

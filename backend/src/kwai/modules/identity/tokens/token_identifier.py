@@ -11,8 +11,9 @@ class TokenIdentifier:
 
     @classmethod
     def generate(cls):
-        """Creates a new token identifier with a random text string."""
+        """Create a new token identifier with a random text string."""
         return TokenIdentifier(hex_string=token_hex(40))
 
     def __str__(self):
+        """Return a string representation of the token."""
         return self.hex_string

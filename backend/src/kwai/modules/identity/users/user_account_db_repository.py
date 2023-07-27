@@ -8,12 +8,12 @@ from kwai.modules.identity.users.user_account import (
     UserAccountIdentifier,
 )
 from kwai.modules.identity.users.user_account_repository import (
-    UserAccountRepository,
     UserAccountNotFoundException,
+    UserAccountRepository,
 )
 from kwai.modules.identity.users.user_tables import (
-    UserAccountsTable,
     UserAccountRow,
+    UserAccountsTable,
 )
 
 

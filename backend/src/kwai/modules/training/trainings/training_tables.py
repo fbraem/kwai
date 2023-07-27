@@ -3,15 +3,14 @@
 from dataclasses import dataclass
 from datetime import datetime, time
 
+from kwai.core.db.rows import ContentRow
 from kwai.core.db.table import Table
-from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
-from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
+from kwai.core.domain.value_objects.text import LocaleText
 from kwai.core.domain.value_objects.time_period import TimePeriod
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
-from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.core.domain.value_objects.weekday import Weekday
 from kwai.modules.training.trainings.training import (
     TrainingEntity,
@@ -25,24 +24,37 @@ from kwai.modules.training.trainings.value_objects import Season
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class OwnerRow:
-    """Represent the owner data."""
+class TrainingContentRow(ContentRow):
+    """Represent a row in the training_contents table.
 
-    id: int
-    uuid: str
-    first_name: str
-    last_name: str
+    Attributes:
+        training_id: The id of the training
+    """
 
-    def create_owner(self) -> Owner:
-        """Create an Author value object from row data."""
-        return Owner(
-            id=IntIdentifier(self.id),
-            uuid=UniqueId.create_from_string(self.uuid),
-            name=Name(first_name=self.first_name, last_name=self.last_name),
+    training_id: int
+
+    @classmethod
+    def persist(cls, training: TrainingEntity, content: LocaleText):
+        """Persist a content value object to this table.
+
+        Args:
+            training: The training that contains the text content.
+            content: The text content of the training.
+        """
+        return TrainingContentRow(
+            training_id=training.id.value,
+            locale=content.locale,
+            format=content.format,
+            title=content.title,
+            content=content.content,
+            summary=content.summary,
+            user_id=content.author.id.value,
+            created_at=content.traceable_time.created_at.timestamp,
+            updated_at=content.traceable_time.updated_at.timestamp,
         )
 
 
-OwnersTable = Table("users", OwnerRow)
+TrainingContentsTable = Table("training_contents", TrainingContentRow)
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -77,6 +89,7 @@ class TrainingRow:
 
     def create_entity(
         self,
+        content: list[LocaleText],
         definition: TrainingDefinitionEntity | None = None,
         season: Season | None = None,
     ) -> TrainingEntity:
@@ -87,6 +100,7 @@ class TrainingRow:
         """
         return TrainingEntity(
             id_=TrainingIdentifier(self.id),
+            content=content,
             definition=definition,
             season=season,
             period=Period(
@@ -113,7 +127,9 @@ class TrainingRow:
         Returns:
             A dataclass containing the table row data.
         """
-        return TrainingRow(id=training.id.value)
+        return TrainingRow(
+            id=training.id.value,
+        )
 
 
 TrainingsTable = Table("trainings", TrainingRow)

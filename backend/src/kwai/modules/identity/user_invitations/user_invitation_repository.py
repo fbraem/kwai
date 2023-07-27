@@ -1,11 +1,11 @@
 """Module that defines an interface for an invitation repository."""
-from abc import ABC
+from abc import ABC, abstractmethod
 from typing import AsyncIterator
 
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_invitations.user_invitation import (
-    UserInvitationIdentifier,
     UserInvitationEntity,
+    UserInvitationIdentifier,
 )
 from kwai.modules.identity.user_invitations.user_invitation_query import (
     UserInvitationQuery,
@@ -19,6 +19,7 @@ class UserInvitationNotFoundException(Exception):
 class UserInvitationRepository(ABC):
     """An invitation repository interface."""
 
+    @abstractmethod
     def create_query(self) -> UserInvitationQuery:
         """Create a UserInvitationQuery.
 
@@ -27,6 +28,7 @@ class UserInvitationRepository(ABC):
         """
         raise NotImplementedError
 
+    @abstractmethod
     async def get_all(
         self,
         query: UserInvitationQuery,
@@ -45,6 +47,7 @@ class UserInvitationRepository(ABC):
         """
         raise NotImplementedError
 
+    @abstractmethod
     async def get_invitation_by_id(
         self, id_: UserInvitationIdentifier
     ) -> UserInvitationEntity:
@@ -55,6 +58,7 @@ class UserInvitationRepository(ABC):
         """
         raise NotImplementedError
 
+    @abstractmethod
     async def get_invitation_by_uuid(self, uuid: UniqueId) -> UserInvitationEntity:
         """Get an invitation using the unique id.
 
@@ -63,24 +67,27 @@ class UserInvitationRepository(ABC):
         """
         raise NotImplementedError
 
+    @abstractmethod
     async def create(self, invitation: UserInvitationEntity) -> UserInvitationEntity:
-        """Creates a new invitation.
+        """Create a new invitation.
 
         Args:
             invitation(UserInvitationEntity): The invitation to create.
         """
         raise NotImplementedError
 
+    @abstractmethod
     async def update(self, invitation: UserInvitationEntity) -> None:
-        """Updates an existing invitation.
+        """Update an existing invitation.
 
         Args:
             invitation(UserInvitationEntity): The invitation to update.
         """
         raise NotImplementedError
 
+    @abstractmethod
     async def delete(self, invitation: UserInvitationEntity) -> None:
-        """Deletes the invitation.
+        """Delete the invitation.
 
         Args:
             invitation(UserInvitationEntity): The invitation to delete.

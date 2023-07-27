@@ -6,10 +6,10 @@ from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.users.user import UserEntity, UserIdentifier
 from kwai.modules.identity.users.user_db_query import UserDbQuery
 from kwai.modules.identity.users.user_repository import (
-    UserRepository,
     UserNotFoundException,
+    UserRepository,
 )
-from kwai.modules.identity.users.user_tables import UsersTable, UserRow
+from kwai.modules.identity.users.user_tables import UserRow, UsersTable
 
 
 class UserDbRepository(UserRepository):

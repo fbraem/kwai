@@ -1,10 +1,10 @@
 """Module that defines an interface for an application repository."""
-from abc import abstractmethod, ABC
+from abc import ABC, abstractmethod
 from typing import AsyncIterator
 
 from kwai.modules.portal.applications.application import (
-    ApplicationIdentifier,
     ApplicationEntity,
+    ApplicationIdentifier,
 )
 from kwai.modules.portal.applications.application_query import ApplicationQuery
 

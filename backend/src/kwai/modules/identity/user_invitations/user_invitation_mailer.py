@@ -2,7 +2,7 @@
 from kwai.core.domain.mailer_service import MailerService
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.message import Message
-from kwai.core.mail.recipient import Recipients, Recipient
+from kwai.core.mail.recipient import Recipient, Recipients
 from kwai.core.template.mail_template import MailTemplate
 from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
 

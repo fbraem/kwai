@@ -15,8 +15,8 @@ from kwai.modules.identity.tokens.access_token_repository import (
 )
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.tokens.token_tables import (
-    AccessTokensTable,
     AccessTokenRow,
+    AccessTokensTable,
 )
 from kwai.modules.identity.users.user_tables import UserAccountsTable
 

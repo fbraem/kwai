@@ -10,12 +10,12 @@ from kwai.modules.portal.applications.application import (
 from kwai.modules.portal.applications.application_db_query import ApplicationDbQuery
 from kwai.modules.portal.applications.application_query import ApplicationQuery
 from kwai.modules.portal.applications.application_repository import (
-    ApplicationRepository,
     ApplicationNotFoundException,
+    ApplicationRepository,
 )
 from kwai.modules.portal.applications.application_tables import (
-    ApplicationsTable,
     ApplicationRow,
+    ApplicationsTable,
 )
 
 

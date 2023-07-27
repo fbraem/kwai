@@ -8,7 +8,7 @@ from kwai.core.dependencies import container
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.mail.mailer import Mailer
-from kwai.core.mail.recipient import Recipients, Recipient
+from kwai.core.mail.recipient import Recipient, Recipients
 from kwai.core.settings import Settings
 from kwai.core.template.mail_template import MailTemplate
 from kwai.core.template.template_engine import TemplateEngine

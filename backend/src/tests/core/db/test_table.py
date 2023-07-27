@@ -22,7 +22,6 @@ ModelTable = Table("users", ModelRow)
 def test_wrong_class():
     """Test if the check for a dataclass works."""
     with pytest.raises(AssertionError):
-
         # pylint: disable=unused-variable,too-few-public-methods
         class WrongRow:
             """A table must be a dataclass..."""
@@ -58,7 +57,7 @@ def test_map_row():
 
 
 def test_map_with_call():
-    """Test map row using the shortcut (__call__)"""
+    """Test map row using the shortcut (__call__)."""
     row = ModelTable({"users_id": "1", "users_name": "Jigoro", "users_age": 77})
     assert isinstance(row, ModelRow)
     assert row == ModelRow(id="1", name="Jigoro", age=77)

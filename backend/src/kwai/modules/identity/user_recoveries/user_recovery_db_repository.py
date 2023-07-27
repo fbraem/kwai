@@ -7,12 +7,12 @@ from kwai.core.db.database import Database
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_recoveries.user_recovery import (
-    UserRecoveryIdentifier,
     UserRecoveryEntity,
+    UserRecoveryIdentifier,
 )
 from kwai.modules.identity.user_recoveries.user_recovery_repository import (
-    UserRecoveryRepository,
     UserRecoveryNotFoundException,
+    UserRecoveryRepository,
 )
 from kwai.modules.identity.user_recoveries.user_recovery_tables import (
     UserRecoveriesTable,

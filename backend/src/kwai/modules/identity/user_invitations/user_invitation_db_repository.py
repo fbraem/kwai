@@ -15,12 +15,12 @@ from kwai.modules.identity.user_invitations.user_invitation_query import (
     UserInvitationQuery,
 )
 from kwai.modules.identity.user_invitations.user_invitation_repository import (
-    UserInvitationRepository,
     UserInvitationNotFoundException,
+    UserInvitationRepository,
 )
 from kwai.modules.identity.user_invitations.user_invitation_tables import (
-    UserInvitationsTable,
     UserInvitationRow,
+    UserInvitationsTable,
 )
 from kwai.modules.identity.users.user_tables import UsersTable
 

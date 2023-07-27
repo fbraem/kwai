@@ -30,5 +30,5 @@ class UserRepository(ABC):
 
     @abstractmethod
     async def update(self, user: UserEntity) -> None:
-        """Updates an existing user entity."""
+        """Update an existing user entity."""
         raise NotImplementedError

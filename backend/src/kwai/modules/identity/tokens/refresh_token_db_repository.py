@@ -4,20 +4,20 @@ from typing import AsyncIterator
 from kwai.core.db.database import Database
 from kwai.core.domain.entity import Entity
 from kwai.modules.identity.tokens.refresh_token import (
-    RefreshTokenIdentifier,
     RefreshTokenEntity,
+    RefreshTokenIdentifier,
 )
 from kwai.modules.identity.tokens.refresh_token_db_query import RefreshTokenDbQuery
 from kwai.modules.identity.tokens.refresh_token_query import RefreshTokenQuery
 from kwai.modules.identity.tokens.refresh_token_repository import (
-    RefreshTokenRepository,
     RefreshTokenNotFoundException,
+    RefreshTokenRepository,
 )
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.tokens.token_tables import (
-    RefreshTokensTable,
     AccessTokensTable,
     RefreshTokenRow,
+    RefreshTokensTable,
 )
 from kwai.modules.identity.users.user_tables import (
     UserAccountsTable,

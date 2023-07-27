@@ -7,9 +7,6 @@ from kwai.core.settings import get_settings
 from kwai.modules.identity.users.user_account import UserAccountEntity
 
 
-# pylint: disable=redefined-outer-name
-
-
 @pytest.fixture(scope="module")
 def client() -> TestClient:
     """Get an HTTP client."""

@@ -7,8 +7,8 @@ from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_recoveries.user_recovery import (
-    UserRecoveryIdentifier,
     UserRecoveryEntity,
+    UserRecoveryIdentifier,
 )
 from kwai.modules.identity.users.user import UserEntity
 

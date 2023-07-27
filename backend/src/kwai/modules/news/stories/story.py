@@ -65,7 +65,7 @@ class StoryEntity(Entity[StoryIdentifier]):
 
     @property
     def is_enabled(self) -> bool:
-        """Is this story enabled?"""
+        """Check if the story is enabled."""
         return self._enabled
 
     @property
