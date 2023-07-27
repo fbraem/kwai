@@ -15,7 +15,6 @@ from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.identity.users.user_db_repository import UserDbRepository
 
 pytestmark = pytest.mark.integration
-# pylint: disable=redefined-outer-name
 
 
 @pytest.fixture(scope="module")

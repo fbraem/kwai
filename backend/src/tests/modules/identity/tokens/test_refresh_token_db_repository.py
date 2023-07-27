@@ -8,7 +8,7 @@ pytestmark = pytest.mark.integration
 
 
 def test_create(
-    refresh_token: RefreshTokenEntity,  # pylint: disable=redefined-outer-name
+    refresh_token: RefreshTokenEntity,
 ):
     """Test the create method."""
     assert not refresh_token.id.is_empty(), "There should be a refresh token entity"
@@ -16,8 +16,8 @@ def test_create(
 
 @pytest.mark.asyncio
 async def test_get_by_token_identifier(
-    refresh_token_repo: RefreshTokenRepository,  # pylint: disable=redefined-outer-name
-    refresh_token: RefreshTokenEntity,  # pylint: disable=redefined-outer-name
+    refresh_token_repo: RefreshTokenRepository,
+    refresh_token: RefreshTokenEntity,
 ):
     """Test get_by_token_identifier."""
     token = await refresh_token_repo.get_by_token_identifier(refresh_token.identifier)
@@ -26,7 +26,7 @@ async def test_get_by_token_identifier(
 
 @pytest.mark.asyncio
 async def test_query(
-    refresh_token_repo: RefreshTokenRepository,  # pylint: disable=redefined-outer-name
+    refresh_token_repo: RefreshTokenRepository,
 ):
     """Test query."""
     tokens = [token async for token in refresh_token_repo.get_all(limit=10)]

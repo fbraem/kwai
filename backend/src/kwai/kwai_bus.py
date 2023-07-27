@@ -46,7 +46,7 @@ def create_bus():
     )
 
     bus = RedisBus(container[Redis])
-    # pylint: disable=(import-outside-toplevel)
+
     from kwai.modules.identity.tasks import tasks as identity_tasks
 
     # Subscribe all identity tasks to their event

@@ -8,7 +8,7 @@ import os
 from asyncio import run
 
 import typer
-from rich import print  # pylint: disable=redefined-builtin
+from rich import print
 from typer import Typer
 
 from kwai.core.db.database import Database

@@ -22,7 +22,7 @@ ModelTable = Table("users", ModelRow)
 def test_wrong_class():
     """Test if the check for a dataclass works."""
     with pytest.raises(AssertionError):
-        # pylint: disable=unused-variable,too-few-public-methods
+
         class WrongRow:
             """A table must be a dataclass..."""
 

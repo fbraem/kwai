@@ -17,7 +17,7 @@ class LogoutCommand:
     identifier: str
 
 
-class Logout:  # pylint: disable=too-few-public-methods
+class Logout:
     """Use case: logout a user.
 
     A user is logged out by revoking the refresh token. The access token that is

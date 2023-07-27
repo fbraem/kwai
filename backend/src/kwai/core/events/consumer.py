@@ -49,7 +49,7 @@ class RedisConsumer:
                 if message:
                     try:
                         await self._trigger_callback(message)
-                    except Exception as ex:  # pylint: disable=broad-exception-caught
+                    except Exception as ex:
                         print(f"Exception: {ex}")
                         # avoid a break of the loop
                         continue
@@ -58,7 +58,7 @@ class RedisConsumer:
             except asyncio.CancelledError:
                 # happens on shutdown, ignore
                 return
-            except Exception as ex:  # pylint: disable=broad-exception-caught
+            except Exception as ex:
                 print(f"Exception: {ex}")
                 continue
             finally:

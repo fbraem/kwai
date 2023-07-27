@@ -13,7 +13,6 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
 )
 
 pytestmark = pytest.mark.integration
-# pylint: disable=redefined-outer-name
 
 
 @pytest.fixture(scope="module")

@@ -31,7 +31,7 @@ class CreateUserCommand:
     remark: str
 
 
-class CreateUser:  # pylint: disable=too-few-public-methods
+class CreateUser:
     """Use case for creating a new user."""
 
     def __init__(self, user_account_repo: UserAccountRepository):

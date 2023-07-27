@@ -70,7 +70,7 @@ class RedisBus(Bus):
                         await callback(message.data)
                     else:
                         callback(message.data)
-                except Exception as ex:  # pylint: disable=broad-exception-caught
+                except Exception as ex:
                     logger.warning(f"The handler raised an exception: {ex}")
 
             logger.info("All handlers are called.")

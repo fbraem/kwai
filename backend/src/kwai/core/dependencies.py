@@ -17,8 +17,6 @@ from kwai.core.template.template_engine import TemplateEngine
 
 container = ExplicitContainer()
 
-# pylint: disable=invalid-name
-
 container[Settings] = Singleton(get_settings)
 container[TemplateEngine] = lambda c: Jinja2Engine(
     c[Settings].template.path, website=c[Settings].website

@@ -16,7 +16,6 @@ from kwai.modules.identity.users.user_account import (
 )
 
 
-# pylint: disable=too-many-instance-attributes
 @dataclass(kw_only=True, frozen=True, slots=True)
 class UserRow:
     """Represent a row in the users table."""

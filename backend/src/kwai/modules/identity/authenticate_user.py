@@ -43,7 +43,6 @@ class AuthenticateUser:
             refresh token.
     """
 
-    # pylint: disable=too-few-public-methods
     def __init__(
         self,
         user_account_repo: UserAccountRepository,

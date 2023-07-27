@@ -5,8 +5,6 @@ from kwai.core.domain.value_objects.traceable_time import TraceableTime
 
 ApplicationIdentifier = IntIdentifier
 
-# pylint: disable=too-many-instance-attributes
-
 
 class ApplicationEntity(Entity[ApplicationIdentifier]):
     """An application entity."""

@@ -11,7 +11,6 @@ JINJA2_FILE_EXTENSION = ".jinja2"
 class Jinja2Engine(TemplateEngine):
     """Implements the TemplateEngine interface for Jinja2."""
 
-    # pylint: disable=too-few-public-methods
     def __init__(self, template_path: str, **kwargs):
         """Construct a Jinja2Engine.
 

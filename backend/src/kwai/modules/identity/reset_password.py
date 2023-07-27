@@ -37,7 +37,6 @@ class ResetPassword:
     password with a unique id. This unique id is linked to a user recovery.
     """
 
-    # pylint: disable=too-few-public-methods
     def __init__(
         self,
         user_account_repo: UserAccountRepository,

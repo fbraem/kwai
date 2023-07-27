@@ -42,9 +42,6 @@ class InviteUserCommand:
     remark: str = ""
 
 
-# pylint: disable=too-few-public-methods
-
-
 class InviteUser:
     """Invite user use case.
 

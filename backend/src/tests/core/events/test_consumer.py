@@ -13,7 +13,7 @@ async def test_consumer(stream: RedisStream):
     await stream.create_group("kwai_test_consumer_group")
     await stream.add(RedisMessage(data={"text": "Hello consumer!"}))
 
-    def out(message: RedisMessage) -> bool:  # pylint: disable=unused-argument
+    def out(message: RedisMessage) -> bool:
         out.counter = getattr(out, "counter", 0) + 1
         return True
 

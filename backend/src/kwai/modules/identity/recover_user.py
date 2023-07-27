@@ -34,7 +34,6 @@ class RecoverUser:
             event.
     """
 
-    # pylint: disable=too-few-public-methods
     def __init__(
         self,
         user_repo: UserAccountRepository,

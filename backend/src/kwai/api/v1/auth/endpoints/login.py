@@ -122,7 +122,7 @@ async def login(
 async def logout(
     settings=deps.depends(Settings),
     db: Database = deps.depends(Database),
-    user: UserEntity = Depends(get_current_user),  # pylint: disable=unused-argument
+    user: UserEntity = Depends(get_current_user),
     refresh_token: str = Form(),
 ):
     """Log out the current user.

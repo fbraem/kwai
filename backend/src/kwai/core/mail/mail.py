@@ -6,7 +6,6 @@ from .recipient import Recipients
 class Mail(Message):
     """Implements a text/html mail message."""
 
-    # pylint: disable=too-many-arguments
     def __init__(
         self,
         recipients: Recipients,

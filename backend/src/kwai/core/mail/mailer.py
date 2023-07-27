@@ -11,8 +11,6 @@ class MailerException(Exception):
 class Mailer(ABC):
     """Interface for a mail service."""
 
-    # pylint: disable=too-few-public-methods
-
     @abstractmethod
     def send(self, message: Message):
         """Send the message."""

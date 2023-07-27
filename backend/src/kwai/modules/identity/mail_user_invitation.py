@@ -29,7 +29,6 @@ class MailUserInvitationCommand:
 class MailUserInvitation:
     """Use case for sending a user invitation email."""
 
-    # pylint: disable=too-few-public-methods
     def __init__(
         self,
         user_invitation_repo: UserInvitationRepository,

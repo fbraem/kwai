@@ -10,8 +10,6 @@ from kwai.modules.identity.users.user import UserEntity
 
 UserInvitationIdentifier = IntIdentifier
 
-# pylint: disable=too-many-instance-attributes
-
 
 class UserInvitationEntity(Entity[UserInvitationIdentifier]):
     """A user invitation entity.

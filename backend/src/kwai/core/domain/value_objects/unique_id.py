@@ -7,7 +7,7 @@ from dataclasses import dataclass
 class UniqueId:
     """A value object for a unique id."""
 
-    id: uuid.UUID  # pylint: disable=C0103
+    id: uuid.UUID
 
     @classmethod
     def generate(cls):

@@ -10,7 +10,6 @@ from kwai.modules.identity.user_recoveries.user_recovery import UserRecoveryEnti
 class UserRecoveryMailer(MailerService):
     """Sends a user recovery mail."""
 
-    # pylint: disable=too-few-public-methods
     def __init__(
         self,
         mailer: Mailer,

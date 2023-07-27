@@ -6,9 +6,6 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationRepository,
 )
 
-# pylint: disable=too-few-public-methods
-# pylint: disable=line-too-long
-
 
 @dataclass(kw_only=True, frozen=True, slots=True)
 class DeleteUserInvitationCommand:

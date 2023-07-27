@@ -6,7 +6,6 @@ from typing import Any
 class Template:
     """Interface for a template."""
 
-    # pylint: disable=too-few-public-methods
     @abstractmethod
     def render(self, **kwargs: dict[str, Any]) -> str:
         """Render the template with the variables."""

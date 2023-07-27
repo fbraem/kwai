@@ -74,7 +74,7 @@ async def create_user_invitation(
 async def delete_user_invitation(
     uuid: str,
     db=deps.depends(Database),
-    user: UserEntity = Depends(get_current_user),  # pylint: disable=unused-argument
+    user: UserEntity = Depends(get_current_user),
 ):
     """Delete the user invitation with the given unique id."""
     command = DeleteUserInvitationCommand(uuid=uuid)
@@ -94,7 +94,7 @@ async def delete_user_invitation(
 async def get_user_invitations(
     pagination: PaginationModel = Depends(PaginationModel),
     db=deps.depends(Database),
-    user: UserEntity = Depends(get_current_user),  # pylint: disable=unused-argument
+    user: UserEntity = Depends(get_current_user),
 ) -> UserInvitationResource.get_document_model():
     """Get all user invitations."""
     command = GetInvitationsCommand(offset=pagination.offset, limit=pagination.limit)
@@ -113,7 +113,7 @@ async def get_user_invitations(
 async def get_user_invitation(
     uuid: str,
     db=deps.depends(Database),
-    user: UserEntity = Depends(get_current_user),  # pylint: disable=unused-argument
+    user: UserEntity = Depends(get_current_user),
 ) -> UserInvitationResource.get_document_model():
     """Get the user invitation with the given unique id."""
     command = GetUserInvitationCommand(uuid=uuid)

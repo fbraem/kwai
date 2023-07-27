@@ -17,8 +17,6 @@ from kwai.modules.identity.users.user import UserEntity
 class UserRecoveryRow:
     """Represent a row in the user recovery table."""
 
-    # pylint: disable=too-many-instance-attributes
-
     id: int | None
     user_id: int
     uuid: str

@@ -29,7 +29,6 @@ class MailUserRecoveryCommand:
 class MailUserRecovery:
     """Use case for sending a recovery email."""
 
-    # pylint: disable=too-few-public-methods
     def __init__(
         self,
         user_recovery_repo: UserRecoveryRepository,

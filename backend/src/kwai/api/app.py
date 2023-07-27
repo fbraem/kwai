@@ -101,7 +101,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             response = None  # Make pylint happy...
             try:
                 response = await call_next(request)
-            except Exception as ex:  # pylint: disable=W0703
+            except Exception as ex:
                 logger.error(f"{request.url} - Request failed: {ex}")
                 logger.exception(ex)
                 response = JSONResponse(

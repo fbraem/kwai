@@ -10,7 +10,6 @@ from kwai.modules.identity.user_invitations.user_invitation import UserInvitatio
 class UserInvitationMailer(MailerService):
     """Send a user invitation mail."""
 
-    # pylint: disable=too-few-public-methods
     def __init__(
         self,
         mailer: Mailer,
