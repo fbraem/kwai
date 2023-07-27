@@ -13,7 +13,7 @@ from kwai.api.v1.auth.api import api_router as auth_api_router
 from kwai.api.v1.portal.api import api_router as portal_api_router
 from kwai.api.v1.trainings.api import api_router as training_api_router
 from kwai.core.dependencies import container
-from kwai.core.settings import Settings, SettingsException
+from kwai.core.settings import LoggerSettings, Settings, SettingsException
 
 
 @asynccontextmanager
@@ -22,6 +22,37 @@ async def lifespan(app: FastAPI):
     logger.info("kwai is starting")
     yield
     logger.warning("kwai has ended!")
+
+
+def configure_logger(settings: LoggerSettings):
+    """Configure the logger."""
+    try:
+        logger.remove(0)  # Remove the default logger
+    except ValueError:
+        pass
+
+    def log_format(record):
+        """Change the format when a request_id is set in extra."""
+        if "request_id" in record["extra"]:
+            new_format = (
+                "{time} - {level} - ({extra[request_id]}) - {message}" + os.linesep
+            )
+        else:
+            new_format = "{time} - {level} - {message}" + os.linesep
+        if record["exception"]:
+            new_format += "{exception}" + os.linesep
+        return new_format
+
+    logger.add(
+        settings.file or sys.stderr,
+        format=log_format,
+        level=settings.level,
+        colorize=True,
+        retention=settings.retention,
+        rotation=settings.rotation,
+        backtrace=False,
+        diagnose=False,
+    )
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
@@ -54,33 +85,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     # Setup the logger.
     if settings.logger:
-        try:
-            logger.remove(0)  # Remove the default logger
-        except ValueError:
-            pass
-
-        def log_format(record):
-            """Change the format when a request_id is set in extra."""
-            if "request_id" in record["extra"]:
-                new_format = (
-                    "{time} - {level} - ({extra[request_id]}) - {message}" + os.linesep
-                )
-            else:
-                new_format = "{time} - {level} - {message}" + os.linesep
-            if record["exception"]:
-                new_format += "{exception}" + os.linesep
-            return new_format
-
-        logger.add(
-            settings.logger.file or sys.stderr,
-            format=log_format,
-            level=settings.logger.level,
-            colorize=True,
-            retention=settings.logger.retention,
-            rotation=settings.logger.rotation,
-            backtrace=False,
-            diagnose=False,
-        )
+        configure_logger(settings.logger)
 
     app.include_router(auth_api_router, prefix="/api/v1")
     app.include_router(portal_api_router, prefix="/api/v1")
