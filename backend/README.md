@@ -2,6 +2,8 @@
 
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
+![ruff](https://github.com/fbraem/kwai/actions/workflows/ruff.yml/badge.svg)
+
 The kwai backend provides an api for kwai. All server side code is written
 with Python. The web framework used is [FastAPI](https://fastapi.tiangolo.com/).
 

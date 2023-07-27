@@ -12,6 +12,8 @@ The frontend consists of several single page applications. [Vue](https://vuejs.o
 ## Backend
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
+![ruff](https://github.com/fbraem/kwai/actions/workflows/ruff.yml/badge.svg)
+
 Unlike the [other version](https://github.com/fbraem/kwai-api) which is written in PHP, this backend is written in 
 Python and uses [FastAPI](https://fastapi.tiangolo.com/) as web framework to provide an API for Kwai.
 
