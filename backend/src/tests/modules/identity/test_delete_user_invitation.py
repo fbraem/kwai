@@ -4,19 +4,19 @@ import pytest
 
 from kwai.core.db.database import Database
 from kwai.modules.identity.delete_user_invitation import (
-    DeleteUserInvitationCommand,
     DeleteUserInvitation,
+    DeleteUserInvitationCommand,
 )
 from kwai.modules.identity.get_user_invitation import (
-    GetUserInvitationCommand,
     GetUserInvitation,
+    GetUserInvitationCommand,
 )
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
     UserInvitationDbRepository,
 )
 from kwai.modules.identity.user_invitations.user_invitation_repository import (
-    UserInvitationRepository,
     UserInvitationNotFoundException,
+    UserInvitationRepository,
 )
 
 

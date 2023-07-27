@@ -4,7 +4,7 @@ from types import AsyncGeneratorType
 import pytest
 
 from kwai.core.db.database import Database
-from kwai.modules.identity.get_invitations import GetInvitationsCommand, GetInvitations
+from kwai.modules.identity.get_invitations import GetInvitations, GetInvitationsCommand
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
     UserInvitationDbRepository,
 )

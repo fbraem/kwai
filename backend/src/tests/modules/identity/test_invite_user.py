@@ -4,7 +4,7 @@ import pytest
 from kwai.core.db.database import Database
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.events.bus import Bus
-from kwai.modules.identity.invite_user import InviteUserCommand, InviteUser
+from kwai.modules.identity.invite_user import InviteUser, InviteUserCommand
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
     UserInvitationDbRepository,
 )

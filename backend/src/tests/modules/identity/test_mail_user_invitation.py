@@ -7,8 +7,8 @@ from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipients
 from kwai.core.template.mail_template import MailTemplate
 from kwai.modules.identity.mail_user_invitation import (
-    MailUserInvitationCommand,
     MailUserInvitation,
+    MailUserInvitationCommand,
 )
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
     UserInvitationDbRepository,
@@ -32,7 +32,7 @@ async def test_mail_user_invitation(
     recipients: Recipients,
     user_invitation_mail_template: MailTemplate,
 ):
-    """Test use case mail user invitation"""
+    """Test use case mail user invitation."""
     user_invitation = await create_user_invitation()
     command = MailUserInvitationCommand(uuid=str(user_invitation.uuid))
     updated_user_invitation = await MailUserInvitation(

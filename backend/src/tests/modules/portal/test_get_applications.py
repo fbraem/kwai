@@ -10,7 +10,7 @@ from kwai.modules.portal.applications.application_db_repository import (
 from kwai.modules.portal.applications.application_repository import (
     ApplicationRepository,
 )
-from kwai.modules.portal.get_applications import GetApplicationsCommand, GetApplications
+from kwai.modules.portal.get_applications import GetApplications, GetApplicationsCommand
 
 pytestmark = pytest.mark.integration
 
@@ -22,7 +22,7 @@ def repo(database: Database) -> ApplicationRepository:
 
 
 async def test_get_applications(repo: ApplicationRepository):
-    """Test the use case: get applications"""
+    """Test the use case: get applications."""
     command = GetApplicationsCommand()
     count, applications = await GetApplications(repo).execute(command)
 

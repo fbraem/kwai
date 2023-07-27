@@ -5,21 +5,29 @@ from kwai.core import json_api
 
 
 class Member(BaseModel):
+    """Test Member class."""
+
     first_name: str
     last_name: str
 
 
 class Team(BaseModel):
+    """Test Team class."""
+
     name: str
     members: list[Member]
 
 
 class Coach(BaseModel):
+    """Test Coach class."""
+
     team: Team | None
     member: Member
 
 
 class Training(BaseModel):
+    """Test Training class."""
+
     coaches: list[Coach] | None
 
 
@@ -28,6 +36,7 @@ def get():
 
 
 def test_relationship_optional_type():
+    """Test an optional relationship."""
     relation = json_api.Relationship(
         name="team", getter=get, type=Coach.__fields__["team"].annotation
     )
@@ -36,6 +45,7 @@ def test_relationship_optional_type():
 
 
 def test_relationship_non_optional_type():
+    """Test a non-optional relationship."""
     relation = json_api.Relationship(
         name="member", getter=get, type=Coach.__fields__["member"].annotation
     )
@@ -44,6 +54,7 @@ def test_relationship_non_optional_type():
 
 
 def test_relationship_list():
+    """Test a relationship list."""
     relation = json_api.Relationship(
         name="members", getter=get, type=Team.__fields__["members"].annotation
     )
@@ -52,6 +63,7 @@ def test_relationship_list():
 
 
 def test_relationship_non_list():
+    """Test a non list relationship."""
     relation = json_api.Relationship(
         name="name", getter=get, type=Team.__fields__["name"].annotation
     )
@@ -60,6 +72,7 @@ def test_relationship_non_list():
 
 
 def test_relationship_optional_list():
+    """Test an optional relationship."""
     relation = json_api.Relationship(
         name="coaches", getter=get, type=Training.__fields__["coaches"].annotation
     )

@@ -3,7 +3,7 @@ import pytest
 
 from kwai.core.db.database import Database
 from kwai.modules.identity.users.user import UserEntity
-from kwai.modules.news.stories.story import Author, Application
+from kwai.modules.news.stories.story import Application, Author
 from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,

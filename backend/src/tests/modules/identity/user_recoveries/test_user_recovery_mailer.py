@@ -36,7 +36,7 @@ def test_user_recovery_mailer_send(
     recovery_mail_template: MailTemplate,
     user_recovery: UserRecoveryEntity,
 ):
-    """Test user recovery mailer send"""
+    """Test user recovery mailer send."""
     mail = UserRecoveryMailer(
         mailer,
         recipients,

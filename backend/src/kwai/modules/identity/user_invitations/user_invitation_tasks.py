@@ -8,13 +8,13 @@ from kwai.core.dependencies import container
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.mail.mailer import Mailer
-from kwai.core.mail.recipient import Recipients, Recipient
+from kwai.core.mail.recipient import Recipient, Recipients
 from kwai.core.settings import Settings
 from kwai.core.template.mail_template import MailTemplate
 from kwai.core.template.template_engine import TemplateEngine
 from kwai.modules.identity.mail_user_invitation import (
-    MailUserInvitationCommand,
     MailUserInvitation,
+    MailUserInvitationCommand,
 )
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
     UserInvitationDbRepository,

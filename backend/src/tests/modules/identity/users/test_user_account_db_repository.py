@@ -13,8 +13,8 @@ from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
 )
 from kwai.modules.identity.users.user_account_repository import (
-    UserAccountRepository,
     UserAccountNotFoundException,
+    UserAccountRepository,
 )
 
 pytestmark = pytest.mark.integration

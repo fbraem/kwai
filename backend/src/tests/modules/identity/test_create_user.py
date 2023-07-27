@@ -2,7 +2,7 @@
 import pytest
 
 from kwai.core.db.database import Database
-from kwai.modules.identity.create_user import CreateUserCommand, CreateUser
+from kwai.modules.identity.create_user import CreateUser, CreateUserCommand
 from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
 )

@@ -2,7 +2,7 @@
 from abc import abstractmethod
 
 from kwai.core.domain.repository.query import Query
-from .token_identifier import TokenIdentifier
+from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 
 
 class AccessTokenQuery(Query):

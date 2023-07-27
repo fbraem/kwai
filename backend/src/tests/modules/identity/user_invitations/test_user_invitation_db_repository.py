@@ -10,8 +10,8 @@ from kwai.modules.identity.user_invitations.user_invitation_db_repository import
     UserInvitationDbRepository,
 )
 from kwai.modules.identity.user_invitations.user_invitation_repository import (
-    UserInvitationRepository,
     UserInvitationNotFoundException,
+    UserInvitationRepository,
 )
 from kwai.modules.identity.users.user import UserEntity
 

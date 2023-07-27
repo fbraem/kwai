@@ -15,9 +15,6 @@ from kwai.modules.identity.user_invitations.user_invitation import (
 from kwai.modules.identity.users.user import UserEntity
 
 
-# pylint: disable=too-many-instance-attributes
-
-
 @dataclass(kw_only=True, frozen=True, slots=True)
 class UserInvitationRow:
     """Represent a table row in the invitations table.
