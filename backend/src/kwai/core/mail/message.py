@@ -15,7 +15,7 @@ class Message:
 
     @abstractmethod
     def with_recipients(self, recipients: Recipients) -> "Message":
-        """Sets the recipients for the message.
+        """Set the recipients for the message.
 
         This method must return a new Message instance.
         """
@@ -24,12 +24,12 @@ class Message:
     @property
     @abstractmethod
     def subject(self) -> str:
-        """Returns the subject of the message."""
+        """Return the subject of the message."""
         raise NotImplementedError
 
     @abstractmethod
     def with_subject(self, subject: str) -> "Message":
-        """Sets the subject for the message.
+        """Set the subject for the message.
 
         This method must return a new Message instance.
         """
@@ -43,7 +43,7 @@ class Message:
 
     @abstractmethod
     def with_headers(self, headers: dict[str, str]) -> "Message":
-        """Sets the headers for the message.
+        """Set the headers for the message.
 
         This method must return a new Message instance.
         """
@@ -57,7 +57,7 @@ class Message:
 
     @abstractmethod
     def with_html(self, html: str) -> "Message":
-        """Sets the HTML for the message.
+        """Set the HTML for the message.
 
         This method must return a new Message instance.
         """
@@ -66,12 +66,12 @@ class Message:
     @property
     @abstractmethod
     def text(self) -> str | None:
-        """Returns the text for the message."""
+        """Return the text for the message."""
         raise NotImplementedError
 
     @abstractmethod
     def with_text(self, text: str) -> "Message":
-        """Sets the text for the message.
+        """Set the text for the message.
 
         This method must return a new Message instance.
         """
