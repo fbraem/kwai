@@ -1,4 +1,4 @@
-name: mkdocs
+name: generate docs
 
 on:
   push:
