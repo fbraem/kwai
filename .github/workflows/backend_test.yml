@@ -1,0 +1,26 @@
+name: backend test
+on:
+  push:
+    paths:
+      - "backend/src/**"
+  pull_request:
+    paths:
+      - "backend/src/**"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: snok/install-poetry@v1
+      - name: Install dependencies
+        working-directory: backend/src
+        run: poetry install
+      - name: Test with pytest
+        run: poetry run pytest -m "not api and not db and not email"
