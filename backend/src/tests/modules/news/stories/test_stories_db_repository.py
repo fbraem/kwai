@@ -15,6 +15,8 @@ from kwai.modules.news.stories.story_repository import (
     StoryRepository,
 )
 
+pytestmark = pytest.mark.db
+
 
 @pytest.fixture(scope="module")
 async def repo(database: Database) -> StoryRepository:

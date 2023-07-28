@@ -4,6 +4,8 @@ import pytest
 from kwai.core.db.database import Database
 from kwai.modules.news.stories.story_db_query import StoryDbQuery
 
+pytestmark = pytest.mark.db
+
 
 @pytest.mark.asyncio
 async def test_story_db_query(database: Database):

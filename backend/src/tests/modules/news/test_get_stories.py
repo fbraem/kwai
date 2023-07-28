@@ -8,6 +8,8 @@ from kwai.modules.news.get_stories import GetStories, GetStoriesCommand
 from kwai.modules.news.stories.story_db_repository import StoryDbRepository
 from kwai.modules.news.stories.story_repository import StoryRepository
 
+pytestmark = pytest.mark.db
+
 
 @pytest.fixture(scope="module")
 def repo(database: Database) -> StoryRepository:
