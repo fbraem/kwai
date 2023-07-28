@@ -4,7 +4,7 @@ import pytest
 from kwai.modules.identity.tokens.refresh_token import RefreshTokenEntity
 from kwai.modules.identity.tokens.refresh_token_repository import RefreshTokenRepository
 
-pytestmark = pytest.mark.integration
+pytestmark = pytest.mark.db
 
 
 def test_create(

@@ -12,7 +12,7 @@ from kwai.modules.identity.user_invitations.user_invitation_mailer import (
 )
 from kwai.modules.identity.users.user import UserEntity
 
-pytestmark = pytest.mark.integration
+pytestmark = pytest.mark.mail
 
 
 @pytest.fixture(scope="module")

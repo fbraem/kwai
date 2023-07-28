@@ -14,7 +14,7 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
 from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.identity.users.user_db_repository import UserDbRepository
 
-pytestmark = pytest.mark.integration
+pytestmark = pytest.mark.db
 
 
 @pytest.fixture(scope="module")

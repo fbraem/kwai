@@ -11,7 +11,7 @@ from kwai.modules.identity.user_recoveries.user_recovery_db_repository import (
 )
 from kwai.modules.identity.users.user_account import UserAccountEntity
 
-pytestmark = pytest.mark.integration
+pytestmark = [pytest.mark.api, pytest.mark.db]
 
 
 def test_login(client: TestClient, user_account: UserAccountEntity):
@@ -65,6 +65,7 @@ def test_renew_access_token(client: TestClient, user_account: UserAccountEntity)
     assert "expiration" in json
 
 
+@pytest.mark.mail
 def test_recover_user(client: TestClient, user_account: UserAccountEntity):
     """Test the recover user api."""
     response = client.post(
@@ -80,6 +81,7 @@ def test_recover_unknown_user(client: TestClient):
     assert response.status_code == status.HTTP_200_OK
 
 
+@pytest.mark.mail
 @pytest.mark.asyncio
 async def test_reset_password(
     client: TestClient, user_account: UserAccountEntity, database: Database

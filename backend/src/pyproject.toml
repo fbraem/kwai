@@ -43,7 +43,10 @@ mkdocstrings-python = "^1.2.1"
 
 [tool.pytest.ini_options]
 markers = [
-    "integration: Mark an integration test"
+    "db: Marks a test that needs a database",
+    "mail: Marks a test that needs a mailer",
+    "bus: Marks a test that needs a bus (redis)",
+    "api: Marks a test that needs the fastapi server"
 ]
 asyncio_mode = "auto"
 

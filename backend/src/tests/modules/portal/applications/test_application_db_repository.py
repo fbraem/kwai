@@ -12,7 +12,7 @@ from kwai.modules.portal.applications.application_repository import (
     ApplicationRepository,
 )
 
-pytestmark = pytest.mark.integration
+pytestmark = pytest.mark.db
 
 
 def find(entity_list: list, id_: IntIdentifier):

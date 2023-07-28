@@ -21,7 +21,7 @@ from kwai.modules.training.trainings.training_definition_repository import (
     TrainingDefinitionRepository,
 )
 
-pytestmark = pytest.mark.integration
+pytestmark = pytest.mark.db
 
 
 def _find(entity_list: list, id_: IntIdentifier):

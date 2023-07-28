@@ -9,7 +9,7 @@ from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipient, Recipients
 from kwai.core.settings import get_settings
 
-pytestmark = pytest.mark.integration
+pytestmark = pytest.mark.mail
 
 
 @pytest.fixture

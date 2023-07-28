@@ -5,7 +5,7 @@ from sql_smith.query import SelectQuery
 
 from kwai.core.db.database import Database
 
-pytestmark = pytest.mark.integration
+pytestmark = pytest.mark.db
 
 
 @pytest.mark.asyncio

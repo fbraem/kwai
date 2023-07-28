@@ -13,7 +13,7 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationRepository,
 )
 
-pytestmark = pytest.mark.integration
+pytestmark = [pytest.mark.api, pytest.mark.db]
 
 
 @pytest.fixture(scope="module")
@@ -28,7 +28,7 @@ def invitation_data() -> list[str]:
     return []
 
 
-@pytest.mark.asyncio
+@pytest.mark.mail
 def test_create_user_invitation(secure_client: TestClient, invitation_data: list[str]):
     """Test POST users/invitations."""
     data = {

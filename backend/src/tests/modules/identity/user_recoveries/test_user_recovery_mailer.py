@@ -15,7 +15,7 @@ from kwai.modules.identity.user_recoveries.user_recovery_mailer import (
 )
 from kwai.modules.identity.users.user import UserEntity
 
-pytestmark = pytest.mark.integration
+pytestmark = pytest.mark.mail
 
 
 @pytest.fixture(scope="module")
