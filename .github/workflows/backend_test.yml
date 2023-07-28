@@ -24,4 +24,5 @@ jobs:
         working-directory: backend/src
         run: poetry install
       - name: Test with pytest
-        run: poetry -C backend/src run pytest -m "not api and not db and not mail and not bus"
+        working-directory: backend/src
+        run: poetry run pytest -m "not api and not db and not mail and not bus"
