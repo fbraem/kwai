@@ -69,9 +69,9 @@ class RedisSettings(BaseModel):
 class SecuritySettings(BaseModel):
     """Setting or security."""
 
-    access_token_expires_in: int
-    refresh_token_expires_in: int
-    jwt_algorithm: str
+    access_token_expires_in: int = 60  # minutes
+    refresh_token_expires_in: int = 43200  # 30 days
+    jwt_algorithm: str = "HS256"
     jwt_secret: str
     jwt_refresh_secret: str
 
