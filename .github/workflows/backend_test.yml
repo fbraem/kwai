@@ -48,16 +48,16 @@ jobs:
           user="$KWAI_DB_USER_NAME"
           password="$KWAI_DB_PASSWORD"
           EOF
+      - name: Download dbmate
+        run: curl -fsSL -o ./dbmate https://github.com/amacneil/dbmate/releases/latest/download/dbmate-linux-amd64
       - name: Migrate database
-        uses: dwin/dbmate-action@v1.15
-        with:
-          command: 'up'
         env:
           DATABASE_URL: mysql://${{secrets.KWAI_DB_USER_NAME}}:${{secrets.KWAI_DB_PASSWORD}}@mysql/${{secrets.KWAI_DB_NAME}}
           DBMATE_MIGRATIONS_DIR: "./backend/migrations"
           DBMATE_NO_DUMP_SCHEMA: "true"
           DBMATE_WAIT: "true"
           DBMATE_WAIT_TIMEOUT: "30s"
+        run: ./dbmate up
       - name: Test with pytest
         working-directory: backend/src
         run: poetry run pytest --cov=kwai -m "not api and not mail and not bus"
