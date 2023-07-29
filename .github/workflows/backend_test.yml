@@ -11,6 +11,7 @@ env:
   KWAI_DB_NAME: ${{ secrets.KWAI_DB_NAME }}
   KWAI_DB_USER_NAME: ${{ secrets.KWAI_DB_USER_NAME }}
   KWAI_DB_PASSWORD: ${{ secrets.KWAI_DB_PASSWORD }}
+  MYSQL_ROOT_HOST: "%"
 jobs:
   test:
     runs-on: ubuntu-latest
