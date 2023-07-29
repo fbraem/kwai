@@ -48,7 +48,7 @@ jobs:
         with:
           command: 'up'
         env:
-          DATABASE_URL: mysql://localhost/${{secrets.KWAI_DB_NAME}}
+          DATABASE_URL: mysql://${{secrets.KWAI_DB_USER_NAME}}:${{secrets.KWAI_DB_PASSWORD}}@localhost/${{secrets.KWAI_DB_NAME}}
           DBMATE_MIGRATIONS_DIR: "./backend/migrations"
           DBMATE_NO_DUMP_SCHEMA: "true"
           DBMATE_WAIT: "true"
