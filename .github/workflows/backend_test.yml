@@ -29,6 +29,8 @@ jobs:
         run: poetry install
       - name: Start MySQL
         run: sudo systemctl start mysql.service
+      - name: Create database
+        run: mysql -u${{ secrets.KWAI_DB_USER_NAME }} -h127.0.0.1 -p${{ secrets.KWAI_DB_PASSWORD }} -e 'CREATE DATABASE IF NOT EXISTS ${{ secrets.KWAI_DB_NAME }};'
       - name: Create Kwai Settings
         env:
           KWAI_JWT_SECRET: ${{ secrets.KWAI_JWT_SECRET }}
