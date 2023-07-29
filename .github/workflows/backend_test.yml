@@ -49,7 +49,9 @@ jobs:
           password="$KWAI_DB_PASSWORD"
           EOF
       - name: Download dbmate
-        run: curl -fsSL -o ./dbmate https://github.com/amacneil/dbmate/releases/latest/download/dbmate-linux-amd64
+        run: |
+          curl -fsSL -o ./dbmate https://github.com/amacneil/dbmate/releases/latest/download/dbmate-linux-amd64
+          sudo chmod +x ./dbmate
       - name: Migrate database
         env:
           DATABASE_URL: mysql://${{secrets.KWAI_DB_USER_NAME}}:${{secrets.KWAI_DB_PASSWORD}}@mysql/${{secrets.KWAI_DB_NAME}}
