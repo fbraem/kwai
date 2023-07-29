@@ -44,7 +44,7 @@ jobs:
           password="$KWAI_DB_PASSWORD"
           EOF
       - name: Migrate database
-        uses: actions/dbmate-action@v1.15
+        uses: dwin/dbmate-action@v1.15
         with:
           command: 'up'
         env:
