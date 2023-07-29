@@ -7,6 +7,10 @@ on:
     paths:
       - "backend/src/**"
   workflow_dispatch:
+env:
+  KWAI_DB_NAME: ${{ secrets.KWAI_DB_NAME }}
+  KWAI_DB_USER_NAME: ${{ secrets.KWAI_DB_USER_NAME }}
+  KWAI_DB_PASSWORD: ${{ secrets.KWAI_DB_PASSWORD }}
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -23,6 +27,32 @@ jobs:
       - name: Install dependencies
         working-directory: backend/src
         run: poetry install
+      - name: Start MySQL
+        run: sudo systemctl start mysql.service
+      - name: Create Kwai Settings
+        env:
+          KWAI_JWT_SECRET: ${{ secrets.KWAI_JWT_SECRET }}
+        run: |
+          cat <<EOF > .kwai.toml
+          [security]
+          jwt_secret="$KWAI_JWT_SECRET"
+          jwt_refresh_secret="$KWAI_JWT_SECRET"
+          [db]
+          host="localhost"
+          name="$KWAI_DB_NAME"
+          user="$KWAI_DB_USER_NAME"
+          password="$KWAI_DB_PASSWORD"
+          EOF
+      - name: Migrate database
+        uses: actions/dbmate-action@v1.15
+        with:
+          command: 'up'
+        env:
+          DATABASE_URL: mysql://localhost/${{secrets.KWAI_DB_NAME}}
+          DBMATE_MIGRATIONS_DIR: "./backend/migrations"
+          DBMATE_NO_DUMP_SCHEMA: "true"
+          DBMATE_WAIT: "true"
+          DBMATE_WAIT_TIMEOUT: "30s"
       - name: Test with pytest
         working-directory: backend/src
-        run: poetry run pytest --cov=kwai -m "not api and not db and not mail and not bus"
+        run: poetry run pytest --cov=kwai -m "not api and not mail and not bus"
