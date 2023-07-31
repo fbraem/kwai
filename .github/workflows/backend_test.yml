@@ -63,5 +63,5 @@ jobs:
       - name: Test with pytest
         working-directory: backend/src
         env:
-          KWAI_SETTINGS_FILE: ../../.kwai.toml
+          KWAI_SETTINGS_FILE: ${{github.workspace}}/.kwai.toml
         run: poetry run pytest --cov=kwai -m "not api and not mail and not bus"
