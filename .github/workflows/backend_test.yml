@@ -51,7 +51,7 @@ jobs:
           password="$KWAI_DB_PASSWORD"
           [website]
           url="http://localhost"
-          email="franky.braem@gmail.com"
+          from="franky.braem@gmail.com"
           name="Kwai Website"
           [email]
           host="localhost"
