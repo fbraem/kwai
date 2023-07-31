@@ -29,11 +29,10 @@ def event_loop():
 
     Without this fixture some async test methods fail.
     """
-    loop = asyncio.get_event_loop()
-    close = loop.close
-    loop.close = lambda: None
+    policy = asyncio.get_event_loop_policy()
+    loop = policy.new_event_loop()
     yield loop
-    close()
+    loop.close()
 
 
 @pytest.fixture(scope="module")
