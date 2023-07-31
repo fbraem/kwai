@@ -42,12 +42,27 @@ jobs:
           [security]
           jwt_secret="$KWAI_JWT_SECRET"
           jwt_refresh_secret="$KWAI_JWT_SECRET"
+          [template]
+          path="${{ github.workspace }}/backend/templates"
           [db]
           host="localhost"
           name="$KWAI_DB_NAME"
           user="$KWAI_DB_USER_NAME"
           password="$KWAI_DB_PASSWORD"
+          [website]
+          url="http://localhost"
+          email="franky.braem@gmail.com"
+          name="Kwai Website"
+          [email]
+          host="localhost"
+          port=1025
+          ssl=false
+          tls=false
+          [redis]
+          host="localhost"
+          password="ippon"
           EOF
+          cat .kwai.toml
       - name: Download dbmate
         run: |
           curl -fsSL -o ./dbmate https://github.com/amacneil/dbmate/releases/latest/download/dbmate-linux-amd64
