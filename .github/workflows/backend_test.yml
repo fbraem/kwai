@@ -51,13 +51,14 @@ jobs:
           password="$KWAI_DB_PASSWORD"
           [website]
           url="http://localhost"
-          from="franky.braem@gmail.com"
+          email="franky.braem@gmail.com"
           name="Kwai Website"
           [email]
           host="localhost"
           port=1025
           ssl=false
           tls=false
+          from="franky.braem@gmail.com"
           [redis]
           host="localhost"
           password="ippon"
