@@ -9,7 +9,7 @@ class TimePeriod:
     """A period between two times."""
 
     start: time
-    end: time | None
+    end: time | None = None
 
     def __post_init__(self):
         """Perform post initialization.
