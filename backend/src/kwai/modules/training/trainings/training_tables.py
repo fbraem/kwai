@@ -224,3 +224,16 @@ class TrainingCoachRow:
 
 
 TrainingCoachesTable = Table("training_coaches", TrainingCoachRow)
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class TrainingTeamRow:
+    """Represent a row of the training_teams table."""
+
+    training_id: int
+    team_id: int
+    created_at: datetime
+    updated_at: datetime | None
+
+
+TrainingTeamsTable = Table("training_teams", TrainingTeamRow)
