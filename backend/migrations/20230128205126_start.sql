@@ -190,6 +190,14 @@ create table if not exists teams (
     updated_at timestamp                null
 ) charset = utf8mb3;
 
+create table if not exists training_teams (
+    training_id                         int unsigned NOT NULL,
+    team_id                             int unsigned NOT NULL,
+    created_at timestamp                not null default current_timestamp,
+    updated_at timestamp                null,
+    primary key(training_id, team_id)
+) charset = utf8mb3;
+
 create table if not exists team_categories (
     id int unsigned auto_increment      primary key,
     name varchar(255)                   not null,
