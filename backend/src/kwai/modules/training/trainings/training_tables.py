@@ -206,3 +206,21 @@ class TrainingDefinitionRow:
 
 
 TrainingDefinitionsTable = Table("training_definitions", TrainingDefinitionRow)
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class TrainingCoachRow:
+    """Represent a row of the training_coaches table."""
+
+    training_id: int
+    coach_id: int
+    coach_type: int
+    present: int
+    payed: int
+    remark: str | None
+    user_id: int
+    created_at: datetime
+    updated_at: datetime | None
+
+
+TrainingCoachesTable = Table("training_coaches", TrainingCoachRow)
