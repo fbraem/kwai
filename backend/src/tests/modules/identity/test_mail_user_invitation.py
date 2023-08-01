@@ -29,13 +29,12 @@ def repo(database: Database) -> UserInvitationRepository:
 @pytest.mark.asyncio
 async def test_mail_user_invitation(
     repo: UserInvitationRepository,
-    create_user_invitation,
+    user_invitation,
     mailer: Mailer,
     recipients: Recipients,
     user_invitation_mail_template: MailTemplate,
 ):
     """Test use case mail user invitation."""
-    user_invitation = await create_user_invitation()
     command = MailUserInvitationCommand(uuid=str(user_invitation.uuid))
     updated_user_invitation = await MailUserInvitation(
         repo, mailer, recipients, user_invitation_mail_template
@@ -47,13 +46,12 @@ async def test_mail_user_invitation(
 @pytest.mark.asyncio
 async def test_mail_user_invitation_already_mailed(
     repo: UserInvitationRepository,
-    create_user_invitation,
+    user_invitation,
     mailer: Mailer,
     recipients: Recipients,
     user_invitation_mail_template: MailTemplate,
 ):
     """Test when a user invitation is already sent."""
-    user_invitation = await create_user_invitation()
     user_invitation.mail_sent()
     await repo.update(user_invitation)
 

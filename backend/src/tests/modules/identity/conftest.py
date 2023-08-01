@@ -32,31 +32,18 @@ def user_invitation_mail_template(template_engine: TemplateEngine) -> MailTempla
     )
 
 
-@pytest.fixture(scope="module")
-def create_user_invitation(request, database: Database, user: UserEntity):
-    """A factory fixture for creating a user invitation."""
-
-    async def create(delete=True) -> UserInvitationEntity:
-        """Create the user invitation and if requested, delete it after testing."""
-        repo = UserInvitationDbRepository(database)
-        invitation = await repo.create(
-            UserInvitationEntity(
-                email=EmailAddress("ichiro.abe@kwai.com"),
-                name=Name(first_name="Ichiro", last_name="Abe"),
-                remark="Created with pytest",
-                user=user,
-            )
+@pytest.fixture(scope="function")
+async def user_invitation(database: Database, user: UserEntity) -> UserInvitationEntity:
+    """Fixture for a user invitation."""
+    repo = UserInvitationDbRepository(database)
+    invitation = await repo.create(
+        UserInvitationEntity(
+            email=EmailAddress("ichiro.abe@kwai.com"),
+            name=Name(first_name="Ichiro", last_name="Abe"),
+            remark="Created with pytest",
+            user=user,
         )
+    )
+    yield invitation
 
-        # In a factory fixture, it's not possible to use yield, so, add a clean-up
-        # function.
-
-        async def cleanup():
-            await repo.delete(invitation)
-
-        if invitation is not None and delete:
-            request.addfinalizer(cleanup)
-
-        return invitation
-
-    return create
+    await repo.delete(invitation)

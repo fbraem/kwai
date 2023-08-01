@@ -24,10 +24,8 @@ def repo(database: Database) -> UserInvitationRepository:
 
 
 @pytest.mark.asyncio
-async def test_get_invitation(repo: UserInvitationRepository, create_user_invitation):
+async def test_get_invitation(repo: UserInvitationRepository, user_invitation):
     """Test the use case: get user invitation."""
-    user_invitation = await create_user_invitation()
-
     command = GetUserInvitationCommand(uuid=str(user_invitation.uuid))
     result = await GetUserInvitation(repo).execute(command)
 

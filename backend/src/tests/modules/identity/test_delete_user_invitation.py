@@ -31,10 +31,9 @@ def repo(database: Database) -> UserInvitationRepository:
 @pytest.mark.asyncio
 async def test_delete_invitation(
     repo: UserInvitationRepository,
-    create_user_invitation,
+    user_invitation,
 ):
     """Test the use case: delete user invitation."""
-    user_invitation = await create_user_invitation(False)
     command = DeleteUserInvitationCommand(uuid=str(user_invitation.uuid))
     await DeleteUserInvitation(repo).execute(command)
 
