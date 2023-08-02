@@ -1,14 +1,18 @@
 """Module that implements a training query for a database."""
 from datetime import datetime
+from typing import AsyncIterator
 
 from sql_smith.functions import criteria, express, func, group, literal, on
 
+from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
+from kwai.core.db.rows import OwnersTable
 from kwai.modules.training.trainings.training import TrainingIdentifier
 from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
 from kwai.modules.training.trainings.training_query import TrainingQuery
 from kwai.modules.training.trainings.training_tables import (
     TrainingCoachesTable,
+    TrainingContentsTable,
     TrainingDefinitionsTable,
     TrainingsTable,
     TrainingTeamsTable,
@@ -19,12 +23,42 @@ from kwai.modules.training.trainings.value_objects import Coach, Team
 class TrainingDbQuery(TrainingQuery, DatabaseQuery):
     """A database query for trainings."""
 
+    def __init__(self, database: Database):
+        self._main_query = database.create_query_factory().select()
+        super().__init__(database)
+
     def init(self):
+        # This query will be used as CTE, so only joins the tables that are needed
+        # for counting and limiting results.
         self._query.from_(TrainingsTable.table_name).left_join(
             TrainingDefinitionsTable.table_name,
             on(
                 TrainingsTable.column("definition_id"),
                 TrainingDefinitionsTable.column("id"),
+            ),
+        )
+        self._main_query = (
+            self._main_query.from_(TrainingsTable.table_name)
+            .columns(*(self.columns + TrainingContentsTable.aliases()))
+            .with_("limited", self._query)
+            .right_join("limited", on("limited.id", TrainingsTable.column("id")))
+            .left_join(
+                TrainingDefinitionsTable.table_name,
+                on(
+                    TrainingsTable.column("definition_id"),
+                    TrainingDefinitionsTable.column("id"),
+                ),
+            )
+            .join(
+                TrainingContentsTable.table_name,
+                on(
+                    TrainingContentsTable.column("training_id"),
+                    TrainingsTable.column("id"),
+                ),
+            )
+            .join(
+                OwnersTable.table_name,
+                on(OwnersTable.column("id"), TrainingContentsTable.column("user_id")),
             ),
         )
 
@@ -96,3 +130,13 @@ class TrainingDbQuery(TrainingQuery, DatabaseQuery):
     def filter_active(self) -> "TrainingQuery":
         self._query.and_where(TrainingsTable.field("active").eq(1))
         return self
+
+    def fetch(
+        self, limit: int | None = None, offset: int | None = None
+    ) -> AsyncIterator[dict[str, any]]:
+        self._query.limit(limit)
+        self._query.offset(offset)
+        self._query.columns(TrainingsTable.column("id"))
+        self._main_query.order_by(TrainingsTable.column("id"))
+
+        return self._database.fetch(self._main_query)
