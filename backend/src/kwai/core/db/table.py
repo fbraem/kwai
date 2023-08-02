@@ -26,7 +26,7 @@ class Table(Generic[T]):
         """Return the table name."""
         return self._table_name
 
-    def __call__(self, row: dict[str, Any]):
+    def __call__(self, row: dict[str, Any]) -> T:
         """Shortcut for map_row."""
         return self.map_row(row)
 
