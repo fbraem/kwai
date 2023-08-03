@@ -304,7 +304,7 @@ create table if not exists countries (
     updated_at timestamp                  null
 ) charset = utf8mb3;
 
-create table team_members (
+create table if not exists team_members(
     team_id int(11) not null,
     member_id int(11) not null,
     active tinyint(1) not null default 1,
