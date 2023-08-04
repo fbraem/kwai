@@ -39,6 +39,7 @@ markdown_extensions:
 
 plugins:
   - monorepo
+  - autorefs
   - mkdocstrings:
       handlers:
         python:
@@ -46,6 +47,7 @@ plugins:
           options:
             show_root_heading: true
             show_source: false
-
+            docstring_style: google
+            show_root_toc_entry: true
 watch:
   - backend/src
