@@ -43,3 +43,7 @@ class IntIdentifier(Identifier[int]):
     def is_empty(self) -> bool:
         """Return True when the id equals 0."""
         return self.value == 0
+
+    def __repr__(self):
+        """Return a string representation of the identifier."""
+        return f"IntIdentifier={self.value}"
