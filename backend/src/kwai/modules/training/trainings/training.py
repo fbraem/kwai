@@ -19,7 +19,7 @@ class TrainingEntity(Entity[TrainingIdentifier]):
         *,
         id_: TrainingIdentifier | None = None,
         content: list[LocaleText],
-        definition: TrainingDefinitionEntity | None,
+        definition: TrainingDefinitionEntity | None = None,
         season: None = None,
         period: Period,
         active: bool = True,
