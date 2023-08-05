@@ -1,6 +1,6 @@
 """Module for database classes/functions."""
 import dataclasses
-from typing import Any, AsyncIterator
+from typing import Any, AsyncIterator, TypeAlias
 
 import asyncmy
 from loguru import logger
@@ -11,6 +11,8 @@ from sql_smith.query import AbstractQuery, SelectQuery
 
 from kwai.core.db.exceptions import DatabaseException, QueryException
 from kwai.core.settings import DatabaseSettings
+
+Record: TypeAlias = dict[str, Any]
 
 
 class Database:
@@ -97,14 +99,14 @@ class Database:
             except Exception as exc:
                 raise QueryException(compiled_query.sql) from exc
 
-    async def fetch_one(self, query: SelectQuery) -> dict[str, Any] | None:
+    async def fetch_one(self, query: SelectQuery) -> Record | None:
         """Execute a query and return the first row.
 
         Args:
             query (SelectQuery): The query to execute.
 
         Returns:
-            (dict[str, Any]): A row is a dictionary using the column names
+            (Record): A row is a dictionary using the column names
                 as key and the column values as value.
             (None): The query resulted in no rows found.
 
@@ -129,14 +131,14 @@ class Database:
 
         return None  # Nothing found
 
-    async def fetch(self, query: SelectQuery) -> AsyncIterator[dict[str, Any]]:
+    async def fetch(self, query: SelectQuery) -> AsyncIterator[Record]:
         """Execute a query and yields each row.
 
         Args:
             query (SelectQuery): The query to execute.
 
         Yields:
-            (dict[str, Any]): A row is a dictionary using the column names
+            (Record): A row is a dictionary using the column names
                 as key and the column values as value.
 
         Raises:
