@@ -55,7 +55,7 @@ class DatabaseQuery(Query):
 
     def fetch(
         self, limit: int | None = None, offset: int | None = None
-    ) -> AsyncIterator[dict[str, any]]:
+    ) -> AsyncIterator[dict[str, Any]]:
         """Fetch all records from this query."""
         self._query.limit(limit)
         self._query.offset(offset)
