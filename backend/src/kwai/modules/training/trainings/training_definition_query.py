@@ -25,3 +25,17 @@ class TrainingDefinitionQuery(Query, ABC):
             TrainingDefinitionQuery:
         """
         raise NotImplementedError
+
+    @abstractmethod
+    def filter_by_ids(
+        self, *ids: TrainingDefinitionIdentifier
+    ) -> "TrainingDefinitionQuery":
+        """Add a filter on multiple training definition identifiers.
+
+        Args:
+            ids: a variable list of training definition identifiers
+
+        Returns:
+            TrainingDefinitionQuery:
+        """
+        raise NotImplementedError

@@ -32,3 +32,10 @@ class TrainingDefinitionDbQuery(DatabaseQuery, TrainingDefinitionQuery):
     ) -> TrainingDefinitionQuery:
         self._query.and_where(TrainingDefinitionsTable.field("id").eq(id_.value))
         return self
+
+    def filter_by_ids(
+        self, *ids: TrainingDefinitionIdentifier
+    ) -> "TrainingDefinitionQuery":
+        unpacked_ids = (id_.value for id_ in ids)
+        self._query.and_where(TrainingDefinitionsTable.field("id").in_(*unpacked_ids))
+        return self
