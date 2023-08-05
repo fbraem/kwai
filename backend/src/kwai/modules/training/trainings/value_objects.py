@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.name import Name
+from kwai.core.domain.value_objects.owner import Owner
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -30,6 +31,18 @@ class Coach:
 
     id: IntIdentifier
     name: Name
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class TrainingCoach:
+    """A coach attached to a training."""
+
+    coach: Coach
+    owner: Owner
+    present: bool = False
+    type: int = 0
+    payed: bool = False
+    remark: str = ""
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
