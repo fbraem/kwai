@@ -3138,6 +3138,45 @@ will also be revoked.</p>
 
 
 
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.trainings.endpoints.trainings.TrainingsFilterModel" class="doc doc-heading">
+          <code>TrainingsFilterModel</code>
+
+
+<a href="#kwai.api.v1.trainings.endpoints.trainings.TrainingsFilterModel" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+  
+      <p>Define the JSON:API filter for trainings.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
 
 
 <div class="doc doc-object doc-function">
@@ -3145,7 +3184,7 @@ will also be revoked.</p>
 
 
 <h8 id="kwai.api.v1.trainings.endpoints.trainings.get_trainings" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_trainings</span><span class="p">(</span><span class="n">pagination</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">PaginationModel</span><span class="p">),</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">))</span></code>
+<code class="codehilite language-python"><span class="n">get_trainings</span><span class="p">(</span><span class="n">pagination</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">PaginationModel</span><span class="p">),</span> <span class="n">trainings_filter</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">TrainingsFilterModel</span><span class="p">),</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">))</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
