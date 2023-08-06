@@ -2,7 +2,7 @@
 from datetime import datetime
 from typing import AsyncIterator
 
-from sql_smith.functions import criteria, express, func, group, literal, on
+from sql_smith.functions import alias, criteria, express, func, group, literal, on
 
 from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
@@ -39,7 +39,14 @@ class TrainingDbQuery(TrainingQuery, DatabaseQuery):
         )
         self._main_query = (
             self._main_query.from_(TrainingsTable.table_name)
-            .columns(*(self.columns + TrainingContentsTable.aliases()))
+            .columns(
+                *(
+                    self.columns
+                    + OwnersTable.aliases("definition_owners")
+                    + TrainingContentsTable.aliases()
+                    + OwnersTable.aliases()
+                )
+            )
             .with_("limited", self._query)
             .right_join("limited", on("limited.id", TrainingsTable.column("id")))
             .left_join(
@@ -48,6 +55,10 @@ class TrainingDbQuery(TrainingQuery, DatabaseQuery):
                     TrainingsTable.column("definition_id"),
                     TrainingDefinitionsTable.column("id"),
                 ),
+            )
+            .left_join(
+                alias(OwnersTable.table_name, "definition_owners"),
+                on(TrainingDefinitionsTable.column("user_id"), "definition_owners.id"),
             )
             .join(
                 TrainingContentsTable.table_name,
@@ -59,7 +70,7 @@ class TrainingDbQuery(TrainingQuery, DatabaseQuery):
             .join(
                 OwnersTable.table_name,
                 on(OwnersTable.column("id"), TrainingContentsTable.column("user_id")),
-            ),
+            )
         )
 
     @property
@@ -140,3 +151,8 @@ class TrainingDbQuery(TrainingQuery, DatabaseQuery):
         self._main_query.order_by(TrainingsTable.column("id"))
 
         return self._database.fetch(self._main_query)
+
+    def order_by_date(self) -> "TrainingQuery":
+        self._query.order_by(TrainingsTable.column("start_date"), "DESC")
+        self._main_query.order_by(TrainingsTable.column("start_date"), "DESC")
+        return self
