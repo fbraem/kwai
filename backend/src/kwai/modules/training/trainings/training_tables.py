@@ -21,7 +21,7 @@ from kwai.modules.training.trainings.training_definition import (
     TrainingDefinitionEntity,
     TrainingDefinitionIdentifier,
 )
-from kwai.modules.training.trainings.value_objects import Team, TrainingCoach, Coach
+from kwai.modules.training.trainings.value_objects import Coach, Team, TrainingCoach
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

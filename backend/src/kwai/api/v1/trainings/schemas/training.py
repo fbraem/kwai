@@ -1,9 +1,10 @@
+"""Schemas for training(s)."""
 from pydantic import BaseModel
 
 from kwai.api.converter import MarkdownConverter
 from kwai.core import json_api
 from kwai.modules.training.trainings.training import TrainingEntity
-from kwai.modules.training.trainings.value_objects import TrainingCoach, Team
+from kwai.modules.training.trainings.value_objects import Team, TrainingCoach
 
 
 class TrainingContent(BaseModel):
