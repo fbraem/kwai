@@ -97,3 +97,33 @@ class TrainingEntity(Entity[TrainingIdentifier]):
             The list is a copy
         """
         return self._teams.copy()
+
+    @property
+    def traceable_time(self) -> TraceableTime:
+        """Return the traceable time of the training."""
+        return self._traceable_time
+
+    @property
+    def period(self) -> Period:
+        """Return the period of the training."""
+        return self._period
+
+    @property
+    def active(self) -> bool:
+        """Return if the training is active or not."""
+        return self._active
+
+    @property
+    def cancelled(self) -> bool:
+        """Return if the training is cancelled or not."""
+        return self._cancelled
+
+    @property
+    def location(self) -> str:
+        """Return the location of the training."""
+        return self._location
+
+    @property
+    def remark(self) -> str | None:
+        """Return the remark."""
+        return self._remark
