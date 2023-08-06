@@ -263,6 +263,9 @@ class Resource:
                 class_attribute, "__json_api_attribute__", None
             )
             if json_api_attribute_name is not None:
+                assert (
+                    "return" in class_attribute.__annotations__
+                ), f"attribute {json_api_attribute_name} of resource {self._type} misses a return type"
                 self._attributes[json_api_attribute_name] = Attribute(
                     name=json_api_attribute_name,
                     getter=class_attribute,
@@ -281,6 +284,9 @@ class Resource:
                 class_attribute, "__json_api_relationship__", None
             )
             if json_api_relationship_name is not None:
+                assert (
+                    "return" in class_attribute.__annotations__
+                ), f"relationship {json_api_relationship_name} of resource {self._type} misses a return type"
                 self._relationships[json_api_relationship_name] = Relationship(
                     name=json_api_relationship_name,
                     getter=class_attribute,
