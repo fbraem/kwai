@@ -5,6 +5,7 @@ from datetime import datetime, time
 
 from kwai.core.db.rows import ContentRow
 from kwai.core.db.table import Table
+from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
@@ -20,7 +21,7 @@ from kwai.modules.training.trainings.training_definition import (
     TrainingDefinitionEntity,
     TrainingDefinitionIdentifier,
 )
-from kwai.modules.training.trainings.value_objects import Season
+from kwai.modules.training.trainings.value_objects import Team, TrainingCoach, Coach
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -91,7 +92,6 @@ class TrainingRow:
         self,
         content: list[LocaleText],
         definition: TrainingDefinitionEntity | None = None,
-        season: Season | None = None,
     ) -> TrainingEntity:
         """Create a training entity from the table row.
 
@@ -102,7 +102,6 @@ class TrainingRow:
             id_=TrainingIdentifier(self.id),
             content=content,
             definition=definition,
-            season=season,
             period=Period(
                 start_date=LocalTimestamp(self.start_date),
                 end_date=LocalTimestamp(self.end_date),
@@ -222,6 +221,17 @@ class TrainingCoachRow:
     created_at: datetime
     updated_at: datetime | None
 
+    def create_coach(self, coach: Coach, owner: Owner) -> TrainingCoach:
+        """Create a TrainingCoach value object."""
+        return TrainingCoach(
+            coach=coach,
+            owner=owner,
+            present=self.present == 1,
+            type=self.coach_type,
+            payed=self.payed == 1,
+            remark="" if self.remark is None else self.remark,
+        )
+
 
 TrainingCoachesTable = Table("training_coaches", TrainingCoachRow)
 
@@ -237,3 +247,41 @@ class TrainingTeamRow:
 
 
 TrainingTeamsTable = Table("training_teams", TrainingTeamRow)
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class TeamRow:
+    """Represent a row of the teams table."""
+
+    id: int
+    name: str
+
+    def create_team(self):
+        """Create a Team value object of this row."""
+        return Team(id=IntIdentifier(self.id), name=self.name)
+
+
+TeamsTable = Table("teams", TeamRow)
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class CoachRow:
+    """Represent a row of the coaches table."""
+
+    id: int
+    person_id: int
+
+
+CoachesTable = Table("coaches", CoachRow)
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class PersonRow:
+    """Represent a row of the persons table."""
+
+    id: int
+    lastname: str
+    firstname: str
+
+
+PersonsTable = Table("persons", PersonRow)
