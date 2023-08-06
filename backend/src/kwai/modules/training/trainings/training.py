@@ -7,6 +7,7 @@ from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.training.trainings.training_definition import (
     TrainingDefinitionEntity,
 )
+from kwai.modules.training.trainings.value_objects import Team, TrainingCoach
 
 TrainingIdentifier = IntIdentifier
 
@@ -20,6 +21,8 @@ class TrainingEntity(Entity[TrainingIdentifier]):
         id_: TrainingIdentifier | None = None,
         content: list[LocaleText],
         definition: TrainingDefinitionEntity | None = None,
+        coaches: list[TrainingCoach] | None = None,
+        teams: list[Team] | None = None,
         season: None = None,
         period: Period,
         active: bool = True,
@@ -35,6 +38,8 @@ class TrainingEntity(Entity[TrainingIdentifier]):
             content: A list with text content
             definition: The related definition, when the training was created from a
                 definition.
+            coaches: A list of assigned coaches.
+            teams: A list of assigned teams.
             period: The period of the training.
             season: The season that the training belongs to (not supported yet).
             active: Is this training active?
@@ -46,6 +51,8 @@ class TrainingEntity(Entity[TrainingIdentifier]):
         super().__init__(id_ or TrainingIdentifier())
         self._content = content
         self._definition = definition
+        self._coaches = coaches or []
+        self._teams = teams or []
         self._season = season
         self._period = period
         self._active = active
@@ -63,3 +70,30 @@ class TrainingEntity(Entity[TrainingIdentifier]):
     def definition(self) -> TrainingDefinitionEntity | None:
         """Return the related training definition."""
         return self._definition
+
+    @property
+    def content(self) -> list[LocaleText]:
+        """Return the text content of a training.
+
+        Remark:
+            The list is a copy.
+        """
+        return self._content.copy()
+
+    @property
+    def coaches(self) -> list[TrainingCoach]:
+        """Return the coaches attached to the training.
+
+        Remark:
+            The list is a copy
+        """
+        return self._coaches.copy()
+
+    @property
+    def teams(self) -> list[Team]:
+        """Return the teams of the training.
+
+        Remark:
+            The list is a copy
+        """
+        return self._teams.copy()
