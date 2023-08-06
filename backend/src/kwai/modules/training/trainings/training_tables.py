@@ -128,6 +128,18 @@ class TrainingRow:
         """
         return TrainingRow(
             id=training.id.value,
+            definition_id=None
+            if training.definition is None
+            else training.definition.id.value,
+            season_id=None,
+            created_at=training.traceable_time.created_at.timestamp,
+            updated_at=training.traceable_time.updated_at.timestamp,
+            start_date=training.period.start_date.timestamp,
+            end_date=training.period.end_date.timestamp,
+            active=1 if training.active else 0,
+            cancelled=1 if training.cancelled else 0,
+            location=training.location,
+            remark=training.remark or "",
         )
 
 
