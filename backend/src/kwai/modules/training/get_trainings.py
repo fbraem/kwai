@@ -50,6 +50,9 @@ class GetTrainings:
         """
         query = self._repo.create_query().order_by_date()
 
+        if command.year:
+            query.filter_by_year_month(command.year, command.month)
+
         return UseCaseBrowseResult(
             count=await query.count(),
             iterator=self._repo.get_all(query, command.limit, command.offset),
