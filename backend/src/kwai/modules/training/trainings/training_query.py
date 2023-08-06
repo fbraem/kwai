@@ -76,6 +76,7 @@ class TrainingQuery(Query, ABC):
         """Add filter to get only the active trainings."""
         raise NotImplementedError
 
+    @abstractmethod
     def order_by_date(self) -> "TrainingQuery":
         """Order the trainings by date."""
         raise NotImplementedError
