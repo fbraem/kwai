@@ -3145,7 +3145,7 @@ will also be revoked.</p>
 
 
 <h8 id="kwai.api.v1.trainings.endpoints.trainings.get_trainings" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_trainings</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">))</span></code>
+<code class="codehilite language-python"><span class="n">get_trainings</span><span class="p">(</span><span class="n">pagination</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">PaginationModel</span><span class="p">),</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">))</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -3161,6 +3161,423 @@ will also be revoked.</p>
   </div>
 
 </div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.api.v1.trainings.schemas" class="doc doc-heading">
+            <code>schemas</code>
+
+
+<a href="#kwai.api.v1.trainings.schemas" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Package for schemas of the trainings endpoint.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h7 id="kwai.api.v1.trainings.schemas.training" class="doc doc-heading">
+            <code>training</code>
+
+
+<a href="#kwai.api.v1.trainings.schemas.training" class="headerlink" title="Permanent link">&para;</a></h7>
+
+  <div class="doc doc-contents ">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.trainings.schemas.training.TeamResource" class="doc doc-heading">
+          <code>TeamResource</code>
+
+
+<a href="#kwai.api.v1.trainings.schemas.training.TeamResource" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Represent a team.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h9 id="kwai.api.v1.trainings.schemas.training.TeamResource.get_id" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_id</span><span class="p">()</span></code>
+
+<a href="#kwai.api.v1.trainings.schemas.training.TeamResource.get_id" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the id of the team.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h9 id="kwai.api.v1.trainings.schemas.training.TeamResource.get_name" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_name</span><span class="p">()</span></code>
+
+<a href="#kwai.api.v1.trainings.schemas.training.TeamResource.get_name" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the name of the team.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.trainings.schemas.training.TrainingCoachResource" class="doc doc-heading">
+          <code>TrainingCoachResource</code>
+
+
+<a href="#kwai.api.v1.trainings.schemas.training.TrainingCoachResource" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Represent a coach attached to a training.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h9 id="kwai.api.v1.trainings.schemas.training.TrainingCoachResource.get_id" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_id</span><span class="p">()</span></code>
+
+<a href="#kwai.api.v1.trainings.schemas.training.TrainingCoachResource.get_id" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the id of the coach.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h9 id="kwai.api.v1.trainings.schemas.training.TrainingCoachResource.get_name" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_name</span><span class="p">()</span></code>
+
+<a href="#kwai.api.v1.trainings.schemas.training.TrainingCoachResource.get_name" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the name of the coach.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.trainings.schemas.training.TrainingContent" class="doc doc-heading">
+          <code>TrainingContent</code>
+
+
+<a href="#kwai.api.v1.trainings.schemas.training.TrainingContent" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+  
+      <p>Schema for the content of a training.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.trainings.schemas.training.TrainingResource" class="doc doc-heading">
+          <code>TrainingResource</code>
+
+
+<a href="#kwai.api.v1.trainings.schemas.training.TrainingResource" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Represent a JSON:API resource for a training entity.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h9 id="kwai.api.v1.trainings.schemas.training.TrainingResource.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">training</span><span class="p">)</span></code>
+
+<a href="#kwai.api.v1.trainings.schemas.training.TrainingResource.__init__" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize a training resource.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>training</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.training.TrainingEntity" href="#kwai.modules.training.trainings.training.TrainingEntity">TrainingEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The training entity that is transformed into a JSON:API resource.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h9 id="kwai.api.v1.trainings.schemas.training.TrainingResource.get_coaches" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_coaches</span><span class="p">()</span></code>
+
+<a href="#kwai.api.v1.trainings.schemas.training.TrainingResource.get_coaches" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the coaches attached to the training.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h9 id="kwai.api.v1.trainings.schemas.training.TrainingResource.get_content" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_content</span><span class="p">()</span></code>
+
+<a href="#kwai.api.v1.trainings.schemas.training.TrainingResource.get_content" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the content of the training.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h9 id="kwai.api.v1.trainings.schemas.training.TrainingResource.get_id" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_id</span><span class="p">()</span></code>
+
+<a href="#kwai.api.v1.trainings.schemas.training.TrainingResource.get_id" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the id of the training.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h9 id="kwai.api.v1.trainings.schemas.training.TrainingResource.get_teams" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_teams</span><span class="p">()</span></code>
+
+<a href="#kwai.api.v1.trainings.schemas.training.TrainingResource.get_teams" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the teams of the training.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
 
 
 
@@ -4245,7 +4662,7 @@ successfully. On insert, this can be used to determine the new id of a row.</p>
     <tbody>
         <tr>
           <td>
-                <code>dict[str, <span title="typing.Any">Any</span>]</code>
+                <code><span title="kwai.core.db.database.Record">Record</span></code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -4347,7 +4764,7 @@ as key and the column values as value.</p>
     <tbody>
         <tr>
           <td>
-                <code>dict[str, <span title="typing.Any">Any</span>]</code>
+                <code><span title="kwai.core.db.database.Record">Record</span></code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -5417,7 +5834,7 @@ be used to generate columns or aliases for queries.</p>
 
 
 <h7 id="kwai.core.db.table.Table.__call__" class="doc doc-heading">
-<code class="codehilite language-python"><span class="fm">__call__</span><span class="p">(</span><span class="n">row</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="fm">__call__</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#kwai.core.db.table.Table.__call__" class="headerlink" title="Permanent link">&para;</a></h7>
 
@@ -6738,6 +7155,25 @@ the attribute of the class.</p>
 
 
 
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.core.domain.value_objects.identifier.IntIdentifier.__repr__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__repr__</span><span class="p">()</span></code>
+
+<a href="#kwai.core.domain.value_objects.identifier.IntIdentifier.__repr__" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return a string representation of the identifier.</p>
+
+  </div>
+
+</div>
 
 
 <div class="doc doc-object doc-function">
@@ -32518,6 +32954,309 @@ One or more coaches can be assigned to a training.</p>
 
 
 
+<h5 id="kwai.modules.training.get_trainings" class="doc doc-heading">
+            <code>get_trainings</code>
+
+
+<a href="#kwai.modules.training.get_trainings" class="headerlink" title="Permanent link">&para;</a></h5>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module for the use case get trainings.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.training.get_trainings.GetTrainings" class="doc doc-heading">
+          <code>GetTrainings</code>
+
+
+<a href="#kwai.modules.training.get_trainings.GetTrainings" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Use case to get trainings.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.training.get_trainings.GetTrainings.execute" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.training.get_trainings.GetTrainings.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Execute the use case.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>command</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.get_trainings.GetTrainingsCommand" href="#kwai.modules.training.get_trainings.GetTrainingsCommand">GetTrainingsCommand</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.use_case.UseCaseBrowseResult" href="#kwai.core.domain.use_case.UseCaseBrowseResult">UseCaseBrowseResult</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A tuple with the number of entities and an iterator for training entities.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.training.get_trainings.GetTrainingsCommand" class="doc doc-heading">
+          <code>GetTrainingsCommand</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.training.get_trainings.GetTrainingsCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Input for the get trainings use case.</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>limit</code></td>
+          <td>
+                <code>int | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the max. number of elements to return. Default is None, which means all.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>offset</code></td>
+          <td>
+                <code>int | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Offset to use. Default is None.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>year</code></td>
+          <td>
+                <code>int | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Only return trainings of this year.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>month</code></td>
+          <td>
+                <code>int | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Only return trainings of this month.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>week</code></td>
+          <td>
+                <code>int | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Only return trainings of this week.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>start</code></td>
+          <td>
+                <code><span title="datetime.datetime">datetime</span> | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Only return trainings starting from this date.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>coach</code></td>
+          <td>
+                <code>int | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Only return trainings with this coach.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>definition</code></td>
+          <td>
+                <code>int | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Only return trainings created from this definition.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>active</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Only return trainings that are active (default is True).</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h5 id="kwai.modules.training.trainings" class="doc doc-heading">
             <code>trainings</code>
 
@@ -32599,6 +33338,56 @@ One or more coaches can be assigned to a training.</p>
 
 
 
+<h8 id="kwai.modules.training.trainings.training.TrainingEntity.coaches" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">coaches</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">TrainingCoach</span><span class="p">]</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.training.trainings.training.TrainingEntity.coaches" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the coaches attached to the training.</p>
+
+<details class="remark" open>
+  <summary>Remark</summary>
+  <p>The list is a copy</p>
+</details>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.training.trainings.training.TrainingEntity.content" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">content</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">LocaleText</span><span class="p">]</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.training.trainings.training.TrainingEntity.content" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the text content of a training.</p>
+
+<details class="remark" open>
+  <summary>Remark</summary>
+  <p>The list is a copy.</p>
+</details>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
 <h8 id="kwai.modules.training.trainings.training.TrainingEntity.definition" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">definition</span><span class="p">:</span> <span class="n">TrainingDefinitionEntity</span> <span class="o">|</span> <span class="kc">None</span></code>
   
@@ -32637,6 +33426,31 @@ One or more coaches can be assigned to a training.</p>
 
 </div>
 
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.training.trainings.training.TrainingEntity.teams" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">teams</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Team</span><span class="p">]</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.training.trainings.training.TrainingEntity.teams" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the teams of the training.</p>
+
+<details class="remark" open>
+  <summary>Remark</summary>
+  <p>The list is a copy</p>
+</details>  </div>
+
+</div>
+
 
 
 
@@ -32645,7 +33459,7 @@ One or more coaches can be assigned to a training.</p>
 
 
 <h8 id="kwai.modules.training.trainings.training.TrainingEntity.__init__" class="doc doc-heading">
-<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">id_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">definition</span><span class="p">,</span> <span class="n">season</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">active</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cancelled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">remark</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">traceable_time</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">id_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">definition</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">coaches</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">teams</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">season</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">active</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cancelled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">remark</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">traceable_time</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#kwai.modules.training.trainings.training.TrainingEntity.__init__" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -32707,7 +33521,35 @@ definition.</p>
             </div>
           </td>
           <td>
-              <em>required</em>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>coaches</code></td>
+          <td>
+                <code>list[<a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.value_objects.TrainingCoach" href="#kwai.modules.training.trainings.value_objects.TrainingCoach">TrainingCoach</a>] | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A list of assigned coaches.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>teams</code></td>
+          <td>
+                <code>list[<a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.value_objects.Team" href="#kwai.modules.training.trainings.value_objects.Team">Team</a>] | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A list of assigned teams.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
           </td>
         </tr>
         <tr>
@@ -32836,6 +33678,158 @@ definition.</p>
 
 
 
+<h6 id="kwai.modules.training.trainings.training_coach_db_query" class="doc doc-heading">
+            <code>training_coach_db_query</code>
+
+
+<a href="#kwai.modules.training.trainings.training_coach_db_query" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines a database query to get coaches of training(s).</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.trainings.training_coach_db_query.TrainingCoachDbQuery" class="doc doc-heading">
+          <code>TrainingCoachDbQuery</code>
+
+
+<a href="#kwai.modules.training.trainings.training_coach_db_query.TrainingCoachDbQuery" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.db.database_query.DatabaseQuery" href="../core/db/#kwai.core.db.database_query.DatabaseQuery">DatabaseQuery</a></code></p>
+
+  
+      <p>A database query for getting coaches of training(s).</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.trainings.training_coach_db_query.TrainingCoachDbQuery.fetch_coaches" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">fetch_coaches</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.training.trainings.training_coach_db_query.TrainingCoachDbQuery.fetch_coaches" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Fetch coaches.</p>
+<p>A specialized fetch method that already transforms the records into
+TrainingCoach objects.</p>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>dict[<span title="kwai.modules.training.trainings.training.TrainingIdentifier">TrainingIdentifier</span>, list[<a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.value_objects.TrainingCoach" href="#kwai.modules.training.trainings.value_objects.TrainingCoach">TrainingCoach</a>]]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A dictionary that contains the list of coaches for trainings. The key</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+                <code>dict[<span title="kwai.modules.training.trainings.training.TrainingIdentifier">TrainingIdentifier</span>, list[<a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.value_objects.TrainingCoach" href="#kwai.modules.training.trainings.value_objects.TrainingCoach">TrainingCoach</a>]]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>is the identifier of a training.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.trainings.training_coach_db_query.TrainingCoachDbQuery.filter_by_trainings" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">filter_by_trainings</span><span class="p">(</span><span class="o">*</span><span class="n">ids</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.training.trainings.training_coach_db_query.TrainingCoachDbQuery.filter_by_trainings" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Filter by trainings.</p>
+<p>Only the rows of the trainings with the given ids, will be returned.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h6 id="kwai.modules.training.trainings.training_db_query" class="doc doc-heading">
             <code>training_db_query</code>
 
@@ -32887,6 +33881,128 @@ definition.</p>
 
 
 
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.training.trainings.training_db_repository" class="doc doc-heading">
+            <code>training_db_repository</code>
+
+
+<a href="#kwai.modules.training.trainings.training_db_repository" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module for implementing a training repository for a database.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.trainings.training_db_repository.TrainingDbRepository" class="doc doc-heading">
+          <code>TrainingDbRepository</code>
+
+
+<a href="#kwai.modules.training.trainings.training_db_repository.TrainingDbRepository" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.training_repository.TrainingRepository" href="#kwai.modules.training.trainings.training_repository.TrainingRepository">TrainingRepository</a></code></p>
+
+  
+      <p>A training repository for a database.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.trainings.training_db_repository.TrainingDbRepository.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">database</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.training.trainings.training_db_repository.TrainingDbRepository.__init__" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize the repository.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>database</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.core.db.database.Database" href="../core/db/#kwai.core.db.database.Database">Database</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The database for this repository.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
 
 
 
@@ -33659,6 +34775,83 @@ definition.</p>
           </td>
           <td>
               <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>TrainingDefinitionQuery</code></td>          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.training_definition_query.TrainingDefinitionQuery" href="#kwai.modules.training.trainings.training_definition_query.TrainingDefinitionQuery">TrainingDefinitionQuery</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.trainings.training_definition_query.TrainingDefinitionQuery.filter_by_ids" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">filter_by_ids</span><span class="p">(</span><span class="o">*</span><span class="n">ids</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.training.trainings.training_definition_query.TrainingDefinitionQuery.filter_by_ids" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Add a filter on multiple training definition identifiers.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>ids</code></td>
+          <td>
+                <code><span title="kwai.modules.training.trainings.training_definition.TrainingDefinitionIdentifier">TrainingDefinitionIdentifier</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>a variable list of training definition identifiers</p>
+            </div>
+          </td>
+          <td>
+                <code>()</code>
           </td>
         </tr>
     </tbody>
@@ -34631,6 +35824,10 @@ cannot be found.</p>
 
 <h8 id="kwai.modules.training.trainings.training_query.TrainingQuery.order_by_date" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">order_by_date</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
 
 <a href="#kwai.modules.training.trainings.training_query.TrainingQuery.order_by_date" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -34638,6 +35835,231 @@ cannot be found.</p>
   <div class="doc doc-contents ">
   
       <p>Order the trainings by date.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.training.trainings.training_repository" class="doc doc-heading">
+            <code>training_repository</code>
+
+
+<a href="#kwai.modules.training.trainings.training_repository" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines an interface for a repository of trainings.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.trainings.training_repository.TrainingNotFoundException" class="doc doc-heading">
+          <code>TrainingNotFoundException</code>
+
+
+<a href="#kwai.modules.training.trainings.training_repository.TrainingNotFoundException" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code>Exception</code></p>
+
+  
+      <p>Raised when a training can not be found.</p>
+
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.trainings.training_repository.TrainingRepository" class="doc doc-heading">
+          <code>TrainingRepository</code>
+
+
+<a href="#kwai.modules.training.trainings.training_repository.TrainingRepository" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="abc.ABC">ABC</span></code></p>
+
+  
+      <p>An interface for a repository of trainings.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.trainings.training_repository.TrainingRepository.create_query" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">create_query</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.training.trainings.training_repository.TrainingRepository.create_query" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Create a query for querying trainings.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.trainings.training_repository.TrainingRepository.get_all" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_all</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.training.trainings.training_repository.TrainingRepository.get_all" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return all trainings of a given query.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>query</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.training_query.TrainingQuery" href="#kwai.modules.training.trainings.training_query.TrainingQuery">TrainingQuery</a> | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The query to use for selecting the rows.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>limit</code></td>
+          <td>
+                <code>int | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The maximum number of entities to return.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>offset</code></td>
+          <td>
+                <code>int | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Skip the offset rows before beginning to return entities.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="typing.AsyncIterator">AsyncIterator</span>[<a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.training.TrainingEntity" href="#kwai.modules.training.trainings.training.TrainingEntity">TrainingEntity</a>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A list of trainings.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
 
   </div>
 
@@ -34689,6 +36111,148 @@ cannot be found.</p>
 
 
 
+<h7 id="kwai.modules.training.trainings.training_tables.CoachRow" class="doc doc-heading">
+          <code>CoachRow</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.training.trainings.training_tables.CoachRow" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Represent a row of the coaches table.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.trainings.training_tables.PersonRow" class="doc doc-heading">
+          <code>PersonRow</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.training.trainings.training_tables.PersonRow" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Represent a row of the persons table.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.trainings.training_tables.TeamRow" class="doc doc-heading">
+          <code>TeamRow</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.training.trainings.training_tables.TeamRow" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Represent a row of the teams table.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.trainings.training_tables.TeamRow.create_team" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">create_team</span><span class="p">()</span></code>
+
+<a href="#kwai.modules.training.trainings.training_tables.TeamRow.create_team" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Create a Team value object of this row.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
 <h7 id="kwai.modules.training.trainings.training_tables.TrainingCoachRow" class="doc doc-heading">
           <code>TrainingCoachRow</code>
 
@@ -34717,6 +36281,25 @@ cannot be found.</p>
 
 
 
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.trainings.training_tables.TrainingCoachRow.create_coach" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">create_coach</span><span class="p">(</span><span class="n">coach</span><span class="p">,</span> <span class="n">owner</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.training.trainings.training_tables.TrainingCoachRow.create_coach" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Create a TrainingCoach value object.</p>
+
+  </div>
+
+</div>
 
 
 
@@ -35174,7 +36757,7 @@ cannot be found.</p>
 
 
 <h8 id="kwai.modules.training.trainings.training_tables.TrainingRow.create_entity" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">create_entity</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">definition</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">season</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">create_entity</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">definition</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#kwai.modules.training.trainings.training_tables.TrainingRow.create_entity" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -35328,6 +36911,158 @@ cannot be found.</p>
 
 
 
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.training.trainings.training_team_db_query" class="doc doc-heading">
+            <code>training_team_db_query</code>
+
+
+<a href="#kwai.modules.training.trainings.training_team_db_query" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines a database query to get teams of training(s).</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.trainings.training_team_db_query.TrainingTeamDbQuery" class="doc doc-heading">
+          <code>TrainingTeamDbQuery</code>
+
+
+<a href="#kwai.modules.training.trainings.training_team_db_query.TrainingTeamDbQuery" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.db.database_query.DatabaseQuery" href="../core/db/#kwai.core.db.database_query.DatabaseQuery">DatabaseQuery</a></code></p>
+
+  
+      <p>A database query for getting teams of training(s).</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.trainings.training_team_db_query.TrainingTeamDbQuery.fetch_teams" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">fetch_teams</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.training.trainings.training_team_db_query.TrainingTeamDbQuery.fetch_teams" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Fetch teams.</p>
+<p>A specialized fetch method that already transforms the records into
+Team objects.</p>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>dict[<span title="kwai.modules.training.trainings.training.TrainingIdentifier">TrainingIdentifier</span>, list[<span title="tests.core.test_jsonapi.Team">Team</span>]]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A dictionary that contains the list of teams for trainings. The key</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+                <code>dict[<span title="kwai.modules.training.trainings.training.TrainingIdentifier">TrainingIdentifier</span>, list[<span title="tests.core.test_jsonapi.Team">Team</span>]]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>is the identifier of a training.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.trainings.training_team_db_query.TrainingTeamDbQuery.filter_by_trainings" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">filter_by_trainings</span><span class="p">(</span><span class="o">*</span><span class="n">ids</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.training.trainings.training_team_db_query.TrainingTeamDbQuery.filter_by_trainings" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Filter by trainings.</p>
+<p>Only the rows of the trainings with the given ids, will be returned.</p>
+
+  </div>
+
+</div>
 
 
 
@@ -35583,6 +37318,47 @@ cannot be found.</p>
         </tr>
     </tbody>
   </table>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.trainings.value_objects.TrainingCoach" class="doc doc-heading">
+          <code>TrainingCoach</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.training.trainings.value_objects.TrainingCoach" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>A coach attached to a training.</p>
 
 
   
