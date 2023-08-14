@@ -1,4 +1,5 @@
 """Module that defines the trainings API."""
+from datetime import datetime
 
 from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel, Field
@@ -18,6 +19,8 @@ class TrainingsFilterModel(BaseModel):
 
     year: int | None = Field(Query(default=None, alias="filter[year]"))
     month: int | None = Field(Query(default=None, alias="filter[month]"))
+    start: datetime | None = Field(Query(default=None, alias="filter[start]"))
+    end: datetime | None = Field(Query(default=None, alias="filter[end]"))
 
 
 @router.get("/trainings")
@@ -32,6 +35,8 @@ async def get_trainings(
         limit=pagination.limit,
         year=trainings_filter.year,
         month=trainings_filter.month,
+        start=trainings_filter.start,
+        end=trainings_filter.end,
     )
 
     count, training_iterator = await GetTrainings(TrainingDbRepository(db)).execute(

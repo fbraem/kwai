@@ -16,6 +16,7 @@ class GetTrainingsCommand:
         year: Only return trainings of this year.
         month: Only return trainings of this month.
         start: Only return trainings starting from this date.
+        end: Only return trainings before this date.
         coach: Only return trainings with this coach.
         definition: Only return trainings created from this definition.
         active: Only return trainings that are active (default is True).
@@ -26,6 +27,7 @@ class GetTrainingsCommand:
     year: int | None = None
     month: int | None = None
     start: datetime | None = None
+    end: datetime | None = None
     coach: int | None = None
     definition: int | None = None
     active: bool = True
@@ -50,6 +52,9 @@ class GetTrainings:
 
         if command.year:
             query.filter_by_year_month(command.year, command.month)
+
+        if command.start and command.end:
+            query.filter_by_dates(command.start, command.end)
 
         return UseCaseBrowseResult(
             count=await query.count(),
