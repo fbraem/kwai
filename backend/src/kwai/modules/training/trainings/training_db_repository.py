@@ -51,17 +51,17 @@ class TrainingDbRepository(TrainingRepository):
 
     async def get_all(
         self,
-        coach_query: TrainingQuery | None = None,
+        training_query: TrainingQuery | None = None,
         limit: int | None = None,
         offset: int | None = None,
     ) -> AsyncIterator[TrainingEntity]:
-        if coach_query is None:
-            coach_query = self.create_query()
+        if training_query is None:
+            training_query = self.create_query()
 
         trainings: dict[TrainingIdentifier, TrainingEntity] = {}
         group_by_column = TrainingsTable.alias_name("id")
 
-        row_it = coach_query.fetch(limit, offset)
+        row_it = training_query.fetch(limit, offset)
         # Handle the first row
         try:
             record = await anext(row_it)
@@ -86,12 +86,12 @@ class TrainingDbRepository(TrainingRepository):
         trainings[training.id] = training
 
         # Get the coaches of all the trainings.
-        coach_query = TrainingCoachDbQuery(self._database).filter_by_trainings(
+        training_query = TrainingCoachDbQuery(self._database).filter_by_trainings(
             *trainings.keys()
         )
         coaches: dict[
             TrainingIdentifier, list[TrainingCoach]
-        ] = await coach_query.fetch_coaches()
+        ] = await training_query.fetch_coaches()
 
         # Get the teams of all trainings
         team_query = TrainingTeamDbQuery(self._database).filter_by_trainings(
