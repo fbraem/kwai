@@ -62,8 +62,7 @@ create table if not exists user_invitations
 (
     id                  int unsigned auto_increment          primary key,
     email               varchar(255)                         not null,
-    first_name          varchar(255)                         not null,
-    last_name           varchar(255)                         not null,
+    name                varchar(255)                         not null,
     uuid                varchar(255)                         not null,
     expired_at          datetime                             not null,
     expired_at_timezone varchar(255)                         not null,
@@ -75,9 +74,12 @@ create table if not exists user_invitations
     confirmed_at        datetime                             null
 ) charset = utf8mb3;
 alter table user_invitations drop column expired_at_timezone;
+alter table user_invitations drop column name;
 
 alter table user_invitations add (
-    mailed_at           datetime                             null
+    mailed_at           datetime                             null,
+    first_name          varchar(255)                         not null,
+    last_name           varchar(255)                         not null
 );
 
 create table if not exists applications
