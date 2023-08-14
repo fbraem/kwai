@@ -15,7 +15,6 @@ class GetTrainingsCommand:
         offset: Offset to use. Default is None.
         year: Only return trainings of this year.
         month: Only return trainings of this month.
-        week: Only return trainings of this week.
         start: Only return trainings starting from this date.
         coach: Only return trainings with this coach.
         definition: Only return trainings created from this definition.
@@ -26,7 +25,6 @@ class GetTrainingsCommand:
     offset: int | None = None
     year: int | None = None
     month: int | None = None
-    week: int | None = None
     start: datetime | None = None
     coach: int | None = None
     definition: int | None = None
