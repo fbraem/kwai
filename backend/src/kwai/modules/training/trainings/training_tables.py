@@ -13,6 +13,7 @@ from kwai.core.domain.value_objects.text import LocaleText
 from kwai.core.domain.value_objects.time_period import TimePeriod
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.weekday import Weekday
+from kwai.modules.training.coaches.coach import CoachEntity
 from kwai.modules.training.trainings.training import (
     TrainingEntity,
     TrainingIdentifier,
@@ -21,7 +22,7 @@ from kwai.modules.training.trainings.training_definition import (
     TrainingDefinitionEntity,
     TrainingDefinitionIdentifier,
 )
-from kwai.modules.training.trainings.value_objects import Coach, Team, TrainingCoach
+from kwai.modules.training.trainings.value_objects import Team, TrainingCoach
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -233,7 +234,7 @@ class TrainingCoachRow:
     created_at: datetime
     updated_at: datetime | None
 
-    def create_coach(self, coach: Coach, owner: Owner) -> TrainingCoach:
+    def create_coach(self, coach: CoachEntity, owner: Owner) -> TrainingCoach:
         """Create a TrainingCoach value object."""
         return TrainingCoach(
             coach=coach,
@@ -274,26 +275,3 @@ class TeamRow:
 
 
 TeamsTable = Table("teams", TeamRow)
-
-
-@dataclass(kw_only=True, frozen=True, slots=True)
-class CoachRow:
-    """Represent a row of the coaches table."""
-
-    id: int
-    person_id: int
-
-
-CoachesTable = Table("coaches", CoachRow)
-
-
-@dataclass(kw_only=True, frozen=True, slots=True)
-class PersonRow:
-    """Represent a row of the persons table."""
-
-    id: int
-    lastname: str
-    firstname: str
-
-
-PersonsTable = Table("persons", PersonRow)

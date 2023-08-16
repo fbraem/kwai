@@ -7,6 +7,7 @@ from sql_smith.functions import alias, criteria, express, func, group, literal, 
 from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.db.rows import OwnersTable
+from kwai.modules.training.coaches.coach import CoachEntity
 from kwai.modules.training.trainings.training import TrainingIdentifier
 from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
 from kwai.modules.training.trainings.training_query import TrainingQuery
@@ -17,7 +18,7 @@ from kwai.modules.training.trainings.training_tables import (
     TrainingsTable,
     TrainingTeamsTable,
 )
-from kwai.modules.training.trainings.value_objects import Coach, Team
+from kwai.modules.training.trainings.value_objects import Team
 
 
 class TrainingDbQuery(TrainingQuery, DatabaseQuery):
@@ -106,7 +107,7 @@ class TrainingDbQuery(TrainingQuery, DatabaseQuery):
         self._query.and_where(TrainingsTable.field("start_date").between(start, end))
         return self
 
-    def filter_by_coach(self, coach: Coach) -> "TrainingQuery":
+    def filter_by_coach(self, coach: CoachEntity) -> "TrainingQuery":
         inner_select = (
             self._database.create_query_factory()
             .select()

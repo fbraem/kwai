@@ -3,6 +3,8 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from kwai.core.domain.use_case import UseCaseBrowseResult
+from kwai.core.domain.value_objects.identifier import IntIdentifier
+from kwai.modules.training.coaches.coach import CoachEntity
 from kwai.modules.training.trainings.training_repository import TrainingRepository
 
 
@@ -55,6 +57,9 @@ class GetTrainings:
 
         if command.start and command.end:
             query.filter_by_dates(command.start, command.end)
+
+        if command.coach:
+            query.filter_by_coach(CoachEntity(id=IntIdentifier(command.coach)))
 
         return UseCaseBrowseResult(
             count=await query.count(),

@@ -5,14 +5,10 @@ from sql_smith.functions import on
 
 from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.db.rows import OwnersTable
-from kwai.core.domain.value_objects.name import Name
+from kwai.modules.training.coaches.coach_tables import CoachesTable, PersonsTable
 from kwai.modules.training.trainings.training import TrainingIdentifier
-from kwai.modules.training.trainings.training_tables import (
-    CoachesTable,
-    PersonsTable,
-    TrainingCoachesTable,
-)
-from kwai.modules.training.trainings.value_objects import Coach, TrainingCoach
+from kwai.modules.training.trainings.training_tables import TrainingCoachesTable
+from kwai.modules.training.trainings.value_objects import TrainingCoach
 
 
 class TrainingCoachDbQuery(DatabaseQuery):
@@ -64,18 +60,13 @@ class TrainingCoachDbQuery(DatabaseQuery):
 
         async for record in self.fetch():
             training_coach = TrainingCoachesTable(record)
-            owner = OwnersTable(record).create_owner()
-            coach = CoachesTable(record)
-            person = PersonsTable(record)
+            owner_row = OwnersTable(record).create_owner()
+            coach_row = CoachesTable(record)
+            person_row = PersonsTable(record)
             result[TrainingIdentifier(training_coach.training_id)].append(
                 training_coach.create_coach(
-                    Coach(
-                        id=coach.id,
-                        name=Name(
-                            first_name=person.firstname, last_name=person.lastname
-                        ),
-                    ),
-                    owner,
+                    coach_row.create_entity(person_row),
+                    owner_row,
                 )
             )
         return result
