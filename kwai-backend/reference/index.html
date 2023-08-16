@@ -32995,6 +32995,619 @@ One or more coaches can be assigned to a training.</p>
 
 
 
+<h5 id="kwai.modules.training.coaches" class="doc doc-heading">
+            <code>coaches</code>
+
+
+<a href="#kwai.modules.training.coaches" class="headerlink" title="Permanent link">&para;</a></h5>
+
+  <div class="doc doc-contents ">
+  
+      <p>Package for all modules related to coaches of a training.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.training.coaches.coach" class="doc doc-heading">
+            <code>coach</code>
+
+
+<a href="#kwai.modules.training.coaches.coach" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.coaches.coach.CoachEntity" class="doc doc-heading">
+          <code>CoachEntity</code>
+
+
+<a href="#kwai.modules.training.coaches.coach.CoachEntity" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.entity.Entity" href="#kwai.core.domain.entity.Entity">Entity</a>[<span title="kwai.modules.training.coaches.coach.CoachIdentifier">CoachIdentifier</span>]</code></p>
+
+  
+      <p>A coach.</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>_id</code></td>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The id of the coach.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>_name</code></td>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the coach.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.training.coaches.coach.CoachEntity.is_active" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.training.coaches.coach.CoachEntity.is_active" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return True when the coach is still active, False otherwise.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.training.coaches.coach.CoachEntity.name" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">name</span><span class="p">:</span> <span class="n">Name</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.training.coaches.coach.CoachEntity.name" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the name of the coach.</p>
+  </div>
+
+</div>
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.training.coaches.coach_db_repository" class="doc doc-heading">
+            <code>coach_db_repository</code>
+
+
+<a href="#kwai.modules.training.coaches.coach_db_repository" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines a coach repository for a database.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.coaches.coach_db_repository.CoachDbRepository" class="doc doc-heading">
+          <code>CoachDbRepository</code>
+
+
+<a href="#kwai.modules.training.coaches.coach_db_repository.CoachDbRepository" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.modules.training.coaches.coach_repository.CoachRepository" href="#kwai.modules.training.coaches.coach_repository.CoachRepository">CoachRepository</a></code></p>
+
+  
+      <p>A coach repository for a database.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.coaches.coach_db_repository.CoachDbRepository.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">database</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.training.coaches.coach_db_repository.CoachDbRepository.__init__" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize the repository.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>database</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.core.db.database.Database" href="../core/db/#kwai.core.db.database.Database">Database</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The database for this repository.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.training.coaches.coach_repository" class="doc doc-heading">
+            <code>coach_repository</code>
+
+
+<a href="#kwai.modules.training.coaches.coach_repository" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines an interface for a coach repository.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.coaches.coach_repository.CoachNotFoundException" class="doc doc-heading">
+          <code>CoachNotFoundException</code>
+
+
+<a href="#kwai.modules.training.coaches.coach_repository.CoachNotFoundException" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code>Exception</code></p>
+
+  
+      <p>Raised when a coach is not found.</p>
+
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.coaches.coach_repository.CoachRepository" class="doc doc-heading">
+          <code>CoachRepository</code>
+
+
+<a href="#kwai.modules.training.coaches.coach_repository.CoachRepository" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="abc.ABC">ABC</span></code></p>
+
+  
+      <p>Interface for a coach repository.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.coaches.coach_repository.CoachRepository.get_by_id" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_by_id</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.training.coaches.coach_repository.CoachRepository.get_by_id" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the coach with the given id.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>id</code></td>
+          <td>
+                <code><span title="kwai.modules.training.coaches.coach.CoachIdentifier">CoachIdentifier</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The id of a coach.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.coaches.coach_repository.CoachNotFoundException" href="#kwai.modules.training.coaches.coach_repository.CoachNotFoundException">CoachNotFoundException</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>raised when the coach with the given id does not
+exist.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.training.coaches.coach_tables" class="doc doc-heading">
+            <code>coach_tables</code>
+
+
+<a href="#kwai.modules.training.coaches.coach_tables" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines all dataclasses for the tables containing coaches.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.coaches.coach_tables.CoachRow" class="doc doc-heading">
+          <code>CoachRow</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.training.coaches.coach_tables.CoachRow" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Represent a row of the coaches table.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.coaches.coach_tables.CoachRow.create_entity" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">create_entity</span><span class="p">(</span><span class="n">person_row</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.training.coaches.coach_tables.CoachRow.create_entity" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Create a coach entity from this row.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.coaches.coach_tables.PersonRow" class="doc doc-heading">
+          <code>PersonRow</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.training.coaches.coach_tables.PersonRow" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Represent a row of the persons table.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h5 id="kwai.modules.training.get_trainings" class="doc doc-heading">
             <code>get_trainings</code>
 
@@ -33207,17 +33820,6 @@ One or more coaches can be assigned to a training.</p>
           </td>
         </tr>
         <tr>
-          <td><code>week</code></td>
-          <td>
-                <code>int | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Only return trainings of this week.</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
           <td><code>start</code></td>
           <td>
                 <code><span title="datetime.datetime">datetime</span> | None</code>
@@ -33225,6 +33827,17 @@ One or more coaches can be assigned to a training.</p>
           <td>
             <div class="doc-md-description">
               <p>Only return trainings starting from this date.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>end</code></td>
+          <td>
+                <code><span title="datetime.datetime">datetime</span> | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Only return trainings before this date.</p>
             </div>
           </td>
         </tr>
@@ -35673,7 +36286,7 @@ cannot be found.</p>
         <tr>
           <td><code>coach</code></td>
           <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.value_objects.Coach" href="#kwai.modules.training.trainings.value_objects.Coach">Coach</a></code>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.coaches.coach.CoachEntity" href="#kwai.modules.training.coaches.coach.CoachEntity">CoachEntity</a></code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -36273,88 +36886,6 @@ cannot be found.</p>
 
 
 
-
-<div class="doc doc-object doc-class">
-
-
-
-<h7 id="kwai.modules.training.trainings.training_tables.CoachRow" class="doc doc-heading">
-          <code>CoachRow</code>
-
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
-
-<a href="#kwai.modules.training.trainings.training_tables.CoachRow" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-
-  
-      <p>Represent a row of the coaches table.</p>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-<h7 id="kwai.modules.training.trainings.training_tables.PersonRow" class="doc doc-heading">
-          <code>PersonRow</code>
-
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
-
-<a href="#kwai.modules.training.trainings.training_tables.PersonRow" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-
-  
-      <p>Represent a row of the persons table.</p>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
 
 <div class="doc doc-object doc-class">
 
@@ -37272,84 +37803,6 @@ Team objects.</p>
 
 
 
-
-<div class="doc doc-object doc-class">
-
-
-
-<h7 id="kwai.modules.training.trainings.value_objects.Coach" class="doc doc-heading">
-          <code>Coach</code>
-
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
-
-<a href="#kwai.modules.training.trainings.value_objects.Coach" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-
-  
-      <p>A coach of a training.</p>
-
-
-
-  <p><strong>Attributes:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>id</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.identifier.IntIdentifier" href="#kwai.core.domain.value_objects.identifier.IntIdentifier">IntIdentifier</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The id of the coach.</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><code>name</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.name.Name" href="#kwai.core.domain.value_objects.name.Name">Name</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The name of the coach.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
 
 <div class="doc doc-object doc-class">
 
