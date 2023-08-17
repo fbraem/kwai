@@ -3,8 +3,14 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from kwai.core.domain.use_case import UseCaseBrowseResult
-from kwai.core.domain.value_objects.identifier import IntIdentifier
-from kwai.modules.training.coaches.coach import CoachEntity
+from kwai.modules.training.coaches.coach import CoachIdentifier
+from kwai.modules.training.coaches.coach_repository import CoachRepository
+from kwai.modules.training.trainings.training_definition import (
+    TrainingDefinitionIdentifier,
+)
+from kwai.modules.training.trainings.training_definition_repository import (
+    TrainingDefinitionRepository,
+)
 from kwai.modules.training.trainings.training_repository import TrainingRepository
 
 
@@ -38,14 +44,32 @@ class GetTrainingsCommand:
 class GetTrainings:
     """Use case to get trainings."""
 
-    def __init__(self, repo: TrainingRepository):
+    def __init__(
+        self,
+        repo: TrainingRepository,
+        coach_repo: CoachRepository,
+        training_definition_repo: TrainingDefinitionRepository,
+    ):
+        """Initialize use case.
+
+        Attributes:
+            repo: The repository for trainings.
+            coach_repo: The repository for coaches.
+            training_definition_repo: The repository for training definitions.
+        """
         self._repo = repo
+        self._coach_repo = coach_repo
+        self._training_definition_repo = training_definition_repo
 
     async def execute(self, command: GetTrainingsCommand) -> UseCaseBrowseResult:
         """Execute the use case.
 
         Args:
             command: The input for this use case.
+
+        Raises:
+            CoachNotFoundException: Raised when a coach is not found.
+            TrainingDefinitionNotFoundException: Raised when a definition is not found.
 
         Returns:
             A tuple with the number of entities and an iterator for training entities.
@@ -59,7 +83,17 @@ class GetTrainings:
             query.filter_by_dates(command.start, command.end)
 
         if command.coach:
-            query.filter_by_coach(CoachEntity(id=IntIdentifier(command.coach)))
+            coach = await self._coach_repo.get_by_id(CoachIdentifier(command.coach))
+            query.filter_by_coach(coach)
+
+        if command.definition:
+            definition = await self._training_definition_repo.get_by_id(
+                TrainingDefinitionIdentifier(command.definition)
+            )
+            query.filter_by_definition(definition)
+
+        if command.active:
+            query.filter_active()
 
         return UseCaseBrowseResult(
             count=await query.count(),
