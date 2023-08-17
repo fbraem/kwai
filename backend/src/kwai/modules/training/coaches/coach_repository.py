@@ -12,7 +12,7 @@ class CoachRepository(ABC):
     """Interface for a coach repository."""
 
     @abstractmethod
-    def get_by_id(self, id: CoachIdentifier) -> CoachEntity:
+    async def get_by_id(self, id: CoachIdentifier) -> CoachEntity:
         """Get the coach with the given id.
 
         Args:
