@@ -1,15 +1,23 @@
 """Module that defines the trainings API."""
 from datetime import datetime
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, Field
 
 from kwai.api.dependencies import deps
 from kwai.api.v1.trainings.schemas.training import TrainingResource
 from kwai.core.db.database import Database
 from kwai.core.json_api import Meta, PaginationModel
+from kwai.modules.training.coaches.coach_db_repository import CoachDbRepository
+from kwai.modules.training.coaches.coach_repository import CoachNotFoundException
 from kwai.modules.training.get_trainings import GetTrainings, GetTrainingsCommand
 from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository
+from kwai.modules.training.trainings.training_definition_db_repository import (
+    TrainingDefinitionDbRepository,
+)
+from kwai.modules.training.trainings.training_definition_repository import (
+    TrainingDefinitionNotFoundException,
+)
 
 router = APIRouter(tags=["trainings"])
 
@@ -21,9 +29,19 @@ class TrainingsFilterModel(BaseModel):
     month: int | None = Field(Query(default=None, alias="filter[month]"))
     start: datetime | None = Field(Query(default=None, alias="filter[start]"))
     end: datetime | None = Field(Query(default=None, alias="filter[end]"))
+    active: bool = Field(Query(default=True, alias="filter[active]"))
+    coach: int | None = Field(Query(default=None, alias="filter[coach]"))
+    definition: int | None = Field(Query(default=None, alias="filter[definition]"))
 
 
-@router.get("/trainings")
+@router.get(
+    "/trainings",
+    responses={
+        status.HTTP_404_NOT_FOUND: {
+            "description": "Coach or Training definition was not found."
+        }
+    },
+)
 async def get_trainings(
     pagination: PaginationModel = Depends(PaginationModel),
     trainings_filter: TrainingsFilterModel = Depends(TrainingsFilterModel),
@@ -37,11 +55,23 @@ async def get_trainings(
         month=trainings_filter.month,
         start=trainings_filter.start,
         end=trainings_filter.end,
+        active=trainings_filter.active,
     )
 
-    count, training_iterator = await GetTrainings(TrainingDbRepository(db)).execute(
-        command
-    )
+    try:
+        count, training_iterator = await GetTrainings(
+            TrainingDbRepository(db),
+            CoachDbRepository(db),
+            TrainingDefinitionDbRepository(db),
+        ).execute(command)
+    except TrainingDefinitionNotFoundException as ex:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
+        ) from ex
+    except CoachNotFoundException as ex:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
+        ) from ex
 
     document = TrainingResource.serialize_list(
         [TrainingResource(training) async for training in training_iterator]
