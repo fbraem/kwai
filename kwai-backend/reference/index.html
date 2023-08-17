@@ -33379,6 +33379,7 @@ One or more coaches can be assigned to a training.</p>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
   </span>
 
 <a href="#kwai.modules.training.coaches.coach_repository.CoachRepository.get_by_id" class="headerlink" title="Permanent link">&para;</a></h8>
@@ -33665,6 +33666,70 @@ exist.</p>
 
 
 
+<h7 id="kwai.modules.training.get_trainings.GetTrainings.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">coach_repo</span><span class="p">,</span> <span class="n">training_definition_repo</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.training.get_trainings.GetTrainings.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize use case.</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>repo</code></td>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository for trainings.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>coach_repo</code></td>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository for coaches.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>training_definition_repo</code></td>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository for training definitions.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
 <h7 id="kwai.modules.training.get_trainings.GetTrainings.execute" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
   
@@ -33704,6 +33769,40 @@ exist.</p>
           </td>
           <td>
               <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>CoachNotFoundException</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when a coach is not found.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+                <code>TrainingDefinitionNotFoundException</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when a definition is not found.</p>
+            </div>
           </td>
         </tr>
     </tbody>
