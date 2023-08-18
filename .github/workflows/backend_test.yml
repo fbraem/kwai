@@ -37,9 +37,9 @@ jobs:
       - name: Create database
         run: mysql -u${{ secrets.KWAI_DB_USER_NAME }} -h127.0.0.1 -p${{ secrets.KWAI_DB_PASSWORD }} -e 'CREATE DATABASE IF NOT EXISTS ${{ secrets.KWAI_DB_NAME }};'
       - name: Setup Redis
-        uses: supercharge/redis-github-action@1.7.0
+        uses: getong/redis-action@v1
         with:
-          redis-password: "{{ secrets.KWAI_REDIS_PASSWORD }}"
+          redis password: "{{ secrets.KWAI_REDIS_PASSWORD }}"
       - name: Create Kwai Settings
         env:
           KWAI_JWT_SECRET: ${{ secrets.KWAI_JWT_SECRET }}
@@ -66,7 +66,7 @@ jobs:
           tls=false
           from="franky.braem@gmail.com"
           [redis]
-          host="localhost"
+          host="127.0.0.1"
           password="$KWAI_REDIS_PASSWORD"
           EOF
           cat .kwai.toml
