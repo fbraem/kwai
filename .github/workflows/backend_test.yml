@@ -11,6 +11,7 @@ env:
   KWAI_DB_NAME: ${{ secrets.KWAI_DB_NAME }}
   KWAI_DB_USER_NAME: ${{ secrets.KWAI_DB_USER_NAME }}
   KWAI_DB_PASSWORD: ${{ secrets.KWAI_DB_PASSWORD }}
+  KWAI_REDIS_PASSWORD: ${{ secrets.KWAI_REDIS_PASSWORD }}
   MYSQL_ROOT_HOST: "%"
 jobs:
   test:
@@ -35,6 +36,10 @@ jobs:
           sudo systemctl start mysql.service
       - name: Create database
         run: mysql -u${{ secrets.KWAI_DB_USER_NAME }} -h127.0.0.1 -p${{ secrets.KWAI_DB_PASSWORD }} -e 'CREATE DATABASE IF NOT EXISTS ${{ secrets.KWAI_DB_NAME }};'
+      - name: Setup Redis
+        uses: supercharge/redis-github-action@1.6.0
+        with:
+          redis-password: "{{ secrets.KWAI_REDIS_PASSWORD }}"
       - name: Create Kwai Settings
         env:
           KWAI_JWT_SECRET: ${{ secrets.KWAI_JWT_SECRET }}
@@ -62,7 +67,7 @@ jobs:
           from="franky.braem@gmail.com"
           [redis]
           host="localhost"
-          password="ippon"
+          password="$KWAI_REDIS_PASSWORD"
           EOF
           cat .kwai.toml
       - name: Download dbmate
@@ -81,4 +86,4 @@ jobs:
         working-directory: backend/src
         env:
           KWAI_SETTINGS_FILE: ${{github.workspace}}/.kwai.toml
-        run: poetry run pytest --cov=kwai -m "not api and not mail and not bus"
+        run: poetry run pytest --cov=kwai -m "not api and not mail"
