@@ -11,7 +11,6 @@ env:
   KWAI_DB_NAME: ${{ secrets.KWAI_DB_NAME }}
   KWAI_DB_USER_NAME: ${{ secrets.KWAI_DB_USER_NAME }}
   KWAI_DB_PASSWORD: ${{ secrets.KWAI_DB_PASSWORD }}
-  KWAI_REDIS_PASSWORD: ${{ secrets.KWAI_REDIS_PASSWORD }}
   MYSQL_ROOT_HOST: "%"
 jobs:
   test:
@@ -67,7 +66,6 @@ jobs:
           from="franky.braem@gmail.com"
           [redis]
           host="127.0.0.1"
-          password="$KWAI_REDIS_PASSWORD"
           EOF
           cat .kwai.toml
       - name: Download dbmate
