@@ -36,9 +36,9 @@ jobs:
       - name: Create database
         run: mysql -u${{ secrets.KWAI_DB_USER_NAME }} -h127.0.0.1 -p${{ secrets.KWAI_DB_PASSWORD }} -e 'CREATE DATABASE IF NOT EXISTS ${{ secrets.KWAI_DB_NAME }};'
       - name: Setup Redis
-        uses: getong/redis-action@v1
-        with:
-          redis password: "{{ secrets.KWAI_REDIS_PASSWORD }}"
+        run: sudo apt-get install -y redis-tools redis-server
+      - name: Verify that redis is up
+        run: redis-cli ping
       - name: Create Kwai Settings
         env:
           KWAI_JWT_SECRET: ${{ secrets.KWAI_JWT_SECRET }}
