@@ -42,6 +42,10 @@ jobs:
       - name: Create Kwai Settings
         env:
           KWAI_JWT_SECRET: ${{ secrets.KWAI_JWT_SECRET }}
+          KWAI_EMAIL_HOST: ${{ secrets.KWAI_EMAIL_HOST }}
+          KWAI_EMAIL_PORT: ${{ secrets.KWAI_EMAIL_PORT }}
+          KWAI_EMAIL_USER: ${{ secrets.KWAI_EMAIL_USER }}
+          KWAI_EMAIL_PASSWORD: ${{ secrets.KWAI_EMAIL_PASSWORD }}
         run: |
           cat <<EOF > .kwai.toml
           [security]
@@ -59,10 +63,12 @@ jobs:
           email="franky.braem@gmail.com"
           name="Kwai Website"
           [email]
-          host="localhost"
-          port=1025
+          host="$KWAI_EMAIL_HOST"
+          user="$KWAI_EMAIL_USER"
+          password="$KWAI_EMAIL_PASSWORD"
+          port=$KWAI_EMAIL_PORT
           ssl=false
-          tls=false
+          tls=true
           from="franky.braem@gmail.com"
           [redis]
           host="127.0.0.1"
