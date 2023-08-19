@@ -56,6 +56,8 @@ async def get_trainings(
         start=trainings_filter.start,
         end=trainings_filter.end,
         active=trainings_filter.active,
+        coach=trainings_filter.coach,
+        definition=trainings_filter.definition,
     )
 
     try:
