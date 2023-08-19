@@ -66,6 +66,8 @@ def test_get_user_invitation(
             f"api/v1/auth/users/invitations/{invitation_data[0]}"
         )
         assert response.status_code == status.HTTP_200_OK
+    else:
+        pytest.skip("Test skipped because there is no user invitation")
 
 
 def test_delete_user_invitation(secure_client: TestClient, invitation_data: list[str]):
@@ -75,3 +77,5 @@ def test_delete_user_invitation(secure_client: TestClient, invitation_data: list
             f"api/v1/auth/users/invitations/{invitation_data[0]}"
         )
         assert response.status_code == status.HTTP_200_OK
+    else:
+        pytest.skip("Test skipped because there is no user invitation")
