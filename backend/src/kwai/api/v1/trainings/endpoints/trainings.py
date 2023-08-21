@@ -10,7 +10,7 @@ from kwai.core.db.database import Database
 from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.training.coaches.coach_db_repository import CoachDbRepository
 from kwai.modules.training.coaches.coach_repository import CoachNotFoundException
-from kwai.modules.training.get_training import GetTrainingCommand, GetTraining
+from kwai.modules.training.get_training import GetTraining, GetTrainingCommand
 from kwai.modules.training.get_trainings import GetTrainings, GetTrainingsCommand
 from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository
 from kwai.modules.training.trainings.training_definition_db_repository import (

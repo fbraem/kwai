@@ -5,8 +5,8 @@ from kwai.core.db.database import Database
 from kwai.modules.training.trainings.training import TrainingIdentifier
 from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository
 from kwai.modules.training.trainings.training_repository import (
-    TrainingRepository,
     TrainingNotFoundException,
+    TrainingRepository,
 )
 
 pytestmark = pytest.mark.db
