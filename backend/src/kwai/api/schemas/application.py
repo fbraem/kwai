@@ -66,6 +66,6 @@ class ApplicationResource:
         return str(self._application.traceable_time.created_at)
 
     @json_api.attribute(name="updated_at")
-    def get_updated_at(self) -> str:
+    def get_updated_at(self) -> str | None:
         """Get the timestamp of the last update."""
         return str(self._application.traceable_time.updated_at)
