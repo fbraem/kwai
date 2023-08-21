@@ -10,6 +10,7 @@ from kwai.core.db.database import Database
 from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.training.coaches.coach_db_repository import CoachDbRepository
 from kwai.modules.training.coaches.coach_repository import CoachNotFoundException
+from kwai.modules.training.get_training import GetTrainingCommand, GetTraining
 from kwai.modules.training.get_trainings import GetTrainings, GetTrainingsCommand
 from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository
 from kwai.modules.training.trainings.training_definition_db_repository import (
@@ -17,6 +18,9 @@ from kwai.modules.training.trainings.training_definition_db_repository import (
 )
 from kwai.modules.training.trainings.training_definition_repository import (
     TrainingDefinitionNotFoundException,
+)
+from kwai.modules.training.trainings.training_repository import (
+    TrainingNotFoundException,
 )
 
 router = APIRouter(tags=["trainings"])
@@ -81,3 +85,24 @@ async def get_trainings(
     document.meta = Meta(count=count, offset=command.offset, limit=command.limit)
 
     return document
+
+
+@router.get(
+    "/trainings/{training_id}",
+    responses={status.HTTP_404_NOT_FOUND: {"description": "Training was not found."}},
+)
+async def get_training(
+    training_id: int,
+    db=deps.depends(Database),
+) -> TrainingResource.get_document_model():
+    """Get the training with the given id."""
+    command = GetTrainingCommand(id=training_id)
+
+    try:
+        training = await GetTraining(TrainingDbRepository(db)).execute(command)
+    except TrainingNotFoundException as ex:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
+        ) from ex
+
+    return TrainingResource.serialize(TrainingResource(training))

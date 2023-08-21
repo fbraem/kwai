@@ -2,7 +2,7 @@
 from abc import ABC, abstractmethod
 from typing import AsyncIterator
 
-from kwai.modules.training.trainings.training import TrainingEntity
+from kwai.modules.training.trainings.training import TrainingEntity, TrainingIdentifier
 from kwai.modules.training.trainings.training_query import TrainingQuery
 
 
@@ -34,5 +34,17 @@ class TrainingRepository(ABC):
 
         Returns:
             A list of trainings.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    async def get_by_id(self, id: TrainingIdentifier) -> TrainingEntity:
+        """Get the training with the given id.
+
+        Args:
+            id: The id of the training.
+
+        Returns:
+            A training entity.
         """
         raise NotImplementedError

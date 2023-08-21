@@ -8,7 +8,10 @@ from kwai.modules.training.trainings.training import TrainingEntity, TrainingIde
 from kwai.modules.training.trainings.training_coach_db_query import TrainingCoachDbQuery
 from kwai.modules.training.trainings.training_db_query import TrainingDbQuery
 from kwai.modules.training.trainings.training_query import TrainingQuery
-from kwai.modules.training.trainings.training_repository import TrainingRepository
+from kwai.modules.training.trainings.training_repository import (
+    TrainingNotFoundException,
+    TrainingRepository,
+)
 from kwai.modules.training.trainings.training_tables import (
     TrainingContentsTable,
     TrainingDefinitionsTable,
@@ -49,12 +52,25 @@ class TrainingDbRepository(TrainingRepository):
     def create_query(self) -> TrainingQuery:
         return TrainingDbQuery(self._database)
 
+    async def get_by_id(self, id: TrainingIdentifier) -> TrainingEntity:
+        query = self.create_query()
+        query.filter_by_id(id)
+
+        try:
+            row_iterator = self.get_all(query, 1)
+            entity = await anext(row_iterator)
+        except StopAsyncIteration:
+            raise TrainingNotFoundException(
+                f"Training with id {id} does not exist"
+            ) from None
+        return entity
+
     async def get_all(
         self,
         training_query: TrainingQuery | None = None,
         limit: int | None = None,
         offset: int | None = None,
-    ) -> AsyncIterator[TrainingEntity]:
+    ) -> AsyncIterator[TrainingEntity] | None:
         if training_query is None:
             training_query = self.create_query()
 

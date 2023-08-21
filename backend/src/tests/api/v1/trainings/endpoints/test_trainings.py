@@ -87,3 +87,15 @@ def test_get_trainings_filter_definition(client: TestClient):
         assert "data" in json, "There should be a data list in the response"
     else:
         assert "detail" in json
+
+
+def test_get_training(client: TestClient):
+    """Test /api/v1/training/{training_id}."""
+    response = client.get("/api/v1/trainings/1")
+    assert response.status_code in [status.HTTP_200_OK, status.HTTP_404_NOT_FOUND]
+
+    json = response.json()
+    if response.status_code == status.HTTP_200_OK:
+        assert "data" in json, "There should be a data list in the response"
+    else:
+        assert "detail" in json
