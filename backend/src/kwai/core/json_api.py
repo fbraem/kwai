@@ -488,6 +488,20 @@ class Resource:
         """
         return self._resource_model
 
+    def get_resource_data_model(self):
+        """Get the resource model with data as object."""
+        return create_model(
+            self.get_model_class_prefix() + "DataResourceModel",
+            data=(self.get_resource_model(), ...),
+        )
+
+    def get_resource_data_model_list(self):
+        """Get resource model with data as list."""
+        return create_model(
+            self.get_model_class_prefix() + "DataResourceModelList",
+            data=(list[self.get_resource_model()], ...),
+        )
+
     def _create_document_model(self):
         """Create the document model.
 
@@ -564,6 +578,13 @@ def resource(type_: str, auto: bool = True):
             resource_list
         )
         cls.get_document_model = lambda: json_api_resource.get_document_model()
+        cls.get_resource_model = lambda: json_api_resource.get_resource_model()
+        cls.get_resource_data_model = (
+            lambda: json_api_resource.get_resource_data_model()
+        )
+        cls.get_resource_data_model_list = (
+            lambda: json_api_resource.get_resource_data_model_list()
+        )
 
         return cls
 
