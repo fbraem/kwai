@@ -2,6 +2,7 @@
 from pydantic import BaseModel
 
 from kwai.api.converter import MarkdownConverter
+from kwai.api.v1.trainings.schemas.training_definition import TrainingDefinitionResource
 from kwai.core import json_api
 from kwai.modules.training.trainings.training import TrainingEntity
 from kwai.modules.training.trainings.value_objects import Team, TrainingCoach
@@ -96,3 +97,21 @@ class TrainingResource:
     def get_teams(self) -> list[TeamResource]:
         """Get the teams of the training."""
         return [TeamResource(team) for team in self._training.teams]
+
+    @json_api.relationship(name="definition")
+    def get_definition(self) -> TrainingDefinitionResource | None:
+        """Get the related training definition resource."""
+        definition = self._training.definition
+        if definition:
+            return TrainingDefinitionResource(definition)
+        return None
+
+    @json_api.attribute(name="created_at")
+    def get_created_at(self) -> str:
+        """Get the timestamp of creation."""
+        return str(self._training.traceable_time.created_at)
+
+    @json_api.attribute(name="updated_at")
+    def get_updated_at(self) -> str | None:
+        """Get the timestamp of the last update."""
+        return str(self._training.traceable_time.updated_at)
