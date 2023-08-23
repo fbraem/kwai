@@ -245,6 +245,21 @@ class TrainingCoachRow:
             remark="" if self.remark is None else self.remark,
         )
 
+    @classmethod
+    def persist(cls, training, training_coach: TrainingCoach) -> "TrainingCoachRow":
+        """Persist a TrainingCoach value object into a table row."""
+        return TrainingCoachRow(
+            training_id=training.id.value,
+            coach_id=training_coach.coach.id.value,
+            coach_type=training_coach.type,
+            present=1 if training_coach.present else 0,
+            payed=1 if training_coach.payed else 0,
+            remark=training_coach.remark,
+            user_id=training_coach.owner.id.value,
+            created_at=training_coach.traceable_time.created_at.timestamp,
+            updated_at=training_coach.traceable_time.updated_at.timestamp,
+        )
+
 
 TrainingCoachesTable = Table("training_coaches", TrainingCoachRow)
 
@@ -255,8 +270,14 @@ class TrainingTeamRow:
 
     training_id: int
     team_id: int
-    created_at: datetime
-    updated_at: datetime | None
+
+    @classmethod
+    def persist(cls, training: TrainingEntity, team: Team) -> "TrainingTeamRow":
+        """Persist a team of a training to a table row."""
+        return TrainingTeamRow(
+            training_id=training.id.value,
+            team_id=team.id.value,
+        )
 
 
 TrainingTeamsTable = Table("training_teams", TrainingTeamRow)
@@ -269,7 +290,7 @@ class TeamRow:
     id: int
     name: str
 
-    def create_team(self):
+    def create_team(self) -> Team:
         """Create a Team value object of this row."""
         return Team(id=IntIdentifier(self.id), name=self.name)
 
