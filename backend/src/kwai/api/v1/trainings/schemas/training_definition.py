@@ -1,3 +1,4 @@
+"""Module for the training definition schema."""
 from kwai.core import json_api
 from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
 
