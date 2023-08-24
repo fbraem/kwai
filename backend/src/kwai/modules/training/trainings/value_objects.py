@@ -1,9 +1,10 @@
-"""Module that defines a value object for a season."""
+"""Module that defines a value objects for the bounded context trainings."""
 
 from dataclasses import dataclass
 
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.owner import Owner
+from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.training.coaches.coach import CoachEntity
 
 
@@ -30,6 +31,7 @@ class TrainingCoach:
     type: int = 0
     payed: bool = False
     remark: str = ""
+    traceable_time: TraceableTime = TraceableTime()
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
