@@ -1,6 +1,6 @@
 """Module that defines a value object for a local timestamp."""
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import date, datetime, time, timedelta
 
 
 @dataclass(frozen=True)
@@ -23,6 +23,62 @@ class LocalTimestamp:
         assert not self.empty, "No datetime set"
 
         return self.timestamp < datetime.utcnow()
+
+    @property
+    def year(self) -> int:
+        """Return the year."""
+        if self.timestamp is None:
+            raise ValueError("Empty timestamp")
+        return self.timestamp.year
+
+    @property
+    def month(self) -> int:
+        """Return the month."""
+        if self.timestamp is None:
+            raise ValueError("Empty timestamp")
+        return self.timestamp.month
+
+    @property
+    def day(self) -> int:
+        """Return the day."""
+        if self.timestamp is None:
+            raise ValueError("Empty timestamp")
+        return self.timestamp.day
+
+    @property
+    def hours(self) -> int:
+        """Return the hours."""
+        if self.timestamp is None:
+            raise ValueError("Empty timestamp")
+        return self.timestamp.hour
+
+    @property
+    def minutes(self) -> int:
+        """Return the minutes."""
+        if self.timestamp is None:
+            raise ValueError("Empty timestamp")
+        return self.timestamp.minute
+
+    @property
+    def seconds(self) -> int:
+        """Return the seconds."""
+        if self.timestamp is None:
+            raise ValueError("Empty timestamp")
+        return self.timestamp.second
+
+    @property
+    def date(self) -> date:
+        """Return the date."""
+        if self.timestamp is None:
+            raise ValueError("Empty timestamp")
+        return self.timestamp.date()
+
+    @property
+    def time(self) -> time:
+        """Return the date."""
+        if self.timestamp is None:
+            raise ValueError("Empty timestamp")
+        return self.timestamp.time()
 
     def __str__(self) -> str:
         """Return a string representation.
@@ -53,3 +109,15 @@ class LocalTimestamp:
     def create_now(cls):
         """Create a timestamp with the current UTC time."""
         return LocalTimestamp(timestamp=datetime.utcnow())
+
+    @classmethod
+    def create_from_string(
+        cls, date_time: str, date_format: str = "%Y-%m-%d %H:%M:%S"
+    ) -> "LocalTimestamp":
+        """Create a timestamp from a string.
+
+        Args:
+            date_time: The string to convert to a timestamp.
+            date_format: The format used in the string.
+        """
+        return LocalTimestamp(datetime.strptime(date_time, date_format))
