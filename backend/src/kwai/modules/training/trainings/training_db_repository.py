@@ -13,9 +13,15 @@ from kwai.modules.training.trainings.training_repository import (
     TrainingRepository,
 )
 from kwai.modules.training.trainings.training_tables import (
+    TrainingCoachesTable,
+    TrainingCoachRow,
+    TrainingContentRow,
     TrainingContentsTable,
     TrainingDefinitionsTable,
+    TrainingRow,
     TrainingsTable,
+    TrainingTeamRow,
+    TrainingTeamsTable,
 )
 from kwai.modules.training.trainings.training_team_db_query import TrainingTeamDbQuery
 from kwai.modules.training.trainings.value_objects import Team, TrainingCoach
@@ -124,3 +130,41 @@ class TrainingDbRepository(TrainingRepository):
                 )
             else:
                 yield training
+
+    async def create(self, training: TrainingEntity) -> TrainingEntity:
+        new_id = await self._database.insert(
+            TrainingsTable.table_name, TrainingRow.persist(training)
+        )
+        result = Entity.replace(training, id_=TrainingIdentifier(new_id))
+
+        content_rows = [
+            TrainingContentRow.persist(result, content) for content in training.content
+        ]
+        await self._database.insert(TrainingContentsTable.table_name, *content_rows)
+
+        training_coach_rows = [
+            TrainingCoachRow.persist(result, training_coach)
+            for training_coach in training.coaches
+        ]
+        if training_coach_rows:
+            await self._database.insert(
+                TrainingCoachesTable.table_name, *training_coach_rows
+            )
+
+        training_team_rows = [
+            TrainingTeamRow.persist(result, team) for team in training.teams
+        ]
+        if training_team_rows:
+            await self._database.insert(
+                TrainingTeamsTable.table_name, *training_team_rows
+            )
+
+        await self._database.commit()
+
+        return result
+
+    async def update(self, training: TrainingEntity) -> None:
+        pass
+
+    async def delete(self, training: TrainingEntity) -> None:
+        pass
