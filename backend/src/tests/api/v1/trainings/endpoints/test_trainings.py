@@ -99,3 +99,31 @@ def test_get_training(client: TestClient):
         assert "data" in json, "There should be a data list in the response"
     else:
         assert "detail" in json
+
+
+def test_create_training(secure_client: TestClient):
+    """Test POST /api/v1/training."""
+    payload = {
+        "data": {
+            "type": "trainings",
+            "attributes": {
+                "content": [
+                    {
+                        "locale": "en",
+                        "format": "md",
+                        "title": "U13 Training",
+                        "summary": "Training for U13",
+                    }
+                ],
+                "start_date": "2023-02-02 19:00:00",
+                "end_date": "2023-02-02 20:00:00",
+                "active": True,
+                "cancelled": False,
+                "location": "",
+                "remark": "",
+            },
+            "relationships": {"coaches": {"data": []}, "teams": {"data": []}},
+        }
+    }
+    response = secure_client.post("/api/v1/trainings", json=payload)
+    assert response.status_code == status.HTTP_201_CREATED, response.json()

@@ -4,12 +4,15 @@ from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, Field
 
-from kwai.api.dependencies import deps
+from kwai.api.dependencies import deps, get_current_user
 from kwai.api.v1.trainings.schemas.training import TrainingResource
 from kwai.core.db.database import Database
+from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.json_api import Meta, PaginationModel
+from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.training.coaches.coach_db_repository import CoachDbRepository
 from kwai.modules.training.coaches.coach_repository import CoachNotFoundException
+from kwai.modules.training.create_training import CreateTraining, CreateTrainingCommand
 from kwai.modules.training.get_training import GetTraining, GetTrainingCommand
 from kwai.modules.training.get_trainings import GetTrainings, GetTrainingsCommand
 from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository
@@ -104,5 +107,52 @@ async def get_training(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
         ) from ex
+
+    return TrainingResource.serialize(TrainingResource(training))
+
+
+@router.post(
+    "/trainings",
+    status_code=status.HTTP_201_CREATED,
+)
+async def create_training(
+    training: TrainingResource.get_resource_data_model(),
+    db=deps.depends(Database),
+    user: UserEntity = Depends(get_current_user),
+) -> TrainingResource.get_document_model() | None:
+    """Create a new training."""
+    command = CreateTrainingCommand(
+        start_date=training.data.attributes.start_date,
+        end_date=training.data.attributes.end_date,
+        active=training.data.attributes.active,
+        cancelled=training.data.attributes.cancelled,
+        text=[
+            {
+                "locale": text.locale,
+                "format": text.format,
+                "title": text.title,
+                "summary": text.summary,
+                "content": text.content,
+            }
+            for text in training.data.attributes.content
+        ],
+        coaches=[],
+        teams=[],
+        definition=None,
+        location=training.data.attributes.location,
+        remark=training.data.attributes.remark,
+    )
+
+    try:
+        training = await CreateTraining(
+            TrainingDbRepository(db),
+            TrainingDefinitionDbRepository(db),
+            CoachDbRepository(db),
+            Owner(id=user.id, uuid=user.uuid, name=user.name),
+        ).execute(command)
+    except ValueError as ve:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ve)
+        ) from ve
 
     return TrainingResource.serialize(TrainingResource(training))
