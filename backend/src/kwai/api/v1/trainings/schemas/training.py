@@ -99,14 +99,14 @@ class TrainingResource:
         return str(self._training.period.end_date)
 
     @json_api.attribute(name="location")
-    def get_location(self) -> str | None:
+    def get_location(self) -> str:
         """Get the location of the training."""
-        return self._training.location
+        return self._training.location or ""
 
     @json_api.attribute(name="remark")
-    def get_remark(self) -> str | None:
+    def get_remark(self) -> str:
         """Get the remark of the training."""
-        return self._training.remark
+        return self._training.remark or ""
 
     @json_api.attribute(name="active")
     def get_active(self) -> bool:
