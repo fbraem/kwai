@@ -1,5 +1,8 @@
 """Module that defines a coach repository for a database."""
+from typing import AsyncIterator
+
 from sql_smith.functions import on
+from sql_smith.query import SelectQuery
 
 from kwai.core.db.database import Database
 from kwai.modules.training.coaches.coach import CoachEntity, CoachIdentifier
@@ -30,8 +33,9 @@ class CoachDbRepository(CoachRepository):
         """
         self._database = database
 
-    async def get_by_id(self, id: CoachIdentifier) -> CoachEntity:
-        query = (
+    def _create_query(self) -> SelectQuery:
+        """Create the base select query."""
+        return (
             self._database.create_query_factory()
             .select()
             .from_(CoachesTable.table_name)
@@ -40,12 +44,21 @@ class CoachDbRepository(CoachRepository):
                 PersonsTable.table_name,
                 on(CoachesTable.column("person_id"), PersonsTable.column("id")),
             )
-            .and_where(CoachesTable.field("id").eq(id.value))
         )
 
+    async def get_by_id(self, id: CoachIdentifier) -> CoachEntity:
+        query = self._create_query().and_where(CoachesTable.field("id").eq(id.value))
         row = await self._database.fetch_one(query)
 
         if not row:
             raise CoachNotFoundException(f"Coach with id {id} not found.")
 
         return _create_entity(CoachesTable(row), PersonsTable(row))
+
+    async def get_by_ids(self, *ids: CoachIdentifier) -> AsyncIterator[CoachEntity]:
+        query = self._create_query().and_where(
+            CoachesTable.field("id").in_(id.value for id in ids)
+        )
+
+        async for row in self._database.fetch(query):
+            yield _create_entity(CoachesTable(row), PersonsTable(row))
