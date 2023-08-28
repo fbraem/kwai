@@ -27,21 +27,16 @@ def context() -> Context:
 
 
 @pytest.fixture(scope="module")
-def make_person_row():
-    """Factory fixture for creating a person row."""
-
-    def make(firstname: str = "Jigoro", lastname="Kano") -> PersonRow:
-        return PersonRow(id=0, firstname=firstname, lastname=lastname)
-
-    return make
+def person_row() -> PersonRow:
+    """Fixture for creating a person row."""
+    return PersonRow(id=0, firstname="Jigoro", lastname="Kano")
 
 
 @pytest.fixture(scope="module", autouse=True)
-async def seed_persons(database: Database, make_person_row, context: Context):
+async def seed_persons(database: Database, person_row: PersonRow, context: Context):
     """Seed the database with persons."""
     # For now, we create the query, in the future a repository from the members
     # bounded context can be used.
-    person_row = make_person_row()
     query = database.create_query_factory().insert(PersonsTable.table_name)
     person_dict = dataclasses.asdict(person_row)
     del person_dict["id"]
@@ -56,20 +51,14 @@ async def seed_persons(database: Database, make_person_row, context: Context):
 
 
 @pytest.fixture(scope="module")
-def make_coach_row():
-    """Factory fixture for creating a coach row."""
-
-    def make(person_row: PersonRow, active: bool = True):
-        return CoachRow(id=0, person_id=person_row.id, active=active)
-
-    return make
+def coach_row(person_row) -> CoachRow:
+    """Fixture for creating a coach row."""
+    return CoachRow(id=0, person_id=person_row.id, active=True)
 
 
 @pytest.fixture(scope="module", autouse=True)
-async def seed_coaches(database: Database, make_coach_row, context: Context):
+async def seed_coaches(database: Database, coach_row: CoachRow, context: Context):
     """Seed the database with coaches."""
-    coach_row = make_coach_row(context["persons"][0])
-
     query = database.create_query_factory().insert(CoachesTable.table_name)
     coach_dict = dataclasses.asdict(coach_row)
     del coach_dict["id"]
