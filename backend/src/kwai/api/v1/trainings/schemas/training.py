@@ -1,4 +1,5 @@
 """Schemas for training(s)."""
+
 from pydantic import BaseModel
 
 from kwai.api.converter import MarkdownConverter
@@ -12,6 +13,7 @@ class TrainingContent(BaseModel):
     """Schema for the content of a training."""
 
     locale: str
+    format: str
     title: str
     summary: str
     content: str | None
@@ -76,6 +78,7 @@ class TrainingResource:
         return [
             TrainingContent(
                 locale=content.locale,
+                format=content.format,
                 title=content.title,
                 summary=MarkdownConverter().convert(content.summary),
                 content=MarkdownConverter().convert(content.content)
@@ -84,6 +87,36 @@ class TrainingResource:
             )
             for content in self._training.content
         ]
+
+    @json_api.attribute(name="start_date")
+    def get_start_date(self) -> str:
+        """Get the start date of the training."""
+        return str(self._training.period.start_date)
+
+    @json_api.attribute(name="end_date")
+    def get_end_date(self) -> str:
+        """Get the end date of the training."""
+        return str(self._training.period.end_date)
+
+    @json_api.attribute(name="location")
+    def get_location(self) -> str | None:
+        """Get the location of the training."""
+        return self._training.location
+
+    @json_api.attribute(name="remark")
+    def get_remark(self) -> str | None:
+        """Get the remark of the training."""
+        return self._training.remark
+
+    @json_api.attribute(name="active")
+    def get_active(self) -> bool:
+        """Check if this training is active."""
+        return self._training.active
+
+    @json_api.attribute(name="cancelled")
+    def get_cancelled(self) -> bool:
+        """Check if this training is cancelled."""
+        return self._training.cancelled
 
     @json_api.relationship(name="coaches")
     def get_coaches(self) -> list[TrainingCoachResource]:
@@ -107,7 +140,7 @@ class TrainingResource:
         return None
 
     @json_api.attribute(name="created_at")
-    def get_created_at(self) -> str:
+    def get_created_at(self) -> str | None:
         """Get the timestamp of creation."""
         return str(self._training.traceable_time.created_at)
 
