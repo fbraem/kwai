@@ -48,3 +48,33 @@ class TrainingRepository(ABC):
             A training entity.
         """
         raise NotImplementedError
+
+    @abstractmethod
+    async def create(self, training: TrainingEntity) -> TrainingEntity:
+        """Save a training.
+
+        Args:
+            training: The training to save.
+
+        Returns:
+            A training entity with an identifier.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    async def update(self, training: TrainingEntity) -> None:
+        """Update a training.
+
+        Args:
+            training: The training to save.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    async def delete(self, training: TrainingEntity) -> None:
+        """Delete a training.
+
+        Args:
+            training: The training to delete.
+        """
+        raise NotImplementedError
