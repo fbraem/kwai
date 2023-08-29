@@ -8,6 +8,7 @@ from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.db.rows import OwnersTable
 from kwai.modules.training.coaches.coach import CoachEntity
+from kwai.modules.training.teams.team import TeamEntity
 from kwai.modules.training.trainings.training import TrainingIdentifier
 from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
 from kwai.modules.training.trainings.training_query import TrainingQuery
@@ -18,7 +19,6 @@ from kwai.modules.training.trainings.training_tables import (
     TrainingsTable,
     TrainingTeamsTable,
 )
-from kwai.modules.training.trainings.value_objects import Team
 
 
 class TrainingDbQuery(TrainingQuery, DatabaseQuery):
@@ -119,7 +119,7 @@ class TrainingDbQuery(TrainingQuery, DatabaseQuery):
         self._query.and_where(group(condition))
         return self
 
-    def filter_by_team(self, team: Team) -> "TrainingQuery":
+    def filter_by_team(self, team: TeamEntity) -> "TrainingQuery":
         inner_select = (
             self._database.create_query_factory()
             .select()

@@ -5,7 +5,6 @@ from datetime import datetime, time
 
 from kwai.core.db.rows import ContentRow
 from kwai.core.db.table import Table
-from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
@@ -14,6 +13,7 @@ from kwai.core.domain.value_objects.time_period import TimePeriod
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.weekday import Weekday
 from kwai.modules.training.coaches.coach import CoachEntity
+from kwai.modules.training.teams.team import TeamEntity
 from kwai.modules.training.trainings.training import (
     TrainingEntity,
     TrainingIdentifier,
@@ -22,7 +22,7 @@ from kwai.modules.training.trainings.training_definition import (
     TrainingDefinitionEntity,
     TrainingDefinitionIdentifier,
 )
-from kwai.modules.training.trainings.value_objects import Team, TrainingCoach
+from kwai.modules.training.trainings.value_objects import TrainingCoach
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -272,7 +272,7 @@ class TrainingTeamRow:
     team_id: int
 
     @classmethod
-    def persist(cls, training: TrainingEntity, team: Team) -> "TrainingTeamRow":
+    def persist(cls, training: TrainingEntity, team: TeamEntity) -> "TrainingTeamRow":
         """Persist a team of a training to a table row."""
         return TrainingTeamRow(
             training_id=training.id.value,
@@ -281,18 +281,3 @@ class TrainingTeamRow:
 
 
 TrainingTeamsTable = Table("training_teams", TrainingTeamRow)
-
-
-@dataclass(kw_only=True, frozen=True, slots=True)
-class TeamRow:
-    """Represent a row of the teams table."""
-
-    id: int
-    name: str
-
-    def create_team(self) -> Team:
-        """Create a Team value object of this row."""
-        return Team(id=IntIdentifier(self.id), name=self.name)
-
-
-TeamsTable = Table("teams", TeamRow)

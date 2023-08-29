@@ -32,16 +32,3 @@ class TrainingCoach:
     payed: bool = False
     remark: str = ""
     traceable_time: TraceableTime = TraceableTime()
-
-
-@dataclass(kw_only=True, frozen=True, slots=True)
-class Team:
-    """A team.
-
-    Attributes:
-        id: The id of the team.
-        name: The name of the team.
-    """
-
-    id: IntIdentifier
-    name: str

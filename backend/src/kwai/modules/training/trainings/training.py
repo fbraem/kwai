@@ -4,10 +4,11 @@ from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import LocaleText
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
+from kwai.modules.training.teams.team import TeamEntity
 from kwai.modules.training.trainings.training_definition import (
     TrainingDefinitionEntity,
 )
-from kwai.modules.training.trainings.value_objects import Team, TrainingCoach
+from kwai.modules.training.trainings.value_objects import TrainingCoach
 
 TrainingIdentifier = IntIdentifier
 
@@ -22,7 +23,7 @@ class TrainingEntity(Entity[TrainingIdentifier]):
         content: list[LocaleText],
         definition: TrainingDefinitionEntity | None = None,
         coaches: list[TrainingCoach] | None = None,
-        teams: list[Team] | None = None,
+        teams: list[TeamEntity] | None = None,
         season: None = None,
         period: Period,
         active: bool = True,
@@ -90,7 +91,7 @@ class TrainingEntity(Entity[TrainingIdentifier]):
         return self._coaches.copy()
 
     @property
-    def teams(self) -> list[Team]:
+    def teams(self) -> list[TeamEntity]:
         """Return the teams of the training.
 
         Remark:

@@ -4,6 +4,7 @@ from typing import AsyncIterator
 from kwai.core.db.database import Database, Record
 from kwai.core.db.rows import OwnersTable
 from kwai.core.domain.entity import Entity
+from kwai.modules.training.teams.team import TeamEntity
 from kwai.modules.training.trainings.training import TrainingEntity, TrainingIdentifier
 from kwai.modules.training.trainings.training_coach_db_query import TrainingCoachDbQuery
 from kwai.modules.training.trainings.training_db_query import TrainingDbQuery
@@ -24,7 +25,7 @@ from kwai.modules.training.trainings.training_tables import (
     TrainingTeamsTable,
 )
 from kwai.modules.training.trainings.training_team_db_query import TrainingTeamDbQuery
-from kwai.modules.training.trainings.value_objects import Team, TrainingCoach
+from kwai.modules.training.trainings.value_objects import TrainingCoach
 
 
 def _create_entity(rows: list[Record]) -> TrainingEntity:
@@ -119,7 +120,9 @@ class TrainingDbRepository(TrainingRepository):
         team_query = TrainingTeamDbQuery(self._database).filter_by_trainings(
             *trainings.keys()
         )
-        teams: dict[TrainingIdentifier, list[Team]] = await team_query.fetch_teams()
+        teams: dict[
+            TrainingIdentifier, list[TeamEntity]
+        ] = await team_query.fetch_teams()
 
         for training in trainings.values():
             training_coaches = coaches.get(training.id, [])

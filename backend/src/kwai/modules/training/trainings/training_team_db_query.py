@@ -4,12 +4,10 @@ from collections import defaultdict
 from sql_smith.functions import on
 
 from kwai.core.db.database_query import DatabaseQuery
+from kwai.modules.training.teams.team import TeamEntity
+from kwai.modules.training.teams.team_tables import TeamsTable
 from kwai.modules.training.trainings.training import TrainingIdentifier
-from kwai.modules.training.trainings.training_tables import (
-    TeamsTable,
-    TrainingTeamsTable,
-)
-from tests.core.test_jsonapi import Team
+from kwai.modules.training.trainings.training_tables import TrainingTeamsTable
 
 
 class TrainingTeamDbQuery(DatabaseQuery):
@@ -36,7 +34,7 @@ class TrainingTeamDbQuery(DatabaseQuery):
         )
         return self
 
-    async def fetch_teams(self) -> dict[TrainingIdentifier, list[Team]]:
+    async def fetch_teams(self) -> dict[TrainingIdentifier, list[TeamEntity]]:
         """Fetch teams.
 
         A specialized fetch method that already transforms the records into
@@ -46,12 +44,12 @@ class TrainingTeamDbQuery(DatabaseQuery):
             A dictionary that contains the list of teams for trainings. The key
             is the identifier of a training.
         """
-        result: dict[TrainingIdentifier, list[Team]] = defaultdict(list)
+        result: dict[TrainingIdentifier, list[TeamEntity]] = defaultdict(list)
 
         async for team_record in self.fetch():
             training_team = TrainingTeamsTable(team_record)
             result[TrainingIdentifier(training_team.training_id)].append(
-                TeamsTable(team_record).create_team()
+                TeamsTable(team_record).create_entity()
             )
 
         return result

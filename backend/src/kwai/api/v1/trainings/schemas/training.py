@@ -5,8 +5,9 @@ from pydantic import BaseModel
 from kwai.api.converter import MarkdownConverter
 from kwai.api.v1.trainings.schemas.training_definition import TrainingDefinitionResource
 from kwai.core import json_api
+from kwai.modules.training.teams.team import TeamEntity
 from kwai.modules.training.trainings.training import TrainingEntity
-from kwai.modules.training.trainings.value_objects import Team, TrainingCoach
+from kwai.modules.training.trainings.value_objects import TrainingCoach
 
 
 class TrainingContent(BaseModel):
@@ -41,7 +42,7 @@ class TrainingCoachResource:
 class TeamResource:
     """Represent a team."""
 
-    def __init__(self, team: Team):
+    def __init__(self, team: TeamEntity):
         self._team = team
 
     @json_api.id

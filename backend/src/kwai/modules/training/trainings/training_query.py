@@ -4,9 +4,9 @@ from datetime import datetime
 
 from kwai.core.domain.repository.query import Query
 from kwai.modules.training.coaches.coach import CoachEntity
+from kwai.modules.training.teams.team import TeamEntity
 from kwai.modules.training.trainings.training import TrainingIdentifier
 from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
-from kwai.modules.training.trainings.value_objects import Team
 
 
 class TrainingQuery(Query, ABC):
@@ -53,7 +53,7 @@ class TrainingQuery(Query, ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def filter_by_team(self, team: Team) -> "TrainingQuery":
+    def filter_by_team(self, team: TeamEntity) -> "TrainingQuery":
         """Add filter to get only trainings for the given team.
 
         Args:

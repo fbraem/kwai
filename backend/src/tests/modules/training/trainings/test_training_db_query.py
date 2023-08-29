@@ -11,13 +11,13 @@ from kwai.core.domain.value_objects.time_period import TimePeriod
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.core.domain.value_objects.weekday import Weekday
 from kwai.modules.training.coaches.coach import CoachEntity
+from kwai.modules.training.teams.team import TeamEntity
 from kwai.modules.training.trainings.training import TrainingIdentifier
 from kwai.modules.training.trainings.training_db_query import TrainingDbQuery
 from kwai.modules.training.trainings.training_definition import (
     TrainingDefinitionEntity,
     TrainingDefinitionIdentifier,
 )
-from kwai.modules.training.trainings.value_objects import Team
 
 pytestmark = pytest.mark.db
 
@@ -79,7 +79,7 @@ async def test_filter_by_coach(database: Database):
 async def test_filter_by_team(database: Database):
     """Test filtering on team."""
     query = TrainingDbQuery(database)
-    query.filter_by_team(Team(id=IntIdentifier(1), name="U18"))
+    query.filter_by_team(TeamEntity(id_=IntIdentifier(1), name="U18"))
     count = await query.count()
     assert count >= 0, "There should be 0 or more trainings."
 

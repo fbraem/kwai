@@ -127,3 +127,65 @@ def test_create_training(secure_client: TestClient):
     }
     response = secure_client.post("/api/v1/trainings", json=payload)
     assert response.status_code == status.HTTP_201_CREATED, response.json()
+
+
+def test_create_training_with_coaches(secure_client: TestClient):
+    """Test POST /api/v1/training with coaches."""
+    payload = {
+        "data": {
+            "type": "trainings",
+            "attributes": {
+                "content": [
+                    {
+                        "locale": "en",
+                        "format": "md",
+                        "title": "U13 Training",
+                        "summary": "Training for U13",
+                    }
+                ],
+                "start_date": "2023-02-02 19:00:00",
+                "end_date": "2023-02-02 20:00:00",
+                "active": True,
+                "cancelled": False,
+                "location": "",
+                "remark": "",
+            },
+            "relationships": {
+                "coaches": {"data": [{"type": "training_coaches", "id": "1"}]},
+                "teams": {"data": []},
+            },
+        }
+    }
+    response = secure_client.post("/api/v1/trainings", json=payload)
+    assert response.status_code == status.HTTP_201_CREATED, response.json()
+
+
+def test_create_training_with_teams(secure_client: TestClient):
+    """Test POST /api/v1/training with teams."""
+    payload = {
+        "data": {
+            "type": "trainings",
+            "attributes": {
+                "content": [
+                    {
+                        "locale": "en",
+                        "format": "md",
+                        "title": "U13 Training",
+                        "summary": "Training for U13",
+                    }
+                ],
+                "start_date": "2023-02-02 19:00:00",
+                "end_date": "2023-02-02 20:00:00",
+                "active": True,
+                "cancelled": False,
+                "location": "",
+                "remark": "",
+            },
+            "relationships": {
+                "coaches": {"data": []},
+                "teams": {"data": [{"type": "teams", "id": "1"}]},
+            },
+        }
+    }
+    response = secure_client.post("/api/v1/trainings", json=payload)
+    assert response.status_code == status.HTTP_201_CREATED, response.json()
