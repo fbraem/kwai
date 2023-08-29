@@ -35492,6 +35492,512 @@ does not exist.</p>
 
 
 
+<h5 id="kwai.modules.training.teams" class="doc doc-heading">
+            <code>teams</code>
+
+
+<a href="#kwai.modules.training.teams" class="headerlink" title="Permanent link">&para;</a></h5>
+
+  <div class="doc doc-contents ">
+  
+      <p>Package for all modules related to teams of a training.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.training.teams.team" class="doc doc-heading">
+            <code>team</code>
+
+
+<a href="#kwai.modules.training.teams.team" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines a team entity.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.teams.team.TeamEntity" class="doc doc-heading">
+          <code>TeamEntity</code>
+
+
+<a href="#kwai.modules.training.teams.team.TeamEntity" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.entity.Entity" href="#kwai.core.domain.entity.Entity">Entity</a>[<span title="kwai.modules.training.teams.team.TeamIdentifier">TeamIdentifier</span>]</code></p>
+
+  
+      <p>A team.</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>_id</code></td>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The id of the team.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>_name</code></td>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the team.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.training.teams.team.TeamEntity.name" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.training.teams.team.TeamEntity.name" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the name of the team.</p>
+  </div>
+
+</div>
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.training.teams.team_db_repository" class="doc doc-heading">
+            <code>team_db_repository</code>
+
+
+<a href="#kwai.modules.training.teams.team_db_repository" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines a team repository for a database.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.teams.team_db_repository.TeamDbRepository" class="doc doc-heading">
+          <code>TeamDbRepository</code>
+
+
+<a href="#kwai.modules.training.teams.team_db_repository.TeamDbRepository" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.modules.training.teams.team_repository.TeamRepository" href="#kwai.modules.training.teams.team_repository.TeamRepository">TeamRepository</a></code></p>
+
+  
+      <p>A team repository for a database.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.teams.team_db_repository.TeamDbRepository.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">database</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.training.teams.team_db_repository.TeamDbRepository.__init__" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize the repository.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>database</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.core.db.database.Database" href="../core/db/#kwai.core.db.database.Database">Database</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The database for this repository.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.training.teams.team_repository" class="doc doc-heading">
+            <code>team_repository</code>
+
+
+<a href="#kwai.modules.training.teams.team_repository" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines an interface for a team repository.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.teams.team_repository.TeamRepository" class="doc doc-heading">
+          <code>TeamRepository</code>
+
+
+<a href="#kwai.modules.training.teams.team_repository.TeamRepository" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="abc.ABC">ABC</span></code></p>
+
+  
+      <p>Interface for a team repository.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.teams.team_repository.TeamRepository.get_by_ids" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_by_ids</span><span class="p">(</span><span class="o">*</span><span class="n">ids</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.training.teams.team_repository.TeamRepository.get_by_ids" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get all teams for the given ids.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>ids</code></td>
+          <td>
+                <code><span title="kwai.modules.training.teams.team.TeamIdentifier">TeamIdentifier</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A variable number of team ids.</p>
+            </div>
+          </td>
+          <td>
+                <code>()</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.training.teams.team_tables" class="doc doc-heading">
+            <code>team_tables</code>
+
+
+<a href="#kwai.modules.training.teams.team_tables" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines all dataclasses for the team tables.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.teams.team_tables.TeamRow" class="doc doc-heading">
+          <code>TeamRow</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.training.teams.team_tables.TeamRow" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Represent a row of the teams table.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.teams.team_tables.TeamRow.create_entity" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">create_entity</span><span class="p">()</span></code>
+
+<a href="#kwai.modules.training.teams.team_tables.TeamRow.create_entity" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Create a Team entity of this row.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h5 id="kwai.modules.training.trainings" class="doc doc-heading">
             <code>trainings</code>
 
@@ -35771,7 +36277,7 @@ does not exist.</p>
 
 
 <h8 id="kwai.modules.training.trainings.training.TrainingEntity.teams" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">teams</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Team</span><span class="p">]</span></code>
+<code class="codehilite language-python"><span class="n">teams</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">TeamEntity</span><span class="p">]</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -35902,7 +36408,7 @@ definition.</p>
         <tr>
           <td><code>teams</code></td>
           <td>
-                <code>list[<a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.value_objects.Team" href="#kwai.modules.training.trainings.value_objects.Team">Team</a>] | None</code>
+                <code>list[<a class="autorefs autorefs-internal" title="kwai.modules.training.teams.team.TeamEntity" href="#kwai.modules.training.teams.team.TeamEntity">TeamEntity</a>] | None</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -38093,7 +38599,7 @@ cannot be found.</p>
         <tr>
           <td><code>team</code></td>
           <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.value_objects.Team" href="#kwai.modules.training.trainings.value_objects.Team">Team</a></code>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.teams.team.TeamEntity" href="#kwai.modules.training.teams.team.TeamEntity">TeamEntity</a></code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -38731,66 +39237,6 @@ cannot be found.</p>
 
 
 
-
-<div class="doc doc-object doc-class">
-
-
-
-<h7 id="kwai.modules.training.trainings.training_tables.TeamRow" class="doc doc-heading">
-          <code>TeamRow</code>
-
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
-
-<a href="#kwai.modules.training.trainings.training_tables.TeamRow" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-
-  
-      <p>Represent a row of the teams table.</p>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.training.trainings.training_tables.TeamRow.create_team" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">create_team</span><span class="p">()</span></code>
-
-<a href="#kwai.modules.training.trainings.training_tables.TeamRow.create_team" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Create a Team value object of this row.</p>
-
-  </div>
-
-</div>
-
-
-
-  </div>
-
-  </div>
-
-</div>
 
 <div class="doc doc-object doc-class">
 
@@ -39608,7 +40054,7 @@ Team objects.</p>
     <tbody>
         <tr>
           <td>
-                <code>dict[<span title="kwai.modules.training.trainings.training.TrainingIdentifier">TrainingIdentifier</span>, list[<span title="tests.core.test_jsonapi.Team">Team</span>]]</code>
+                <code>dict[<span title="kwai.modules.training.trainings.training.TrainingIdentifier">TrainingIdentifier</span>, list[<a class="autorefs autorefs-internal" title="kwai.modules.training.teams.team.TeamEntity" href="#kwai.modules.training.teams.team.TeamEntity">TeamEntity</a>]]</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -39618,7 +40064,7 @@ Team objects.</p>
         </tr>
         <tr>
           <td>
-                <code>dict[<span title="kwai.modules.training.trainings.training.TrainingIdentifier">TrainingIdentifier</span>, list[<span title="tests.core.test_jsonapi.Team">Team</span>]]</code>
+                <code>dict[<span title="kwai.modules.training.trainings.training.TrainingIdentifier">TrainingIdentifier</span>, list[<a class="autorefs autorefs-internal" title="kwai.modules.training.teams.team.TeamEntity" href="#kwai.modules.training.teams.team.TeamEntity">TeamEntity</a>]]</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -39746,84 +40192,6 @@ Team objects.</p>
           <td>
             <div class="doc-md-description">
               <p>The name of the season.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-<h7 id="kwai.modules.training.trainings.value_objects.Team" class="doc doc-heading">
-          <code>Team</code>
-
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
-
-<a href="#kwai.modules.training.trainings.value_objects.Team" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-
-  
-      <p>A team.</p>
-
-
-
-  <p><strong>Attributes:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>id</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.identifier.IntIdentifier" href="#kwai.core.domain.value_objects.identifier.IntIdentifier">IntIdentifier</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The id of the team.</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><code>name</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The name of the team.</p>
             </div>
           </td>
         </tr>
