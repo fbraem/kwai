@@ -56,8 +56,9 @@ class CoachDbRepository(CoachRepository):
         return _create_entity(CoachesTable(row), PersonsTable(row))
 
     async def get_by_ids(self, *ids: CoachIdentifier) -> AsyncIterator[CoachEntity]:
+        unpacked_ids = tuple(i.value for i in ids)
         query = self._create_query().and_where(
-            CoachesTable.field("id").in_(id.value for id in ids)
+            CoachesTable.field("id").in_(*unpacked_ids)
         )
 
         async for row in self._database.fetch(query):

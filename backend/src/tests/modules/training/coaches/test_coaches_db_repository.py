@@ -18,3 +18,18 @@ async def test_get_by_id(database: Database):
         pass  # Ok
     except QueryException as qe:
         pytest.fail(str(qe))
+
+
+async def test_get_by_ids(database: Database):
+    """Test get_by_ids method."""
+    repo = CoachDbRepository(database)
+
+    try:
+        coaches = {
+            coach.id: coach
+            async for coach in repo.get_by_ids(CoachIdentifier(1), CoachIdentifier(2))
+        }
+    except CoachNotFoundException:
+        pass  # Ok
+    except QueryException as qe:
+        pytest.fail(str(qe))
