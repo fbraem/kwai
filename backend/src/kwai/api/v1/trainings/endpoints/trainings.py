@@ -124,7 +124,7 @@ async def create_training(
     training: TrainingResource.get_resource_data_model(),
     db=deps.depends(Database),
     user: UserEntity = Depends(get_current_user),
-) -> TrainingResource.get_document_model() | None:
+) -> TrainingResource.get_document_model():
     """Create a new training."""
     command = CreateTrainingCommand(
         start_date=training.data.attributes.start_date,
