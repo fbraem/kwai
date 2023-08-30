@@ -8,6 +8,8 @@ from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import LocaleText
 from kwai.modules.training.coaches.coach import CoachIdentifier
 from kwai.modules.training.coaches.coach_repository import CoachRepository
+from kwai.modules.training.teams.team import TeamIdentifier
+from kwai.modules.training.teams.team_repository import TeamRepository
 from kwai.modules.training.trainings.training import TrainingEntity
 from kwai.modules.training.trainings.training_definition import (
     TrainingDefinitionIdentifier,
@@ -53,6 +55,7 @@ class CreateTraining:
         repo: TrainingRepository,
         definition_repo: TrainingDefinitionRepository,
         coach_repo: CoachRepository,
+        team_repo: TeamRepository,
         owner: Owner,
     ):
         """Initialize the use case.
@@ -61,11 +64,13 @@ class CreateTraining:
             repo: The repository used to create the training.
             definition_repo: The repository for getting the training definition.
             coach_repo: The repository for getting the coaches.
+            team_repo: The repository for getting the teams.
             owner: The user that executes this use case.
         """
         self._repo = repo
         self._definition_repo = definition_repo
         self._coach_repo = coach_repo
+        self._team_repo = team_repo
         self._owner = owner
 
     async def execute(self, command: CreateTrainingCommand) -> TrainingEntity:
@@ -86,7 +91,12 @@ class CreateTraining:
             definition = None
 
         if command.teams:
-            teams = []
+            teams = [
+                entity
+                async for entity in self._team_repo.get_by_ids(
+                    *[TeamIdentifier(team_id) for team_id in command.teams]
+                )
+            ]
         else:
             teams = []
 
