@@ -1,6 +1,4 @@
 """Module for the use case "Create training"."""
-from dataclasses import dataclass
-from typing import Any
 
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.owner import Owner
@@ -10,6 +8,7 @@ from kwai.modules.training.coaches.coach import CoachIdentifier
 from kwai.modules.training.coaches.coach_repository import CoachRepository
 from kwai.modules.training.teams.team import TeamIdentifier
 from kwai.modules.training.teams.team_repository import TeamRepository
+from kwai.modules.training.training_command import TrainingCommand
 from kwai.modules.training.trainings.training import TrainingEntity
 from kwai.modules.training.trainings.training_definition import (
     TrainingDefinitionIdentifier,
@@ -20,31 +19,7 @@ from kwai.modules.training.trainings.training_definition_repository import (
 from kwai.modules.training.trainings.training_repository import TrainingRepository
 from kwai.modules.training.trainings.value_objects import TrainingCoach
 
-
-@dataclass(kw_only=True, frozen=True, slots=True)
-class Coach:
-    """Input for a coach associated with a training."""
-
-    id: int
-    head: bool = False
-    present: bool = False
-    payed: bool = False
-
-
-@dataclass(kw_only=True, frozen=True, slots=True)
-class CreateTrainingCommand:
-    """Input for the "Create training" use case."""
-
-    start_date: str
-    end_date: str
-    active: bool
-    cancelled: bool
-    location: str
-    text: list[dict[str, Any]]
-    remark: str
-    definition: int | None
-    coaches: list[Coach]
-    teams: list[int]
+CreateTrainingCommand = TrainingCommand
 
 
 class CreateTraining:

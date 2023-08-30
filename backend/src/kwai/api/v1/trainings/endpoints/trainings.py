@@ -13,13 +13,13 @@ from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.training.coaches.coach_db_repository import CoachDbRepository
 from kwai.modules.training.coaches.coach_repository import CoachNotFoundException
 from kwai.modules.training.create_training import (
-    Coach,
     CreateTraining,
     CreateTrainingCommand,
 )
 from kwai.modules.training.get_training import GetTraining, GetTrainingCommand
 from kwai.modules.training.get_trainings import GetTrainings, GetTrainingsCommand
 from kwai.modules.training.teams.team_db_repository import TeamDbRepository
+from kwai.modules.training.training_command import Coach
 from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository
 from kwai.modules.training.trainings.training_definition_db_repository import (
     TrainingDefinitionDbRepository,
