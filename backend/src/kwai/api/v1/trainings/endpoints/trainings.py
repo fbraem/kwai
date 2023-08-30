@@ -12,9 +12,14 @@ from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.training.coaches.coach_db_repository import CoachDbRepository
 from kwai.modules.training.coaches.coach_repository import CoachNotFoundException
-from kwai.modules.training.create_training import CreateTraining, CreateTrainingCommand
+from kwai.modules.training.create_training import (
+    Coach,
+    CreateTraining,
+    CreateTrainingCommand,
+)
 from kwai.modules.training.get_training import GetTraining, GetTrainingCommand
 from kwai.modules.training.get_trainings import GetTrainings, GetTrainingsCommand
+from kwai.modules.training.teams.team_db_repository import TeamDbRepository
 from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository
 from kwai.modules.training.trainings.training_definition_db_repository import (
     TrainingDefinitionDbRepository,
@@ -136,8 +141,11 @@ async def create_training(
             }
             for text in training.data.attributes.content
         ],
-        coaches=[],
-        teams=[],
+        coaches=[
+            Coach(id=int(coach.id))
+            for coach in training.data.relationships.coaches.data
+        ],
+        teams=[int(team.id) for team in training.data.relationships.teams.data],
         definition=None,
         location=training.data.attributes.location,
         remark=training.data.attributes.remark,
@@ -148,6 +156,7 @@ async def create_training(
             TrainingDbRepository(db),
             TrainingDefinitionDbRepository(db),
             CoachDbRepository(db),
+            TeamDbRepository(db),
             Owner(id=user.id, uuid=user.uuid, name=user.name),
         ).execute(command)
     except ValueError as ve:
