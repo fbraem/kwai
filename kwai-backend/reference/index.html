@@ -34582,7 +34582,7 @@ exist.</p>
 
 
 <h7 id="kwai.modules.training.create_training.CreateTraining.__init__" class="doc doc-heading">
-<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">definition_repo</span><span class="p">,</span> <span class="n">coach_repo</span><span class="p">,</span> <span class="n">owner</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">definition_repo</span><span class="p">,</span> <span class="n">coach_repo</span><span class="p">,</span> <span class="n">team_repo</span><span class="p">,</span> <span class="n">owner</span><span class="p">)</span></code>
 
 <a href="#kwai.modules.training.create_training.CreateTraining.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
 
@@ -34640,6 +34640,20 @@ exist.</p>
           <td>
             <div class="doc-md-description">
               <p>The repository for getting the coaches.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>team_repo</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.teams.team_repository.TeamRepository" href="#kwai.modules.training.teams.team_repository.TeamRepository">TeamRepository</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository for getting the teams.</p>
             </div>
           </td>
           <td>
