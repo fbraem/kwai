@@ -8,6 +8,7 @@ from redis.asyncio import Redis
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
+from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.password import Password
 from kwai.core.events.bus import Bus
 from kwai.core.events.redis_bus import RedisBus
@@ -122,3 +123,9 @@ def user(user_account: UserAccountEntity) -> UserEntity:
     The user will be removed again after running the tests.
     """
     return user_account.user
+
+
+@pytest.fixture(scope="module")
+def owner(user: UserEntity) -> Owner:
+    """Fixture for an owner."""
+    return Owner(id=user.id, uuid=user.uuid, name=user.name)
