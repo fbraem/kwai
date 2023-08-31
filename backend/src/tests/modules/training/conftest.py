@@ -13,6 +13,7 @@ from kwai.modules.training.coaches.coach_tables import (
     PersonRow,
     PersonsTable,
 )
+from kwai.modules.training.teams.team_tables import TeamRow, TeamsTable
 
 Context = dict[str, list[Any]]
 
@@ -51,9 +52,9 @@ async def seed_persons(database: Database, person_row: PersonRow, context: Conte
 
 
 @pytest.fixture(scope="module")
-def coach_row(person_row) -> CoachRow:
+def coach_row(seed_persons, context: Context) -> CoachRow:
     """Fixture for creating a coach row."""
-    return CoachRow(id=0, person_id=person_row.id, active=True)
+    return CoachRow(id=0, person_id=context["persons"][0].id, active=True)
 
 
 @pytest.fixture(scope="module", autouse=True)
@@ -65,5 +66,19 @@ async def seed_coaches(database: Database, coach_row: CoachRow, context: Context
     query.columns(*coach_dict.keys()).values(*coach_dict.values())
     context["coaches"].append(
         dataclasses.replace(coach_row, id=await database.execute(query))
+    )
+    await database.commit()
+
+
+@pytest.fixture(scope="module", autouse=True)
+async def seed_teams(database: Database, context: Context):
+    """Seed the database with teams."""
+    query = database.create_query_factory().insert(TeamsTable.table_name)
+    team_row = TeamRow(id=0, name="U18")
+    team_dict = dataclasses.asdict(team_row)
+    del team_dict["id"]
+    query.columns(*team_dict.keys()).values(*team_dict.values())
+    context["teams"].append(
+        dataclasses.replace(team_row, id=await database.execute(query))
     )
     await database.commit()
