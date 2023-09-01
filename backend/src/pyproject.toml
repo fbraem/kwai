@@ -51,18 +51,6 @@ markers = [
 ]
 asyncio_mode = "auto"
 
-[tool.pylint]
-good-names = "db,id,ex,to,cc"
-msg-template= "{path}:{line}:{column}:{C}:({symbol}) {msg}"
-generated-members = ".*Table"
-
-[tool.pylint.'MESSAGES CONTROL']
-extension-pkg-whitelist = "pydantic"
-disable="duplicate-code"
-
-[tool.pylint.format]
-max-line-length = "88"
-
 [tool.mypy]
 
 [[tool.mypy.overrides]]
