@@ -90,4 +90,4 @@ jobs:
         working-directory: backend/src
         env:
           KWAI_SETTINGS_FILE: ${{github.workspace}}/.kwai.toml
-        run: poetry run pytest --cov=kwai
+        run: poetry run pytest
