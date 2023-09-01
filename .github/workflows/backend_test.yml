@@ -91,6 +91,8 @@ jobs:
         env:
           KWAI_SETTINGS_FILE: ${{github.workspace}}/.kwai.toml
         run: poetry run pytest
+      - name: Remove .gitignore from coverage report
+        run: rm backend/src/htmlcov/.gitignore
       - name: Deploy coverage to github pages
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
