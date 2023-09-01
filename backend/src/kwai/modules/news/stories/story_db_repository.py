@@ -63,9 +63,14 @@ class StoryDbRepository(StoryRepository):
         await self._database.update(
             story.id.value, StoriesTable.table_name, StoryRow.persist(story)
         )
-        await self._database.create_query_factory().delete(
-            StoryContentsTable.table_name
-        ).where(field("news_id").eq(story.id.value))
+
+        delete_contents_query = (
+            await self._database.create_query_factory()
+            .delete(StoryContentsTable.table_name)
+            .where(field("news_id").eq(story.id.value))
+        )
+        await self._database.execute(delete_contents_query)
+
         content_rows = [
             StoryContentRow.persist(story, content) for content in story.content
         ]
