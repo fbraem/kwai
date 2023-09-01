@@ -3,6 +3,9 @@
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+![test](https://github.com/fbraem/kwai/actions/workflows/backend_test.yml/badge.svg)
+[![coverage](https://fbraem.github.io/kwai/coverage/coverage.svg)](https://fbraem.github.io/kwai/coverage/)
+
 kwai API is the backend for the kwai sports club management system.
 
 All server side code is written with Python using [FastAPI](https://fastapi.tiangolo.com/) as web framework.
