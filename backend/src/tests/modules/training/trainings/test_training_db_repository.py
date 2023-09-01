@@ -29,7 +29,7 @@ def repo(database: Database) -> TrainingRepository:
 def training(user, context) -> TrainingEntity:
     """A fixture for a training."""
     coach = context["coaches"][0]
-    person = context["persons"][coach.person_id]
+    person = context["persons"][0]
 
     text = [
         LocaleText(
