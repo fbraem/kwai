@@ -91,6 +91,9 @@ jobs:
         env:
           KWAI_SETTINGS_FILE: ${{github.workspace}}/.kwai.toml
         run: poetry run pytest
+      - name: Generate coverage badge
+        working-directory: backend/src
+        run: poetry run coverage-badge -o ./htmlcov/coverage.svg
       - name: Remove .gitignore from coverage report
         run: rm backend/src/htmlcov/.gitignore
       - name: Deploy coverage to github pages
