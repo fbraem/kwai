@@ -1,6 +1,8 @@
 """Module for implementing a training repository for a database."""
 from typing import AsyncIterator
 
+from sql_smith.functions import field
+
 from kwai.core.db.database import Database, Record
 from kwai.core.db.rows import OwnersTable
 from kwai.core.domain.entity import Entity
@@ -143,10 +145,60 @@ class TrainingDbRepository(TrainingRepository):
         content_rows = [
             TrainingContentRow.persist(result, content) for content in training.content
         ]
+
+        await self._database.insert(TrainingContentsTable.table_name, *content_rows)
+        await self._insert_coaches(result)
+        await self._insert_teams(result)
+
+        await self._database.commit()
+
+        return result
+
+    async def update(self, training: TrainingEntity) -> None:
+        # Update the training
+        await self._database.update(
+            training.id.value,
+            TrainingsTable.table_name,
+            TrainingRow.persist(training),
+        )
+
+        # Update the text, first delete, then insert again.
+        delete_contents_query = (
+            self._database.create_query_factory()
+            .delete(TrainingContentsTable.table_name)
+            .where(field("training_id").eq(training.id.value))
+        )
+        await self._database.execute(delete_contents_query)
+        content_rows = [
+            TrainingContentRow.persist(training, content)
+            for content in training.content
+        ]
         await self._database.insert(TrainingContentsTable.table_name, *content_rows)
 
+        # Update coaches, first delete, then insert again.
+        delete_coaches_query = (
+            self._database.create_query_factory()
+            .delete(TrainingCoachesTable.table_name)
+            .where(field("training_id").eq(training.id.value))
+        )
+        await self._database.execute(delete_coaches_query)
+        await self._insert_coaches(training)
+
+        # Update teams, first delete, then insert again.
+        delete_teams_query = (
+            self._database.create_query_factory()
+            .delete(TrainingTeamsTable.table_name)
+            .where(field("training_id").eq(training.id.value))
+        )
+        await self._database.execute(delete_teams_query)
+        await self._insert_teams(training)
+
+        await self._database.commit()
+
+    async def _insert_coaches(self, training: TrainingEntity):
+        """Insert the related coaches."""
         training_coach_rows = [
-            TrainingCoachRow.persist(result, training_coach)
+            TrainingCoachRow.persist(training, training_coach)
             for training_coach in training.coaches
         ]
         if training_coach_rows:
@@ -154,20 +206,15 @@ class TrainingDbRepository(TrainingRepository):
                 TrainingCoachesTable.table_name, *training_coach_rows
             )
 
+    async def _insert_teams(self, training: TrainingEntity):
+        """Insert the related teams."""
         training_team_rows = [
-            TrainingTeamRow.persist(result, team) for team in training.teams
+            TrainingTeamRow.persist(training, team) for team in training.teams
         ]
         if training_team_rows:
             await self._database.insert(
                 TrainingTeamsTable.table_name, *training_team_rows
             )
-
-        await self._database.commit()
-
-        return result
-
-    async def update(self, training: TrainingEntity) -> None:
-        pass
 
     async def delete(self, training: TrainingEntity) -> None:
         pass
