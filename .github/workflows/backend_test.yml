@@ -1,4 +1,4 @@
-name: backend test
+name: Backend Test
 on:
   push:
     paths:
