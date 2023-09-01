@@ -75,6 +75,12 @@ async def test_get_by_id(
     ), "The training definition should be found"
 
 
+async def test_get_all(repo: TrainingDefinitionRepository):
+    """Test if all training definitions can be loaded."""
+    entities = {entity.id: entity async for entity in repo.get_all()}
+    assert entities is not None, "There should be a result"
+
+
 @pytest.mark.asyncio
 async def test_delete(
     repo: TrainingDefinitionRepository, training_definition: TrainingDefinitionEntity
