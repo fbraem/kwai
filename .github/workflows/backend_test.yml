@@ -96,4 +96,4 @@ jobs:
         with:
           branch: gh-pages
           target-folder: coverage
-          folder: backend/src/coverage
+          folder: backend/src/htmlcov
