@@ -65,7 +65,10 @@ class TrainingDefinitionDbRepository(TrainingDefinitionRepository):
         limit: int | None = None,
         offset: int | None = None,
     ) -> AsyncIterator[TrainingDefinitionEntity]:
-        pass
+        if query is None:
+            query = self.create_query()
+        async for row in query.fetch(limit, offset):
+            yield _create_entity(row)
 
     async def create(
         self, training_definition: TrainingDefinitionEntity
