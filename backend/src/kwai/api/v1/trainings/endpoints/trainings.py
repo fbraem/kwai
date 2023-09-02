@@ -30,6 +30,7 @@ from kwai.modules.training.trainings.training_definition_repository import (
 from kwai.modules.training.trainings.training_repository import (
     TrainingNotFoundException,
 )
+from kwai.modules.training.update_training import UpdateTraining, UpdateTrainingCommand
 
 router = APIRouter(tags=["trainings"])
 
@@ -121,16 +122,16 @@ async def get_training(
     status_code=status.HTTP_201_CREATED,
 )
 async def create_training(
-    training: TrainingResource.get_resource_data_model(),
+    resource: TrainingResource.get_resource_data_model(),
     db=deps.depends(Database),
     user: UserEntity = Depends(get_current_user),
 ) -> TrainingResource.get_document_model():
     """Create a new training."""
     command = CreateTrainingCommand(
-        start_date=training.data.attributes.start_date,
-        end_date=training.data.attributes.end_date,
-        active=training.data.attributes.active,
-        cancelled=training.data.attributes.cancelled,
+        start_date=resource.data.attributes.start_date,
+        end_date=resource.data.attributes.end_date,
+        active=resource.data.attributes.active,
+        cancelled=resource.data.attributes.cancelled,
         text=[
             {
                 "locale": text.locale,
@@ -139,20 +140,25 @@ async def create_training(
                 "summary": text.summary,
                 "content": text.content,
             }
-            for text in training.data.attributes.content
+            for text in resource.data.attributes.content
         ],
         coaches=[
-            Coach(id=int(coach.id))
-            for coach in training.data.relationships.coaches.data
+            Coach(
+                id=int(coach.id),
+                head=coach.head,
+                present=coach.present,
+                payed=coach.payed,
+            )
+            for coach in resource.data.attributes.coaches
         ],
-        teams=[int(team.id) for team in training.data.relationships.teams.data],
+        teams=[int(team.id) for team in resource.data.relationships.teams.data],
         definition=None,
-        location=training.data.attributes.location,
-        remark=training.data.attributes.remark,
+        location=resource.data.attributes.location,
+        remark=resource.data.attributes.remark,
     )
 
     try:
-        training = await CreateTraining(
+        resource = await CreateTraining(
             TrainingDbRepository(db),
             TrainingDefinitionDbRepository(db),
             CoachDbRepository(db),
@@ -164,4 +170,62 @@ async def create_training(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ve)
         ) from ve
 
-    return TrainingResource.serialize(TrainingResource(training))
+    return TrainingResource.serialize(TrainingResource(resource))
+
+
+@router.patch(
+    "/trainings/{training_id}",
+    responses={status.HTTP_404_NOT_FOUND: {"description": "Training was not found."}},
+)
+async def update_training(
+    training_id: int,
+    resource: TrainingResource.get_resource_model(),
+    db=deps.depends(Database),
+    user: UserEntity = Depends(get_current_user),
+) -> TrainingResource.get_document_model():
+    """Update a training."""
+    command = UpdateTrainingCommand(
+        id=training_id,
+        start_date=resource.data.attributes.start_date,
+        end_date=resource.data.attributes.end_date,
+        active=resource.data.attributes.active,
+        cancelled=resource.data.attributes.cancelled,
+        text=[
+            {
+                "locale": text.locale,
+                "format": text.format,
+                "title": text.title,
+                "summary": text.summary,
+                "content": text.content,
+            }
+            for text in resource.data.attributes.content
+        ],
+        coaches=[
+            Coach(
+                id=int(coach.id),
+                head=coach.head,
+                present=coach.present,
+                payed=coach.payed,
+            )
+            for coach in resource.data.attributes.coaches
+        ],
+        teams=[int(team.id) for team in resource.data.relationships.teams.data],
+        definition=None,
+        location=resource.data.attributes.location,
+        remark=resource.data.attributes.remark,
+    )
+
+    try:
+        resource = await UpdateTraining(
+            TrainingDbRepository(db),
+            TrainingDefinitionDbRepository(db),
+            CoachDbRepository(db),
+            TeamDbRepository(db),
+            Owner(id=user.id, uuid=user.uuid, name=user.name),
+        ).execute(command)
+    except ValueError as ve:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ve)
+        ) from ve
+
+    return TrainingResource.serialize(TrainingResource(resource))
