@@ -10,7 +10,6 @@ import useSWRV from 'swrv';
 const JsonApiEvent = z.object({
   start_date: z.string(),
   end_date: z.string(),
-  timezone: z.string(),
   location: z.nullable(z.string()).optional(),
   cancelled: z.boolean(),
   active: z.boolean(),
@@ -104,8 +103,8 @@ const toModel = (json: JsonApiTrainingDocumentType): Training | Training[] => {
     return {
       id: data.id,
       cancelled: data.attributes.event.cancelled,
-      start_date: createDateTimeFromUTC(data.attributes.event.start_date, data.attributes.event.timezone),
-      end_date: createDateTimeFromUTC(data.attributes.event.end_date, data.attributes.event.timezone),
+      start_date: createDateTimeFromUTC(data.attributes.event.start_date),
+      end_date: createDateTimeFromUTC(data.attributes.event.end_date),
       location: data.attributes.event.location,
       title: data.attributes.contents[0].title,
       summary: data.attributes.contents[0].html_summary,
@@ -148,7 +147,7 @@ export const useTrainingStore = defineStore('portal.trainings', () => {
         return `portal.trainings.${period.value.start.format('YYYY-MM-DD')}.${period.value.end.format('YYYY-MM-DD')}}`;
       },
       () => {
-        let api = useHttpApi().url('/trainings');
+        let api = useHttpApi().url('/v1/trainings');
         if (offset.value > 0) {
           api = api.query({ 'page[offset]': offset.value });
         }
@@ -156,8 +155,8 @@ export const useTrainingStore = defineStore('portal.trainings', () => {
           api = api.query({ 'page[limit]': limit.value });
         }
         api = api.query({
-          'filter[start]': period.value.start.format(),
-          'filter[end]': period.value.end.format(),
+          'filter[start]': period.value.start.format() + ' 00:00:00',
+          'filter[end]': period.value.end.format() + ' 00:00:00',
         });
         return api
           .get()
