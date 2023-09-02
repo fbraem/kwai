@@ -3184,7 +3184,7 @@ will also be revoked.</p>
 
 
 <h8 id="kwai.api.v1.trainings.endpoints.trainings.create_training" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">create_training</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">user</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">))</span></code>
+<code class="codehilite language-python"><span class="n">create_training</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">user</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">))</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -3242,6 +3242,29 @@ will also be revoked.</p>
   <div class="doc doc-contents ">
   
       <p>Get all trainings.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.api.v1.trainings.endpoints.trainings.update_training" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">update_training</span><span class="p">(</span><span class="n">training_id</span><span class="p">,</span> <span class="n">resource</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">user</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">))</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.api.v1.trainings.endpoints.trainings.update_training" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Update a training.</p>
 
   </div>
 
