@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Coverage for kwai/modules/training/trainings/training_db_repository.py: 91%</title>
+    <title>Coverage for kwai/modules/training/trainings/training_db_repository.py: 93%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="coverage_html.js" defer></script>
@@ -12,7 +12,7 @@
     <div class="content">
         <h1>
             <span class="text">Coverage for </span><b>kwai/modules/training/trainings/training_db_repository.py</b>:
-            <span class="pc_cov">91%</span>
+            <span class="pc_cov">93%</span>
         </h1>
         <aside id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
@@ -55,8 +55,8 @@
         </aside>
         <h2>
             <span class="text">107 statements &nbsp;</span>
-            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">97<span class="text"> run</span></button>
-            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">10<span class="text"> missing</span></button>
+            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">99<span class="text"> run</span></button>
+            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">8<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
         </h2>
         <p class="text">
@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="d_1e5c52d7ed9b67c0_training_definition_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.3.0">coverage.py v7.3.0</a>,
-            created at 2023-09-02 15:42 +0000
+            created at 2023-09-02 17:40 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"/>
@@ -212,7 +212,7 @@
     <p class="run"><span class="n"><a id="t130" href="#t130">130</a></span><span class="t">            <span class="nam">training_coaches</span> <span class="op">=</span> <span class="nam">coaches</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="nam">training</span><span class="op">.</span><span class="nam">id</span><span class="op">,</span> <span class="op">[</span><span class="op">]</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t131" href="#t131">131</a></span><span class="t">            <span class="nam">training_teams</span> <span class="op">=</span> <span class="nam">teams</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="nam">training</span><span class="op">.</span><span class="nam">id</span><span class="op">,</span> <span class="op">[</span><span class="op">]</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t132" href="#t132">132</a></span><span class="t">            <span class="key">if</span> <span class="nam">len</span><span class="op">(</span><span class="nam">training_coaches</span><span class="op">)</span> <span class="op">></span> <span class="num">0</span> <span class="key">or</span> <span class="nam">len</span><span class="op">(</span><span class="nam">training_teams</span><span class="op">)</span> <span class="op">></span> <span class="num">0</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t133" href="#t133">133</a></span><span class="t">                <span class="key">yield</span> <span class="nam">Entity</span><span class="op">.</span><span class="nam">replace</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t133" href="#t133">133</a></span><span class="t">                <span class="key">yield</span> <span class="nam">Entity</span><span class="op">.</span><span class="nam">replace</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t134" href="#t134">134</a></span><span class="t">                    <span class="nam">training</span><span class="op">,</span> <span class="nam">coaches</span><span class="op">=</span><span class="nam">training_coaches</span><span class="op">,</span> <span class="nam">teams</span><span class="op">=</span><span class="nam">training_teams</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t135" href="#t135">135</a></span><span class="t">                <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t136" href="#t136">136</a></span><span class="t">            <span class="key">else</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
@@ -279,7 +279,7 @@
     <p class="pln"><span class="n"><a id="t197" href="#t197">197</a></span><span class="t">            <span class="nam">TrainingTeamRow</span><span class="op">.</span><span class="nam">persist</span><span class="op">(</span><span class="nam">training</span><span class="op">,</span> <span class="nam">team</span><span class="op">)</span> <span class="key">for</span> <span class="nam">team</span> <span class="key">in</span> <span class="nam">training</span><span class="op">.</span><span class="nam">teams</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t198" href="#t198">198</a></span><span class="t">        <span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t199" href="#t199">199</a></span><span class="t">        <span class="key">if</span> <span class="nam">training_team_rows</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t200" href="#t200">200</a></span><span class="t">            <span class="key">await</span> <span class="nam">self</span><span class="op">.</span><span class="nam">_database</span><span class="op">.</span><span class="nam">insert</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t200" href="#t200">200</a></span><span class="t">            <span class="key">await</span> <span class="nam">self</span><span class="op">.</span><span class="nam">_database</span><span class="op">.</span><span class="nam">insert</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t201" href="#t201">201</a></span><span class="t">                <span class="nam">TrainingTeamsTable</span><span class="op">.</span><span class="nam">table_name</span><span class="op">,</span> <span class="op">*</span><span class="nam">training_team_rows</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t202" href="#t202">202</a></span><span class="t">            <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t203" href="#t203">203</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -327,7 +327,7 @@
             <a id="nextFileLink" class="nav" href="d_1e5c52d7ed9b67c0_training_definition_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.3.0">coverage.py v7.3.0</a>,
-            created at 2023-09-02 15:42 +0000
+            created at 2023-09-02 17:40 +0000
         </p>
     </div>
 </footer>
