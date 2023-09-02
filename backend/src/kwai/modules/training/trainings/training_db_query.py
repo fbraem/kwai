@@ -97,7 +97,7 @@ class TrainingDbQuery(TrainingQuery, DatabaseQuery):
                 criteria(
                     "{} = {}",
                     func("MONTH", TrainingsTable.column("start_date")),
-                    literal(year),
+                    literal(month),
                 )
             )
         self._query.and_where(group(condition))
