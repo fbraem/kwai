@@ -21,3 +21,4 @@ public
 __pycache__
 /.env
 /backend/.vscode/
+*.coverage
