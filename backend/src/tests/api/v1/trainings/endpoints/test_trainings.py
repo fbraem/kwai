@@ -115,6 +115,7 @@ def test_create_training(secure_client: TestClient):
                         "summary": "Training for U13",
                     }
                 ],
+                "coaches": [],
                 "start_date": "2023-02-02 19:00:00",
                 "end_date": "2023-02-02 20:00:00",
                 "active": True,

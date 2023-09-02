@@ -7,7 +7,6 @@ from kwai.api.v1.trainings.schemas.training_definition import TrainingDefinition
 from kwai.core import json_api
 from kwai.modules.training.teams.team import TeamEntity
 from kwai.modules.training.trainings.training import TrainingEntity
-from kwai.modules.training.trainings.value_objects import TrainingCoach
 
 
 class TrainingContent(BaseModel):
@@ -18,6 +17,15 @@ class TrainingContent(BaseModel):
     title: str
     summary: str
     content: str | None
+
+
+class TrainingCoach(BaseModel):
+    """Schema for coach/training specific information."""
+
+    id: str
+    head: bool
+    present: bool
+    payed: bool
 
 
 @json_api.resource(type_="training_coaches")
@@ -118,6 +126,19 @@ class TrainingResource:
     def get_cancelled(self) -> bool:
         """Check if this training is cancelled."""
         return self._training.cancelled
+
+    @json_api.attribute(name="coaches")
+    def get_training_coaches(self) -> list[TrainingCoach]:
+        """Get a list with coach data."""
+        return [
+            TrainingCoach(
+                id=training_coach.coach.id.value,
+                head=training_coach.type == 1,
+                present=training_coach.present,
+                payed=training_coach.payed,
+            )
+            for training_coach in self._training.coaches
+        ]
 
     @json_api.relationship(name="coaches")
     def get_coaches(self) -> list[TrainingCoachResource]:
