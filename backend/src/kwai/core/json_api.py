@@ -107,6 +107,8 @@ class Resource:
         self._attributes_model = None
         self._relationships_model = None
         self._resource_model = None
+        self._resource_data_model = None
+        self._resource_data_model_list = None
         self._document_model = None
 
     def get_attribute(self, attribute_name: str) -> Attribute | None:
@@ -490,17 +492,21 @@ class Resource:
 
     def get_resource_data_model(self):
         """Get the resource model with data as object."""
-        return create_model(
-            self.get_model_class_prefix() + "DataResourceModel",
-            data=(self.get_resource_model(), ...),
-        )
+        if self._resource_data_model is None:
+            self._resource_data_model = create_model(
+                self.get_model_class_prefix() + "DataResourceModel",
+                data=(self.get_resource_model(), ...),
+            )
+        return self._resource_data_model
 
     def get_resource_data_model_list(self):
         """Get resource model with data as list."""
-        return create_model(
-            self.get_model_class_prefix() + "DataResourceModelList",
-            data=(list[self.get_resource_model()], ...),
-        )
+        if self._resource_data_model_list is None:
+            self._resource_data_model_list = create_model(
+                self.get_model_class_prefix() + "DataResourceModelList",
+                data=(list[self.get_resource_model()], ...),
+            )
+        return self._resource_data_model_list
 
     def _create_document_model(self):
         """Create the document model.
