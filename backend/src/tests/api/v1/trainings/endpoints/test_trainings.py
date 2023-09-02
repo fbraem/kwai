@@ -144,6 +144,9 @@ def test_create_training_with_coaches(secure_client: TestClient):
                         "summary": "Training for U13",
                     }
                 ],
+                "coaches": [
+                    {"id": "1", "head": False, "present": False, "payed": False}
+                ],
                 "start_date": "2023-02-02 19:00:00",
                 "end_date": "2023-02-02 20:00:00",
                 "active": True,
@@ -175,6 +178,7 @@ def test_create_training_with_teams(secure_client: TestClient):
                         "summary": "Training for U13",
                     }
                 ],
+                "coaches": [],
                 "start_date": "2023-02-02 19:00:00",
                 "end_date": "2023-02-02 20:00:00",
                 "active": True,
