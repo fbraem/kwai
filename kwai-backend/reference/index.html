@@ -3393,6 +3393,45 @@ will also be revoked.</p>
 
 
 
+<h8 id="kwai.api.v1.trainings.schemas.training.TrainingCoach" class="doc doc-heading">
+          <code>TrainingCoach</code>
+
+
+<a href="#kwai.api.v1.trainings.schemas.training.TrainingCoach" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+  
+      <p>Schema for coach/training specific information.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
 <h8 id="kwai.api.v1.trainings.schemas.training.TrainingCoachResource" class="doc doc-heading">
           <code>TrainingCoachResource</code>
 
@@ -3804,6 +3843,25 @@ will also be revoked.</p>
   <div class="doc doc-contents ">
   
       <p>Get the teams of the training.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h9 id="kwai.api.v1.trainings.schemas.training.TrainingResource.get_training_coaches" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_training_coaches</span><span class="p">()</span></code>
+
+<a href="#kwai.api.v1.trainings.schemas.training.TrainingResource.get_training_coaches" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get a list with coach data.</p>
 
   </div>
 
@@ -40316,6 +40374,303 @@ Team objects.</p>
   </div>
 
 </div>
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h5 id="kwai.modules.training.update_training" class="doc doc-heading">
+            <code>update_training</code>
+
+
+<a href="#kwai.modules.training.update_training" class="headerlink" title="Permanent link">&para;</a></h5>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module for defining the use case "Update Training".</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.training.update_training.UpdateTraining" class="doc doc-heading">
+          <code>UpdateTraining</code>
+
+
+<a href="#kwai.modules.training.update_training.UpdateTraining" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Use case for updating a training.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.training.update_training.UpdateTraining.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">definition_repo</span><span class="p">,</span> <span class="n">coach_repo</span><span class="p">,</span> <span class="n">team_repo</span><span class="p">,</span> <span class="n">owner</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.training.update_training.UpdateTraining.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize the use case.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>repo</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.training_repository.TrainingRepository" href="#kwai.modules.training.trainings.training_repository.TrainingRepository">TrainingRepository</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository used to create the training.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>definition_repo</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.training_definition_repository.TrainingDefinitionRepository" href="#kwai.modules.training.trainings.training_definition_repository.TrainingDefinitionRepository">TrainingDefinitionRepository</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository for getting the training definition.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>coach_repo</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.coaches.coach_repository.CoachRepository" href="#kwai.modules.training.coaches.coach_repository.CoachRepository">CoachRepository</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository for getting the coaches.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>team_repo</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.teams.team_repository.TeamRepository" href="#kwai.modules.training.teams.team_repository.TeamRepository">TeamRepository</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository for getting the teams.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>owner</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.owner.Owner" href="#kwai.core.domain.value_objects.owner.Owner">Owner</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The user that executes this use case.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.training.update_training.UpdateTraining.execute" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.training.update_training.UpdateTraining.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Executes the use case.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>command</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.update_training.UpdateTrainingCommand" href="#kwai.modules.training.update_training.UpdateTrainingCommand">UpdateTrainingCommand</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>TrainingDefinitionNotFoundException</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when a training definition
+cannot be found.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.training.update_training.UpdateTrainingCommand" class="doc doc-heading">
+          <code>UpdateTrainingCommand</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.training.update_training.UpdateTrainingCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.modules.training.training_command.TrainingCommand" href="#kwai.modules.training.training_command.TrainingCommand">TrainingCommand</a></code></p>
+
+  
+      <p>Input for the "Update Training" use case.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
 
 
   </div>
