@@ -7,7 +7,7 @@ from kwai.core.domain.value_objects.owner import Owner
 from kwai.modules.training.coaches.coach import CoachEntity, CoachIdentifier
 from kwai.modules.training.coaches.coach_db_repository import CoachDbRepository
 from kwai.modules.training.coaches.coach_repository import CoachRepository
-from kwai.modules.training.create_training import CreateTrainingCommand, CreateTraining
+from kwai.modules.training.create_training import CreateTraining, CreateTrainingCommand
 from kwai.modules.training.teams.team import TeamEntity, TeamIdentifier
 from kwai.modules.training.teams.team_db_repository import TeamDbRepository
 from kwai.modules.training.teams.team_repository import TeamRepository
