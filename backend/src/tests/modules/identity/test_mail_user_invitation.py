@@ -26,7 +26,6 @@ def repo(database: Database) -> UserInvitationRepository:
     return UserInvitationDbRepository(database)
 
 
-@pytest.mark.asyncio
 async def test_mail_user_invitation(
     repo: UserInvitationRepository,
     user_invitation,
@@ -43,7 +42,6 @@ async def test_mail_user_invitation(
     assert updated_user_invitation.mailed is not None, "mailed should be set."
 
 
-@pytest.mark.asyncio
 async def test_mail_user_invitation_already_mailed(
     repo: UserInvitationRepository,
     user_invitation,

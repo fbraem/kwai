@@ -53,28 +53,24 @@ def test_create(user_account: UserAccountEntity):
     assert user_account.id, "There should be a user account entity"
 
 
-@pytest.mark.asyncio
 async def test_get_by_id(repo: UserRepository, user_account: UserAccountEntity):
     """Test if the user can be fetched with an id."""
     result = await repo.get_user_by_id(user_account.id)
     assert result, "There should be a user with the given id"
 
 
-@pytest.mark.asyncio
 async def test_get_by_uuid(repo: UserRepository, user_account: UserAccountEntity):
     """Test if the user can be fetched with an uuid."""
     result = await repo.get_user_by_uuid(user_account.user.uuid)
     assert result, "There should be a user with the given uuid"
 
 
-@pytest.mark.asyncio
 async def test_get_by_email(repo: UserRepository, user_account: UserAccountEntity):
     """Test if the user can be fetched with email address."""
     result = await repo.get_user_by_email(user_account.user.email)
     assert result, "There should be a user with the given email"
 
 
-@pytest.mark.asyncio
 async def test_delete(
     repo: UserRepository, database: Database, user_account: UserAccountEntity
 ):

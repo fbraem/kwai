@@ -23,7 +23,6 @@ def repo(database: Database) -> UserInvitationRepository:
     return UserInvitationDbRepository(database)
 
 
-@pytest.mark.asyncio
 async def test_get_invitation(repo: UserInvitationRepository, user_invitation):
     """Test the use case: get user invitation."""
     command = GetUserInvitationCommand(uuid=str(user_invitation.uuid))

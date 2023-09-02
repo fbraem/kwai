@@ -82,7 +82,6 @@ def test_recover_unknown_user(client: TestClient):
 
 
 @pytest.mark.mail
-@pytest.mark.asyncio
 async def test_reset_password(
     client: TestClient, user_account: UserAccountEntity, database: Database
 ):

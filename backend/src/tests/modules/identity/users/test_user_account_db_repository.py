@@ -46,7 +46,6 @@ def test_create(user_account: UserAccountEntity):
     assert user_account.id, "There should be a user account entity"
 
 
-@pytest.mark.asyncio
 async def test_get_by_email(
     repo: UserAccountRepository, user_account: UserAccountEntity
 ):
@@ -55,7 +54,6 @@ async def test_get_by_email(
     assert result, "There should be a user account with the given email"
 
 
-@pytest.mark.asyncio
 async def test_exists_with_email(
     repo: UserAccountRepository, user_account: UserAccountEntity
 ):
@@ -64,7 +62,6 @@ async def test_exists_with_email(
     assert exists, "There should be a user account with the given email"
 
 
-@pytest.mark.asyncio
 async def test_update(repo: UserAccountRepository, user_account: UserAccountEntity):
     """Test if the user account can be updated."""
     user_account.revoke()
@@ -73,7 +70,6 @@ async def test_update(repo: UserAccountRepository, user_account: UserAccountEnti
     assert result.revoked is True, "The user should be revoked"
 
 
-@pytest.mark.asyncio
 async def test_delete(repo: UserAccountRepository, user_account: UserAccountEntity):
     """Test if the user account can be deleted."""
     await repo.delete(user_account)

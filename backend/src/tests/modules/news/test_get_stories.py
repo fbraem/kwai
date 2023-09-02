@@ -17,7 +17,6 @@ def repo(database: Database) -> StoryRepository:
     return StoryDbRepository(database)
 
 
-@pytest.mark.asyncio
 async def test_get_stories(repo: StoryRepository):
     """Test the use case: get stories."""
     command = GetStoriesCommand()

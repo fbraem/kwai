@@ -28,7 +28,6 @@ def repo(database: Database) -> UserInvitationRepository:
     return UserInvitationDbRepository(database)
 
 
-@pytest.mark.asyncio
 async def test_delete_invitation(
     repo: UserInvitationRepository,
     user_invitation,

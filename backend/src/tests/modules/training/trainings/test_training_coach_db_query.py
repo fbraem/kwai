@@ -9,7 +9,6 @@ from kwai.modules.training.trainings.training_coach_db_query import TrainingCoac
 pytestmark = pytest.mark.db
 
 
-@pytest.mark.asyncio
 async def test_filter_by_training(database: Database):
     """Test filtering on training(s)."""
     query = TrainingCoachDbQuery(database)
@@ -25,7 +24,6 @@ async def test_filter_by_training(database: Database):
     assert ok is True, "Query is not executed"
 
 
-@pytest.mark.asyncio
 async def test_fetch_coaches(database: Database):
     """Test filtering on training(s)."""
     query = TrainingCoachDbQuery(database)

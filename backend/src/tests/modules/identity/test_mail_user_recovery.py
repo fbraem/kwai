@@ -44,7 +44,6 @@ async def user_recovery(
     await repo.delete(entity)
 
 
-@pytest.mark.asyncio
 async def test_mail_user_recovery(
     repo: UserRecoveryRepository,
     user_recovery: UserRecoveryEntity,
@@ -64,7 +63,6 @@ async def test_mail_user_recovery(
     assert updated_user_recovery.mailed is not None, "mailed should be set."
 
 
-@pytest.mark.asyncio
 async def test_mail_user_recovery_already_mailed(
     repo: UserRecoveryRepository,
     user_recovery: UserRecoveryEntity,

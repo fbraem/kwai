@@ -60,7 +60,6 @@ def training(user, context: Context, owner: Owner) -> TrainingEntity:
     )
 
 
-@pytest.mark.asyncio
 async def test_create(
     repo: TrainingRepository, context: Context, training: TrainingEntity
 ):
@@ -81,14 +80,12 @@ async def test_update(repo: TrainingRepository, context: Context):
         pytest.fail(qe)
 
 
-@pytest.mark.asyncio
 async def test_get_all(repo: TrainingRepository):
     """Test get all trainings."""
     trainings = {entity.id: entity async for entity in repo.get_all()}
     assert trainings is not None, "There should be a result"
 
 
-@pytest.mark.asyncio
 async def test_get_by_id(repo: TrainingRepository, context: Context):
     """Test get training by id."""
     assert len(context["trainings"]) > 0, "There should be a training"

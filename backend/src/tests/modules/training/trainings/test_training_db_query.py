@@ -22,7 +22,6 @@ from kwai.modules.training.trainings.training_definition import (
 pytestmark = pytest.mark.db
 
 
-@pytest.mark.asyncio
 async def test_filter_by_id(database: Database):
     """Test filtering on id."""
     query = TrainingDbQuery(database)
@@ -32,7 +31,6 @@ async def test_filter_by_id(database: Database):
     assert count >= 0, "There should be 0 or more trainings."
 
 
-@pytest.mark.asyncio
 async def test_filter_by_year(database: Database):
     """Test filtering on id."""
     query = TrainingDbQuery(database)
@@ -42,7 +40,6 @@ async def test_filter_by_year(database: Database):
     assert count >= 0, "There should be 0 or more trainings."
 
 
-@pytest.mark.asyncio
 async def test_filter_by_year_month(database: Database):
     """Test filtering on id."""
     query = TrainingDbQuery(database)
@@ -52,7 +49,6 @@ async def test_filter_by_year_month(database: Database):
     assert count >= 0, "There should be 0 or more trainings."
 
 
-@pytest.mark.asyncio
 async def test_filter_by_dates(database: Database):
     """Test filtering on dates."""
     query = TrainingDbQuery(database)
@@ -61,7 +57,6 @@ async def test_filter_by_dates(database: Database):
     assert count >= 0, "There should be 0 or more trainings."
 
 
-@pytest.mark.asyncio
 async def test_filter_by_coach(database: Database):
     """Test filtering on coach."""
     query = TrainingDbQuery(database)
@@ -105,7 +100,6 @@ async def test_filter_by_definition(database: Database):
     assert count >= 0, "There should be 0 or more trainings."
 
 
-@pytest.mark.asyncio
 async def test_filter_active(database: Database):
     """Test filtering only active trainings."""
     query = TrainingDbQuery(database)

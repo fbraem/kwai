@@ -14,7 +14,6 @@ def test_create(
     assert access_token.id, "There should be an access token entity"
 
 
-@pytest.mark.asyncio
 async def test_get_by_token_identifier(
     access_token_repo: AccessTokenRepository,
     access_token: AccessTokenEntity,
@@ -24,7 +23,6 @@ async def test_get_by_token_identifier(
     assert token, "There should be a refresh token"
 
 
-@pytest.mark.asyncio
 async def test_query(
     access_token_repo: AccessTokenRepository,
 ):

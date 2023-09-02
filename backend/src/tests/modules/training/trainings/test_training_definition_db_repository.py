@@ -63,7 +63,6 @@ def test_create(training_definition: TrainingDefinitionEntity):
     ), "There should be a training definition created"
 
 
-@pytest.mark.asyncio
 async def test_get_by_id(
     repo: TrainingDefinitionRepository, training_definition: TrainingDefinitionEntity
 ):
@@ -81,7 +80,6 @@ async def test_get_all(repo: TrainingDefinitionRepository):
     assert entities is not None, "There should be a result"
 
 
-@pytest.mark.asyncio
 async def test_delete(
     repo: TrainingDefinitionRepository, training_definition: TrainingDefinitionEntity
 ):

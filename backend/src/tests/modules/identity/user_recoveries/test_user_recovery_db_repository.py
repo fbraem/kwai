@@ -41,7 +41,6 @@ def test_create(user_recovery: UserRecoveryEntity):
     assert user_recovery.id, "There should be a user recovery created"
 
 
-@pytest.mark.asyncio
 async def test_get_by_uuid(
     repo: UserRecoveryRepository, user_recovery: UserRecoveryEntity
 ):
@@ -50,7 +49,6 @@ async def test_get_by_uuid(
     assert recovery, "There should be a recovery with the given uuid"
 
 
-@pytest.mark.asyncio
 async def test_update(repo: UserRecoveryRepository, user_recovery: UserRecoveryEntity):
     """Test if the user recovery can be updated."""
     user_recovery.confirm()
@@ -59,7 +57,6 @@ async def test_update(repo: UserRecoveryRepository, user_recovery: UserRecoveryE
     assert recovery.confirmed_at, "There should be a confirmation date"
 
 
-@pytest.mark.asyncio
 async def test_delete(repo: UserRecoveryRepository, user_recovery: UserRecoveryEntity):
     """Test if the user recovery can be deleted."""
     await repo.delete(user_recovery)

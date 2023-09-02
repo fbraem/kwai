@@ -8,7 +8,6 @@ from kwai.core.db.database import Database
 pytestmark = pytest.mark.db
 
 
-@pytest.mark.asyncio
 async def test_fetch(database: Database):
     """Test fetch."""
     select: SelectQuery = (

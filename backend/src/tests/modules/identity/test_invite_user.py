@@ -23,7 +23,6 @@ def repo(database: Database) -> UserInvitationRepository:
     return UserInvitationDbRepository(database)
 
 
-@pytest.mark.asyncio
 async def test_invite_user(
     database: Database, repo: UserInvitationRepository, user: UserEntity, bus: Bus
 ):
@@ -42,7 +41,6 @@ async def test_invite_user(
     assert user_invitation is not None, "There should be a user invitation"
 
 
-@pytest.mark.asyncio
 async def test_user_already_exists(
     database: Database,
     repo: UserInvitationRepository,
@@ -64,7 +62,6 @@ async def test_user_already_exists(
         ).execute(command)
 
 
-@pytest.mark.asyncio
 async def test_already_invited_user(
     database: Database, repo: UserInvitationRepository, user: UserEntity, bus: Bus
 ):

@@ -11,7 +11,6 @@ from kwai.modules.training.trainings.training_definition_db_query import (
 pytestmark = pytest.mark.db
 
 
-@pytest.mark.asyncio
 async def test_filter_by_id(database: Database):
     """Test filtering on id."""
     query = TrainingDefinitionDbQuery(database)
@@ -27,7 +26,6 @@ async def test_filter_by_id(database: Database):
     assert ok is True, "Query is not executed"
 
 
-@pytest.mark.asyncio
 async def test_filter_by_ids(database: Database):
     """Test filtering on ids."""
     query = TrainingDefinitionDbQuery(database)

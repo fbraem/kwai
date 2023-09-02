@@ -45,27 +45,23 @@ async def story(
     return await repo.create(story)
 
 
-@pytest.mark.asyncio
 async def test_create(story: StoryEntity):
     """Test if the creation was successful."""
     assert not story.id.is_empty(), "There should be a story created"
 
 
-@pytest.mark.asyncio
 async def test_get_all(repo: StoryRepository, story: StoryEntity):
     """Test for get_all."""
     stories = {entity.id: entity async for entity in repo.get_all()}
     assert story.id in stories, f"The story with id {story.id} should be present"
 
 
-@pytest.mark.asyncio
 async def test_get_by_id(repo: StoryRepository, story: StoryEntity):
     """Test for get_by_id."""
     entity = await repo.get_by_id(story.id)
     assert entity is not None, f"There should be a story with id {story.id}"
 
 
-@pytest.mark.asyncio
 async def test_delete(repo: StoryRepository, story: StoryEntity):
     """Test the deletion of a story."""
     await repo.delete(story)

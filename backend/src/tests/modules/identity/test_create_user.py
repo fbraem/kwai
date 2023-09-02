@@ -10,7 +10,6 @@ from kwai.modules.identity.users.user_account_db_repository import (
 pytestmark = pytest.mark.db
 
 
-@pytest.mark.asyncio
 async def test_create_user(database: Database):
     """Test the use case CreateUser."""
     user_account_repo = UserAccountDbRepository(database)

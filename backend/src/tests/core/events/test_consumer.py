@@ -9,7 +9,6 @@ from kwai.core.events.stream import RedisMessage, RedisStream
 pytestmark = pytest.mark.bus
 
 
-@pytest.mark.asyncio
 async def test_consumer(stream: RedisStream):
     """Test the consumer."""
     await stream.create_group("kwai_test_consumer_group")

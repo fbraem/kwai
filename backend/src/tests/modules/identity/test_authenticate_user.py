@@ -20,7 +20,6 @@ from kwai.modules.identity.users.user_account_db_repository import (
 pytestmark = pytest.mark.db
 
 
-@pytest.mark.asyncio
 async def test_authenticate_user(database: Database, user_account: UserAccountEntity):
     """Test the use case authenticate user."""
     command = AuthenticateUserCommand(

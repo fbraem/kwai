@@ -14,7 +14,6 @@ def test_create(
     assert not refresh_token.id.is_empty(), "There should be a refresh token entity"
 
 
-@pytest.mark.asyncio
 async def test_get_by_token_identifier(
     refresh_token_repo: RefreshTokenRepository,
     refresh_token: RefreshTokenEntity,
@@ -24,7 +23,6 @@ async def test_get_by_token_identifier(
     assert token, "There should be a refresh token"
 
 
-@pytest.mark.asyncio
 async def test_query(
     refresh_token_repo: RefreshTokenRepository,
 ):
