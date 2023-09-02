@@ -24,7 +24,7 @@ async def test_filter_by_training(database: Database):
     assert ok is True, "Query is not executed"
 
 
-async def test_fetch_coaches(database: Database):
+async def test_fetch_teams(database: Database):
     """Test filtering on training(s)."""
     query = TrainingTeamDbQuery(database)
     query.filter_by_trainings(TrainingIdentifier(1), TrainingIdentifier(2))
