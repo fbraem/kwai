@@ -18,6 +18,8 @@ class TrainingContent(BaseModel):
     title: str
     summary: str
     content: str | None
+    html_summary: str
+    html_content: str | None
 
 
 class TrainingCoach(BaseModel):
@@ -100,10 +102,12 @@ class TrainingResource:
                 locale=content.locale,
                 format=content.format,
                 title=content.title,
-                summary=MarkdownConverter().convert(content.summary),
-                content=MarkdownConverter().convert(content.content)
-                if content.content
-                else None,
+                summary=content.summary,
+                content=content.content,
+                html_summary=MarkdownConverter().convert(content.summary),
+                html_content=None
+                if content.content is None
+                else MarkdownConverter().convert(content.content),
             )
             for content in self._training.content
         ]
