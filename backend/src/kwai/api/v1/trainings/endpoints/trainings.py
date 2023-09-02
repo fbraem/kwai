@@ -179,7 +179,7 @@ async def create_training(
 )
 async def update_training(
     training_id: int,
-    resource: TrainingResource.get_resource_model(),
+    resource: TrainingResource.get_resource_data_model(),
     db=deps.depends(Database),
     user: UserEntity = Depends(get_current_user),
 ) -> TrainingResource.get_document_model():
