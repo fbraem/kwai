@@ -92,3 +92,13 @@ async def test_get_by_id(repo: TrainingRepository, context: Context):
     training = context["trainings"][0]
     training = await repo.get_by_id(training.id)
     assert training is not None, "There should be a result"
+
+
+async def test_delete(repo: TrainingRepository, context: Context):
+    """Test delete of a training."""
+    assert len(context["trainings"]) > 0, "There should be a training"
+    training = context["trainings"][0]
+    try:
+        await repo.delete(training)
+    except QueryException as qe:
+        pytest.fail(qe)
