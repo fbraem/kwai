@@ -5,6 +5,7 @@ import datetime
 import pytest
 
 from kwai.core.db.database import Database
+from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.time_period import TimePeriod
@@ -78,6 +79,16 @@ async def test_get_all(repo: TrainingDefinitionRepository):
     """Test if all training definitions can be loaded."""
     entities = {entity.id: entity async for entity in repo.get_all()}
     assert entities is not None, "There should be a result"
+
+
+async def test_update(
+    repo: TrainingDefinitionRepository, training_definition: TrainingDefinitionEntity
+):
+    """Test update of training definition."""
+    training_definition = Entity.replace(
+        training_definition, remark="Training definition updated"
+    )
+    await repo.update(training_definition)
 
 
 async def test_delete(
