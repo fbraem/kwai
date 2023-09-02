@@ -128,10 +128,10 @@ async def create_training(
 ) -> TrainingResource.get_document_model():
     """Create a new training."""
     command = CreateTrainingCommand(
-        start_date=resource.data.attributes.start_date,
-        end_date=resource.data.attributes.end_date,
-        active=resource.data.attributes.active,
-        cancelled=resource.data.attributes.cancelled,
+        start_date=resource.data.attributes.event.start_date,
+        end_date=resource.data.attributes.event.end_date,
+        active=resource.data.attributes.event.active,
+        cancelled=resource.data.attributes.event.cancelled,
         text=[
             {
                 "locale": text.locale,
@@ -140,7 +140,7 @@ async def create_training(
                 "summary": text.summary,
                 "content": text.content,
             }
-            for text in resource.data.attributes.content
+            for text in resource.data.attributes.contents
         ],
         coaches=[
             Coach(
@@ -153,7 +153,7 @@ async def create_training(
         ],
         teams=[int(team.id) for team in resource.data.relationships.teams.data],
         definition=None,
-        location=resource.data.attributes.location,
+        location=resource.data.attributes.event.location,
         remark=resource.data.attributes.remark,
     )
 
@@ -186,10 +186,10 @@ async def update_training(
     """Update a training."""
     command = UpdateTrainingCommand(
         id=training_id,
-        start_date=resource.data.attributes.start_date,
-        end_date=resource.data.attributes.end_date,
-        active=resource.data.attributes.active,
-        cancelled=resource.data.attributes.cancelled,
+        start_date=resource.data.attributes.event.start_date,
+        end_date=resource.data.attributes.event.end_date,
+        active=resource.data.attributes.event.active,
+        cancelled=resource.data.attributes.event.cancelled,
         text=[
             {
                 "locale": text.locale,
@@ -198,7 +198,7 @@ async def update_training(
                 "summary": text.summary,
                 "content": text.content,
             }
-            for text in resource.data.attributes.content
+            for text in resource.data.attributes.contents
         ],
         coaches=[
             Coach(
@@ -211,7 +211,7 @@ async def update_training(
         ],
         teams=[int(team.id) for team in resource.data.relationships.teams.data],
         definition=None,
-        location=resource.data.attributes.location,
+        location=resource.data.attributes.event.location,
         remark=resource.data.attributes.remark,
     )
 

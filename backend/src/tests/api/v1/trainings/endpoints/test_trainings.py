@@ -34,7 +34,7 @@ def test_get_trainings_filter_start_end(client: TestClient):
         "/api/v1/trainings",
         params={
             "filter[start]": "2022-01-01 00:00:00",
-            "filter[end]": "2022-01-31 23:59:59",
+            "filter[end]": "2022-01-31 00:00:00",
         },
     )
     assert response.status_code == status.HTTP_200_OK
@@ -107,7 +107,7 @@ def test_create_training(secure_client: TestClient):
         "data": {
             "type": "trainings",
             "attributes": {
-                "content": [
+                "contents": [
                     {
                         "locale": "en",
                         "format": "md",
@@ -116,11 +116,13 @@ def test_create_training(secure_client: TestClient):
                     }
                 ],
                 "coaches": [],
-                "start_date": "2023-02-02 19:00:00",
-                "end_date": "2023-02-02 20:00:00",
-                "active": True,
-                "cancelled": False,
-                "location": "",
+                "event": {
+                    "start_date": "2023-02-02 19:00:00",
+                    "end_date": "2023-02-02 20:00:00",
+                    "active": True,
+                    "cancelled": False,
+                    "location": "",
+                },
                 "remark": "",
             },
             "relationships": {"coaches": {"data": []}, "teams": {"data": []}},
@@ -136,7 +138,7 @@ def test_create_training_with_coaches(secure_client: TestClient):
         "data": {
             "type": "trainings",
             "attributes": {
-                "content": [
+                "contents": [
                     {
                         "locale": "en",
                         "format": "md",
@@ -147,11 +149,13 @@ def test_create_training_with_coaches(secure_client: TestClient):
                 "coaches": [
                     {"id": "1", "head": False, "present": False, "payed": False}
                 ],
-                "start_date": "2023-02-02 19:00:00",
-                "end_date": "2023-02-02 20:00:00",
-                "active": True,
-                "cancelled": False,
-                "location": "",
+                "event": {
+                    "start_date": "2023-02-02 19:00:00",
+                    "end_date": "2023-02-02 20:00:00",
+                    "active": True,
+                    "cancelled": False,
+                    "location": "",
+                },
                 "remark": "",
             },
             "relationships": {
@@ -170,7 +174,7 @@ def test_create_training_with_teams(secure_client: TestClient):
         "data": {
             "type": "trainings",
             "attributes": {
-                "content": [
+                "contents": [
                     {
                         "locale": "en",
                         "format": "md",
@@ -179,11 +183,13 @@ def test_create_training_with_teams(secure_client: TestClient):
                     }
                 ],
                 "coaches": [],
-                "start_date": "2023-02-02 19:00:00",
-                "end_date": "2023-02-02 20:00:00",
-                "active": True,
-                "cancelled": False,
-                "location": "",
+                "event": {
+                    "start_date": "2023-02-02 19:00:00",
+                    "end_date": "2023-02-02 20:00:00",
+                    "active": True,
+                    "cancelled": False,
+                    "location": "",
+                },
                 "remark": "",
             },
             "relationships": {
@@ -203,7 +209,7 @@ def test_update_training(secure_client: TestClient):
             "type": "trainings",
             "id": "1",
             "attributes": {
-                "content": [
+                "contents": [
                     {
                         "locale": "en",
                         "format": "md",
@@ -212,11 +218,13 @@ def test_update_training(secure_client: TestClient):
                     }
                 ],
                 "coaches": [],
-                "start_date": "2023-02-02 19:00:00",
-                "end_date": "2023-02-02 20:00:00",
-                "active": True,
-                "cancelled": False,
-                "location": "",
+                "event": {
+                    "start_date": "2023-02-02 19:00:00",
+                    "end_date": "2023-02-02 20:00:00",
+                    "active": True,
+                    "cancelled": False,
+                    "location": "",
+                },
                 "remark": "Updated!",
             },
             "relationships": {
