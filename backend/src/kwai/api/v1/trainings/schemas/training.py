@@ -18,7 +18,7 @@ class TrainingContent(BaseModel):
     title: str
     summary: str
     content: str | None
-    html_summary: str
+    html_summary: str | None
     html_content: str | None
 
 
