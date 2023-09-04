@@ -7,6 +7,10 @@ from typing import Any
 import pytest
 
 from kwai.core.db.database import Database
+from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.owner import Owner
+from kwai.core.domain.value_objects.period import Period
+from kwai.core.domain.value_objects.text import LocaleText
 from kwai.modules.training.coaches.coach_tables import (
     CoachesTable,
     CoachRow,
@@ -14,6 +18,7 @@ from kwai.modules.training.coaches.coach_tables import (
     PersonsTable,
 )
 from kwai.modules.training.teams.team_tables import TeamRow, TeamsTable
+from kwai.modules.training.trainings.training import TrainingEntity
 
 Context = dict[str, list[Any]]
 
@@ -82,3 +87,23 @@ async def seed_teams(database: Database, context: Context):
         dataclasses.replace(team_row, id=await database.execute(query))
     )
     await database.commit()
+
+
+@pytest.fixture
+async def training_entity(training_repo, owner: Owner) -> TrainingEntity:
+    """A fixture for a training entity."""
+    start_date = LocalTimestamp.create_now()
+    training = TrainingEntity(
+        content=[
+            LocaleText(
+                locale="nl",
+                format="md",
+                title="Test Training",
+                content="This is a test training",
+                summary="This is a test training",
+                author=owner,
+            )
+        ],
+        period=Period(start_date=start_date, end_date=start_date.add_delta(hours=1)),
+    )
+    return training
