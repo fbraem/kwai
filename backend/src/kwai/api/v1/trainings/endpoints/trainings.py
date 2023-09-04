@@ -1,4 +1,4 @@
-"""Module that defines the trainings API."""
+"""Module for endpoints for trainings."""
 from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
