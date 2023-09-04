@@ -16,6 +16,7 @@ from kwai.modules.training.create_training import (
     CreateTraining,
     CreateTrainingCommand,
 )
+from kwai.modules.training.delete_training import DeleteTrainingCommand, DeleteTraining
 from kwai.modules.training.get_training import GetTraining, GetTrainingCommand
 from kwai.modules.training.get_trainings import GetTrainings, GetTrainingsCommand
 from kwai.modules.training.teams.team_db_repository import TeamDbRepository
@@ -229,3 +230,18 @@ async def update_training(
         ) from ve
 
     return TrainingResource.serialize(TrainingResource(resource))
+
+
+@router.delete(
+    "/trainings/{training_id}",
+    responses={status.HTTP_404_NOT_FOUND: {"description": "Training was not found."}},
+)
+async def delete_training_definition(
+    training_definition_id: int,
+    resource: TrainingResource.get_resource_data_model(),
+    db=deps.depends(Database),
+    user: UserEntity = Depends(get_current_user),
+) -> None:
+    """Delete a training definition."""
+    command = DeleteTrainingCommand(id=training_definition_id)
+    await DeleteTraining(TrainingDbRepository(db)).execute(command)
