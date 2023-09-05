@@ -16,7 +16,7 @@ from kwai.modules.training.create_training import (
     CreateTraining,
     CreateTrainingCommand,
 )
-from kwai.modules.training.delete_training import DeleteTrainingCommand, DeleteTraining
+from kwai.modules.training.delete_training import DeleteTraining, DeleteTrainingCommand
 from kwai.modules.training.get_training import GetTraining, GetTrainingCommand
 from kwai.modules.training.get_trainings import GetTrainings, GetTrainingsCommand
 from kwai.modules.training.teams.team_db_repository import TeamDbRepository
