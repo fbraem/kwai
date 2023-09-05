@@ -1,7 +1,7 @@
 """Module with fixtures for the training bounded context."""
 import dataclasses
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, time
 from typing import Any
 
 import pytest
@@ -11,6 +11,8 @@ from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import LocaleText
+from kwai.core.domain.value_objects.time_period import TimePeriod
+from kwai.core.domain.value_objects.weekday import Weekday
 from kwai.modules.training.coaches.coach_tables import (
     CoachesTable,
     CoachRow,
@@ -19,6 +21,7 @@ from kwai.modules.training.coaches.coach_tables import (
 )
 from kwai.modules.training.teams.team_tables import TeamRow, TeamsTable
 from kwai.modules.training.trainings.training import TrainingEntity
+from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
 
 Context = dict[str, list[Any]]
 
@@ -90,7 +93,7 @@ async def seed_teams(database: Database, context: Context):
 
 
 @pytest.fixture
-async def training_entity(training_repo, owner: Owner) -> TrainingEntity:
+async def training_entity(owner: Owner) -> TrainingEntity:
     """A fixture for a training entity."""
     start_date = LocalTimestamp.create_now()
     training = TrainingEntity(
@@ -107,3 +110,15 @@ async def training_entity(training_repo, owner: Owner) -> TrainingEntity:
         period=Period(start_date=start_date, end_date=start_date.add_delta(hours=1)),
     )
     return training
+
+
+@pytest.fixture
+async def training_definition(owner: Owner) -> TrainingDefinitionEntity:
+    """A fixture for a training definition entity."""
+    return TrainingDefinitionEntity(
+        name="U11 Training Monday",
+        description="Training for U11 on each monday",
+        weekday=Weekday.MONDAY,
+        owner=owner,
+        period=TimePeriod(start=time(hour=20), end=time(hour=21)),
+    )
