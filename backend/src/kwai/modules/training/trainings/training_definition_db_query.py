@@ -18,7 +18,7 @@ class TrainingDefinitionDbQuery(DatabaseQuery, TrainingDefinitionQuery):
     """A database query for a training definition."""
 
     def init(self):
-        return self._query.from_(TrainingDefinitionsTable.table_name).left_join(
+        return self._query.from_(TrainingDefinitionsTable.table_name).join(
             OwnersTable.table_name,
             on(OwnersTable.column("id"), TrainingDefinitionsTable.column("user_id")),
         )
