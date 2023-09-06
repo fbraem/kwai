@@ -3117,6 +3117,155 @@ will also be revoked.</p>
 
 
 
+<h7 id="kwai.api.v1.trainings.endpoints.training_definitions" class="doc doc-heading">
+            <code>training_definitions</code>
+
+
+<a href="#kwai.api.v1.trainings.endpoints.training_definitions" class="headerlink" title="Permanent link">&para;</a></h7>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module for endpoints for training definitions.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.api.v1.trainings.endpoints.training_definitions.create_training_definition" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">create_training_definition</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">user</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">))</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.api.v1.trainings.endpoints.training_definitions.create_training_definition" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Create a new training definition.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.api.v1.trainings.endpoints.training_definitions.delete_training_definition" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">delete_training_definition</span><span class="p">(</span><span class="n">training_definition_id</span><span class="p">,</span> <span class="n">resource</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">user</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">))</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.api.v1.trainings.endpoints.training_definitions.delete_training_definition" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Delete a training definition.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.api.v1.trainings.endpoints.training_definitions.get_training_definition" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_training_definition</span><span class="p">(</span><span class="n">training_definition_id</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">))</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.api.v1.trainings.endpoints.training_definitions.get_training_definition" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get training definition with the given id.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.api.v1.trainings.endpoints.training_definitions.get_training_definitions" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_training_definitions</span><span class="p">(</span><span class="n">pagination</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">PaginationModel</span><span class="p">),</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">))</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.api.v1.trainings.endpoints.training_definitions.get_training_definitions" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get all training definitions.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.api.v1.trainings.endpoints.training_definitions.update_training_definition" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">update_training_definition</span><span class="p">(</span><span class="n">training_definition_id</span><span class="p">,</span> <span class="n">resource</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">user</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">))</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.api.v1.trainings.endpoints.training_definitions.update_training_definition" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Update a training definition.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h7 id="kwai.api.v1.trainings.endpoints.trainings" class="doc doc-heading">
             <code>trainings</code>
 
@@ -35532,6 +35681,190 @@ does not exist.</p>
 
   
       <p>Input for the use case GetTrainingDefinition.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h5 id="kwai.modules.training.get_training_definitions" class="doc doc-heading">
+            <code>get_training_definitions</code>
+
+
+<a href="#kwai.modules.training.get_training_definitions" class="headerlink" title="Permanent link">&para;</a></h5>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines the use case "Get Training Definitions".</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.training.get_training_definitions.GetTrainingDefinitions" class="doc doc-heading">
+          <code>GetTrainingDefinitions</code>
+
+
+<a href="#kwai.modules.training.get_training_definitions.GetTrainingDefinitions" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Use case "Get Training Definitions".</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.training.get_training_definitions.GetTrainingDefinitions.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.training.get_training_definitions.GetTrainingDefinitions.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize the use case.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>repo</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.training_definition_repository.TrainingDefinitionRepository" href="#kwai.modules.training.trainings.training_definition_repository.TrainingDefinitionRepository">TrainingDefinitionRepository</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A repository for retrieving training definitions.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.training.get_training_definitions.GetTrainingDefinitions.execute" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.training.get_training_definitions.GetTrainingDefinitions.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Execute the use case.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.training.get_training_definitions.GetTrainingDefinitionsCommand" class="doc doc-heading">
+          <code>GetTrainingDefinitionsCommand</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.training.get_training_definitions.GetTrainingDefinitionsCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Input for the use case "Get Training Definitions".</p>
 
 
   
