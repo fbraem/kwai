@@ -27,6 +27,10 @@ class TrainingDefinitionDbQuery(DatabaseQuery, TrainingDefinitionQuery):
     def columns(self):
         return TrainingDefinitionsTable.aliases() + OwnersTable.aliases()
 
+    @property
+    def count_column(self) -> str:
+        return TrainingDefinitionsTable.column("id")
+
     def filter_by_id(
         self, id_: TrainingDefinitionIdentifier
     ) -> TrainingDefinitionQuery:
