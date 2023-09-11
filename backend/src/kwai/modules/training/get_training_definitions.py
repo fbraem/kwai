@@ -11,8 +11,8 @@ from kwai.modules.training.trainings.training_definition_repository import (
 class GetTrainingDefinitionsCommand:
     """Input for the use case "Get Training Definitions"."""
 
-    limit: int | None
-    offset: int | None
+    limit: int | None = None
+    offset: int | None = None
 
 
 class GetTrainingDefinitions:
