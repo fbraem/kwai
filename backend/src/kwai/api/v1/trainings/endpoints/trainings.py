@@ -236,9 +236,8 @@ async def update_training(
     "/trainings/{training_id}",
     responses={status.HTTP_404_NOT_FOUND: {"description": "Training was not found."}},
 )
-async def delete_training_definition(
+async def delete_training(
     training_definition_id: int,
-    resource: TrainingResource.get_resource_data_model(),
     db=deps.depends(Database),
     user: UserEntity = Depends(get_current_user),
 ) -> None:
