@@ -1,7 +1,7 @@
 """Module for implementing a training repository for a database."""
 from typing import AsyncIterator
 
-from sql_smith.functions import field, alias, express
+from sql_smith.functions import alias, express, field
 
 from kwai.core.db.database import Database, Record
 from kwai.core.db.rows import OwnersTable
