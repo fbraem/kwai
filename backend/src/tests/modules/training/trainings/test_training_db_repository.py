@@ -12,6 +12,13 @@ from kwai.core.domain.value_objects.text import LocaleText
 from kwai.modules.training.coaches.coach import CoachEntity, CoachIdentifier
 from kwai.modules.training.trainings.training import TrainingEntity
 from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository
+from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
+from kwai.modules.training.trainings.training_definition_db_repository import (
+    TrainingDefinitionDbRepository,
+)
+from kwai.modules.training.trainings.training_definition_repository import (
+    TrainingDefinitionRepository,
+)
 from kwai.modules.training.trainings.training_repository import (
     TrainingRepository,
 )
@@ -102,3 +109,23 @@ async def test_delete(repo: TrainingRepository, context: Context):
         await repo.delete(training)
     except QueryException as qe:
         pytest.fail(qe)
+
+
+@pytest.fixture(scope="module")
+def training_definition_repo(database: Database) -> TrainingDefinitionRepository:
+    """Fixture for a training definition repository."""
+    return TrainingDefinitionDbRepository(database)
+
+
+@pytest.fixture
+async def saved_training_definition(
+    training_definition_repo: TrainingDefinitionRepository,
+    training_definition: TrainingDefinitionEntity,
+) -> TrainingDefinitionEntity:
+    """A fixture for a training definition in the database."""
+    return await training_definition_repo.create(training_definition)
+
+
+async def test_reset_definition(repo: TrainingRepository, saved_training_definition):
+    """Test reset definition."""
+    await repo.reset_definition(saved_training_definition, False)
