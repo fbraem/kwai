@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Coverage for kwai/api/v1/trainings/endpoints/trainings.py: 90%</title>
+    <title>Coverage for kwai/api/v1/trainings/endpoints/trainings.py: 92%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="coverage_html.js" defer></script>
@@ -12,7 +12,7 @@
     <div class="content">
         <h1>
             <span class="text">Coverage for </span><b>kwai/api/v1/trainings/endpoints/trainings.py</b>:
-            <span class="pc_cov">90%</span>
+            <span class="pc_cov">92%</span>
         </h1>
         <aside id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
@@ -55,8 +55,8 @@
         </aside>
         <h2>
             <span class="text">71 statements &nbsp;</span>
-            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">64<span class="text"> run</span></button>
-            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">7<span class="text"> missing</span></button>
+            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">65<span class="text"> run</span></button>
+            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">6<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
         </h2>
         <p class="text">
@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="d_83e9591dfc76b511___init___py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.3.0">coverage.py v7.3.0</a>,
-            created at 2023-09-06 19:26 +0000
+            created at 2023-09-13 19:25 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"/>
@@ -192,12 +192,12 @@
     <p class="pln"><span class="n"><a id="t110" href="#t110">110</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t111" href="#t111">111</a></span><span class="t">    <span class="key">try</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t112" href="#t112">112</a></span><span class="t">        <span class="nam">training</span> <span class="op">=</span> <span class="key">await</span> <span class="nam">GetTraining</span><span class="op">(</span><span class="nam">TrainingDbRepository</span><span class="op">(</span><span class="nam">db</span><span class="op">)</span><span class="op">)</span><span class="op">.</span><span class="nam">execute</span><span class="op">(</span><span class="nam">command</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t113" href="#t113">113</a></span><span class="t">    <span class="key">except</span> <span class="nam">TrainingNotFoundException</span> <span class="key">as</span> <span class="nam">ex</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t114" href="#t114">114</a></span><span class="t">        <span class="key">raise</span> <span class="nam">HTTPException</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t113" href="#t113">113</a></span><span class="t">    <span class="key">except</span> <span class="nam">TrainingNotFoundException</span> <span class="key">as</span> <span class="nam">ex</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t114" href="#t114">114</a></span><span class="t">        <span class="key">raise</span> <span class="nam">HTTPException</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t115" href="#t115">115</a></span><span class="t">            <span class="nam">status_code</span><span class="op">=</span><span class="nam">status</span><span class="op">.</span><span class="nam">HTTP_404_NOT_FOUND</span><span class="op">,</span> <span class="nam">detail</span><span class="op">=</span><span class="nam">str</span><span class="op">(</span><span class="nam">ex</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t116" href="#t116">116</a></span><span class="t">        <span class="op">)</span> <span class="key">from</span> <span class="nam">ex</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t117" href="#t117">117</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t118" href="#t118">118</a></span><span class="t">    <span class="key">return</span> <span class="nam">TrainingResource</span><span class="op">.</span><span class="nam">serialize</span><span class="op">(</span><span class="nam">TrainingResource</span><span class="op">(</span><span class="nam">training</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t118" href="#t118">118</a></span><span class="t">    <span class="key">return</span> <span class="nam">TrainingResource</span><span class="op">.</span><span class="nam">serialize</span><span class="op">(</span><span class="nam">TrainingResource</span><span class="op">(</span><span class="nam">training</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t119" href="#t119">119</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t120" href="#t120">120</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t121" href="#t121">121</a></span><span class="t"><span class="op">@</span><span class="nam">router</span><span class="op">.</span><span class="nam">post</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
@@ -318,15 +318,14 @@
     <p class="pln"><span class="n"><a id="t236" href="#t236">236</a></span><span class="t">    <span class="str">"/trainings/{training_id}"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t237" href="#t237">237</a></span><span class="t">    <span class="nam">responses</span><span class="op">=</span><span class="op">{</span><span class="nam">status</span><span class="op">.</span><span class="nam">HTTP_404_NOT_FOUND</span><span class="op">:</span> <span class="op">{</span><span class="str">"description"</span><span class="op">:</span> <span class="str">"Training was not found."</span><span class="op">}</span><span class="op">}</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t238" href="#t238">238</a></span><span class="t"><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t239" href="#t239">239</a></span><span class="t"><span class="key">async</span> <span class="key">def</span> <span class="nam">delete_training_definition</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t240" href="#t240">240</a></span><span class="t">    <span class="nam">training_definition_id</span><span class="op">:</span> <span class="nam">int</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t241" href="#t241">241</a></span><span class="t">    <span class="nam">resource</span><span class="op">:</span> <span class="nam">TrainingResource</span><span class="op">.</span><span class="nam">get_resource_data_model</span><span class="op">(</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t242" href="#t242">242</a></span><span class="t">    <span class="nam">db</span><span class="op">=</span><span class="nam">deps</span><span class="op">.</span><span class="nam">depends</span><span class="op">(</span><span class="nam">Database</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t243" href="#t243">243</a></span><span class="t">    <span class="nam">user</span><span class="op">:</span> <span class="nam">UserEntity</span> <span class="op">=</span> <span class="nam">Depends</span><span class="op">(</span><span class="nam">get_current_user</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t244" href="#t244">244</a></span><span class="t"><span class="op">)</span> <span class="op">-></span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t245" href="#t245">245</a></span><span class="t">    <span class="str">"""Delete a training definition."""</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t246" href="#t246">246</a></span><span class="t">    <span class="nam">command</span> <span class="op">=</span> <span class="nam">DeleteTrainingCommand</span><span class="op">(</span><span class="nam">id</span><span class="op">=</span><span class="nam">training_definition_id</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t247" href="#t247">247</a></span><span class="t">    <span class="key">await</span> <span class="nam">DeleteTraining</span><span class="op">(</span><span class="nam">TrainingDbRepository</span><span class="op">(</span><span class="nam">db</span><span class="op">)</span><span class="op">)</span><span class="op">.</span><span class="nam">execute</span><span class="op">(</span><span class="nam">command</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t239" href="#t239">239</a></span><span class="t"><span class="key">async</span> <span class="key">def</span> <span class="nam">delete_training</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t240" href="#t240">240</a></span><span class="t">    <span class="nam">training_id</span><span class="op">:</span> <span class="nam">int</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t241" href="#t241">241</a></span><span class="t">    <span class="nam">db</span><span class="op">=</span><span class="nam">deps</span><span class="op">.</span><span class="nam">depends</span><span class="op">(</span><span class="nam">Database</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t242" href="#t242">242</a></span><span class="t">    <span class="nam">user</span><span class="op">:</span> <span class="nam">UserEntity</span> <span class="op">=</span> <span class="nam">Depends</span><span class="op">(</span><span class="nam">get_current_user</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t243" href="#t243">243</a></span><span class="t"><span class="op">)</span> <span class="op">-></span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t244" href="#t244">244</a></span><span class="t">    <span class="str">"""Delete a training definition."""</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t245" href="#t245">245</a></span><span class="t">    <span class="nam">command</span> <span class="op">=</span> <span class="nam">DeleteTrainingCommand</span><span class="op">(</span><span class="nam">id</span><span class="op">=</span><span class="nam">training_id</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t246" href="#t246">246</a></span><span class="t">    <span class="key">await</span> <span class="nam">DeleteTraining</span><span class="op">(</span><span class="nam">TrainingDbRepository</span><span class="op">(</span><span class="nam">db</span><span class="op">)</span><span class="op">)</span><span class="op">.</span><span class="nam">execute</span><span class="op">(</span><span class="nam">command</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
 </main>
 <footer>
     <div class="content">
@@ -336,7 +335,7 @@
             <a id="nextFileLink" class="nav" href="d_83e9591dfc76b511___init___py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.3.0">coverage.py v7.3.0</a>,
-            created at 2023-09-06 19:26 +0000
+            created at 2023-09-13 19:25 +0000
         </p>
     </div>
 </footer>
