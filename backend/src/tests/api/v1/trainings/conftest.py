@@ -1,0 +1,34 @@
+"""Module that defines fixtures for testing the trainings endpoints."""
+import pytest
+
+from kwai.core.db.database import Database
+from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.owner import Owner
+from kwai.core.domain.value_objects.period import Period
+from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
+from kwai.modules.training.trainings.training import TrainingEntity
+from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository
+
+
+@pytest.fixture
+async def training_entity(database: Database, owner: Owner) -> TrainingEntity:
+    """A fixture for a training in the database."""
+    repo = TrainingDbRepository(database)
+    return await repo.create(
+        TrainingEntity(
+            content=[
+                LocaleText(
+                    locale=Locale.NL.value,
+                    format=DocumentFormat.MARKDOWN.value,
+                    content="This is a test training",
+                    summary="Test API training",
+                    title="Test API Training",
+                    author=owner,
+                )
+            ],
+            period=Period.create_from_delta(
+                LocalTimestamp.create_from_string("2023-01-02 20:00:00"), hours=2
+            ),
+            remark="Created as fixture for testing endpoint trainings",
+        )
+    )

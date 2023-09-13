@@ -1,12 +1,24 @@
 """Module for testing the trainings endpoints."""
+from typing import Any
+
 import pytest
 from fastapi import status
 from fastapi.testclient import TestClient
 
+from kwai.modules.training.trainings.training import TrainingEntity
+
 pytestmark = pytest.mark.api
 
 
-def test_get_trainings(client: TestClient):
+def _find(resource_list: list[dict[str, Any]], id_: str):
+    """Search for a resource with the given id."""
+    for resource in resource_list:
+        if resource["id"] == id_:
+            return resource
+    return None
+
+
+def test_get_trainings(client: TestClient, training_entity: TrainingEntity):
     """Test get trainings api."""
     response = client.get("/api/v1/trainings")
     assert response.status_code == status.HTTP_200_OK
@@ -14,27 +26,43 @@ def test_get_trainings(client: TestClient):
     json = response.json()
     assert "meta" in json, "There should be a meta object in the response"
     assert "data" in json, "There should be a data list in the response"
+    assert len(json["data"]) > 0, "There should be at least one training"
+
+    training_resource = _find(json["data"], str(training_entity.id))
+    assert (
+        training_resource is not None
+    ), f"Training with id {training_entity.id} should exist"
 
 
-def test_get_trainings_filter_year_month(client: TestClient):
+def test_get_trainings_filter_year_month(
+    client: TestClient, training_entity: TrainingEntity
+):
     """Test get trainings api with filter on year/month."""
     response = client.get(
-        "/api/v1/trainings", params={"filter[year]": 2022, "filter[month]": 1}
+        "/api/v1/trainings", params={"filter[year]": 2023, "filter[month]": 1}
     )
     assert response.status_code == status.HTTP_200_OK
 
     json = response.json()
     assert "meta" in json, "There should be a meta object in the response"
     assert "data" in json, "There should be a data list in the response"
+    assert len(json["data"]) > 0, "There should be at least one training"
+
+    training_resource = _find(json["data"], str(training_entity.id))
+    assert (
+        training_resource is not None
+    ), f"Training with id {training_entity.id} should exist"
 
 
-def test_get_trainings_filter_start_end(client: TestClient):
+def test_get_trainings_filter_start_end(
+    client: TestClient, training_entity: TrainingEntity
+):
     """Test get trainings api with a filter on start and end date."""
     response = client.get(
         "/api/v1/trainings",
         params={
-            "filter[start]": "2022-01-01 00:00:00",
-            "filter[end]": "2022-01-31 00:00:00",
+            "filter[start]": "2023-01-01 00:00:00",
+            "filter[end]": "2023-01-31 00:00:00",
         },
     )
     assert response.status_code == status.HTTP_200_OK
@@ -42,6 +70,12 @@ def test_get_trainings_filter_start_end(client: TestClient):
     json = response.json()
     assert "meta" in json, "There should be a meta object in the response"
     assert "data" in json, "There should be a data list in the response"
+    assert len(json["data"]) > 0, "There should be at least one training"
+
+    training_resource = _find(json["data"], str(training_entity.id))
+    assert (
+        training_resource is not None
+    ), f"Training with id {training_entity.id} should exist"
 
 
 def test_get_trainings_filter_coach(client: TestClient):
@@ -60,7 +94,9 @@ def test_get_trainings_filter_coach(client: TestClient):
         assert "detail" in json
 
 
-def test_get_trainings_filter_active(client: TestClient):
+def test_get_trainings_filter_active(
+    client: TestClient, training_entity: TrainingEntity
+):
     """Test get trainings api with a filter for active trainings."""
     response = client.get(
         "/api/v1/trainings",
@@ -71,6 +107,12 @@ def test_get_trainings_filter_active(client: TestClient):
     json = response.json()
     assert "meta" in json, "There should be a meta object in the response"
     assert "data" in json, "There should be a data list in the response"
+    assert len(json["data"]) > 0, "There should be at least one training"
+
+    training_resource = _find(json["data"], str(training_entity.id))
+    assert (
+        training_resource is not None
+    ), f"Training with id {training_entity.id} should exist"
 
 
 def test_get_trainings_filter_definition(client: TestClient):
@@ -89,16 +131,18 @@ def test_get_trainings_filter_definition(client: TestClient):
         assert "detail" in json
 
 
-def test_get_training(client: TestClient):
+def test_get_training(client: TestClient, training_entity: TrainingEntity):
     """Test /api/v1/trainings/{training_id}."""
-    response = client.get("/api/v1/trainings/1")
-    assert response.status_code in [status.HTTP_200_OK, status.HTTP_404_NOT_FOUND]
+    response = client.get(f"/api/v1/trainings/{training_entity.id}")
+    assert response.status_code == status.HTTP_200_OK
 
     json = response.json()
-    if response.status_code == status.HTTP_200_OK:
-        assert "data" in json, "There should be a data list in the response"
-    else:
-        assert "detail" in json
+    assert "data" in json, "There should be data in the response"
+
+    training_resource = json["data"]
+    assert (
+        training_resource is not None
+    ), f"Training with id {training_entity.id} should exist"
 
 
 def test_create_training(secure_client: TestClient):
@@ -202,12 +246,12 @@ def test_create_training_with_teams(secure_client: TestClient):
     assert response.status_code == status.HTTP_201_CREATED, response.json()
 
 
-def test_update_training(secure_client: TestClient):
+def test_update_training(secure_client: TestClient, training_entity: TrainingEntity):
     """Test PATCH /api/v1/trainings."""
     payload = {
         "data": {
             "type": "trainings",
-            "id": "1",
+            "id": str(training_entity.id),
             "attributes": {
                 "contents": [
                     {
@@ -233,5 +277,13 @@ def test_update_training(secure_client: TestClient):
             },
         }
     }
-    response = secure_client.patch("/api/v1/trainings/1", json=payload)
+    response = secure_client.patch(
+        f"/api/v1/trainings/{training_entity.id}", json=payload
+    )
+    assert response.status_code == status.HTTP_200_OK, response.json()
+
+
+def test_delete_training(secure_client: TestClient, training_entity: TrainingEntity):
+    """Test DELETE /api/v1/trainings/{id}."""
+    response = secure_client.delete(f"/api/v1/trainings/{training_entity.id}")
     assert response.status_code == status.HTTP_200_OK, response.json()
