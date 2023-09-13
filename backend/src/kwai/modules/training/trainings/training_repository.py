@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from typing import AsyncIterator
 
 from kwai.modules.training.trainings.training import TrainingEntity, TrainingIdentifier
+from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
 from kwai.modules.training.trainings.training_query import TrainingQuery
 
 
@@ -76,5 +77,20 @@ class TrainingRepository(ABC):
 
         Args:
             training: The training to delete.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    async def reset_definition(
+        self, training_definition: TrainingDefinitionEntity, delete: bool = False
+    ) -> None:
+        """Reset all trainings of a training definition.
+
+        Args:
+            training_definition: The definition to use.
+            delete: Delete training or update?
+
+        When delete is True, trainings will be deleted. When False
+        the definition will be set to None.
         """
         raise NotImplementedError

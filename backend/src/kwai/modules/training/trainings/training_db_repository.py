@@ -1,7 +1,7 @@
 """Module for implementing a training repository for a database."""
 from typing import AsyncIterator
 
-from sql_smith.functions import field
+from sql_smith.functions import field, alias, express
 
 from kwai.core.db.database import Database, Record
 from kwai.core.db.rows import OwnersTable
@@ -10,6 +10,7 @@ from kwai.modules.training.teams.team import TeamEntity
 from kwai.modules.training.trainings.training import TrainingEntity, TrainingIdentifier
 from kwai.modules.training.trainings.training_coach_db_query import TrainingCoachDbQuery
 from kwai.modules.training.trainings.training_db_query import TrainingDbQuery
+from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
 from kwai.modules.training.trainings.training_query import TrainingQuery
 from kwai.modules.training.trainings.training_repository import (
     TrainingNotFoundException,
@@ -236,3 +237,54 @@ class TrainingDbRepository(TrainingRepository):
         await self._delete_teams(training),
 
         await self._database.commit()
+
+    async def reset_definition(
+        self, training_definition: TrainingDefinitionEntity, delete: bool = False
+    ) -> None:
+        trainings_query = (
+            self._database.create_query_factory()
+            .select(TrainingsTable.column("id"))
+            .from_(TrainingsTable.table_name)
+            .and_where(field("definition_id").eq(training_definition.id.value))
+        )
+        if delete:
+            delete_teams = (
+                self._database.create_query_factory()
+                .delete(TrainingTeamsTable.table_name)
+                .and_where(TrainingTeamsTable.field("training_id").in_(trainings_query))
+            )
+            await self._database.execute(delete_teams)
+
+            delete_coaches = (
+                self._database.create_query_factory()
+                .delete(TrainingCoachesTable.table_name)
+                .and_where(
+                    TrainingCoachesTable.field("training_id").in_(trainings_query)
+                )
+            )
+            await self._database.execute(delete_coaches)
+
+            delete_contents = (
+                self._database.create_query_factory()
+                .delete(TrainingContentsTable.table_name)
+                .and_where(
+                    TrainingContentsTable.field("training_id").in_(trainings_query)
+                )
+            )
+            await self._database.execute(delete_contents)
+            await self._database.commit()
+        else:
+            # Because it is not allowed to update the table that is used
+            # in a sub query, we need to create a copy.
+            copy_trainings_query = (
+                self._database.create_query_factory()
+                .select("t.id")
+                .from_(alias(express("({})", trainings_query), "t"))
+            )
+            update_trainings = (
+                self._database.create_query_factory()
+                .update(TrainingsTable.table_name, {"definition_id": None})
+                .where(TrainingsTable.field("id").in_(copy_trainings_query))
+            )
+            await self._database.execute(update_trainings)
+            await self._database.commit()
