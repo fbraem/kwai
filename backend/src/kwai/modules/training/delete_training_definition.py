@@ -1,4 +1,4 @@
-"""Module for the use case "Delete Training Definition."""
+"""Module for the use case "Delete Training Definition"."""
 from dataclasses import dataclass
 
 from kwai.modules.training.trainings.training_definition import (
