@@ -237,10 +237,10 @@ async def update_training(
     responses={status.HTTP_404_NOT_FOUND: {"description": "Training was not found."}},
 )
 async def delete_training(
-    training_definition_id: int,
+    training_id: int,
     db=deps.depends(Database),
     user: UserEntity = Depends(get_current_user),
 ) -> None:
     """Delete a training definition."""
-    command = DeleteTrainingCommand(id=training_definition_id)
+    command = DeleteTrainingCommand(id=training_id)
     await DeleteTraining(TrainingDbRepository(db)).execute(command)
