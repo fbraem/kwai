@@ -3355,14 +3355,14 @@ will also be revoked.</p>
 
 
 
-<h8 id="kwai.api.v1.trainings.endpoints.trainings.delete_training_definition" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">delete_training_definition</span><span class="p">(</span><span class="n">training_definition_id</span><span class="p">,</span> <span class="n">resource</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">user</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">))</span></code>
+<h8 id="kwai.api.v1.trainings.endpoints.trainings.delete_training" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">delete_training</span><span class="p">(</span><span class="n">training_id</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">user</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">))</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
   </span>
 
-<a href="#kwai.api.v1.trainings.endpoints.trainings.delete_training_definition" class="headerlink" title="Permanent link">&para;</a></h8>
+<a href="#kwai.api.v1.trainings.endpoints.trainings.delete_training" class="headerlink" title="Permanent link">&para;</a></h8>
 
 
   <div class="doc doc-contents ">
@@ -35193,6 +35193,206 @@ cannot be found.</p>
 
 
 
+<h5 id="kwai.modules.training.delete_training_definition" class="doc doc-heading">
+            <code>delete_training_definition</code>
+
+
+<a href="#kwai.modules.training.delete_training_definition" class="headerlink" title="Permanent link">&para;</a></h5>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module for the use case "Delete Training Definition".</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.training.delete_training_definition.DeleteTrainingDefinition" class="doc doc-heading">
+          <code>DeleteTrainingDefinition</code>
+
+
+<a href="#kwai.modules.training.delete_training_definition.DeleteTrainingDefinition" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Use case "Delete Training Definition".</p>
+<p>When delete_trainings is True, Trainings that are related to this definition,
+will be. When False, the training will be updated.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.training.delete_training_definition.DeleteTrainingDefinition.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">training_repo</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.training.delete_training_definition.DeleteTrainingDefinition.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize the use case.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>repo</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.training_definition_repository.TrainingDefinitionRepository" href="#kwai.modules.training.trainings.training_definition_repository.TrainingDefinitionRepository">TrainingDefinitionRepository</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A repository for deleting a training definition.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>training_repo</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.training_repository.TrainingRepository" href="#kwai.modules.training.trainings.training_repository.TrainingRepository">TrainingRepository</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A repository for deleting or updating a training(s).</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.training.delete_training_definition.DeleteTrainingDefinition.execute" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.training.delete_training_definition.DeleteTrainingDefinition.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Execute the use case.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.training.delete_training_definition.DeleteTrainingDefinitionCommand" class="doc doc-heading">
+          <code>DeleteTrainingDefinitionCommand</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.training.delete_training_definition.DeleteTrainingDefinitionCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Input for the use case DeleteTrainingDefinition.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h5 id="kwai.modules.training.get_training" class="doc doc-heading">
             <code>get_training</code>
 
@@ -40062,6 +40262,76 @@ cannot be found.</p>
         </tr>
     </tbody>
   </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.trainings.training_repository.TrainingRepository.reset_definition" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">reset_definition</span><span class="p">(</span><span class="n">training_definition</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.training.trainings.training_repository.TrainingRepository.reset_definition" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Reset all trainings of a training definition.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>training_definition</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.training_definition.TrainingDefinitionEntity" href="#kwai.modules.training.trainings.training_definition.TrainingDefinitionEntity">TrainingDefinitionEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The definition to use.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>delete</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Delete training or update?</p>
+            </div>
+          </td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+      <p>When delete is True, trainings will be deleted. When False
+the definition will be set to None.</p>
 
   </div>
 
