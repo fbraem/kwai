@@ -1,8 +1,23 @@
 """Module that defines a value object for text content."""
 from dataclasses import dataclass, field
+from enum import Enum
 
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
+
+
+class Locale(Enum):
+    """Value object for a Locale."""
+
+    NL = "nl"
+    EN = "en"
+
+
+class DocumentFormat(Enum):
+    """Value object for a document format."""
+
+    HTML = "html"
+    MARKDOWN = "md"
 
 
 @dataclass(frozen=True, kw_only=True, slots=True)
