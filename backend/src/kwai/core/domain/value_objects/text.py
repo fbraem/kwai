@@ -22,7 +22,10 @@ class DocumentFormat(Enum):
 
 @dataclass(frozen=True, kw_only=True, slots=True)
 class LocaleText:
-    """Value object for the content of a news story.
+    """Value object for text.
+
+    Several entities, like news stories, trainings, contain text. This value object
+    represents a text for a certain locale.
 
     Attributes:
         locale: The locale of the content.
@@ -34,8 +37,8 @@ class LocaleText:
         traceable_time: The creation and modification timestamp of the content.
     """
 
-    locale: str
-    format: str
+    locale: Locale
+    format: DocumentFormat
     title: str
     content: str
     summary: str
@@ -50,7 +53,7 @@ class Text:
     content is added, changed or removed.
     """
 
-    def __init__(self, content: dict[str, LocaleText] = None):
+    def __init__(self, content: dict[Locale, LocaleText] = None):
         """Initialize the text value object with content.
 
         Args:
@@ -58,7 +61,7 @@ class Text:
         """
         self._content = {} if content is None else content.copy()
 
-    def contains_translation(self, locale: str) -> bool:
+    def contains_translation(self, locale: Locale) -> bool:
         """Check if the given locale is available as translation.
 
         Returns:
@@ -66,7 +69,7 @@ class Text:
         """
         return locale in self._content
 
-    def get_translation(self, locale: str) -> LocaleText:
+    def get_translation(self, locale: Locale) -> LocaleText:
         """Get a translation.
 
         Args:
