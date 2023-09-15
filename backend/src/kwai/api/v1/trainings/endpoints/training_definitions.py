@@ -6,6 +6,10 @@ from kwai.api.v1.trainings.schemas.training_definition import TrainingDefinition
 from kwai.core.db.database import Database
 from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.identity.users.user import UserEntity
+from kwai.modules.training.delete_training_definition import (
+    DeleteTrainingDefinition,
+    DeleteTrainingDefinitionCommand,
+)
 from kwai.modules.training.get_training_definition import (
     GetTrainingDefinition,
     GetTrainingDefinitionCommand,
@@ -14,6 +18,7 @@ from kwai.modules.training.get_training_definitions import (
     GetTrainingDefinitions,
     GetTrainingDefinitionsCommand,
 )
+from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository
 from kwai.modules.training.trainings.training_definition_db_repository import (
     TrainingDefinitionDbRepository,
 )
@@ -46,7 +51,7 @@ async def get_training_definitions(
 
 
 @router.get(
-    "/training_definitions/{training_definition_id",
+    "/training_definitions/{training_definition_id}",
     responses={
         status.HTTP_404_NOT_FOUND: {"description": "Training definition was not found."}
     },
@@ -106,8 +111,13 @@ async def update_training_definition(
 )
 async def delete_training_definition(
     training_definition_id: int,
-    resource: TrainingDefinitionResource.get_resource_data_model(),
     db=deps.depends(Database),
     user: UserEntity = Depends(get_current_user),
 ) -> None:
     """Delete a training definition."""
+    command = DeleteTrainingDefinitionCommand(
+        id=training_definition_id, delete_trainings=False
+    )
+    await DeleteTrainingDefinition(
+        TrainingDefinitionDbRepository(db), TrainingDbRepository(db)
+    ).execute(command)
