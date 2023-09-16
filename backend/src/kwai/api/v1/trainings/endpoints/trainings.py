@@ -224,6 +224,10 @@ async def update_training(
             TeamDbRepository(db),
             Owner(id=user.id, uuid=user.uuid, name=user.name),
         ).execute(command)
+    except TrainingNotFoundException as ex:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
+        ) from ex
     except ValueError as ve:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ve)
