@@ -40,3 +40,19 @@ class TimePeriod:
         return datetime.combine(date(1, 1, 1), self.end) - datetime.combine(
             date(1, 1, 1), self.start
         )
+
+    @classmethod
+    def create_from_string(cls, start: str, end: str | None = None) -> "TimePeriod":
+        """Create a time period from one or two strings.
+
+        Args:
+            start: a start time in format 00:00
+            end: an optional end time in format 00:00
+
+        Returns:
+            A new time period.
+        """
+        return TimePeriod(
+            start=datetime.strptime(start, "%H:%M").time(),
+            end=None if end is None else datetime.strptime(end, "%H:%M").time(),
+        )
