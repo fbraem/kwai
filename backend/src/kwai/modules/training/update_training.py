@@ -94,7 +94,8 @@ class UpdateTraining:
         else:
             coaches = []
 
-        training = Entity.replace(training,
+        training = Entity.replace(
+            training,
             content=[
                 LocaleText(
                     locale=text["locale"],
