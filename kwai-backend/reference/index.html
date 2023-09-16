@@ -3168,7 +3168,7 @@ will also be revoked.</p>
 
 
 <h8 id="kwai.api.v1.trainings.endpoints.training_definitions.delete_training_definition" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">delete_training_definition</span><span class="p">(</span><span class="n">training_definition_id</span><span class="p">,</span> <span class="n">resource</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">user</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">))</span></code>
+<code class="codehilite language-python"><span class="n">delete_training_definition</span><span class="p">(</span><span class="n">training_definition_id</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">user</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">))</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -9167,7 +9167,9 @@ the attribute of the class.</p>
   <div class="doc doc-contents ">
 
   
-      <p>Value object for the content of a news story.</p>
+      <p>Value object for text.</p>
+<p>Several entities, like news stories, trainings, contain text. This value object
+represents a text for a certain locale.</p>
 
 
 
@@ -9184,7 +9186,7 @@ the attribute of the class.</p>
         <tr>
           <td><code>locale</code></td>
           <td>
-                <code>str</code>
+                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.text.Locale" href="#kwai.core.domain.value_objects.text.Locale">Locale</a></code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -9195,7 +9197,7 @@ the attribute of the class.</p>
         <tr>
           <td><code>format</code></td>
           <td>
-                <code>str</code>
+                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.text.DocumentFormat" href="#kwai.core.domain.value_objects.text.DocumentFormat">DocumentFormat</a></code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -9344,7 +9346,7 @@ content is added, changed or removed.</p>
         <tr>
           <td><code>content</code></td>
           <td>
-                <code>dict[str, <a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.text.LocaleText" href="#kwai.core.domain.value_objects.text.LocaleText">LocaleText</a>]</code>
+                <code>dict[<a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.text.Locale" href="#kwai.core.domain.value_objects.text.Locale">Locale</a>, <a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.text.LocaleText" href="#kwai.core.domain.value_objects.text.LocaleText">LocaleText</a>]</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -9533,7 +9535,7 @@ content is added, changed or removed.</p>
         <tr>
           <td><code>locale</code></td>
           <td>
-                <code>str</code>
+                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.text.Locale" href="#kwai.core.domain.value_objects.text.Locale">Locale</a></code>
           </td>
           <td>
             <div class="doc-md-description">
