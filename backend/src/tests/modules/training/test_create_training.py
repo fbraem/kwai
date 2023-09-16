@@ -65,11 +65,7 @@ async def team(
 
 
 @pytest.fixture
-async def command(
-    coach: CoachEntity,
-    team: TeamEntity,
-    owner: Owner,
-) -> CreateTrainingCommand:
+async def command(coach: CoachEntity, team: TeamEntity) -> CreateTrainingCommand:
     """A fixture for a training entity."""
     start_date = LocalTimestamp.create_now()
     return CreateTrainingCommand(
