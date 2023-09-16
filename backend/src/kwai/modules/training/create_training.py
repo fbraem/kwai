@@ -49,7 +49,7 @@ class CreateTraining:
         self._owner = owner
 
     async def execute(self, command: CreateTrainingCommand) -> TrainingEntity:
-        """Executes the use case.
+        """Execute the use case.
 
         Args:
             command: The input for this use case.
