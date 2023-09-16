@@ -1,3 +1,4 @@
+"""Module that defines the common input for the use cases Training Definitions."""
 from dataclasses import dataclass
 
 
