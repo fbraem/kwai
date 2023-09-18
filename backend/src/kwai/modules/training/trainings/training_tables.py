@@ -45,8 +45,8 @@ class TrainingContentRow(ContentRow):
         """
         return TrainingContentRow(
             training_id=training.id.value,
-            locale=content.locale,
-            format=content.format,
+            locale=content.locale.value,
+            format=content.format.value,
             title=content.title,
             content=content.content,
             summary=content.summary,

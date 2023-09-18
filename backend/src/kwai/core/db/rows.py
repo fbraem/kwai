@@ -7,7 +7,7 @@ from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.owner import Owner
-from kwai.core.domain.value_objects.text import LocaleText
+from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 
@@ -64,8 +64,8 @@ class ContentRow:
             author: The author of the content.
         """
         return LocaleText(
-            locale=self.locale,
-            format=self.format,
+            locale=Locale(self.locale),
+            format=DocumentFormat(self.format),
             title=self.title,
             content=self.content,
             summary=self.summary,

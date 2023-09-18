@@ -26,8 +26,8 @@ async def training_entity(database: Database, owner: Owner) -> TrainingEntity:
         TrainingEntity(
             content=[
                 LocaleText(
-                    locale=Locale.NL.value,
-                    format=DocumentFormat.MARKDOWN.value,
+                    locale=Locale.NL,
+                    format=DocumentFormat.MARKDOWN,
                     content="This is a test training",
                     summary="Test API training",
                     title="Test API Training",

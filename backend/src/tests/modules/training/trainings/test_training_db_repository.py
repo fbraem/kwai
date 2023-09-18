@@ -8,7 +8,7 @@ from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
-from kwai.core.domain.value_objects.text import LocaleText
+from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
 from kwai.modules.training.coaches.coach import CoachEntity, CoachIdentifier
 from kwai.modules.training.trainings.training import TrainingEntity
 from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository
@@ -42,8 +42,8 @@ def training(user, context: Context, owner: Owner) -> TrainingEntity:
 
     text = [
         LocaleText(
-            locale="en",
-            format="md",
+            locale=Locale.EN,
+            format=DocumentFormat.MARKDOWN,
             title="Training U13",
             summary="Training for U13",
             content="",

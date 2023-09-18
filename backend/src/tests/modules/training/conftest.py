@@ -10,12 +10,12 @@ from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
-from kwai.core.domain.value_objects.text import LocaleText
+from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
 from kwai.core.domain.value_objects.time_period import TimePeriod
 from kwai.core.domain.value_objects.weekday import Weekday
 from kwai.modules.training.coaches.coach_tables import (
-    CoachesTable,
     CoachRow,
+    CoachesTable,
     PersonRow,
     PersonsTable,
 )
@@ -99,8 +99,8 @@ async def training_entity(owner: Owner) -> TrainingEntity:
     training = TrainingEntity(
         content=[
             LocaleText(
-                locale="nl",
-                format="md",
+                locale=Locale.NL,
+                format=DocumentFormat.MARKDOWN,
                 title="Test Training",
                 content="This is a test training",
                 summary="This is a test training",

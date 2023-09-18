@@ -70,7 +70,7 @@ class PortalStoryResource:
         """Get the content of the story."""
         return [
             StoryContent(
-                locale=content.locale,
+                locale=content.locale.value,
                 title=content.title,
                 summary=MarkdownConverter().convert(content.summary),
                 content=MarkdownConverter().convert(content.content)

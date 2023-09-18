@@ -4,7 +4,7 @@ import pytest
 
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.owner import Owner
-from kwai.core.domain.value_objects.text import LocaleText
+from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
 from kwai.modules.news.stories.story import (
     Application,
     StoryEntity,
@@ -32,8 +32,8 @@ async def story(
     story = StoryEntity(
         content=[
             LocaleText(
-                format="md",
-                locale="nl",
+                format=DocumentFormat.MARKDOWN,
+                locale=Locale.NL,
                 title="test",
                 content="This is a test",
                 summary="This is a summary of the test",

@@ -99,8 +99,8 @@ class TrainingResource:
         """Get the content of the training."""
         return [
             TrainingContent(
-                locale=content.locale,
-                format=content.format,
+                locale=content.locale.value,
+                format=content.format.value,
                 title=content.title,
                 summary=content.summary,
                 content=content.content,
