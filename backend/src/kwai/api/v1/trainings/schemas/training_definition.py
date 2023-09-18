@@ -59,12 +59,12 @@ class TrainingDefinitionResource:
         return self._training_definition.location
 
     @json_api.attribute(name="remark")
-    def get_remark(self) -> str:
+    def get_remark(self) -> str | None:
         """Get the remark of the training definition."""
         return self._training_definition.remark
 
     @json_api.attribute(name="created_at")
-    def get_created_at(self) -> str:
+    def get_created_at(self) -> str | None:
         """Get the timestamp of creation."""
         return str(self._training_definition.traceable_time.created_at)
 
