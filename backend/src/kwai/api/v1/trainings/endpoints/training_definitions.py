@@ -4,8 +4,13 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from kwai.api.dependencies import deps, get_current_user
 from kwai.api.v1.trainings.schemas.training_definition import TrainingDefinitionResource
 from kwai.core.db.database import Database
+from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.identity.users.user import UserEntity
+from kwai.modules.training.create_training_definition import (
+    CreateTrainingDefinition,
+    CreateTrainingDefinitionCommand,
+)
 from kwai.modules.training.delete_training_definition import (
     DeleteTrainingDefinition,
     DeleteTrainingDefinitionCommand,
@@ -24,6 +29,10 @@ from kwai.modules.training.trainings.training_definition_db_repository import (
 )
 from kwai.modules.training.trainings.training_definition_repository import (
     TrainingDefinitionNotFoundException,
+)
+from kwai.modules.training.update_training_definition import (
+    UpdateTrainingDefinition,
+    UpdateTrainingDefinitionCommand,
 )
 
 router = APIRouter()
@@ -86,6 +95,29 @@ async def create_training_definition(
     user: UserEntity = Depends(get_current_user),
 ) -> TrainingDefinitionResource.get_document_model():
     """Create a new training definition."""
+    command = CreateTrainingDefinitionCommand(
+        name=resource.data.attributes.name,
+        description=resource.data.attributes.description,
+        weekday=resource.data.attributes.weekday,
+        start_time=resource.data.attributes.start_time,
+        end_time=resource.data.attributes.end_time,
+        active=resource.data.attributes.active,
+        location=resource.data.attributes.location or "",
+        remark=resource.data.attributes.remark or "",
+    )
+    try:
+        training_definition = await CreateTrainingDefinition(
+            TrainingDefinitionDbRepository(db),
+            Owner(id=user.id, uuid=user.uuid, name=user.name),
+        ).execute(command)
+    except ValueError as ve:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ve)
+        ) from ve
+
+    return TrainingDefinitionResource.serialize(
+        TrainingDefinitionResource(training_definition)
+    )
 
 
 @router.patch(
@@ -101,6 +133,34 @@ async def update_training_definition(
     user: UserEntity = Depends(get_current_user),
 ) -> TrainingDefinitionResource.get_document_model():
     """Update a training definition."""
+    command = UpdateTrainingDefinitionCommand(
+        id=training_definition_id,
+        name=resource.data.attributes.name,
+        description=resource.data.attributes.description,
+        weekday=resource.data.attributes.weekday,
+        start_time=resource.data.attributes.start_time,
+        end_time=resource.data.attributes.end_time,
+        active=resource.data.attributes.active,
+        location=resource.data.attributes.location or "",
+        remark=resource.data.attributes.remark or "",
+    )
+    try:
+        training_definition = await UpdateTrainingDefinition(
+            TrainingDefinitionDbRepository(db),
+            Owner(id=user.id, uuid=user.uuid, name=user.name),
+        ).execute(command)
+    except TrainingDefinitionNotFoundException as ex:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
+        ) from ex
+    except ValueError as ve:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ve)
+        ) from ve
+
+    return TrainingDefinitionResource.serialize(
+        TrainingDefinitionResource(training_definition)
+    )
 
 
 @router.delete(

@@ -54,6 +54,51 @@ def test_get_training_definition(
     assert "data" in json, "There should be a data list in the response"
 
 
+def test_create_training_definition(secure_client: TestClient):
+    """Test create training definition."""
+    payload = {
+        "data": {
+            "type": "training_definitions",
+            "attributes": {
+                "name": "U9 Training",
+                "description": "Monday training for U9",
+                "weekday": 1,
+                "start_time": "19:00",
+                "end_time": "20:00",
+                "active": True,
+                "location": "Sports Hall",
+            },
+        }
+    }
+    response = secure_client.post("/api/v1/training_definitions", json=payload)
+    assert response.status_code == status.HTTP_201_CREATED, response.json()
+
+
+def test_update_training_definition(
+    secure_client: TestClient, training_definition_entity: TrainingDefinitionEntity
+):
+    """Test update training definition."""
+    payload = {
+        "data": {
+            "type": "training_definitions",
+            "attributes": {
+                "name": "U9 Training",
+                "description": "Monday training for U9",
+                "weekday": 1,
+                "start_time": "19:00",
+                "end_time": "20:00",
+                "active": True,
+                "location": "Sports Hall",
+                "remark": "Updated with API",
+            },
+        }
+    }
+    response = secure_client.patch(
+        f"/api/v1/training_definitions/{training_definition_entity.id}", json=payload
+    )
+    assert response.status_code == status.HTTP_200_OK, response.json()
+
+
 def test_delete_training_definition(
     secure_client: TestClient, training_definition_entity: TrainingDefinitionEntity
 ):
