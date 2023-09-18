@@ -37,8 +37,8 @@ class StoryContentRow(ContentRow):
         """
         return StoryContentRow(
             news_id=story.id.value,
-            locale=content.locale,
-            format=content.format,
+            locale=content.locale.value,
+            format=content.format.value,
             title=content.title,
             content=content.content,
             summary=content.summary,
