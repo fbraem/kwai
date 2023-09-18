@@ -316,4 +316,24 @@ create table if not exists team_members(
 ) charset = utf8mb3;
 alter table team_members rename column member_id to person_id;
 
+create table if not exists page_contents_2(
+  page_id               int unsigned                         not null,
+  locale                varchar(255)                         not null,
+  format                varchar(255)                         not null,
+  title                 varchar(255)                         not null,
+  content               text,
+  summary               text                                 not null,
+  user_id               int                                  not null,
+  created_at            datetime default CURRENT_TIMESTAMP   not null,
+  updated_at            datetime                             null,
+  primary key (page_id, locale)
+) charset = utf8mb3;
+
+-- Move page_contents_2 back to page_contents
+drop table if exists page_contents;
+CREATE TABLE page_contents LIKE page_contents_2;
+INSERT INTO page_contents SELECT * FROM page_contents_2;
+drop table if exists page_contents_2;
+
+
 -- migrate:down
