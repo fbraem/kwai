@@ -41,7 +41,7 @@ const JsonApiCoach = z.object({
 
 const JsonApiDefinition = z.object({
   id: z.string(),
-  type: z.literal('definitions'),
+  type: z.literal('training_definitions'),
   attributes: z.object({
     name: z.string(),
   }),
