@@ -2,11 +2,15 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from kwai.api.dependencies import deps, get_current_user
+from kwai.api.v1.trainings.endpoints.trainings import TrainingsFilterModel
+from kwai.api.v1.trainings.schemas.training import TrainingResource
 from kwai.api.v1.trainings.schemas.training_definition import TrainingDefinitionResource
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.identity.users.user import UserEntity
+from kwai.modules.training.coaches.coach_db_repository import CoachDbRepository
+from kwai.modules.training.coaches.coach_repository import CoachNotFoundException
 from kwai.modules.training.create_training_definition import (
     CreateTrainingDefinition,
     CreateTrainingDefinitionCommand,
@@ -23,6 +27,7 @@ from kwai.modules.training.get_training_definitions import (
     GetTrainingDefinitions,
     GetTrainingDefinitionsCommand,
 )
+from kwai.modules.training.get_trainings import GetTrainings, GetTrainingsCommand
 from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository
 from kwai.modules.training.trainings.training_definition_db_repository import (
     TrainingDefinitionDbRepository,
@@ -181,3 +186,53 @@ async def delete_training_definition(
     await DeleteTrainingDefinition(
         TrainingDefinitionDbRepository(db), TrainingDbRepository(db)
     ).execute(command)
+
+
+@router.get(
+    "/training_definitions/{training_definition_id}/trainings",
+    responses={
+        status.HTTP_404_NOT_FOUND: {
+            "description": "Training definition or coach was not found."
+        }
+    },
+)
+async def get_trainings(
+    training_definition_id: int,
+    pagination: PaginationModel = Depends(PaginationModel),
+    trainings_filter: TrainingsFilterModel = Depends(TrainingsFilterModel),
+    db=deps.depends(Database),
+) -> TrainingResource.get_document_model():
+    """Get trainings of the given training definition."""
+    command = GetTrainingsCommand(
+        offset=pagination.offset or 0,
+        limit=pagination.limit,
+        year=trainings_filter.year,
+        month=trainings_filter.month,
+        start=trainings_filter.start,
+        end=trainings_filter.end,
+        active=trainings_filter.active,
+        coach=trainings_filter.coach,
+        definition=training_definition_id,
+    )
+
+    try:
+        count, training_iterator = await GetTrainings(
+            TrainingDbRepository(db),
+            CoachDbRepository(db),
+            TrainingDefinitionDbRepository(db),
+        ).execute(command)
+    except TrainingDefinitionNotFoundException as ex:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
+        ) from ex
+    except CoachNotFoundException as ex:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
+        ) from ex
+
+    document = TrainingResource.serialize_list(
+        [TrainingResource(training) async for training in training_iterator]
+    )
+    document.meta = Meta(count=count, offset=command.offset, limit=command.limit)
+
+    return document

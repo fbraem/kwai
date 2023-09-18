@@ -107,3 +107,17 @@ def test_delete_training_definition(
         f"/api/v1/training_definitions/{training_definition_entity.id}"
     )
     assert response.status_code == status.HTTP_200_OK
+
+
+def test_get_trainings(
+    client: TestClient, training_definition_entity: TrainingDefinitionEntity
+):
+    """Test get trainings from a training definition."""
+    response = client.get(
+        f"/api/v1/training_definitions/{training_definition_entity.id}/trainings"
+    )
+    assert response.status_code == status.HTTP_200_OK
+
+    json = response.json()
+    assert "meta" in json, "There should be a meta object in the response"
+    assert "data" in json, "There should be a data list in the response"
