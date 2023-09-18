@@ -1,4 +1,4 @@
-"""Module for testing the use case "Update Training"."""
+"""Module for testing the use case "Update Training Definition"."""
 import pytest
 
 from kwai.core.db.database import Database
