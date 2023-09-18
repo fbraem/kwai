@@ -26,7 +26,7 @@ async def repo(database: Database) -> StoryRepository:
 
 @pytest.fixture(scope="module")
 async def story(
-    repo: StoryRepository, author: Owner, application: Application
+    repo: StoryRepository, owner: Owner, application: Application
 ) -> StoryEntity:
     """Fixture for a story."""
     story = StoryEntity(
@@ -37,7 +37,7 @@ async def story(
                 title="test",
                 content="This is a test",
                 summary="This is a summary of the test",
-                author=author,
+                author=owner,
             )
         ],
         application=application,

@@ -2,18 +2,11 @@
 import pytest
 
 from kwai.core.db.database import Database
-from kwai.modules.identity.users.user import UserEntity
-from kwai.modules.news.stories.story import Application, Author
+from kwai.modules.news.stories.story import Application
 from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,
 )
-
-
-@pytest.fixture(scope="module")
-async def author(user: UserEntity) -> Author:
-    """Fixture for an author."""
-    return Author(id=user.id, uuid=user.uuid, name=user.name)
 
 
 @pytest.fixture(scope="module")

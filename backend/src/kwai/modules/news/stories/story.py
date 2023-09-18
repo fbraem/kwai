@@ -4,11 +4,9 @@ from dataclasses import dataclass, field
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
-from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import LocaleText
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
-from kwai.core.domain.value_objects.unique_id import UniqueId
 
 StoryIdentifier = IntIdentifier
 
@@ -28,15 +26,6 @@ class Application:
     id: IntIdentifier
     name: str
     title: str
-
-
-@dataclass(frozen=True, kw_only=True, slots=True)
-class Author:
-    """Value object for an author of content."""
-
-    id: IntIdentifier
-    uuid: UniqueId
-    name: Name
 
 
 class StoryEntity(Entity[StoryIdentifier]):
