@@ -5,7 +5,7 @@ from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
-from kwai.core.domain.value_objects.text import LocaleText
+from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
 from kwai.modules.training.coaches.coach import CoachEntity, CoachIdentifier
 from kwai.modules.training.coaches.coach_db_repository import CoachDbRepository
 from kwai.modules.training.coaches.coach_repository import CoachRepository
@@ -81,8 +81,8 @@ async def training_entity(
         TrainingEntity(
             content=[
                 LocaleText(
-                    locale="en",
-                    format="md",
+                    locale=Locale.EN,
+                    format=DocumentFormat.MARKDOWN,
                     title="Test training",
                     content="This is a test",
                     summary="This is a test",
