@@ -317,7 +317,7 @@ create table if not exists team_members(
 alter table team_members rename column member_id to person_id;
 
 create table if not exists pages(
-    id             int unsigned not null,
+    id             int unsigned auto_increment primary key,
     enabled        tinyint(1) not null default 0,
     remark         text default null,
     application_id int unsigned not null,
