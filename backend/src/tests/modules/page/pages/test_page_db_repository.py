@@ -3,9 +3,7 @@ import pytest
 
 from kwai.core.db.database import Database
 from kwai.core.domain.entity import Entity
-from kwai.core.domain.value_objects.owner import Owner
-from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
-from kwai.modules.page.pages.page import Application, PageEntity
+from kwai.modules.page.pages.page import PageEntity
 from kwai.modules.page.pages.page_db_repository import PageDbRepository
 from kwai.modules.page.pages.page_repository import PageRepository
 
@@ -14,27 +12,6 @@ from kwai.modules.page.pages.page_repository import PageRepository
 def repo(database: Database) -> PageRepository:
     """Fixture for a page repository."""
     return PageDbRepository(database)
-
-
-@pytest.fixture(scope="module")
-def page(owner: Owner, application: Application) -> PageEntity:
-    """Fixture for a page."""
-    return PageEntity(
-        enabled=True,
-        application=application,
-        content=[
-            LocaleText(
-                format=DocumentFormat.MARKDOWN,
-                locale=Locale.EN,
-                title="Test",
-                content="This is a test",
-                summary="This is a summary",
-                author=owner,
-            )
-        ],
-        priority=0,
-        remark="Test",
-    )
 
 
 @pytest.fixture(scope="module")
