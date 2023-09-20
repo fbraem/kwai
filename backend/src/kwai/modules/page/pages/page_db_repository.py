@@ -62,7 +62,7 @@ class PageDbRepository(PageRepository):
         )
 
         delete_contents_query = (
-            await self._database.create_query_factory()
+            self._database.create_query_factory()
             .delete(PageContentsTable.table_name)
             .where(field("page_id").eq(page.id.value))
         )

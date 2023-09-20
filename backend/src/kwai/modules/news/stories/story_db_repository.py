@@ -65,7 +65,7 @@ class StoryDbRepository(StoryRepository):
         )
 
         delete_contents_query = (
-            await self._database.create_query_factory()
+            self._database.create_query_factory()
             .delete(StoryContentsTable.table_name)
             .where(field("news_id").eq(story.id.value))
         )
