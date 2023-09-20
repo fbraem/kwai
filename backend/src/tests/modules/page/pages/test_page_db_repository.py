@@ -2,6 +2,7 @@
 import pytest
 
 from kwai.core.db.database import Database
+from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
 from kwai.modules.page.pages.page import Application, PageEntity
@@ -59,4 +60,11 @@ async def test_get_by_id(repo: PageRepository, saved_page: PageEntity):
     """Test get by id."""
     page = await repo.get_by_id(saved_page.id)
     assert page is not None, "There should be a page."
-    print(page.content[0].title)
+
+
+async def test_update(repo: PageRepository, saved_page: PageEntity):
+    """Test update page."""
+    changed_page = Entity.replace(saved_page, remark="This is an update.")
+    await repo.update(changed_page)
+    page = await repo.get_by_id(changed_page.id)
+    assert page.remark == "This is an update.", "The page should be updated."
