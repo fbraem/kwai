@@ -31754,6 +31754,1772 @@ When login fails, last_unsuccessful_login will be updated.</p>
 
 
 
+<h4 id="kwai.modules.page" class="doc doc-heading">
+            <code>page</code>
+
+
+<a href="#kwai.modules.page" class="headerlink" title="Permanent link">&para;</a></h4>
+
+  <div class="doc doc-contents ">
+  
+      <p>Package for the page module.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h5 id="kwai.modules.page.pages" class="doc doc-heading">
+            <code>pages</code>
+
+
+<a href="#kwai.modules.page.pages" class="headerlink" title="Permanent link">&para;</a></h5>
+
+  <div class="doc doc-contents ">
+  
+      <p>Package for all modules related to pages.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.page.pages.page" class="doc doc-heading">
+            <code>page</code>
+
+
+<a href="#kwai.modules.page.pages.page" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines the Page entity.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.page.pages.page.Application" class="doc doc-heading">
+          <code>Application</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page.Application" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Value object for an application.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.page.pages.page.PageEntity" class="doc doc-heading">
+          <code>PageEntity</code>
+
+
+<a href="#kwai.modules.page.pages.page.PageEntity" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.entity.Entity" href="#kwai.core.domain.entity.Entity">Entity</a>[<span title="kwai.modules.page.pages.page.PageIdentifier">PageIdentifier</span>]</code></p>
+
+  
+      <p>A page entity.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.page.pages.page.PageEntity.application" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">application</span><span class="p">:</span> <span class="n">Application</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page.PageEntity.application" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the application.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.page.pages.page.PageEntity.content" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">content</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">LocaleText</span><span class="p">]</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page.PageEntity.content" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the content.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.page.pages.page.PageEntity.enabled" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">enabled</span><span class="p">:</span> <span class="nb">bool</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page.PageEntity.enabled" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return if the page is enabled.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.page.pages.page.PageEntity.priority" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">priority</span><span class="p">:</span> <span class="nb">int</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page.PageEntity.priority" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the priority of the page.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.page.pages.page.PageEntity.remark" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">remark</span><span class="p">:</span> <span class="nb">str</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page.PageEntity.remark" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the remark.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.page.pages.page.PageEntity.traceable_time" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">traceable_time</span><span class="p">:</span> <span class="n">TraceableTime</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page.PageEntity.traceable_time" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the created_at.</p>
+  </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.page.pages.page.PageEntity.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">id_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">application</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="n">remark</span><span class="p">,</span> <span class="n">traceable_time</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.page.pages.page.PageEntity.__init__" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize a page entity.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>id_</code></td>
+          <td>
+                <code><span title="kwai.modules.page.pages.page.PageIdentifier">PageIdentifier</span> | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The id of the page.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>enabled</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Is this page enabled?</p>
+            </div>
+          </td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>application</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.page.pages.page.Application" href="#kwai.modules.page.pages.page.Application">Application</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The related application.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>content</code></td>
+          <td>
+                <code>list[<a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.text.LocaleText" href="#kwai.core.domain.value_objects.text.LocaleText">LocaleText</a>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The text content of the page.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>priority</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The priority level of the page.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>remark</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A remark about the page.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>traceable_time</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.traceable_time.TraceableTime" href="#kwai.core.domain.value_objects.traceable_time.TraceableTime">TraceableTime</a> | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The create and update time of the page.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.page.pages.page_db_query" class="doc doc-heading">
+            <code>page_db_query</code>
+
+
+<a href="#kwai.modules.page.pages.page_db_query" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that implements a PageQuery for a database.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.page.pages.page_db_query.PageDbQuery" class="doc doc-heading">
+          <code>PageDbQuery</code>
+
+
+<a href="#kwai.modules.page.pages.page_db_query.PageDbQuery" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.modules.page.pages.page_query.PageQuery" href="#kwai.modules.page.pages.page_query.PageQuery">PageQuery</a></code>, <code><a class="autorefs autorefs-internal" title="kwai.core.db.database_query.DatabaseQuery" href="../core/db/#kwai.core.db.database_query.DatabaseQuery">DatabaseQuery</a></code></p>
+
+  
+      <p>A database query for pages.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.page.pages.page_db_repository" class="doc doc-heading">
+            <code>page_db_repository</code>
+
+
+<a href="#kwai.modules.page.pages.page_db_repository" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that implements a page repository for a database.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.page.pages.page_db_repository.PageDbRepository" class="doc doc-heading">
+          <code>PageDbRepository</code>
+
+
+<a href="#kwai.modules.page.pages.page_db_repository.PageDbRepository" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.modules.page.pages.page_repository.PageRepository" href="#kwai.modules.page.pages.page_repository.PageRepository">PageRepository</a></code></p>
+
+  
+      <p>Page repository for a database.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.page.pages.page_query" class="doc doc-heading">
+            <code>page_query</code>
+
+
+<a href="#kwai.modules.page.pages.page_query" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module for defining an interface for a page query.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.page.pages.page_query.PageQuery" class="doc doc-heading">
+          <code>PageQuery</code>
+
+
+<a href="#kwai.modules.page.pages.page_query.PageQuery" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.repository.query.Query" href="#kwai.core.domain.repository.query.Query">Query</a></code></p>
+
+  
+      <p>An interface for a story query.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.page.pages.page_query.PageQuery.filter_by_active" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">filter_by_active</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page_query.PageQuery.filter_by_active" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Add a filter to only return active pages.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.page.pages.page_query.PageQuery.filter_by_application" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">filter_by_application</span><span class="p">(</span><span class="n">application</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page_query.PageQuery.filter_by_application" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Add a filter to return only pages for the given application.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>application</code></td>
+          <td>
+                <code>int | str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The id or the name of the application</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.page.pages.page_query.PageQuery.filter_by_id" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">filter_by_id</span><span class="p">(</span><span class="n">id_</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page_query.PageQuery.filter_by_id" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Add a filter on the news page id.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>id_</code></td>
+          <td>
+                <code><span title="kwai.modules.page.pages.page.PageIdentifier">PageIdentifier</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>an id of a page.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.page.pages.page_query.PageQuery.filter_by_user" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">filter_by_user</span><span class="p">(</span><span class="n">user</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page_query.PageQuery.filter_by_user" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Add a filter to only return pages of the given user.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>user</code></td>
+          <td>
+                <code>int | <a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.unique_id.UniqueId" href="#kwai.core.domain.value_objects.unique_id.UniqueId">UniqueId</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The id or unique id of the user.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.page.pages.page_repository" class="doc doc-heading">
+            <code>page_repository</code>
+
+
+<a href="#kwai.modules.page.pages.page_repository" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines an interface for a page repository.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.page.pages.page_repository.PageNotFoundException" class="doc doc-heading">
+          <code>PageNotFoundException</code>
+
+
+<a href="#kwai.modules.page.pages.page_repository.PageNotFoundException" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code>Exception</code></p>
+
+  
+      <p>Raised when a page can not be found.</p>
+
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.page.pages.page_repository.PageRepository" class="doc doc-heading">
+          <code>PageRepository</code>
+
+
+<a href="#kwai.modules.page.pages.page_repository.PageRepository" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="abc.ABC">ABC</span></code></p>
+
+  
+      <p>Interface for a page repository.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.page.pages.page_repository.PageRepository.create" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">page</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page_repository.PageRepository.create" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Create a new page entity.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>page</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.page.pages.page.PageEntity" href="#kwai.modules.page.pages.page.PageEntity">PageEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The page to create.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.page.pages.page.PageEntity" href="#kwai.modules.page.pages.page.PageEntity">PageEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The page entity with an identifier.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.page.pages.page_repository.PageRepository.create_query" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">create_query</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page_repository.PageRepository.create_query" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Create a query for querying pages.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.page.pages.page_repository.PageRepository.delete" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">delete</span><span class="p">(</span><span class="n">page</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page_repository.PageRepository.delete" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Delete a page.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>page</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.page.pages.page.PageEntity" href="#kwai.modules.page.pages.page.PageEntity">PageEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The page to delete.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.page.pages.page_repository.PageRepository.get_all" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_all</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page_repository.PageRepository.get_all" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return all pages of a given query.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>query</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.page.pages.page_query.PageQuery" href="#kwai.modules.page.pages.page_query.PageQuery">PageQuery</a> | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The query to use for selecting the rows.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>limit</code></td>
+          <td>
+                <code>int | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The maximum number of entities to return.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>offset</code></td>
+          <td>
+                <code>int | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Skip the offset rows before beginning to return entities.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Yields:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="typing.AsyncIterator">AsyncIterator</span>[<a class="autorefs autorefs-internal" title="kwai.modules.page.pages.page.PageEntity" href="#kwai.modules.page.pages.page.PageEntity">PageEntity</a>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A list of pages.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.page.pages.page_repository.PageRepository.get_by_id" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_by_id</span><span class="p">(</span><span class="n">id_</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page_repository.PageRepository.get_by_id" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the page with the given id.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>id_</code></td>
+          <td>
+                <code><span title="kwai.modules.page.pages.page.PageIdentifier">PageIdentifier</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The id of the page.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.page.pages.page.PageEntity" href="#kwai.modules.page.pages.page.PageEntity">PageEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A page entity.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.page.pages.page_repository.PageRepository.update" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">update</span><span class="p">(</span><span class="n">page</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page_repository.PageRepository.update" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Update a page entity.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>page</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.page.pages.page.PageEntity" href="#kwai.modules.page.pages.page.PageEntity">PageEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The page to update.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.page.pages.page_tables" class="doc doc-heading">
+            <code>page_tables</code>
+
+
+<a href="#kwai.modules.page.pages.page_tables" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module for defining all table classes for page.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.page.pages.page_tables.ApplicationRow" class="doc doc-heading">
+          <code>ApplicationRow</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page_tables.ApplicationRow" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Represent the application data that is associated with a page.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.page.pages.page_tables.ApplicationRow.create_application" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">create_application</span><span class="p">()</span></code>
+
+<a href="#kwai.modules.page.pages.page_tables.ApplicationRow.create_application" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Create an Application value object from row data.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.page.pages.page_tables.PageContentRow" class="doc doc-heading">
+          <code>PageContentRow</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page_tables.PageContentRow" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.db.rows.ContentRow" href="#kwai.core.db.rows.ContentRow">ContentRow</a></code></p>
+
+  
+      <p>Represent a row in the page_contents table.</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>page_id</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The id of a page.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.page.pages.page_tables.PageContentRow.persist" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">persist</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page_tables.PageContentRow.persist" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Persist a content value object to the table.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>page</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.page.pages.page.PageEntity" href="#kwai.modules.page.pages.page.PageEntity">PageEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The page that contains the content.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>content</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.text.LocaleText" href="#kwai.core.domain.value_objects.text.LocaleText">LocaleText</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The content of a story.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.page.pages.page_tables.PageRow" class="doc doc-heading">
+          <code>PageRow</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page_tables.PageRow" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Represent a table row of the page table.</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>id</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the id of the page.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>enabled</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>is this page enabled?</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>remark</code></td>
+          <td>
+                <code>str | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>a remark about the page</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>application_id</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the link to the application</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>priority</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the priority of the page</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>created_at</code></td>
+          <td>
+                <code><span title="datetime.datetime">datetime</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the timestamp of creation</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>updated_at</code></td>
+          <td>
+                <code><span title="datetime.datetime">datetime</span> | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the timestamp of the last modification</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.page.pages.page_tables.PageRow.create_entity" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">create_entity</span><span class="p">(</span><span class="n">application</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.page.pages.page_tables.PageRow.create_entity" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Create a page entity from a table row.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.page.pages.page_tables.PageRow.persist" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">persist</span><span class="p">(</span><span class="n">page</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.page.pages.page_tables.PageRow.persist" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Persist an entity to row data.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>page</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.page.pages.page.PageEntity" href="#kwai.modules.page.pages.page.PageEntity">PageEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The page to persist.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h4 id="kwai.modules.portal" class="doc doc-heading">
             <code>portal</code>
 
