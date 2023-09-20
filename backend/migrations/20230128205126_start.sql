@@ -316,6 +316,16 @@ create table if not exists team_members(
 ) charset = utf8mb3;
 alter table team_members rename column member_id to person_id;
 
+create table if not exists pages(
+    id             int unsigned not null,
+    enabled        tinyint(1) not null default 0,
+    remark         text default null,
+    application_id int unsigned not null,
+    priority       int not null,
+    created_at     timestamp not null default current_timestamp,
+    updated_at     timestamp null default null
+) charset=utf8mb3;
+
 create table if not exists page_contents_2(
   page_id               int unsigned                         not null,
   locale                varchar(255)                         not null,
