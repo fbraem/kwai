@@ -1,3 +1,4 @@
+"""Module for defining all table classes for page."""
 from dataclasses import dataclass
 from datetime import datetime
 
@@ -75,7 +76,7 @@ class PageRow:
     """
 
     id: int
-    enabled: bool
+    enabled: int
     remark: str | None
     application_id: int
     priority: int
