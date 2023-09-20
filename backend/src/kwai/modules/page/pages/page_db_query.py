@@ -100,6 +100,7 @@ class PageDbQuery(PageQuery, DatabaseQuery):
         self._query.limit(limit)
         self._query.offset(offset)
         self._query.columns(PagesTable.column("id"))
+        self._main_query.order_by(PagesTable.column("priority"))
         self._main_query.order_by(PagesTable.column("id"))
 
         return self._database.fetch(self._main_query)
