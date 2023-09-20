@@ -37,6 +37,8 @@ def _create_entity(rows: list[dict[str, Any]]) -> PageEntity:
 
 
 class PageDbRepository(PageRepository):
+    """Page repository for a database."""
+
     def __init__(self, database: Database):
         self._database = database
 
