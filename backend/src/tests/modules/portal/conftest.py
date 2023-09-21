@@ -57,12 +57,12 @@ def page(owner: Owner, application: ApplicationEntity) -> PageEntity:
 
 
 @pytest.fixture(scope="module")
-def repo(database: Database) -> PageRepository:
+def page_repo(database: Database) -> PageRepository:
     """Fixture for a page repository."""
     return PageDbRepository(database)
 
 
 @pytest.fixture(scope="module")
-async def saved_page(repo: PageRepository, page: PageEntity) -> PageEntity:
+async def saved_page(page_repo: PageRepository, page: PageEntity) -> PageEntity:
     """Fixture for a page stored in the database."""
-    return await repo.create(page)
+    return await page_repo.create(page)

@@ -10,7 +10,7 @@ from kwai.modules.portal.pages.page_repository import PageRepository
 
 
 async def test_create_page(
-    repo: PageRepository,
+    page_repo: PageRepository,
     application: ApplicationEntity,
     application_repo: ApplicationRepository,
     owner: Owner,
@@ -31,5 +31,5 @@ async def test_create_page(
         priority=0,
         remark="This is a test page created with test_create_page.",
     )
-    page = await CreatePage(repo, application_repo, owner).execute(command)
+    page = await CreatePage(page_repo, application_repo, owner).execute(command)
     assert page is not None, "There should be a page."
