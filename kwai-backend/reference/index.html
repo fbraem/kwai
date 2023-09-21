@@ -31765,6 +31765,231 @@ does not exist.</p>
 
 
 
+<h5 id="kwai.modules.portal.create_page" class="doc doc-heading">
+            <code>create_page</code>
+
+
+<a href="#kwai.modules.portal.create_page" class="headerlink" title="Permanent link">&para;</a></h5>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module for defining the use case "Create Page".</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.portal.create_page.CreatePage" class="doc doc-heading">
+          <code>CreatePage</code>
+
+
+<a href="#kwai.modules.portal.create_page.CreatePage" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Use case "Create Page".</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.portal.create_page.CreatePage.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">application_repo</span><span class="p">,</span> <span class="n">owner</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.portal.create_page.CreatePage.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize the use case.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>repo</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.pages.page_repository.PageRepository" href="#kwai.modules.portal.pages.page_repository.PageRepository">PageRepository</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository for creating a page.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>owner</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.owner.Owner" href="#kwai.core.domain.value_objects.owner.Owner">Owner</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The user that owns the page.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>application_repo</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.applications.application_repository.ApplicationRepository" href="#kwai.modules.portal.applications.application_repository.ApplicationRepository">ApplicationRepository</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository for getting the application.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.portal.create_page.CreatePage.execute" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.create_page.CreatePage.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Executes the use case.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>command</code></td>
+          <td>
+                <code><span title="kwai.modules.portal.create_page.CreatePageCommand">CreatePageCommand</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the input for the use case.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>ApplicationNotFoundException</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Raised when the application does not exist.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h5 id="kwai.modules.portal.get_applications" class="doc doc-heading">
             <code>get_applications</code>
 
@@ -32658,6 +32883,122 @@ does not exist.</p>
         </tr>
     </tbody>
   </table>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h5 id="kwai.modules.portal.page_command" class="doc doc-heading">
+            <code>page_command</code>
+
+
+<a href="#kwai.modules.portal.page_command" class="headerlink" title="Permanent link">&para;</a></h5>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines common command for create/update pages.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.portal.page_command.PageCommand" class="doc doc-heading">
+          <code>PageCommand</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.page_command.PageCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Input for the use case "Create Page".</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.portal.page_command.TextCommand" class="doc doc-heading">
+          <code>TextCommand</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.page_command.TextCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Input for a text.</p>
 
 
   
