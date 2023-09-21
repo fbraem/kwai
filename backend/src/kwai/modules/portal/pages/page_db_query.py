@@ -7,10 +7,10 @@ from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.db.rows import OwnersTable
 from kwai.core.domain.value_objects.unique_id import UniqueId
+from kwai.modules.portal.applications.application_tables import ApplicationsTable
 from kwai.modules.portal.pages.page import PageIdentifier
 from kwai.modules.portal.pages.page_query import PageQuery
 from kwai.modules.portal.pages.page_tables import (
-    ApplicationsTable,
     PageContentsTable,
     PagesTable,
 )

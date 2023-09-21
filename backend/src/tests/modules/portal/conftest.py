@@ -8,13 +8,13 @@ from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,
 )
-from kwai.modules.portal.pages.page import Application, PageEntity
+from kwai.modules.portal.pages.page import PageEntity
 from kwai.modules.portal.pages.page_db_repository import PageDbRepository
 from kwai.modules.portal.pages.page_repository import PageRepository
 
 
 @pytest.fixture(scope="module")
-async def application(database: Database) -> Application:
+async def application(database: Database) -> ApplicationEntity:
     """Fixture for an application."""
     repo = ApplicationDbRepository(database)
     application = ApplicationEntity(
@@ -22,13 +22,13 @@ async def application(database: Database) -> Application:
     )
     application = await repo.create(application)
 
-    yield Application(id=application.id, name=application.name, title=application.title)
+    yield application
 
     await repo.delete(application)
 
 
 @pytest.fixture(scope="module")
-def page(owner: Owner, application: Application) -> PageEntity:
+def page(owner: Owner, application: ApplicationEntity) -> PageEntity:
     """Fixture for a page."""
     return PageEntity(
         enabled=True,

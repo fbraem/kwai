@@ -1,21 +1,12 @@
 """Module that defines the Page entity."""
-from dataclasses import dataclass
 
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.text import LocaleText
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
+from kwai.modules.portal.applications.application import ApplicationEntity
 
 PageIdentifier = IntIdentifier
-
-
-@dataclass(frozen=True, kw_only=True, slots=True)
-class Application:
-    """Value object for an application."""
-
-    id: IntIdentifier
-    name: str
-    title: str
 
 
 class PageEntity(Entity[PageIdentifier]):
@@ -26,7 +17,7 @@ class PageEntity(Entity[PageIdentifier]):
         *,
         id_: PageIdentifier | None = None,
         enabled: bool = False,
-        application: Application,
+        application: ApplicationEntity,
         content: list[LocaleText],
         priority: int,
         remark: str,
@@ -77,6 +68,6 @@ class PageEntity(Entity[PageIdentifier]):
         return self._traceable_time
 
     @property
-    def application(self) -> Application:
+    def application(self) -> ApplicationEntity:
         """Return the application."""
         return self._application

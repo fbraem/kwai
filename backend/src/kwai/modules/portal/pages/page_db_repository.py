@@ -7,6 +7,7 @@ from kwai.core.db.database import Database
 from kwai.core.db.rows import OwnersTable
 from kwai.core.domain.entity import Entity
 from kwai.core.functions import async_groupby
+from kwai.modules.portal.applications.application_tables import ApplicationsTable
 from kwai.modules.portal.pages.page import PageEntity, PageIdentifier
 from kwai.modules.portal.pages.page_db_query import PageDbQuery
 from kwai.modules.portal.pages.page_query import PageQuery
@@ -15,7 +16,6 @@ from kwai.modules.portal.pages.page_repository import (
     PageRepository,
 )
 from kwai.modules.portal.pages.page_tables import (
-    ApplicationsTable,
     PageContentRow,
     PageContentsTable,
     PageRow,
@@ -26,7 +26,7 @@ from kwai.modules.portal.pages.page_tables import (
 def _create_entity(rows: list[dict[str, Any]]) -> PageEntity:
     """Create a story entity from a group of rows."""
     return PagesTable(rows[0]).create_entity(
-        ApplicationsTable(rows[0]).create_application(),
+        ApplicationsTable(rows[0]).create_entity(),
         [
             PageContentsTable(row).create_content(
                 author=OwnersTable(row).create_owner()

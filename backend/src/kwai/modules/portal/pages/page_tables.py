@@ -4,11 +4,11 @@ from datetime import datetime
 
 from kwai.core.db.rows import ContentRow
 from kwai.core.db.table import Table
-from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.text import LocaleText
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
-from kwai.modules.portal.pages.page import Application, PageEntity, PageIdentifier
+from kwai.modules.portal.applications.application import ApplicationEntity
+from kwai.modules.portal.pages.page import PageEntity, PageIdentifier
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -46,22 +46,6 @@ PageContentsTable = Table("page_contents", PageContentRow)
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class ApplicationRow:
-    """Represent the application data that is associated with a page."""
-
-    id: int
-    name: str
-    title: str
-
-    def create_application(self) -> Application:
-        """Create an Application value object from row data."""
-        return Application(id=IntIdentifier(self.id), name=self.name, title=self.title)
-
-
-ApplicationsTable = Table("applications", ApplicationRow)
-
-
-@dataclass(kw_only=True, frozen=True, slots=True)
 class PageRow:
     """Represent a table row of the page table.
 
@@ -84,7 +68,7 @@ class PageRow:
     updated_at: datetime | None
 
     def create_entity(
-        self, application: Application, content: list[LocaleText]
+        self, application: ApplicationEntity, content: list[LocaleText]
     ) -> PageEntity:
         """Create a page entity from a table row."""
         return PageEntity(
