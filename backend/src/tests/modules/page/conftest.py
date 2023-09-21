@@ -5,6 +5,8 @@ from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
 from kwai.modules.page.pages.page import Application, PageEntity
+from kwai.modules.page.pages.page_db_repository import PageDbRepository
+from kwai.modules.page.pages.page_repository import PageRepository
 from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,
@@ -44,3 +46,15 @@ def page(owner: Owner, application: Application) -> PageEntity:
         priority=0,
         remark="Test",
     )
+
+
+@pytest.fixture(scope="module")
+def repo(database: Database) -> PageRepository:
+    """Fixture for a page repository."""
+    return PageDbRepository(database)
+
+
+@pytest.fixture(scope="module")
+async def saved_page(repo: PageRepository, page: PageEntity) -> PageEntity:
+    """Fixture for a page stored in the database."""
+    return await repo.create(page)

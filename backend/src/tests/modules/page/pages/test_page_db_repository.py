@@ -1,23 +1,8 @@
 """Module for testing the page database repository."""
-import pytest
 
-from kwai.core.db.database import Database
 from kwai.core.domain.entity import Entity
 from kwai.modules.page.pages.page import PageEntity
-from kwai.modules.page.pages.page_db_repository import PageDbRepository
 from kwai.modules.page.pages.page_repository import PageRepository
-
-
-@pytest.fixture(scope="module")
-def repo(database: Database) -> PageRepository:
-    """Fixture for a page repository."""
-    return PageDbRepository(database)
-
-
-@pytest.fixture(scope="module")
-async def saved_page(repo: PageRepository, page: PageEntity) -> PageEntity:
-    """Fixture for a page stored in the database."""
-    return await repo.create(page)
 
 
 async def test_create(repo: PageRepository, saved_page: PageEntity):
