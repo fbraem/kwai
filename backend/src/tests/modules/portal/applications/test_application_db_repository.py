@@ -33,7 +33,9 @@ def repo(database: Database) -> ApplicationRepository:
 async def application(repo: ApplicationRepository) -> ApplicationEntity:
     """Fixture for an application."""
     application = ApplicationEntity(
-        title="Test", name="test", short_description="An application used for testing"
+        title="Test",
+        name="test_repo",
+        short_description="An application used for testing",
     )
     return await repo.create(application)
 
