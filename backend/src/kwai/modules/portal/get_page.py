@@ -1,8 +1,8 @@
 """Module for the use case "Get Page"."""
 from dataclasses import dataclass
 
-from kwai.modules.page.pages.page import PageEntity, PageIdentifier
-from kwai.modules.page.pages.page_repository import PageRepository
+from kwai.modules.portal.pages.page import PageEntity, PageIdentifier
+from kwai.modules.portal.pages.page_repository import PageRepository
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

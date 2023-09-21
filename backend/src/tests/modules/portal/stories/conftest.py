@@ -2,11 +2,11 @@
 import pytest
 
 from kwai.core.db.database import Database
-from kwai.modules.news.stories.story import Application
 from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,
 )
+from kwai.modules.portal.stories.story import Application
 
 
 @pytest.fixture(scope="module")

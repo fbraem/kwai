@@ -2,8 +2,8 @@
 from abc import ABC, abstractmethod
 from typing import AsyncIterator
 
-from kwai.modules.page.pages.page import PageEntity, PageIdentifier
-from kwai.modules.page.pages.page_query import PageQuery
+from kwai.modules.portal.pages.page import PageEntity, PageIdentifier
+from kwai.modules.portal.pages.page_query import PageQuery
 
 
 class PageNotFoundException(Exception):

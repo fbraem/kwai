@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 
 from kwai.core.domain.use_case import UseCaseBrowseResult
-from kwai.modules.page.pages.page_repository import PageRepository
+from kwai.modules.portal.pages.page_repository import PageRepository
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

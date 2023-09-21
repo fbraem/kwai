@@ -7,14 +7,14 @@ from kwai.core.db.database import Database
 from kwai.core.db.rows import OwnersTable
 from kwai.core.domain.entity import Entity
 from kwai.core.functions import async_groupby
-from kwai.modules.page.pages.page import PageEntity, PageIdentifier
-from kwai.modules.page.pages.page_db_query import PageDbQuery
-from kwai.modules.page.pages.page_query import PageQuery
-from kwai.modules.page.pages.page_repository import (
+from kwai.modules.portal.pages.page import PageEntity, PageIdentifier
+from kwai.modules.portal.pages.page_db_query import PageDbQuery
+from kwai.modules.portal.pages.page_query import PageQuery
+from kwai.modules.portal.pages.page_repository import (
     PageNotFoundException,
     PageRepository,
 )
-from kwai.modules.page.pages.page_tables import (
+from kwai.modules.portal.pages.page_tables import (
     ApplicationsTable,
     PageContentRow,
     PageContentsTable,

@@ -8,7 +8,7 @@ from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.text import LocaleText
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
-from kwai.modules.page.pages.page import Application, PageEntity, PageIdentifier
+from kwai.modules.portal.pages.page import Application, PageEntity, PageIdentifier
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

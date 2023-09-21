@@ -1,7 +1,7 @@
 """Module for testing the use case "Get Page"."""
-from kwai.modules.page.get_page import GetPage, GetPageCommand
-from kwai.modules.page.pages.page import PageEntity
-from kwai.modules.page.pages.page_repository import PageRepository
+from kwai.modules.portal.get_page import GetPage, GetPageCommand
+from kwai.modules.portal.pages.page import PageEntity
+from kwai.modules.portal.pages.page_repository import PageRepository
 
 
 async def test_get_page(repo: PageRepository, saved_page: PageEntity):

@@ -4,13 +4,13 @@ import pytest
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
-from kwai.modules.page.pages.page import Application, PageEntity
-from kwai.modules.page.pages.page_db_repository import PageDbRepository
-from kwai.modules.page.pages.page_repository import PageRepository
 from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,
 )
+from kwai.modules.portal.pages.page import Application, PageEntity
+from kwai.modules.portal.pages.page_db_repository import PageDbRepository
+from kwai.modules.portal.pages.page_repository import PageRepository
 
 
 @pytest.fixture(scope="module")

@@ -8,9 +8,9 @@ from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.db.rows import OwnersTable
 from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.news.stories.story import StoryIdentifier
-from kwai.modules.news.stories.story_query import StoryQuery
-from kwai.modules.news.stories.story_tables import (
+from kwai.modules.portal.stories.story import StoryIdentifier
+from kwai.modules.portal.stories.story_query import StoryQuery
+from kwai.modules.portal.stories.story_tables import (
     ApplicationsTable,
     StoriesTable,
     StoryContentsTable,

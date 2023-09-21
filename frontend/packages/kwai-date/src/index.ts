@@ -11,6 +11,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 // Set the locale
 import 'dayjs/locale/en.js';
 import 'dayjs/locale/nl.js';
+
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(localizedFormat);
@@ -66,8 +67,8 @@ export function createDatetime(value?: string, fmt: string = 'YYYY-MM-DD HH:mm:s
   return createDate(value, fmt);
 }
 
-export function createDateTimeFromUTC(value: string, timezone: string, fmt: string = 'YYYY-MM-DD HH:mm:ss'): Readonly<DateType> {
-  return wrapDayjs(dayjs.utc(value, fmt).tz(timezone));
+export function createDateTimeFromUTC(value: string, fmt: string = 'YYYY-MM-DD HH:mm:ss'): Readonly<DateType> {
+  return wrapDayjs(dayjs.utc(value, fmt).tz());
 }
 
 export function now(): Readonly<DateType> {

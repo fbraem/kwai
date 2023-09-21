@@ -1,8 +1,8 @@
 """Module for testing the page database repository."""
 
 from kwai.core.domain.entity import Entity
-from kwai.modules.page.pages.page import PageEntity
-from kwai.modules.page.pages.page_repository import PageRepository
+from kwai.modules.portal.pages.page import PageEntity
+from kwai.modules.portal.pages.page_repository import PageRepository
 
 
 async def test_create(repo: PageRepository, saved_page: PageEntity):

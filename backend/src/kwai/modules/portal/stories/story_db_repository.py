@@ -6,14 +6,14 @@ from sql_smith.functions import field
 from kwai.core.db.database import Database
 from kwai.core.db.rows import OwnersTable
 from kwai.core.domain.entity import Entity
-from kwai.modules.news.stories.story import StoryEntity, StoryIdentifier
-from kwai.modules.news.stories.story_db_query import StoryDbQuery
-from kwai.modules.news.stories.story_query import StoryQuery
-from kwai.modules.news.stories.story_repository import (
+from kwai.modules.portal.stories.story import StoryEntity, StoryIdentifier
+from kwai.modules.portal.stories.story_db_query import StoryDbQuery
+from kwai.modules.portal.stories.story_query import StoryQuery
+from kwai.modules.portal.stories.story_repository import (
     StoryNotFoundException,
     StoryRepository,
 )
-from kwai.modules.news.stories.story_tables import (
+from kwai.modules.portal.stories.story_tables import (
     ApplicationsTable,
     StoriesTable,
     StoryContentRow,

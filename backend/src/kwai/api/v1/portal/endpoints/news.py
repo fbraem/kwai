@@ -6,8 +6,8 @@ from kwai.api.dependencies import deps
 from kwai.api.v1.portal.schemas.story import PortalStoryResource
 from kwai.core.db.database import Database
 from kwai.core.json_api import Meta, PaginationModel
-from kwai.modules.news.get_stories import GetStories, GetStoriesCommand
-from kwai.modules.news.stories.story_db_repository import StoryDbRepository
+from kwai.modules.portal.get_stories import GetStories, GetStoriesCommand
+from kwai.modules.portal.stories.story_db_repository import StoryDbRepository
 
 router = APIRouter()
 

@@ -4,9 +4,9 @@ from types import AsyncGeneratorType
 import pytest
 
 from kwai.core.db.database import Database
-from kwai.modules.news.get_stories import GetStories, GetStoriesCommand
-from kwai.modules.news.stories.story_db_repository import StoryDbRepository
-from kwai.modules.news.stories.story_repository import StoryRepository
+from kwai.modules.portal.get_stories import GetStories, GetStoriesCommand
+from kwai.modules.portal.stories.story_db_repository import StoryDbRepository
+from kwai.modules.portal.stories.story_repository import StoryRepository
 
 pytestmark = pytest.mark.db
 
