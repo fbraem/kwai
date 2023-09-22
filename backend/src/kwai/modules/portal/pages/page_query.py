@@ -7,7 +7,7 @@ from kwai.modules.portal.pages.page import PageIdentifier
 
 
 class PageQuery(Query):
-    """An interface for a story query."""
+    """An interface for a page query."""
 
     @abstractmethod
     def filter_by_id(self, id_: PageIdentifier) -> "PageQuery":
