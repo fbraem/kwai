@@ -4,7 +4,7 @@ from types import AsyncGeneratorType
 import pytest
 
 from kwai.core.db.database import Database
-from kwai.modules.portal.get_stories import GetStories, GetStoriesCommand
+from kwai.modules.portal.get_news_items import GetNewsItems, GetNewsItemsCommand
 from kwai.modules.portal.news.news_item_db_repository import NewsItemDbRepository
 from kwai.modules.portal.news.news_item_repository import NewsItemRepository
 
@@ -19,8 +19,8 @@ def repo(database: Database) -> NewsItemRepository:
 
 async def test_get_stories(repo: NewsItemRepository):
     """Test the use case: get stories."""
-    command = GetStoriesCommand()
-    count, story_iterator = await GetStories(repo).execute(command)
+    command = GetNewsItemsCommand()
+    count, story_iterator = await GetNewsItems(repo).execute(command)
 
     assert count >= 0, "Count must be 0 or greater"
     assert isinstance(

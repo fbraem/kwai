@@ -1,4 +1,4 @@
-"""Implement the use case: get news stories."""
+"""Implement the use case: get news items."""
 from dataclasses import dataclass
 
 from kwai.core.domain.use_case import UseCaseBrowseResult
@@ -7,13 +7,13 @@ from kwai.modules.portal.news.news_item_repository import NewsItemRepository
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class GetStoriesCommand:
-    """Input for use case: [GetStories][kwai.modules.news.get_stories.GetStories].
+class GetNewsItemsCommand:
+    """Input for use case: [GetNewsItems][kwai.modules.news.get_news_items.GetNewsItems].
 
     Attributes:
         offset: Offset to use. Default is None.
         limit: The max. number of elements to return. Default is None, which means all.
-        enabled: When False, also stories that are not activated will be returned.
+        enabled: When False, also news items that are not activated will be returned.
     """
 
     offset: int | None = None
@@ -26,28 +26,28 @@ class GetStoriesCommand:
     author_uuid: str | None = None
 
 
-class GetStories:
+class GetNewsItems:
     """Implementation of the use case.
 
-    Use this use case for getting news stories.
+    Use this use case for getting news items.
     """
 
     def __init__(self, repo: NewsItemRepository):
         """Initialize the use case.
 
         Args:
-            repo: A repository for getting the news stories.
+            repo: A repository for getting the news items.
         """
         self._repo = repo
 
-    async def execute(self, command: GetStoriesCommand) -> UseCaseBrowseResult:
+    async def execute(self, command: GetNewsItemsCommand) -> UseCaseBrowseResult:
         """Execute the use case.
 
         Args:
             command: The input for this use case.
 
         Returns:
-            A tuple with the number of entities and an iterator for story entities.
+            A tuple with the number of entities and an iterator for news item entities.
         """
         query = self._repo.create_query()
 
