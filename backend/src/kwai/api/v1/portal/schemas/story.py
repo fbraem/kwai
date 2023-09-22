@@ -3,14 +3,15 @@ from pydantic import BaseModel
 
 from kwai.api.converter import MarkdownConverter
 from kwai.core import json_api
-from kwai.modules.portal.stories.story import Application, StoryEntity
+from kwai.modules.portal.applications.application import ApplicationEntity
+from kwai.modules.portal.stories.story import StoryEntity
 
 
 @json_api.resource(type_="applications")
 class PortalApplicationResource:
     """JSON:API resource for an application."""
 
-    def __init__(self, application: Application):
+    def __init__(self, application: ApplicationEntity):
         self._application = application
 
     @json_api.id
