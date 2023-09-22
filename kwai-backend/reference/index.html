@@ -3725,45 +3725,6 @@ will also be revoked.</p>
 
 
 
-<h8 id="kwai.api.v1.trainings.schemas.training.TrainingContent" class="doc doc-heading">
-          <code>TrainingContent</code>
-
-
-<a href="#kwai.api.v1.trainings.schemas.training.TrainingContent" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
-
-  
-      <p>Schema for the content of a training.</p>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
 <h8 id="kwai.api.v1.trainings.schemas.training.TrainingEvent" class="doc doc-heading">
           <code>TrainingEvent</code>
 
@@ -3901,25 +3862,6 @@ will also be revoked.</p>
 
 
 
-<h9 id="kwai.api.v1.trainings.schemas.training.TrainingResource.get_contents" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_contents</span><span class="p">()</span></code>
-
-<a href="#kwai.api.v1.trainings.schemas.training.TrainingResource.get_contents" class="headerlink" title="Permanent link">&para;</a></h9>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Get the content of the training.</p>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
 <h9 id="kwai.api.v1.trainings.schemas.training.TrainingResource.get_created_at" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">get_created_at</span><span class="p">()</span></code>
 
@@ -4034,6 +3976,25 @@ will also be revoked.</p>
 
 
 
+<h9 id="kwai.api.v1.trainings.schemas.training.TrainingResource.get_texts" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_texts</span><span class="p">()</span></code>
+
+<a href="#kwai.api.v1.trainings.schemas.training.TrainingResource.get_texts" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the content of the training.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
 <h9 id="kwai.api.v1.trainings.schemas.training.TrainingResource.get_training_coaches" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">get_training_coaches</span><span class="p">()</span></code>
 
@@ -4066,6 +4027,45 @@ will also be revoked.</p>
   </div>
 
 </div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.trainings.schemas.training.TrainingText" class="doc doc-heading">
+          <code>TrainingText</code>
+
+
+<a href="#kwai.api.v1.trainings.schemas.training.TrainingText" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+  
+      <p>Schema for the content of a training.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
 
 
 
@@ -33136,27 +33136,6 @@ does not exist.</p>
 
 
 
-<h8 id="kwai.modules.portal.pages.page.PageEntity.content" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">content</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">LocaleText</span><span class="p">]</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.pages.page.PageEntity.content" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Return the content.</p>
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
 <h8 id="kwai.modules.portal.pages.page.PageEntity.enabled" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">enabled</span><span class="p">:</span> <span class="nb">bool</span></code>
   
@@ -33220,6 +33199,27 @@ does not exist.</p>
 
 
 
+<h8 id="kwai.modules.portal.pages.page.PageEntity.texts" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">texts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">LocaleText</span><span class="p">]</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.pages.page.PageEntity.texts" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the content.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
 <h8 id="kwai.modules.portal.pages.page.PageEntity.traceable_time" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">traceable_time</span><span class="p">:</span> <span class="n">TraceableTime</span></code>
   
@@ -33245,7 +33245,7 @@ does not exist.</p>
 
 
 <h8 id="kwai.modules.portal.pages.page.PageEntity.__init__" class="doc doc-heading">
-<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">id_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">application</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="n">remark</span><span class="p">,</span> <span class="n">traceable_time</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">id_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">application</span><span class="p">,</span> <span class="n">texts</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="n">remark</span><span class="p">,</span> <span class="n">traceable_time</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#kwai.modules.portal.pages.page.PageEntity.__init__" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -33310,7 +33310,7 @@ does not exist.</p>
           </td>
         </tr>
         <tr>
-          <td><code>content</code></td>
+          <td><code>texts</code></td>
           <td>
                 <code>list[<a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.text.LocaleText" href="#kwai.core.domain.value_objects.text.LocaleText">LocaleText</a>]</code>
           </td>
@@ -34849,31 +34849,6 @@ does not exist.</p>
 
 
 
-<h8 id="kwai.modules.portal.stories.story.StoryEntity.content" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">content</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">LocaleText</span><span class="p">]</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story.StoryEntity.content" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Return the contents of the story.</p>
-
-<details class="remark" open>
-  <summary>Remark</summary>
-  <p>The list is a copy</p>
-</details>  </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
 <h8 id="kwai.modules.portal.stories.story.StoryEntity.is_enabled" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">is_enabled</span><span class="p">:</span> <span class="nb">bool</span></code>
   
@@ -34951,6 +34926,31 @@ does not exist.</p>
   
       <p>Return the remark.</p>
   </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.portal.stories.story.StoryEntity.texts" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">texts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">LocaleText</span><span class="p">]</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.stories.story.StoryEntity.texts" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the text content of the story.</p>
+
+<details class="remark" open>
+  <summary>Remark</summary>
+  <p>The list is a copy</p>
+</details>  </div>
 
 </div>
 
@@ -40327,31 +40327,6 @@ does not exist.</p>
 
 
 
-<h8 id="kwai.modules.training.trainings.training.TrainingEntity.content" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">content</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">LocaleText</span><span class="p">]</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.training.trainings.training.TrainingEntity.content" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Return the text content of a training.</p>
-
-<details class="remark" open>
-  <summary>Remark</summary>
-  <p>The list is a copy.</p>
-</details>  </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
 <h8 id="kwai.modules.training.trainings.training.TrainingEntity.definition" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">definition</span><span class="p">:</span> <span class="n">TrainingDefinitionEntity</span> <span class="o">|</span> <span class="kc">None</span></code>
   
@@ -40482,6 +40457,31 @@ does not exist.</p>
 
 
 
+<h8 id="kwai.modules.training.trainings.training.TrainingEntity.texts" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">texts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">LocaleText</span><span class="p">]</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.training.trainings.training.TrainingEntity.texts" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the text content of a training.</p>
+
+<details class="remark" open>
+  <summary>Remark</summary>
+  <p>The list is a copy.</p>
+</details>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
 <h8 id="kwai.modules.training.trainings.training.TrainingEntity.traceable_time" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">traceable_time</span><span class="p">:</span> <span class="n">TraceableTime</span></code>
   
@@ -40507,7 +40507,7 @@ does not exist.</p>
 
 
 <h8 id="kwai.modules.training.trainings.training.TrainingEntity.__init__" class="doc doc-heading">
-<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">id_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">definition</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">coaches</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">teams</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">season</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">active</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cancelled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">remark</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">traceable_time</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">id_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">texts</span><span class="p">,</span> <span class="n">definition</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">coaches</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">teams</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">season</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">active</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cancelled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">remark</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">traceable_time</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#kwai.modules.training.trainings.training.TrainingEntity.__init__" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -40544,7 +40544,7 @@ does not exist.</p>
           </td>
         </tr>
         <tr>
-          <td><code>content</code></td>
+          <td><code>texts</code></td>
           <td>
                 <code>list[<a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.text.LocaleText" href="#kwai.core.domain.value_objects.text.LocaleText">LocaleText</a>]</code>
           </td>
