@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 from datetime import datetime, time
 
-from kwai.core.db.rows import ContentRow
+from kwai.core.db.rows import TextRow
 from kwai.core.db.table import Table
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.owner import Owner
@@ -26,7 +26,7 @@ from kwai.modules.training.trainings.value_objects import TrainingCoach
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class TrainingContentRow(ContentRow):
+class TrainingTextRow(TextRow):
     """Represent a row in the training_contents table.
 
     Attributes:
@@ -43,7 +43,7 @@ class TrainingContentRow(ContentRow):
             training: The training that contains the text content.
             content: The text content of the training.
         """
-        return TrainingContentRow(
+        return TrainingTextRow(
             training_id=training.id.value,
             locale=content.locale.value,
             format=content.format.value,
@@ -56,7 +56,7 @@ class TrainingContentRow(ContentRow):
         )
 
 
-TrainingContentsTable = Table("training_contents", TrainingContentRow)
+TrainingContentsTable = Table("training_contents", TrainingTextRow)
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

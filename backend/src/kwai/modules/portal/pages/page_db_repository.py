@@ -16,10 +16,10 @@ from kwai.modules.portal.pages.page_repository import (
     PageRepository,
 )
 from kwai.modules.portal.pages.page_tables import (
-    PageContentRow,
     PageContentsTable,
     PageRow,
     PagesTable,
+    PageTextRow,
 )
 
 
@@ -28,9 +28,7 @@ def _create_entity(rows: list[dict[str, Any]]) -> PageEntity:
     return PagesTable(rows[0]).create_entity(
         ApplicationsTable(rows[0]).create_entity(),
         [
-            PageContentsTable(row).create_content(
-                author=OwnersTable(row).create_owner()
-            )
+            PageContentsTable(row).create_text(author=OwnersTable(row).create_owner())
             for row in rows
         ],
     )
@@ -48,9 +46,7 @@ class PageDbRepository(PageRepository):
         )
         result = Entity.replace(page, id_=PageIdentifier(new_id))
 
-        content_rows = [
-            PageContentRow.persist(result, content) for content in page.texts
-        ]
+        content_rows = [PageTextRow.persist(result, content) for content in page.texts]
         await self._database.insert(PageContentsTable.table_name, *content_rows)
 
         await self._database.commit()
@@ -68,7 +64,7 @@ class PageDbRepository(PageRepository):
         )
         await self._database.execute(delete_contents_query)
 
-        content_rows = [PageContentRow.persist(page, content) for content in page.texts]
+        content_rows = [PageTextRow.persist(page, content) for content in page.texts]
         await self._database.insert(PageContentsTable.table_name, *content_rows)
         await self._database.commit()
 

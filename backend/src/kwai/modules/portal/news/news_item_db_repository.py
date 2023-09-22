@@ -27,9 +27,7 @@ def _create_entity(rows: list[dict[str, Any]]) -> NewsItemEntity:
     return NewsItemsTable(rows[0]).create_entity(
         ApplicationsTable(rows[0]).create_entity(),
         [
-            NewsItemTextsTable(row).create_content(
-                author=OwnersTable(row).create_owner()
-            )
+            NewsItemTextsTable(row).create_text(author=OwnersTable(row).create_owner())
             for row in rows
         ],
     )

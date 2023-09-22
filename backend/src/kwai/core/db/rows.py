@@ -34,15 +34,15 @@ OwnersTable = Table("users", OwnerRow)
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class ContentRow:
+class TextRow:
     """Represent a row for a content table.
 
     Attributes:
         locale: The code of the locale of the text
         format: The format of the text (md = markdown, html, ...)
-        title: The title of the news items
-        content: The long content of the news item
-        summary: A summary of the content
+        title: The title of the text
+        content: The long content of the text
+        summary: A summary of the text
         user_id: The id of the author
         created_at: the timestamp of creation
         updated_at: the timestamp of the last modification
@@ -57,11 +57,11 @@ class ContentRow:
     created_at: datetime
     updated_at: datetime | None
 
-    def create_content(self, author: Owner) -> LocaleText:
-        """Create a Content value object from a row.
+    def create_text(self, author: Owner) -> LocaleText:
+        """Create a LocaleText value object from a row.
 
         Args:
-            author: The author of the content.
+            author: The author of the text.
         """
         return LocaleText(
             locale=Locale(self.locale),

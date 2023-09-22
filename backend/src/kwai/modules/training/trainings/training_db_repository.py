@@ -19,13 +19,13 @@ from kwai.modules.training.trainings.training_repository import (
 from kwai.modules.training.trainings.training_tables import (
     TrainingCoachesTable,
     TrainingCoachRow,
-    TrainingContentRow,
     TrainingContentsTable,
     TrainingDefinitionsTable,
     TrainingRow,
     TrainingsTable,
     TrainingTeamRow,
     TrainingTeamsTable,
+    TrainingTextRow,
 )
 from kwai.modules.training.trainings.training_team_db_query import TrainingTeamDbQuery
 from kwai.modules.training.trainings.value_objects import TrainingCoach
@@ -41,7 +41,7 @@ def _create_entity(rows: list[Record]) -> TrainingEntity:
         )
     return TrainingsTable(rows[0]).create_entity(
         [
-            TrainingContentsTable(row).create_content(OwnersTable(row).create_owner())
+            TrainingContentsTable(row).create_text(OwnersTable(row).create_owner())
             for row in rows
         ],
         definition=definition,
@@ -144,7 +144,7 @@ class TrainingDbRepository(TrainingRepository):
         result = Entity.replace(training, id_=TrainingIdentifier(new_id))
 
         content_rows = [
-            TrainingContentRow.persist(result, content) for content in training.texts
+            TrainingTextRow.persist(result, content) for content in training.texts
         ]
 
         await self._database.insert(TrainingContentsTable.table_name, *content_rows)
@@ -166,7 +166,7 @@ class TrainingDbRepository(TrainingRepository):
         # Update the text, first delete, then insert again.
         await self._delete_contents(training)
         content_rows = [
-            TrainingContentRow.persist(training, content) for content in training.texts
+            TrainingTextRow.persist(training, content) for content in training.texts
         ]
         await self._database.insert(TrainingContentsTable.table_name, *content_rows)
 

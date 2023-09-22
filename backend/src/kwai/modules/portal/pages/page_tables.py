@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-from kwai.core.db.rows import ContentRow
+from kwai.core.db.rows import TextRow
 from kwai.core.db.table import Table
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.text import LocaleText
@@ -12,7 +12,7 @@ from kwai.modules.portal.pages.page import PageEntity, PageIdentifier
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class PageContentRow(ContentRow):
+class PageTextRow(TextRow):
     """Represent a row in the page_contents table.
 
     Attributes:
@@ -29,7 +29,7 @@ class PageContentRow(ContentRow):
             page: The page that contains the content.
             content: The content of a page.
         """
-        return PageContentRow(
+        return PageTextRow(
             page_id=page.id.value,
             locale=content.locale.value,
             format=content.format.value,
@@ -42,7 +42,7 @@ class PageContentRow(ContentRow):
         )
 
 
-PageContentsTable = Table("page_contents", PageContentRow)
+PageContentsTable = Table("page_contents", PageTextRow)
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

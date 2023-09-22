@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-from kwai.core.db.rows import ContentRow
+from kwai.core.db.rows import TextRow
 from kwai.core.db.table import Table
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.period import Period
@@ -17,7 +17,7 @@ from kwai.modules.portal.news.news_item import (
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class NewsItemTextRow(ContentRow):
+class NewsItemTextRow(TextRow):
     """Represent a row in the news_contents table.
 
     Attributes:
