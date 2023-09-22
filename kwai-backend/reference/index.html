@@ -2842,7 +2842,7 @@ will also be revoked.</p>
         <tr>
           <td><code>story</code></td>
           <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.stories.story.StoryEntity" href="#kwai.modules.portal.stories.story.StoryEntity">StoryEntity</a></code>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item.NewsItemEntity" href="#kwai.modules.portal.news.news_item.NewsItemEntity">NewsItemEntity</a></code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -32501,6 +32501,531 @@ does not exist.</p>
 
 
 
+<h5 id="kwai.modules.portal.get_news_item" class="doc doc-heading">
+            <code>get_news_item</code>
+
+
+<a href="#kwai.modules.portal.get_news_item" class="headerlink" title="Permanent link">&para;</a></h5>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module for the use case "Get Story".</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.portal.get_news_item.GetStory" class="doc doc-heading">
+          <code>GetStory</code>
+
+
+<a href="#kwai.modules.portal.get_news_item.GetStory" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Use case "Get Story".</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.portal.get_news_item.GetStory.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.portal.get_news_item.GetStory.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize the use case.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>repo</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item_repository.NewsItemRepository" href="#kwai.modules.portal.news.news_item_repository.NewsItemRepository">NewsItemRepository</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A repository for getting the news story.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.portal.get_news_item.GetStory.execute" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.get_news_item.GetStory.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Executes the use case.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>command</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.get_news_item.GetStoryCommand" href="#kwai.modules.portal.get_news_item.GetStoryCommand">GetStoryCommand</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>StoryNotFoundException</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>When the story does not exist.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.portal.get_news_item.GetStoryCommand" class="doc doc-heading">
+          <code>GetStoryCommand</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.get_news_item.GetStoryCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Input for the use case "Get Story".</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h5 id="kwai.modules.portal.get_news_items" class="doc doc-heading">
+            <code>get_news_items</code>
+
+
+<a href="#kwai.modules.portal.get_news_items" class="headerlink" title="Permanent link">&para;</a></h5>
+
+  <div class="doc doc-contents ">
+  
+      <p>Implement the use case: get news items.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.portal.get_news_items.GetNewsItems" class="doc doc-heading">
+          <code>GetNewsItems</code>
+
+
+<a href="#kwai.modules.portal.get_news_items.GetNewsItems" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Implementation of the use case.</p>
+<p>Use this use case for getting news items.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.portal.get_news_items.GetNewsItems.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.portal.get_news_items.GetNewsItems.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize the use case.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>repo</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item_repository.NewsItemRepository" href="#kwai.modules.portal.news.news_item_repository.NewsItemRepository">NewsItemRepository</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A repository for getting the news items.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.portal.get_news_items.GetNewsItems.execute" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.get_news_items.GetNewsItems.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Execute the use case.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>command</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.get_news_items.GetNewsItemsCommand" href="#kwai.modules.portal.get_news_items.GetNewsItemsCommand">GetNewsItemsCommand</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.use_case.UseCaseBrowseResult" href="#kwai.core.domain.use_case.UseCaseBrowseResult">UseCaseBrowseResult</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A tuple with the number of entities and an iterator for news item entities.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.portal.get_news_items.GetNewsItemsCommand" class="doc doc-heading">
+          <code>GetNewsItemsCommand</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.get_news_items.GetNewsItemsCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Input for use case: [GetNewsItems][kwai.modules.news.get_news_items.GetNewsItems].</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>offset</code></td>
+          <td>
+                <code>int | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Offset to use. Default is None.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>limit</code></td>
+          <td>
+                <code>int | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The max. number of elements to return. Default is None, which means all.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>enabled</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>When False, also news items that are not activated will be returned.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h5 id="kwai.modules.portal.get_page" class="doc doc-heading">
             <code>get_page</code>
 
@@ -32869,15 +33394,42 @@ does not exist.</p>
 
 
 
-<h5 id="kwai.modules.portal.get_stories" class="doc doc-heading">
-            <code>get_stories</code>
+<h5 id="kwai.modules.portal.news" class="doc doc-heading">
+            <code>news</code>
 
 
-<a href="#kwai.modules.portal.get_stories" class="headerlink" title="Permanent link">&para;</a></h5>
+<a href="#kwai.modules.portal.news" class="headerlink" title="Permanent link">&para;</a></h5>
 
   <div class="doc doc-contents ">
   
-      <p>Implement the use case: get news stories.</p>
+      <p>Package for all modules related to news.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.portal.news.news_item" class="doc doc-heading">
+            <code>news_item</code>
+
+
+<a href="#kwai.modules.portal.news.news_item" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines a news item entity.</p>
 
   
 
@@ -32894,18 +33446,19 @@ does not exist.</p>
 
 
 
-<h6 id="kwai.modules.portal.get_stories.GetStories" class="doc doc-heading">
-          <code>GetStories</code>
+<h7 id="kwai.modules.portal.news.news_item.NewsItemEntity" class="doc doc-heading">
+          <code>NewsItemEntity</code>
 
 
-<a href="#kwai.modules.portal.get_stories.GetStories" class="headerlink" title="Permanent link">&para;</a></h6>
+<a href="#kwai.modules.portal.news.news_item.NewsItemEntity" class="headerlink" title="Permanent link">&para;</a></h7>
 
 
   <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.entity.Entity" href="#kwai.core.domain.entity.Entity">Entity</a>[<span title="kwai.modules.portal.news.news_item.NewsItemIdentifier">NewsItemIdentifier</span>]</code></p>
 
   
-      <p>Implementation of the use case.</p>
-<p>Use this use case for getting news stories.</p>
+      <p>A news item entity.</p>
 
 
   
@@ -32918,133 +33471,158 @@ does not exist.</p>
 
 
 
+<div class="doc doc-object doc-attribute">
 
 
 
-<div class="doc doc-object doc-function">
-
-
-
-<h7 id="kwai.modules.portal.get_stories.GetStories.__init__" class="doc doc-heading">
-<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span></code>
-
-<a href="#kwai.modules.portal.get_stories.GetStories.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Initialize the use case.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>repo</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.stories.story_repository.StoryRepository" href="#kwai.modules.portal.stories.story_repository.StoryRepository">StoryRepository</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>A repository for getting the news stories.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h7 id="kwai.modules.portal.get_stories.GetStories.execute" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+<h8 id="kwai.modules.portal.news.news_item.NewsItemEntity.application" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">application</span><span class="p">:</span> <span class="n">ApplicationEntity</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
-<a href="#kwai.modules.portal.get_stories.GetStories.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+<a href="#kwai.modules.portal.news.news_item.NewsItemEntity.application" class="headerlink" title="Permanent link">&para;</a></h8>
 
 
   <div class="doc doc-contents ">
   
-      <p>Execute the use case.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>command</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.get_stories.GetStoriesCommand" href="#kwai.modules.portal.get_stories.GetStoriesCommand">GetStoriesCommand</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The input for this use case.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-
-
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.use_case.UseCaseBrowseResult" href="#kwai.core.domain.use_case.UseCaseBrowseResult">UseCaseBrowseResult</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>A tuple with the number of entities and an iterator for story entities.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
+      <p>Return the application.</p>
   </div>
 
 </div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.portal.news.news_item.NewsItemEntity.is_enabled" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">is_enabled</span><span class="p">:</span> <span class="nb">bool</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_item.NewsItemEntity.is_enabled" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Check if the news item is enabled.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.portal.news.news_item.NewsItemEntity.period" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">period</span><span class="p">:</span> <span class="n">Period</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_item.NewsItemEntity.period" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the active period of the news item.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.portal.news.news_item.NewsItemEntity.promotion" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">promotion</span><span class="p">:</span> <span class="n">Promotion</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_item.NewsItemEntity.promotion" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the promotion information of the news item.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.portal.news.news_item.NewsItemEntity.remark" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">remark</span><span class="p">:</span> <span class="nb">str</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_item.NewsItemEntity.remark" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the remark.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.portal.news.news_item.NewsItemEntity.texts" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">texts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">LocaleText</span><span class="p">]</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_item.NewsItemEntity.texts" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the text content of the news item.</p>
+
+<details class="remark" open>
+  <summary>Remark</summary>
+  <p>The list is a copy</p>
+</details>  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.modules.portal.news.news_item.NewsItemEntity.traceable_time" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">traceable_time</span><span class="p">:</span> <span class="n">TraceableTime</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_item.NewsItemEntity.traceable_time" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return the creation/modification timestamp of this application.</p>
+  </div>
+
+</div>
+
+
 
 
 
@@ -33058,21 +33636,167 @@ does not exist.</p>
 
 
 
-<h6 id="kwai.modules.portal.get_stories.GetStoriesCommand" class="doc doc-heading">
-          <code>GetStoriesCommand</code>
+<h7 id="kwai.modules.portal.news.news_item.Promotion" class="doc doc-heading">
+          <code>Promotion</code>
 
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
   </span>
 
-<a href="#kwai.modules.portal.get_stories.GetStoriesCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+<a href="#kwai.modules.portal.news.news_item.Promotion" class="headerlink" title="Permanent link">&para;</a></h7>
 
 
   <div class="doc doc-contents ">
 
   
-      <p>Input for use case: [GetStories][kwai.modules.news.get_stories.GetStories].</p>
+      <p>Value object for handling promoted news items.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.portal.news.news_item_db_query" class="doc doc-heading">
+            <code>news_item_db_query</code>
+
+
+<a href="#kwai.modules.portal.news.news_item_db_query" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that implements a NewsItemQuery for a database.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.portal.news.news_item_db_query.NewsItemDbQuery" class="doc doc-heading">
+          <code>NewsItemDbQuery</code>
+
+
+<a href="#kwai.modules.portal.news.news_item_db_query.NewsItemDbQuery" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item_query.NewsItemQuery" href="#kwai.modules.portal.news.news_item_query.NewsItemQuery">NewsItemQuery</a></code>, <code><a class="autorefs autorefs-internal" title="kwai.core.db.database_query.DatabaseQuery" href="../core/db/#kwai.core.db.database_query.DatabaseQuery">DatabaseQuery</a></code></p>
+
+  
+      <p>A database query for news stories.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.portal.news.news_item_db_repository" class="doc doc-heading">
+            <code>news_item_db_repository</code>
+
+
+<a href="#kwai.modules.portal.news.news_item_db_repository" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that implements a news item repository for a database.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.portal.news.news_item_db_repository.NewsItemDbRepository" class="doc doc-heading">
+          <code>NewsItemDbRepository</code>
+
+
+<a href="#kwai.modules.portal.news.news_item_db_repository.NewsItemDbRepository" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item_repository.NewsItemRepository" href="#kwai.modules.portal.news.news_item_repository.NewsItemRepository">NewsItemRepository</a></code></p>
+
+  
+      <p>A news item database repository.</p>
 
 
 
@@ -33087,35 +33811,12 @@ does not exist.</p>
     </thead>
     <tbody>
         <tr>
-          <td><code>offset</code></td>
+          <td><code>_database</code></td>
           <td>
-                <code>int | None</code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Offset to use. Default is None.</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><code>limit</code></td>
-          <td>
-                <code>int | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The max. number of elements to return. Default is None, which means all.</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><code>enabled</code></td>
-          <td>
-                <code>bool</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>When False, also stories that are not activated will be returned.</p>
+              <p>the database for the repository.</p>
             </div>
           </td>
         </tr>
@@ -33156,15 +33857,15 @@ does not exist.</p>
 
 
 
-<h5 id="kwai.modules.portal.get_story" class="doc doc-heading">
-            <code>get_story</code>
+<h6 id="kwai.modules.portal.news.news_item_query" class="doc doc-heading">
+            <code>news_item_query</code>
 
 
-<a href="#kwai.modules.portal.get_story" class="headerlink" title="Permanent link">&para;</a></h5>
+<a href="#kwai.modules.portal.news.news_item_query" class="headerlink" title="Permanent link">&para;</a></h6>
 
   <div class="doc doc-contents ">
   
-      <p>Module for the use case "Get Story".</p>
+      <p>Module for defining an interface for a news item query.</p>
 
   
 
@@ -33181,17 +33882,19 @@ does not exist.</p>
 
 
 
-<h6 id="kwai.modules.portal.get_story.GetStory" class="doc doc-heading">
-          <code>GetStory</code>
+<h7 id="kwai.modules.portal.news.news_item_query.NewsItemQuery" class="doc doc-heading">
+          <code>NewsItemQuery</code>
 
 
-<a href="#kwai.modules.portal.get_story.GetStory" class="headerlink" title="Permanent link">&para;</a></h6>
+<a href="#kwai.modules.portal.news.news_item_query.NewsItemQuery" class="headerlink" title="Permanent link">&para;</a></h7>
 
 
   <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.repository.query.Query" href="#kwai.core.domain.repository.query.Query">Query</a></code></p>
 
   
-      <p>Use case "Get Story".</p>
+      <p>An interface for a news item query.</p>
 
 
   
@@ -33211,15 +33914,43 @@ does not exist.</p>
 
 
 
-<h7 id="kwai.modules.portal.get_story.GetStory.__init__" class="doc doc-heading">
-<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span></code>
+<h8 id="kwai.modules.portal.news.news_item_query.NewsItemQuery.filter_by_active" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">filter_by_active</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
 
-<a href="#kwai.modules.portal.get_story.GetStory.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+<a href="#kwai.modules.portal.news.news_item_query.NewsItemQuery.filter_by_active" class="headerlink" title="Permanent link">&para;</a></h8>
 
 
   <div class="doc doc-contents ">
   
-      <p>Initialize the use case.</p>
+      <p>Add a filter to only return active news items.</p>
+<p>An active news item is enabled and is not expired.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.portal.news.news_item_query.NewsItemQuery.filter_by_application" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">filter_by_application</span><span class="p">(</span><span class="n">application</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_item_query.NewsItemQuery.filter_by_application" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Add a filter to return only news items for the given application.</p>
 
 
 
@@ -33235,13 +33966,13 @@ does not exist.</p>
     </thead>
     <tbody>
         <tr>
-          <td><code>repo</code></td>
+          <td><code>application</code></td>
           <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.stories.story_repository.StoryRepository" href="#kwai.modules.portal.stories.story_repository.StoryRepository">StoryRepository</a></code>
+                <code>int | str</code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>A repository for getting the news story.</p>
+              <p>The id or the name of the application</p>
             </div>
           </td>
           <td>
@@ -33260,19 +33991,337 @@ does not exist.</p>
 
 
 
-<h7 id="kwai.modules.portal.get_story.GetStory.execute" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+<h8 id="kwai.modules.portal.news.news_item_query.NewsItemQuery.filter_by_id" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">filter_by_id</span><span class="p">(</span><span class="n">id_</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_item_query.NewsItemQuery.filter_by_id" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Add a filter on the news item id.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>id_</code></td>
+          <td>
+                <code><span title="kwai.modules.portal.news.news_item.NewsItemIdentifier">NewsItemIdentifier</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>an id of a news item.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.portal.news.news_item_query.NewsItemQuery.filter_by_promoted" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">filter_by_promoted</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_item_query.NewsItemQuery.filter_by_promoted" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Add a filter to return only the promoted news items.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.portal.news.news_item_query.NewsItemQuery.filter_by_publication_date" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">filter_by_publication_date</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_item_query.NewsItemQuery.filter_by_publication_date" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Add a filter on the publication date.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>year</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Only return news items published in this year.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>month</code></td>
+          <td>
+                <code>int | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Only return news items published in this month.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+      <p>When month is omitted, all news items published in the given year will be
+returned.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.portal.news.news_item_query.NewsItemQuery.filter_by_user" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">filter_by_user</span><span class="p">(</span><span class="n">user</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_item_query.NewsItemQuery.filter_by_user" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Add a filter to only return news items of the given user.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>user</code></td>
+          <td>
+                <code>int | <a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.unique_id.UniqueId" href="#kwai.core.domain.value_objects.unique_id.UniqueId">UniqueId</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The id or unique id of the user.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.portal.news.news_item_query.NewsItemQuery.order_by_publication_date" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">order_by_publication_date</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_item_query.NewsItemQuery.order_by_publication_date" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Order the result on the publication date.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.portal.news.news_item_repository" class="doc doc-heading">
+            <code>news_item_repository</code>
+
+
+<a href="#kwai.modules.portal.news.news_item_repository" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines an interface for a news item repository.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.portal.news.news_item_repository.NewsItemNotFoundException" class="doc doc-heading">
+          <code>NewsItemNotFoundException</code>
+
+
+<a href="#kwai.modules.portal.news.news_item_repository.NewsItemNotFoundException" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code>Exception</code></p>
+
+  
+      <p>Raised when the news item can not be found.</p>
+
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.portal.news.news_item_repository.NewsItemRepository" class="doc doc-heading">
+          <code>NewsItemRepository</code>
+
+
+<a href="#kwai.modules.portal.news.news_item_repository.NewsItemRepository" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="abc.ABC">ABC</span></code></p>
+
+  
+      <p>Interface for a news item repository.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.portal.news.news_item_repository.NewsItemRepository.create" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">news_item</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
       <small class="doc doc-label doc-label-async"><code>async</code></small>
   </span>
 
-<a href="#kwai.modules.portal.get_story.GetStory.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+<a href="#kwai.modules.portal.news.news_item_repository.NewsItemRepository.create" class="headerlink" title="Permanent link">&para;</a></h8>
 
 
   <div class="doc doc-contents ">
   
-      <p>Executes the use case.</p>
+      <p>Create a new news item entity.</p>
 
 
 
@@ -33288,13 +34337,13 @@ does not exist.</p>
     </thead>
     <tbody>
         <tr>
-          <td><code>command</code></td>
+          <td><code>news_item</code></td>
           <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.get_story.GetStoryCommand" href="#kwai.modules.portal.get_story.GetStoryCommand">GetStoryCommand</a></code>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item.NewsItemEntity" href="#kwai.modules.portal.news.news_item.NewsItemEntity">NewsItemEntity</a></code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>The input for this use case.</p>
+              <p>The news item to create</p>
             </div>
           </td>
           <td>
@@ -33306,7 +34355,7 @@ does not exist.</p>
 
 
 
-  <p><strong>Raises:</strong></p>
+  <p><strong>Returns:</strong></p>
   <table>
     <thead>
       <tr>
@@ -33317,12 +34366,327 @@ does not exist.</p>
     <tbody>
         <tr>
           <td>
-                <code>StoryNotFoundException</code>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item.NewsItemEntity" href="#kwai.modules.portal.news.news_item.NewsItemEntity">NewsItemEntity</a></code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>When the story does not exist.</p>
+              <p>The news item entity with an identifier.</p>
             </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.portal.news.news_item_repository.NewsItemRepository.create_query" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">create_query</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_item_repository.NewsItemRepository.create_query" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Create a query for querying news items.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.portal.news.news_item_repository.NewsItemRepository.delete" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">delete</span><span class="p">(</span><span class="n">news_item</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_item_repository.NewsItemRepository.delete" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Delete a news item.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>news_item</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item.NewsItemEntity" href="#kwai.modules.portal.news.news_item.NewsItemEntity">NewsItemEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The news item to delete.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.portal.news.news_item_repository.NewsItemRepository.get_all" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_all</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_item_repository.NewsItemRepository.get_all" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return all news items of a given query.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>query</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item_query.NewsItemQuery" href="#kwai.modules.portal.news.news_item_query.NewsItemQuery">NewsItemQuery</a> | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The query to use for selecting the rows.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>limit</code></td>
+          <td>
+                <code>int | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The maximum number of entities to return.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>offset</code></td>
+          <td>
+                <code>int | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Skip the offset rows before beginning to return entities.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Yields:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="typing.AsyncIterator">AsyncIterator</span>[<a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item.NewsItemEntity" href="#kwai.modules.portal.news.news_item.NewsItemEntity">NewsItemEntity</a>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A list of news items.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.portal.news.news_item_repository.NewsItemRepository.get_by_id" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_by_id</span><span class="p">(</span><span class="n">id_</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_item_repository.NewsItemRepository.get_by_id" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the news item with the given id.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>id_</code></td>
+          <td>
+                <code><span title="kwai.modules.portal.news.news_item.NewsItemIdentifier">NewsItemIdentifier</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The id of the news item.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item.NewsItemEntity" href="#kwai.modules.portal.news.news_item.NewsItemEntity">NewsItemEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A news item entity.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.portal.news.news_item_repository.NewsItemRepository.update" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">update</span><span class="p">(</span><span class="n">news_item</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_item_repository.NewsItemRepository.update" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Update a news item entity.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>news_item</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item.NewsItemEntity" href="#kwai.modules.portal.news.news_item.NewsItemEntity">NewsItemEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The news item to update.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
           </td>
         </tr>
     </tbody>
@@ -33340,25 +34704,184 @@ does not exist.</p>
 
 </div>
 
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.portal.news.news_tables" class="doc doc-heading">
+            <code>news_tables</code>
+
+
+<a href="#kwai.modules.portal.news.news_tables" class="headerlink" title="Permanent link">&para;</a></h6>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines all dataclasses for the tables containing stories.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
 <div class="doc doc-object doc-class">
 
 
 
-<h6 id="kwai.modules.portal.get_story.GetStoryCommand" class="doc doc-heading">
-          <code>GetStoryCommand</code>
+<h7 id="kwai.modules.portal.news.news_tables.NewsItemRow" class="doc doc-heading">
+          <code>NewsItemRow</code>
 
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
   </span>
 
-<a href="#kwai.modules.portal.get_story.GetStoryCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+<a href="#kwai.modules.portal.news.news_tables.NewsItemRow" class="headerlink" title="Permanent link">&para;</a></h7>
 
 
   <div class="doc doc-contents ">
 
   
-      <p>Input for the use case "Get Story".</p>
+      <p>Represent a table row of the news items table.</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>id</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the id of the news item</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>enabled</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>is the news item enabled?</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>promotion</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the priority to use for the promotion</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>promotion_end_date</code></td>
+          <td>
+                <code><span title="datetime.datetime">datetime</span> | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>when ends the promotion?</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>publish_date</code></td>
+          <td>
+                <code><span title="datetime.datetime">datetime</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>time of publication</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>end_date</code></td>
+          <td>
+                <code><span title="datetime.datetime">datetime</span> | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>end of publication</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>remark</code></td>
+          <td>
+                <code>str | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>a remark about the news item</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>application_id</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the link to the application</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>created_at</code></td>
+          <td>
+                <code><span title="datetime.datetime">datetime</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the timestamp of creation</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>updated_at</code></td>
+          <td>
+                <code><span title="datetime.datetime">datetime</span> | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the timestamp of the last modification</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
 
 
   
@@ -33374,6 +34897,214 @@ does not exist.</p>
 
 
 
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.portal.news.news_tables.NewsItemRow.create_entity" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">create_entity</span><span class="p">(</span><span class="n">application</span><span class="p">,</span> <span class="n">texts</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.portal.news.news_tables.NewsItemRow.create_entity" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Create a news item entity from a table row.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.portal.news.news_tables.NewsItemRow.persist" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">persist</span><span class="p">(</span><span class="n">news_item</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_tables.NewsItemRow.persist" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Persist an entity to row data.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>news_item</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item.NewsItemEntity" href="#kwai.modules.portal.news.news_item.NewsItemEntity">NewsItemEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The news item entity to persist.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.portal.news.news_tables.NewsItemTextRow" class="doc doc-heading">
+          <code>NewsItemTextRow</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_tables.NewsItemTextRow" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.db.rows.ContentRow" href="#kwai.core.db.rows.ContentRow">ContentRow</a></code></p>
+
+  
+      <p>Represent a row in the news_contents table.</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>news_id</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The id of the news item</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.portal.news.news_tables.NewsItemTextRow.persist" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">persist</span><span class="p">(</span><span class="n">news_item</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news.news_tables.NewsItemTextRow.persist" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Persist a content value object to the table.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>news_item</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item.NewsItemEntity" href="#kwai.modules.portal.news.news_item.NewsItemEntity">NewsItemEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The news item that contains the content.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>text</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.text.LocaleText" href="#kwai.core.domain.value_objects.text.LocaleText">LocaleText</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The text of a news item.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
 
   </div>
 
@@ -33382,6 +35113,13 @@ does not exist.</p>
 </div>
 
 
+
+
+  </div>
+
+  </div>
+
+</div>
 
 
   </div>
@@ -35100,1743 +36838,6 @@ does not exist.</p>
           <td>
             <div class="doc-md-description">
               <p>The page to persist.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-module">
-
-
-
-<h5 id="kwai.modules.portal.stories" class="doc doc-heading">
-            <code>stories</code>
-
-
-<a href="#kwai.modules.portal.stories" class="headerlink" title="Permanent link">&para;</a></h5>
-
-  <div class="doc doc-contents ">
-  
-      <p>Package for all modules related to stories.</p>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-module">
-
-
-
-<h6 id="kwai.modules.portal.stories.story" class="doc doc-heading">
-            <code>story</code>
-
-
-<a href="#kwai.modules.portal.stories.story" class="headerlink" title="Permanent link">&para;</a></h6>
-
-  <div class="doc doc-contents ">
-  
-      <p>Module that defines a story entity.</p>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-class">
-
-
-
-<h7 id="kwai.modules.portal.stories.story.Promotion" class="doc doc-heading">
-          <code>Promotion</code>
-
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story.Promotion" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-
-  
-      <p>Value object for handling promoted news stories.</p>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-<h7 id="kwai.modules.portal.stories.story.StoryEntity" class="doc doc-heading">
-          <code>StoryEntity</code>
-
-
-<a href="#kwai.modules.portal.stories.story.StoryEntity" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.entity.Entity" href="#kwai.core.domain.entity.Entity">Entity</a>[<span title="kwai.modules.portal.stories.story.StoryIdentifier">StoryIdentifier</span>]</code></p>
-
-  
-      <p>A story entity.</p>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.portal.stories.story.StoryEntity.application" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">application</span><span class="p">:</span> <span class="n">ApplicationEntity</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story.StoryEntity.application" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Return the application.</p>
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.portal.stories.story.StoryEntity.is_enabled" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">is_enabled</span><span class="p">:</span> <span class="nb">bool</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story.StoryEntity.is_enabled" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Check if the story is enabled.</p>
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.portal.stories.story.StoryEntity.period" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">period</span><span class="p">:</span> <span class="n">Period</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story.StoryEntity.period" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Return the active period of the story.</p>
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.portal.stories.story.StoryEntity.promotion" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">promotion</span><span class="p">:</span> <span class="n">Promotion</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story.StoryEntity.promotion" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Return the promotion information of the story.</p>
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.portal.stories.story.StoryEntity.remark" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">remark</span><span class="p">:</span> <span class="nb">str</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story.StoryEntity.remark" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Return the remark.</p>
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.portal.stories.story.StoryEntity.texts" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">texts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">LocaleText</span><span class="p">]</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story.StoryEntity.texts" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Return the text content of the story.</p>
-
-<details class="remark" open>
-  <summary>Remark</summary>
-  <p>The list is a copy</p>
-</details>  </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.portal.stories.story.StoryEntity.traceable_time" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">traceable_time</span><span class="p">:</span> <span class="n">TraceableTime</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story.StoryEntity.traceable_time" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Return the creation/modification timestamp of this application.</p>
-  </div>
-
-</div>
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-module">
-
-
-
-<h6 id="kwai.modules.portal.stories.story_db_query" class="doc doc-heading">
-            <code>story_db_query</code>
-
-
-<a href="#kwai.modules.portal.stories.story_db_query" class="headerlink" title="Permanent link">&para;</a></h6>
-
-  <div class="doc doc-contents ">
-  
-      <p>Module that implements a StoryQuery for a database.</p>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-class">
-
-
-
-<h7 id="kwai.modules.portal.stories.story_db_query.StoryDbQuery" class="doc doc-heading">
-          <code>StoryDbQuery</code>
-
-
-<a href="#kwai.modules.portal.stories.story_db_query.StoryDbQuery" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.stories.story_query.StoryQuery" href="#kwai.modules.portal.stories.story_query.StoryQuery">StoryQuery</a></code>, <code><a class="autorefs autorefs-internal" title="kwai.core.db.database_query.DatabaseQuery" href="../core/db/#kwai.core.db.database_query.DatabaseQuery">DatabaseQuery</a></code></p>
-
-  
-      <p>A database query for news stories.</p>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-module">
-
-
-
-<h6 id="kwai.modules.portal.stories.story_db_repository" class="doc doc-heading">
-            <code>story_db_repository</code>
-
-
-<a href="#kwai.modules.portal.stories.story_db_repository" class="headerlink" title="Permanent link">&para;</a></h6>
-
-  <div class="doc doc-contents ">
-  
-      <p>Module that implements a story repository for a database.</p>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-class">
-
-
-
-<h7 id="kwai.modules.portal.stories.story_db_repository.StoryDbRepository" class="doc doc-heading">
-          <code>StoryDbRepository</code>
-
-
-<a href="#kwai.modules.portal.stories.story_db_repository.StoryDbRepository" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.stories.story_repository.StoryRepository" href="#kwai.modules.portal.stories.story_repository.StoryRepository">StoryRepository</a></code></p>
-
-  
-      <p>A story database repository.</p>
-
-
-
-  <p><strong>Attributes:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>_database</code></td>
-          <td>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>the database for the repository.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-module">
-
-
-
-<h6 id="kwai.modules.portal.stories.story_query" class="doc doc-heading">
-            <code>story_query</code>
-
-
-<a href="#kwai.modules.portal.stories.story_query" class="headerlink" title="Permanent link">&para;</a></h6>
-
-  <div class="doc doc-contents ">
-  
-      <p>Module for defining a interface for a story query.</p>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-class">
-
-
-
-<h7 id="kwai.modules.portal.stories.story_query.StoryQuery" class="doc doc-heading">
-          <code>StoryQuery</code>
-
-
-<a href="#kwai.modules.portal.stories.story_query.StoryQuery" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.repository.query.Query" href="#kwai.core.domain.repository.query.Query">Query</a></code></p>
-
-  
-      <p>An interface for a story query.</p>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.stories.story_query.StoryQuery.filter_by_active" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">filter_by_active</span><span class="p">()</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_query.StoryQuery.filter_by_active" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Add a filter to only return active news stories.</p>
-<p>An active story is enabled and is not expired.</p>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.stories.story_query.StoryQuery.filter_by_application" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">filter_by_application</span><span class="p">(</span><span class="n">application</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_query.StoryQuery.filter_by_application" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Add a filter to return only stories for the given application.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>application</code></td>
-          <td>
-                <code>int | str</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The id or the name of the application</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.stories.story_query.StoryQuery.filter_by_id" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">filter_by_id</span><span class="p">(</span><span class="n">id_</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_query.StoryQuery.filter_by_id" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Add a filter on the news story id.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>id_</code></td>
-          <td>
-                <code><span title="kwai.modules.portal.stories.story.StoryIdentifier">StoryIdentifier</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>an id of a news story.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.stories.story_query.StoryQuery.filter_by_promoted" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">filter_by_promoted</span><span class="p">()</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_query.StoryQuery.filter_by_promoted" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Add a filter to return only the promoted news stories.</p>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.stories.story_query.StoryQuery.filter_by_publication_date" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">filter_by_publication_date</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_query.StoryQuery.filter_by_publication_date" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Add a filter on the publication date.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>year</code></td>
-          <td>
-                <code>int</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Only return news stories published in this year.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>month</code></td>
-          <td>
-                <code>int | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Only return news stories published in this month.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-      <p>When month is omitted, all stories published in the given year will be returned.</p>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.stories.story_query.StoryQuery.filter_by_user" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">filter_by_user</span><span class="p">(</span><span class="n">user</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_query.StoryQuery.filter_by_user" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Add a filter to only return news stories of the given user.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>user</code></td>
-          <td>
-                <code>int | <a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.unique_id.UniqueId" href="#kwai.core.domain.value_objects.unique_id.UniqueId">UniqueId</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The id or unique id of the user.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.stories.story_query.StoryQuery.order_by_publication_date" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">order_by_publication_date</span><span class="p">()</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_query.StoryQuery.order_by_publication_date" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Order the result on the publication date.</p>
-
-  </div>
-
-</div>
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-module">
-
-
-
-<h6 id="kwai.modules.portal.stories.story_repository" class="doc doc-heading">
-            <code>story_repository</code>
-
-
-<a href="#kwai.modules.portal.stories.story_repository" class="headerlink" title="Permanent link">&para;</a></h6>
-
-  <div class="doc doc-contents ">
-  
-      <p>Module that defines an interface for a story repository.</p>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-class">
-
-
-
-<h7 id="kwai.modules.portal.stories.story_repository.StoryNotFoundException" class="doc doc-heading">
-          <code>StoryNotFoundException</code>
-
-
-<a href="#kwai.modules.portal.stories.story_repository.StoryNotFoundException" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code>Exception</code></p>
-
-  
-      <p>Raised when the story can not be found.</p>
-
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-<h7 id="kwai.modules.portal.stories.story_repository.StoryRepository" class="doc doc-heading">
-          <code>StoryRepository</code>
-
-
-<a href="#kwai.modules.portal.stories.story_repository.StoryRepository" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="abc.ABC">ABC</span></code></p>
-
-  
-      <p>Interface for a story repository.</p>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.stories.story_repository.StoryRepository.create" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">story</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_repository.StoryRepository.create" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Create a new story entity.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>story</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.stories.story.StoryEntity" href="#kwai.modules.portal.stories.story.StoryEntity">StoryEntity</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The story to create</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-
-
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.stories.story.StoryEntity" href="#kwai.modules.portal.stories.story.StoryEntity">StoryEntity</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The story entity with an identifier.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.stories.story_repository.StoryRepository.create_query" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">create_query</span><span class="p">()</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_repository.StoryRepository.create_query" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Create a query for querying stories.</p>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.stories.story_repository.StoryRepository.delete" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">delete</span><span class="p">(</span><span class="n">story</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_repository.StoryRepository.delete" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Delete a story.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>story</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.stories.story.StoryEntity" href="#kwai.modules.portal.stories.story.StoryEntity">StoryEntity</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The story to delete.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.stories.story_repository.StoryRepository.get_all" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_all</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_repository.StoryRepository.get_all" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Return all stories of a given query.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>query</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.stories.story_query.StoryQuery" href="#kwai.modules.portal.stories.story_query.StoryQuery">StoryQuery</a> | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The query to use for selecting the rows.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>limit</code></td>
-          <td>
-                <code>int | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The maximum number of entities to return.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>offset</code></td>
-          <td>
-                <code>int | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Skip the offset rows before beginning to return entities.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-
-
-  <p><strong>Yields:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>
-                <code><span title="typing.AsyncIterator">AsyncIterator</span>[<a class="autorefs autorefs-internal" title="kwai.modules.portal.stories.story.StoryEntity" href="#kwai.modules.portal.stories.story.StoryEntity">StoryEntity</a>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>A list of stories.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.stories.story_repository.StoryRepository.get_by_id" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_by_id</span><span class="p">(</span><span class="n">id_</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_repository.StoryRepository.get_by_id" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Get the story with the given id.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>id_</code></td>
-          <td>
-                <code><span title="kwai.modules.portal.stories.story.StoryIdentifier">StoryIdentifier</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The id of the story.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-
-
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.stories.story.StoryEntity" href="#kwai.modules.portal.stories.story.StoryEntity">StoryEntity</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>A story entity.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.stories.story_repository.StoryRepository.update" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">update</span><span class="p">(</span><span class="n">story</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_repository.StoryRepository.update" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Update a story entity.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>story</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.stories.story.StoryEntity" href="#kwai.modules.portal.stories.story.StoryEntity">StoryEntity</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The story to update.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-module">
-
-
-
-<h6 id="kwai.modules.portal.stories.story_tables" class="doc doc-heading">
-            <code>story_tables</code>
-
-
-<a href="#kwai.modules.portal.stories.story_tables" class="headerlink" title="Permanent link">&para;</a></h6>
-
-  <div class="doc doc-contents ">
-  
-      <p>Module that defines all dataclasses for the tables containing stories.</p>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-class">
-
-
-
-<h7 id="kwai.modules.portal.stories.story_tables.StoryContentRow" class="doc doc-heading">
-          <code>StoryContentRow</code>
-
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_tables.StoryContentRow" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.db.rows.ContentRow" href="#kwai.core.db.rows.ContentRow">ContentRow</a></code></p>
-
-  
-      <p>Represent a row in the news_contents table.</p>
-
-
-
-  <p><strong>Attributes:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>news_id</code></td>
-          <td>
-                <code>int</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The id of the news story</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.stories.story_tables.StoryContentRow.persist" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">persist</span><span class="p">(</span><span class="n">story</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_tables.StoryContentRow.persist" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Persist a content value object to the table.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>story</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.stories.story.StoryEntity" href="#kwai.modules.portal.stories.story.StoryEntity">StoryEntity</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The story that contains the content.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>content</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.text.LocaleText" href="#kwai.core.domain.value_objects.text.LocaleText">LocaleText</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The content of a story.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-<h7 id="kwai.modules.portal.stories.story_tables.StoryRow" class="doc doc-heading">
-          <code>StoryRow</code>
-
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_tables.StoryRow" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-
-  
-      <p>Represent a table row of the stories table.</p>
-
-
-
-  <p><strong>Attributes:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>id</code></td>
-          <td>
-                <code>int</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>the id of the story</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><code>enabled</code></td>
-          <td>
-                <code>int</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>is the story enabled?</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><code>promotion</code></td>
-          <td>
-                <code>int</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>the priority to use for the promotion</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><code>promotion_end_date</code></td>
-          <td>
-                <code><span title="datetime.datetime">datetime</span> | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>when ends the promotion?</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><code>publish_date</code></td>
-          <td>
-                <code><span title="datetime.datetime">datetime</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>time of publication</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><code>end_date</code></td>
-          <td>
-                <code><span title="datetime.datetime">datetime</span> | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>end of publication</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><code>remark</code></td>
-          <td>
-                <code>str | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>a remark about the story</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><code>application_id</code></td>
-          <td>
-                <code>int</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>the link to the application</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><code>created_at</code></td>
-          <td>
-                <code><span title="datetime.datetime">datetime</span></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>the timestamp of creation</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><code>updated_at</code></td>
-          <td>
-                <code><span title="datetime.datetime">datetime</span> | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>the timestamp of the last modification</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.stories.story_tables.StoryRow.create_entity" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">create_entity</span><span class="p">(</span><span class="n">application</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span></code>
-
-<a href="#kwai.modules.portal.stories.story_tables.StoryRow.create_entity" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Create a story entity from a table row.</p>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.stories.story_tables.StoryRow.persist" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">persist</span><span class="p">(</span><span class="n">story</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_tables.StoryRow.persist" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Persist an entity to row data.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>story</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.stories.story.StoryEntity" href="#kwai.modules.portal.stories.story.StoryEntity">StoryEntity</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The story to persist.</p>
             </div>
           </td>
           <td>
