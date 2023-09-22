@@ -11,7 +11,7 @@ class PageQuery(Query):
 
     @abstractmethod
     def filter_by_id(self, id_: PageIdentifier) -> "PageQuery":
-        """Add a filter on the news page id.
+        """Add a filter on the page id.
 
         Args:
             id_: an id of a page.

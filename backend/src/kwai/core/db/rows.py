@@ -40,8 +40,8 @@ class ContentRow:
     Attributes:
         locale: The code of the locale of the text
         format: The format of the text (md = markdown, html, ...)
-        title: The title of the news story
-        content: The long content of the news story
+        title: The title of the news items
+        content: The long content of the news item
         summary: A summary of the content
         user_id: The id of the author
         created_at: the timestamp of creation

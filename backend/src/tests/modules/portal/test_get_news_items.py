@@ -3,29 +3,21 @@ from types import AsyncGeneratorType
 
 import pytest
 
-from kwai.core.db.database import Database
 from kwai.modules.portal.get_news_items import GetNewsItems, GetNewsItemsCommand
-from kwai.modules.portal.news.news_item_db_repository import NewsItemDbRepository
 from kwai.modules.portal.news.news_item_repository import NewsItemRepository
 
 pytestmark = pytest.mark.db
 
 
-@pytest.fixture(scope="module")
-def repo(database: Database) -> NewsItemRepository:
-    """Create a story repository."""
-    return NewsItemDbRepository(database)
-
-
-async def test_get_stories(repo: NewsItemRepository):
+async def test_get_stories(news_item_repo: NewsItemRepository):
     """Test the use case: get stories."""
     command = GetNewsItemsCommand()
-    count, story_iterator = await GetNewsItems(repo).execute(command)
+    count, news_item_iterator = await GetNewsItems(news_item_repo).execute(command)
 
     assert count >= 0, "Count must be 0 or greater"
     assert isinstance(
-        story_iterator, AsyncGeneratorType
-    ), "A list of stories should be yielded"
+        news_item_iterator, AsyncGeneratorType
+    ), "A list of news items should be yielded"
 
-    story_dict = {story.id: story async for story in story_iterator}
-    assert count == len(story_dict), "Count should be the same"
+    news_item_dict = {news_item.id: news_item async for news_item in news_item_iterator}
+    assert count == len(news_item_dict), "Count should be the same"

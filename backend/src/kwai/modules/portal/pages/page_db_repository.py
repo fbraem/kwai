@@ -24,7 +24,7 @@ from kwai.modules.portal.pages.page_tables import (
 
 
 def _create_entity(rows: list[dict[str, Any]]) -> PageEntity:
-    """Create a story entity from a group of rows."""
+    """Create a news item entity from a group of rows."""
     return PagesTable(rows[0]).create_entity(
         ApplicationsTable(rows[0]).create_entity(),
         [

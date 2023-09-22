@@ -72,14 +72,14 @@ async def saved_page(page_repo: PageRepository, page: PageEntity) -> PageEntity:
 
 
 @pytest.fixture(scope="module")
-def story_repo(database: Database) -> NewsItemRepository:
-    """Fixture for a story repository."""
+def news_item_repo(database: Database) -> NewsItemRepository:
+    """Fixture for a news item repository."""
     return NewsItemDbRepository(database)
 
 
 @pytest.fixture(scope="module")
-def story(owner: Owner, application: ApplicationEntity) -> NewsItemEntity:
-    """Fixture for a story entity."""
+def news_item(owner: Owner, application: ApplicationEntity) -> NewsItemEntity:
+    """Fixture for a news item entity."""
     return NewsItemEntity(
         enabled=True,
         application=application,
@@ -87,19 +87,19 @@ def story(owner: Owner, application: ApplicationEntity) -> NewsItemEntity:
             LocaleText(
                 locale=Locale.EN,
                 format=DocumentFormat.MARKDOWN,
-                title="Test Story",
-                summary="This is a test story",
-                content="This is a test story",
+                title="Test News Item",
+                summary="This is a test news item",
+                content="This is a test news item",
                 author=owner,
             )
         ],
-        remark="Test story.",
+        remark="Test news item.",
     )
 
 
 @pytest.fixture(scope="module")
-async def saved_story(
-    story_repo: NewsItemRepository, story: NewsItemEntity
+async def saved_news_item(
+    news_item_repo: NewsItemRepository, news_item: NewsItemEntity
 ) -> NewsItemEntity:
-    """Fixture for a story in the database."""
-    return await story_repo.create(story)
+    """Fixture for a news item in the database."""
+    return await news_item_repo.create(news_item)
