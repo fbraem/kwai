@@ -2614,8 +2614,8 @@ will also be revoked.</p>
 
   <div class="doc doc-contents ">
   
-      <p>Get news stories for the portal.</p>
-<p>Only promoted news stories are returned for the portal.</p>
+      <p>Get news items for the portal.</p>
+<p>Only promoted news items are returned for the portal.</p>
 
   </div>
 
@@ -2667,15 +2667,15 @@ will also be revoked.</p>
 
 
 
-<h7 id="kwai.api.v1.portal.schemas.story" class="doc doc-heading">
-            <code>story</code>
+<h7 id="kwai.api.v1.portal.schemas.news_item" class="doc doc-heading">
+            <code>news_item</code>
 
 
-<a href="#kwai.api.v1.portal.schemas.story" class="headerlink" title="Permanent link">&para;</a></h7>
+<a href="#kwai.api.v1.portal.schemas.news_item" class="headerlink" title="Permanent link">&para;</a></h7>
 
   <div class="doc doc-contents ">
   
-      <p>Schemas for a story on a portal.</p>
+      <p>Schemas for a news item on a portal.</p>
 
   
 
@@ -2692,11 +2692,231 @@ will also be revoked.</p>
 
 
 
-<h8 id="kwai.api.v1.portal.schemas.story.PortalApplicationResource" class="doc doc-heading">
+<h8 id="kwai.api.v1.portal.schemas.news_item.NewsItemResource" class="doc doc-heading">
+          <code>NewsItemResource</code>
+
+
+<a href="#kwai.api.v1.portal.schemas.news_item.NewsItemResource" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Represent a JSONAPI resource for a news item.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h9 id="kwai.api.v1.portal.schemas.news_item.NewsItemResource.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">news_item</span><span class="p">)</span></code>
+
+<a href="#kwai.api.v1.portal.schemas.news_item.NewsItemResource.__init__" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Construct.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>news_item</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item.NewsItemEntity" href="#kwai.modules.portal.news.news_item.NewsItemEntity">NewsItemEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The news item entity that is transformed into a JSONAPI resource.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h9 id="kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_application" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_application</span><span class="p">()</span></code>
+
+<a href="#kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_application" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the application of the news item.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h9 id="kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_id" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_id</span><span class="p">()</span></code>
+
+<a href="#kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_id" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the id of the news item.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h9 id="kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_priority" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_priority</span><span class="p">()</span></code>
+
+<a href="#kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_priority" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the priority of the promotion.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h9 id="kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_publish_date" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_publish_date</span><span class="p">()</span></code>
+
+<a href="#kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_publish_date" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the publication date.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h9 id="kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_texts" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_texts</span><span class="p">()</span></code>
+
+<a href="#kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_texts" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the text of the news item.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.portal.schemas.news_item.NewsItemText" class="doc doc-heading">
+          <code>NewsItemText</code>
+
+
+<a href="#kwai.api.v1.portal.schemas.news_item.NewsItemText" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+  
+      <p>Schema for the text of a news item.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.portal.schemas.news_item.PortalApplicationResource" class="doc doc-heading">
           <code>PortalApplicationResource</code>
 
 
-<a href="#kwai.api.v1.portal.schemas.story.PortalApplicationResource" class="headerlink" title="Permanent link">&para;</a></h8>
+<a href="#kwai.api.v1.portal.schemas.news_item.PortalApplicationResource" class="headerlink" title="Permanent link">&para;</a></h8>
 
 
   <div class="doc doc-contents ">
@@ -2722,10 +2942,10 @@ will also be revoked.</p>
 
 
 
-<h9 id="kwai.api.v1.portal.schemas.story.PortalApplicationResource.get_id" class="doc doc-heading">
+<h9 id="kwai.api.v1.portal.schemas.news_item.PortalApplicationResource.get_id" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">get_id</span><span class="p">()</span></code>
 
-<a href="#kwai.api.v1.portal.schemas.story.PortalApplicationResource.get_id" class="headerlink" title="Permanent link">&para;</a></h9>
+<a href="#kwai.api.v1.portal.schemas.news_item.PortalApplicationResource.get_id" class="headerlink" title="Permanent link">&para;</a></h9>
 
 
   <div class="doc doc-contents ">
@@ -2741,10 +2961,10 @@ will also be revoked.</p>
 
 
 
-<h9 id="kwai.api.v1.portal.schemas.story.PortalApplicationResource.get_name" class="doc doc-heading">
+<h9 id="kwai.api.v1.portal.schemas.news_item.PortalApplicationResource.get_name" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">get_name</span><span class="p">()</span></code>
 
-<a href="#kwai.api.v1.portal.schemas.story.PortalApplicationResource.get_name" class="headerlink" title="Permanent link">&para;</a></h9>
+<a href="#kwai.api.v1.portal.schemas.news_item.PortalApplicationResource.get_name" class="headerlink" title="Permanent link">&para;</a></h9>
 
 
   <div class="doc doc-contents ">
@@ -2760,10 +2980,10 @@ will also be revoked.</p>
 
 
 
-<h9 id="kwai.api.v1.portal.schemas.story.PortalApplicationResource.get_title" class="doc doc-heading">
+<h9 id="kwai.api.v1.portal.schemas.news_item.PortalApplicationResource.get_title" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">get_title</span><span class="p">()</span></code>
 
-<a href="#kwai.api.v1.portal.schemas.story.PortalApplicationResource.get_title" class="headerlink" title="Permanent link">&para;</a></h9>
+<a href="#kwai.api.v1.portal.schemas.news_item.PortalApplicationResource.get_title" class="headerlink" title="Permanent link">&para;</a></h9>
 
 
   <div class="doc doc-contents ">
@@ -2773,226 +2993,6 @@ will also be revoked.</p>
   </div>
 
 </div>
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-<h8 id="kwai.api.v1.portal.schemas.story.PortalStoryResource" class="doc doc-heading">
-          <code>PortalStoryResource</code>
-
-
-<a href="#kwai.api.v1.portal.schemas.story.PortalStoryResource" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-
-  
-      <p>Represent a JSONAPI resource for a news story.</p>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h9 id="kwai.api.v1.portal.schemas.story.PortalStoryResource.__init__" class="doc doc-heading">
-<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">story</span><span class="p">)</span></code>
-
-<a href="#kwai.api.v1.portal.schemas.story.PortalStoryResource.__init__" class="headerlink" title="Permanent link">&para;</a></h9>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Construct.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>story</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item.NewsItemEntity" href="#kwai.modules.portal.news.news_item.NewsItemEntity">NewsItemEntity</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The story news entity that is transformed into a JSONAPI resource.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h9 id="kwai.api.v1.portal.schemas.story.PortalStoryResource.get_application" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_application</span><span class="p">()</span></code>
-
-<a href="#kwai.api.v1.portal.schemas.story.PortalStoryResource.get_application" class="headerlink" title="Permanent link">&para;</a></h9>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Get the application of the story.</p>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h9 id="kwai.api.v1.portal.schemas.story.PortalStoryResource.get_content" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_content</span><span class="p">()</span></code>
-
-<a href="#kwai.api.v1.portal.schemas.story.PortalStoryResource.get_content" class="headerlink" title="Permanent link">&para;</a></h9>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Get the content of the story.</p>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h9 id="kwai.api.v1.portal.schemas.story.PortalStoryResource.get_id" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_id</span><span class="p">()</span></code>
-
-<a href="#kwai.api.v1.portal.schemas.story.PortalStoryResource.get_id" class="headerlink" title="Permanent link">&para;</a></h9>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Get the id of the story.</p>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h9 id="kwai.api.v1.portal.schemas.story.PortalStoryResource.get_priority" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_priority</span><span class="p">()</span></code>
-
-<a href="#kwai.api.v1.portal.schemas.story.PortalStoryResource.get_priority" class="headerlink" title="Permanent link">&para;</a></h9>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Get the priority of the promotion.</p>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h9 id="kwai.api.v1.portal.schemas.story.PortalStoryResource.get_publish_date" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_publish_date</span><span class="p">()</span></code>
-
-<a href="#kwai.api.v1.portal.schemas.story.PortalStoryResource.get_publish_date" class="headerlink" title="Permanent link">&para;</a></h9>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Get the publication date.</p>
-
-  </div>
-
-</div>
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-<h8 id="kwai.api.v1.portal.schemas.story.StoryContent" class="doc doc-heading">
-          <code>StoryContent</code>
-
-
-<a href="#kwai.api.v1.portal.schemas.story.StoryContent" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
-
-  
-      <p>Schema for the content of a story.</p>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
 
 
 
@@ -6318,15 +6318,75 @@ be the id of the last executed insert.</p>
 
 
 
-<h6 id="kwai.core.db.rows.ContentRow" class="doc doc-heading">
-          <code>ContentRow</code>
+<h6 id="kwai.core.db.rows.OwnerRow" class="doc doc-heading">
+          <code>OwnerRow</code>
 
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
   </span>
 
-<a href="#kwai.core.db.rows.ContentRow" class="headerlink" title="Permanent link">&para;</a></h6>
+<a href="#kwai.core.db.rows.OwnerRow" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Represent the owner data.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.core.db.rows.OwnerRow.create_owner" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">create_owner</span><span class="p">()</span></code>
+
+<a href="#kwai.core.db.rows.OwnerRow.create_owner" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Create an Author value object from row data.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.core.db.rows.TextRow" class="doc doc-heading">
+          <code>TextRow</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.core.db.rows.TextRow" class="headerlink" title="Permanent link">&para;</a></h6>
 
 
   <div class="doc doc-contents ">
@@ -6375,7 +6435,7 @@ be the id of the last executed insert.</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>The title of the news story</p>
+              <p>The title of the text</p>
             </div>
           </td>
         </tr>
@@ -6386,7 +6446,7 @@ be the id of the last executed insert.</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>The long content of the news story</p>
+              <p>The long content of the text</p>
             </div>
           </td>
         </tr>
@@ -6397,7 +6457,7 @@ be the id of the last executed insert.</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>A summary of the content</p>
+              <p>A summary of the text</p>
             </div>
           </td>
         </tr>
@@ -6455,15 +6515,15 @@ be the id of the last executed insert.</p>
 
 
 
-<h7 id="kwai.core.db.rows.ContentRow.create_content" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">create_content</span><span class="p">(</span><span class="n">author</span><span class="p">)</span></code>
+<h7 id="kwai.core.db.rows.TextRow.create_text" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">create_text</span><span class="p">(</span><span class="n">author</span><span class="p">)</span></code>
 
-<a href="#kwai.core.db.rows.ContentRow.create_content" class="headerlink" title="Permanent link">&para;</a></h7>
+<a href="#kwai.core.db.rows.TextRow.create_text" class="headerlink" title="Permanent link">&para;</a></h7>
 
 
   <div class="doc doc-contents ">
   
-      <p>Create a Content value object from a row.</p>
+      <p>Create a LocaleText value object from a row.</p>
 
 
 
@@ -6485,7 +6545,7 @@ be the id of the last executed insert.</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>The author of the content.</p>
+              <p>The author of the text.</p>
             </div>
           </td>
           <td>
@@ -6494,66 +6554,6 @@ be the id of the last executed insert.</p>
         </tr>
     </tbody>
   </table>
-
-  </div>
-
-</div>
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-<h6 id="kwai.core.db.rows.OwnerRow" class="doc doc-heading">
-          <code>OwnerRow</code>
-
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
-
-<a href="#kwai.core.db.rows.OwnerRow" class="headerlink" title="Permanent link">&para;</a></h6>
-
-
-  <div class="doc doc-contents ">
-
-  
-      <p>Represent the owner data.</p>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h7 id="kwai.core.db.rows.OwnerRow.create_owner" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">create_owner</span><span class="p">()</span></code>
-
-<a href="#kwai.core.db.rows.OwnerRow.create_owner" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Create an Author value object from row data.</p>
 
   </div>
 
@@ -32509,7 +32509,7 @@ does not exist.</p>
 
   <div class="doc doc-contents ">
   
-      <p>Module for the use case "Get Story".</p>
+      <p>Module for the use case "Get News Item".</p>
 
   
 
@@ -32526,17 +32526,17 @@ does not exist.</p>
 
 
 
-<h6 id="kwai.modules.portal.get_news_item.GetStory" class="doc doc-heading">
-          <code>GetStory</code>
+<h6 id="kwai.modules.portal.get_news_item.GetNewsItem" class="doc doc-heading">
+          <code>GetNewsItem</code>
 
 
-<a href="#kwai.modules.portal.get_news_item.GetStory" class="headerlink" title="Permanent link">&para;</a></h6>
+<a href="#kwai.modules.portal.get_news_item.GetNewsItem" class="headerlink" title="Permanent link">&para;</a></h6>
 
 
   <div class="doc doc-contents ">
 
   
-      <p>Use case "Get Story".</p>
+      <p>Use case "Get News Item".</p>
 
 
   
@@ -32556,10 +32556,10 @@ does not exist.</p>
 
 
 
-<h7 id="kwai.modules.portal.get_news_item.GetStory.__init__" class="doc doc-heading">
+<h7 id="kwai.modules.portal.get_news_item.GetNewsItem.__init__" class="doc doc-heading">
 <code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span></code>
 
-<a href="#kwai.modules.portal.get_news_item.GetStory.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+<a href="#kwai.modules.portal.get_news_item.GetNewsItem.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
 
 
   <div class="doc doc-contents ">
@@ -32586,7 +32586,7 @@ does not exist.</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>A repository for getting the news story.</p>
+              <p>A repository for getting the news item.</p>
             </div>
           </td>
           <td>
@@ -32605,14 +32605,14 @@ does not exist.</p>
 
 
 
-<h7 id="kwai.modules.portal.get_news_item.GetStory.execute" class="doc doc-heading">
+<h7 id="kwai.modules.portal.get_news_item.GetNewsItem.execute" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
   </span>
 
-<a href="#kwai.modules.portal.get_news_item.GetStory.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+<a href="#kwai.modules.portal.get_news_item.GetNewsItem.execute" class="headerlink" title="Permanent link">&para;</a></h7>
 
 
   <div class="doc doc-contents ">
@@ -32635,7 +32635,7 @@ does not exist.</p>
         <tr>
           <td><code>command</code></td>
           <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.get_news_item.GetStoryCommand" href="#kwai.modules.portal.get_news_item.GetStoryCommand">GetStoryCommand</a></code>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.get_news_item.GetNewsItemCommand" href="#kwai.modules.portal.get_news_item.GetNewsItemCommand">GetNewsItemCommand</a></code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -32662,11 +32662,11 @@ does not exist.</p>
     <tbody>
         <tr>
           <td>
-                <code>StoryNotFoundException</code>
+                <code>NewsItemNotFoundException</code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>When the story does not exist.</p>
+              <p>When the news item does not exist.</p>
             </div>
           </td>
         </tr>
@@ -32689,21 +32689,21 @@ does not exist.</p>
 
 
 
-<h6 id="kwai.modules.portal.get_news_item.GetStoryCommand" class="doc doc-heading">
-          <code>GetStoryCommand</code>
+<h6 id="kwai.modules.portal.get_news_item.GetNewsItemCommand" class="doc doc-heading">
+          <code>GetNewsItemCommand</code>
 
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
   </span>
 
-<a href="#kwai.modules.portal.get_news_item.GetStoryCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+<a href="#kwai.modules.portal.get_news_item.GetNewsItemCommand" class="headerlink" title="Permanent link">&para;</a></h6>
 
 
   <div class="doc doc-contents ">
 
   
-      <p>Input for the use case "Get Story".</p>
+      <p>Input for the use case "Get News Item".</p>
 
 
   
@@ -34993,7 +34993,7 @@ returned.</p>
 
   <div class="doc doc-contents ">
           <p class="doc doc-class-bases">
-            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.db.rows.ContentRow" href="#kwai.core.db.rows.ContentRow">ContentRow</a></code></p>
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.db.rows.TextRow" href="#kwai.core.db.rows.TextRow">TextRow</a></code></p>
 
   
       <p>Represent a row in the news_contents table.</p>
@@ -35790,7 +35790,7 @@ returned.</p>
             Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.repository.query.Query" href="#kwai.core.domain.repository.query.Query">Query</a></code></p>
 
   
-      <p>An interface for a story query.</p>
+      <p>An interface for a page query.</p>
 
 
   
@@ -35898,7 +35898,7 @@ returned.</p>
 
   <div class="doc doc-contents ">
   
-      <p>Add a filter on the news page id.</p>
+      <p>Add a filter on the page id.</p>
 
 
 
@@ -36522,142 +36522,6 @@ returned.</p>
 
 
 
-<h7 id="kwai.modules.portal.pages.page_tables.PageContentRow" class="doc doc-heading">
-          <code>PageContentRow</code>
-
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.pages.page_tables.PageContentRow" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.db.rows.ContentRow" href="#kwai.core.db.rows.ContentRow">ContentRow</a></code></p>
-
-  
-      <p>Represent a row in the page_contents table.</p>
-
-
-
-  <p><strong>Attributes:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>page_id</code></td>
-          <td>
-                <code>int</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The id of a page.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.pages.page_tables.PageContentRow.persist" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">persist</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.pages.page_tables.PageContentRow.persist" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Persist a content value object to the table.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>page</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.pages.page.PageEntity" href="#kwai.modules.portal.pages.page.PageEntity">PageEntity</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The page that contains the content.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>content</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.text.LocaleText" href="#kwai.core.domain.value_objects.text.LocaleText">LocaleText</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The content of a story.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
 <h7 id="kwai.modules.portal.pages.page_tables.PageRow" class="doc doc-heading">
           <code>PageRow</code>
 
@@ -36838,6 +36702,142 @@ returned.</p>
           <td>
             <div class="doc-md-description">
               <p>The page to persist.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.portal.pages.page_tables.PageTextRow" class="doc doc-heading">
+          <code>PageTextRow</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.pages.page_tables.PageTextRow" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.db.rows.TextRow" href="#kwai.core.db.rows.TextRow">TextRow</a></code></p>
+
+  
+      <p>Represent a row in the page_contents table.</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>page_id</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The id of a page.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.portal.pages.page_tables.PageTextRow.persist" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">persist</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.pages.page_tables.PageTextRow.persist" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Persist a content value object to the table.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>page</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.pages.page.PageEntity" href="#kwai.modules.portal.pages.page.PageEntity">PageEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The page that contains the content.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>content</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.text.LocaleText" href="#kwai.core.domain.value_objects.text.LocaleText">LocaleText</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The content of a page.</p>
             </div>
           </td>
           <td>
@@ -43952,142 +43952,6 @@ the definition will be set to None.</p>
 
 
 
-<h7 id="kwai.modules.training.trainings.training_tables.TrainingContentRow" class="doc doc-heading">
-          <code>TrainingContentRow</code>
-
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
-
-<a href="#kwai.modules.training.trainings.training_tables.TrainingContentRow" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.db.rows.ContentRow" href="#kwai.core.db.rows.ContentRow">ContentRow</a></code></p>
-
-  
-      <p>Represent a row in the training_contents table.</p>
-
-
-
-  <p><strong>Attributes:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>training_id</code></td>
-          <td>
-                <code>int</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The id of the training</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.training.trainings.training_tables.TrainingContentRow.persist" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">persist</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
-  </span>
-
-<a href="#kwai.modules.training.trainings.training_tables.TrainingContentRow.persist" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Persist a content value object to this table.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>training</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.training.TrainingEntity" href="#kwai.modules.training.trainings.training.TrainingEntity">TrainingEntity</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The training that contains the text content.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>content</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.text.LocaleText" href="#kwai.core.domain.value_objects.text.LocaleText">LocaleText</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The text content of the training.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
 <h7 id="kwai.modules.training.trainings.training_tables.TrainingDefinitionRow" class="doc doc-heading">
           <code>TrainingDefinitionRow</code>
 
@@ -44569,6 +44433,142 @@ the definition will be set to None.</p>
   <div class="doc doc-contents ">
   
       <p>Persist a team of a training to a table row.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.training.trainings.training_tables.TrainingTextRow" class="doc doc-heading">
+          <code>TrainingTextRow</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.training.trainings.training_tables.TrainingTextRow" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.db.rows.TextRow" href="#kwai.core.db.rows.TextRow">TextRow</a></code></p>
+
+  
+      <p>Represent a row in the training_contents table.</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>training_id</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The id of the training</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h8 id="kwai.modules.training.trainings.training_tables.TrainingTextRow.persist" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">persist</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.training.trainings.training_tables.TrainingTextRow.persist" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Persist a content value object to this table.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>training</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.training.trainings.training.TrainingEntity" href="#kwai.modules.training.trainings.training.TrainingEntity">TrainingEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The training that contains the text content.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>content</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.text.LocaleText" href="#kwai.core.domain.value_objects.text.LocaleText">LocaleText</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The text content of the training.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
 
   </div>
 
