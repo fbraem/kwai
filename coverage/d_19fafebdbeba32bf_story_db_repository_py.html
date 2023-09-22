@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="d_19fafebdbeba32bf_story_query_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.3.0">coverage.py v7.3.0</a>,
-            created at 2023-09-21 18:02 +0000
+            created at 2023-09-22 12:37 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"/>
@@ -134,7 +134,7 @@
     <p class="run"><span class="n"><a id="t52" href="#t52">52</a></span><span class="t">        <span class="nam">result</span> <span class="op">=</span> <span class="nam">Entity</span><span class="op">.</span><span class="nam">replace</span><span class="op">(</span><span class="nam">story</span><span class="op">,</span> <span class="nam">id_</span><span class="op">=</span><span class="nam">StoryIdentifier</span><span class="op">(</span><span class="nam">new_id</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t53" href="#t53">53</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t54" href="#t54">54</a></span><span class="t">        <span class="nam">content_rows</span> <span class="op">=</span> <span class="op">[</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t55" href="#t55">55</a></span><span class="t">            <span class="nam">StoryContentRow</span><span class="op">.</span><span class="nam">persist</span><span class="op">(</span><span class="nam">result</span><span class="op">,</span> <span class="nam">content</span><span class="op">)</span> <span class="key">for</span> <span class="nam">content</span> <span class="key">in</span> <span class="nam">story</span><span class="op">.</span><span class="nam">content</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t55" href="#t55">55</a></span><span class="t">            <span class="nam">StoryContentRow</span><span class="op">.</span><span class="nam">persist</span><span class="op">(</span><span class="nam">result</span><span class="op">,</span> <span class="nam">content</span><span class="op">)</span> <span class="key">for</span> <span class="nam">content</span> <span class="key">in</span> <span class="nam">story</span><span class="op">.</span><span class="nam">texts</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t56" href="#t56">56</a></span><span class="t">        <span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t57" href="#t57">57</a></span><span class="t">        <span class="key">await</span> <span class="nam">self</span><span class="op">.</span><span class="nam">_database</span><span class="op">.</span><span class="nam">insert</span><span class="op">(</span><span class="nam">StoryContentsTable</span><span class="op">.</span><span class="nam">table_name</span><span class="op">,</span> <span class="op">*</span><span class="nam">content_rows</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t58" href="#t58">58</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -154,7 +154,7 @@
     <p class="mis show_mis"><span class="n"><a id="t72" href="#t72">72</a></span><span class="t">        <span class="key">await</span> <span class="nam">self</span><span class="op">.</span><span class="nam">_database</span><span class="op">.</span><span class="nam">execute</span><span class="op">(</span><span class="nam">delete_contents_query</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t73" href="#t73">73</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t74" href="#t74">74</a></span><span class="t">        <span class="nam">content_rows</span> <span class="op">=</span> <span class="op">[</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t75" href="#t75">75</a></span><span class="t">            <span class="nam">StoryContentRow</span><span class="op">.</span><span class="nam">persist</span><span class="op">(</span><span class="nam">story</span><span class="op">,</span> <span class="nam">content</span><span class="op">)</span> <span class="key">for</span> <span class="nam">content</span> <span class="key">in</span> <span class="nam">story</span><span class="op">.</span><span class="nam">content</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t75" href="#t75">75</a></span><span class="t">            <span class="nam">StoryContentRow</span><span class="op">.</span><span class="nam">persist</span><span class="op">(</span><span class="nam">story</span><span class="op">,</span> <span class="nam">content</span><span class="op">)</span> <span class="key">for</span> <span class="nam">content</span> <span class="key">in</span> <span class="nam">story</span><span class="op">.</span><span class="nam">texts</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t76" href="#t76">76</a></span><span class="t">        <span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t77" href="#t77">77</a></span><span class="t">        <span class="key">await</span> <span class="nam">self</span><span class="op">.</span><span class="nam">_database</span><span class="op">.</span><span class="nam">insert</span><span class="op">(</span><span class="nam">StoryContentsTable</span><span class="op">.</span><span class="nam">table_name</span><span class="op">,</span> <span class="op">*</span><span class="nam">content_rows</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t78" href="#t78">78</a></span><span class="t">        <span class="key">await</span> <span class="nam">self</span><span class="op">.</span><span class="nam">_database</span><span class="op">.</span><span class="nam">commit</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -224,7 +224,7 @@
             <a id="nextFileLink" class="nav" href="d_19fafebdbeba32bf_story_query_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.3.0">coverage.py v7.3.0</a>,
-            created at 2023-09-21 18:02 +0000
+            created at 2023-09-22 12:37 +0000
         </p>
     </div>
 </footer>
