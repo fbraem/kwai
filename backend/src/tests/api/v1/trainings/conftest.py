@@ -24,7 +24,7 @@ async def training_entity(database: Database, owner: Owner) -> TrainingEntity:
     repo = TrainingDbRepository(database)
     return await repo.create(
         TrainingEntity(
-            content=[
+            texts=[
                 LocaleText(
                     locale=Locale.NL,
                     format=DocumentFormat.MARKDOWN,

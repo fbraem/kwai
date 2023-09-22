@@ -144,7 +144,7 @@ class TrainingDbRepository(TrainingRepository):
         result = Entity.replace(training, id_=TrainingIdentifier(new_id))
 
         content_rows = [
-            TrainingContentRow.persist(result, content) for content in training.content
+            TrainingContentRow.persist(result, content) for content in training.texts
         ]
 
         await self._database.insert(TrainingContentsTable.table_name, *content_rows)
@@ -166,8 +166,7 @@ class TrainingDbRepository(TrainingRepository):
         # Update the text, first delete, then insert again.
         await self._delete_contents(training)
         content_rows = [
-            TrainingContentRow.persist(training, content)
-            for content in training.content
+            TrainingContentRow.persist(training, content) for content in training.texts
         ]
         await self._database.insert(TrainingContentsTable.table_name, *content_rows)
 

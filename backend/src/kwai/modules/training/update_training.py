@@ -96,7 +96,7 @@ class UpdateTraining:
 
         training = Entity.replace(
             training,
-            content=[
+            texts=[
                 LocaleText(
                     locale=Locale(text["locale"]),
                     format=DocumentFormat(text["format"]),
@@ -105,7 +105,7 @@ class UpdateTraining:
                     summary=text["summary"],
                     author=self._owner,
                 )
-                for text in command.text
+                for text in command.texts
             ],
             definition=definition,
             coaches=coaches,

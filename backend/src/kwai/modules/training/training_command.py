@@ -22,7 +22,7 @@ class TrainingCommand:
     active: bool
     cancelled: bool
     location: str
-    text: list[dict[str, Any]]
+    texts: list[dict[str, Any]]
     remark: str
     definition: int | None
     coaches: list[Coach]

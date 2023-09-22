@@ -79,7 +79,7 @@ async def training_entity(
     start_date = LocalTimestamp.create_now()
     return await training_repo.create(
         TrainingEntity(
-            content=[
+            texts=[
                 LocaleText(
                     locale=Locale.EN,
                     format=DocumentFormat.MARKDOWN,
@@ -116,7 +116,7 @@ async def test_update_training(
         active=training_entity.active,
         cancelled=training_entity.cancelled,
         location=training_entity.location,
-        text=[
+        texts=[
             {
                 "locale": "en",
                 "format": "md",

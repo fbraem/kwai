@@ -10,7 +10,7 @@ from kwai.modules.training.teams.team import TeamEntity
 from kwai.modules.training.trainings.training import TrainingEntity
 
 
-class TrainingContent(BaseModel):
+class TrainingText(BaseModel):
     """Schema for the content of a training."""
 
     locale: str
@@ -94,22 +94,22 @@ class TrainingResource:
         """Get the id of the training."""
         return str(self._training.id)
 
-    @json_api.attribute(name="contents")
-    def get_contents(self) -> list[TrainingContent]:
+    @json_api.attribute(name="texts")
+    def get_texts(self) -> list[TrainingText]:
         """Get the content of the training."""
         return [
-            TrainingContent(
-                locale=content.locale.value,
-                format=content.format.value,
-                title=content.title,
-                summary=content.summary,
-                content=content.content,
-                html_summary=MarkdownConverter().convert(content.summary),
+            TrainingText(
+                locale=text.locale.value,
+                format=text.format.value,
+                title=text.title,
+                summary=text.summary,
+                content=text.content,
+                html_summary=MarkdownConverter().convert(text.summary),
                 html_content=None
-                if content.content is None
-                else MarkdownConverter().convert(content.content),
+                if text.content is None
+                else MarkdownConverter().convert(text.content),
             )
-            for content in self._training.content
+            for text in self._training.texts
         ]
 
     @json_api.attribute(name="event")

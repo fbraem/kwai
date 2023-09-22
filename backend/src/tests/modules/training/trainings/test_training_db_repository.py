@@ -51,7 +51,7 @@ def training(user, context: Context, owner: Owner) -> TrainingEntity:
         )
     ]
     return TrainingEntity(
-        content=text,
+        texts=text,
         period=Period.create_from_delta(hours=1),
         coaches=[
             TrainingCoach(

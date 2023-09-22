@@ -49,7 +49,7 @@ class PageDbRepository(PageRepository):
         result = Entity.replace(page, id_=PageIdentifier(new_id))
 
         content_rows = [
-            PageContentRow.persist(result, content) for content in page.content
+            PageContentRow.persist(result, content) for content in page.text
         ]
         await self._database.insert(PageContentsTable.table_name, *content_rows)
 
@@ -68,9 +68,7 @@ class PageDbRepository(PageRepository):
         )
         await self._database.execute(delete_contents_query)
 
-        content_rows = [
-            PageContentRow.persist(page, content) for content in page.content
-        ]
+        content_rows = [PageContentRow.persist(page, content) for content in page.text]
         await self._database.insert(PageContentsTable.table_name, *content_rows)
         await self._database.commit()
 

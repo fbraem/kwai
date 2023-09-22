@@ -86,7 +86,7 @@ class CreateTraining:
             coaches = []
 
         training = TrainingEntity(
-            content=[
+            texts=[
                 LocaleText(
                     locale=Locale(text["locale"]),
                     format=DocumentFormat(text["format"]),
@@ -95,7 +95,7 @@ class CreateTraining:
                     summary=text["summary"],
                     author=self._owner,
                 )
-                for text in command.text
+                for text in command.texts
             ],
             definition=definition,
             coaches=coaches,

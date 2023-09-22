@@ -41,7 +41,7 @@ def page(owner: Owner, application: ApplicationEntity) -> PageEntity:
     return PageEntity(
         enabled=True,
         application=application,
-        content=[
+        text=[
             LocaleText(
                 format=DocumentFormat.MARKDOWN,
                 locale=Locale.EN,

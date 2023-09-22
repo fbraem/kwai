@@ -97,7 +97,7 @@ async def training_entity(owner: Owner) -> TrainingEntity:
     """A fixture for a training entity."""
     start_date = LocalTimestamp.create_now()
     training = TrainingEntity(
-        content=[
+        texts=[
             LocaleText(
                 locale=Locale.NL,
                 format=DocumentFormat.MARKDOWN,

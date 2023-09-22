@@ -27,7 +27,7 @@ async def test_update_page(
                 summary=text.summary,
                 content=text.content,
             )
-            for text in saved_page.content
+            for text in saved_page.text
         ],
         application=saved_page.application.id.value,
         priority=saved_page.priority,

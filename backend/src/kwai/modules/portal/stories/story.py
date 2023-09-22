@@ -39,7 +39,7 @@ class StoryEntity(Entity[StoryIdentifier]):
         promotion: Promotion = None,
         period: Period = None,
         application: Application,
-        content: list[LocaleText],
+        texts: list[LocaleText],
         remark: str = "",
         traceable_time: TraceableTime | None = None,
     ):
@@ -48,7 +48,7 @@ class StoryEntity(Entity[StoryIdentifier]):
         self._promotion = promotion or Promotion()
         self._period = period or Period()
         self._application = application
-        self._content = content
+        self._texts = texts
         self._remark = remark
         self._traceable_time = traceable_time or TraceableTime()
 
@@ -78,13 +78,13 @@ class StoryEntity(Entity[StoryIdentifier]):
         return self._application
 
     @property
-    def content(self) -> list[LocaleText]:
-        """Return the contents of the story.
+    def texts(self) -> list[LocaleText]:
+        """Return the text content of the story.
 
         Remark:
             The list is a copy
         """
-        return self._content.copy()
+        return self._texts.copy()
 
     @property
     def traceable_time(self) -> TraceableTime:

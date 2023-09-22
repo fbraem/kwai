@@ -77,7 +77,7 @@ class PortalStoryResource:
                 if content.content
                 else None,
             )
-            for content in self._story.content
+            for content in self._story.texts
         ]
 
     @json_api.relationship(name="application")

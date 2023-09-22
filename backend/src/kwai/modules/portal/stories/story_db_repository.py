@@ -52,7 +52,7 @@ class StoryDbRepository(StoryRepository):
         result = Entity.replace(story, id_=StoryIdentifier(new_id))
 
         content_rows = [
-            StoryContentRow.persist(result, content) for content in story.content
+            StoryContentRow.persist(result, content) for content in story.texts
         ]
         await self._database.insert(StoryContentsTable.table_name, *content_rows)
 
@@ -72,7 +72,7 @@ class StoryDbRepository(StoryRepository):
         await self._database.execute(delete_contents_query)
 
         content_rows = [
-            StoryContentRow.persist(story, content) for content in story.content
+            StoryContentRow.persist(story, content) for content in story.texts
         ]
         await self._database.insert(StoryContentsTable.table_name, *content_rows)
         await self._database.commit()

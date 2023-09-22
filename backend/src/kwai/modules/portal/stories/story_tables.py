@@ -111,7 +111,7 @@ class StoryRow:
                 end_date=LocalTimestamp(self.end_date),
             ),
             application=application,
-            content=content,
+            texts=content,
             remark=self.remark,
             traceable_time=TraceableTime(
                 created_at=LocalTimestamp(timestamp=self.created_at),

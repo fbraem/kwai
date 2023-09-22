@@ -151,7 +151,7 @@ def test_create_training(secure_client: TestClient):
         "data": {
             "type": "trainings",
             "attributes": {
-                "contents": [
+                "texts": [
                     {
                         "locale": "en",
                         "format": "md",
@@ -182,7 +182,7 @@ def test_create_training_with_coaches(secure_client: TestClient):
         "data": {
             "type": "trainings",
             "attributes": {
-                "contents": [
+                "texts": [
                     {
                         "locale": "en",
                         "format": "md",
@@ -218,7 +218,7 @@ def test_create_training_with_teams(secure_client: TestClient):
         "data": {
             "type": "trainings",
             "attributes": {
-                "contents": [
+                "texts": [
                     {
                         "locale": "en",
                         "format": "md",
@@ -253,7 +253,7 @@ def test_update_training(secure_client: TestClient, training_entity: TrainingEnt
             "type": "trainings",
             "id": str(training_entity.id),
             "attributes": {
-                "contents": [
+                "texts": [
                     {
                         "locale": "en",
                         "format": "md",

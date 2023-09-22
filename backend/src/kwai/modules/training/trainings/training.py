@@ -20,7 +20,7 @@ class TrainingEntity(Entity[TrainingIdentifier]):
         self,
         *,
         id_: TrainingIdentifier | None = None,
-        content: list[LocaleText],
+        texts: list[LocaleText],
         definition: TrainingDefinitionEntity | None = None,
         coaches: list[TrainingCoach] | None = None,
         teams: list[TeamEntity] | None = None,
@@ -36,7 +36,7 @@ class TrainingEntity(Entity[TrainingIdentifier]):
 
         Args:
             id_: The id of the training
-            content: A list with text content
+            texts: A list with text content
             definition: The related definition, when the training was created from a
                 definition.
             coaches: A list of assigned coaches.
@@ -50,7 +50,7 @@ class TrainingEntity(Entity[TrainingIdentifier]):
             traceable_time: The creation and modification timestamp of the training.
         """
         super().__init__(id_ or TrainingIdentifier())
-        self._content = content
+        self._texts = texts
         self._definition = definition
         self._coaches = coaches or []
         self._teams = teams or []
@@ -73,13 +73,13 @@ class TrainingEntity(Entity[TrainingIdentifier]):
         return self._definition
 
     @property
-    def content(self) -> list[LocaleText]:
+    def texts(self) -> list[LocaleText]:
         """Return the text content of a training.
 
         Remark:
             The list is a copy.
         """
-        return self._content.copy()
+        return self._texts.copy()
 
     @property
     def coaches(self) -> list[TrainingCoach]:

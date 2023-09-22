@@ -101,7 +101,7 @@ class TrainingRow:
         """
         return TrainingEntity(
             id_=TrainingIdentifier(self.id),
-            content=content,
+            texts=content,
             definition=definition,
             period=Period(
                 start_date=LocalTimestamp(self.start_date),

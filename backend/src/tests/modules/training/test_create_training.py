@@ -74,7 +74,7 @@ async def command(coach: CoachEntity, team: TeamEntity) -> CreateTrainingCommand
         active=True,
         cancelled=False,
         location="",
-        text=[
+        texts=[
             {
                 "locale": "en",
                 "format": "md",

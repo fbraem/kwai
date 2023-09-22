@@ -59,7 +59,7 @@ class UpdatePage:
             page,
             enabled=command.enabled,
             application=application,
-            content=[
+            text=[
                 LocaleText(
                     locale=Locale(text.locale),
                     format=DocumentFormat(text.format),

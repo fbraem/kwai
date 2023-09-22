@@ -133,7 +133,7 @@ async def create_training(
         end_date=resource.data.attributes.event.end_date,
         active=resource.data.attributes.event.active,
         cancelled=resource.data.attributes.event.cancelled,
-        text=[
+        texts=[
             {
                 "locale": text.locale,
                 "format": text.format,
@@ -141,7 +141,7 @@ async def create_training(
                 "summary": text.summary,
                 "content": text.content,
             }
-            for text in resource.data.attributes.contents
+            for text in resource.data.attributes.texts
         ],
         coaches=[
             Coach(
@@ -191,7 +191,7 @@ async def update_training(
         end_date=resource.data.attributes.event.end_date,
         active=resource.data.attributes.event.active,
         cancelled=resource.data.attributes.event.cancelled,
-        text=[
+        texts=[
             {
                 "locale": text.locale,
                 "format": text.format,
@@ -199,7 +199,7 @@ async def update_training(
                 "summary": text.summary,
                 "content": text.content,
             }
-            for text in resource.data.attributes.contents
+            for text in resource.data.attributes.texts
         ],
         coaches=[
             Coach(

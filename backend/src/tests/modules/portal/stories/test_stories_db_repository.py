@@ -30,7 +30,7 @@ async def story(
 ) -> StoryEntity:
     """Fixture for a story."""
     story = StoryEntity(
-        content=[
+        texts=[
             LocaleText(
                 format=DocumentFormat.MARKDOWN,
                 locale=Locale.NL,
