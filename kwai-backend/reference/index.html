@@ -31990,6 +31990,244 @@ does not exist.</p>
 
 
 
+<h5 id="kwai.modules.portal.delete_page" class="doc doc-heading">
+            <code>delete_page</code>
+
+
+<a href="#kwai.modules.portal.delete_page" class="headerlink" title="Permanent link">&para;</a></h5>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module for defining the use case "Delete Page".</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.portal.delete_page.DeletePage" class="doc doc-heading">
+          <code>DeletePage</code>
+
+
+<a href="#kwai.modules.portal.delete_page.DeletePage" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Use case "Delete Page".</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.portal.delete_page.DeletePage.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.portal.delete_page.DeletePage.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize the use case.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>repo</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.pages.page_repository.PageRepository" href="#kwai.modules.portal.pages.page_repository.PageRepository">PageRepository</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A repository for deleting a page.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.portal.delete_page.DeletePage.execute" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.delete_page.DeletePage.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Executes the use case.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>command</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.delete_page.DeletePageCommand" href="#kwai.modules.portal.delete_page.DeletePageCommand">DeletePageCommand</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>PageNotFoundException</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>when the page does not exist.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.portal.delete_page.DeletePageCommand" class="doc doc-heading">
+          <code>DeletePageCommand</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.delete_page.DeletePageCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Input for the use case "Delete Page".</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h5 id="kwai.modules.portal.get_applications" class="doc doc-heading">
             <code>get_applications</code>
 
@@ -32883,6 +33121,244 @@ does not exist.</p>
         </tr>
     </tbody>
   </table>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h5 id="kwai.modules.portal.get_story" class="doc doc-heading">
+            <code>get_story</code>
+
+
+<a href="#kwai.modules.portal.get_story" class="headerlink" title="Permanent link">&para;</a></h5>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module for the use case "Get Story".</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.portal.get_story.GetStory" class="doc doc-heading">
+          <code>GetStory</code>
+
+
+<a href="#kwai.modules.portal.get_story.GetStory" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Use case "Get Story".</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.portal.get_story.GetStory.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.portal.get_story.GetStory.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize the use case.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>repo</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.stories.story_repository.StoryRepository" href="#kwai.modules.portal.stories.story_repository.StoryRepository">StoryRepository</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A repository for getting the news story.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.portal.get_story.GetStory.execute" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.get_story.GetStory.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Executes the use case.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>command</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.get_story.GetStoryCommand" href="#kwai.modules.portal.get_story.GetStoryCommand">GetStoryCommand</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>StoryNotFoundException</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>When the story does not exist.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.portal.get_story.GetStoryCommand" class="doc doc-heading">
+          <code>GetStoryCommand</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.get_story.GetStoryCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Input for the use case "Get Story".</p>
 
 
   
@@ -34717,47 +35193,6 @@ does not exist.</p>
 
 
 
-<h7 id="kwai.modules.portal.stories.story.Application" class="doc doc-heading">
-          <code>Application</code>
-
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story.Application" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-
-  
-      <p>Value object for an application.</p>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
 <h7 id="kwai.modules.portal.stories.story.Promotion" class="doc doc-heading">
           <code>Promotion</code>
 
@@ -34829,7 +35264,7 @@ does not exist.</p>
 
 
 <h8 id="kwai.modules.portal.stories.story.StoryEntity.application" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">application</span><span class="p">:</span> <span class="n">Application</span></code>
+<code class="codehilite language-python"><span class="n">application</span><span class="p">:</span> <span class="n">ApplicationEntity</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -36048,66 +36483,6 @@ does not exist.</p>
 
 
 
-
-<div class="doc doc-object doc-class">
-
-
-
-<h7 id="kwai.modules.portal.stories.story_tables.ApplicationRow" class="doc doc-heading">
-          <code>ApplicationRow</code>
-
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
-
-<a href="#kwai.modules.portal.stories.story_tables.ApplicationRow" class="headerlink" title="Permanent link">&para;</a></h7>
-
-
-  <div class="doc doc-contents ">
-
-  
-      <p>Represent the application data that is associated with a story.</p>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h8 id="kwai.modules.portal.stories.story_tables.ApplicationRow.create_application" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">create_application</span><span class="p">()</span></code>
-
-<a href="#kwai.modules.portal.stories.story_tables.ApplicationRow.create_application" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Create an Application value object from row data.</p>
-
-  </div>
-
-</div>
-
-
-
-  </div>
-
-  </div>
-
-</div>
 
 <div class="doc doc-object doc-class">
 
