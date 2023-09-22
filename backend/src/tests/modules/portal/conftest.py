@@ -14,6 +14,9 @@ from kwai.modules.portal.applications.application_repository import (
 from kwai.modules.portal.pages.page import PageEntity
 from kwai.modules.portal.pages.page_db_repository import PageDbRepository
 from kwai.modules.portal.pages.page_repository import PageRepository
+from kwai.modules.portal.stories.story import StoryEntity
+from kwai.modules.portal.stories.story_db_repository import StoryDbRepository
+from kwai.modules.portal.stories.story_repository import StoryRepository
 
 
 @pytest.fixture(scope="module")
@@ -66,3 +69,35 @@ def page_repo(database: Database) -> PageRepository:
 async def saved_page(page_repo: PageRepository, page: PageEntity) -> PageEntity:
     """Fixture for a page stored in the database."""
     return await page_repo.create(page)
+
+
+@pytest.fixture(scope="module")
+def story_repo(database: Database) -> StoryRepository:
+    """Fixture for a story repository."""
+    return StoryDbRepository(database)
+
+
+@pytest.fixture(scope="module")
+def story(owner: Owner, application: ApplicationEntity) -> StoryEntity:
+    """Fixture for a story entity."""
+    return StoryEntity(
+        enabled=True,
+        application=application,
+        texts=[
+            LocaleText(
+                locale=Locale.EN,
+                format=DocumentFormat.MARKDOWN,
+                title="Test Story",
+                summary="This is a test story",
+                content="This is a test story",
+                author=owner,
+            )
+        ],
+        remark="Test story.",
+    )
+
+
+@pytest.fixture(scope="module")
+async def saved_story(story_repo: StoryRepository, story: StoryEntity) -> StoryEntity:
+    """Fixture for a story in the database."""
+    return await story_repo.create(story)
