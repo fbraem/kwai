@@ -7,14 +7,14 @@ from kwai.core.db.database import Database
 from kwai.core.db.rows import OwnersTable
 from kwai.core.domain.entity import Entity
 from kwai.modules.portal.applications.application_tables import ApplicationsTable
-from kwai.modules.portal.news.story import StoryEntity, StoryIdentifier
-from kwai.modules.portal.news.story_db_query import StoryDbQuery
-from kwai.modules.portal.news.story_query import StoryQuery
-from kwai.modules.portal.news.story_repository import (
+from kwai.modules.portal.news.news_item import StoryEntity, StoryIdentifier
+from kwai.modules.portal.news.news_item_db_query import StoryDbQuery
+from kwai.modules.portal.news.news_item_query import StoryQuery
+from kwai.modules.portal.news.news_item_repository import (
     StoryNotFoundException,
     StoryRepository,
 )
-from kwai.modules.portal.news.story_tables import (
+from kwai.modules.portal.news.news_tables import (
     StoriesTable,
     StoryContentRow,
     StoryContentsTable,

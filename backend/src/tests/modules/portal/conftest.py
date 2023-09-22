@@ -11,9 +11,9 @@ from kwai.modules.portal.applications.application_db_repository import (
 from kwai.modules.portal.applications.application_repository import (
     ApplicationRepository,
 )
-from kwai.modules.portal.news.story import StoryEntity
-from kwai.modules.portal.news.story_db_repository import StoryDbRepository
-from kwai.modules.portal.news.story_repository import StoryRepository
+from kwai.modules.portal.news.news_item import StoryEntity
+from kwai.modules.portal.news.news_item_db_repository import StoryDbRepository
+from kwai.modules.portal.news.news_item_repository import StoryRepository
 from kwai.modules.portal.pages.page import PageEntity
 from kwai.modules.portal.pages.page_db_repository import PageDbRepository
 from kwai.modules.portal.pages.page_repository import PageRepository

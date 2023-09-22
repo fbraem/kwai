@@ -9,7 +9,7 @@ from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import LocaleText
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.portal.applications.application import ApplicationEntity
-from kwai.modules.portal.news.story import (
+from kwai.modules.portal.news.news_item import (
     Promotion,
     StoryEntity,
     StoryIdentifier,

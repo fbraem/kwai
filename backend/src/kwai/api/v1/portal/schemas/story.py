@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from kwai.api.converter import MarkdownConverter
 from kwai.core import json_api
 from kwai.modules.portal.applications.application import ApplicationEntity
-from kwai.modules.portal.news.story import StoryEntity
+from kwai.modules.portal.news.news_item import StoryEntity
 
 
 @json_api.resource(type_="applications")

@@ -3,7 +3,7 @@ from abc import abstractmethod
 
 from kwai.core.domain.repository.query import Query
 from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.portal.news.story import StoryIdentifier
+from kwai.modules.portal.news.news_item import StoryIdentifier
 
 
 class StoryQuery(Query):
