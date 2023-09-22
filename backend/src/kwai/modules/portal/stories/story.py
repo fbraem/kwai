@@ -7,6 +7,7 @@ from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import LocaleText
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
+from kwai.modules.portal.applications.application import ApplicationEntity
 
 StoryIdentifier = IntIdentifier
 
@@ -19,15 +20,6 @@ class Promotion:
     end_date: LocalTimestamp = field(default_factory=LocalTimestamp)
 
 
-@dataclass(frozen=True, kw_only=True, slots=True)
-class Application:
-    """Value object for an application."""
-
-    id: IntIdentifier
-    name: str
-    title: str
-
-
 class StoryEntity(Entity[StoryIdentifier]):
     """A story entity."""
 
@@ -38,7 +30,7 @@ class StoryEntity(Entity[StoryIdentifier]):
         enabled: bool = False,
         promotion: Promotion = None,
         period: Period = None,
-        application: Application,
+        application: ApplicationEntity,
         texts: list[LocaleText],
         remark: str = "",
         traceable_time: TraceableTime | None = None,
@@ -73,7 +65,7 @@ class StoryEntity(Entity[StoryIdentifier]):
         return self._remark
 
     @property
-    def application(self) -> Application:
+    def application(self) -> ApplicationEntity:
         """Return the application."""
         return self._application
 

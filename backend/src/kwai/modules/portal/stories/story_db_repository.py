@@ -6,6 +6,7 @@ from sql_smith.functions import field
 from kwai.core.db.database import Database
 from kwai.core.db.rows import OwnersTable
 from kwai.core.domain.entity import Entity
+from kwai.modules.portal.applications.application_tables import ApplicationsTable
 from kwai.modules.portal.stories.story import StoryEntity, StoryIdentifier
 from kwai.modules.portal.stories.story_db_query import StoryDbQuery
 from kwai.modules.portal.stories.story_query import StoryQuery
@@ -14,7 +15,6 @@ from kwai.modules.portal.stories.story_repository import (
     StoryRepository,
 )
 from kwai.modules.portal.stories.story_tables import (
-    ApplicationsTable,
     StoriesTable,
     StoryContentRow,
     StoryContentsTable,
@@ -25,7 +25,7 @@ from kwai.modules.portal.stories.story_tables import (
 def _create_entity(rows: list[dict[str, Any]]) -> StoryEntity:
     """Create a story entity from a group of rows."""
     return StoriesTable(rows[0]).create_entity(
-        ApplicationsTable(rows[0]).create_application(),
+        ApplicationsTable(rows[0]).create_entity(),
         [
             StoryContentsTable(row).create_content(
                 author=OwnersTable(row).create_owner()

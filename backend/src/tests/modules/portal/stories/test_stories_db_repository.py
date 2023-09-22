@@ -5,8 +5,8 @@ import pytest
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
+from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.stories.story import (
-    Application,
     StoryEntity,
 )
 from kwai.modules.portal.stories.story_db_repository import StoryDbRepository
@@ -26,7 +26,7 @@ async def repo(database: Database) -> StoryRepository:
 
 @pytest.fixture(scope="module")
 async def story(
-    repo: StoryRepository, owner: Owner, application: Application
+    repo: StoryRepository, owner: Owner, application: ApplicationEntity
 ) -> StoryEntity:
     """Fixture for a story."""
     story = StoryEntity(

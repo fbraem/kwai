@@ -4,13 +4,12 @@ from datetime import datetime
 
 from kwai.core.db.rows import ContentRow
 from kwai.core.db.table import Table
-from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import LocaleText
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
+from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.stories.story import (
-    Application,
     Promotion,
     StoryEntity,
     StoryIdentifier,
@@ -52,22 +51,6 @@ StoryContentsTable = Table("news_contents", StoryContentRow)
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class ApplicationRow:
-    """Represent the application data that is associated with a story."""
-
-    id: int
-    name: str
-    title: str
-
-    def create_application(self) -> Application:
-        """Create an Application value object from row data."""
-        return Application(id=IntIdentifier(self.id), name=self.name, title=self.title)
-
-
-ApplicationsTable = Table("applications", ApplicationRow)
-
-
-@dataclass(kw_only=True, frozen=True, slots=True)
 class StoryRow:
     """Represent a table row of the stories table.
 
@@ -96,7 +79,7 @@ class StoryRow:
     updated_at: datetime | None
 
     def create_entity(
-        self, application: Application, content: list[LocaleText]
+        self, application: ApplicationEntity, content: list[LocaleText]
     ) -> StoryEntity:
         """Create a story entity from a table row."""
         return StoryEntity(
