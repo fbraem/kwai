@@ -1,4 +1,4 @@
-"""Schemas for a story on a portal."""
+"""Schemas for a news item on a portal."""
 from pydantic import BaseModel
 
 from kwai.api.converter import MarkdownConverter
@@ -30,8 +30,8 @@ class PortalApplicationResource:
         return self._application.title
 
 
-class StoryContent(BaseModel):
-    """Schema for the content of a story."""
+class NewsItemText(BaseModel):
+    """Schema for the text of a news item."""
 
     locale: str
     title: str
@@ -39,49 +39,49 @@ class StoryContent(BaseModel):
     content: str | None
 
 
-@json_api.resource(type_="stories")
-class PortalStoryResource:
-    """Represent a JSONAPI resource for a news story."""
+@json_api.resource(type_="news_items")
+class NewsItemResource:
+    """Represent a JSONAPI resource for a news item."""
 
-    def __init__(self, story: NewsItemEntity):
+    def __init__(self, news_item: NewsItemEntity):
         """Construct.
 
         Args:
-            story: The story news entity that is transformed into a JSONAPI resource.
+            news_item: The news item entity that is transformed into a JSONAPI resource.
         """
-        self._story = story
+        self._news_item = news_item
 
     @json_api.id
     def get_id(self) -> str:
-        """Get the id of the story."""
-        return str(self._story.id)
+        """Get the id of the news item."""
+        return str(self._news_item.id)
 
     @json_api.attribute(name="priority")
     def get_priority(self) -> int:
         """Get the priority of the promotion."""
-        return self._story.promotion.priority
+        return self._news_item.promotion.priority
 
     @json_api.attribute(name="publish_date")
     def get_publish_date(self) -> str:
         """Get the publication date."""
-        return str(self._story.period.start_date)
+        return str(self._news_item.period.start_date)
 
-    @json_api.attribute(name="content")
-    def get_content(self) -> list[StoryContent]:
-        """Get the content of the story."""
+    @json_api.attribute(name="texts")
+    def get_texts(self) -> list[NewsItemText]:
+        """Get the text of the news item."""
         return [
-            StoryContent(
-                locale=content.locale.value,
-                title=content.title,
-                summary=MarkdownConverter().convert(content.summary),
-                content=MarkdownConverter().convert(content.content)
-                if content.content
+            NewsItemText(
+                locale=text.locale.value,
+                title=text.title,
+                summary=MarkdownConverter().convert(text.summary),
+                content=MarkdownConverter().convert(text.content)
+                if text.content
                 else None,
             )
-            for content in self._story.texts
+            for text in self._news_item.texts
         ]
 
     @json_api.relationship(name="application")
     def get_application(self) -> PortalApplicationResource:
-        """Get the application of the story."""
-        return PortalApplicationResource(self._story.application)
+        """Get the application of the news item."""
+        return PortalApplicationResource(self._news_item.application)

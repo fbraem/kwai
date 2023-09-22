@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends
 
 from kwai.api.dependencies import deps
-from kwai.api.v1.portal.schemas.story import PortalStoryResource
+from kwai.api.v1.portal.schemas.news_item import NewsItemResource
 from kwai.core.db.database import Database
 from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.portal.get_news_items import GetNewsItems, GetNewsItemsCommand
@@ -15,20 +15,20 @@ router = APIRouter()
 @router.get("/news")
 async def get_news(
     pagination: PaginationModel = Depends(PaginationModel), db=deps.depends(Database)
-) -> PortalStoryResource.get_document_model():
-    """Get news stories for the portal.
+) -> NewsItemResource.get_document_model():
+    """Get news items for the portal.
 
-    Only promoted news stories are returned for the portal.
+    Only promoted news items are returned for the portal.
     """
     command = GetNewsItemsCommand(
         offset=pagination.offset or 0, limit=pagination.limit or 10, promoted=True
     )
-    count, story_iterator = await GetNewsItems(NewsItemDbRepository(db)).execute(
+    count, news_item_iterator = await GetNewsItems(NewsItemDbRepository(db)).execute(
         command
     )
 
-    document = PortalStoryResource.serialize_list(
-        [PortalStoryResource(story) async for story in story_iterator]
+    document = NewsItemResource.serialize_list(
+        [NewsItemResource(news_item) async for news_item in news_item_iterator]
     )
     document.meta = Meta(count=count, offset=command.offset, limit=command.limit)
 

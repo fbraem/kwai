@@ -1,4 +1,4 @@
-"""Module for testing the story database repository."""
+"""Module for testing the news item database repository."""
 
 import pytest
 
@@ -20,7 +20,7 @@ pytestmark = pytest.mark.db
 
 @pytest.fixture(scope="module")
 async def repo(database: Database) -> NewsItemRepository:
-    """Fixture for a story repository."""
+    """Fixture for a news story repository."""
     return NewsItemDbRepository(database)
 
 
@@ -28,7 +28,7 @@ async def repo(database: Database) -> NewsItemRepository:
 async def story(
     repo: NewsItemRepository, owner: Owner, application: ApplicationEntity
 ) -> NewsItemEntity:
-    """Fixture for a story."""
+    """Fixture for a news item."""
     story = NewsItemEntity(
         texts=[
             LocaleText(
@@ -59,11 +59,11 @@ async def test_get_all(repo: NewsItemRepository, story: NewsItemEntity):
 async def test_get_by_id(repo: NewsItemRepository, story: NewsItemEntity):
     """Test for get_by_id."""
     entity = await repo.get_by_id(story.id)
-    assert entity is not None, f"There should be a story with id {story.id}"
+    assert entity is not None, f"There should be a news item with id {story.id}"
 
 
 async def test_delete(repo: NewsItemRepository, story: NewsItemEntity):
-    """Test the deletion of a story."""
+    """Test the deletion of a news item."""
     await repo.delete(story)
 
     with pytest.raises(NewsItemNotFoundException):
