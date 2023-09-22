@@ -18,7 +18,7 @@ class PageCommand:
     """Input for the use case "Create Page"."""
 
     enabled: bool
-    text: list[TextCommand]
+    texts: list[TextCommand]
     application: int
     priority: int
     remark: str

@@ -19,7 +19,7 @@ async def test_update_page(
     command = UpdatePageCommand(
         id=saved_page.id.value,
         enabled=saved_page.enabled,
-        text=[
+        texts=[
             TextCommand(
                 locale=text.locale.value,
                 format=text.format.value,
@@ -27,7 +27,7 @@ async def test_update_page(
                 summary=text.summary,
                 content=text.content,
             )
-            for text in saved_page.text
+            for text in saved_page.texts
         ],
         application=saved_page.application.id.value,
         priority=saved_page.priority,

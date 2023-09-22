@@ -18,7 +18,7 @@ async def test_create_page(
     """Test "Create Page" use case."""
     command = CreatePageCommand(
         enabled=True,
-        text=[
+        texts=[
             TextCommand(
                 locale="nl",
                 format="md",

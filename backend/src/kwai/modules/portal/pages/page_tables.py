@@ -76,7 +76,7 @@ class PageRow:
             enabled=self.enabled == 1,
             application=application,
             priority=self.priority,
-            text=content,
+            texts=content,
             remark=self.remark,
             traceable_time=TraceableTime(
                 created_at=LocalTimestamp(timestamp=self.created_at),

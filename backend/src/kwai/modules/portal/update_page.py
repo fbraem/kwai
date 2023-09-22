@@ -59,7 +59,7 @@ class UpdatePage:
             page,
             enabled=command.enabled,
             application=application,
-            text=[
+            texts=[
                 LocaleText(
                     locale=Locale(text.locale),
                     format=DocumentFormat(text.format),
@@ -68,7 +68,7 @@ class UpdatePage:
                     summary=text.summary,
                     author=self._owner,
                 )
-                for text in command.text
+                for text in command.texts
             ],
             priority=command.priority,
             remark=command.remark,

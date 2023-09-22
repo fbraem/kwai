@@ -47,7 +47,7 @@ class CreatePage:
         page = PageEntity(
             enabled=command.enabled,
             application=application,
-            text=[
+            texts=[
                 LocaleText(
                     locale=Locale(text.locale),
                     format=DocumentFormat(text.format),
@@ -56,7 +56,7 @@ class CreatePage:
                     summary=text.summary,
                     author=self._owner,
                 )
-                for text in command.text
+                for text in command.texts
             ],
             priority=command.priority,
             remark=command.remark,

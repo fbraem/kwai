@@ -18,7 +18,7 @@ class PageEntity(Entity[PageIdentifier]):
         id_: PageIdentifier | None = None,
         enabled: bool = False,
         application: ApplicationEntity,
-        text: list[LocaleText],
+        texts: list[LocaleText],
         priority: int,
         remark: str,
         traceable_time: TraceableTime | None = None,
@@ -29,7 +29,7 @@ class PageEntity(Entity[PageIdentifier]):
             id_: The id of the page.
             enabled: Is this page enabled?
             application: The related application.
-            text: The text content of the page.
+            texts: The text content of the page.
             priority: The priority level of the page.
             remark: A remark about the page.
             traceable_time: The create and update time of the page.
@@ -37,7 +37,7 @@ class PageEntity(Entity[PageIdentifier]):
         super().__init__(id_ or PageIdentifier())
         self._enabled = enabled
         self._application = application
-        self._text = text
+        self._texts = texts
         self._priority = priority
         self._remark = remark
         self._traceable_time = traceable_time or TraceableTime()
@@ -58,9 +58,9 @@ class PageEntity(Entity[PageIdentifier]):
         return self._remark
 
     @property
-    def text(self) -> list[LocaleText]:
+    def texts(self) -> list[LocaleText]:
         """Return the content."""
-        return self._text.copy()
+        return self._texts.copy()
 
     @property
     def traceable_time(self) -> TraceableTime:
