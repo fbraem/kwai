@@ -27,7 +27,7 @@ class PageContentRow(ContentRow):
 
         Args:
             page: The page that contains the content.
-            content: The content of a story.
+            content: The content of a page.
         """
         return PageContentRow(
             page_id=page.id.value,
