@@ -1,4 +1,4 @@
-"""Module that implements a story repository for a database."""
+"""Module that implements a news item repository for a database."""
 from typing import Any, AsyncIterator
 
 from sql_smith.functions import field
@@ -7,27 +7,27 @@ from kwai.core.db.database import Database
 from kwai.core.db.rows import OwnersTable
 from kwai.core.domain.entity import Entity
 from kwai.modules.portal.applications.application_tables import ApplicationsTable
-from kwai.modules.portal.news.news_item import StoryEntity, StoryIdentifier
-from kwai.modules.portal.news.news_item_db_query import StoryDbQuery
-from kwai.modules.portal.news.news_item_query import StoryQuery
+from kwai.modules.portal.news.news_item import NewsItemEntity, NewsItemIdentifier
+from kwai.modules.portal.news.news_item_db_query import NewsItemDbQuery
+from kwai.modules.portal.news.news_item_query import NewsItemQuery
 from kwai.modules.portal.news.news_item_repository import (
-    StoryNotFoundException,
-    StoryRepository,
+    NewsItemNotFoundException,
+    NewsItemRepository,
 )
 from kwai.modules.portal.news.news_tables import (
-    StoriesTable,
-    StoryContentRow,
-    StoryContentsTable,
-    StoryRow,
+    NewsItemRow,
+    NewsItemsTable,
+    NewsItemTextRow,
+    NewsItemTextsTable,
 )
 
 
-def _create_entity(rows: list[dict[str, Any]]) -> StoryEntity:
-    """Create a story entity from a group of rows."""
-    return StoriesTable(rows[0]).create_entity(
+def _create_entity(rows: list[dict[str, Any]]) -> NewsItemEntity:
+    """Create a news item entity from a group of rows."""
+    return NewsItemsTable(rows[0]).create_entity(
         ApplicationsTable(rows[0]).create_entity(),
         [
-            StoryContentsTable(row).create_content(
+            NewsItemTextsTable(row).create_content(
                 author=OwnersTable(row).create_owner()
             )
             for row in rows
@@ -35,8 +35,8 @@ def _create_entity(rows: list[dict[str, Any]]) -> StoryEntity:
     )
 
 
-class StoryDbRepository(StoryRepository):
-    """A story database repository.
+class NewsItemDbRepository(NewsItemRepository):
+    """A news item database repository.
 
     Attributes:
         _database: the database for the repository.
@@ -45,71 +45,73 @@ class StoryDbRepository(StoryRepository):
     def __init__(self, database: Database):
         self._database = database
 
-    async def create(self, story: StoryEntity) -> StoryEntity:
+    async def create(self, news_item: NewsItemEntity) -> NewsItemEntity:
         new_id = await self._database.insert(
-            StoriesTable.table_name, StoryRow.persist(story)
+            NewsItemsTable.table_name, NewsItemRow.persist(news_item)
         )
-        result = Entity.replace(story, id_=StoryIdentifier(new_id))
+        result = Entity.replace(news_item, id_=NewsItemIdentifier(new_id))
 
         content_rows = [
-            StoryContentRow.persist(result, content) for content in story.texts
+            NewsItemTextRow.persist(result, content) for content in news_item.texts
         ]
-        await self._database.insert(StoryContentsTable.table_name, *content_rows)
+        await self._database.insert(NewsItemTextsTable.table_name, *content_rows)
 
         await self._database.commit()
         return result
 
-    async def update(self, story: StoryEntity):
+    async def update(self, news_item: NewsItemEntity):
         await self._database.update(
-            story.id.value, StoriesTable.table_name, StoryRow.persist(story)
+            news_item.id.value,
+            NewsItemsTable.table_name,
+            NewsItemRow.persist(news_item),
         )
 
         delete_contents_query = (
             self._database.create_query_factory()
-            .delete(StoryContentsTable.table_name)
-            .where(field("news_id").eq(story.id.value))
+            .delete(NewsItemTextsTable.table_name)
+            .where(field("news_id").eq(news_item.id.value))
         )
         await self._database.execute(delete_contents_query)
 
         content_rows = [
-            StoryContentRow.persist(story, content) for content in story.texts
+            NewsItemTextRow.persist(news_item, content) for content in news_item.texts
         ]
-        await self._database.insert(StoryContentsTable.table_name, *content_rows)
+        await self._database.insert(NewsItemTextsTable.table_name, *content_rows)
         await self._database.commit()
 
-    async def delete(self, story: StoryEntity):
+    async def delete(self, news_item: NewsItemEntity):
         delete_contents_query = (
             self._database.create_query_factory()
-            .delete(StoryContentsTable.table_name)
-            .where(field("news_id").eq(story.id.value))
+            .delete(NewsItemTextsTable.table_name)
+            .where(field("news_id").eq(news_item.id.value))
         )
         await self._database.execute(delete_contents_query)
-        await self._database.delete(story.id.value, StoriesTable.table_name)
+        await self._database.delete(news_item.id.value, NewsItemsTable.table_name)
         await self._database.commit()
 
-    def create_query(self) -> StoryQuery:
-        return StoryDbQuery(self._database)
+    def create_query(self) -> NewsItemQuery:
+        return NewsItemDbQuery(self._database)
 
-    async def get_by_id(self, id_: StoryIdentifier) -> StoryEntity:
+    async def get_by_id(self, id_: NewsItemIdentifier) -> NewsItemEntity:
         query = self.create_query()
         query.filter_by_id(id_)
 
         entity = await anext(self.get_all(query, 1), None)
         if entity is None:
-            raise StoryNotFoundException(f"Story with {id} does not exist.")
+            raise NewsItemNotFoundException(f"News item with {id} does not exist.")
 
         return entity
 
     async def get_all(
         self,
-        query: StoryQuery | None = None,
+        query: NewsItemQuery | None = None,
         limit: int | None = None,
         offset: int | None = None,
-    ) -> AsyncIterator[StoryEntity]:
+    ) -> AsyncIterator[NewsItemEntity]:
         if query is None:
             query = self.create_query()
 
-        group_by_column = StoriesTable.alias_name("id")
+        group_by_column = NewsItemsTable.alias_name("id")
 
         row_it = query.fetch(limit, offset)
 

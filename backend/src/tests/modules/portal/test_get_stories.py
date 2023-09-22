@@ -5,19 +5,19 @@ import pytest
 
 from kwai.core.db.database import Database
 from kwai.modules.portal.get_stories import GetStories, GetStoriesCommand
-from kwai.modules.portal.news.news_item_db_repository import StoryDbRepository
-from kwai.modules.portal.news.news_item_repository import StoryRepository
+from kwai.modules.portal.news.news_item_db_repository import NewsItemDbRepository
+from kwai.modules.portal.news.news_item_repository import NewsItemRepository
 
 pytestmark = pytest.mark.db
 
 
 @pytest.fixture(scope="module")
-def repo(database: Database) -> StoryRepository:
+def repo(database: Database) -> NewsItemRepository:
     """Create a story repository."""
-    return StoryDbRepository(database)
+    return NewsItemDbRepository(database)
 
 
-async def test_get_stories(repo: StoryRepository):
+async def test_get_stories(repo: NewsItemRepository):
     """Test the use case: get stories."""
     command = GetStoriesCommand()
     count, story_iterator = await GetStories(repo).execute(command)

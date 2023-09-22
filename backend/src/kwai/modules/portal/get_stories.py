@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from kwai.core.domain.use_case import UseCaseBrowseResult
 from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.portal.news.news_item_repository import StoryRepository
+from kwai.modules.portal.news.news_item_repository import NewsItemRepository
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -32,7 +32,7 @@ class GetStories:
     Use this use case for getting news stories.
     """
 
-    def __init__(self, repo: StoryRepository):
+    def __init__(self, repo: NewsItemRepository):
         """Initialize the use case.
 
         Args:

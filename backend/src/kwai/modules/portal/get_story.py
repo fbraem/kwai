@@ -1,8 +1,8 @@
 """Module for the use case "Get Story"."""
 from dataclasses import dataclass
 
-from kwai.modules.portal.news.news_item import StoryEntity, StoryIdentifier
-from kwai.modules.portal.news.news_item_repository import StoryRepository
+from kwai.modules.portal.news.news_item import NewsItemEntity, NewsItemIdentifier
+from kwai.modules.portal.news.news_item_repository import NewsItemRepository
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -15,7 +15,7 @@ class GetStoryCommand:
 class GetStory:
     """Use case "Get Story"."""
 
-    def __init__(self, repo: StoryRepository):
+    def __init__(self, repo: NewsItemRepository):
         """Initialize the use case.
 
         Args:
@@ -23,7 +23,7 @@ class GetStory:
         """
         self._repo = repo
 
-    async def execute(self, command: GetStoryCommand) -> StoryEntity:
+    async def execute(self, command: GetStoryCommand) -> NewsItemEntity:
         """Executes the use case.
 
         Args:
@@ -34,4 +34,4 @@ class GetStory:
         Raises:
             StoryNotFoundException: When the story does not exist.
         """
-        return await self._repo.get_by_id(StoryIdentifier(command.id))
+        return await self._repo.get_by_id(NewsItemIdentifier(command.id))

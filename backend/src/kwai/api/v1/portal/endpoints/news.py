@@ -7,7 +7,7 @@ from kwai.api.v1.portal.schemas.story import PortalStoryResource
 from kwai.core.db.database import Database
 from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.portal.get_stories import GetStories, GetStoriesCommand
-from kwai.modules.portal.news.news_item_db_repository import StoryDbRepository
+from kwai.modules.portal.news.news_item_db_repository import NewsItemDbRepository
 
 router = APIRouter()
 
@@ -23,7 +23,7 @@ async def get_news(
     command = GetStoriesCommand(
         offset=pagination.offset or 0, limit=pagination.limit or 10, promoted=True
     )
-    count, story_iterator = await GetStories(StoryDbRepository(db)).execute(command)
+    count, story_iterator = await GetStories(NewsItemDbRepository(db)).execute(command)
 
     document = PortalStoryResource.serialize_list(
         [PortalStoryResource(story) async for story in story_iterator]

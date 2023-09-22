@@ -11,9 +11,9 @@ from kwai.modules.portal.applications.application_db_repository import (
 from kwai.modules.portal.applications.application_repository import (
     ApplicationRepository,
 )
-from kwai.modules.portal.news.news_item import StoryEntity
-from kwai.modules.portal.news.news_item_db_repository import StoryDbRepository
-from kwai.modules.portal.news.news_item_repository import StoryRepository
+from kwai.modules.portal.news.news_item import NewsItemEntity
+from kwai.modules.portal.news.news_item_db_repository import NewsItemDbRepository
+from kwai.modules.portal.news.news_item_repository import NewsItemRepository
 from kwai.modules.portal.pages.page import PageEntity
 from kwai.modules.portal.pages.page_db_repository import PageDbRepository
 from kwai.modules.portal.pages.page_repository import PageRepository
@@ -72,15 +72,15 @@ async def saved_page(page_repo: PageRepository, page: PageEntity) -> PageEntity:
 
 
 @pytest.fixture(scope="module")
-def story_repo(database: Database) -> StoryRepository:
+def story_repo(database: Database) -> NewsItemRepository:
     """Fixture for a story repository."""
-    return StoryDbRepository(database)
+    return NewsItemDbRepository(database)
 
 
 @pytest.fixture(scope="module")
-def story(owner: Owner, application: ApplicationEntity) -> StoryEntity:
+def story(owner: Owner, application: ApplicationEntity) -> NewsItemEntity:
     """Fixture for a story entity."""
-    return StoryEntity(
+    return NewsItemEntity(
         enabled=True,
         application=application,
         texts=[
@@ -98,6 +98,8 @@ def story(owner: Owner, application: ApplicationEntity) -> StoryEntity:
 
 
 @pytest.fixture(scope="module")
-async def saved_story(story_repo: StoryRepository, story: StoryEntity) -> StoryEntity:
+async def saved_story(
+    story_repo: NewsItemRepository, story: NewsItemEntity
+) -> NewsItemEntity:
     """Fixture for a story in the database."""
     return await story_repo.create(story)

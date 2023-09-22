@@ -1,45 +1,46 @@
-"""Module for defining a interface for a story query."""
+"""Module for defining an interface for a news item query."""
 from abc import abstractmethod
 
 from kwai.core.domain.repository.query import Query
 from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.portal.news.news_item import StoryIdentifier
+from kwai.modules.portal.news.news_item import NewsItemIdentifier
 
 
-class StoryQuery(Query):
-    """An interface for a story query."""
+class NewsItemQuery(Query):
+    """An interface for a news item query."""
 
     @abstractmethod
-    def filter_by_id(self, id_: StoryIdentifier) -> "StoryQuery":
-        """Add a filter on the news story id.
+    def filter_by_id(self, id_: NewsItemIdentifier) -> "NewsItemQuery":
+        """Add a filter on the news item id.
 
         Args:
-            id_: an id of a news story.
+            id_: an id of a news item.
         """
         raise NotImplementedError
 
     @abstractmethod
     def filter_by_publication_date(
         self, year: int, month: int | None = None
-    ) -> "StoryQuery":
+    ) -> "NewsItemQuery":
         """Add a filter on the publication date.
 
         Args:
-            year: Only return news stories published in this year.
-            month: Only return news stories published in this month.
+            year: Only return news items published in this year.
+            month: Only return news items published in this month.
 
-        When month is omitted, all stories published in the given year will be returned.
+        When month is omitted, all news items published in the given year will be
+        returned.
         """
         raise NotImplementedError
 
     @abstractmethod
-    def filter_by_promoted(self) -> "StoryQuery":
-        """Add a filter to return only the promoted news stories."""
+    def filter_by_promoted(self) -> "NewsItemQuery":
+        """Add a filter to return only the promoted news items."""
         raise NotImplementedError
 
     @abstractmethod
-    def filter_by_application(self, application: int | str) -> "StoryQuery":
-        """Add a filter to return only stories for the given application.
+    def filter_by_application(self, application: int | str) -> "NewsItemQuery":
+        """Add a filter to return only news items for the given application.
 
         Args:
             application: The id or the name of the application
@@ -47,16 +48,16 @@ class StoryQuery(Query):
         raise NotImplementedError
 
     @abstractmethod
-    def filter_by_active(self) -> "StoryQuery":
-        """Add a filter to only return active news stories.
+    def filter_by_active(self) -> "NewsItemQuery":
+        """Add a filter to only return active news items.
 
-        An active story is enabled and is not expired.
+        An active news item is enabled and is not expired.
         """
         raise NotImplementedError
 
     @abstractmethod
-    def filter_by_user(self, user: int | UniqueId) -> "StoryQuery":
-        """Add a filter to only return news stories of the given user.
+    def filter_by_user(self, user: int | UniqueId) -> "NewsItemQuery":
+        """Add a filter to only return news items of the given user.
 
         Args:
             user: The id or unique id of the user.
@@ -64,6 +65,6 @@ class StoryQuery(Query):
         raise NotImplementedError
 
     @abstractmethod
-    def order_by_publication_date(self) -> "StoryQuery":
+    def order_by_publication_date(self) -> "NewsItemQuery":
         """Order the result on the publication date."""
         raise NotImplementedError
