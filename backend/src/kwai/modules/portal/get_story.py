@@ -1,8 +1,8 @@
 """Module for the use case "Get Story"."""
 from dataclasses import dataclass
 
-from kwai.modules.portal.stories.story import StoryEntity, StoryIdentifier
-from kwai.modules.portal.stories.story_repository import StoryRepository
+from kwai.modules.portal.news.story import StoryEntity, StoryIdentifier
+from kwai.modules.portal.news.story_repository import StoryRepository
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

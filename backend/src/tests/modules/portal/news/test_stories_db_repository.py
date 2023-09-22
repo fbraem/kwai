@@ -6,11 +6,11 @@ from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
 from kwai.modules.portal.applications.application import ApplicationEntity
-from kwai.modules.portal.stories.story import (
+from kwai.modules.portal.news.story import (
     StoryEntity,
 )
-from kwai.modules.portal.stories.story_db_repository import StoryDbRepository
-from kwai.modules.portal.stories.story_repository import (
+from kwai.modules.portal.news.story_db_repository import StoryDbRepository
+from kwai.modules.portal.news.story_repository import (
     StoryNotFoundException,
     StoryRepository,
 )

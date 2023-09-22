@@ -1,7 +1,7 @@
 """Module for testing the use case "Get Story"."""
 from kwai.modules.portal.get_story import GetStory, GetStoryCommand
-from kwai.modules.portal.stories.story import StoryEntity
-from kwai.modules.portal.stories.story_repository import StoryRepository
+from kwai.modules.portal.news.story import StoryEntity
+from kwai.modules.portal.news.story_repository import StoryRepository
 
 
 async def test_get_story(story_repo: StoryRepository, saved_story: StoryEntity):

@@ -2,7 +2,7 @@
 import pytest
 
 from kwai.core.db.database import Database
-from kwai.modules.portal.stories.story_db_query import StoryDbQuery
+from kwai.modules.portal.news.story_db_query import StoryDbQuery
 
 pytestmark = pytest.mark.db
 

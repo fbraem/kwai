@@ -2,8 +2,8 @@
 from abc import ABC, abstractmethod
 from typing import AsyncIterator
 
-from kwai.modules.portal.stories.story import StoryEntity, StoryIdentifier
-from kwai.modules.portal.stories.story_query import StoryQuery
+from kwai.modules.portal.news.story import StoryEntity, StoryIdentifier
+from kwai.modules.portal.news.story_query import StoryQuery
 
 
 class StoryNotFoundException(Exception):
