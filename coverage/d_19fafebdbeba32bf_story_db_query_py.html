@@ -54,8 +54,8 @@
             </div>
         </aside>
         <h2>
-            <span class="text">64 statements &nbsp;</span>
-            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">58<span class="text"> run</span></button>
+            <span class="text">65 statements &nbsp;</span>
+            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">59<span class="text"> run</span></button>
             <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">6<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
         </h2>
@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="d_19fafebdbeba32bf_story_db_repository_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.3.0">coverage.py v7.3.0</a>,
-            created at 2023-09-22 12:37 +0000
+            created at 2023-09-22 13:34 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"/>
@@ -90,10 +90,10 @@
     <p class="run"><span class="n"><a id="t8" href="#t8">8</a></span><span class="t"><span class="key">from</span> <span class="nam">kwai</span><span class="op">.</span><span class="nam">core</span><span class="op">.</span><span class="nam">db</span><span class="op">.</span><span class="nam">database_query</span> <span class="key">import</span> <span class="nam">DatabaseQuery</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t9" href="#t9">9</a></span><span class="t"><span class="key">from</span> <span class="nam">kwai</span><span class="op">.</span><span class="nam">core</span><span class="op">.</span><span class="nam">db</span><span class="op">.</span><span class="nam">rows</span> <span class="key">import</span> <span class="nam">OwnersTable</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t10" href="#t10">10</a></span><span class="t"><span class="key">from</span> <span class="nam">kwai</span><span class="op">.</span><span class="nam">core</span><span class="op">.</span><span class="nam">domain</span><span class="op">.</span><span class="nam">value_objects</span><span class="op">.</span><span class="nam">unique_id</span> <span class="key">import</span> <span class="nam">UniqueId</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t11" href="#t11">11</a></span><span class="t"><span class="key">from</span> <span class="nam">kwai</span><span class="op">.</span><span class="nam">modules</span><span class="op">.</span><span class="nam">portal</span><span class="op">.</span><span class="nam">stories</span><span class="op">.</span><span class="nam">story</span> <span class="key">import</span> <span class="nam">StoryIdentifier</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t12" href="#t12">12</a></span><span class="t"><span class="key">from</span> <span class="nam">kwai</span><span class="op">.</span><span class="nam">modules</span><span class="op">.</span><span class="nam">portal</span><span class="op">.</span><span class="nam">stories</span><span class="op">.</span><span class="nam">story_query</span> <span class="key">import</span> <span class="nam">StoryQuery</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t13" href="#t13">13</a></span><span class="t"><span class="key">from</span> <span class="nam">kwai</span><span class="op">.</span><span class="nam">modules</span><span class="op">.</span><span class="nam">portal</span><span class="op">.</span><span class="nam">stories</span><span class="op">.</span><span class="nam">story_tables</span> <span class="key">import</span> <span class="op">(</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t14" href="#t14">14</a></span><span class="t">    <span class="nam">ApplicationsTable</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t11" href="#t11">11</a></span><span class="t"><span class="key">from</span> <span class="nam">kwai</span><span class="op">.</span><span class="nam">modules</span><span class="op">.</span><span class="nam">portal</span><span class="op">.</span><span class="nam">applications</span><span class="op">.</span><span class="nam">application_tables</span> <span class="key">import</span> <span class="nam">ApplicationsTable</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t12" href="#t12">12</a></span><span class="t"><span class="key">from</span> <span class="nam">kwai</span><span class="op">.</span><span class="nam">modules</span><span class="op">.</span><span class="nam">portal</span><span class="op">.</span><span class="nam">stories</span><span class="op">.</span><span class="nam">story</span> <span class="key">import</span> <span class="nam">StoryIdentifier</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t13" href="#t13">13</a></span><span class="t"><span class="key">from</span> <span class="nam">kwai</span><span class="op">.</span><span class="nam">modules</span><span class="op">.</span><span class="nam">portal</span><span class="op">.</span><span class="nam">stories</span><span class="op">.</span><span class="nam">story_query</span> <span class="key">import</span> <span class="nam">StoryQuery</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t14" href="#t14">14</a></span><span class="t"><span class="key">from</span> <span class="nam">kwai</span><span class="op">.</span><span class="nam">modules</span><span class="op">.</span><span class="nam">portal</span><span class="op">.</span><span class="nam">stories</span><span class="op">.</span><span class="nam">story_tables</span> <span class="key">import</span> <span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t15" href="#t15">15</a></span><span class="t">    <span class="nam">StoriesTable</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t16" href="#t16">16</a></span><span class="t">    <span class="nam">StoryContentsTable</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t17" href="#t17">17</a></span><span class="t"><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -254,7 +254,7 @@
             <a id="nextFileLink" class="nav" href="d_19fafebdbeba32bf_story_db_repository_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.3.0">coverage.py v7.3.0</a>,
-            created at 2023-09-22 12:37 +0000
+            created at 2023-09-22 13:34 +0000
         </p>
     </div>
 </footer>
