@@ -2,32 +2,9 @@
 from pydantic import BaseModel
 
 from kwai.api.converter import MarkdownConverter
+from kwai.api.schemas.application import ApplicationResource
 from kwai.core import json_api
-from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.news.news_item import NewsItemEntity
-
-
-@json_api.resource(type_="applications")
-class PortalApplicationResource:
-    """JSON:API resource for an application."""
-
-    def __init__(self, application: ApplicationEntity):
-        self._application = application
-
-    @json_api.id
-    def get_id(self) -> str:
-        """Get the id."""
-        return str(self._application.id)
-
-    @json_api.attribute(name="name")
-    def get_name(self) -> str:
-        """Get the name of the application."""
-        return self._application.name
-
-    @json_api.attribute(name="title")
-    def get_title(self) -> str:
-        """Get the title of the application."""
-        return self._application.title
 
 
 class NewsItemText(BaseModel):
@@ -82,6 +59,6 @@ class NewsItemResource:
         ]
 
     @json_api.relationship(name="application")
-    def get_application(self) -> PortalApplicationResource:
+    def get_application(self) -> ApplicationResource:
         """Get the application of the news item."""
-        return PortalApplicationResource(self._news_item.application)
+        return ApplicationResource(self._news_item.application)
