@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends
 
 from kwai.api.dependencies import deps
-from kwai.api.v1.portal.schemas.news_item import NewsItemResource
+from kwai.api.schemas.news_item import NewsItemResource
 from kwai.core.db.database import Database
 from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.portal.get_news_items import GetNewsItems, GetNewsItemsCommand
