@@ -6,7 +6,7 @@ from lagom.integrations.fast_api import FastApiIntegration
 
 from kwai.core.db.database import Database
 from kwai.core.dependencies import container
-from kwai.core.settings import Settings
+from kwai.core.settings import SecuritySettings, Settings
 from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
 )
@@ -31,10 +31,37 @@ async def get_current_user(
     Not authorized will be raised when the access token is not found, expired, revoked
     or when the user is revoked.
     """
+    return await _get_user_from_token(token, settings.security, db)
+
+
+optional_oauth = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login", auto_error=False)
+
+
+async def get_optional_user(
+    settings=deps.depends(Settings),
+    db=deps.depends(Database),
+    token: str = Depends(oauth),
+) -> UserEntity | None:
+    """Try to get the current user from an access token.
+
+    When no token is available in the request, None will be returned.
+
+    Not authorized will be raised when the access token is expired, revoked
+    or when the user is revoked.
+    """
+    if token is None:
+        return None
+
+    return await _get_user_from_token(token, settings.security, db)
+
+
+async def _get_user_from_token(
+    token: str, security_settings: SecuritySettings, db: Database
+) -> UserEntity:
     payload = jwt.decode(
         token,
-        settings.security.jwt_secret,
-        algorithms=[settings.security.jwt_algorithm],
+        security_settings.jwt_secret,
+        algorithms=[security_settings.jwt_algorithm],
     )
     access_token_repo = AccessTokenDbRepository(db)
     try:
