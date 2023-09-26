@@ -40,7 +40,7 @@ optional_oauth = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login", auto_error=
 async def get_optional_user(
     settings=deps.depends(Settings),
     db=deps.depends(Database),
-    token: str = Depends(oauth),
+    token: str = Depends(optional_oauth),
 ) -> UserEntity | None:
     """Try to get the current user from an access token.
 
