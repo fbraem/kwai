@@ -909,6 +909,32 @@ or when the user is revoked.</p>
 </div>
 
 
+<div class="doc doc-object doc-function">
+
+
+
+<h5 id="kwai.api.dependencies.get_optional_user" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_optional_user</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Settings</span><span class="p">),</span> <span class="n">db</span><span class="o">=</span><span class="n">deps</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">Database</span><span class="p">),</span> <span class="n">token</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">optional_oauth</span><span class="p">))</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.api.dependencies.get_optional_user" class="headerlink" title="Permanent link">&para;</a></h5>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Try to get the current user from an access token.</p>
+<p>When no token is available in the request, None will be returned.</p>
+<p>Not authorized will be raised when the access token is expired, revoked
+or when the user is revoked.</p>
+
+  </div>
+
+</div>
+
+
 
   </div>
 
@@ -1224,6 +1250,260 @@ or when the user is revoked.</p>
   </div>
 
 </div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h5 id="kwai.api.schemas.news_item" class="doc doc-heading">
+            <code>news_item</code>
+
+
+<a href="#kwai.api.schemas.news_item" class="headerlink" title="Permanent link">&para;</a></h5>
+
+  <div class="doc doc-contents ">
+  
+      <p>Schemas for a news item on a portal.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.api.schemas.news_item.NewsItemResource" class="doc doc-heading">
+          <code>NewsItemResource</code>
+
+
+<a href="#kwai.api.schemas.news_item.NewsItemResource" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Represent a JSONAPI resource for a news item.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.api.schemas.news_item.NewsItemResource.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">news_item</span><span class="p">)</span></code>
+
+<a href="#kwai.api.schemas.news_item.NewsItemResource.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Construct.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>news_item</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item.NewsItemEntity" href="#kwai.modules.portal.news.news_item.NewsItemEntity">NewsItemEntity</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The news item entity that is transformed into a JSONAPI resource.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.api.schemas.news_item.NewsItemResource.get_application" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_application</span><span class="p">()</span></code>
+
+<a href="#kwai.api.schemas.news_item.NewsItemResource.get_application" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the application of the news item.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.api.schemas.news_item.NewsItemResource.get_id" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_id</span><span class="p">()</span></code>
+
+<a href="#kwai.api.schemas.news_item.NewsItemResource.get_id" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the id of the news item.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.api.schemas.news_item.NewsItemResource.get_priority" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_priority</span><span class="p">()</span></code>
+
+<a href="#kwai.api.schemas.news_item.NewsItemResource.get_priority" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the priority of the promotion.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.api.schemas.news_item.NewsItemResource.get_publish_date" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_publish_date</span><span class="p">()</span></code>
+
+<a href="#kwai.api.schemas.news_item.NewsItemResource.get_publish_date" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the publication date.</p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.api.schemas.news_item.NewsItemResource.get_texts" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_texts</span><span class="p">()</span></code>
+
+<a href="#kwai.api.schemas.news_item.NewsItemResource.get_texts" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the text of the news item.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.api.schemas.news_item.NewsItemText" class="doc doc-heading">
+          <code>NewsItemText</code>
+
+
+<a href="#kwai.api.schemas.news_item.NewsItemText" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+  
+      <p>Schema for the text of a news item.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
 
 
 
@@ -2620,388 +2900,6 @@ will also be revoked.</p>
   </div>
 
 </div>
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-module">
-
-
-
-<h6 id="kwai.api.v1.portal.schemas" class="doc doc-heading">
-            <code>schemas</code>
-
-
-<a href="#kwai.api.v1.portal.schemas" class="headerlink" title="Permanent link">&para;</a></h6>
-
-  <div class="doc doc-contents ">
-  
-      <p>Package for schemas of the portal.</p>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-module">
-
-
-
-<h7 id="kwai.api.v1.portal.schemas.news_item" class="doc doc-heading">
-            <code>news_item</code>
-
-
-<a href="#kwai.api.v1.portal.schemas.news_item" class="headerlink" title="Permanent link">&para;</a></h7>
-
-  <div class="doc doc-contents ">
-  
-      <p>Schemas for a news item on a portal.</p>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-class">
-
-
-
-<h8 id="kwai.api.v1.portal.schemas.news_item.NewsItemResource" class="doc doc-heading">
-          <code>NewsItemResource</code>
-
-
-<a href="#kwai.api.v1.portal.schemas.news_item.NewsItemResource" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-
-  
-      <p>Represent a JSONAPI resource for a news item.</p>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h9 id="kwai.api.v1.portal.schemas.news_item.NewsItemResource.__init__" class="doc doc-heading">
-<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">news_item</span><span class="p">)</span></code>
-
-<a href="#kwai.api.v1.portal.schemas.news_item.NewsItemResource.__init__" class="headerlink" title="Permanent link">&para;</a></h9>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Construct.</p>
-
-
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>news_item</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item.NewsItemEntity" href="#kwai.modules.portal.news.news_item.NewsItemEntity">NewsItemEntity</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The news item entity that is transformed into a JSONAPI resource.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h9 id="kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_application" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_application</span><span class="p">()</span></code>
-
-<a href="#kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_application" class="headerlink" title="Permanent link">&para;</a></h9>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Get the application of the news item.</p>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h9 id="kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_id" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_id</span><span class="p">()</span></code>
-
-<a href="#kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_id" class="headerlink" title="Permanent link">&para;</a></h9>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Get the id of the news item.</p>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h9 id="kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_priority" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_priority</span><span class="p">()</span></code>
-
-<a href="#kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_priority" class="headerlink" title="Permanent link">&para;</a></h9>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Get the priority of the promotion.</p>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h9 id="kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_publish_date" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_publish_date</span><span class="p">()</span></code>
-
-<a href="#kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_publish_date" class="headerlink" title="Permanent link">&para;</a></h9>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Get the publication date.</p>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h9 id="kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_texts" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_texts</span><span class="p">()</span></code>
-
-<a href="#kwai.api.v1.portal.schemas.news_item.NewsItemResource.get_texts" class="headerlink" title="Permanent link">&para;</a></h9>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Get the text of the news item.</p>
-
-  </div>
-
-</div>
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-<h8 id="kwai.api.v1.portal.schemas.news_item.NewsItemText" class="doc doc-heading">
-          <code>NewsItemText</code>
-
-
-<a href="#kwai.api.v1.portal.schemas.news_item.NewsItemText" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
-
-  
-      <p>Schema for the text of a news item.</p>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-<h8 id="kwai.api.v1.portal.schemas.news_item.PortalApplicationResource" class="doc doc-heading">
-          <code>PortalApplicationResource</code>
-
-
-<a href="#kwai.api.v1.portal.schemas.news_item.PortalApplicationResource" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-  <div class="doc doc-contents ">
-
-  
-      <p>JSON:API resource for an application.</p>
-
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h9 id="kwai.api.v1.portal.schemas.news_item.PortalApplicationResource.get_id" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_id</span><span class="p">()</span></code>
-
-<a href="#kwai.api.v1.portal.schemas.news_item.PortalApplicationResource.get_id" class="headerlink" title="Permanent link">&para;</a></h9>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Get the id.</p>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h9 id="kwai.api.v1.portal.schemas.news_item.PortalApplicationResource.get_name" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_name</span><span class="p">()</span></code>
-
-<a href="#kwai.api.v1.portal.schemas.news_item.PortalApplicationResource.get_name" class="headerlink" title="Permanent link">&para;</a></h9>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Get the name of the application.</p>
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-<h9 id="kwai.api.v1.portal.schemas.news_item.PortalApplicationResource.get_title" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_title</span><span class="p">()</span></code>
-
-<a href="#kwai.api.v1.portal.schemas.news_item.PortalApplicationResource.get_title" class="headerlink" title="Permanent link">&para;</a></h9>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Get the title of the application.</p>
-
-  </div>
-
-</div>
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
 
 
 
