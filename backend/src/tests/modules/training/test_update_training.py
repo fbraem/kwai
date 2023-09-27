@@ -2,6 +2,7 @@
 import pytest
 
 from kwai.core.db.database import Database
+from kwai.core.domain.use_case import TextCommand
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
@@ -117,13 +118,13 @@ async def test_update_training(
         cancelled=training_entity.cancelled,
         location=training_entity.location,
         texts=[
-            {
-                "locale": "en",
-                "format": "md",
-                "title": "Updated Test Training",
-                "content": "This is a test (updated)",
-                "summary": "This is a test (updated)",
-            }
+            TextCommand(
+                locale="en",
+                format="md",
+                title="Updated Test Training",
+                content="This is a test (updated)",
+                summary="This is a test (updated)",
+            )
         ],
         remark="This is a test",
         coaches=[

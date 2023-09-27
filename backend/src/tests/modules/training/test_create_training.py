@@ -2,6 +2,7 @@
 import pytest
 
 from kwai.core.db.database import Database
+from kwai.core.domain.use_case import TextCommand
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.modules.training.coaches.coach import CoachEntity, CoachIdentifier
@@ -75,13 +76,13 @@ async def command(coach: CoachEntity, team: TeamEntity) -> CreateTrainingCommand
         cancelled=False,
         location="",
         texts=[
-            {
-                "locale": "en",
-                "format": "md",
-                "title": "Test training",
-                "content": "This is a test",
-                "summary": "This is a test",
-            }
+            TextCommand(
+                locale="en",
+                format="md",
+                title="Test training",
+                content="This is a test",
+                summary="This is a test",
+            )
         ],
         coaches=[Coach(id=coach.id.value, head=True, present=False, payed=False)],
         teams=[team.id.value],

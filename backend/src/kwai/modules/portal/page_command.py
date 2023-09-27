@@ -1,16 +1,7 @@
 """Module that defines common command for create/update pages."""
 from dataclasses import dataclass
 
-
-@dataclass(kw_only=True, frozen=True, slots=True)
-class TextCommand:
-    """Input for a text."""
-
-    locale: str
-    format: str
-    title: str
-    summary: str
-    content: str
+from kwai.core.domain.use_case import TextCommand
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

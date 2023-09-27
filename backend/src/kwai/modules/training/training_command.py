@@ -1,6 +1,7 @@
 """Module that defines common input for the use cases of Trainings."""
 from dataclasses import dataclass
-from typing import Any
+
+from kwai.core.domain.use_case import TextCommand
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -22,7 +23,7 @@ class TrainingCommand:
     active: bool
     cancelled: bool
     location: str
-    texts: list[dict[str, Any]]
+    texts: list[TextCommand]
     remark: str
     definition: int | None
     coaches: list[Coach]

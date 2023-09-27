@@ -88,11 +88,11 @@ class CreateTraining:
         training = TrainingEntity(
             texts=[
                 LocaleText(
-                    locale=Locale(text["locale"]),
-                    format=DocumentFormat(text["format"]),
-                    title=text["title"],
-                    content=text["content"],
-                    summary=text["summary"],
+                    locale=Locale(text.locale),
+                    format=DocumentFormat(text.format),
+                    title=text.title,
+                    content=text.content,
+                    summary=text.summary,
                     author=self._owner,
                 )
                 for text in command.texts

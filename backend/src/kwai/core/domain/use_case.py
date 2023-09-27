@@ -1,4 +1,5 @@
 """Module for defining common classes, functions, ... for use cases."""
+from dataclasses import dataclass
 from typing import AsyncIterator, NamedTuple
 
 
@@ -7,3 +8,14 @@ class UseCaseBrowseResult(NamedTuple):
 
     count: int
     iterator: AsyncIterator
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class TextCommand:
+    """Input for a text."""
+
+    locale: str
+    format: str
+    title: str
+    summary: str
+    content: str

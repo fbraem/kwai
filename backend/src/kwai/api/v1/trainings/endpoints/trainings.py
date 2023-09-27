@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field
 from kwai.api.dependencies import deps, get_current_user
 from kwai.api.v1.trainings.schemas.training import TrainingResource
 from kwai.core.db.database import Database
+from kwai.core.domain.use_case import TextCommand
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.identity.users.user import UserEntity
@@ -134,13 +135,13 @@ async def create_training(
         active=resource.data.attributes.event.active,
         cancelled=resource.data.attributes.event.cancelled,
         texts=[
-            {
-                "locale": text.locale,
-                "format": text.format,
-                "title": text.title,
-                "summary": text.summary,
-                "content": text.content,
-            }
+            TextCommand(
+                locale=text.locale,
+                format=text.format,
+                title=text.title,
+                summary=text.summary,
+                content=text.content,
+            )
             for text in resource.data.attributes.texts
         ],
         coaches=[
@@ -192,13 +193,13 @@ async def update_training(
         active=resource.data.attributes.event.active,
         cancelled=resource.data.attributes.event.cancelled,
         texts=[
-            {
-                "locale": text.locale,
-                "format": text.format,
-                "title": text.title,
-                "summary": text.summary,
-                "content": text.content,
-            }
+            TextCommand(
+                locale=text.locale,
+                format=text.format,
+                title=text.title,
+                summary=text.summary,
+                content=text.content,
+            )
             for text in resource.data.attributes.texts
         ],
         coaches=[
