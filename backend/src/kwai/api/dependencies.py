@@ -58,6 +58,10 @@ async def get_optional_user(
 async def _get_user_from_token(
     token: str, security_settings: SecuritySettings, db: Database
 ) -> UserEntity:
+    """Try to get the user from the token.
+
+    Returns: The user associated with the access token.
+    """
     payload = jwt.decode(
         token,
         security_settings.jwt_secret,
