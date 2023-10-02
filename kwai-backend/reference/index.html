@@ -8348,7 +8348,7 @@ the attribute of the class.</p>
 
 
 <h8 id="kwai.core.domain.value_objects.local_timestamp.LocalTimestamp.create_from_string" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">create_from_string</span><span class="p">(</span><span class="n">date_time</span><span class="p">,</span> <span class="n">date_format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">create_from_string</span><span class="p">(</span><span class="n">date_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">date_format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
@@ -8377,7 +8377,7 @@ the attribute of the class.</p>
         <tr>
           <td><code>date_time</code></td>
           <td>
-                <code>str</code>
+                <code>str | None</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -8385,7 +8385,7 @@ the attribute of the class.</p>
             </div>
           </td>
           <td>
-              <em>required</em>
+                <code>None</code>
           </td>
         </tr>
         <tr>
@@ -31704,6 +31704,231 @@ does not exist.</p>
 
 
 
+<h5 id="kwai.modules.portal.create_news_item" class="doc doc-heading">
+            <code>create_news_item</code>
+
+
+<a href="#kwai.modules.portal.create_news_item" class="headerlink" title="Permanent link">&para;</a></h5>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module for defining the use case "Create News Item".</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.portal.create_news_item.CreateNewsItem" class="doc doc-heading">
+          <code>CreateNewsItem</code>
+
+
+<a href="#kwai.modules.portal.create_news_item.CreateNewsItem" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Use case "Create News Item".</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.portal.create_news_item.CreateNewsItem.__init__" class="doc doc-heading">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">application_repo</span><span class="p">,</span> <span class="n">owner</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.portal.create_news_item.CreateNewsItem.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize the use case.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>repo</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.news.news_item_repository.NewsItemRepository" href="#kwai.modules.portal.news.news_item_repository.NewsItemRepository">NewsItemRepository</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository to create the news item.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>application_repo</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.applications.application_repository.ApplicationRepository" href="#kwai.modules.portal.applications.application_repository.ApplicationRepository">ApplicationRepository</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The repository to get the application entity.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>owner</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.owner.Owner" href="#kwai.core.domain.value_objects.owner.Owner">Owner</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The owner of the news item.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h7 id="kwai.modules.portal.create_news_item.CreateNewsItem.execute" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.create_news_item.CreateNewsItem.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Execute the use case.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>command</code></td>
+          <td>
+                <code><span title="kwai.modules.portal.create_news_item.CreateNewsItemCommand">CreateNewsItemCommand</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input for this use case.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>ApplicationNotFoundException</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>raised when the application does not exist.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h5 id="kwai.modules.portal.create_page" class="doc doc-heading">
             <code>create_page</code>
 
@@ -35059,6 +35284,81 @@ returned.</p>
   </div>
 
 </div>
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h5 id="kwai.modules.portal.news_item_command" class="doc doc-heading">
+            <code>news_item_command</code>
+
+
+<a href="#kwai.modules.portal.news_item_command" class="headerlink" title="Permanent link">&para;</a></h5>
+
+  <div class="doc doc-contents ">
+  
+      <p>Module that defines common command for create/update news items.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.portal.news_item_command.NewsItemCommand" class="doc doc-heading">
+          <code>NewsItemCommand</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.news_item_command.NewsItemCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Common input for the use cases "Create News Items" and "Update News Items".</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
 
 
   </div>
