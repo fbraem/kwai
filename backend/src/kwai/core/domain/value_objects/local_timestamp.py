@@ -112,7 +112,7 @@ class LocalTimestamp:
 
     @classmethod
     def create_from_string(
-        cls, date_time: str, date_format: str = "%Y-%m-%d %H:%M:%S"
+        cls, date_time: str | None = None, date_format: str = "%Y-%m-%d %H:%M:%S"
     ) -> "LocalTimestamp":
         """Create a timestamp from a string.
 
@@ -120,4 +120,6 @@ class LocalTimestamp:
             date_time: The string to convert to a timestamp.
             date_format: The format used in the string.
         """
+        if date_time is None:
+            return LocalTimestamp()
         return LocalTimestamp(datetime.strptime(date_time, date_format))
