@@ -45,22 +45,6 @@
   <section class="py-24">
     <div class="container mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 divide-y divide-y-reverse md:divide-y-0 md:divide-x divide-gray-300">
-        <div class="p-4">
-          <h2 class="text-center text-4xl mb-10">
-            Belangrijk Nieuws
-          </h2>
-          <div class="divide-y divide-gray-200">
-            <NewsList
-              v-if="applicationId"
-              :promoted="true"
-              :application="applicationId"
-            >
-              <template #default="{ story }">
-                <NewsArticleSummary :story="story" />
-              </template>
-            </NewsList>
-          </div>
-        </div>
         <div class="p-4 order-first md:order-last">
           <h2 class="text-center text-4xl mb-2">
             Agenda
@@ -115,13 +99,11 @@
 import trainingImage from '/training.jpg';
 
 import IntroSection from '@root/components/IntroSection.vue';
-import NewsList from '@root/components/NewsList.vue';
 import TrainingWeek from '@root/pages/trainings/components/TrainingWeek.vue';
 import { useArticleStore } from '@root/stores/articleStore';
 import { computed } from 'vue';
 import { useApplicationStore } from '@root/stores/applicationStore';
 import { useRouter } from 'vue-router';
-import NewsArticleSummary from '@root/components/NewsArticleSummary.vue';
 import { useCoachStore } from '@root/stores/coachStore';
 
 // Coaches
