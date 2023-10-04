@@ -10,6 +10,7 @@ from fastapi.responses import JSONResponse
 from loguru import logger
 
 from kwai.api.v1.auth.api import api_router as auth_api_router
+from kwai.api.v1.news.api import api_router as news_api_router
 from kwai.api.v1.portal.api import api_router as portal_api_router
 from kwai.api.v1.trainings.api import api_router as training_api_router
 from kwai.core.dependencies import container
@@ -89,6 +90,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app.include_router(auth_api_router, prefix="/api/v1")
     app.include_router(portal_api_router, prefix="/api/v1")
+    app.include_router(news_api_router, prefix="/api/v1")
     app.include_router(training_api_router, prefix="/api/v1")
 
     @app.middleware("http")
