@@ -1,7 +1,8 @@
 .pytest_cache
 *.log
-/backend/vagrant/kwai.development.yaml
-/backend/vagrant/.vagrant/
+/backend/vagrant/development/kwai.yaml
+/backend/vagrant/test/kwai.yaml
+.vagrant/
 /backend/kwai.toml
 .ruff_cache
 .mypy_cache

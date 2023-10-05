@@ -1,0 +1,34 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+require 'yaml'
+current_dir = File.dirname(File.expand_path(__FILE__))
+kwai_config_name = current_dir + "/kwai.yaml"
+
+if File.exist? kwai_config_name then
+    kwai_config = YAML.load_file(kwai_config_name)
+else
+    abort "No kwai.yaml file found"
+end
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-22.04"
+  config.vm.define "KWAI_TEST"
+
+  config.vm.hostname = "test.kwai.com"
+
+  config.vm.network "private_network", ip: "10.11.12.15"
+  config.vm.synced_folder "../../../", "/kwai"
+
+  if Vagrant.has_plugin?('vagrant-hostmanager')
+    config.hostmanager.enabled = true
+    config.hostmanager.manage_host = true
+  end
+
+  config.vm.provision :shell, keep_color: true, path: "Vagrant.provision.sh",
+    :args => [
+        kwai_config['database']['name'],
+        kwai_config['database']['user'],
+        kwai_config['database']['password'],
+        kwai_config['redis']['password']
+    ]
+end
