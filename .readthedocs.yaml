@@ -20,7 +20,7 @@ build:
       # https://python-poetry.org/docs/managing-dependencies/#dependency-groups
       - poetry -C ./backend/src install
 mkdocs:
-   configuration: .mkdocs.yml
+   configuration: ./mkdocs.yml
 
 # Optional but recommended, declare the Python requirements required
 # to build your documentation
