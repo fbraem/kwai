@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "test.kwai.com"
 
   config.vm.network "private_network", ip: "10.11.12.15"
-  config.vm.synced_folder "../../../", "/kwai"
+  config.vm.synced_folder "../../../", "/kwai_sync"
 
   if Vagrant.has_plugin?('vagrant-hostmanager')
     config.hostmanager.enabled = true
@@ -29,6 +29,11 @@ Vagrant.configure("2") do |config|
         kwai_config['database']['name'],
         kwai_config['database']['user'],
         kwai_config['database']['password'],
-        kwai_config['redis']['password']
+        kwai_config['redis']['password'],
+        kwai_config['mail']['host'],
+        kwai_config['mail']['port'],
+        kwai_config['mail']['user'],
+        kwai_config['mail']['password'],
+        kwai_config['jwt']['secret']
     ]
 end
