@@ -22,11 +22,9 @@ theme:
     toggle:
       icon: material/lightbulb-outline
       name: Switch to dark mode
-  icon:
-    repo: fontawesome/brands/github-alt
 
-repo_name: fbraem/kwai
-repo_url: https://github.com/fbraem/kwai
+repo_name: zumuta/kwai
+repo_url: https://codeberg.org/zumuta/kwai
 
 extra_css:
   - stylesheets/extra.css
