@@ -76,6 +76,13 @@ The backend is written in Python. The following tools are used to develop kwai:
 + [ruff](https://docs.astral.sh/ruff/) for linter.
 + [pytest](https://docs.pytest.org) for testing the code.
 
+There are pre-commit hooks defined for formatting and linting the code. Use
+Poetry to create the pre-commit hooks:
+
+````
+poetry -C ./backend/src/pyproject.toml pre-commit install
+````
+
 ### Testing
 Use the development vagrant machine to run kwai while developing. Use the test machine to test all code before pushing
 code to the remote repository. In a development environment, poetry and pytest can be used to run the tests. On the
