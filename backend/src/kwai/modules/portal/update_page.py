@@ -72,6 +72,7 @@ class UpdatePage:
             ],
             priority=command.priority,
             remark=command.remark,
+            traceable_time=page.traceable_time.mark_for_update(),
         )
 
         await self._repo.update(page)
