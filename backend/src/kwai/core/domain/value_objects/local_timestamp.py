@@ -117,7 +117,8 @@ class LocalTimestamp:
         """Create a timestamp from a string.
 
         Args:
-            date_time: The string to convert to a timestamp.
+            date_time: The string to convert to a timestamp. None or an empty string
+                will result in an "empty" local timestamp.
             date_format: The format used in the string.
         """
         if date_time is None:
