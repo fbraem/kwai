@@ -85,4 +85,4 @@ class NewsItemResource:
     @json_api.attribute(name="remark")
     def get_remark(self) -> str:
         """Get the remark of the news item."""
-        return self._news_item.remark
+        return self._news_item.remark or ""
