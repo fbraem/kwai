@@ -6,8 +6,6 @@
 /backend/kwai.toml
 .ruff_cache
 .mypy_cache
-/backend/docs/kwai/
-/backend/docs/tests/
 /_site/
 /backend/src/.venv/
 /backend/src/.coverage
