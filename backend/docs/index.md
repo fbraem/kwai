@@ -3,8 +3,7 @@
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-![test](https://github.com/fbraem/kwai/actions/workflows/backend_test.yml/badge.svg)
-[![coverage](https://fbraem.github.io/kwai/coverage/coverage.svg)](https://fbraem.github.io/kwai/coverage/)
+[![coverage](./tests/coverage/coverage.svg)](./tests/coverage/index.html)
 
 kwai API is the backend for the kwai sports club management system.
 
@@ -57,7 +56,7 @@ A CLI program can be used to test and interrogate the system. See [CLI](cli.md) 
 
 ### Vagrant
 
-A vagrant environment can be used to set up a test environment.
+A vagrant environment can be used to set up a development and test environment.
 This environment will install and create:
 
 + A MySQL database.
@@ -65,7 +64,23 @@ This environment will install and create:
 + redis for events.
 + Mailcatcher for testing emails.
 
-Use the `kwai.dist.yaml` file to create `kwai.yaml`. This file must contain settings.
+Use `kwai.dist.yaml` file to create `kwai.yaml` in each machine folder. This file must contain the settings.
+
+> Don't add `kwai.yaml` to version control!
+
+## Develop
+
+The backend is written in Python. The following tools are used to develop kwai:
++ [Poetry](https://python-poetry.org/) for managing dependencies.
++ [Black](https://black.readthedocs.io/en/stable/) for formatting the code, 
++ [ruff](https://docs.astral.sh/ruff/) for linter.
++ [pytest](https://docs.pytest.org) for testing the code.
+
+### Testing
+Use the development vagrant machine to run kwai while developing. Use the test machine to test all code before pushing
+code to the remote repository. In a development environment, poetry and pytest can be used to run the tests. On the
+test machine, a script `kwai_test.sh` is provided to run the tests. This script will also update the coverage
+documentation.
 
 ## Project structure
 
@@ -92,4 +107,4 @@ This folder contains all templates used by kwai.
 
 ### vagrant
 
-This folder contains all files for setting up a test environment.
+This folder contains two vagrant machines: one for development and one for testing.
