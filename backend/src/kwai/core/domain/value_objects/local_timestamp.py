@@ -122,4 +122,6 @@ class LocalTimestamp:
         """
         if date_time is None:
             return LocalTimestamp()
+        if len(date_time) == 0:
+            return LocalTimestamp()
         return LocalTimestamp(datetime.strptime(date_time, date_format))
