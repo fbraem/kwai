@@ -11,6 +11,7 @@ class NewsItemText(BaseModel):
     """Schema for the text of a news item."""
 
     locale: str
+    format: str
     title: str
     summary: str
     content: str | None
@@ -63,6 +64,7 @@ class NewsItemResource:
         return [
             NewsItemText(
                 locale=text.locale.value,
+                format=text.format.value,
                 title=text.title,
                 summary=MarkdownConverter().convert(text.summary),
                 content=MarkdownConverter().convert(text.content)
