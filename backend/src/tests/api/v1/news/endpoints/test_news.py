@@ -1,5 +1,4 @@
 """Module for testing the news endpoints."""
-from typing import Any
 
 import pytest
 from fastapi import status
@@ -9,14 +8,6 @@ from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.news.news_item import NewsItemEntity
 
 pytestmark = pytest.mark.api
-
-
-def _find(resource_list: list[dict[str, Any]], id_: str):
-    """Search for a resource with the given id."""
-    for resource in resource_list:
-        if resource["id"] == id_:
-            return resource
-    return None
 
 
 def test_get_news_items(client: TestClient):
@@ -31,7 +22,7 @@ def test_get_news_items(client: TestClient):
 
 
 def test_get_news_item(client: TestClient, news_item_entity: NewsItemEntity):
-    """Test /api/v1/news_items/{news_item_entity.id}."""
+    """Test /api/v1/news_items/{id}."""
     response = client.get(f"/api/v1/news_items/{news_item_entity.id}")
     json = response.json()
     assert response.status_code == status.HTTP_200_OK
