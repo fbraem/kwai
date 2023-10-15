@@ -42,7 +42,7 @@ async def news_item_entity(
 ) -> NewsItemEntity:
     """A fixture for a news entity in the database."""
     repo = NewsItemDbRepository(database)
-    return await repo.create(
+    news_item = await repo.create(
         NewsItemEntity(
             enabled=True,
             application=application,
@@ -59,3 +59,8 @@ async def news_item_entity(
             remark="Test news item.",
         )
     )
+
+    yield news_item
+
+    if news_item is not None:
+        await repo.delete(news_item)
