@@ -13,10 +13,12 @@ from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,
 )
 from kwai.modules.portal.create_news_item import CreateNewsItem, CreateNewsItemCommand
+from kwai.modules.portal.delete_news_item import DeleteNewsItem, DeleteNewsItemCommand
 from kwai.modules.portal.get_news_item import GetNewsItem, GetNewsItemCommand
 from kwai.modules.portal.get_news_items import GetNewsItems, GetNewsItemsCommand
 from kwai.modules.portal.news.news_item_db_repository import NewsItemDbRepository
 from kwai.modules.portal.news.news_item_repository import NewsItemNotFoundException
+from kwai.modules.portal.update_news_item import UpdateNewsItem, UpdateNewsItemCommand
 
 router = APIRouter()
 
@@ -122,3 +124,61 @@ async def create_news_item(
     ).execute(command)
 
     return NewsItemResource.serialize(NewsItemResource(news_item))
+
+
+@router.patch("/news_items/{id}", status_code=status.HTTP_201_CREATED)
+async def update_news_item(
+    id: int,
+    resource: NewsItemResource.get_resource_data_model(),
+    db=deps.depends(Database),
+    user: UserEntity = Depends(get_current_user),
+):
+    """Update a new news item."""
+    command = UpdateNewsItemCommand(
+        id=id,
+        enabled=resource.data.attributes.enabled,
+        texts=[
+            TextCommand(
+                locale=text.locale,
+                format=text.format,
+                title=text.title,
+                summary=text.summary,
+                content=text.content,
+            )
+            for text in resource.data.attributes.texts
+        ],
+        application=int(resource.data.relationships.application.data.id),
+        publish_datetime=resource.data.attributes.publish_date,
+        end_datetime=resource.data.attributes.end_date,
+        promotion=resource.data.attributes.priority,
+        promotion_end_datetime=resource.data.attributes.promotion_end_date,
+        remark=resource.data.attributes.remark,
+    )
+    news_item = await UpdateNewsItem(
+        NewsItemDbRepository(db),
+        ApplicationDbRepository(db),
+        Owner(id=user.id, uuid=user.uuid, name=user.name),
+    ).execute(command)
+
+    return NewsItemResource.serialize(NewsItemResource(news_item))
+
+
+@router.delete(
+    "/news_items/{id}",
+    status_code=status.HTTP_200_OK,
+    responses={status.HTTP_404_NOT_FOUND: {"description": "News Item was not found."}},
+)
+async def delete_news_item(
+    id: int,
+    db=deps.depends(Database),
+    user: UserEntity = Depends(get_current_user),
+):
+    """Delete a new news item."""
+    command = DeleteNewsItemCommand(id=id)
+
+    try:
+        await DeleteNewsItem(NewsItemDbRepository(db)).execute(command)
+    except NewsItemNotFoundException as ex:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
+        ) from ex
