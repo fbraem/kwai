@@ -108,7 +108,7 @@ async def create_news_item(
             )
             for text in resource.data.attributes.texts
         ],
-        application=int(resource.data.relationships.application.id),
+        application=int(resource.data.relationships.application.data.id),
         publish_datetime=resource.data.attributes.publish_date,
         end_datetime=resource.data.attributes.end_date,
         promotion=resource.data.attributes.priority,
