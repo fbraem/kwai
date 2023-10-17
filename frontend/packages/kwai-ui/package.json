@@ -4,29 +4,31 @@
   "description": "UI library for kwai",
   "private": true,
   "files": [
-    "dist"
+    "dist/**"
   ],
   "type": "module",
+  "main": "dist/kwai-ui.umd.cjs",
+  "types": "dist/index.d.ts",
+  "module": "dist/kwai-ui.js",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.umd.js"
+      "import": "./dist/kwai-ui.js",
+      "require": "./dist/kwai-ui.umd.cjs"
     },
     "./style.css": "./dist/style.css"
   },
-  "types": "./dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "build": "vite build --config ./vite.config.ts"
   },
   "devDependencies": {
-    "@tailwindcss/forms": "^0.5.3",
-    "@vitejs/plugin-vue": "^4.2.3",
-    "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.24",
-    "tailwindcss": "^3.3.2",
-    "vite-plugin-dts": "^2.3.0",
+    "@tailwindcss/forms": "^0.5.6",
+    "@vitejs/plugin-vue": "^4.4.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.3",
+    "vite-plugin-dts": "^3.6.0",
     "vue": "^3.3.4"
   },
   "peerDependencies": {

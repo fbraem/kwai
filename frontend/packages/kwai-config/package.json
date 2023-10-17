@@ -2,14 +2,16 @@
   "name": "@kwai/config",
   "private": true,
   "version": "1.0.0",
-  "files": ["dist"],
+  "files": [
+    "dist/**"
+  ],
   "type": "module",
   "main": "dist/kwai-config.umd.cjs",
-  "types": "src/config.d.ts",
+  "types": "dist/index.d.ts",
   "module": "dist/kwai-config.js",
   "exports": {
     ".": {
-      "types": "./src/config.d.ts",
+      "types": "./src/index.d.ts",
       "import": "./dist/kwai-config.js",
       "require": "./dist/kwai-config.umd.cjs"
     }
@@ -19,6 +21,6 @@
   },
   "devDependencies": {
     "@fbraem/rollup-plugin-toml": "^0.0.4",
-    "vite-plugin-dts": "^2.3.0"
+    "vite-plugin-dts": "^3.6.0"
   }
 }
