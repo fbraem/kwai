@@ -15,8 +15,8 @@
 </template>
 
 <script setup lang="ts">
-import {computed} from 'vue';
-import {LocationQuery} from 'vue-router';
+import { computed } from 'vue';
+import type { LocationQuery } from 'vue-router';
 
 const props = defineProps<{
   route?: LocationQuery,

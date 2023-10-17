@@ -71,11 +71,12 @@
 
 <script setup lang="ts">
 import { useHttpWithAuthCatcher } from '@kwai/api';
-import { CheckIcon, InputField, Button, ErrorAlert } from '@kwai/ui';
+import { Button, CheckIcon, ErrorAlert, InputField } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
 import { useTitle } from '@vueuse/core';
 import { useForm } from 'vee-validate';
-import { ref, Ref } from 'vue';
+import type { Ref } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import NotificationMessage from '@root/components/NotificationMessage.vue';
 
