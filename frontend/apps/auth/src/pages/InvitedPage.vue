@@ -109,12 +109,13 @@
 </template>
 
 <script setup lang="ts">
-import { InputField, Button, ErrorAlert } from '@kwai/ui';
+import { Button, ErrorAlert, InputField } from '@kwai/ui';
 import { useHttp } from '@kwai/api';
 import { useI18n } from 'vue-i18n';
 import { useTitle } from '@vueuse/core';
 import { useForm } from 'vee-validate';
-import { ref, Ref } from 'vue';
+import type { Ref } from 'vue';
+import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const { t } = useI18n({ useScope: 'global' });

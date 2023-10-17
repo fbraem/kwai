@@ -95,11 +95,12 @@
 
 <script setup lang="ts">
 import { useHttp } from '@kwai/api';
-import { InputField, Button, ErrorAlert } from '@kwai/ui';
+import { Button, ErrorAlert, InputField } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
 import { useTitle } from '@vueuse/core';
 import { useForm } from 'vee-validate';
-import { ref, Ref } from 'vue';
+import type { Ref } from 'vue';
+import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const { t } = useI18n({ useScope: 'global' });
@@ -144,13 +145,13 @@ const { handleSubmit } = useForm({
   validationSchema: {
     uuid: [isRequired],
     password: [isRequired, isStrong],
-    repeat_password: [isRequired, isSame]
+    repeat_password: [isRequired, isSame],
   },
   initialValues: {
     uuid: uuid.value,
     password: '',
-    repeat_password: ''
-  }
+    repeat_password: '',
+  },
 });
 
 const router = useRouter();
@@ -160,14 +161,14 @@ const onSubmitForm = handleSubmit(async values => {
   errorMessage.value = null;
   const formData = {
     uuid: values.uuid,
-    password: values.password
+    password: values.password,
   };
   await useHttp()
     .url('/auth/reset')
     .formData(formData)
     .post()
     .res(() => router.push({
-      path: '/'
+      path: '/',
     }))
     .catch(error => {
       if (error.response?.status === 401) {
