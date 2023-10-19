@@ -1,4 +1,3 @@
-/* eslint-disable import/first */
 import './index.css';
 
 import Alert from './alerts/Alert.vue';
