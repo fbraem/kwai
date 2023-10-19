@@ -42,7 +42,7 @@ class PageResource:
     @json_api.attribute(name="remark")
     def get_remark(self) -> str:
         """Return the remark attribute of the page."""
-        return self._page.remark
+        return self._page.remark or ""
 
     @json_api.relationship(name="application")
     def get_application(self) -> ApplicationResource:
