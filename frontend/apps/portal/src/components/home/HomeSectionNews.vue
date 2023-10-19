@@ -15,7 +15,7 @@
         <p class="text-gray-600 text-center">
           Nog meer nieuws kan je lezen op onze
           <router-link
-            to="/portal/news"
+            to="/news"
             class="hover:underline text-blue-400"
           >
             nieuwspagina
