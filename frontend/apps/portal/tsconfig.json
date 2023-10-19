@@ -9,7 +9,7 @@
         "theme/kwai/*",
         "*"
       ],
-        "@root/*": ["src/*"]
+      "@root/*": ["src/*"]
     },
     "ignoreDeprecations": "5.0"
   },
