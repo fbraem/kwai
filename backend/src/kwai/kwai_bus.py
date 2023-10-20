@@ -32,8 +32,13 @@ def create_bus(settings: Settings = Depends(get_settings)):
 
         return new_format
 
+    if settings.redis.logger:
+        log_file = settings.redis.logger.file
+    else:
+        log_file = None
+
     logger.add(
-        settings.redis.logger.file or sys.stderr,
+        log_file or sys.stderr,
         format=log_format,
         level=settings.redis.logger.level,
         colorize=True,
