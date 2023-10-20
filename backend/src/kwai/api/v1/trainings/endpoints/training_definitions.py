@@ -1,11 +1,11 @@
 """Module for endpoints for training definitions."""
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from kwai.api.dependencies import deps, get_current_user
+from kwai.api.dependencies import get_current_user
 from kwai.api.v1.trainings.endpoints.trainings import TrainingsFilterModel
 from kwai.api.v1.trainings.schemas.training import TrainingResource
 from kwai.api.v1.trainings.schemas.training_definition import TrainingDefinitionResource
-from kwai.core.db.database import Database
+from kwai.core.dependencies import create_database
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.identity.users.user import UserEntity
@@ -45,7 +45,8 @@ router = APIRouter()
 
 @router.get("/training_definitions")
 async def get_training_definitions(
-    pagination: PaginationModel = Depends(PaginationModel), db=deps.depends(Database)
+    pagination: PaginationModel = Depends(PaginationModel),
+    db=Depends(create_database),
 ) -> TrainingDefinitionResource.get_document_model():
     """Get all training definitions."""
     command = GetTrainingDefinitionsCommand(
@@ -72,7 +73,7 @@ async def get_training_definitions(
 )
 async def get_training_definition(
     training_definition_id: int,
-    db=deps.depends(Database),
+    db=Depends(create_database),
 ) -> TrainingDefinitionResource.get_document_model():
     """Get training definition with the given id."""
     command = GetTrainingDefinitionCommand(id=training_definition_id)
@@ -96,7 +97,7 @@ async def get_training_definition(
 )
 async def create_training_definition(
     resource: TrainingDefinitionResource.get_resource_data_model(),
-    db=deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ) -> TrainingDefinitionResource.get_document_model():
     """Create a new training definition."""
@@ -134,7 +135,7 @@ async def create_training_definition(
 async def update_training_definition(
     training_definition_id: int,
     resource: TrainingDefinitionResource.get_resource_data_model(),
-    db=deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ) -> TrainingDefinitionResource.get_document_model():
     """Update a training definition."""
@@ -176,7 +177,7 @@ async def update_training_definition(
 )
 async def delete_training_definition(
     training_definition_id: int,
-    db=deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ) -> None:
     """Delete a training definition."""
@@ -200,7 +201,7 @@ async def get_trainings(
     training_definition_id: int,
     pagination: PaginationModel = Depends(PaginationModel),
     trainings_filter: TrainingsFilterModel = Depends(TrainingsFilterModel),
-    db=deps.depends(Database),
+    db=Depends(create_database),
 ) -> TrainingResource.get_document_model():
     """Get trainings of the given training definition."""
     command = GetTrainingsCommand(

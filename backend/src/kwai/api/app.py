@@ -14,8 +14,7 @@ from kwai.api.v1.news.api import api_router as news_api_router
 from kwai.api.v1.pages.api import api_router as pages_api_router
 from kwai.api.v1.portal.api import api_router as portal_api_router
 from kwai.api.v1.trainings.api import api_router as training_api_router
-from kwai.core.dependencies import container
-from kwai.core.settings import LoggerSettings, Settings, SettingsException
+from kwai.core.settings import LoggerSettings, Settings, get_settings
 
 
 @asynccontextmanager
@@ -62,18 +61,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     Args:
         settings: Settings to use in this application.
-
-    When settings is None (the default), the dependency container will
-    load the settings.
     """
-    if settings is None:
-        try:
-            settings = container[Settings]
-        except SettingsException as ex:
-            logger.error(f"Could not load settings: {ex}")
-            sys.exit(0)
-
     app = FastAPI(title="kwai", lifespan=lifespan)
+
+    if settings is None:
+        settings = get_settings()
 
     # Setup CORS
     if settings.cors:

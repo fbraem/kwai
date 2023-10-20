@@ -11,10 +11,9 @@ import typer
 from rich import print
 from typer import Typer
 
-from kwai.core.db.database import Database
-from kwai.core.dependencies import container
+from kwai.core.dependencies import create_database
 from kwai.core.domain.exceptions import UnprocessableException
-from kwai.core.settings import ENV_SETTINGS_FILE
+from kwai.core.settings import ENV_SETTINGS_FILE, get_settings
 from kwai.modules.identity.create_user import CreateUser, CreateUserCommand
 from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
@@ -70,9 +69,8 @@ def create(
             remark="This user was created using the CLI",
         )
         try:
-            await CreateUser(UserAccountDbRepository(container[Database])).execute(
-                command
-            )
+            database = create_database(get_settings())
+            await CreateUser(UserAccountDbRepository(database)).execute(command)
             print(
                 f"[bold green]Success![/bold green] "
                 f"User created with email address {email}"

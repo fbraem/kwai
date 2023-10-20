@@ -3,21 +3,17 @@ import asyncio
 import os
 import sys
 
+from fastapi import Depends
 from loguru import logger
-from redis.asyncio import Redis
 
-from kwai.core.dependencies import container
+from kwai.core.dependencies import create_redis
 from kwai.core.events.redis_bus import RedisBus
-from kwai.core.settings import Settings, SettingsException
+from kwai.core.settings import Settings, get_settings
 
 
-def create_bus():
+def create_bus(settings: Settings = Depends(get_settings)):
     """Create the event bus."""
-    try:
-        settings = container[Settings]
-    except SettingsException as ex:
-        logger.error(f"Could not load settings: {ex}")
-        sys.exit(0)
+    redis = create_redis(settings)
 
     if settings.redis.logger:
         try:
@@ -45,7 +41,7 @@ def create_bus():
         rotation=settings.redis.logger.rotation,
     )
 
-    bus = RedisBus(container[Redis])
+    bus = RedisBus(redis)
 
     from kwai.modules.identity.tasks import tasks as identity_tasks
 
@@ -57,4 +53,5 @@ def create_bus():
 
 
 if __name__ == "__main__":
-    asyncio.run(create_bus().run())
+    settings = get_settings()
+    asyncio.run(create_bus(settings).run())

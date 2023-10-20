@@ -16,7 +16,6 @@ python-multipart = "^0.0.6"
 loguru = "^0.7.0"
 jinja2 = "^3.1.2"
 tomli = "^2.0.1"
-lagom = "^2.4.1"
 pyjwt = "^2.7.0"
 typer = {extras = ["all"], version = "^0.9.0"}
 redis = "^4.5.5"

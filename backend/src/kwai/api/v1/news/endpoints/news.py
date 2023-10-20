@@ -2,9 +2,9 @@
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, Field
 
-from kwai.api.dependencies import deps, get_current_user, get_optional_user
+from kwai.api.dependencies import get_current_user, get_optional_user
 from kwai.api.schemas.news_item import NewsItemResource
-from kwai.core.db.database import Database
+from kwai.core.dependencies import create_database
 from kwai.core.domain.use_case import TextCommand
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.json_api import Meta, PaginationModel
@@ -38,7 +38,7 @@ class NewsFilterModel(BaseModel):
 async def get_news_items(
     pagination: PaginationModel = Depends(PaginationModel),
     news_filter: NewsFilterModel = Depends(NewsFilterModel),
-    db=deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity | None = Depends(get_optional_user),
 ) -> NewsItemResource.get_document_model():
     """Get news items."""
@@ -71,7 +71,7 @@ async def get_news_items(
 @router.get("/news_items/{id}")
 async def get_news_item(
     id: int,
-    db=deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity | None = Depends(get_optional_user),
 ) -> NewsItemResource.get_document_model():
     """Get a news item."""
@@ -94,7 +94,7 @@ async def get_news_item(
 @router.post("/news_items", status_code=status.HTTP_201_CREATED)
 async def create_news_item(
     resource: NewsItemResource.get_resource_data_model(),
-    db=deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ):
     """Create a new news item."""
@@ -130,7 +130,7 @@ async def create_news_item(
 async def update_news_item(
     id: int,
     resource: NewsItemResource.get_resource_data_model(),
-    db=deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ):
     """Update a new news item."""
@@ -170,7 +170,7 @@ async def update_news_item(
 )
 async def delete_news_item(
     id: int,
-    db=deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ):
     """Delete a new news item."""

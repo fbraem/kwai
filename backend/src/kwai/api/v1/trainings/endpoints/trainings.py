@@ -4,9 +4,9 @@ from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, Field
 
-from kwai.api.dependencies import deps, get_current_user
+from kwai.api.dependencies import get_current_user
 from kwai.api.v1.trainings.schemas.training import TrainingResource
-from kwai.core.db.database import Database
+from kwai.core.dependencies import create_database
 from kwai.core.domain.use_case import TextCommand
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.json_api import Meta, PaginationModel
@@ -60,7 +60,7 @@ class TrainingsFilterModel(BaseModel):
 async def get_trainings(
     pagination: PaginationModel = Depends(PaginationModel),
     trainings_filter: TrainingsFilterModel = Depends(TrainingsFilterModel),
-    db=deps.depends(Database),
+    db=Depends(create_database),
 ) -> TrainingResource.get_document_model():
     """Get all trainings."""
     command = GetTrainingsCommand(
@@ -104,7 +104,7 @@ async def get_trainings(
 )
 async def get_training(
     training_id: int,
-    db=deps.depends(Database),
+    db=Depends(create_database),
 ) -> TrainingResource.get_document_model():
     """Get the training with the given id."""
     command = GetTrainingCommand(id=training_id)
@@ -125,7 +125,7 @@ async def get_training(
 )
 async def create_training(
     resource: TrainingResource.get_resource_data_model(),
-    db=deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ) -> TrainingResource.get_document_model():
     """Create a new training."""
@@ -182,7 +182,7 @@ async def create_training(
 async def update_training(
     training_id: int,
     resource: TrainingResource.get_resource_data_model(),
-    db=deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ) -> TrainingResource.get_document_model():
     """Update a training."""
@@ -243,7 +243,7 @@ async def update_training(
 )
 async def delete_training(
     training_id: int,
-    db=deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ) -> None:
     """Delete a training definition."""

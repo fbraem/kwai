@@ -2,9 +2,9 @@
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, Field
 
-from kwai.api.dependencies import deps, get_current_user
+from kwai.api.dependencies import get_current_user
 from kwai.api.schemas.page import PageResource
-from kwai.core.db.database import Database
+from kwai.core.dependencies import create_database
 from kwai.core.domain.use_case import TextCommand
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.json_api import Meta, PaginationModel
@@ -36,7 +36,7 @@ class PageFilter(BaseModel):
 async def get_pages(
     pagination: PaginationModel = Depends(PaginationModel),
     page_filter: PageFilter = Depends(PageFilter),
-    db=deps.depends(Database),
+    db=Depends(create_database),
 ) -> PageResource.get_document_model():
     """Get pages."""
     command = GetPagesCommand(
@@ -57,7 +57,7 @@ async def get_pages(
 @router.get("/pages/{id}")
 async def get_page(
     id: int,
-    db=deps.depends(Database),
+    db=Depends(create_database),
 ) -> PageResource.get_document_model():
     """Get page."""
     command = GetPageCommand(id=id)
@@ -71,7 +71,7 @@ async def get_page(
 @router.post("/pages", status_code=status.HTTP_201_CREATED)
 async def create_page(
     resource: PageResource.get_resource_data_model(),
-    db: Database = deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ) -> PageResource.get_document_model():
     """Create a page."""
@@ -110,7 +110,7 @@ async def create_page(
 async def update_page(
     id: int,
     resource: PageResource.get_resource_data_model(),
-    db: Database = deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ) -> PageResource.get_document_model():
     """Update a page."""
@@ -152,7 +152,7 @@ async def update_page(
 )
 async def delete_news_item(
     id: int,
-    db=deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ):
     """Delete a page."""

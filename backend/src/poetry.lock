@@ -1073,43 +1073,6 @@ MarkupSafe = ">=2.0"
 i18n = ["Babel (>=2.7)"]
 
 [[package]]
-name = "lagom"
-version = "2.4.1"
-description = "Lagom is a dependency injection container designed to give you 'just enough' help with building your dependencies."
-category = "main"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "lagom-2.4.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:de4b7240cb37b406e891c1d481efafb83998b847982fd6c73446e98600ed032c"},
-    {file = "lagom-2.4.1-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:01b82415eaca5514faa904fdf2011aa01b660622ff51ff22ec1a517aafca3eb9"},
-    {file = "lagom-2.4.1-cp310-cp310-win32.whl", hash = "sha256:752cab3bdce90da77597dec9ec7b9dfb8bc3b82bef03479a513aae27e23e9576"},
-    {file = "lagom-2.4.1-cp310-cp310-win_amd64.whl", hash = "sha256:2d3658fbe63f307d5f4a1f74b7ac6ba4a3c6c8eedd89e83cdff54a7b0748c151"},
-    {file = "lagom-2.4.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1264b97e503cda00c3c5afe8e214fc37bb5e7ed65167df6aab2b920ee7e2aca7"},
-    {file = "lagom-2.4.1-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:48234f48829969f5f0c254ebbf4c62b3ecb7851afd2a1e0b552f174ec9c06048"},
-    {file = "lagom-2.4.1-cp311-cp311-win32.whl", hash = "sha256:2085ee3f764823ffaf55a20da594b798ae8d148e460f392e8f2f5ca21973ae16"},
-    {file = "lagom-2.4.1-cp311-cp311-win_amd64.whl", hash = "sha256:73e06147c38d94bbb267c92aaecfa035808ec80277f497f7ec41a9f4c1c8fa2e"},
-    {file = "lagom-2.4.1-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:1a4f4ce2109e2a45d00e6a8f77365923a2a370f8035a8a96d749e9c92ba9678b"},
-    {file = "lagom-2.4.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:292d30a0c193de05020850558a4d2e612be1f3a6d20d53a1ad03bed43dccff5c"},
-    {file = "lagom-2.4.1-cp37-cp37m-musllinux_1_1_x86_64.whl", hash = "sha256:d693edcf29e32a1d4e6b2605c5e469eeeafca45668d1f4aeaf513ad52524ae77"},
-    {file = "lagom-2.4.1-cp37-cp37m-win32.whl", hash = "sha256:6f0c31369c3791184dd008545fadba9fa7a6fa6b82775f01f56da602bc124115"},
-    {file = "lagom-2.4.1-cp37-cp37m-win_amd64.whl", hash = "sha256:1a6203b1c66d3247b83b2c086a87bc1a8dc095d2017dc65517ea6ac675739ea5"},
-    {file = "lagom-2.4.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:f5b08c16769c99de02a92ad37dcb73a4e60401d8084f823de3e26325ef4c2049"},
-    {file = "lagom-2.4.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:22c8aa53c3afa0b87cb5eea20bb23c20fdb8748ebcaf7684971efe6b31981bc5"},
-    {file = "lagom-2.4.1-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:863ad16cb02d608ef8b42014742bc4778b87a5b535222299bbc969fe0b55005d"},
-    {file = "lagom-2.4.1-cp38-cp38-win32.whl", hash = "sha256:c0a5fa72256faba4cfa5df831874593178a5db128af093cbc8af149538b62757"},
-    {file = "lagom-2.4.1-cp38-cp38-win_amd64.whl", hash = "sha256:b5223a5886f463f8e5f28ea3a6e863976bd3947951b184f2d096768928b69e2f"},
-    {file = "lagom-2.4.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:80c712b0519e17a6608dbf5b8ea61e1f1a3815fdc69c8162a3872a1ac4a6b2ee"},
-    {file = "lagom-2.4.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:01294cf357accd35a1e4c0209892bd287269fa6d8e724a48695a0dc8b41b2c83"},
-    {file = "lagom-2.4.1-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:e7bd9ec259168e5561a968baf8c2e35e7aee78a92e12243adb62a423e33490a0"},
-    {file = "lagom-2.4.1-cp39-cp39-win32.whl", hash = "sha256:41120a472917b2e8965dfc04648b96a524d94f5632b22582b9c7e4c5e1caf3a2"},
-    {file = "lagom-2.4.1-cp39-cp39-win_amd64.whl", hash = "sha256:9b2167e4d96af5356de758c6e8d70c915e119a283357d216da49d08e4af7d17b"},
-    {file = "lagom-2.4.1-py3-none-any.whl", hash = "sha256:c2553029f10f3f1b2baafdb706429ff1158d1fa62f9d0468c931320b2ee00bb3"},
-]
-
-[package.extras]
-env = ["pydantic (>=1.0.0,<2.0.0)"]
-
-[[package]]
 name = "lazy-object-proxy"
 version = "1.9.0"
 description = "A fast and thorough lazy object proxy."
@@ -2965,4 +2928,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "a5368b2d0d35aeb7120ced4d8a11892e539884e5f88efbd29e954dfcb52c195b"
+content-hash = "3dd214dbc79fe80381a5a7a01ce6862229f28cd9a5be3a54b92e3fec6882a264"

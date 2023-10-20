@@ -3,14 +3,13 @@ import os
 from asyncio import run
 
 import typer
-from redis.asyncio import Redis
 from rich import print
 from rich.tree import Tree
 from typer import Typer
 
-from kwai.core.dependencies import container
+from kwai.core.dependencies import create_redis
 from kwai.core.events.stream import RedisStream
-from kwai.core.settings import ENV_SETTINGS_FILE, Settings
+from kwai.core.settings import ENV_SETTINGS_FILE, get_settings
 
 
 def check():
@@ -36,7 +35,7 @@ def show(password: bool = typer.Option(False, help="Show the password")):
         password: show or hide the password (default is hide).
     """
     try:
-        settings = container[Settings]
+        settings = get_settings()
         print(f"Host: [bold]{settings.redis.host}[/bold]")
         print(f"Port: [bold]{settings.redis.port}[/bold]")
         if password:
@@ -51,7 +50,7 @@ def show(password: bool = typer.Option(False, help="Show the password")):
 def test():
     """Command for testing the redis connection."""
     try:
-        container[Redis]
+        create_redis(get_settings())
     except Exception as ex:
         print("[bold red]Failed![/bold red] Could not connect to redis!")
         print(ex)
@@ -72,7 +71,7 @@ def stream(  # noqa
         messages: List all messages or not? Default is False.
     """
     try:
-        redis = container[Redis]
+        redis = create_redis(get_settings())
     except Exception as ex:
         print("[bold red]Failed![/bold red] Could not connect to redis!")
         print(ex)

@@ -1,11 +1,10 @@
 """Module that implements applications endpoints."""
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
-from kwai.api.dependencies import deps
 from kwai.api.schemas.application import (
     ApplicationResource,
 )
-from kwai.core.db.database import Database
+from kwai.core.dependencies import create_database
 from kwai.core.json_api import Meta
 from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,
@@ -20,7 +19,7 @@ ApplicationResourceDocument = ApplicationResource.get_document_model()
 
 @router.get("/applications")
 async def get_applications(
-    db=deps.depends(Database),
+    db=Depends(create_database),
 ) -> ApplicationResourceDocument:
     """Get all applications of kwai."""
     command = GetApplicationsCommand()

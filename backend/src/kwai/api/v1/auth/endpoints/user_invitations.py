@@ -3,13 +3,13 @@
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from loguru import logger
 
-from kwai.api.dependencies import deps, get_current_user
+from kwai.api.dependencies import get_current_user
 from kwai.api.schemas.user_invitation import UserInvitationResource
-from kwai.core.db.database import Database
+from kwai.core.dependencies import create_database
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import InvalidEmailException
-from kwai.core.events.bus import Bus
 from kwai.core.json_api import Meta, PaginationModel
+from kwai.kwai_bus import create_bus
 from kwai.modules.identity.delete_user_invitation import (
     DeleteUserInvitation,
     DeleteUserInvitationCommand,
@@ -35,9 +35,9 @@ router = APIRouter()
 @router.post("/invitations")
 async def create_user_invitation(
     resource: UserInvitationResource.get_document_model(),
-    db=deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
-    bus=deps.depends(Bus),
+    bus=Depends(create_bus),
 ) -> UserInvitationResource.get_document_model():
     """Create a user invitation."""
     command = InviteUserCommand(
@@ -73,7 +73,7 @@ async def create_user_invitation(
 )
 async def delete_user_invitation(
     uuid: str,
-    db=deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ):
     """Delete the user invitation with the given unique id."""
@@ -93,7 +93,7 @@ async def delete_user_invitation(
 @router.get("/invitations")
 async def get_user_invitations(
     pagination: PaginationModel = Depends(PaginationModel),
-    db=deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ) -> UserInvitationResource.get_document_model():
     """Get all user invitations."""
@@ -112,7 +112,7 @@ async def get_user_invitations(
 @router.get("/invitations/{uuid}")
 async def get_user_invitation(
     uuid: str,
-    db=deps.depends(Database),
+    db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ) -> UserInvitationResource.get_document_model():
     """Get the user invitation with the given unique id."""

@@ -3,15 +3,12 @@ from typing import Any
 
 from loguru import logger
 
-from kwai.core.db.database import Database
-from kwai.core.dependencies import container
+from kwai.core.dependencies import create_database, create_mailer, get_template_engine
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipient, Recipients
-from kwai.core.settings import Settings
+from kwai.core.settings import get_settings
 from kwai.core.template.mail_template import MailTemplate
-from kwai.core.template.template_engine import TemplateEngine
 from kwai.modules.identity.mail_user_invitation import (
     MailUserInvitation,
     MailUserInvitationCommand,
@@ -28,9 +25,10 @@ async def email_user_invitation_task(event: dict[str, Any]):
     """Task for sending the user invitation email."""
     logger.info(f"Trying to handle event {event['meta']['name']}.")
 
-    mailer = container[Mailer]
-    template_engine = container[TemplateEngine]
-    database = container[Database]
+    settings = get_settings()
+    mailer = create_mailer(settings)
+    template_engine = get_template_engine(settings)
+    database = create_database(settings)
 
     command = MailUserInvitationCommand(uuid=event["data"]["uuid"])
 
@@ -40,8 +38,8 @@ async def email_user_invitation_task(event: dict[str, Any]):
             mailer,
             Recipients(
                 from_=Recipient(
-                    email=EmailAddress(container[Settings].website.email),
-                    name=container[Settings].website.name,
+                    email=EmailAddress(settings.website.email),
+                    name=settings.website.name,
                 )
             ),
             MailTemplate(

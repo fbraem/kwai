@@ -6,12 +6,14 @@ from fastapi.security import OAuth2PasswordRequestForm
 from loguru import logger
 from pydantic import BaseModel
 
-from kwai.api.dependencies import deps, get_current_user
+from kwai.api.dependencies import get_current_user
 from kwai.core.db.database import Database
+from kwai.core.dependencies import create_database
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import InvalidEmailException
 from kwai.core.events.bus import Bus
-from kwai.core.settings import SecuritySettings, Settings
+from kwai.core.settings import SecuritySettings, Settings, get_settings
+from kwai.kwai_bus import create_bus
 from kwai.modules.identity.authenticate_user import (
     AuthenticateUser,
     AuthenticateUserCommand,
@@ -73,8 +75,8 @@ router = APIRouter()
     summary="Create access and refresh token for a user.",
 )
 async def login(
-    settings=deps.depends(Settings),
-    db=deps.depends(Database),
+    settings: Settings = Depends(get_settings),
+    db: Database = Depends(create_database),
     form_data: OAuth2PasswordRequestForm = Depends(),
 ):
     """Login a user.
@@ -120,8 +122,8 @@ async def login(
 
 @router.post("/logout", summary="Logout the current user")
 async def logout(
-    settings=deps.depends(Settings),
-    db: Database = deps.depends(Database),
+    settings=Depends(get_settings),
+    db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
     refresh_token: str = Form(),
 ):
@@ -163,8 +165,8 @@ async def logout(
     summary="Renew an access token using a refresh token.",
 )
 async def renew_access_token(
-    settings=deps.depends(Settings),
-    db=deps.depends(Database),
+    settings=Depends(get_settings),
+    db=Depends(create_database),
     refresh_token: str = Form(),
 ):
     """Refresh the access token.
@@ -208,7 +210,7 @@ async def renew_access_token(
     response_class=Response,
 )
 async def recover_user(
-    email: str = Form(), db=deps.depends(Database), bus=deps.depends(Bus)
+    email: str = Form(), db=Depends(create_database), bus: Bus = Depends(create_bus)
 ) -> None:
     """Start a recover password flow for the given email address.
 
@@ -238,7 +240,7 @@ async def recover_user(
     summary="Reset the password of a user.",
     status_code=status.HTTP_200_OK,
 )
-async def reset_password(uuid=Form(), password=Form(), db=deps.depends(Database)):
+async def reset_password(uuid=Form(), password=Form(), db=Depends(create_database)):
     """Reset the password of the user.
 
     Args:

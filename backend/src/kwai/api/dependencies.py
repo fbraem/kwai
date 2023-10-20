@@ -2,11 +2,10 @@
 import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from lagom.integrations.fast_api import FastApiIntegration
 
 from kwai.core.db.database import Database
-from kwai.core.dependencies import container
-from kwai.core.settings import SecuritySettings, Settings
+from kwai.core.dependencies import create_database
+from kwai.core.settings import SecuritySettings, get_settings
 from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
 )
@@ -16,14 +15,12 @@ from kwai.modules.identity.tokens.access_token_repository import (
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.users.user import UserEntity
 
-deps = FastApiIntegration(container)
-
 oauth = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 
 async def get_current_user(
-    settings=deps.depends(Settings),
-    db=deps.depends(Database),
+    settings=Depends(get_settings),
+    db=Depends(create_database),
     token: str = Depends(oauth),
 ) -> UserEntity:
     """Try to get the current user from the access token.
@@ -38,8 +35,8 @@ optional_oauth = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login", auto_error=
 
 
 async def get_optional_user(
-    settings=deps.depends(Settings),
-    db=deps.depends(Database),
+    settings=Depends(get_settings),
+    db=Depends(create_database),
     token: str = Depends(optional_oauth),
 ) -> UserEntity | None:
     """Try to get the current user from an access token.

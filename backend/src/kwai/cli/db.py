@@ -6,9 +6,8 @@ import typer
 from rich import print
 from typer import Typer
 
-from kwai.core.db.database import Database
-from kwai.core.dependencies import container
-from kwai.core.settings import ENV_SETTINGS_FILE, Settings
+from kwai.core.dependencies import create_database
+from kwai.core.settings import ENV_SETTINGS_FILE, get_settings
 
 
 def check():
@@ -34,7 +33,7 @@ def show(password: bool = typer.Option(False, help="Show the password")):
         password: show or hide the password (default is hide).
     """
     try:
-        settings = container[Settings]
+        settings = get_settings()
         print(f"Host: [bold]{settings.db.host}[/bold]")
         print(f"Name: [bold]{settings.db.name}[/bold]")
         print(f"User: [bold]{settings.db.user}[/bold]")
@@ -53,7 +52,7 @@ def test():
     async def _main():
         """Closure for handling the async code."""
         try:
-            database = container[Database]
+            database = create_database(get_settings())
             await database.check_connection()
             await database.close()
         except Exception as ex:
