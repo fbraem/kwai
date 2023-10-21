@@ -67,7 +67,7 @@ async def _get_user_from_token(
             algorithms=[security_settings.jwt_algorithm],
         )
     except ExpiredSignatureError as exc:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED) from exc
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail=str(exc)) from exc
 
     access_token_repo = AccessTokenDbRepository(db)
     try:
@@ -75,7 +75,9 @@ async def _get_user_from_token(
             TokenIdentifier(hex_string=payload["jti"])
         )
     except AccessTokenNotFoundException as exc:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED) from exc
+        raise HTTPException(
+            status.HTTP_401_UNAUTHORIZED, detail="The access token is unknown."
+        ) from exc
 
     # Check if the access token is assigned to the user we have in the subject of JWT.
     if not access_token.user_account.user.uuid == payload["sub"]:
