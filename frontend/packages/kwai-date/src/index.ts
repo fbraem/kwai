@@ -30,6 +30,8 @@ export interface DateType {
 }
 
 function wrapDayjs(d: dayjs.Dayjs): Readonly<DateType> {
+  const value = d;
+
   function add(n: number, unit: string): Readonly<DateType> {
     return wrapDayjs(d.add(n, <ManipulateType> unit));
   }
@@ -51,6 +53,7 @@ function wrapDayjs(d: dayjs.Dayjs): Readonly<DateType> {
   }
 
   return Object.freeze({
+    value,
     add,
     day,
     endOf,
