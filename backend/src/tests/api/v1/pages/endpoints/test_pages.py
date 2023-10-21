@@ -18,7 +18,7 @@ def test_get_pages(client: TestClient):
 
 def test_get_page(client: TestClient, page_entity: PageEntity):
     """Test /api/v1/pages/{id}."""
-    response = client.get(f"/api/v1/news_items/{page_entity.id}")
+    response = client.get(f"/api/v1/pages/{page_entity.id}")
     json = response.json()
     assert response.status_code == status.HTTP_200_OK
     assert len(json["data"]) > 0, "There should be at least one page."
@@ -93,7 +93,7 @@ def test_patch_page(
     assert response.status_code == status.HTTP_200_OK, response.json()
 
 
-def test_delete_news_item(secure_client: TestClient, page_entity: PageEntity):
+def test_delete_page(secure_client: TestClient, page_entity: PageEntity):
     """Test DELETE /api/v1/pages."""
     response = secure_client.delete(f"/api/v1/pages/{page_entity.id}")
     assert response.status_code == status.HTTP_200_OK, response.json()
