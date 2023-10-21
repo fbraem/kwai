@@ -1,7 +1,6 @@
 <template>
   <IntroSection
     :hero-image-url="newsHeroImage"
-    :height="300"
   >
     <div class="container lg:max-w-5xl relative mx-auto flex h-full items-center">
       <div class="flex flex-col space-y-5 p-4">
@@ -14,6 +13,7 @@
       </div>
     </div>
   </IntroSection>
+  <router-view />
 </template>
 
 <script setup lang="ts">

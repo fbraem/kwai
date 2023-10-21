@@ -1,7 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router';
 import HomePage from '@theme/pages/HomePage.vue';
 import TrainingsPage from '@theme/pages/TrainingsPage.vue';
-import NewsPage from '@theme/pages/NewsPage.vue';
+import NewsPage from '@theme/pages/news/NewsPage.vue';
+import NewsItemPage from '@theme/pages/news/NewsItemPage.vue';
 import TrainingsArticlePage from '@theme/pages/trainings/TrainingsArticlePage.vue';
 import ApplicationPage from '@theme/pages/ApplicationPage.vue';
 import PortalToolbar from './components/toolbar/PortalToolbar.vue';
@@ -27,6 +28,14 @@ const routes: RouteRecordRaw[] = [
           toolbar: PortalToolbar,
           main: NewsPage,
         },
+        children: [
+          {
+            name: 'news_item',
+            path: ':id(\\d+)',
+            props: true,
+            component: NewsItemPage,
+          },
+        ],
       },
       {
         name: 'portal.club',
