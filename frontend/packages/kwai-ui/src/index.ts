@@ -2,6 +2,7 @@ import './index.css';
 
 import Alert from './alerts/Alert.vue';
 import ErrorAlert from './alerts/ErrorAlert.vue';
+import LoadingAlert from './alerts/LoadingAlert.vue';
 import Card from './card/Card.vue';
 import CardTitle from './card/CardTitle.vue';
 import CardLinkedTitle from './card/CardLinkedTitle.vue';
@@ -21,7 +22,7 @@ import ErrorIcon from './icons/ErrorIcon.vue';
 import LoadingIcon from './icons/LoadingIcon.vue';
 import RequiredIcon from './icons/RequiredIcon.vue';
 
-export { Alert, ErrorAlert };
+export { Alert, ErrorAlert, LoadingAlert };
 
 export { Card, CardTitle, CardLinkedTitle, CardRouterLinkedTitle };
 
