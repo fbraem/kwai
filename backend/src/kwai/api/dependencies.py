@@ -2,6 +2,7 @@
 import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
+from jwt import ExpiredSignatureError
 
 from kwai.core.db.database import Database
 from kwai.core.dependencies import create_database
@@ -59,11 +60,15 @@ async def _get_user_from_token(
 
     Returns: The user associated with the access token.
     """
-    payload = jwt.decode(
-        token,
-        security_settings.jwt_secret,
-        algorithms=[security_settings.jwt_algorithm],
-    )
+    try:
+        payload = jwt.decode(
+            token,
+            security_settings.jwt_secret,
+            algorithms=[security_settings.jwt_algorithm],
+        )
+    except ExpiredSignatureError as exc:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED) from exc
+
     access_token_repo = AccessTokenDbRepository(db)
     try:
         access_token = await access_token_repo.get_by_identifier(
