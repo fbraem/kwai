@@ -68,7 +68,7 @@ const toModel = (json: JSONApiNewsItemDocumentType): NewsItem | NewsItem[] => {
     return {
       id: newsItem.id,
       priority: newsItem.attributes.priority,
-      publish_date: createDateTimeFromUTC(newsItem.attributes.publish_date, d.attributes.timezone),
+      publish_date: createDateTimeFromUTC(newsItem.attributes.publish_date),
       texts: newsItem.attributes.texts.map(text => ({
         locale: text.locale,
         title: text.title,
