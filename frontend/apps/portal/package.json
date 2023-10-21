@@ -17,10 +17,11 @@
     "vue-tsc": "^1.8.19"
   },
   "dependencies": {
-    "@kwai/config": "*",
     "@kwai/api": "*",
+    "@kwai/config": "*",
     "@kwai/date": "*",
     "@kwai/ui": "*",
+    "@tanstack/vue-query": "^5.0.4",
     "pinia": "^2.1.7",
     "swrv": "^1.0.4",
     "vue": "^3.3.4",
