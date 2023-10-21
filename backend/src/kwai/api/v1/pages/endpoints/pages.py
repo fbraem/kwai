@@ -63,7 +63,7 @@ async def get_page(
     command = GetPageCommand(id=id)
     page = await GetPage(PageDbRepository(db)).execute(command)
 
-    document = PageResource.serialize(page)
+    document = PageResource.serialize(PageResource(page))
 
     return document
 
