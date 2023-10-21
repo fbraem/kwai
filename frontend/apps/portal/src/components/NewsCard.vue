@@ -6,19 +6,19 @@
     >
       <div class="text-center p-2 bg-red-600 text-white min-w-fit">
         <span class="block font-bold text-xl">
-          {{ story.publish_date.format('D') }}
+          {{ newsItem.publish_date.format('D') }}
         </span>
         <span class="block text-sm">
-          {{ story.publish_date.format('MMM') }}
+          {{ newsItem.publish_date.format('MMM') }}
         </span>
         <span class="block text-sm">
-          {{ story.publish_date.format('YYYY') }}
+          {{ newsItem.publish_date.format('YYYY') }}
         </span>
       </div>
       <div class="flex-grow p-2 border-b-2 border-red-600 items-center">
         <h3 class="text-xl text-gray-500 font-bold">
           <router-link to="/news">
-            {{ story.contents[0].title }}
+            {{ newsItem.texts[0].title }}
           </router-link>
         </h3>
       </div>
@@ -26,7 +26,7 @@
     <div class="p-6 bg-white flex flex-col">
       <p
         class="text-gray-500"
-        v-html="story.contents[0].summary"
+        v-html="newsItem.texts[0].summary"
       />
       <div class="mt-6 self-end">
         <router-link
@@ -41,10 +41,10 @@
 </template>
 
 <script setup lang="ts">
-import type { NewsStory } from '@root/stores/newsStore';
+import type { NewsItem } from '@root/stores/newsStore';
 
 interface Props {
-  story: NewsStory
+  newsItem: NewsItem
 }
 
 defineProps<Props>();

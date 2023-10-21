@@ -8,20 +8,21 @@ import { createDateTimeFromUTC } from '@kwai/date';
 import { z } from 'zod';
 import useSWRV from 'swrv';
 
-const JsonApiContent = z.object({
+const JsonApiText = z.object({
   locale: z.string(),
+  format: z.string(),
   title: z.string(),
   summary: z.string(),
   content: z.nullable(z.string()),
 });
 
-const JsonApiNewsStory = z.object({
+const JsonApiNewsItem = z.object({
   id: z.string(),
-  type: z.literal('stories'),
+  type: z.literal('news_items'),
   attributes: z.object({
     priority: z.number(),
     publish_date: z.string(),
-    content: z.array(JsonApiContent),
+    texts: z.array(JsonApiText),
   }),
   relationships: z.object({
     application: z.object({
@@ -29,7 +30,7 @@ const JsonApiNewsStory = z.object({
     }),
   }),
 });
-type JsonApiNewsStoryType = z.infer<typeof JsonApiNewsStory>;
+type JsonApiNewsItemType = z.infer<typeof JsonApiNewsItem>;
 
 const JsonApiApplication = z.object({
   id: z.string(),
@@ -40,39 +41,39 @@ const JsonApiApplication = z.object({
   }),
 });
 
-const JsonApiNewsStoryData = z.object({
-  data: z.union([JsonApiNewsStory, z.array(JsonApiNewsStory).default([])]),
+const JsonApiNewsItemData = z.object({
+  data: z.union([JsonApiNewsItem, z.array(JsonApiNewsItem).default([])]),
   included: z.array(JsonApiApplication).default([]),
 });
-const JsonApiNewsStoryDocument = JsonApiDocument.extend(JsonApiNewsStoryData.shape);
-type JSONApiNewsStoryDocumentType = z.infer<typeof JsonApiNewsStoryData>;
+const JsonApiNewsItemDocument = JsonApiDocument.extend(JsonApiNewsItemData.shape);
+type JSONApiNewsItemDocumentType = z.infer<typeof JsonApiNewsItemData>;
 
-interface NewsStoryContent {
+interface NewsItemText {
   locale: string,
   title: string,
   summary: string,
   content?: string | null
 }
 
-export interface NewsStory {
+export interface NewsItem {
   id: string,
   priority: number,
   publish_date: DateType,
-  contents: NewsStoryContent[]
+  texts: NewsItemText[]
 }
 
-const toModel = (json: JSONApiNewsStoryDocumentType): NewsStory | NewsStory[] => {
-  const mapModel = (d: JsonApiDataType): NewsStory => {
-    const story = <JsonApiNewsStoryType> d;
+const toModel = (json: JSONApiNewsItemDocumentType): NewsItem | NewsItem[] => {
+  const mapModel = (d: JsonApiDataType): NewsItem => {
+    const newsItem = <JsonApiNewsItemType> d;
     return {
-      id: story.id,
-      priority: story.attributes.priority,
-      publish_date: createDateTimeFromUTC(story.attributes.publish_date, d.attributes.timezone),
-      contents: story.attributes.content.map(content => ({
-        locale: content.locale,
-        title: content.title,
-        summary: content.summary,
-        content: content.content,
+      id: newsItem.id,
+      priority: newsItem.attributes.priority,
+      publish_date: createDateTimeFromUTC(newsItem.attributes.publish_date, d.attributes.timezone),
+      texts: newsItem.attributes.texts.map(text => ({
+        locale: text.locale,
+        title: text.title,
+        summary: text.summary,
+        content: text.content,
       })),
     };
   };
@@ -83,7 +84,7 @@ const toModel = (json: JSONApiNewsStoryDocumentType): NewsStory | NewsStory[] =>
 };
 
 export const useNewsStore = defineStore('news', () => {
-  const items = ref<NewsStory[]>([]);
+  const items = ref<NewsItem[]>([]);
 
   const load = ({
     offset = ref(0),
@@ -92,7 +93,7 @@ export const useNewsStore = defineStore('news', () => {
     offset?: Ref<number>,
     limit?: Ref<number>
   } = {}) => {
-    const { data, isValidating, error } = useSWRV<JSONApiNewsStoryDocumentType>(
+    const { data, isValidating, error } = useSWRV<JSONApiNewsItemDocumentType>(
       'portal.news',
       () => {
         const api = useHttpApi().url('/v1/portal/news');
@@ -109,9 +110,9 @@ export const useNewsStore = defineStore('news', () => {
     watch(
       data,
       (nv) => {
-        const result = JsonApiNewsStoryDocument.safeParse(nv);
+        const result = JsonApiNewsItemDocument.safeParse(nv);
         if (result.success) {
-          items.value = <NewsStory[]>toModel(result.data);
+          items.value = <NewsItem[]>toModel(result.data);
         } else {
           console.log(result);
         }

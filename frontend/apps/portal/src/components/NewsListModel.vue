@@ -1,6 +1,9 @@
 <!-- A renderless component for loading news stories -->
 <template>
-  <slot :stories="stories" />
+  <slot
+    :loading="loading"
+    :news-items="newsItems"
+  />
 </template>
 
 <script setup lang="ts">
@@ -8,7 +11,7 @@ import { computed } from 'vue';
 import { useNewsStore } from '@root/stores/newsStore';
 
 const store = useNewsStore();
-store.load();
+const { loading } = store.load();
 
-const stories = computed(() => store.items);
+const newsItems = computed(() => store.items);
 </script>

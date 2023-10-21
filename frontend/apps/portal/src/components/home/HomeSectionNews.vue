@@ -1,13 +1,19 @@
 <template>
-  <section class="py-24 bg-zinc-50">
+  <section class="py-20 bg-zinc-50">
     <div class="container mx-auto px-12 flex flex-col">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <NewsList>
-          <template #default="{ story }">
-            <NewsCard :story="story" />
-          </template>
-        </NewsList>
-      </div>
+      <h2 class="text-4xl font-medium text-center pb-12">
+        Nieuws
+      </h2>
+      <NewsList>
+        <template #empty>
+          <div>
+            Momenteel zijn er geen hoofdpunten in ons nieuws.
+          </div>
+        </template>
+        <template #default="{ newsItem }">
+          <NewsCard :news-item="newsItem" />
+        </template>
+      </NewsList>
       <div class="mb-12">
         <h2 class="text-4xl font-medium text-center mb-6">
           Meer nieuws

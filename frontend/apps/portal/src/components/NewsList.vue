@@ -1,7 +1,17 @@
 <template>
-  <NewsListModel v-slot="{ stories }">
-    <template v-for="story in stories">
-      <slot :story="story" />
+  <NewsListModel v-slot="{ loading, newsItems }">
+    <slot
+      name="title"
+      :loading="loading"
+    />
+    <template v-if="newsItems.length === 0">
+      <slot name="empty" />
+    </template>
+    <template
+      v-for="newsItem in newsItems"
+      v-else
+    >
+      <slot :news-item="newsItem" />
     </template>
   </NewsListModel>
 </template>
