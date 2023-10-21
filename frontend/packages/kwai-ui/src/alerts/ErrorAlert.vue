@@ -10,6 +10,6 @@
 </template>
 
 <script setup lang="ts">
-import Alert from './Alert.vue'
-import ErrorIcon from "../icons/ErrorIcon.vue"
+import Alert from './Alert.vue';
+import ErrorIcon from '../icons/ErrorIcon.vue';
 </script>
