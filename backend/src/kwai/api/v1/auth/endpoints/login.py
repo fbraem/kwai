@@ -3,6 +3,7 @@
 import jwt
 from fastapi import APIRouter, Depends, Form, HTTPException, Response, status
 from fastapi.security import OAuth2PasswordRequestForm
+from jwt import ExpiredSignatureError
 from loguru import logger
 from pydantic import BaseModel
 
@@ -179,11 +180,16 @@ async def renew_access_token(
     Returns:
         TokenSchema: On success a new TokenSchema is returned.
     """
-    decoded_refresh_token = jwt.decode(
-        refresh_token,
-        key=settings.security.jwt_refresh_secret,
-        algorithms=[settings.security.jwt_algorithm],
-    )
+    try:
+        decoded_refresh_token = jwt.decode(
+            refresh_token,
+            key=settings.security.jwt_refresh_secret,
+            algorithms=[settings.security.jwt_algorithm],
+        )
+    except ExpiredSignatureError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc)
+        ) from exc
 
     command = RefreshAccessTokenCommand(
         identifier=decoded_refresh_token["jti"],
