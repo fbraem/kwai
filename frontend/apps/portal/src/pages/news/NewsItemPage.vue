@@ -35,7 +35,7 @@
       >
         <hr>
         <div
-          class="py-5"
+          class="py-5 news-content"
           v-html="newsItem.texts[0].content"
         />
         <hr>
@@ -74,3 +74,36 @@ const publishDate = computed(() => {
   return '';
 });
 </script>
+
+<style>
+.news-content p {
+    @apply py-3;
+}
+.news-content ul, .news-content ul > * {
+  @apply list-disc list-inside;
+}
+
+.news-content h1 {
+    @apply text-2xl font-bold mb-3;
+}
+
+.news-content h2 {
+    @apply text-xl font-bold mb-3;
+}
+
+.news-content h3 {
+    @apply text-lg font-bold  mb-3;
+}
+
+.news-content h4 {
+    @apply font-bold mb-3;
+}
+
+.news-content a {
+    @apply underline text-blue-500;
+}
+
+.news-content blockquote {
+  @apply p-4 mb-4 border-l-4 bg-gray-200 border-gray-600;
+}
+</style>
