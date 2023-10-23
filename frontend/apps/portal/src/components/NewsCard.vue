@@ -4,17 +4,7 @@
       class="flex items-end bg-cover"
       to="/news"
     >
-      <div class="text-center p-2 bg-red-600 text-white min-w-fit">
-        <span class="block font-bold text-xl">
-          {{ newsItem.publish_date.format('D') }}
-        </span>
-        <span class="block text-sm">
-          {{ newsItem.publish_date.format('MMM') }}
-        </span>
-        <span class="block text-sm">
-          {{ newsItem.publish_date.format('YYYY') }}
-        </span>
-      </div>
+      <NewsDate :date="newsItem.publishDate " />
       <div class="flex-grow p-2 border-b-2 border-red-600 items-center">
         <h3 class="text-xl text-gray-500 font-bold">
           <router-link to="/news">
@@ -42,6 +32,7 @@
 
 <script setup lang="ts">
 import type { NewsItem } from '@root/stores/newsStore';
+import NewsDate from '@root/components/NewsDate.vue';
 
 interface Props {
   newsItem: NewsItem
