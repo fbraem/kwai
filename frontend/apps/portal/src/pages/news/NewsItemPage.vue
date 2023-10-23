@@ -39,8 +39,9 @@
           v-html="newsItem.texts[0].content"
         />
         <hr>
-        <div class="text-xs text-gray-600 pt-5">
-          Gepubliceerd op {{ publishDate }}
+        <div class="text-xs text-gray-600 pt-5 flex place-content-between">
+          <div>Gepubliceerd op {{ publishDate }}</div>
+          <div>{{ newsItem.application.title }}</div>
         </div>
       </div>
     </div>
