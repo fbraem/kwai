@@ -1,17 +1,18 @@
 <!-- A renderless component for loading news stories -->
 <template>
   <slot
-    :loading="loading"
-    :news-items="newsItems"
+    :loading="isLoading"
+    :news-items="data"
   />
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useNewsStore } from '@root/stores/newsStore';
+import { useNewsItems, usePromotedNewsItems } from '@root/composables/useNewsItem';
 
-const store = useNewsStore();
-const { loading } = store.load();
+interface Props {
+  promoted: Boolean
+}
+const props = defineProps<Props>();
 
-const newsItems = computed(() => store.items);
+const { isLoading, data } = (props.promoted) ? usePromotedNewsItems() : useNewsItems();
 </script>

@@ -4,9 +4,9 @@
       <h2 class="text-4xl font-medium text-center pb-12">
         Nieuws
       </h2>
-      <NewsList>
+      <NewsList :promoted="true">
         <template #empty>
-          <div>
+          <div class="text-gray-600 text-center mb-6">
             Momenteel zijn er geen hoofdpunten in ons nieuws.
           </div>
         </template>
