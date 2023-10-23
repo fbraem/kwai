@@ -4,6 +4,8 @@ import { JsonApiDocument, JsonResourceIdentifier, useHttpApi } from '@kwai/api';
 import { z } from 'zod';
 import { createDateTimeFromUTC } from '@kwai/date';
 import type { DateType } from '@kwai/date';
+import { ref } from 'vue';
+import type { Ref } from 'vue';
 
 const JsonApiText = z.object({
   locale: z.string(),
@@ -37,6 +39,7 @@ const JsonApiApplication = z.object({
     title: z.string(),
   }),
 });
+type JsonApiApplicationType = z.infer<typeof JsonApiApplication>;
 
 const JsonApiNewsItemData = z.object({
   data: z.union([JsonApiNewsItem, z.array(JsonApiNewsItem).default([])]),
@@ -52,16 +55,26 @@ interface NewsItemText {
   content?: string | null
 }
 
+interface Application {
+  title: string,
+  name: string
+}
+
 export interface NewsItem {
   id: string,
   priority: number,
   publishDate: DateType,
-  texts: NewsItemText[]
+  texts: NewsItemText[],
+  application: Application
 }
 
 const toModel = (json: JSONApiNewsItemDocumentType): NewsItem | NewsItem[] => {
   const mapModel = (d: JsonApiDataType): NewsItem => {
     const newsItem = <JsonApiNewsItemType> d;
+    const application = <JsonApiApplicationType> json.included.find(
+      included => included.type === JsonApiApplication.shape.type.value && included.id === newsItem.relationships.application.data.id
+    );
+
     return {
       id: newsItem.id,
       priority: newsItem.attributes.priority,
@@ -72,6 +85,10 @@ const toModel = (json: JSONApiNewsItemDocumentType): NewsItem | NewsItem[] => {
         summary: text.summary,
         content: text.content,
       })),
+      application: {
+        title: application.attributes.title,
+        name: application.attributes.name,
+      },
     };
   };
   if (Array.isArray(json.data)) {
@@ -96,5 +113,47 @@ export const useNewsItem = (id: string) => {
   return useQuery({
     queryKey: ['portal/news_items', id],
     queryFn: () => getNewsItem(id),
+  });
+};
+
+const getNewsItems = (options: {
+    offset: Ref<number>,
+    limit: Ref<number>,
+  }) => {
+  const api = useHttpApi().url('/v1/news_items');
+  return api.get().json(json => {
+    const result = JsonApiNewsItemDocument.safeParse(json);
+    if (result.success) {
+      return toModel(result.data);
+    }
+    throw result.error;
+  });
+};
+
+export const useNewsItems = ({ offset = ref(0), limit = ref(0) } : {
+    offset?: Ref<number>,
+    limit?: Ref<number>
+  } = {}) => {
+  return useQuery({
+    queryKey: ['portal/news_items', offset, limit],
+    queryFn: () => getNewsItems({ offset, limit }),
+  });
+};
+
+const getPromotedNewsItems = () => {
+  const api = useHttpApi().url('/v1/portal/news');
+  return api.get().json(json => {
+    const result = JsonApiNewsItemDocument.safeParse(json);
+    if (result.success) {
+      return toModel(result.data);
+    }
+    throw result.error;
+  });
+};
+
+export const usePromotedNewsItems = () => {
+  return useQuery({
+    queryKey: ['portal/promoted_news_items'],
+    queryFn: () => getPromotedNewsItems(),
   });
 };
