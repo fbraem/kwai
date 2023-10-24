@@ -130,16 +130,6 @@ const getNewsItems = (options: {
   });
 };
 
-export const useNewsItems = ({ offset = ref(0), limit = ref(0) } : {
-    offset?: Ref<number>,
-    limit?: Ref<number>
-  } = {}) => {
-  return useQuery({
-    queryKey: ['portal/news_items', offset, limit],
-    queryFn: () => getNewsItems({ offset, limit }),
-  });
-};
-
 const getPromotedNewsItems = () => {
   const api = useHttpApi().url('/v1/portal/news');
   return api.get().json(json => {
@@ -151,9 +141,16 @@ const getPromotedNewsItems = () => {
   });
 };
 
-export const usePromotedNewsItems = () => {
-  return useQuery({
-    queryKey: ['portal/promoted_news_items'],
-    queryFn: () => getPromotedNewsItems(),
-  });
+export const useNewsItems = ({ promoted = false, offset = ref(0), limit = ref(0) } : {promoted?: Boolean, offset?: Ref<number>, limit?: Ref<number>}) => {
+  if (promoted) {
+    return useQuery({
+      queryKey: ['portal/promoted_news_items'],
+      queryFn: () => getPromotedNewsItems(),
+    });
+  } else {
+    return useQuery({
+      queryKey: ['portal/news_items'],
+      queryFn: () => getNewsItems({ offset, limit }),
+    });
+  }
 };

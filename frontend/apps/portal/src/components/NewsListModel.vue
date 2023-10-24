@@ -7,12 +7,12 @@
 </template>
 
 <script setup lang="ts">
-import { useNewsItems, usePromotedNewsItems } from '@root/composables/useNewsItem';
+import { useNewsItems } from '@root/composables/useNewsItem';
 
 interface Props {
   promoted: Boolean
 }
 const props = defineProps<Props>();
 
-const { isLoading, data } = (props.promoted) ? usePromotedNewsItems() : useNewsItems();
+const { isLoading, data } = useNewsItems({ promoted: props.promoted });
 </script>
