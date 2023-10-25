@@ -97,13 +97,13 @@ const toModel = (json: JSONApiNewsItemDocumentType): NewsItem | NewsItem[] => {
   return mapModel(json.data);
 };
 
-const getNewsItem = (id: string) => {
+const getNewsItem = (id: string) : Promise<NewsItem> => {
   const url = `/v1/news_items/${id}`;
   const api = useHttpApi().url(url);
   return api.get().json(json => {
     const result = JsonApiNewsItemDocument.safeParse(json);
     if (result.success) {
-      return toModel(result.data);
+      return <NewsItem> toModel(result.data);
     }
     throw result.error;
   });
@@ -119,23 +119,23 @@ export const useNewsItem = (id: string) => {
 const getNewsItems = (options: {
     offset: Ref<number>,
     limit: Ref<number>,
-  }) => {
+  }) : Promise<NewsItem[]> => {
   const api = useHttpApi().url('/v1/news_items');
   return api.get().json(json => {
     const result = JsonApiNewsItemDocument.safeParse(json);
     if (result.success) {
-      return toModel(result.data);
+      return <NewsItem[]> toModel(result.data);
     }
     throw result.error;
   });
 };
 
-const getPromotedNewsItems = () => {
+const getPromotedNewsItems = () : Promise<NewsItem[]> => {
   const api = useHttpApi().url('/v1/portal/news');
   return api.get().json(json => {
     const result = JsonApiNewsItemDocument.safeParse(json);
     if (result.success) {
-      return toModel(result.data);
+      return <NewsItem[]> toModel(result.data);
     }
     throw result.error;
   });
