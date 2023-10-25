@@ -65,7 +65,7 @@ const retry = () => {
 const { isLoading, isFetching, isError, data: newsItem, error } = useNewsItem(props.id);
 
 const publishDate = computed(() => {
-  if (newsItem) {
+  if (newsItem.value) {
     return newsItem.value.publishDate.format('DD-MM-YYYY HH:mm:ss');
   }
   return '';
