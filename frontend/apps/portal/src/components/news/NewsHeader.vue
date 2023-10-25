@@ -5,10 +5,8 @@
   >
     <NewsDate :date="newsItem.publishDate " />
     <div class="flex-grow p-2 border-b-2 border-red-600 items-center">
-      <h3 class="text-xl text-gray-500 font-bold">
-        <router-link to="/news">
-          {{ newsItem.texts[0].title }}
-        </router-link>
+      <h3 class="text-2xl text-gray-500 font-bold">
+        {{ newsItem.texts[0].title }}
       </h3>
     </div>
   </router-link>
