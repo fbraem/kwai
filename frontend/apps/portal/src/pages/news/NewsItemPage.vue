@@ -45,10 +45,9 @@
 </template>
 
 <script setup lang="ts">
-import { useNewsItem } from '@root/composables/useNewsItem.ts';
+import { useNewsItem } from '@root/composables/useNewsItem';
 import { LoadingAlert, ErrorAlert } from '@kwai/ui';
 import { useQueryClient } from '@tanstack/vue-query';
-import SectionTitle from '@root/components/SectionTitle.vue';
 import IntroductionText from '@root/components/IntroductionText.vue';
 import NewsHeader from '@root/components/news/NewsHeader.vue';
 import { computed } from 'vue';
@@ -60,7 +59,7 @@ const props = defineProps<NewsItemPageProperty>();
 
 const queryClient = useQueryClient();
 const retry = () => {
-  queryClient.invalidateQueries(['portal/news', props.id]);
+  queryClient.invalidateQueries({ queryKey: ['portal/news', props.id] });
 };
 
 const { isLoading, isFetching, isError, data: newsItem, error } = useNewsItem(props.id);
