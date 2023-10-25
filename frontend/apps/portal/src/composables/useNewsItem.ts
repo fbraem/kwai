@@ -110,7 +110,7 @@ const getNewsItem = (id: string) : Promise<NewsItem> => {
 };
 
 export const useNewsItem = (id: string) => {
-  return useQuery({
+  return useQuery<NewsItem>({
     queryKey: ['portal/news_items', id],
     queryFn: () => getNewsItem(id),
   });
@@ -143,12 +143,12 @@ const getPromotedNewsItems = () : Promise<NewsItem[]> => {
 
 export const useNewsItems = ({ promoted = false, offset = ref(0), limit = ref(0) } : {promoted?: Boolean, offset?: Ref<number>, limit?: Ref<number>}) => {
   if (promoted) {
-    return useQuery({
+    return useQuery<NewsItem[]>({
       queryKey: ['portal/promoted_news_items'],
       queryFn: () => getPromotedNewsItems(),
     });
   } else {
-    return useQuery({
+    return useQuery<NewsItem[]>({
       queryKey: ['portal/news_items'],
       queryFn: () => getNewsItems({ offset, limit }),
     });
