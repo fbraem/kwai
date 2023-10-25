@@ -1,18 +1,6 @@
 <template>
   <div class="mb-7 bg-white flex flex-col">
-    <router-link
-      class="flex items-end bg-cover"
-      to="/news"
-    >
-      <NewsDate :date="newsItem.publishDate " />
-      <div class="flex-grow p-2 border-b-2 border-red-600 items-center">
-        <h3 class="text-xl text-gray-500 font-bold">
-          <router-link to="/news">
-            {{ newsItem.texts[0].title }}
-          </router-link>
-        </h3>
-      </div>
-    </router-link>
+    <NewsHeader :news-item="newsItem" />
     <div class="p-6 bg-white flex flex-col">
       <p
         class="text-gray-500"
@@ -31,8 +19,8 @@
 </template>
 
 <script setup lang="ts">
-import type { NewsItem } from '@root/stores/newsStore';
-import NewsDate from '@root/components/NewsDate.vue';
+import type { NewsItem } from '@root/composables/useNewsItem.ts';
+import NewsHeader from '@root/components/news/NewsHeader.vue';
 
 interface Props {
   newsItem: NewsItem

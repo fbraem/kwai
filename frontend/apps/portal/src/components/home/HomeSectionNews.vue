@@ -33,6 +33,6 @@
 </template>
 
 <script setup lang="ts">
-import NewsList from '@root/components/NewsList.vue';
-import NewsCard from '@root/components/NewsCard.vue';
+import NewsList from '@root/components/news/NewsList.vue';
+import NewsCard from '@root/components/news/NewsCard.vue';
 </script>
