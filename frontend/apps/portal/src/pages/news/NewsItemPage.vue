@@ -1,13 +1,9 @@
 <template>
-  <div class="container mx-auto py-20">
-    <SectionTitle class="text-center">
-      <span v-if="newsItem">
-        {{ newsItem.texts[0].title }}
-      </span>
-      <span v-else>
-        Nieuws
-      </span>
-    </SectionTitle>
+  <div
+    v-if="newsItem"
+    class="container mx-auto py-20"
+  >
+    <NewsHeader :news-item="newsItem" />
     <LoadingAlert v-if="isLoading">
       Even geduld, we laden momenteel het nieuwsbericht...
     </LoadingAlert>
@@ -54,6 +50,7 @@ import { LoadingAlert, ErrorAlert } from '@kwai/ui';
 import { useQueryClient } from '@tanstack/vue-query';
 import SectionTitle from '@root/components/SectionTitle.vue';
 import IntroductionText from '@root/components/IntroductionText.vue';
+import NewsHeader from '@root/components/news/NewsHeader.vue';
 import { computed } from 'vue';
 
 interface NewsItemPageProperty {
