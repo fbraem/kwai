@@ -21,9 +21,9 @@
 <script setup lang="ts">
 import { useNewsItems } from '@root/composables/useNewsItem';
 interface Props {
-  promoted: boolean
+  promoted?: boolean
 }
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), { promoted: false });
 
 const { isLoading, data: newsItems } = useNewsItems({ promoted: props.promoted });
 
