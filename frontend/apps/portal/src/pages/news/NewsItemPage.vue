@@ -8,7 +8,7 @@
       Even geduld, we laden momenteel het nieuwsbericht...
     </LoadingAlert>
     <ErrorAlert
-      v-else-if="error"
+      v-else-if="isError"
       class="max-w-lg mx-auto"
     >
       Oeps, er is iets fout gelopen...
@@ -62,7 +62,7 @@ const retry = () => {
   queryClient.invalidateQueries({ queryKey: ['portal/news', props.id] });
 };
 
-const { isLoading, isFetching, isError, data: newsItem, error } = useNewsItem(props.id);
+const { isLoading, isError, data: newsItem } = useNewsItem(props.id);
 
 const publishDate = computed(() => {
   if (newsItem.value) {
