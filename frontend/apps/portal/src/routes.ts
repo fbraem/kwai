@@ -35,10 +35,16 @@ const routes: RouteRecordRaw[] = [
             component: NewsListPage,
           },
           {
-            name: 'news_item',
+            name: 'portal.news.item',
             path: ':id(\\d+)',
             props: true,
             component: NewsItemPage,
+          },
+          {
+            name: 'portal.news.application',
+            path: 'application/:application',
+            props: true,
+            component: NewsListPage,
           },
         ],
       },
