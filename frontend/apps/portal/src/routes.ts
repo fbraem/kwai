@@ -3,6 +3,7 @@ import HomePage from '@theme/pages/HomePage.vue';
 import TrainingsPage from '@theme/pages/TrainingsPage.vue';
 import NewsPage from '@theme/pages/news/NewsPage.vue';
 import NewsListPage from '@root/pages/news/NewsListPage.vue';
+import NewsApplicationListPage from '@root/pages/news/NewsApplicationListPage.vue';
 import NewsItemPage from '@theme/pages/news/NewsItemPage.vue';
 import TrainingsArticlePage from '@theme/pages/trainings/TrainingsArticlePage.vue';
 import ApplicationPage from '@theme/pages/ApplicationPage.vue';
@@ -44,7 +45,7 @@ const routes: RouteRecordRaw[] = [
             name: 'portal.news.application',
             path: 'application/:application',
             props: true,
-            component: NewsListPage,
+            component: NewsApplicationListPage,
           },
         ],
       },
