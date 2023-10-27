@@ -21,7 +21,7 @@
     </ErrorAlert>
     <div
       v-else-if="newsItem"
-      class="pt-5 xl:px-80"
+      class="pt-5"
     >
       <IntroductionText>
         <div v-html="newsItem.texts[0].summary" />
