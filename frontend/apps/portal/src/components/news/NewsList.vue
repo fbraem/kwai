@@ -1,33 +1,30 @@
 <template>
-  <NewsListModel
-    v-slot="{ loading, newsItems }"
-    :promoted="promoted"
-  >
+  <div>
     <slot
       name="title"
-      :loading="loading"
+      :loading="isLoading"
     />
     <template v-if="newsItems">
-      <template v-if="newsItems.length === 0">
+      <template v-if="newsItems.items.length === 0">
         <slot name="empty" />
       </template>
       <template
-        v-for="newsItem in newsItems"
+        v-for="newsItem in newsItems.items"
         v-else
       >
         <slot :news-item="newsItem" />
       </template>
     </template>
-  </NewsListModel>
+  </div>
 </template>
 
 <script setup lang="ts">
-import NewsListModel from './NewsListModel.vue';
-
-import { toRefs } from 'vue';
+import { useNewsItems } from '@root/composables/useNewsItem';
 interface Props {
   promoted: boolean
 }
 const props = defineProps<Props>();
-const { promoted } = toRefs(props);
+
+const { isLoading, data: newsItems } = useNewsItems({ promoted: props.promoted });
+
 </script>

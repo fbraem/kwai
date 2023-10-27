@@ -68,7 +68,12 @@ export interface NewsItem {
   application: Application
 }
 
-const toModel = (json: JSONApiNewsItemDocumentType): NewsItem | NewsItem[] => {
+interface NewsItemsWithMeta {
+  meta: { count: number, offset: number, limit: number },
+  items: NewsItem[]
+}
+
+const toModel = (json: JSONApiNewsItemDocumentType): NewsItem | NewsItemsWithMeta => {
   const mapModel = (d: JsonApiDataType): NewsItem => {
     const newsItem = <JsonApiNewsItemType> d;
     const application = <JsonApiApplicationType> json.included.find(
@@ -92,7 +97,14 @@ const toModel = (json: JSONApiNewsItemDocumentType): NewsItem | NewsItem[] => {
     };
   };
   if (Array.isArray(json.data)) {
-    return json.data.map(mapModel);
+    return {
+      meta: {
+        count: json.meta.count,
+        offset: json.meta.offset,
+        limit: json.meta.offset,
+      },
+      items: json.data.map(mapModel),
+    };
   }
   return mapModel(json.data);
 };
@@ -119,23 +131,23 @@ export const useNewsItem = (id: string) => {
 const getNewsItems = (options: {
     offset: Ref<number>,
     limit: Ref<number>,
-  }) : Promise<NewsItem[]> => {
+  }) : Promise<NewsItemsWithMeta> => {
   const api = useHttpApi().url('/v1/news_items');
   return api.get().json(json => {
     const result = JsonApiNewsItemDocument.safeParse(json);
     if (result.success) {
-      return <NewsItem[]> toModel(result.data);
+      return toModel(result.data);
     }
     throw result.error;
   });
 };
 
-const getPromotedNewsItems = () : Promise<NewsItem[]> => {
+const getPromotedNewsItems = () : Promise<NewsItemsWithMeta> => {
   const api = useHttpApi().url('/v1/portal/news');
   return api.get().json(json => {
     const result = JsonApiNewsItemDocument.safeParse(json);
     if (result.success) {
-      return <NewsItem[]> toModel(result.data);
+      return toModel(result.data);
     }
     throw result.error;
   });
@@ -143,12 +155,12 @@ const getPromotedNewsItems = () : Promise<NewsItem[]> => {
 
 export const useNewsItems = ({ promoted = false, offset = ref(0), limit = ref(0) } : {promoted?: boolean, offset?: Ref<number>, limit?: Ref<number>}) => {
   if (promoted) {
-    return useQuery<NewsItem[]>({
+    return useQuery<NewsItemsWithMeta>({
       queryKey: ['portal/promoted_news_items'],
       queryFn: () => getPromotedNewsItems(),
     });
   } else {
-    return useQuery<NewsItem[]>({
+    return useQuery<NewsItemsWithMeta>({
       queryKey: ['portal/news_items'],
       queryFn: () => getNewsItems({ offset, limit }),
     });
