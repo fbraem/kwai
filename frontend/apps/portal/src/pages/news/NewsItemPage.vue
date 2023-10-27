@@ -73,7 +73,7 @@ const publishDate = computed(() => {
 </script>
 
 <style>
-.news-content p {
+.news-content p, .news-content ul {
     @apply py-3;
 }
 .news-content ul, .news-content ul > * {
@@ -81,15 +81,15 @@ const publishDate = computed(() => {
 }
 
 .news-content h1 {
-    @apply text-2xl font-bold mb-3;
+    @apply text-2xl font-bold;
 }
 
 .news-content h2 {
-    @apply text-xl font-bold mb-3;
+    @apply text-xl font-bold;
 }
 
 .news-content h3 {
-    @apply text-lg font-bold  mb-3;
+    @apply text-lg font-bold;
 }
 
 .news-content h4 {
