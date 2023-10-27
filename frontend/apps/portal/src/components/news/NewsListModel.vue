@@ -10,7 +10,7 @@
 import { useNewsItems } from '@root/composables/useNewsItem';
 
 interface Props {
-  promoted: Boolean
+  promoted: boolean
 }
 const props = defineProps<Props>();
 

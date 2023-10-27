@@ -26,7 +26,7 @@ import NewsListModel from './NewsListModel.vue';
 
 import { toRefs } from 'vue';
 interface Props {
-  promoted: Boolean
+  promoted: boolean
 }
 const props = defineProps<Props>();
 const { promoted } = toRefs(props);

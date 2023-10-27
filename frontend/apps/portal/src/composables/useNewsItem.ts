@@ -141,7 +141,7 @@ const getPromotedNewsItems = () : Promise<NewsItem[]> => {
   });
 };
 
-export const useNewsItems = ({ promoted = false, offset = ref(0), limit = ref(0) } : {promoted?: Boolean, offset?: Ref<number>, limit?: Ref<number>}) => {
+export const useNewsItems = ({ promoted = false, offset = ref(0), limit = ref(0) } : {promoted?: boolean, offset?: Ref<number>, limit?: Ref<number>}) => {
   if (promoted) {
     return useQuery<NewsItem[]>({
       queryKey: ['portal/promoted_news_items'],
