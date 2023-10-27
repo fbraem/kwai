@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="newsItem"
-    class="container mx-auto py-20"
+    class="container mx-auto py-20 px-2"
   >
     <NewsHeader :news-item="newsItem" />
     <LoadingAlert v-if="isLoading">
