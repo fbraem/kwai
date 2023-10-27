@@ -12,9 +12,9 @@
         :to="`/news/application/${newsItem.application.name}`"
       >
         <div>
-          <span class="inline-block font-bold text-xs bg-gray-200 px-[0.65em] pb-[0.25em] pt-[0.35em]">
+          <ApplicationBadge class="font-bold text-xs bg-gray-200">
             {{ newsItem.application.title }}
-          </span>
+          </ApplicationBadge>
         </div>
       </router-link>
     </div>
@@ -24,6 +24,7 @@
 <script setup lang="ts">
 import NewsDate from '@root/components/news/NewsDate.vue';
 import type { NewsItem } from '@root/composables/useNewsItem.ts';
+import ApplicationBadge from '@root/components/ApplicationBadge.vue';
 
 interface Props {
   newsItem: NewsItem
