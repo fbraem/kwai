@@ -1,3 +1,17 @@
+<script setup lang="ts">
+import { useNewsItems } from '@root/composables/useNewsItem';
+import { ref } from 'vue';
+interface Props {
+  promoted?: boolean,
+  application?: string | null
+}
+const props = withDefaults(defineProps<Props>(), { promoted: false, application: null });
+
+const application = props.application ? ref(props.application) : null;
+
+const { isLoading, data: newsItems } = useNewsItems({ promoted: props.promoted, application });
+</script>
+
 <template>
   <div>
     <slot
@@ -17,14 +31,3 @@
     </template>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useNewsItems } from '@root/composables/useNewsItem';
-interface Props {
-  promoted?: boolean
-}
-const props = withDefaults(defineProps<Props>(), { promoted: false });
-
-const { isLoading, data: newsItems } = useNewsItems({ promoted: props.promoted });
-
-</script>
