@@ -46,7 +46,7 @@ const JsonApiNewsItemData = z.object({
   included: z.array(JsonApiApplication).default([]),
 });
 const JsonApiNewsItemDocument = JsonApiDocument.extend(JsonApiNewsItemData.shape);
-type JSONApiNewsItemDocumentType = z.infer<typeof JsonApiNewsItemData>;
+type JSONApiNewsItemDocumentType = z.infer<typeof JsonApiNewsItemDocument>;
 
 interface NewsItemText {
   locale: string,
@@ -99,9 +99,9 @@ const toModel = (json: JSONApiNewsItemDocumentType): NewsItem | NewsItemsWithMet
   if (Array.isArray(json.data)) {
     return {
       meta: {
-        count: json.meta.count,
-        offset: json.meta.offset,
-        limit: json.meta.offset,
+        count: json.meta?.count || 0,
+        offset: json.meta?.offset || 0,
+        limit: json.meta?.offset || 0,
       },
       items: json.data.map(mapModel),
     };
@@ -140,7 +140,7 @@ const getNewsItems = (options: {
   return api.get().json(json => {
     const result = JsonApiNewsItemDocument.safeParse(json);
     if (result.success) {
-      return toModel(result.data);
+      return <NewsItemsWithMeta> toModel(result.data);
     }
     throw result.error;
   });
@@ -151,7 +151,7 @@ const getPromotedNewsItems = () : Promise<NewsItemsWithMeta> => {
   return api.get().json(json => {
     const result = JsonApiNewsItemDocument.safeParse(json);
     if (result.success) {
-      return toModel(result.data);
+      return <NewsItemsWithMeta> toModel(result.data);
     }
     throw result.error;
   });
