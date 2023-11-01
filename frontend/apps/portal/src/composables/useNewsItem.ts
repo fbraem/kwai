@@ -128,14 +128,24 @@ export const useNewsItem = (id: string) => {
   });
 };
 
-const getNewsItems = (options: {
-    offset: Ref<number>,
-    limit: Ref<number>,
-    application: Ref<string> | null
+const getNewsItems = ({
+  offset = null,
+  limit = null,
+  application = null,
+} : {
+    offset?: Ref<number> | null,
+    limit?: Ref<number> | null,
+    application?: Ref<string> | null
   }) : Promise<NewsItemsWithMeta> => {
   let api = useHttpApi().url('/v1/news_items');
-  if (options.application?.value) {
-    api = api.query({ 'filter[application]': options.application.value });
+  if (application) {
+    api = api.query({ 'filter[application]': application.value });
+  }
+  if (offset) {
+    api = api.query({ 'page[offset]': offset.value });
+  }
+  if (limit) {
+    api = api.query({ 'page[limit]': limit.value });
   }
   return api.get().json(json => {
     const result = JsonApiNewsItemDocument.safeParse(json);
@@ -164,8 +174,13 @@ export const useNewsItems = ({ promoted = false, application = null, offset = re
       queryFn: () => getPromotedNewsItems(),
     });
   } else {
+    const queryKey : { offset: Ref<number>, limit: Ref<number>, application?: Ref<string> | null} = { offset, limit };
+    if (application) {
+      queryKey.application = application;
+    }
+    console.log(queryKey);
     return useQuery<NewsItemsWithMeta>({
-      queryKey: application ? ['portal/news_items', application] : ['portal/news_items'],
+      queryKey: ['portal/news_items', queryKey],
       queryFn: () => getNewsItems({ offset, limit, application }),
     });
   }
