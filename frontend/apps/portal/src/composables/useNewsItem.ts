@@ -178,7 +178,6 @@ export const useNewsItems = ({ promoted = false, application = null, offset = re
     if (application) {
       queryKey.application = application;
     }
-    console.log(queryKey);
     return useQuery<NewsItemsWithMeta>({
       queryKey: ['portal/news_items', queryKey],
       queryFn: () => getNewsItems({ offset, limit, application }),
