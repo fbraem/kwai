@@ -1,3 +1,20 @@
+<script setup lang="ts">
+// eslint-disable-next-line import/no-absolute-path
+import trainingImage from '/training.jpg';
+// eslint-disable-next-line import/no-absolute-path
+import sporthalImage from '/sporthal.jpg';
+
+import ApplicationList from '@root/components/ApplicationList.vue';
+import { useTrainingStore } from '@root/stores/trainingStore';
+import { computed } from 'vue';
+import LoadingIcon from '@root/components/icons/LoadingIcon.vue';
+
+const store = useTrainingStore();
+const { loading } = store.load();
+
+const trainings = computed(() => store.trainings);
+</script>
+
 <template>
   <section>
     <div
@@ -70,20 +87,3 @@
     </div>
   </section>
 </template>
-
-<script setup lang="ts">
-// eslint-disable-next-line import/no-absolute-path
-import trainingImage from '/training.jpg';
-// eslint-disable-next-line import/no-absolute-path
-import sporthalImage from '/sporthal.jpg';
-
-import ApplicationList from '@root/components/ApplicationList.vue';
-import { useTrainingStore } from '@root/stores/trainingStore';
-import { computed } from 'vue';
-import LoadingIcon from '@root/components/icons/LoadingIcon.vue';
-
-const store = useTrainingStore();
-const { loading } = store.load();
-
-const trainings = computed(() => store.trainings);
-</script>
