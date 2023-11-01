@@ -8,7 +8,7 @@
       />
       <div class="mt-6 self-end">
         <router-link
-          class="border border-red-600 bg-red-600 hover:bg-white hover:text-red-600 text-sm text-white py-1 px-3"
+          class="border border-red-600 bg-red-600 hover:bg-white hover:text-red-600 rounded text-sm text-white py-1 px-3"
           :to="`/news/${newsItem.id}`"
         >
           Lees meer ...
