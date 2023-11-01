@@ -5,14 +5,18 @@ import trainingImage from '/training.jpg';
 import sporthalImage from '/sporthal.jpg';
 
 import ApplicationList from '@root/components/ApplicationList.vue';
-import { useTrainingStore } from '@root/stores/trainingStore';
-import { computed } from 'vue';
 import LoadingIcon from '@root/components/icons/LoadingIcon.vue';
+import { useTrainings } from '@root/composables/useTraining';
+import type { TrainingPeriod } from '@root/composables/useTraining';
+import type { Ref } from 'vue';
+import { ref } from 'vue';
+import { now } from '@kwai/date';
 
-const store = useTrainingStore();
-const { loading } = store.load();
-
-const trainings = computed(() => store.trainings);
+const period : Ref<TrainingPeriod> = ref({
+  start: now(),
+  end: now().add(1, 'week'),
+});
+const { isLoading, data: trainings } = useTrainings(period);
 </script>
 
 <template>
@@ -46,21 +50,21 @@ const trainings = computed(() => store.trainings);
                 </p>
               </template>
             </ApplicationList>
-            <div v-if="trainings.length > 0">
+            <div v-if="trainings">
               <div class="flex flex-row gap-4 items-center">
                 <h3 class="text-white text-2xl font-semibold">
                   Volgende trainingen
                 </h3>
                 <div>
                   <LoadingIcon
-                    v-show="loading"
+                    v-show="isLoading"
                     class="w-8 h-8 fill-red-600 text-gray-600"
                   />
                 </div>
               </div>
               <div class="bg-gray-100 px-3 py-2 text-gray-800 rounded divide-y divide-gray-300">
                 <div
-                  v-for="training in trainings.slice(0, 4)"
+                  v-for="training in trainings.items.slice(0, 4)"
                   :key="training.id"
                   class="flex gap-4 py-1"
                 >
@@ -75,7 +79,7 @@ const trainings = computed(() => store.trainings);
             </div>
             <div class="my-6">
               <router-link
-                class="border border-red-600 bg-red-600 hover:bg-white hover:text-red-600 text-white rounded-full py-1.5 px-3"
+                class="border border-red-600 bg-red-600 hover:bg-white hover:text-red-600 rounded text-sm text-white py-1 px-3"
                 :to="{ 'name': 'portal.trainings' }"
               >
                 Alle trainingen
