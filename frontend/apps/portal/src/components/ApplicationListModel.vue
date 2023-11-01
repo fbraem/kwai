@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useApplicationStore } from '../stores/applicationStore';
 import { computed } from 'vue';
+import { useApplications } from '@root/composables/useApplication';
 
 interface Props {
   filter?: string[]
@@ -11,23 +11,24 @@ const props = withDefaults(
   }
 );
 
-const store = useApplicationStore();
-store.load();
+const { data: applications } = useApplications();
 
-const applications = computed(() => {
+const filteredApplications = computed(() => {
   // When application names are passed to the filter property,
   // only those applications matching the names will be returned.
   // The result will also be sorted in the order of the filter array.
-  if (props.filter.length > 0) {
-    const result = store.applications.filter(application => props.filter.includes(application.name));
-    return result.sort(function(a, b) {
-      return props.filter.indexOf(a.name) - props.filter.indexOf(b.name);
-    });
+  if (applications.value) {
+    if (props.filter.length > 0) {
+      const result = applications.value.filter(application => props.filter.includes(application.name));
+      return result.sort(function(a, b) {
+        return props.filter.indexOf(a.name) - props.filter.indexOf(b.name);
+      });
+    }
   }
-  return store.applications;
+  return applications.value;
 });
 </script>
 
 <template>
-  <slot :applications="applications" />
+  <slot :applications="filteredApplications" />
 </template>

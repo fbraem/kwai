@@ -20,7 +20,7 @@ const JsonApiApplicationData = z.object({
 const JsonApiApplicationDocument = JsonApiDocument.extend(JsonApiApplicationData.shape);
 type JsonApiApplicationDocumentType = z.infer<typeof JsonApiApplicationDocument>;
 
-interface Application {
+export interface Application {
   id: string,
   name: string,
   title: string,
@@ -60,5 +60,6 @@ export const useApplications = () => {
   return useQuery<Application[]>({
     queryKey: ['portal/applications'],
     queryFn: () => getApplications(),
+    staleTime: 10 * 1000 /* 10 seconds */,
   });
 };

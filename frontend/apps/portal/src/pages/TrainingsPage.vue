@@ -102,18 +102,22 @@ import IntroSection from '@root/components/IntroSection.vue';
 import TrainingWeek from '@root/pages/trainings/components/TrainingWeek.vue';
 import { useArticleStore } from '@root/stores/articleStore';
 import { computed } from 'vue';
-import { useApplicationStore } from '@root/stores/applicationStore';
 import { useRouter } from 'vue-router';
 import { useCoachStore } from '@root/stores/coachStore';
 
 // Coaches
 // eslint-disable-next-line import/no-absolute-path
 import noAvatarUrl from '/no_avatar.png';
+import { useApplications } from '@root/composables/useApplication';
 
 // Application
-const applicationStore = useApplicationStore();
-applicationStore.setActiveApplication('trainings');
-const application = computed(() => applicationStore.activeApplication);
+const { data: applications } = useApplications();
+const application = computed(() => {
+  if (applications.value) {
+    return applications.value.find(application => application.name === 'trainings');
+  }
+  return null;
+});
 const applicationId = computed(() => application.value?.id);
 
 // Articles
