@@ -13,7 +13,9 @@
       </div>
     </div>
   </IntroSection>
-  <router-view />
+  <div class="bg-zinc-50">
+    <router-view />
+  </div>
 </template>
 
 <script setup lang="ts">
