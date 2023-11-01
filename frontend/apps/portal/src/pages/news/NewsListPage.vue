@@ -5,6 +5,9 @@ import NewsCard from '@root/components/news/NewsCard.vue';
 
 <template>
   <div class="container mx-auto py-20 px-2">
+    <h2 class="text-4xl font-medium text-center pb-12">
+      Nieuwsoverzicht
+    </h2>
     <NewsList>
       <template #default="{ newsItem }">
         <NewsCard :news-item="newsItem" />
