@@ -1,7 +1,3 @@
-<template>
-  <slot :applications="applications" />
-</template>
-
 <script setup lang="ts">
 import { useApplicationStore } from '../stores/applicationStore';
 import { computed } from 'vue';
@@ -31,3 +27,7 @@ const applications = computed(() => {
   return store.applications;
 });
 </script>
+
+<template>
+  <slot :applications="applications" />
+</template>
