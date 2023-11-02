@@ -95,6 +95,8 @@ class GetTrainings:
         if command.active:
             query.filter_active()
 
+        query.order_by_date()
+
         return UseCaseBrowseResult(
             count=await query.count(),
             iterator=self._repo.get_all(query, command.limit, command.offset),
