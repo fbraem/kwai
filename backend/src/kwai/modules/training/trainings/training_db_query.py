@@ -154,6 +154,6 @@ class TrainingDbQuery(TrainingQuery, DatabaseQuery):
         return self._database.fetch(self._main_query)
 
     def order_by_date(self) -> "TrainingQuery":
-        self._query.order_by(TrainingsTable.column("start_date"), "DESC")
-        self._main_query.order_by(TrainingsTable.column("start_date"), "DESC")
+        self._query.order_by(TrainingsTable.column("start_date"), "ASC")
+        self._main_query.order_by(TrainingsTable.column("start_date"), "ASC")
         return self
