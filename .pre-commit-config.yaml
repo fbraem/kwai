@@ -15,4 +15,4 @@ repos:
     hooks:
     -   id: ruff
         types: [python]
-        args: [--ignore D102]
+        args: [--ignore=D102]
