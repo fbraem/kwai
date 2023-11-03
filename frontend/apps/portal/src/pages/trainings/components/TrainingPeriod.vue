@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Training } from '@root/stores/trainingStore';
+import type { Training } from '@root/composables/useTraining';
 
 interface Properties {
   training: Training
