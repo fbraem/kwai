@@ -1,3 +1,52 @@
+<script setup lang="ts">
+// eslint-disable-next-line import/no-absolute-path
+import trainingImage from '/training.jpg';
+
+import IntroSection from '@root/components/IntroSection.vue';
+import TrainingWeek from '@root/pages/trainings/components/TrainingWeek.vue';
+import { useArticleStore } from '@root/stores/articleStore';
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { useCoachStore } from '@root/stores/coachStore';
+
+// Coaches
+// eslint-disable-next-line import/no-absolute-path
+import noAvatarUrl from '/no_avatar.png';
+import { useApplications } from '@root/composables/useApplication';
+
+// Application
+const { data: applications } = useApplications();
+const application = computed(() => {
+  if (applications.value) {
+    return applications.value.find(application => application.name === 'trainings');
+  }
+  return null;
+});
+const applicationId = computed(() => application.value?.id);
+
+// Articles
+const articleStore = useArticleStore();
+articleStore.load({ application: applicationId });
+
+const articles = computed(() => articleStore.articles);
+
+const router = useRouter();
+const gotoArticle = async(id: string) => {
+  await router.push({
+    name: 'portal.trainings.article',
+    params: { id },
+  });
+  const el = document.querySelector('#article');
+  if (el) {
+    el.scrollIntoView({ block: 'center' });
+  }
+};
+
+const coachStore = useCoachStore();
+const coaches = computed(() => coachStore.coaches);
+coachStore.load();
+</script>
+
 <template>
   <IntroSection
     :hero-image-url="trainingImage"
@@ -93,52 +142,3 @@
     </div>
   </section>
 </template>
-
-<script setup lang="ts">
-// eslint-disable-next-line import/no-absolute-path
-import trainingImage from '/training.jpg';
-
-import IntroSection from '@root/components/IntroSection.vue';
-import TrainingWeek from '@root/pages/trainings/components/TrainingWeek.vue';
-import { useArticleStore } from '@root/stores/articleStore';
-import { computed } from 'vue';
-import { useRouter } from 'vue-router';
-import { useCoachStore } from '@root/stores/coachStore';
-
-// Coaches
-// eslint-disable-next-line import/no-absolute-path
-import noAvatarUrl from '/no_avatar.png';
-import { useApplications } from '@root/composables/useApplication';
-
-// Application
-const { data: applications } = useApplications();
-const application = computed(() => {
-  if (applications.value) {
-    return applications.value.find(application => application.name === 'trainings');
-  }
-  return null;
-});
-const applicationId = computed(() => application.value?.id);
-
-// Articles
-const articleStore = useArticleStore();
-articleStore.load({ application: applicationId });
-
-const articles = computed(() => articleStore.articles);
-
-const router = useRouter();
-const gotoArticle = async(id: string) => {
-  await router.push({
-    name: 'portal.trainings.article',
-    params: { id },
-  });
-  const el = document.querySelector('#article');
-  if (el) {
-    el.scrollIntoView({ block: 'center' });
-  }
-};
-
-const coachStore = useCoachStore();
-const coaches = computed(() => coachStore.coaches);
-coachStore.load();
-</script>
