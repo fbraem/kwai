@@ -7,12 +7,11 @@ defineProps<Props>();
 </script>
 
 <template>
-  <section>
-    <div
-      class="relative w-full bg-center bg-cover"
-      :style="{ 'background-image' : `url(${backgroundImage})` }"
-    >
-      <span class="absolute w-full h-full opacity-50 bg-gradient-to-br from-black to-red-600" />
+  <section
+    class="relative bg-center bg-cover"
+    :style="{ 'background-image' : `url(${backgroundImage})` }"
+  >
+    <div class="bg-red-600/30 backdrop-brightness-75">
       <slot />
     </div>
   </section>
