@@ -75,10 +75,10 @@ interface NewsItemsWithMeta {
 
 const toModel = (json: JSONApiNewsItemDocumentType): NewsItem | NewsItemsWithMeta => {
   const mapModel = (d: JsonApiDataType): NewsItem => {
-    const newsItem = <JsonApiNewsItemType> d;
-    const application = <JsonApiApplicationType> json.included.find(
+    const newsItem = d as JsonApiNewsItemType;
+    const application = json.included.find(
       included => included.type === JsonApiApplication.shape.type.value && included.id === newsItem.relationships.application.data.id
-    );
+    ) as JsonApiApplicationType;
 
     return {
       id: newsItem.id,
@@ -115,14 +115,14 @@ const getNewsItem = (id: string) : Promise<NewsItem> => {
   return api.get().json(json => {
     const result = JsonApiNewsItemDocument.safeParse(json);
     if (result.success) {
-      return <NewsItem> toModel(result.data);
+      return toModel(result.data) as NewsItem;
     }
     throw result.error;
   });
 };
 
 export const useNewsItem = (id: string) => {
-  return useQuery<NewsItem>({
+  return useQuery({
     queryKey: ['portal/news_items', id],
     queryFn: () => getNewsItem(id),
   });
@@ -150,7 +150,7 @@ const getNewsItems = ({
   return api.get().json(json => {
     const result = JsonApiNewsItemDocument.safeParse(json);
     if (result.success) {
-      return <NewsItemsWithMeta> toModel(result.data);
+      return toModel(result.data) as NewsItemsWithMeta;
     }
     throw result.error;
   });
@@ -161,7 +161,7 @@ const getPromotedNewsItems = () : Promise<NewsItemsWithMeta> => {
   return api.get().json(json => {
     const result = JsonApiNewsItemDocument.safeParse(json);
     if (result.success) {
-      return <NewsItemsWithMeta> toModel(result.data);
+      return toModel(result.data) as NewsItemsWithMeta;
     }
     throw result.error;
   });
@@ -178,7 +178,7 @@ export const useNewsItems = ({ promoted = false, application = null, offset = re
     if (application) {
       queryKey.application = application;
     }
-    return useQuery<NewsItemsWithMeta>({
+    return useQuery({
       queryKey: ['portal/news_items', queryKey],
       queryFn: () => getNewsItems({ offset, limit, application }),
     });
