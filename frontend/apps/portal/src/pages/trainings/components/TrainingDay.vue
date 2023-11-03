@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import TrainingPeriod from '@root/pages/trainings/components/TrainingPeriod.vue';
-import type { Training } from '@root/stores/trainingStore';
+import type { Training } from '@root/composables/useTraining';
 import { createDate } from '@kwai/date';
 import { computed, ref } from 'vue';
 
