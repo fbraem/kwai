@@ -9,7 +9,7 @@ defineProps<Props>();
 </script>
 
 <template>
-  <ol class="lg:ml-12 border-l border-red-600">
+  <ol class="border-l border-red-600">
     <li
       v-for="(trainingDay, day) in trainingDays"
       :key="day"
