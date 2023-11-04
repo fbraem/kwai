@@ -78,7 +78,7 @@ export function createDateFromString(value?: string, fmt: string = 'YYYY-MM-DD')
   return wrapDayjs(value ? dayjs(value, fmt) : dayjs());
 }
 
-export function createDatetime(value?: string, fmt: string = 'YYYY-MM-DD HH:mm:ss'): Readonly<DateType> {
+export function createDatetimeFromString(value?: string, fmt: string = 'YYYY-MM-DD HH:mm:ss'): Readonly<DateType> {
   return createDateFromString(value, fmt);
 }
 
