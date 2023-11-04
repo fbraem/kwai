@@ -49,7 +49,7 @@ const trainingDays = computed(() => {
         </template>
       </ApplicationList>
     </div>
-    <div class="flex flex-wrap p-12">
+    <div class="max-w-7xl mx-auto flex flex-wrap p-12">
       <div class="mb-12 w-full shrink-0 grow-0 basis-auto lg:mb-0 lg:w-5/12">
         <div class="flex lg:py-12">
           <img
