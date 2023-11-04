@@ -22,19 +22,19 @@ dayjs.extend(customParseFormat);
 dayjs.locale('nl');
 
 export interface DateType {
-  add(n: number, unit: string): Readonly<DateType>;
+  add(n: number, unit: string): DateType;
   day(): number;
-  endOf(unit: string): Readonly<DateType>;
+  endOf(unit: string): DateType;
   format(format?: string): string;
   month(): number;
-  startOf(unit: string): Readonly<DateType>;
+  startOf(unit: string): DateType;
   year(): number;
 }
 
-function wrapDayjs(d: dayjs.Dayjs): Readonly<DateType> {
+function wrapDayjs(d: dayjs.Dayjs): DateType {
   const value = d;
 
-  function add(n: number, unit: string): Readonly<DateType> {
+  function add(n: number, unit: string): DateType {
     return wrapDayjs(d.add(n, <ManipulateType> unit));
   }
 
@@ -42,7 +42,7 @@ function wrapDayjs(d: dayjs.Dayjs): Readonly<DateType> {
     return d.day();
   }
 
-  function endOf(unit: string): Readonly<DateType> {
+  function endOf(unit: string): DateType {
     return wrapDayjs(d.endOf(<OpUnitType> unit));
   }
 
@@ -54,7 +54,7 @@ function wrapDayjs(d: dayjs.Dayjs): Readonly<DateType> {
     return d.month();
   }
 
-  function startOf(unit: string): Readonly<DateType> {
+  function startOf(unit: string): DateType {
     return wrapDayjs(d.startOf(<OpUnitType> unit));
   }
 
@@ -74,25 +74,25 @@ function wrapDayjs(d: dayjs.Dayjs): Readonly<DateType> {
   });
 }
 
-export function createDate(year?: number | null, month?: number | null, day?: number | null): Readonly<DateType> {
+export function createDate(year?: number | null, month?: number | null, day?: number | null): DateType {
   year = year || dayjs().year();
   month = month || dayjs().month();
   day = day || dayjs().date();
   return wrapDayjs(dayjs(new Date(year, month, day)));
 }
 
-export function createDateFromString(value?: string, fmt: string = 'YYYY-MM-DD'): Readonly<DateType> {
+export function createDateFromString(value?: string, fmt: string = 'YYYY-MM-DD'): DateType {
   return wrapDayjs(value ? dayjs(value, fmt) : dayjs());
 }
 
-export function createDatetimeFromString(value?: string, fmt: string = 'YYYY-MM-DD HH:mm:ss'): Readonly<DateType> {
+export function createDatetimeFromString(value?: string, fmt: string = 'YYYY-MM-DD HH:mm:ss'): DateType {
   return createDateFromString(value, fmt);
 }
 
-export function createDateTimeFromUTC(value: string, fmt: string = 'YYYY-MM-DD HH:mm:ss'): Readonly<DateType> {
+export function createDateTimeFromUTC(value: string, fmt: string = 'YYYY-MM-DD HH:mm:ss'): DateType {
   return wrapDayjs(dayjs.utc(value, fmt).tz());
 }
 
-export function now(): Readonly<DateType> {
+export function now(): DateType {
   return createDateFromString();
 }
