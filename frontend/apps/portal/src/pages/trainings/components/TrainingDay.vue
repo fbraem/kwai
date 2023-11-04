@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import TrainingPeriod from '@root/pages/trainings/components/TrainingPeriod.vue';
 import type { Training } from '@root/composables/useTraining';
-import { createDate } from '@kwai/date';
+import { createDateFromString } from '@kwai/date';
 import { computed, ref } from 'vue';
 
 interface Properties {
@@ -34,7 +34,7 @@ interface Properties {
 }
 const props = defineProps<Properties>();
 
-const day = ref(createDate(props.day));
+const day = ref(createDateFromString(props.day));
 const formattedDay = computed(() => day.value.format('L'));
 const nameOfDay = computed(() => day.value.format('dddd'));
 </script>

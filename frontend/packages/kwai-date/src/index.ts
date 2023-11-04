@@ -74,12 +74,12 @@ function wrapDayjs(d: dayjs.Dayjs): Readonly<DateType> {
   });
 }
 
-export function createDate(value?: string, fmt: string = 'YYYY-MM-DD'): Readonly<DateType> {
+export function createDateFromString(value?: string, fmt: string = 'YYYY-MM-DD'): Readonly<DateType> {
   return wrapDayjs(value ? dayjs(value, fmt) : dayjs());
 }
 
 export function createDatetime(value?: string, fmt: string = 'YYYY-MM-DD HH:mm:ss'): Readonly<DateType> {
-  return createDate(value, fmt);
+  return createDateFromString(value, fmt);
 }
 
 export function createDateTimeFromUTC(value: string, fmt: string = 'YYYY-MM-DD HH:mm:ss'): Readonly<DateType> {
@@ -87,5 +87,5 @@ export function createDateTimeFromUTC(value: string, fmt: string = 'YYYY-MM-DD H
 }
 
 export function now(): Readonly<DateType> {
-  return createDate();
+  return createDateFromString();
 }

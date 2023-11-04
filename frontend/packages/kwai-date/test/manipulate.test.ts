@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createDate } from '@kwai/date';
+import { createDateFromString } from '../src';
 
 describe('manipulate', () => {
   it('can add a day', () => {
@@ -7,7 +7,7 @@ describe('manipulate', () => {
     const dateTomorrow = new Date();
     dateTomorrow.setDate(dateNow.getDate() + 1);
 
-    const now = createDate();
+    const now = createDateFromString();
     const tomorrow = now.add(1, 'd');
     expect(tomorrow.day()).eq(dateTomorrow.getDay());
   });

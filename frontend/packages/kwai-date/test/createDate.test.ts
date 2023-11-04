@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { createDate } from '@kwai/date';
+import { createDateFromString } from '../src';
 
-describe('createDate', () => {
+describe('createDateFromString', () => {
   const now = new Date();
   const year = now.getFullYear();
   const month = now.getMonth() + 1;
@@ -10,9 +10,9 @@ describe('createDate', () => {
   const stringDay = day.toString().padStart(2, '0');
 
   it('can create a date', () => {
-    expect(createDate().format('YYYY-MM-DD')).eq(`${year}-${stringMonth}-${stringDay}`);
+    expect(createDateFromString().format('YYYY-MM-DD')).eq(`${year}-${stringMonth}-${stringDay}`);
   });
   it('can format a date', () => {
-    expect(createDate().format('DD-MM-YYYY')).eq(`${stringDay}-${stringMonth}-${year}`);
+    expect(createDateFromString().format('DD-MM-YYYY')).eq(`${stringDay}-${stringMonth}-${year}`);
   });
 });
