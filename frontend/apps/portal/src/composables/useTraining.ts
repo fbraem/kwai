@@ -161,3 +161,21 @@ export const useTrainings = (period : Ref<TrainingPeriod>) => {
     queryFn: () => getTrainings(period.value),
   });
 };
+
+export type TrainingDays = {[key: string] : Training[]};
+
+/**
+ * Returns an object will all trainings per day. The day is used as property.
+ * @param trainings
+ */
+export const useTrainingDays = (trainings: Training[]) : TrainingDays => {
+  const result : TrainingDays = {};
+  trainings.forEach(training => {
+    const date = training.start_date.format('YYYY-MM-DD');
+    if (!result[date]) {
+      result[date] = [];
+    }
+    result[date].push(training);
+  });
+  return result;
+};
