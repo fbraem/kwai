@@ -12,6 +12,7 @@ import { computed, ref } from 'vue';
 import { now } from '@kwai/date';
 import ImageSection from '@root/components/ImageSection.vue';
 import BetweenIcon from '@root/components/icons/BetweenIcon.vue';
+import TrainingTimeline from '@root/pages/trainings/components/TrainingTimeline.vue';
 
 const period : Ref<TrainingPeriod> = ref({
   start: now(),
@@ -73,9 +74,10 @@ const trainingDays = computed(() => {
               <p>Wil je weten wanneer de volgende training is? Kijk dan op onze Training pagina.</p>
             </div>
           </div>
-          <ol
+          <TrainingTimeline
             v-if="!isLoading && Object.keys(trainingDays).length > 0"
-            class="lg:ml-12 border-l border-red-600"
+            :training-days="trainingDays"
+            class="lg:ml-12"
           >
             <li
               v-for="(trainingDay, day) in trainingDays"
@@ -102,7 +104,7 @@ const trainingDays = computed(() => {
                 </div>
               </div>
             </li>
-          </ol>
+          </TrainingTimeline>
           <div class="my-6 self-end">
             <router-link
               class="border border-red-600 bg-red-600 hover:bg-white hover:text-red-600 rounded text-sm text-white py-1 px-3"
