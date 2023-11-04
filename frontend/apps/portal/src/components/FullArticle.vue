@@ -1,25 +1,24 @@
 <template>
   <div class="container mx-auto">
     <h2 class="text-4xl mb-4">
-      {{ article.title }}
+      {{ page.texts[0].title }}
     </h2>
     <blockquote class="italic mb-4">
-      <div v-html="article.summary" />
+      <div v-html="page.texts[0].summary" />
     </blockquote>
     <div
       class="markdown"
-      v-html="article.content"
+      v-html="page.texts[0].content"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Article } from '@root/stores/articleStore';
 
-interface ArticleProperty {
-  article: Article
+interface PageProperty {
+  page: Page
 }
-defineProps<ArticleProperty>();
+defineProps<PageProperty>();
 </script>
 
 <style>

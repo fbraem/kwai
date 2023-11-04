@@ -3,16 +3,11 @@
 import trainingImage from '/training.jpg';
 
 import IntroSection from '@root/components/IntroSection.vue';
-import TrainingWeek from '@root/pages/trainings/components/TrainingWeek.vue';
-import { useArticleStore } from '@root/stores/articleStore';
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { useCoachStore } from '@root/stores/coachStore';
 
-// Coaches
-// eslint-disable-next-line import/no-absolute-path
-import noAvatarUrl from '/no_avatar.png';
 import { useApplications } from '@root/composables/useApplication';
+import { usePages } from '@root/composables/usePage';
 
 // Application
 const { data: applications } = useApplications();
@@ -22,16 +17,15 @@ const application = computed(() => {
   }
   return null;
 });
-const applicationId = computed(() => application.value?.id);
+const applicationName = computed(() => {
+  return application.value?.name || '';
+});
 
-// Articles
-const articleStore = useArticleStore();
-articleStore.load({ application: applicationId });
-
-const articles = computed(() => articleStore.articles);
+// Pages
+const { data: pages } = usePages(applicationName);
 
 const router = useRouter();
-const gotoArticle = async(id: string) => {
+const gotoPage = async(id: string) => {
   await router.push({
     name: 'portal.trainings.article',
     params: { id },
@@ -41,10 +35,6 @@ const gotoArticle = async(id: string) => {
     el.scrollIntoView({ block: 'center' });
   }
 };
-
-const coachStore = useCoachStore();
-const coaches = computed(() => coachStore.coaches);
-coachStore.load();
 </script>
 
 <template>
@@ -70,20 +60,20 @@ coachStore.load();
   </IntroSection>
   <section class="grid grid-flow-col auto-cols-fr">
     <template
-      v-for="(article, index) in articles"
-      :key="article.id"
+      v-for="(page, index) in pages"
+      :key="page.id"
     >
-      <a @click="gotoArticle(article.id)">
+      <a @click="gotoPage(page.id)">
         <div
           class="text-center text-white p-8 h-full"
           :class="{ 'bg-black' : index % 2, 'bg-red-600': !(index % 2) }"
         >
           <h2 class="text-2xl mb-2 font-medium">
-            {{ article.title }}
+            {{ page.texts[0].title }}
           </h2>
           <div
             class="text-gray-200"
-            v-html="article.summary"
+            v-html="page.texts[0].summary"
           />
         </div>
       </a>
@@ -101,42 +91,7 @@ coachStore.load();
           <p class="text-center text-xs text-gray-500 mb-8">
             Een overzicht van de trainingen tijdens deze periode
           </p>
-          <div>
-            <TrainingWeek />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="bg-zinc-50 py-24">
-    <div class="container mx-auto">
-      <h2 class="text-center text-4xl mb-10">
-        Onze Coaches
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div
-          v-for="coach in coaches"
-          :key="coach.id"
-          class="bg-white px-3 py-2"
-        >
-          <div
-            class="h-80 bg-contain bg-center bg-no-repeat"
-            :style="{ 'background-image': `url(${noAvatarUrl}` }"
-          />
-          <div class="pt-3 text-center">
-            <h3 class="text-2xl font-semibold">
-              {{ coach.name }}
-            </h3>
-            <h4
-              v-if="coach.diploma"
-              class="text-gray-400"
-            >
-              {{ coach.diploma }}
-            </h4>
-            <p class="text-sm text-gray-600 mb-4">
-              {{ coach.bio }}
-            </p>
-          </div>
+          <div />
         </div>
       </div>
     </div>
