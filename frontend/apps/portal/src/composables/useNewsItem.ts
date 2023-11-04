@@ -6,14 +6,7 @@ import { createDateTimeFromUTC } from '@kwai/date';
 import type { DateType } from '@kwai/date';
 import { ref } from 'vue';
 import type { Ref } from 'vue';
-
-const JsonApiText = z.object({
-  locale: z.string(),
-  format: z.string(),
-  title: z.string(),
-  summary: z.string(),
-  content: z.nullable(z.string()),
-});
+import { JsonApiText } from '@root/composables/types';
 
 const JsonApiNewsItem = z.object({
   id: z.string(),
