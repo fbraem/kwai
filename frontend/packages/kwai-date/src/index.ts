@@ -26,7 +26,9 @@ export interface DateType {
   day(): number;
   endOf(unit: string): Readonly<DateType>;
   format(format?: string): string;
+  month(): number;
   startOf(unit: string): Readonly<DateType>;
+  year(): number;
 }
 
 function wrapDayjs(d: dayjs.Dayjs): Readonly<DateType> {
@@ -48,8 +50,16 @@ function wrapDayjs(d: dayjs.Dayjs): Readonly<DateType> {
     return d.format(format);
   }
 
+  function month(): number {
+    return d.month();
+  }
+
   function startOf(unit: string): Readonly<DateType> {
     return wrapDayjs(d.startOf(<OpUnitType> unit));
+  }
+
+  function year(): number {
+    return d.year();
   }
 
   return Object.freeze({
@@ -58,7 +68,9 @@ function wrapDayjs(d: dayjs.Dayjs): Readonly<DateType> {
     day,
     endOf,
     format,
+    month,
     startOf,
+    year,
   });
 }
 
