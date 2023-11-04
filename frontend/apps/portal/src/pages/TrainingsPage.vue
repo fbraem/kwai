@@ -3,11 +3,19 @@
 import trainingImage from '/training.jpg';
 
 import IntroSection from '@root/components/IntroSection.vue';
-import { computed } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed, ref, toRef, watch } from 'vue';
+import type { Ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 import { useApplications } from '@root/composables/useApplication';
 import { usePages } from '@root/composables/usePage';
+import { createDate, now } from '@kwai/date';
+import type { TrainingPeriod } from '@root/composables/useTraining';
+import { useTrainingDays, useTrainings } from '@root/composables/useTraining';
+import TrainingTimeline from '@root/pages/trainings/components/TrainingTimeline.vue';
+import SectionTitle from '@root/components/SectionTitle.vue';
+import LeftArrowIcon from '@root/components/icons/LeftArrowIcon.vue';
+import RightArrowIcon from '@root/components/icons/RightArrowIcon.vue';
 
 // Application
 const { data: applications } = useApplications();
@@ -35,6 +43,54 @@ const gotoPage = async(id: string) => {
     el.scrollIntoView({ block: 'center' });
   }
 };
+
+// Trainings
+const toDay = now();
+const currentMonth = ref(toDay.month());
+const currentYear = ref(toDay.year());
+
+const route = useRoute();
+const year: Ref<number> = ref(Number.parseInt(route.query.year as string ?? currentYear.value));
+const month: Ref<number> = ref(Number.parseInt(route.query.month as string ?? currentMonth.value));
+const trainingPeriod = computed<TrainingPeriod>(() => ({
+  start: createDate(
+    year.value,
+    month.value
+  ).startOf('month'),
+  end: createDate(
+    year.value,
+    month.value
+  ).endOf('month'),
+}));
+
+const { data: trainings } = useTrainings(toRef(trainingPeriod));
+
+const trainingDays = ref({});
+watch(trainings, (nv, ov) => {
+  trainingDays.value = useTrainingDays(trainings?.value?.items || []);
+});
+
+const showPrevMonth = () => {
+  if (month.value === 1) {
+    month.value = 11;
+    year.value = year.value - 1;
+  } else {
+    month.value = month.value - 1;
+  }
+};
+const showCurrentMonth = () => {
+  month.value = currentMonth.value;
+  year.value = currentYear.value;
+};
+const showNextMonth = () => {
+  if (month.value === 11) {
+    month.value = 0;
+    year.value = year.value + 1;
+  } else {
+    month.value = month.value + 1;
+  }
+};
+
 </script>
 
 <template>
@@ -81,17 +137,46 @@ const gotoPage = async(id: string) => {
   </section>
   <div id="article" />
   <router-view />
-  <section class="py-24">
+  <section
+    id="trainings"
+    class="py-12"
+  >
     <div class="container mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 divide-y divide-y-reverse md:divide-y-0 md:divide-x divide-gray-300">
-        <div class="p-4 order-first md:order-last">
-          <h2 class="text-center text-4xl mb-2">
-            Agenda
-          </h2>
-          <p class="text-center text-xs text-gray-500 mb-8">
-            Een overzicht van de trainingen tijdens deze periode
-          </p>
-          <div />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 divide-y divide-y-reverse md:divide-y-0 md:divide-x divide-gray-300">
+        <div class="p-4 order-first md:col-span-2">
+          <SectionTitle class="pb-4">
+            Trainingsrooster
+          </SectionTitle>
+          <div class="flex gap-4 py-3">
+            <button
+              type="button"
+              class="flex items-center focus:outline-none text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded text-sm px-3 py-1 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800"
+              @click="showPrevMonth"
+            >
+              <LeftArrowIcon class="w-4 h-4 mr-2 fill-current" /> Vorige Maand
+            </button>
+            <button
+              type="button"
+              class="flex items-center focus:outline-none text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded text-sm px-3 py-1 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800"
+              @click="showCurrentMonth"
+            >
+              Deze Maand
+            </button>
+            <button
+              type="button"
+              class="flex items-center focus:outline-none text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded text-sm px-3 py-1 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800"
+              @click="showNextMonth"
+            >
+              Volgende Maand <RightArrowIcon class="w-4 h-4 ml-2 fill-current" />
+            </button>
+          </div>
+          <h3 class="text-2xl pb-4">
+            {{ trainingPeriod.start.format("MMMM") }} {{ trainingPeriod.start.format("YYYY") }}
+          </h3>
+          <TrainingTimeline
+            :training-days="trainingDays"
+            class="text-gray-600"
+          />
         </div>
       </div>
     </div>
