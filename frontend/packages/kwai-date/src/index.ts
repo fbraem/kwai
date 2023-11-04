@@ -74,7 +74,7 @@ function wrapDayjs(d: dayjs.Dayjs): Readonly<DateType> {
   });
 }
 
-export function createDate(year: number = null, month: number = null, day: number = null): Readonly<DateType> {
+export function createDate(year?: number | null, month?: number | null, day?: number | null): Readonly<DateType> {
   year = year || dayjs().year();
   month = month || dayjs().month();
   day = day || dayjs().date();
