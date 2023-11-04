@@ -66,7 +66,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Training } from '@root/stores/trainingStore';
+import type { Training } from '@root/composables/useTraining';
 import { useTrainingStore } from '@root/stores/trainingStore';
 import { computed } from 'vue';
 import PrevIcon from '@root/components/icons/PrevIcon.vue';
