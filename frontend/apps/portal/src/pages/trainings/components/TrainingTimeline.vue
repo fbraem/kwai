@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { TrainingDays } from '@root/composables/useTraining';
 import BetweenIcon from '@root/components/icons/BetweenIcon.vue';
+import PrimaryBadge from '@root/components/PrimaryBadge.vue';
 
 interface Props {
   trainingDays: TrainingDays
@@ -25,12 +26,18 @@ defineProps<Props>();
           v-for="training in trainingDay"
           :key="training.id"
           class="flex items-center gap-4"
+          :class="{ 'cancelled' : training.cancelled }"
         >
           <div>{{ training.start_date.format("HH:mm") }}u</div>
           <BetweenIcon class="w-4 h-4" />
           <div>{{ training.end_date.format("HH:mm") }}u</div>
           <div class="font-medium">
             {{ training.title }}
+          </div>
+          <div v-if="training.cancelled">
+            <PrimaryBadge>
+              Geannuleerd
+            </PrimaryBadge>
           </div>
         </div>
       </div>
@@ -39,5 +46,7 @@ defineProps<Props>();
 </template>
 
 <style scoped>
-
+.cancelled {
+  @apply line-through decoration-red-600 decoration-2 text-gray-400;
+}
 </style>
