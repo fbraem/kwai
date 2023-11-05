@@ -5,10 +5,14 @@ import NewsPage from '@theme/pages/news/NewsPage.vue';
 import NewsListPage from '@root/pages/news/NewsListPage.vue';
 import NewsApplicationListPage from '@root/pages/news/NewsApplicationListPage.vue';
 import NewsItemPage from '@theme/pages/news/NewsItemPage.vue';
-import TrainingsArticlePage from '@theme/pages/trainings/TrainingsArticlePage.vue';
 import ApplicationPage from '@theme/pages/ApplicationPage.vue';
 import PortalToolbar from './components/toolbar/PortalToolbar.vue';
 import { PortalLayout } from '@kwai/ui';
+
+// eslint-disable-next-line import/no-absolute-path
+import heroClubImage from '/hero_club.jpg';
+// eslint-disable-next-line import/no-absolute-path
+import heroTrainingImage from '/hero_training.jpg';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -56,6 +60,10 @@ const routes: RouteRecordRaw[] = [
           toolbar: PortalToolbar,
           main: ApplicationPage,
         },
+        meta: {
+          application: 'club',
+          heroImageUrl: heroClubImage,
+        },
       },
       {
         name: 'portal.trainings',
@@ -64,14 +72,10 @@ const routes: RouteRecordRaw[] = [
           toolbar: PortalToolbar,
           main: TrainingsPage,
         },
-        children: [
-          {
-            name: 'portal.trainings.article',
-            path: ':id(\\d+)',
-            props: true,
-            component: TrainingsArticlePage,
-          },
-        ],
+        meta: {
+          application: 'trainings',
+          heroImageUrl: heroTrainingImage,
+        },
       },
     ],
   },

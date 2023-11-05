@@ -1,7 +1,4 @@
 <script setup lang="ts">
-// eslint-disable-next-line import/no-absolute-path
-import trainingImage from '/training.jpg';
-
 import IntroSection from '@root/components/IntroSection.vue';
 import { computed, ref, toRef, watch } from 'vue';
 import type { Ref } from 'vue';
@@ -20,17 +17,16 @@ import PrimaryButton from '@root/components/PrimaryButton.vue';
 import FullArticle from '@root/components/FullArticle.vue';
 
 const route = useRoute();
+const applicationName = route.meta.application as string;
+const heroImageUrl = route.meta.heroImageUrl as string;
 
 // Application
 const { data: applications } = useApplications();
 const application = computed(() => {
   if (applications.value) {
-    return applications.value.find(application => application.name === 'trainings');
+    return applications.value.find(application => application.name === applicationName);
   }
   return null;
-});
-const applicationName = computed(() => {
-  return application.value?.name || '';
 });
 
 // Pages
@@ -103,7 +99,7 @@ const showNextMonth = () => {
 
 <template>
   <IntroSection
-    :hero-image-url="trainingImage"
+    :hero-image-url="heroImageUrl"
   >
     <div class="container lg:max-w-5xl relative mx-auto flex h-full items-center">
       <div
