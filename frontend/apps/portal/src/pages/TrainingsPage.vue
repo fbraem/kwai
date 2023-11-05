@@ -87,6 +87,7 @@ const showPrevMonth = () => {
 const showCurrentMonth = () => {
   month.value = currentMonth.value;
   year.value = currentYear.value;
+  router.replace({ query: { ...route.query, year: year.value, month: month.value } });
 };
 const showNextMonth = () => {
   if (month.value === 11) {
@@ -95,6 +96,7 @@ const showNextMonth = () => {
   } else {
     month.value = month.value + 1;
   }
+  router.replace({ query: { ...route.query, year: year.value, month: month.value } });
 };
 
 </script>
