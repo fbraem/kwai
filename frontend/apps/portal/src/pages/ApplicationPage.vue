@@ -47,6 +47,7 @@ const router = useRouter();
 
 const gotoPage = (id: string) => {
   router.replace({ query: { ...route.query, page: id } });
+  if (articleSection.value) articleSection.value.scrollIntoView(true);
 };
 </script>
 
