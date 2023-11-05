@@ -14,6 +14,7 @@
 </template>
 
 <script setup lang="ts">
+import type { Page } from '@root/composables/usePage';
 
 interface PageProperty {
   page: Page
