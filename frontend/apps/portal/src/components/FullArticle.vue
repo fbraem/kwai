@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto">
+  <div class="container mx-auto p-2">
     <h2 class="text-4xl mb-4">
       {{ page.texts[0].title }}
     </h2>
