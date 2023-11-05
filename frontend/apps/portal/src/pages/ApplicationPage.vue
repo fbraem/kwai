@@ -5,6 +5,7 @@ import { useApplications } from '@root/composables/useApplication';
 import { computed, ref, toRef } from 'vue';
 import { usePages } from '@root/composables/usePage';
 import FullArticle from '@root/components/FullArticle.vue';
+
 const route = useRoute();
 const applicationName = route.meta.application as string;
 const heroImageUrl = route.meta.heroImageUrl as string;
