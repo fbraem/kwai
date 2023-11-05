@@ -24,7 +24,7 @@ interface Props {
 withDefaults(
   defineProps<Props>(),
   {
-    height: 600,
+    height: 500,
   }
 );
 </script>
