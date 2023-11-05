@@ -16,6 +16,10 @@ import TrainingTimeline from '@root/pages/trainings/components/TrainingTimeline.
 import SectionTitle from '@root/components/SectionTitle.vue';
 import LeftArrowIcon from '@root/components/icons/LeftArrowIcon.vue';
 import RightArrowIcon from '@root/components/icons/RightArrowIcon.vue';
+import PrimaryButton from '@root/components/PrimaryButton.vue';
+import FullArticle from '@root/components/FullArticle.vue';
+
+const route = useRoute();
 
 // Application
 const { data: applications } = useApplications();
@@ -30,18 +34,20 @@ const applicationName = computed(() => {
 });
 
 // Pages
-const { data: pages } = usePages(applicationName);
+const { data: pages } = usePages(toRef(applicationName));
+const sortedPages = computed(() => {
+  return [...pages.value || []].sort((a, b) => b.priority - a.priority);
+});
+const currentPage = computed(() => {
+  if (route.query.page) {
+    return sortedPages.value.find(page => page.id === route.query.page);
+  }
+  return sortedPages.value[0];
+});
 
 const router = useRouter();
-const gotoPage = async(id: string) => {
-  await router.push({
-    name: 'portal.trainings.article',
-    params: { id },
-  });
-  const el = document.querySelector('#article');
-  if (el) {
-    el.scrollIntoView({ block: 'center' });
-  }
+const gotoPage = (id: string) => {
+  router.replace({ query: { ...route.query, page: id } });
 };
 
 // Trainings
@@ -49,7 +55,6 @@ const toDay = now();
 const currentMonth = ref(toDay.month());
 const currentYear = ref(toDay.year());
 
-const route = useRoute();
 const year: Ref<number> = ref(Number.parseInt(route.query.year as string ?? currentYear.value));
 const month: Ref<number> = ref(Number.parseInt(route.query.month as string ?? currentMonth.value));
 const trainingPeriod = computed<TrainingPeriod>(() => ({
@@ -77,6 +82,7 @@ const showPrevMonth = () => {
   } else {
     month.value = month.value - 1;
   }
+  router.replace({ query: { ...route.query, year: year.value, month: month.value } });
 };
 const showCurrentMonth = () => {
   month.value = currentMonth.value;
@@ -116,10 +122,13 @@ const showNextMonth = () => {
   </IntroSection>
   <section class="grid grid-flow-col auto-cols-fr">
     <template
-      v-for="(page, index) in pages"
+      v-for="(page, index) in sortedPages"
       :key="page.id"
     >
-      <a @click="gotoPage(page.id)">
+      <a
+        class="cursor-pointer"
+        @click="gotoPage(page.id)"
+      >
         <div
           class="text-center text-white p-8 h-full"
           :class="{ 'bg-black' : index % 2, 'bg-red-600': !(index % 2) }"
@@ -135,49 +144,48 @@ const showNextMonth = () => {
       </a>
     </template>
   </section>
-  <div id="article" />
-  <router-view />
   <section
     id="trainings"
     class="py-12"
   >
-    <div class="container mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 divide-y divide-y-reverse md:divide-y-0 md:divide-x divide-gray-300">
-        <div class="p-4 order-first md:col-span-2">
-          <SectionTitle class="pb-4">
-            Trainingsrooster
-          </SectionTitle>
-          <div class="flex gap-4 py-3">
-            <button
-              type="button"
-              class="flex items-center focus:outline-none text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded text-sm px-3 py-1 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800"
-              @click="showPrevMonth"
-            >
-              <LeftArrowIcon class="w-4 h-4 mr-2 fill-current" /> Vorige Maand
-            </button>
-            <button
-              type="button"
-              class="flex items-center focus:outline-none text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded text-sm px-3 py-1 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800"
-              @click="showCurrentMonth"
-            >
-              Deze Maand
-            </button>
-            <button
-              type="button"
-              class="flex items-center focus:outline-none text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded text-sm px-3 py-1 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800"
-              @click="showNextMonth"
-            >
-              Volgende Maand <RightArrowIcon class="w-4 h-4 ml-2 fill-current" />
-            </button>
-          </div>
-          <h3 class="text-2xl pb-4">
-            {{ trainingPeriod.start.format("MMMM") }} {{ trainingPeriod.start.format("YYYY") }}
-          </h3>
-          <TrainingTimeline
-            :training-days="trainingDays"
-            class="text-gray-600"
-          />
+    <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div class="p-4 order-last lg:order-first">
+        <FullArticle
+          v-if="currentPage"
+          :page="currentPage"
+        />
+      </div>
+      <div class="p-4 order-first lg:order-last">
+        <SectionTitle class="pb-4">
+          Trainingsrooster
+        </SectionTitle>
+        <div class="flex gap-4 py-3">
+          <PrimaryButton
+            :method="showPrevMonth"
+            class="flex items-center"
+          >
+            <LeftArrowIcon class="w-4 h-4 mr-2 fill-current" /> Vorige Maand
+          </PrimaryButton>
+          <PrimaryButton
+            :method="showCurrentMonth"
+            class="flex items-center"
+          >
+            Deze Maand
+          </PrimaryButton>
+          <PrimaryButton
+            :method="showNextMonth"
+            class="flex items-center"
+          >
+            <RightArrowIcon class="w-4 h-4 mr-2 fill-current" /> Volgende Maand
+          </PrimaryButton>
         </div>
+        <h3 class="text-2xl pb-4">
+          {{ trainingPeriod.start.format("MMMM") }} {{ trainingPeriod.start.format("YYYY") }}
+        </h3>
+        <TrainingTimeline
+          :training-days="trainingDays"
+          class="text-gray-600"
+        />
       </div>
     </div>
   </section>
