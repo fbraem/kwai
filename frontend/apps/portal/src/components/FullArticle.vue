@@ -69,7 +69,7 @@ defineProps<PageProperty>();
   @apply mb-0;
 }
 .markdown table {
-  @apply divide-y divide-gray-200 shadow overflow-x-auto border-b border-gray-200 sm:rounded-lg mb-5;
+  @apply block divide-y divide-gray-200 shadow overflow-x-auto border-b border-gray-200 sm:rounded-lg mb-5;
 }
 .markdown table thead {
   @apply bg-gray-50;
