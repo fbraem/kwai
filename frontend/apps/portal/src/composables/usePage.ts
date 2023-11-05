@@ -38,6 +38,7 @@ interface PageText {
 
 export type Page = {
   id: string,
+  priority: number,
   texts: PageText[]
 };
 
@@ -45,6 +46,7 @@ const toModel = (json: JsonApiPageDocumentType): Page | Page[] => {
   const mapModel = (d: JsonApiPageType): Page => {
     return {
       id: d.id,
+      priority: d.attributes.priority,
       texts: d.attributes.texts.map(text => ({
         locale: text.locale,
         format: text.format,
@@ -100,7 +102,7 @@ const getPages = (application: string) : Promise<Page[]> => {
  *
  * @param application
  */
-export const usePages = (application: Ref<string> | ComputedRef<string>) => {
+export const usePages = (application: Ref<string>) => {
   return useQuery({
     queryKey: ['portal/pages', application],
     queryFn: ({ queryKey: [, applicationName] }) => getPages(applicationName),
