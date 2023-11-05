@@ -39,6 +39,10 @@ defineProps<PageProperty>();
   @apply font-bold mb-2;
 }
 
+.markdown hr {
+  @apply py-2;
+}
+
 .markdown p {
   @apply leading-8 mb-4;
 }
