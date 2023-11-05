@@ -13,6 +13,12 @@ import { PortalLayout } from '@kwai/ui';
 import heroClubImage from '/hero_club.jpg';
 // eslint-disable-next-line import/no-absolute-path
 import heroTrainingImage from '/hero_training.jpg';
+// eslint-disable-next-line import/no-absolute-path
+import heroShopImage from '/hero_shop.jpg';
+// eslint-disable-next-line import/no-absolute-path
+import heroTournamentsImage from '/hero_tournaments.jpg';
+// eslint-disable-next-line import/no-absolute-path
+import heroJudoImage from '/hero_judo.jpg';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -66,6 +72,30 @@ const routes: RouteRecordRaw[] = [
         },
       },
       {
+        name: 'portal.tournaments',
+        path: '/tournaments',
+        components: {
+          toolbar: PortalToolbar,
+          main: ApplicationPage,
+        },
+        meta: {
+          application: 'tournaments',
+          heroImageUrl: heroTournamentsImage,
+        },
+      },
+      {
+        name: 'portal.shop',
+        path: '/shop',
+        components: {
+          toolbar: PortalToolbar,
+          main: ApplicationPage,
+        },
+        meta: {
+          application: 'shop',
+          heroImageUrl: heroShopImage,
+        },
+      },
+      {
         name: 'portal.trainings',
         path: '/trainings',
         components: {
@@ -75,6 +105,18 @@ const routes: RouteRecordRaw[] = [
         meta: {
           application: 'trainings',
           heroImageUrl: heroTrainingImage,
+        },
+      },
+      {
+        name: 'portal.judo',
+        path: '/judo',
+        components: {
+          toolbar: PortalToolbar,
+          main: ApplicationPage,
+        },
+        meta: {
+          application: 'judo',
+          heroImageUrl: heroJudoImage,
         },
       },
     ],
