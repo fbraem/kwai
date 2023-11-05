@@ -21,4 +21,4 @@ class MarkdownConverter(DocumentConverter):
 
     def convert(self, content: str) -> str:
         """Convert markdown to HTML."""
-        return markdown.markdown(content)
+        return markdown.markdown(content, extensions=["tables"])
