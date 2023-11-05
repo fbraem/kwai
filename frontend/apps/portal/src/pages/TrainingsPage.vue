@@ -104,7 +104,6 @@ const showNextMonth = () => {
 <template>
   <IntroSection
     :hero-image-url="trainingImage"
-    :height="300"
   >
     <div class="container lg:max-w-5xl relative mx-auto flex h-full items-center">
       <div
