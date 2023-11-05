@@ -34,8 +34,10 @@ const { data: pages } = usePages(toRef(applicationName));
 const sortedPages = computed(() => {
   return [...pages.value || []].sort((a, b) => b.priority - a.priority);
 });
+const articleSection = ref<HTMLInputElement | null>(null);
 const currentPage = computed(() => {
   if (route.query.page) {
+    if (articleSection.value) articleSection.value.scrollIntoView(true);
     return sortedPages.value.find(page => page.id === route.query.page);
   }
   return sortedPages.value[0];
@@ -146,7 +148,10 @@ const showNextMonth = () => {
     class="py-12"
   >
     <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <div class="p-4 order-last lg:order-first">
+      <div
+        ref="articleSection"
+        class="p-4 order-last lg:order-first"
+      >
         <FullArticle
           v-if="currentPage"
           :page="currentPage"
