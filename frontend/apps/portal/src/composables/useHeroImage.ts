@@ -1,7 +1,7 @@
 /**
  * Function to get the url for a hero image of an application.
  */
-export const heroImage = import('../../images/hero.jpg');
+export const heroImage = new URL('../../images/hero.jpg', import.meta.url).href;
 const images = import.meta.glob('../../images/hero*.jpg');
 export function getHeroImageUrl(applicationName: string) {
   for (const image in images) {
