@@ -1,5 +1,5 @@
 <template>
-  <IntroSection :hero-image-url="route.meta.heroImageUrl">
+  <IntroSection :hero-image-url="heroImage">
     <div class="container lg:max-w-5xl relative mx-auto h-full flex items-center">
       <div class="max-w-md flex flex-col space-y-5 p-4">
         <h1 class="text-4xl font-semibold text-white">
@@ -37,7 +37,7 @@ import HomeSectionApplications from '@root/components/home/HomeSectionApplicatio
 import HomeSectionNews from '@root/components/home/HomeSectionNews.vue';
 import HomeSectionTrainings from '@root/components/home/HomeSectionTrainings.vue';
 import HomeSectionClub from '@root/components/home/HomeSectionClub.vue';
-import { useRoute } from 'vue-router';
+import { heroImage } from '@root/composables/useHeroImage';
 
 interface ListedApplications {
   [key: string]: ShallowReactive<any>
@@ -51,6 +51,4 @@ const listedApplications: ListedApplications = shallowReactive({
   news: NewsIcon,
   trainings: TrainingIcon,
 });
-
-const route = useRoute();
 </script>
