@@ -8,17 +8,7 @@ import NewsItemPage from '@theme/pages/news/NewsItemPage.vue';
 import ApplicationPage from '@theme/pages/ApplicationPage.vue';
 import PortalToolbar from './components/toolbar/PortalToolbar.vue';
 import { PortalLayout } from '@kwai/ui';
-
-// eslint-disable-next-line import/no-absolute-path
-import heroClubImage from '/hero_club.jpg';
-// eslint-disable-next-line import/no-absolute-path
-import heroTrainingImage from '/hero_training.jpg';
-// eslint-disable-next-line import/no-absolute-path
-import heroShopImage from '/hero_shop.jpg';
-// eslint-disable-next-line import/no-absolute-path
-import heroTournamentsImage from '/hero_tournaments.jpg';
-// eslint-disable-next-line import/no-absolute-path
-import heroJudoImage from '/hero_judo.jpg';
+import { getHeroImageUrl, heroImage } from '@root/composables/useHeroImage';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -32,12 +22,19 @@ const routes: RouteRecordRaw[] = [
           toolbar: PortalToolbar,
           main: HomePage,
         },
+        meta: {
+          heroImageUrl: heroImage,
+        },
       },
       {
         path: '/news',
         components: {
           toolbar: PortalToolbar,
           main: NewsPage,
+        },
+        meta: {
+          application: 'news',
+          heroImageUrl: getHeroImageUrl('news'),
         },
         children: [
           {
@@ -68,7 +65,7 @@ const routes: RouteRecordRaw[] = [
         },
         meta: {
           application: 'club',
-          heroImageUrl: heroClubImage,
+          heroImageUrl: getHeroImageUrl('club'),
         },
       },
       {
@@ -80,7 +77,7 @@ const routes: RouteRecordRaw[] = [
         },
         meta: {
           application: 'tournaments',
-          heroImageUrl: heroTournamentsImage,
+          heroImageUrl: getHeroImageUrl('tournaments'),
         },
       },
       {
@@ -92,7 +89,7 @@ const routes: RouteRecordRaw[] = [
         },
         meta: {
           application: 'shop',
-          heroImageUrl: heroShopImage,
+          heroImageUrl: getHeroImageUrl('shop'),
         },
       },
       {
@@ -104,7 +101,7 @@ const routes: RouteRecordRaw[] = [
         },
         meta: {
           application: 'trainings',
-          heroImageUrl: heroTrainingImage,
+          heroImageUrl: getHeroImageUrl('trainings'),
         },
       },
       {
@@ -116,7 +113,7 @@ const routes: RouteRecordRaw[] = [
         },
         meta: {
           application: 'judo',
-          heroImageUrl: heroJudoImage,
+          heroImageUrl: getHeroImageUrl('judo'),
         },
       },
     ],

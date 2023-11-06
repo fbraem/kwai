@@ -1,7 +1,5 @@
 <script setup lang="ts">
 // eslint-disable-next-line import/no-absolute-path
-import trainingImage from '/training.jpg';
-// eslint-disable-next-line import/no-absolute-path
 import sporthalImage from '/sporthal.jpg';
 
 import ApplicationList from '@root/components/ApplicationList.vue';
@@ -13,6 +11,7 @@ import { now } from '@kwai/date';
 import ImageSection from '@root/components/ImageSection.vue';
 import BetweenIcon from '@root/components/icons/BetweenIcon.vue';
 import TrainingTimeline from '@root/pages/trainings/components/TrainingTimeline.vue';
+import { getHeroImageUrl } from '@root/composables/useHeroImage';
 
 const period : Ref<TrainingPeriod> = ref({
   start: now(),
@@ -35,6 +34,8 @@ const trainingDays = computed(() => {
   });
   return result;
 });
+
+const trainingImage = getHeroImageUrl('trainings');
 </script>
 
 <template>
