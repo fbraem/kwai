@@ -20,6 +20,6 @@
 
 <script setup lang="ts">
 import IntroSection from '@root/components/IntroSection.vue';
-// eslint-disable-next-line import/no-absolute-path
-import newsHeroImage from '/news.jpg';
+import { getHeroImageUrl } from '@root/composables/useHeroImage';
+const newsHeroImage = getHeroImageUrl('news');
 </script>
