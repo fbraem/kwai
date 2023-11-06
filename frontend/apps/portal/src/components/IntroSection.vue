@@ -1,3 +1,17 @@
+<script setup lang="ts">
+interface Props {
+  heroImageUrl: string,
+  height?: number,
+}
+
+withDefaults(
+  defineProps<Props>(),
+  {
+    height: 500,
+  }
+);
+</script>
+
 <template>
   <section>
     <div
@@ -14,17 +28,3 @@
     </div>
   </section>
 </template>
-
-<script setup lang="ts">
-interface Props {
-  heroImageUrl: string,
-  height?: number,
-}
-
-withDefaults(
-  defineProps<Props>(),
-  {
-    height: 500,
-  }
-);
-</script>
