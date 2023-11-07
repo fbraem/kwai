@@ -8,14 +8,12 @@
   ],
   "scripts": {
     "dev": "turbo run dev --parallel --continue",
-    "build": "turbo run build"
-  },
-  "dependencies": {
+    "build": "turbo run build --force"
   },
   "devDependencies": {
     "eslint-config-kwai": "*",
-    "typescript": "^5.2.2",
     "turbo": "latest",
+    "typescript": "^5.2.2",
     "vite": "^4.4.11"
   },
   "engines": {
