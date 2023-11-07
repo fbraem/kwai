@@ -9,6 +9,7 @@ import ApplicationPage from '@theme/pages/ApplicationPage.vue';
 import PortalToolbar from './components/toolbar/PortalToolbar.vue';
 import { PortalLayout } from '@kwai/ui';
 import { getHeroImageUrl, heroImage } from '@root/composables/useHeroImage';
+import PortalFooter from '@root/components/footer/PortalFooter.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -21,6 +22,7 @@ const routes: RouteRecordRaw[] = [
         components: {
           toolbar: PortalToolbar,
           main: HomePage,
+          footer: PortalFooter,
         },
         meta: {
           heroImageUrl: heroImage,
