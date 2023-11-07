@@ -13,6 +13,11 @@ title = ""
 account = ""
 icon = ""
 url = ""
+text = ""
+
+[[portal.links]]
+title = ""
+url = ""
 
 [api]
 base_url = ""
