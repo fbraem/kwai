@@ -4,10 +4,19 @@ copyright = ""
 email = ""
 url = ""
 
+[contact]
+street = ""
+city = ""
+email = ""
+
 [portal]
 promotion = [
     ""
 ]
+promotion_footer = [
+    ""
+]
+
 [[portal.social_media]]
 title = ""
 account = ""

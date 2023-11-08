@@ -2,7 +2,7 @@
 import HouseIcon from '@root/components/icons/HouseIcon.vue';
 import MailIcon from '@root/components/icons/MailIcon.vue';
 
-import config from '@kwai/config';
+import config, { portal } from '@kwai/config';
 import { defineAsyncComponent } from 'vue';
 
 const loadIcon = (name: string) => {
@@ -13,12 +13,13 @@ const loadIcon = (name: string) => {
 <template>
   <section class="bg-gray-800 text-white pt-12">
     <div class="container mx-auto flex flex-col">
-      <div class="relative flex self-center max-w-3xl sm:rounded-lg bg-red-600 text-white -mt-20 py-3 px-2">
-        <p class="p-10">
-          Wil jij ook beginnen met judo? Vanaf de leeftijd van <span class="font-bold">5 jaar</span>
-          ben je welkom. Spring gewoon eens binnen op een training. Een judopak is nog niet nodig,
-          sportieve kledij is voldoende. De eerste 4 lessen zijn
-          trouwens gratis zodat je zonder verplichting kan zien of judo iets voor jou is.
+      <div class="relative flex flex-col self-center max-w-3xl sm:rounded-lg sm:shadow-lg sm:shadow-gray-600 bg-red-600 text-white -mt-20 px-2">
+        <p
+          v-for="(text, index) in config.portal.promotion_footer"
+          :key="`promotion_footer_${index}`"
+          class="first:pt-10 last:pb-10"
+        >
+          {{ text }}
         </p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-12 px-12">
@@ -28,20 +29,20 @@ const loadIcon = (name: string) => {
           </h2>
           <ul class="grid grid-row-3">
             <li class="font-bold">
-              Judokwai Kemzeke vzw
+              {{ config.website.title }}
             </li>
             <li class="flex items-center">
-              <HouseIcon class="w-4 h-4 fill-current mr-2" />Polderstraat 10
+              <HouseIcon class="w-4 h-4 fill-current mr-2" />{{ config.contact.street }}
             </li>
-            <li>9190 Stekene</li>
+            <li>{{ config.contact.city }}</li>
           </ul>
           <div class="flex items-center">
             <MailIcon class="w-4 h-4 fill-current mr-2" />
             <a
-              :href="`mailto:${config.website.email}`"
+              :href="`mailto:${config.contact.email}`"
               class="text-blue-300"
             >
-              {{ config.website.email }}
+              {{ config.contact.email }}
             </a>
           </div>
         </div>
@@ -92,7 +93,10 @@ const loadIcon = (name: string) => {
     <div class="container mx-auto flex justify-center py-12 px-2">
       <div class="text-xs text-center">
         &copy; {{ config.website.copyright }}<br>
-        Zumuta - Franky Braem
+        Zumuta - <a
+          :href="`mailto:${config.website.email}`"
+          class="text-blue-400"
+        >Franky Braem</a>
       </div>
     </div>
   </section>
