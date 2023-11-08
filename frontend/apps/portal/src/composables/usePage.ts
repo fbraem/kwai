@@ -6,7 +6,7 @@
 import { z } from 'zod';
 import { JsonApiDocument, useHttpApi } from '@kwai/api';
 import { JsonApiText } from '@root/composables/types';
-import type { ComputedRef, Ref } from 'vue';
+import type { Ref } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 import { computed } from 'vue';
 
