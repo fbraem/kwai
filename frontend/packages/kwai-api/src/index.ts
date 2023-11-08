@@ -17,9 +17,7 @@ export const JsonApiRelationship = z.object({
   data: z.union([JsonResourceIdentifier, z.array(JsonResourceIdentifier)]),
 });
 
-export const JsonApiData = z.object({
-  id: z.string(),
-  type: z.string(),
+export const JsonApiData = JsonResourceIdentifier.extend({
   attributes: z.record(
     z.string(),
     z.any()
