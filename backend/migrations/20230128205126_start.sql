@@ -97,6 +97,28 @@ create table if not exists applications
   events                tinyint(1) default 1                 not null,
   weight                int default 0                        not null
 ) charset = utf8mb3;
+alter table applications add constraint uq_name unique(name);
+insert ignore applications
+(
+  title,
+  description,
+  remark,
+  short_description,
+  name,
+  news,
+  pages,
+  events,
+  weight
+) values
+( 'Club', '', '', '', 'club', 1, 1, 1, 0 ),
+( 'Trainings', '', '', '', 'trainings', 1, 1, 1, 0 ),
+( 'Tournaments', '', '', '', 'tournaments', 1, 1, 1, 0 ),
+( 'Activities', '', '', '', 'activities', 1, 1, 1, 0 ),
+( 'Judo', '', '', '', 'judo', 1, 1, 1, 0 ),
+( 'Shop', '', '', '', 'shop', 1, 1, 1, 0 ),
+( 'News', '', '', '', 'news', 0, 0, 0, 0 ),
+( 'Calendar', '', '', '', 'events', 0, 0, 0, 0 )
+;
 
 create table if not exists news_stories (
   id                    int unsigned auto_increment          primary key,
