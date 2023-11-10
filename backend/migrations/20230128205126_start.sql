@@ -327,6 +327,9 @@ create table if not exists countries (
     created_at timestamp                  not null default current_timestamp,
     updated_at timestamp                  null
 ) charset = utf8mb3;
+alter table countries add constraint uq_iso_3 unique(iso_3);
+truncate table countries;
+alter table countries auto_increment = 1;
 
 create table if not exists team_members(
     team_id int(11) not null,
