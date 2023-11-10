@@ -105,7 +105,7 @@ TEST_SCRIPT=$(cat <<EOF
 rm -rf kwai
 git clone https://codeberg.org/zumuta/kwai.git
 cd kwai/backend/src
-poetry install
+poetry install --with docs
 
 # Drop/create the database
 mysql -uroot -p"$KWAI_DATABASE_PASSWORD" < "$VAGRANT_HOME/mysql_setup.sql"
