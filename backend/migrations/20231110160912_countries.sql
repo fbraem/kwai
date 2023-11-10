@@ -197,4 +197,4 @@ insert into countries(iso_2, iso_3, name) values
 ("se", "swe", "Zweden"),
 ("ch", "che", "Zwitserland")
 
- -- migrate:down
+-- migrate:down
