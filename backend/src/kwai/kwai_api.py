@@ -13,6 +13,9 @@ def create_args():
         help="Watch for code changes or not",
     )
     parser.add_argument(
+        "--host", type=str, default="0.0.0.0", help="The host of the api server."
+    )
+    parser.add_argument(
         "--port", type=int, default=8000, help="The port of the api server."
     )
     return parser.parse_args()
@@ -22,7 +25,7 @@ if __name__ == "__main__":
     args = create_args()
     uvicorn.run(
         "kwai.api.app:create_app",
-        host="0.0.0.0",
+        host=args.host,
         port=args.port,
         factory=True,
         reload=args.reload,
