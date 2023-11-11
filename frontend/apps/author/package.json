@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "description": "The author application for Kwai",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "dev": "vite --config ./vite.config.ts",
+    "build": "vue-tsc --noEmit && vite build --config ./vite.config.ts",
+    "preview": "vite preview --config ./vite.config.ts"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.4.0",
