@@ -69,7 +69,7 @@ def create(
             remark="This user was created using the CLI",
         )
         try:
-            database = create_database(get_settings())
+            database = await anext(create_database(get_settings()))
             await CreateUser(UserAccountDbRepository(database)).execute(command)
             print(
                 f"[bold green]Success![/bold green] "

@@ -2,6 +2,8 @@
 
 Auto-wiring is avoided. It should be clear why and when a class is loaded.
 """
+from typing import AsyncGenerator
+
 from fastapi import Depends
 from redis.asyncio import Redis
 
@@ -20,7 +22,9 @@ def get_template_engine(settings=Depends(get_settings)) -> TemplateEngine:
     return Jinja2Engine(settings.template.path, website=settings.website)
 
 
-async def create_database(settings=Depends(get_settings)) -> Database:
+async def create_database(
+    settings=Depends(get_settings),
+) -> AsyncGenerator[Database, None]:
     """Create the database dependency."""
     database = Database(settings.db)
     try:

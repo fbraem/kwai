@@ -52,7 +52,7 @@ def test():
     async def _main():
         """Closure for handling the async code."""
         try:
-            database = create_database(get_settings())
+            database = await anext(create_database(get_settings()))
             await database.check_connection()
             await database.close()
         except Exception as ex:
