@@ -1,7 +1,12 @@
 <template>
   <header class="container mx-auto p-8 lg:px-6 lg:max-w-6xl">
     <div class="grid grid-flow-row lg:grid-flow-col space-y-4 items-center">
-      <ToolbarLogo />
+      <ToolbarLogo
+        :url="website.url"
+        :logo="logoUrl"
+      >
+        {{ website.title }}
+      </ToolbarLogo>
       <div class="flex flex-col md:flex-row md:items-center">
         <ToolbarSocialMedia class="md:w-2/3" />
         <ToolbarUser class="md:w-1/3" />
@@ -43,12 +48,13 @@
 </template>
 
 <script setup lang="ts">
+// eslint-disable-next-line import/no-absolute-path
+import logoUrl from '/logo.png';
 
-import { BarsIcon } from '@kwai/ui';
+import { ToolbarLogo, BarsIcon } from '@kwai/ui';
 import { website } from '@kwai/config';
 import ApplicationList from '../ApplicationList.vue';
 import { ref } from 'vue';
-import ToolbarLogo from './ToolbarLogo.vue';
 import ToolbarSocialMedia from './ToolbarSocialMedia.vue';
 import ToolbarUser from './ToolbarUser.vue';
 

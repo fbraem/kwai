@@ -1,22 +1,28 @@
+<script setup lang="ts">
+interface Props {
+  url: string,
+  logo: string
+}
+defineProps<Props>();
+</script>
+
 <template>
   <div>
-    <a :href="website.url">
+    <a :href="url">
       <div class="flex flex-row items-center">
         <img
-          :src="logoUrl"
+          :src="logo"
           class="w-16 mr-4"
           alt="logo"
         >
         <div class="text-xl font-medium uppercase">
-          {{ website.title }}
+          <slot />
         </div>
       </div>
     </a>
   </div>
 </template>
 
-<script lang="ts" setup>
-// eslint-disable-next-line import/no-absolute-path
-import logoUrl from '/logo.png';
-import { website } from '@kwai/config';
-</script>
+<style scoped>
+
+</style>
