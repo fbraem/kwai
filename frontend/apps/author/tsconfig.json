@@ -19,7 +19,13 @@
       "path": "./tsconfig.node.json"
     },
     {
+      "path": "../../packages/kwai-config"
+    },
+    {
       "path": "../../packages/kwai-ui"
+    },
+    {
+      "path": "../../packages/kwai-api"
     }
   ]
 }
