@@ -8,7 +8,9 @@ import CardTitle from './card/CardTitle.vue';
 import CardLinkedTitle from './card/CardLinkedTitle.vue';
 import CardRouterLinkedTitle from './card/CardRouterLinkedTitle.vue';
 import InformationDialog from './dialogs/InformationDialog.vue';
-import Toolbar from './nav/Toolbar.vue';
+import ToolbarLogo from './nav/ToolbarLogo.vue';
+import ToolbarMenu from './nav/ToolbarMenu.vue';
+import ToolbarMenuItem from './nav/ToolbarMenuItem.vue';
 import Sidebar from './nav/Sidebar.vue';
 import { useSidebar } from './nav/useSidebar';
 import PortalLayout from './layout/PortalLayout.vue';
@@ -21,6 +23,7 @@ import CloseIcon from './icons/CloseIcon.vue';
 import ErrorIcon from './icons/ErrorIcon.vue';
 import LoadingIcon from './icons/LoadingIcon.vue';
 import RequiredIcon from './icons/RequiredIcon.vue';
+import type { MenuItem } from './types';
 
 export { Alert, ErrorAlert, LoadingAlert };
 
@@ -28,10 +31,12 @@ export { Card, CardTitle, CardLinkedTitle, CardRouterLinkedTitle };
 
 export { InformationDialog };
 
-export { Toolbar, Sidebar, useSidebar };
+export { ToolbarLogo, ToolbarMenu, ToolbarMenuItem, Sidebar, useSidebar };
 
 export { PortalLayout, DialogLayout };
 
 export { InputField, Button };
 
 export { BarsIcon, CheckIcon, CloseIcon, ErrorIcon, LoadingIcon, RequiredIcon };
+
+export type { MenuItem };
