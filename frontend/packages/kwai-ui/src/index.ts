@@ -8,6 +8,7 @@ import CardTitle from './card/CardTitle.vue';
 import CardLinkedTitle from './card/CardLinkedTitle.vue';
 import CardRouterLinkedTitle from './card/CardRouterLinkedTitle.vue';
 import InformationDialog from './dialogs/InformationDialog.vue';
+import LinkTag from './nav/LinkTag.vue';
 import ToolbarLogo from './nav/ToolbarLogo.vue';
 import ToolbarMenu from './nav/ToolbarMenu.vue';
 import ToolbarMenuItem from './nav/ToolbarMenuItem.vue';
@@ -31,7 +32,7 @@ export { Card, CardTitle, CardLinkedTitle, CardRouterLinkedTitle };
 
 export { InformationDialog };
 
-export { ToolbarLogo, ToolbarMenu, ToolbarMenuItem, Sidebar, useSidebar };
+export { LinkTag, ToolbarLogo, ToolbarMenu, ToolbarMenuItem, Sidebar, useSidebar };
 
 export { PortalLayout, DialogLayout };
 
