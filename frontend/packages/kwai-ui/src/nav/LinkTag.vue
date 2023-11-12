@@ -11,7 +11,7 @@ const props = defineProps<Props>();
 
 const tag = computed(() => props.route ? 'router-link' : props.url ? 'a' : 'button');
 const to = computed(() => props.route ? 'to' : null);
-const href = computed(() => props.route ? 'url' : null);
+const href = computed(() => props.url ? 'url' : null);
 const click = computed(() => props.method ? 'click' : null);
 </script>
 
