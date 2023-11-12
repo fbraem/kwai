@@ -5,7 +5,10 @@ const slots = useSlots();
 </script>
 <template>
   <div class="flex flex-col rounded-lg border overflow-hidden shadow-md">
-    <header v-if="!!slots.header">
+    <header
+      v-if="!!slots.header"
+      class="border-b border-gray-200"
+    >
       <slot name="header" />
     </header>
     <div
