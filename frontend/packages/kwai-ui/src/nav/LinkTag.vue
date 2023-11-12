@@ -11,7 +11,7 @@ const props = defineProps<Props>();
 
 const tag = computed(() => props.route ? 'router-link' : props.url ? 'a' : 'button');
 const to = computed(() => props.route ? 'to' : null);
-const href = computed(() => props.url ? 'url' : null);
+const href = computed(() => props.url ? 'href' : null);
 const click = computed(() => props.method ? 'click' : null);
 </script>
 
@@ -19,7 +19,7 @@ const click = computed(() => props.method ? 'click' : null);
   <component
     :is="tag"
     :[to]="route"
-    :[href]="href"
+    :[href]="url"
     @[click]="method"
   >
     <slot />
