@@ -7,7 +7,7 @@ import type { MenuItem } from '../types';
 
 interface Props {
   itemClass?: string,
-  menuItems: [MenuItem]
+  menuItems: MenuItem[]
 }
 defineProps<Props>();
 
