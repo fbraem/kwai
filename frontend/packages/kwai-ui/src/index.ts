@@ -22,6 +22,7 @@ import BarsIcon from './icons/BarsIcon.vue';
 import CheckIcon from './icons/CheckIcon.vue';
 import CloseIcon from './icons/CloseIcon.vue';
 import ErrorIcon from './icons/ErrorIcon.vue';
+import ListIcon from './icons/ListIcon.vue';
 import LoadingIcon from './icons/LoadingIcon.vue';
 import RequiredIcon from './icons/RequiredIcon.vue';
 import type { MenuItem } from './types';
@@ -38,6 +39,6 @@ export { PortalLayout, DialogLayout };
 
 export { InputField, Button };
 
-export { BarsIcon, CheckIcon, CloseIcon, ErrorIcon, LoadingIcon, RequiredIcon };
+export { BarsIcon, CheckIcon, CloseIcon, ErrorIcon, ListIcon, LoadingIcon, RequiredIcon };
 
 export type { MenuItem };
