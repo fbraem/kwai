@@ -1,4 +1,4 @@
-import { RouteRecord } from 'vue-router';
+import type { RouteRecord } from 'vue-router';
 
 export interface MenuItem {
   title: string,
