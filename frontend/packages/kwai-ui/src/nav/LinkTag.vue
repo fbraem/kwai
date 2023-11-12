@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { RouteRecord } from 'vue-router';
+import type { LocationAsRelativeRaw, RouteRecord } from 'vue-router';
 
 interface Props {
-  route?: RouteRecord,
+  route?: RouteRecord | LocationAsRelativeRaw,
   url?: string,
   method?: () => void
 }

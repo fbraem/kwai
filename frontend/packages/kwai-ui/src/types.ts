@@ -1,8 +1,8 @@
-import type { RouteRecord } from 'vue-router';
+import type { LocationAsRelativeRaw, RouteRecord } from 'vue-router';
 
 export interface MenuItem {
   title: string,
-  route?: RouteRecord,
+  route?: RouteRecord | LocationAsRelativeRaw,
   url?: string,
   method?: () => void
 }
