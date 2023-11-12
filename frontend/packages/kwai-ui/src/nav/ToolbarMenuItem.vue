@@ -1,13 +1,6 @@
 <script setup lang="ts">
-import type { RouteRecord } from 'vue-router';
 import { computed } from 'vue';
-
-interface MenuItem {
-  title: string,
-  route?: RouteRecord,
-  url?: string,
-  method?: () => void
-}
+import type { MenuItem } from '../types';
 
 interface Props {
   tag?: string
