@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <section class="container mx-auto py-12">
+  <section class="container mx-auto py-12 px-3">
     <slot />
   </section>
 </template>
