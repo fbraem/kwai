@@ -25,6 +25,9 @@ import ErrorIcon from './icons/ErrorIcon.vue';
 import ListIcon from './icons/ListIcon.vue';
 import LoadingIcon from './icons/LoadingIcon.vue';
 import RequiredIcon from './icons/RequiredIcon.vue';
+import ContainerSection from './section/ContainerSection.vue';
+import ContainerSectionContent from './section/ContainerSectionContent.vue';
+import ContainerSectionTitle from './section/ContainerSectionTitle.vue';
 import type { MenuItem } from './types';
 
 export { Alert, ErrorAlert, LoadingAlert };
@@ -40,5 +43,7 @@ export { PortalLayout, DialogLayout };
 export { InputField, Button };
 
 export { BarsIcon, CheckIcon, CloseIcon, ErrorIcon, ListIcon, LoadingIcon, RequiredIcon };
+
+export { ContainerSection, ContainerSectionContent, ContainerSectionTitle };
 
 export type { MenuItem };
