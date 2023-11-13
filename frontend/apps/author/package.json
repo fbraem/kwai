@@ -4,6 +4,7 @@
   "private": true,
   "description": "The author application for Kwai",
   "scripts": {
+    "test": "vitest",
     "dev": "vite --config ./vite.config.ts",
     "build": "vue-tsc --noEmit && vite build --config ./vite.config.ts",
     "preview": "vite preview --config ./vite.config.ts"
