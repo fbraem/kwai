@@ -1,3 +1,21 @@
+<script setup lang="ts">
+import { toRef, useSlots } from 'vue';
+import { useField } from 'vee-validate';
+import RequiredIcon from '../icons/RequiredIcon.vue';
+
+const props = defineProps<{
+  name: string,
+  id?: string,
+  type?: string,
+  placeholder?: string
+  required?: boolean
+}>();
+const slots = useSlots();
+
+const nameRef = toRef(props, 'name');
+const { value, errorMessage } = useField(nameRef);
+</script>
+
 <template>
   <div>
     <label
@@ -33,21 +51,3 @@
     </p>
   </div>
 </template>
-
-<script setup lang="ts">
-import { toRef, useSlots } from 'vue';
-import { useField } from 'vee-validate';
-import RequiredIcon from '../icons/RequiredIcon.vue';
-
-const props = defineProps<{
-  name: string,
-  id?: string,
-  type?: string,
-  placeholder?: string
-  required?: boolean
-}>();
-const slots = useSlots();
-
-const nameRef = toRef(props, 'name');
-const { value, errorMessage } = useField(nameRef);
-</script>
