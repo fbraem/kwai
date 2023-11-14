@@ -9,6 +9,7 @@ from kwai.core.json_api import Meta
 from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,
 )
+from kwai.modules.portal.get_application import GetApplication, GetApplicationCommand
 from kwai.modules.portal.get_applications import GetApplications, GetApplicationsCommand
 
 router = APIRouter()
@@ -31,5 +32,21 @@ async def get_applications(
         [ApplicationResource(application) async for application in application_iterator]
     )
     result.meta = Meta(count=count)
+
+    return result
+
+
+@router.get("/applications/{id}")
+async def get_application(
+    id: int,
+    db=Depends(create_database),
+) -> ApplicationResourceDocument:
+    """Get application."""
+    command = GetApplicationCommand(id=id)
+    application = await GetApplication(ApplicationDbRepository(db)).execute(command)
+
+    result: ApplicationResourceDocument = ApplicationResource.serialize(
+        ApplicationResource(application)
+    )
 
     return result
