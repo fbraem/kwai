@@ -1,5 +1,5 @@
 """Module that implements applications endpoints."""
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 
 from kwai.api.schemas.application import (
     ApplicationResource,
@@ -8,6 +8,9 @@ from kwai.core.dependencies import create_database
 from kwai.core.json_api import Meta
 from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,
+)
+from kwai.modules.portal.applications.application_repository import (
+    ApplicationNotFoundException,
 )
 from kwai.modules.portal.get_application import GetApplication, GetApplicationCommand
 from kwai.modules.portal.get_applications import GetApplications, GetApplicationsCommand
@@ -43,7 +46,13 @@ async def get_application(
 ) -> ApplicationResourceDocument:
     """Get application."""
     command = GetApplicationCommand(id=id)
-    application = await GetApplication(ApplicationDbRepository(db)).execute(command)
+
+    try:
+        application = await GetApplication(ApplicationDbRepository(db)).execute(command)
+    except ApplicationNotFoundException as ex:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
+        ) from ex
 
     result: ApplicationResourceDocument = ApplicationResource.serialize(
         ApplicationResource(application)
