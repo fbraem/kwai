@@ -23,6 +23,7 @@
     "@kwai/date": "*",
     "@kwai/ui": "*",
     "@tanstack/vue-query": "^5.8.1",
+    "vee-validate": "^4.11.8",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5"
   }
