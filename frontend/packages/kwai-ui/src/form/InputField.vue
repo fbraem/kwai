@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, toRef, useSlots } from 'vue';
+import { toRef, useSlots } from 'vue';
 import { useField } from 'vee-validate';
 import RequiredIcon from '../icons/RequiredIcon.vue';
 
