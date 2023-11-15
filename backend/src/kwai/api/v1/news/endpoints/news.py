@@ -126,7 +126,11 @@ async def create_news_item(
     return NewsItemResource.serialize(NewsItemResource(news_item))
 
 
-@router.patch("/news_items/{id}", status_code=status.HTTP_201_CREATED)
+@router.patch(
+    "/news_items/{id}",
+    status_code=status.HTTP_200_OK,
+    responses={status.HTTP_404_NOT_FOUND: {"description": "News item was not found."}},
+)
 async def update_news_item(
     id: int,
     resource: NewsItemResource.get_resource_data_model(),
@@ -154,11 +158,16 @@ async def update_news_item(
         promotion_end_datetime=resource.data.attributes.promotion_end_date,
         remark=resource.data.attributes.remark,
     )
-    news_item = await UpdateNewsItem(
-        NewsItemDbRepository(db),
-        ApplicationDbRepository(db),
-        Owner(id=user.id, uuid=user.uuid, name=user.name),
-    ).execute(command)
+    try:
+        news_item = await UpdateNewsItem(
+            NewsItemDbRepository(db),
+            ApplicationDbRepository(db),
+            Owner(id=user.id, uuid=user.uuid, name=user.name),
+        ).execute(command)
+    except NewsItemNotFoundException as ex:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
+        ) from ex
 
     return NewsItemResource.serialize(NewsItemResource(news_item))
 
