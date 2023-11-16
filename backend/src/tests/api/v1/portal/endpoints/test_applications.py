@@ -49,3 +49,31 @@ def test_get_application_not_found(client: TestClient):
     """Test if the get api responds with 404 when no application is found."""
     response = client.get("/api/v1/portal/applications/9999")
     assert response.status_code == status.HTTP_404_NOT_FOUND
+
+
+def test_update_application(
+    secure_client: TestClient,
+    application: ApplicationEntity,
+):
+    """Test PATCH /api/v1/portal/applications."""
+    payload = {
+        "data": {
+            "type": "applications",
+            "id": str(application.id),
+            "attributes": {
+                "title": "Test",
+                "name": "test",
+                "short_description": "An application used for testing",
+                "description": "",
+                "weight": 0,
+                "events": application.can_contain_events,
+                "pages": application.can_contain_pages,
+                "news": application.can_contain_news,
+                "remark": "Updated",
+            },
+        },
+    }
+    response = secure_client.patch(
+        f"/api/v1/portal/applications/{application.id}", json=payload
+    )
+    assert response.status_code == status.HTTP_200_OK, response.json()
