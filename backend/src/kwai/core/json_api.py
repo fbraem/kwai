@@ -528,7 +528,7 @@ class Resource:
             # included is a list with all related resource types.
             relation_types = ()
             for rel in self._relationships.values():
-                relation_types = relation_types + (
+                relation_types += (
                     rel.resource_type.__json_api_resource__.get_resource_model(),
                 )
                 document_fields["included"] = (
