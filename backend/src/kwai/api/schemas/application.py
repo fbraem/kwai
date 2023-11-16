@@ -61,7 +61,7 @@ class ApplicationResource:
         return self._application.weight
 
     @json_api.attribute(name="created_at")
-    def get_created_at(self) -> str:
+    def get_created_at(self) -> str | None:
         """Get the timestamp of creation."""
         return str(self._application.traceable_time.created_at)
 
