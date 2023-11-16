@@ -101,7 +101,7 @@ def test_update_news_item(
     response = secure_client.patch(
         f"/api/v1/news_items/{news_item_entity.id}", json=payload
     )
-    assert response.status_code == status.HTTP_201_CREATED, response.json()
+    assert response.status_code == status.HTTP_200_OK, response.json()
 
 
 def test_delete_news_item(secure_client: TestClient, news_item_entity: NewsItemEntity):
