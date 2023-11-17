@@ -19,30 +19,33 @@ const resolveTheme = (path: string) => {
   return original;
 };
 
-export default defineConfig({
-  base: '/auth/',
-  server: {
-    port: 3002,
-  },
-  plugins: [
-    vue(),
-    toml(),
-    VueI18nPlugin({
-      include: resolve(__dirname, './src/locales/**'),
-      compositionOnly: true,
-    }),
-  ],
-  resolve: {
-    alias: [
-      {
-        find: '@theme',
-        replacement: '',
-        customResolver: resolveTheme,
-      },
-      {
-        find: /^@root\/(.*)/,
-        replacement: `${resolve(__dirname)}/src/$1`,
-      },
+export default defineConfig(({ mode }) => {
+  return {
+    base: mode === 'development' ? '/auth/' : '/',
+    server: {
+      host: '0.0.0.0',
+      port: 3002,
+    },
+    plugins: [
+      vue(),
+      toml(),
+      VueI18nPlugin({
+        include: resolve(__dirname, './src/locales/**'),
+        compositionOnly: true,
+      }),
     ],
-  },
+    resolve: {
+      alias: [
+        {
+          find: '@theme',
+          replacement: '',
+          customResolver: resolveTheme,
+        },
+        {
+          find: /^@root\/(.*)/,
+          replacement: `${resolve(__dirname)}/src/$1`,
+        },
+      ],
+    },
+  };
 });
