@@ -17,6 +17,7 @@ import { useSidebar } from './nav/useSidebar';
 import PortalLayout from './layout/PortalLayout.vue';
 import DialogLayout from './layout/DialogLayout.vue';
 import InputField from './form/InputField.vue';
+import TextareaField from './form/TextareaField.vue';
 import Button from './form/Button.vue';
 import BarsIcon from './icons/BarsIcon.vue';
 import CheckIcon from './icons/CheckIcon.vue';
@@ -41,7 +42,7 @@ export { LinkTag, ToolbarLogo, ToolbarMenu, ToolbarMenuItem, Sidebar, useSidebar
 
 export { PortalLayout, DialogLayout };
 
-export { InputField, Button };
+export { InputField, Button, TextareaField };
 
 export { BarsIcon, CheckIcon, CloseIcon, EditIcon, ErrorIcon, ListIcon, LoadingIcon, RequiredIcon };
 
