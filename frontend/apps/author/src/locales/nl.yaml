@@ -1,0 +1,19 @@
+applications:
+  edit:
+    title: Wijzig Applicatie
+    form:
+      title:
+        label: Titel
+        placeholder: Geef een titel in
+      short_description:
+        label: Beknopte Omschrijving
+        placeholder: Geef een omschrijving in
+      description:
+        label: Omschrijving
+        placeholder: Geef een omschrijving in
+      remark:
+        label: Opmerking
+        placeholder: Geef een opmerking in
+      submit:
+        label: Bewaar
+      required: Dit is een verplicht veld.

@@ -1,8 +1,7 @@
 import { JsonApiDocument, JsonResourceIdentifier, useHttpApi } from '@kwai/api';
 import { z } from 'zod';
-import { useQuery } from '@tanstack/vue-query';
-import type { DateType } from '@kwai/date';
-import { createDateTimeFromUTC } from '@kwai/date';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
+import type { Ref } from 'vue';
 
 const JsonApiApplication = JsonResourceIdentifier.extend({
   type: z.literal('applications'),
@@ -16,8 +15,6 @@ const JsonApiApplication = JsonResourceIdentifier.extend({
     pages: z.boolean(),
     remark: z.string(),
     weight: z.number(),
-    updated_at: z.string(),
-    created_at: z.string(),
   }),
 });
 type JsonApiApplicationType = z.infer<typeof JsonApiApplication>;
@@ -39,8 +36,6 @@ export interface Application {
   pages: boolean,
   remark: string,
   weight: number,
-  updated_at: DateType | null,
-  created_at: DateType
 }
 
 const toModel = (json: JsonApiApplicationDocumentType): Application | Application[] => {
@@ -56,8 +51,6 @@ const toModel = (json: JsonApiApplicationDocumentType): Application | Applicatio
       pages: d.attributes.pages,
       remark: d.attributes.remark,
       weight: d.attributes.weight,
-      updated_at: d.attributes.updated_at ? createDateTimeFromUTC(d.attributes.updated_at) : null,
-      created_at: createDateTimeFromUTC(d.attributes?.created_at),
     };
   };
   if (Array.isArray(json.data)) {
@@ -72,15 +65,80 @@ const getApplications = () : Promise<Application[]> => {
   return api.get().json(json => {
     const result = JsonApiApplicationDocument.safeParse(json);
     if (result.success) {
-      return <Application[]> toModel(result.data);
+      return toModel(result.data) as Application[];
     }
     throw result.error;
   });
 };
 
 export const useApplications = () => {
-  return useQuery<Application[]>({
+  return useQuery({
     queryKey: ['author/applications'],
     queryFn: () => getApplications(),
+  });
+};
+
+const getApplication = (id: string) : Promise<Application> => {
+  const url = `/v1/portal/applications/${id}`;
+  const api = useHttpApi().url(url);
+  return api.get().json(json => {
+    const result = JsonApiApplicationDocument.safeParse(json);
+    if (result.success) {
+      return toModel(result.data) as Application;
+    }
+    throw result.error;
+  });
+};
+
+export const useApplication = (id: Ref<string>) => {
+  return useQuery({
+    queryKey: ['author/applications', id],
+    queryFn: () => getApplication(id.value),
+  });
+};
+
+const updateApplication = (application: Application): Promise<Application> => {
+  const payload: JsonApiApplicationDocumentType = {
+    data: {
+      id: application.id,
+      type: 'applications',
+      attributes: {
+        name: application.name,
+        title: application.title,
+        short_description: application.short_description,
+        description: application.description,
+        events: application.events,
+        news: application.news,
+        pages: application.pages,
+        remark: application.remark,
+        weight: application.weight,
+      },
+    },
+  };
+  return useHttpApi()
+    .url(`/v1/portal/applications/${application.id}`)
+    .patch(payload)
+    .json(json => {
+      const result = JsonApiApplicationDocument.safeParse(json);
+      if (result.success) {
+        return toModel(result.data) as Application;
+      }
+      throw result.error;
+    })
+  ;
+};
+
+export const useApplicationMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: Application) => updateApplication(data),
+    onSuccess: (data, variables) => {
+      queryClient.setQueryData(['author/applications', data.id], data);
+    },
+    onSettled: () => queryClient.invalidateQueries({
+      queryKey: ['author/applications'],
+      exact: true,
+    }),
   });
 };
