@@ -8,5 +8,6 @@ nav:
     - auth: api/api_auth.md
   - cli.md
   - source.md
+  - deploy.md
   - modules/index.md
   - reference.md
