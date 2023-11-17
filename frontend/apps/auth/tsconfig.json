@@ -2,6 +2,11 @@
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "allowJs": true,
+    "types": [
+      "vite/client",
+      "vitest/globals"
+    ],
     "paths": {
       "@theme/*": [
         "theme/kwai/*",
