@@ -22,7 +22,7 @@ const i18n = createI18n({
 app.use(i18n);
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 });
 app.use(router);
