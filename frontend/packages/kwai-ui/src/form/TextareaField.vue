@@ -9,6 +9,7 @@ const props = defineProps<{
   type?: string,
   placeholder?: string
   required?: boolean
+  rows?: number
 }>();
 const slots = useSlots();
 
@@ -32,6 +33,7 @@ const { value, errorMessage } = useField(nameRef);
     <textarea
       :id="id ?? name"
       v-model="value"
+      :rows="rows"
       class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
       :class="{ 'mt-1': !!slots.label, 'border-red-600': errorMessage, 'focus:ring-red-600': errorMessage, 'focus:border-red-600': errorMessage }"
       :placeholder="placeholder ?? ''"
