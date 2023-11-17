@@ -21,10 +21,12 @@ const i18n = createI18n({
   messages,
 });
 app.use(i18n);
+
 const pinia = createPinia();
 app.use(pinia);
+
 const router = createRouter({
-  history: createWebHistory('auth'),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 });
 app.use(router);
