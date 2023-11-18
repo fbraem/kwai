@@ -6,7 +6,7 @@ import { createDateTimeFromUTC } from '@kwai/date';
 import type { DateType } from '@kwai/date';
 import { ref } from 'vue';
 import type { Ref } from 'vue';
-import { JsonApiText } from '@kwai/types';
+import { TextSchema } from '@kwai/types';
 
 const JsonApiNewsItem = z.object({
   id: z.string(),
@@ -14,7 +14,7 @@ const JsonApiNewsItem = z.object({
   attributes: z.object({
     priority: z.number(),
     publish_date: z.string(),
-    texts: z.array(JsonApiText),
+    texts: z.array(TextSchema),
   }),
   relationships: z.object({
     application: z.object({
