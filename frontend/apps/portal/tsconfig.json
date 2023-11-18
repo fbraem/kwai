@@ -25,6 +25,9 @@
       "path": "../../packages/kwai-config"
     },
     {
+      "path": "../../packages/kwai-types"
+    },
+    {
       "path": "../../packages/kwai-ui"
     },
     {

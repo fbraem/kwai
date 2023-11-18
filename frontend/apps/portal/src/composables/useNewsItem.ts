@@ -6,7 +6,7 @@ import { createDateTimeFromUTC } from '@kwai/date';
 import type { DateType } from '@kwai/date';
 import { ref } from 'vue';
 import type { Ref } from 'vue';
-import { JsonApiText } from '@root/composables/types';
+import { JsonApiText } from '@kwai/types';
 
 const JsonApiNewsItem = z.object({
   id: z.string(),
@@ -42,7 +42,6 @@ const JsonApiNewsItemDocument = JsonApiDocument.extend(JsonApiNewsItemData.shape
 type JSONApiNewsItemDocumentType = z.infer<typeof JsonApiNewsItemDocument>;
 
 interface NewsItemText {
-  locale: string,
   title: string,
   summary: string,
   content?: string | null
@@ -78,7 +77,6 @@ const toModel = (json: JSONApiNewsItemDocumentType): NewsItem | NewsItemsWithMet
       priority: newsItem.attributes.priority,
       publishDate: createDateTimeFromUTC(newsItem.attributes.publish_date),
       texts: newsItem.attributes.texts.map(text => ({
-        locale: text.locale,
         title: text.title,
         summary: text.summary,
         content: text.content,
@@ -145,6 +143,7 @@ const getNewsItems = ({
     if (result.success) {
       return toModel(result.data) as NewsItemsWithMeta;
     }
+    console.log(result.error);
     throw result.error;
   });
 };
