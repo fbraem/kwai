@@ -1,0 +1,13 @@
+{
+  "name": "@kwai/types",
+  "version": "1.0.0",
+  "description": "Common Typescript types for kwai",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "zod": "^3.22.4"
+  }
+}
