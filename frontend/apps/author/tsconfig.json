@@ -23,6 +23,9 @@
       "path": "./tsconfig.node.json"
     },
     {
+      "path": "../../packages/kwai-types"
+    },
+    {
       "path": "../../packages/kwai-config"
     },
     {
