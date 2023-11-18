@@ -94,7 +94,7 @@ const toModel = (json: JSONApiNewsItemDocumentType): NewsItem | NewsItemsWithMet
       meta: {
         count: json.meta?.count || 0,
         offset: json.meta?.offset || 0,
-        limit: json.meta?.offset || 0,
+        limit: json.meta?.limit || 0,
       },
       items: json.data.map(mapModel),
     };
