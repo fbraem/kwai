@@ -2,6 +2,8 @@ import { JsonApiDocument, JsonResourceIdentifier, useHttpApi } from '@kwai/api';
 import { z } from 'zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
 import type { Ref } from 'vue';
+import type { LocationAsRelativeRaw } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 const JsonApiApplication = JsonResourceIdentifier.extend({
   type: z.literal('applications'),
@@ -128,13 +130,17 @@ const updateApplication = (application: Application): Promise<Application> => {
   ;
 };
 
-export const useApplicationMutation = () => {
+export const useApplicationMutation = (route?: LocationAsRelativeRaw) => {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   return useMutation({
     mutationFn: (data: Application) => updateApplication(data),
-    onSuccess: (data, variables) => {
+    onSuccess: async(data, variables) => {
       queryClient.setQueryData(['author/applications', data.id], data);
+      if (route) {
+        await router.push(route);
+      }
     },
     onSettled: () => queryClient.invalidateQueries({
       queryKey: ['author/applications'],

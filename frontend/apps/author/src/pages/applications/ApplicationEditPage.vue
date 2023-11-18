@@ -42,7 +42,7 @@ watch(application, nv => {
   });
 }, { immediate: true });
 
-const { mutate } = useApplicationMutation();
+const { mutate } = useApplicationMutation({ name: 'author.applications' });
 
 const errorMessage: Ref<string|null> = ref(null);
 const onSubmitForm = handleSubmit(async values => {
