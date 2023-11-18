@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, Field
 
 from kwai.api.dependencies import get_current_user, get_optional_user
-from kwai.api.schemas.news_item import NewsItemResource
+from kwai.api.schemas.news_item import NewsItemAuthorResource, NewsItemResource
 from kwai.core.dependencies import create_database
 from kwai.core.domain.use_case import TextCommand
 from kwai.core.domain.value_objects.owner import Owner
@@ -73,7 +73,7 @@ async def get_news_item(
     id: int,
     db=Depends(create_database),
     user: UserEntity | None = Depends(get_optional_user),
-) -> NewsItemResource.get_document_model():
+) -> NewsItemResource.get_document_model() | NewsItemAuthorResource.get_document_model():
     """Get a news item."""
     command = GetNewsItemCommand(id=id)
 
@@ -88,12 +88,15 @@ async def get_news_item(
     if not user and not news_item.is_enabled:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
 
+    if user:
+        return NewsItemAuthorResource.serialize(NewsItemAuthorResource(news_item))
+
     return NewsItemResource.serialize(NewsItemResource(news_item))
 
 
 @router.post("/news_items", status_code=status.HTTP_201_CREATED)
 async def create_news_item(
-    resource: NewsItemResource.get_resource_data_model(),
+    resource: NewsItemAuthorResource.get_resource_data_model(),
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ):
@@ -105,8 +108,8 @@ async def create_news_item(
                 locale=text.locale,
                 format=text.format,
                 title=text.title,
-                summary=text.summary,
-                content=text.content,
+                summary=text.original_summary,
+                content=text.original_content,
             )
             for text in resource.data.attributes.texts
         ],
@@ -133,7 +136,7 @@ async def create_news_item(
 )
 async def update_news_item(
     id: int,
-    resource: NewsItemResource.get_resource_data_model(),
+    resource: NewsItemAuthorResource.get_resource_data_model(),
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ):
@@ -146,8 +149,8 @@ async def update_news_item(
                 locale=text.locale,
                 format=text.format,
                 title=text.title,
-                summary=text.summary,
-                content=text.content,
+                summary=text.original_summary,
+                content=text.original_content,
             )
             for text in resource.data.attributes.texts
         ],

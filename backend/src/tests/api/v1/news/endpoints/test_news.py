@@ -49,6 +49,7 @@ def test_create_news_item(secure_client: TestClient, application: ApplicationEnt
                         "format": "md",
                         "title": "Test New Website",
                         "summary": "Testing the new website",
+                        "original_summary": "Testing the new website",
                     }
                 ],
                 "enabled": True,
@@ -84,6 +85,7 @@ def test_update_news_item(
                         "format": "md",
                         "title": "Test New Website",
                         "summary": "Testing the new website (update)",
+                        "original_summary": "Testing the new website (update)",
                     }
                 ],
                 "enabled": True,
