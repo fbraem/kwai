@@ -43,10 +43,7 @@ const menuItems = computed(() : MenuItem[] => {
         </div>
         <div class="flex flex-col place-items-end md:w-1/3">
           <div>
-            <PrimaryButton
-              :url="`${website.url}/auth/login`"
-              class="px-3 py-2 flex items-center bg-yellow-300 text-gray-800 hover:bg-white hover:text-black hover:cursor-pointer border border-yellow-300"
-            >
+            <PrimaryButton :url="`${website.url}/auth/login`">
               Login
             </PrimaryButton>
           </div>
