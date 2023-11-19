@@ -26,6 +26,7 @@ import EditIcon from './icons/EditIcon.vue';
 import ErrorIcon from './icons/ErrorIcon.vue';
 import ListIcon from './icons/ListIcon.vue';
 import LoadingIcon from './icons/LoadingIcon.vue';
+import NewIcon from './icons/NewIcon.vue';
 import RequiredIcon from './icons/RequiredIcon.vue';
 import ContainerSection from './section/ContainerSection.vue';
 import ContainerSectionContent from './section/ContainerSectionContent.vue';
@@ -44,7 +45,7 @@ export { PortalLayout, DialogLayout };
 
 export { InputField, Button, TextareaField };
 
-export { BarsIcon, CheckIcon, CloseIcon, EditIcon, ErrorIcon, ListIcon, LoadingIcon, RequiredIcon };
+export { BarsIcon, CheckIcon, CloseIcon, EditIcon, ErrorIcon, ListIcon, LoadingIcon, NewIcon, RequiredIcon };
 
 export { ContainerSection, ContainerSectionContent, ContainerSectionTitle };
 
