@@ -3,7 +3,7 @@ import type { JsonApiDataType } from '@kwai/api';
 import { JsonApiDocument, useHttpApi } from '@kwai/api';
 import { z } from 'zod';
 import { createDateTimeFromUTC } from '@kwai/date';
-import { ref } from 'vue';
+import { ref, toValue } from 'vue';
 import type { Ref } from 'vue';
 import { TextSchema, NewsItemSchema, ApplicationSchema } from '@kwai/types';
 import type { NewsItemText, NewsItem, ApplicationResource } from '@kwai/types';
@@ -98,10 +98,10 @@ const getNewsItem = (id: string) : Promise<NewsItem> => {
   });
 };
 
-export const useNewsItem = (id: string) => {
+export const useNewsItem = (id: Ref<string>) => {
   return useQuery({
     queryKey: ['author/news_items', id],
-    queryFn: () => getNewsItem(id),
+    queryFn: () => getNewsItem(toValue(id)),
   });
 };
 
@@ -110,22 +110,22 @@ const getNewsItems = async({
   limit = null,
   application = null,
 } : {
-    offset?: Ref<number> | null,
-    limit?: Ref<number> | null,
-    application?: Ref<string> | null
+    offset?: number | null,
+    limit?: number | null,
+    application?: string | null
   }) : Promise<NewsItemsAuthorWithMeta> => {
   let api = useHttpApi()
     .url('/v1/news_items')
     .query({ 'filter[enabled]': false })
   ;
   if (application) {
-    api = api.query({ 'filter[application]': application.value });
+    api = api.query({ 'filter[application]': application });
   }
   if (offset) {
-    api = api.query({ 'page[offset]': offset.value });
+    api = api.query({ 'page[offset]': offset });
   }
   if (limit) {
-    api = api.query({ 'page[limit]': limit.value });
+    api = api.query({ 'page[limit]': limit });
   }
   return api.get().json().then(json => {
     const result = NewsItemDocumentSchema.safeParse(json);
@@ -143,6 +143,10 @@ export const useNewsItems = ({ application = null, offset = ref(0), limit = ref(
   }
   return useQuery({
     queryKey: ['author/news_items', queryKey],
-    queryFn: () => getNewsItems({ offset, limit, application }),
+    queryFn: () => getNewsItems({
+      offset: toValue(offset),
+      limit: toValue(limit),
+      application: toValue(application),
+    }),
   });
 };
