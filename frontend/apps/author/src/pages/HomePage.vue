@@ -1,11 +1,6 @@
 <script setup lang="ts">
-import { useTitle } from '@vueuse/core';
-import { website } from '@kwai/config';
 import { Card, CardTitle, ListIcon, ContainerSection, ContainerSectionContent, ContainerSectionTitle } from '@kwai/ui';
 import PrimaryButton from '@root/components/PrimaryButton.vue';
-
-const title = useTitle();
-title.value = `${website.title} | Author`;
 </script>
 
 <template>
