@@ -47,13 +47,16 @@ const toModel = (json: JsonApiApplicationDocumentType): Application | Applicatio
 const getApplications = () : Promise<Application[]> => {
   const url = '/v1/portal/applications';
   const api = useHttpApi().url(url);
-  return api.get().json(json => {
-    const result = JsonApiApplicationDocument.safeParse(json);
-    if (result.success) {
-      return <Application[]> toModel(result.data);
-    }
-    throw result.error;
-  });
+  return api
+    .get()
+    .json()
+    .then(json => {
+      const result = JsonApiApplicationDocument.safeParse(json);
+      if (result.success) {
+        return <Application[]> toModel(result.data);
+      }
+      throw result.error;
+    });
 };
 
 export const useApplications = () => {

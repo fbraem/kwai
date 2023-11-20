@@ -145,7 +145,8 @@ const getTrainings = (period: TrainingPeriod) : Promise<TrainingsWithMeta> => {
       'filter[end]': period.end.format() + ' 00:00:00',
     })
     .get()
-    .json(json => {
+    .json()
+    .then(json => {
       const result = JsonApiTrainingDocument.safeParse(json);
       if (result.success) {
         return toModel(result.data) as TrainingsWithMeta;

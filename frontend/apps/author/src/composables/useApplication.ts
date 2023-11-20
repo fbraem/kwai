@@ -64,7 +64,7 @@ const toModel = (json: JsonApiApplicationDocumentType): Application | Applicatio
 const getApplications = () : Promise<Application[]> => {
   const url = '/v1/portal/applications';
   const api = useHttpApi().url(url);
-  return api.get().json(json => {
+  return api.get().json().then(json => {
     const result = JsonApiApplicationDocument.safeParse(json);
     if (result.success) {
       return toModel(result.data) as Application[];
@@ -83,7 +83,7 @@ export const useApplications = () => {
 const getApplication = (id: string) : Promise<Application> => {
   const url = `/v1/portal/applications/${id}`;
   const api = useHttpApi().url(url);
-  return api.get().json(json => {
+  return api.get().json().then(json => {
     const result = JsonApiApplicationDocument.safeParse(json);
     if (result.success) {
       return toModel(result.data) as Application;

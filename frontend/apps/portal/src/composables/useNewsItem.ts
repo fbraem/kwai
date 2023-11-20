@@ -103,13 +103,16 @@ const toModel = (json: JSONApiNewsItemDocumentType): NewsItem | NewsItemsWithMet
 const getNewsItem = (id: string) : Promise<NewsItem> => {
   const url = `/v1/news_items/${id}`;
   const api = useHttpApi().url(url);
-  return api.get().json(json => {
-    const result = JsonApiNewsItemDocument.safeParse(json);
-    if (result.success) {
-      return toModel(result.data) as NewsItem;
-    }
-    throw result.error;
-  });
+  return api
+    .get()
+    .json()
+    .then(json => {
+      const result = JsonApiNewsItemDocument.safeParse(json);
+      if (result.success) {
+        return toModel(result.data) as NewsItem;
+      }
+      throw result.error;
+    });
 };
 
 export const useNewsItem = (id: string) => {
@@ -138,25 +141,31 @@ const getNewsItems = ({
   if (limit) {
     api = api.query({ 'page[limit]': limit.value });
   }
-  return api.get().json(json => {
-    const result = JsonApiNewsItemDocument.safeParse(json);
-    if (result.success) {
-      return toModel(result.data) as NewsItemsWithMeta;
-    }
-    console.log(result.error);
-    throw result.error;
-  });
+  return api
+    .get()
+    .json()
+    .then(json => {
+      const result = JsonApiNewsItemDocument.safeParse(json);
+      if (result.success) {
+        return toModel(result.data) as NewsItemsWithMeta;
+      }
+      console.log(result.error);
+      throw result.error;
+    });
 };
 
 const getPromotedNewsItems = () : Promise<NewsItemsWithMeta> => {
   const api = useHttpApi().url('/v1/portal/news');
-  return api.get().json(json => {
-    const result = JsonApiNewsItemDocument.safeParse(json);
-    if (result.success) {
-      return toModel(result.data) as NewsItemsWithMeta;
-    }
-    throw result.error;
-  });
+  return api
+    .get()
+    .json()
+    .then(json => {
+      const result = JsonApiNewsItemDocument.safeParse(json);
+      if (result.success) {
+        return toModel(result.data) as NewsItemsWithMeta;
+      }
+      throw result.error;
+    });
 };
 
 export const useNewsItems = ({ promoted = false, application = null, offset = ref(0), limit = ref(0) } : {promoted?: boolean, application?: Ref<string> | null, offset?: Ref<number>, limit?: Ref<number>}) => {

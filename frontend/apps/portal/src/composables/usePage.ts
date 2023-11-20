@@ -65,7 +65,8 @@ const toModel = (json: JsonApiPageDocumentType): Page | Page[] => {
 const getPage = (id: string) : Promise<Page> => {
   return useHttpApi().url(`/v1/pages/${id}`)
     .get()
-    .json(json => {
+    .json()
+    .then(json => {
       const result = JsonApiPageDocument.safeParse(json);
       if (result.success) {
         return toModel(result.data) as Page;
@@ -87,13 +88,16 @@ export const usePage = (id: Ref<string>) => {
 
 const getPages = (application: string) : Promise<Page[]> => {
   const api = useHttpApi().url('/v1/pages').query({ 'filter[application]': application });
-  return api.get().json(json => {
-    const result = JsonApiPageDocument.safeParse(json);
-    if (result.success) {
-      return toModel(result.data) as Page[];
-    }
-    throw result.error;
-  });
+  return api
+    .get()
+    .json()
+    .then(json => {
+      const result = JsonApiPageDocument.safeParse(json);
+      if (result.success) {
+        return toModel(result.data) as Page[];
+      }
+      throw result.error;
+    });
 };
 
 /**
