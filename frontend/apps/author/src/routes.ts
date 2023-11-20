@@ -2,7 +2,8 @@ import type { RouteRecordRaw } from 'vue-router';
 import { PortalLayout } from '@kwai/ui';
 import HomePage from '@root/pages/HomePage.vue';
 import AuthorToolbar from '@root/components/AuthorToolbar.vue';
-import NewsPage from '@root/pages/NewsPage.vue';
+import NewsPage from '@root/pages/news/NewsPage.vue';
+import NewsEditPage from '@root/pages/news/NewsEditPage.vue';
 import PagesPage from '@root/pages/PagesPage.vue';
 import ApplicationsPage from '@root/pages/applications/ApplicationsPage.vue';
 import ApplicationEditPage from '@root/pages/applications/ApplicationEditPage.vue';
@@ -32,6 +33,18 @@ const routes: RouteRecordRaw[] = [
         },
         meta: {
           title: 'Nieuws',
+        },
+      },
+      {
+        name: 'author.news.edit',
+        path: '/news/edit/:id(\\d+)',
+        props: {
+          toolbar: false,
+          main: true,
+        },
+        components: {
+          toolbar: AuthorToolbar,
+          main: NewsEditPage,
         },
       },
       {

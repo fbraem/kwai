@@ -17,3 +17,15 @@ applications:
       submit:
         label: Bewaar
       required: Dit is een verplicht veld.
+news:
+  home:
+    title: Nieuws
+    toolbar:
+      title: Nieuwsberichten
+      description: Beheer de nieuwsberichten of publiceer nieuwe berichten
+      button: Nieuw
+    table:
+      columns:
+        title: Titel
+        application: Applicatie
+        state: Status
