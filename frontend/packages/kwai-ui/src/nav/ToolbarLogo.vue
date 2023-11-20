@@ -15,7 +15,7 @@ defineProps<Props>();
           class="w-16 mr-4"
           alt="logo"
         >
-        <div class="text-xl font-medium uppercase">
+        <div class="sm:text-xl font-medium uppercase">
           <slot />
         </div>
       </div>
