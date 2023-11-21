@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/vue-query';
-import type { JsonApiDataType } from '@kwai/api';
 import { JsonApiDocument, useHttpApi } from '@kwai/api';
 import { z } from 'zod';
 import { createDateTimeFromUTC } from '@kwai/date';
@@ -7,6 +6,22 @@ import { ref, toValue } from 'vue';
 import type { Ref } from 'vue';
 import { TextSchema, NewsItemSchema, ApplicationSchema } from '@kwai/types';
 import type { NewsItemText, NewsItem, ApplicationResource } from '@kwai/types';
+
+interface NewsItemAuthorText extends NewsItemText {
+  format: string,
+  original_summary: string,
+  original_content?: string | null
+}
+
+export interface NewsItemAuthor extends NewsItem {
+  enabled: boolean,
+  texts: NewsItemAuthorText[]
+}
+
+interface NewsItemsAuthorWithMeta {
+  meta: { count: number, offset: number, limit: number },
+  items: NewsItemAuthor[]
+}
 
 const TextAuthorSchema = TextSchema.extend({
   format: z.string(),
@@ -27,29 +42,11 @@ type NewsItemAuthorResource = z.infer<typeof NewsItemAuthorSchema>;
 const NewsItemDocumentSchema = JsonApiDocument.extend({
   data: z.union([NewsItemAuthorSchema, z.array(NewsItemAuthorSchema).default([])]),
   included: z.array(ApplicationSchema).default([]),
-});
-type NewsItemDocument = z.infer<typeof NewsItemDocumentSchema>;
-
-interface NewsItemAuthorText extends NewsItemText {
-  format: string,
-  original_summary: string,
-  original_content?: string | null
-}
-
-export interface NewsItemAuthor extends NewsItem {
-  enabled: boolean,
-  texts: NewsItemAuthorText[]
-}
-
-interface NewsItemsAuthorWithMeta {
-  meta: { count: number, offset: number, limit: number },
-  items: NewsItemAuthor[]
-}
-
-const toModel = (json: NewsItemDocument): NewsItemAuthor | NewsItemsAuthorWithMeta => {
-  const mapModel = (d: JsonApiDataType): NewsItemAuthor => {
+}).transform(doc => {
+  /* Transform JSON:API structure to NewsItemAuthor or NewsItemAuthorWithMeta */
+  const mapModel = (d: NewsItemAuthorResource): NewsItemAuthor => {
     const newsItem = d as NewsItemAuthorResource;
-    const application = json.included.find(
+    const application = doc.included.find(
       included => included.type === ApplicationSchema.shape.type.value && included.id === newsItem.relationships.application.data.id
     ) as ApplicationResource;
 
@@ -73,26 +70,28 @@ const toModel = (json: NewsItemDocument): NewsItemAuthor | NewsItemsAuthorWithMe
       },
     };
   };
-  if (Array.isArray(json.data)) {
+
+  if (Array.isArray(doc.data)) {
     return {
       meta: {
-        count: json.meta?.count || 0,
-        offset: json.meta?.offset || 0,
-        limit: json.meta?.limit || 0,
+        count: doc.meta?.count || 0,
+        offset: doc.meta?.offset || 0,
+        limit: doc.meta?.limit || 0,
       },
-      items: json.data.map(mapModel),
+      items: doc.data.map(mapModel),
     };
+  } else {
+    return mapModel(doc.data);
   }
-  return mapModel(json.data);
-};
+});
 
-const getNewsItem = (id: string) : Promise<NewsItem> => {
+const getNewsItem = (id: string) : Promise<NewsItemAuthor> => {
   const url = `/v1/news_items/${id}`;
   const api = useHttpApi().url(url);
   return api.get().json().then(json => {
     const result = NewsItemDocumentSchema.safeParse(json);
     if (result.success) {
-      return toModel(result.data) as NewsItem;
+      return result.data as NewsItemAuthor;
     }
     throw result.error;
   });
@@ -130,7 +129,7 @@ const getNewsItems = async({
   return api.get().json().then(json => {
     const result = NewsItemDocumentSchema.safeParse(json);
     if (result.success) {
-      return toModel(result.data) as NewsItemsAuthorWithMeta;
+      return result.data as NewsItemsAuthorWithMeta;
     }
     throw result.error;
   });
