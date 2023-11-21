@@ -7,20 +7,20 @@ import type { Ref } from 'vue';
 import { TextSchema, NewsItemSchema, ApplicationSchema } from '@kwai/types';
 import type { NewsItemText, NewsItem, ApplicationResource } from '@kwai/types';
 
-interface NewsItemAuthorText extends NewsItemText {
+interface NewsItemForAuthorText extends NewsItemText {
   format: string,
   original_summary: string,
   original_content?: string | null
 }
 
-export interface NewsItemAuthor extends NewsItem {
+export interface NewsItemForAuthor extends NewsItem {
   enabled: boolean,
-  texts: NewsItemAuthorText[]
+  texts: NewsItemForAuthorText[]
 }
 
-interface NewsItemsAuthorWithMeta {
+interface NewsItemsForAuthor {
   meta: { count: number, offset: number, limit: number },
-  items: NewsItemAuthor[]
+  items: NewsItemForAuthor[]
 }
 
 const TextAuthorSchema = TextSchema.extend({
@@ -37,15 +37,15 @@ const NewsItemAuthorSchema = NewsItemSchema.extend({
     texts: z.array(TextAuthorSchema),
   }),
 });
-type NewsItemAuthorResource = z.infer<typeof NewsItemAuthorSchema>;
+type NewsItemForAuthorResource = z.infer<typeof NewsItemAuthorSchema>;
 
 const NewsItemDocumentSchema = JsonApiDocument.extend({
   data: z.union([NewsItemAuthorSchema, z.array(NewsItemAuthorSchema).default([])]),
   included: z.array(ApplicationSchema).default([]),
 }).transform(doc => {
-  /* Transform JSON:API structure to NewsItemAuthor or NewsItemAuthorWithMeta */
-  const mapModel = (d: NewsItemAuthorResource): NewsItemAuthor => {
-    const newsItem = d as NewsItemAuthorResource;
+  /* Transform JSON:API structure to NewsItemForAuthor or NewsItemsForAuthor */
+  const mapModel = (d: NewsItemForAuthorResource): NewsItemForAuthor => {
+    const newsItem = d as NewsItemForAuthorResource;
     const application = doc.included.find(
       included => included.type === ApplicationSchema.shape.type.value && included.id === newsItem.relationships.application.data.id
     ) as ApplicationResource;
@@ -85,13 +85,13 @@ const NewsItemDocumentSchema = JsonApiDocument.extend({
   }
 });
 
-const getNewsItem = (id: string) : Promise<NewsItemAuthor> => {
+const getNewsItem = (id: string) : Promise<NewsItemForAuthor> => {
   const url = `/v1/news_items/${id}`;
   const api = useHttpApi().url(url);
   return api.get().json().then(json => {
     const result = NewsItemDocumentSchema.safeParse(json);
     if (result.success) {
-      return result.data as NewsItemAuthor;
+      return result.data as NewsItemForAuthor;
     }
     throw result.error;
   });
@@ -112,7 +112,7 @@ const getNewsItems = async({
     offset?: number | null,
     limit?: number | null,
     application?: string | null
-  }) : Promise<NewsItemsAuthorWithMeta> => {
+  }) : Promise<NewsItemsForAuthor> => {
   let api = useHttpApi()
     .url('/v1/news_items')
     .query({ 'filter[enabled]': false })
@@ -129,7 +129,7 @@ const getNewsItems = async({
   return api.get().json().then(json => {
     const result = NewsItemDocumentSchema.safeParse(json);
     if (result.success) {
-      return result.data as NewsItemsAuthorWithMeta;
+      return result.data as NewsItemsForAuthor;
     }
     throw result.error;
   });
