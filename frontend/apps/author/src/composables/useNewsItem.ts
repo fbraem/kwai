@@ -44,18 +44,17 @@ const NewsItemDocumentSchema = JsonApiDocument.extend({
   included: z.array(ApplicationSchema).default([]),
 }).transform(doc => {
   /* Transform JSON:API structure to NewsItemForAuthor or NewsItemsForAuthor */
-  const mapModel = (d: NewsItemForAuthorResource): NewsItemForAuthor => {
-    const newsItem = d as NewsItemForAuthorResource;
+  const mapModel = (newsItemResource: NewsItemForAuthorResource): NewsItemForAuthor => {
     const application = doc.included.find(
-      included => included.type === ApplicationSchema.shape.type.value && included.id === newsItem.relationships.application.data.id
+      included => included.type === ApplicationSchema.shape.type.value && included.id === newsItemResource.relationships.application.data.id
     ) as ApplicationResource;
 
     return {
-      id: newsItem.id,
-      enabled: newsItem.attributes.enabled,
-      priority: newsItem.attributes.priority,
-      publishDate: createDateTimeFromUTC(newsItem.attributes.publish_date),
-      texts: newsItem.attributes.texts.map(text => ({
+      id: newsItemResource.id,
+      enabled: newsItemResource.attributes.enabled,
+      priority: newsItemResource.attributes.priority,
+      publishDate: createDateTimeFromUTC(newsItemResource.attributes.publish_date),
+      texts: newsItemResource.attributes.texts.map(text => ({
         locale: text.locale,
         format: text.format,
         title: text.title,
