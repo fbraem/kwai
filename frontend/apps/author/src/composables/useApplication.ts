@@ -5,28 +5,6 @@ import type { Ref } from 'vue';
 import type { LocationAsRelativeRaw } from 'vue-router';
 import { useRouter } from 'vue-router';
 
-const JsonApiApplication = JsonResourceIdentifier.extend({
-  type: z.literal('applications'),
-  attributes: z.object({
-    name: z.string(),
-    title: z.string(),
-    short_description: z.string(),
-    description: z.string(),
-    events: z.boolean(),
-    news: z.boolean(),
-    pages: z.boolean(),
-    remark: z.string(),
-    weight: z.number(),
-  }),
-});
-type JsonApiApplicationType = z.infer<typeof JsonApiApplication>;
-
-const JsonApiApplicationData = z.object({
-  data: z.union([JsonApiApplication, z.array(JsonApiApplication).default([])]),
-});
-const JsonApiApplicationDocument = JsonApiDocument.extend(JsonApiApplicationData.shape);
-type JsonApiApplicationDocumentType = z.infer<typeof JsonApiApplicationDocument>;
-
 export interface Application {
   id: string,
   name: string,
@@ -40,34 +18,55 @@ export interface Application {
   weight: number,
 }
 
-const toModel = (json: JsonApiApplicationDocumentType): Application | Application[] => {
-  const mapModel = (d: JsonApiApplicationType): Application => {
+const ApplicationSchema = JsonResourceIdentifier.extend({
+  type: z.literal('applications'),
+  attributes: z.object({
+    name: z.string(),
+    title: z.string(),
+    short_description: z.string(),
+    description: z.string(),
+    events: z.boolean(),
+    news: z.boolean(),
+    pages: z.boolean(),
+    remark: z.string(),
+    weight: z.number(),
+  }),
+});
+type ApplicationResource = z.infer<typeof ApplicationSchema>;
+
+const ApplicationDocumentSchema = JsonApiDocument.extend({
+  data: z.union([ApplicationSchema, z.array(ApplicationSchema).default([])]),
+});
+type ApplicationDocument = z.infer<typeof ApplicationDocumentSchema>;
+
+const TransformedApplicationSchema = ApplicationDocumentSchema.transform(doc => {
+  const mapModel = (applicationResource: ApplicationResource): Application => {
     return {
-      id: d.id,
-      title: d.attributes.title,
-      name: d.attributes.name,
-      short_description: d.attributes.short_description,
-      description: d.attributes.description,
-      events: d.attributes.events,
-      news: d.attributes.news,
-      pages: d.attributes.pages,
-      remark: d.attributes.remark,
-      weight: d.attributes.weight,
+      id: applicationResource.id,
+      title: applicationResource.attributes.title,
+      name: applicationResource.attributes.name,
+      short_description: applicationResource.attributes.short_description,
+      description: applicationResource.attributes.description,
+      events: applicationResource.attributes.events,
+      news: applicationResource.attributes.news,
+      pages: applicationResource.attributes.pages,
+      remark: applicationResource.attributes.remark,
+      weight: applicationResource.attributes.weight,
     };
   };
-  if (Array.isArray(json.data)) {
-    return json.data.map(mapModel);
+  if (Array.isArray(doc.data)) {
+    return doc.data.map(mapModel);
   }
-  return mapModel(json.data);
-};
+  return mapModel(doc.data);
+});
 
 const getApplications = () : Promise<Application[]> => {
   const url = '/v1/portal/applications';
   const api = useHttpApi().url(url);
   return api.get().json().then(json => {
-    const result = JsonApiApplicationDocument.safeParse(json);
+    const result = TransformedApplicationSchema.safeParse(json);
     if (result.success) {
-      return toModel(result.data) as Application[];
+      return result.data as Application[];
     }
     throw result.error;
   });
@@ -84,9 +83,9 @@ const getApplication = (id: string) : Promise<Application> => {
   const url = `/v1/portal/applications/${id}`;
   const api = useHttpApi().url(url);
   return api.get().json().then(json => {
-    const result = JsonApiApplicationDocument.safeParse(json);
+    const result = TransformedApplicationSchema.safeParse(json);
     if (result.success) {
-      return toModel(result.data) as Application;
+      return result.data as Application;
     }
     throw result.error;
   });
@@ -100,7 +99,7 @@ export const useApplication = (id: Ref<string>) => {
 };
 
 const updateApplication = (application: Application): Promise<Application> => {
-  const payload: JsonApiApplicationDocumentType = {
+  const payload: ApplicationDocument = {
     data: {
       id: application.id,
       type: 'applications',
@@ -121,9 +120,9 @@ const updateApplication = (application: Application): Promise<Application> => {
     .url(`/v1/portal/applications/${application.id}`)
     .patch(payload)
     .json(json => {
-      const result = JsonApiApplicationDocument.safeParse(json);
+      const result = TransformedApplicationSchema.safeParse(json);
       if (result.success) {
-        return toModel(result.data) as Application;
+        return result.data as Application;
       }
       throw result.error;
     })
