@@ -36,10 +36,7 @@ type ApplicationResource = z.infer<typeof ApplicationSchema>;
 
 const ApplicationDocumentSchema = JsonApiDocument.extend({
   data: z.union([ApplicationSchema, z.array(ApplicationSchema).default([])]),
-});
-type ApplicationDocument = z.infer<typeof ApplicationDocumentSchema>;
-
-const TransformedApplicationSchema = ApplicationDocumentSchema.transform(doc => {
+}).transform(doc => {
   const mapModel = (applicationResource: ApplicationResource): Application => {
     return {
       id: applicationResource.id,
@@ -59,12 +56,13 @@ const TransformedApplicationSchema = ApplicationDocumentSchema.transform(doc => 
   }
   return mapModel(doc.data);
 });
+type ApplicationDocument = z.input<typeof ApplicationDocumentSchema>;
 
 const getApplications = () : Promise<Application[]> => {
   const url = '/v1/portal/applications';
   const api = useHttpApi().url(url);
   return api.get().json().then(json => {
-    const result = TransformedApplicationSchema.safeParse(json);
+    const result = ApplicationDocumentSchema.safeParse(json);
     if (result.success) {
       return result.data as Application[];
     }
@@ -83,7 +81,7 @@ const getApplication = (id: string) : Promise<Application> => {
   const url = `/v1/portal/applications/${id}`;
   const api = useHttpApi().url(url);
   return api.get().json().then(json => {
-    const result = TransformedApplicationSchema.safeParse(json);
+    const result = ApplicationDocumentSchema.safeParse(json);
     if (result.success) {
       return result.data as Application;
     }
@@ -120,7 +118,7 @@ const updateApplication = (application: Application): Promise<Application> => {
     .url(`/v1/portal/applications/${application.id}`)
     .patch(payload)
     .json(json => {
-      const result = TransformedApplicationSchema.safeParse(json);
+      const result = ApplicationDocumentSchema.safeParse(json);
       if (result.success) {
         return result.data as Application;
       }
