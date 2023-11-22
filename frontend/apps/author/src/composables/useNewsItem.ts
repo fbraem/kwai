@@ -42,10 +42,7 @@ type NewsItemForAuthorResource = z.infer<typeof NewsItemAuthorSchema>;
 const NewsItemDocumentSchema = JsonApiDocument.extend({
   data: z.union([NewsItemAuthorSchema, z.array(NewsItemAuthorSchema).default([])]),
   included: z.array(ApplicationSchema).default([]),
-});
-
-/* Schema used to transform the JSON:API structure to NewsItemForAuthor or NewsItemsForAuthor */
-const TransformedNewsItem = NewsItemDocumentSchema.transform(doc => {
+}).transform(doc => {
   const mapModel = (newsItemResource: NewsItemForAuthorResource): NewsItemForAuthor => {
     const application = doc.included.find(
       included => included.type === ApplicationSchema.shape.type.value && included.id === newsItemResource.relationships.application.data.id
@@ -90,7 +87,7 @@ const getNewsItem = (id: string) : Promise<NewsItemForAuthor> => {
   const url = `/v1/news_items/${id}`;
   const api = useHttpApi().url(url);
   return api.get().json().then(json => {
-    const result = TransformedNewsItem.safeParse(json);
+    const result = NewsItemDocumentSchema.safeParse(json);
     if (result.success) {
       return result.data as NewsItemForAuthor;
     }
@@ -128,7 +125,7 @@ const getNewsItems = async({
     api = api.query({ 'page[limit]': limit });
   }
   return api.get().json().then(json => {
-    const result = TransformedNewsItem.safeParse(json);
+    const result = NewsItemDocumentSchema.safeParse(json);
     if (result.success) {
       return result.data as NewsItemsForAuthor;
     }
