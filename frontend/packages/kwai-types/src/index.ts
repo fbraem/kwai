@@ -17,6 +17,7 @@ export interface NewsItemText {
 }
 
 export interface Application {
+  id: string,
   title: string,
   name: string
 }
