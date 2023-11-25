@@ -4,11 +4,9 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
 import type { Ref } from 'vue';
 import type { LocationAsRelativeRaw } from 'vue-router';
 import { useRouter } from 'vue-router';
+import type { Application } from '@kwai/types';
 
-export interface Application {
-  id: string,
-  name: string,
-  title: string,
+export interface ApplicationForAuthor extends Application {
   short_description: string,
   description: string
   events: boolean,
@@ -37,7 +35,7 @@ type ApplicationResource = z.infer<typeof ApplicationSchema>;
 const ApplicationDocumentSchema = JsonApiDocument.extend({
   data: z.union([ApplicationSchema, z.array(ApplicationSchema).default([])]),
 }).transform(doc => {
-  const mapModel = (applicationResource: ApplicationResource): Application => {
+  const mapModel = (applicationResource: ApplicationResource): ApplicationForAuthor => {
     return {
       id: applicationResource.id,
       title: applicationResource.attributes.title,
@@ -58,13 +56,13 @@ const ApplicationDocumentSchema = JsonApiDocument.extend({
 });
 type ApplicationDocument = z.input<typeof ApplicationDocumentSchema>;
 
-const getApplications = () : Promise<Application[]> => {
+const getApplications = () : Promise<ApplicationForAuthor[]> => {
   const url = '/v1/portal/applications';
   const api = useHttpApi().url(url);
   return api.get().json().then(json => {
     const result = ApplicationDocumentSchema.safeParse(json);
     if (result.success) {
-      return result.data as Application[];
+      return result.data as ApplicationForAuthor[];
     }
     throw result.error;
   });
@@ -77,13 +75,13 @@ export const useApplications = () => {
   });
 };
 
-const getApplication = (id: string) : Promise<Application> => {
+const getApplication = (id: string) : Promise<ApplicationForAuthor> => {
   const url = `/v1/portal/applications/${id}`;
   const api = useHttpApi().url(url);
   return api.get().json().then(json => {
     const result = ApplicationDocumentSchema.safeParse(json);
     if (result.success) {
-      return result.data as Application;
+      return result.data as ApplicationForAuthor;
     }
     throw result.error;
   });
@@ -96,7 +94,7 @@ export const useApplication = (id: Ref<string>) => {
   });
 };
 
-const updateApplication = (application: Application): Promise<Application> => {
+const updateApplication = (application: ApplicationForAuthor): Promise<ApplicationForAuthor> => {
   const payload: ApplicationDocument = {
     data: {
       id: application.id,
@@ -120,7 +118,7 @@ const updateApplication = (application: Application): Promise<Application> => {
     .json(json => {
       const result = ApplicationDocumentSchema.safeParse(json);
       if (result.success) {
-        return result.data as Application;
+        return result.data as ApplicationForAuthor;
       }
       throw result.error;
     })
@@ -132,7 +130,7 @@ export const useApplicationMutation = (route?: LocationAsRelativeRaw) => {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: (data: Application) => updateApplication(data),
+    mutationFn: (data: ApplicationForAuthor) => updateApplication(data),
     onSuccess: async(data, variables) => {
       queryClient.setQueryData(['author/applications', data.id], data);
       if (route) {

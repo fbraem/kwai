@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Button, ContainerSection, ContainerSectionContent, ContainerSectionTitle, InputField, TextareaField } from '@kwai/ui';
 import { useApplication, useApplicationMutation } from '@root/composables/useApplication';
-import type { Application } from '@root/composables/useApplication';
+import type { ApplicationForAuthor } from '@root/composables/useApplication';
 import { useForm } from 'vee-validate';
 import { useI18n } from 'vue-i18n';
 import { computed, ref, watch } from 'vue';
@@ -47,7 +47,7 @@ const { mutate } = useApplicationMutation({ name: 'author.applications' });
 const errorMessage: Ref<string|null> = ref(null);
 const onSubmitForm = handleSubmit(async values => {
   errorMessage.value = null;
-  const payload: Application = {
+  const payload: ApplicationForAuthor = {
     id: props.id,
     name: application.value!.name,
     title: values.title,
