@@ -28,6 +28,7 @@ export interface DateType {
   format(format?: string): string;
   month(): number;
   startOf(unit: string): DateType;
+  toDate(): Date;
   year(): number;
 }
 
@@ -58,6 +59,10 @@ function wrapDayjs(d: dayjs.Dayjs): DateType {
     return wrapDayjs(d.startOf(<OpUnitType> unit));
   }
 
+  function toDate(): Date {
+    return d.toDate();
+  }
+
   function year(): number {
     return d.year();
   }
@@ -70,15 +75,20 @@ function wrapDayjs(d: dayjs.Dayjs): DateType {
     format,
     month,
     startOf,
+    toDate,
     year,
   });
+}
+
+export function create(d: Date): DateType {
+  return wrapDayjs(dayjs(d));
 }
 
 export function createDate(year?: number | null, month?: number | null, day?: number | null): DateType {
   year = year || dayjs().year();
   month = month || dayjs().month();
   day = day || dayjs().date();
-  return wrapDayjs(dayjs(new Date(year, month, day)));
+  return create(new Date(year, month, day));
 }
 
 export function createDateFromString(value?: string, fmt: string = 'YYYY-MM-DD'): DateType {
@@ -95,4 +105,8 @@ export function createDateTimeFromUTC(value: string, fmt: string = 'YYYY-MM-DD H
 
 export function now(): DateType {
   return createDateFromString();
+}
+
+export function getLocaleFormat(format: string = 'L'): string {
+  return dayjs.localeData().longDateFormat(format);
 }
