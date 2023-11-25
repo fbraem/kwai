@@ -16,6 +16,7 @@ interface NewsItemForAuthorText extends NewsItemText {
 export interface NewsItemForAuthor extends NewsItem {
   enabled: boolean,
   texts: NewsItemForAuthorText[]
+  remark: string
 }
 
 interface NewsItemsForAuthor {
@@ -35,6 +36,7 @@ const NewsItemAuthorSchema = NewsItemSchema.extend({
     priority: z.number(),
     publish_date: z.string(),
     texts: z.array(TextAuthorSchema),
+    remark: z.string(),
   }),
 });
 type NewsItemForAuthorResource = z.infer<typeof NewsItemAuthorSchema>;
@@ -66,6 +68,7 @@ const NewsItemDocumentSchema = JsonApiDocument.extend({
         title: application.attributes.title,
         name: application.attributes.name,
       },
+      remark: newsItemResource.attributes.remark,
     };
   };
 
