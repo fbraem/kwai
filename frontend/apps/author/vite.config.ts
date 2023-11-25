@@ -20,10 +20,17 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: [
         {
+          find: '@kwai/ui',
+          replacement: mode === 'production'
+            ? '@kwai/ui'
+            : resolve(__dirname, '../../packages/kwai-ui/src/'),
+        },
+        {
           find: /^@root\/(.*)/,
           replacement: `${resolve(__dirname)}/src/$1`,
         },
       ],
+      dedupe: ['vue'],
     },
   };
 });
