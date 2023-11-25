@@ -29,7 +29,7 @@ const { value, errorMessage } = useField(nameRef);
         :id="id ?? name"
         v-model="value"
         type="range"
-        :min="min ?? 1"
+        :min="min ?? 0"
         :max="max ?? 100"
         class="appearance-none range-slider__range"
       >
