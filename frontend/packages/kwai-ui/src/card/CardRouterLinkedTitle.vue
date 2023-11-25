@@ -4,16 +4,15 @@
     class="inline-block mb-2"
   >
     <h5>
-      <slot></slot>
+      <slot />
     </h5>
   </router-link>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
-import { RouteLocationRaw } from "vue-router"
+import { RouteLocationRaw } from 'vue-router';
 
-const props = defineProps<{
+defineProps<{
   to: RouteLocationRaw
-}>()
+}>();
 </script>
