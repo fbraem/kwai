@@ -29,6 +29,7 @@ export interface DateType {
   month(): number;
   startOf(unit: string): DateType;
   toDate(): Date;
+  utc(): DateType;
   year(): number;
 }
 
@@ -63,6 +64,10 @@ function wrapDayjs(d: dayjs.Dayjs): DateType {
     return d.toDate();
   }
 
+  function utc(): DateType {
+    return wrapDayjs(d.utc());
+  }
+
   function year(): number {
     return d.year();
   }
@@ -76,6 +81,7 @@ function wrapDayjs(d: dayjs.Dayjs): DateType {
     month,
     startOf,
     toDate,
+    utc,
     year,
   });
 }
