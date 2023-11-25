@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BarsIcon } from '@kwai/ui';
+import BarsIcon from '../icons/BarsIcon.vue';
 import ToolbarMenuItem from './ToolbarMenuItem.vue';
 
 import { ref } from 'vue';
