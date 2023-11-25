@@ -80,7 +80,7 @@ function wrapDayjs(d: dayjs.Dayjs): DateType {
   });
 }
 
-export function create(d: Date): DateType {
+export function createFromDate(d: Date): DateType {
   return wrapDayjs(dayjs(d));
 }
 
@@ -88,7 +88,7 @@ export function createDate(year?: number | null, month?: number | null, day?: nu
   year = year || dayjs().year();
   month = month || dayjs().month();
   day = day || dayjs().date();
-  return create(new Date(year, month, day));
+  return createFromDate(new Date(year, month, day));
 }
 
 export function createDateFromString(value?: string, fmt: string = 'YYYY-MM-DD'): DateType {
