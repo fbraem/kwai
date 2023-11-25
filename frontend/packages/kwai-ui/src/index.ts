@@ -20,6 +20,8 @@ import DatePicker from './form/DatePicker.vue';
 import DateRangePicker from './form/DateRangePicker.vue';
 import InputField from './form/InputField.vue';
 import TextareaField from './form/TextareaField.vue';
+import SelectOption from './form/SelectOption.vue';
+import type { Option } from './form/SelectOption.vue';
 import RangeSlider from './form/RangeSlider.vue';
 import Button from './form/Button.vue';
 import FormSection from './form/FormSection.vue';
@@ -49,10 +51,10 @@ export { LinkTag, ToolbarLogo, ToolbarMenu, ToolbarMenuItem, Sidebar, useSidebar
 
 export { PortalLayout, DialogLayout };
 
-export { InputField, Button, DatePicker, DateRangePicker, FormSection, FormSectionFields, FormSectionHeader, TextareaField, RangeSlider };
+export { InputField, Button, DatePicker, DateRangePicker, FormSection, FormSectionFields, FormSectionHeader, SelectOption, TextareaField, RangeSlider };
 
 export { BarsIcon, CheckIcon, CloseIcon, EditIcon, ErrorIcon, ListIcon, LoadingIcon, NewIcon, RequiredIcon };
 
 export { ContainerSection, ContainerSectionContent, ContainerSectionTitle };
 
-export type { MenuItem };
+export type { MenuItem, Option };
