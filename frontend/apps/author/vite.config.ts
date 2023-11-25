@@ -6,6 +6,9 @@ import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 export default defineConfig(({ mode }) => {
   return {
     base: mode === 'development' ? '/author/' : '/',
+    esbuild: {
+      pure: mode === 'production' ? ['console.log'] : [],
+    },
     server: {
       host: '0.0.0.0',
       port: 3001,
