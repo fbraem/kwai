@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/vue-query';
 import { JsonApiDocument, useHttpApi } from '@kwai/api';
 import { z } from 'zod';
 import { createDateTimeFromUTC } from '@kwai/date';
+import type { DateType } from '@kwai/date';
 import { ref, toValue } from 'vue';
 import type { Ref } from 'vue';
 import { TextSchema, NewsItemSchema, ApplicationSchema } from '@kwai/types';
@@ -9,11 +10,12 @@ import type { NewsItemText, NewsItem, ApplicationResource } from '@kwai/types';
 
 interface NewsItemForAuthorText extends NewsItemText {
   format: string,
-  original_summary: string,
-  original_content?: string | null
+  originalSummary: string,
+  originalContent?: string | null
 }
 
 export interface NewsItemForAuthor extends NewsItem {
+  endDate: DateType | null,
   enabled: boolean,
   texts: NewsItemForAuthorText[]
   remark: string
@@ -35,6 +37,7 @@ const NewsItemAuthorSchema = NewsItemSchema.extend({
     enabled: z.boolean(),
     priority: z.number(),
     publish_date: z.string(),
+    end_date: z.nullable(z.string()),
     texts: z.array(TextAuthorSchema),
     remark: z.string(),
   }),
@@ -55,14 +58,15 @@ const NewsItemDocumentSchema = JsonApiDocument.extend({
       enabled: newsItemResource.attributes.enabled,
       priority: newsItemResource.attributes.priority,
       publishDate: createDateTimeFromUTC(newsItemResource.attributes.publish_date),
+      endDate: newsItemResource.attributes.end_date ? createDateTimeFromUTC(newsItemResource.attributes.end_date) : null,
       texts: newsItemResource.attributes.texts.map(text => ({
         locale: text.locale,
         format: text.format,
         title: text.title,
         summary: text.summary,
-        original_summary: text.original_summary,
+        originalSummary: text.original_summary,
         content: text.content,
-        original_content: text.original_content,
+        originalContent: text.original_content,
       })),
       application: {
         title: application.attributes.title,
