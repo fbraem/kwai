@@ -67,26 +67,6 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     if settings is None:
         settings = get_settings()
 
-    # Setup CORS
-    if settings.cors:
-        app.add_middleware(
-            CORSMiddleware,
-            allow_origins=settings.cors.origins,
-            allow_credentials=True,
-            allow_methods=settings.cors.methods,
-            allow_headers=settings.cors.headers,
-        )
-
-    # Setup the logger.
-    if settings.logger:
-        configure_logger(settings.logger)
-
-    app.include_router(auth_api_router, prefix="/api/v1")
-    app.include_router(portal_api_router, prefix="/api/v1")
-    app.include_router(pages_api_router, prefix="/api/v1")
-    app.include_router(news_api_router, prefix="/api/v1")
-    app.include_router(training_api_router, prefix="/api/v1")
-
     @app.middleware("http")
     async def log(request: Request, call_next):
         """Middleware for logging the requests."""
@@ -114,5 +94,25 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 )
 
             return response
+
+    # Setup CORS
+    if settings.cors:
+        app.add_middleware(
+            CORSMiddleware,
+            allow_origins=settings.cors.origins,
+            allow_credentials=True,
+            allow_methods=settings.cors.methods,
+            allow_headers=settings.cors.headers,
+        )
+
+    # Setup the logger.
+    if settings.logger:
+        configure_logger(settings.logger)
+
+    app.include_router(auth_api_router, prefix="/api/v1")
+    app.include_router(portal_api_router, prefix="/api/v1")
+    app.include_router(pages_api_router, prefix="/api/v1")
+    app.include_router(news_api_router, prefix="/api/v1")
+    app.include_router(training_api_router, prefix="/api/v1")
 
     return app
