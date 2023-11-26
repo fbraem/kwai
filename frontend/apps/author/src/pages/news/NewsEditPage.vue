@@ -25,7 +25,7 @@ import { useForm } from 'vee-validate';
 import { useApplications } from '@root/composables/useApplication';
 import type { ApplicationForAuthor } from '@root/composables/useApplication';
 import { createFromDate } from '@kwai/date';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 interface Props {
   id: string
