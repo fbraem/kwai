@@ -109,6 +109,10 @@ export function createDateTimeFromUTC(value: string, fmt: string = 'YYYY-MM-DD H
   return wrapDayjs(dayjs.utc(value, fmt).tz());
 }
 
+export function formatToUTC(value: DateType | null, fmt: string = 'YYYY-MM-DD HH:mm:ss'): string | null {
+  return value?.utc().format(fmt);
+}
+
 export function now(): DateType {
   return createDateFromString();
 }
