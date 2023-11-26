@@ -4,7 +4,10 @@ repos:
     hooks:
         -
             id: end-of-file-fixer
-            exclude: \.json$
+            exclude: |
+                \.json$
+                \.yaml$
+                \.yml$
         -
             id: trailing-whitespace
             exclude: \.md$
