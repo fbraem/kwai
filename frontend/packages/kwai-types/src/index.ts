@@ -13,7 +13,7 @@ export interface NewsItemText {
   locale: string,
   title: string,
   summary: string,
-  content?: string | null
+  content: string | null
 }
 
 export interface Application {
