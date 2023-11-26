@@ -29,3 +29,61 @@ news:
         title: Titel
         application: Applicatie
         state: Status
+  edit:
+    title: Wijzig Nieuws
+  form:
+    sections:
+      news_item:
+        title: Nieuwsbericht
+        description: Geef het nieuwsbericht een titel, samenvatting en tekst.
+        fields:
+          title:
+            label: Titel
+            placeholder: Geef een titel in
+          summary:
+            label: Samenvatting
+            placeholder: Geef een samenvatting in
+          content:
+            label: Inhoud
+            placeholder: Geef het volledige nieuwsbericht in
+      application:
+        title: Applicatie
+        description: Koppel het nieuwsbericht aan een applicatie.
+        fields:
+          application:
+            label: Applicatie
+      promotion:
+        title: Promotie
+        description: Een nieuwsbericht kan op de startpagina geplaatst worden.
+        fields:
+          priority:
+            label: Prioriteit
+          end_timestamp:
+            label: Eindtijdstip
+            placeholder: Geef een tijdstip in
+      publication:
+        title: Publicatie
+        description: |
+          Wanneer moet het bericht gepubliceerd worden? Het bericht zal automatisch verdwijnen
+          bij een einddatum. Een bericht zonder einddatum zal altijd beschikbaar zijn.
+        fields:
+          start_date:
+            label: Publicatie Periode
+            placeholder: Geef een periode in
+      remark:
+        title: Opmerking
+        description: Een opmerking voor dit nieuwsbericht. Een opmerking is niet zichtbaar voor een bezoeker.
+        fields:
+          remark:
+            label: Opmerking
+            placeholder: Geef een opmerking in
+      submit:
+        fields:
+          active:
+            label: Actief
+            help: Zolang een bericht niet actief is, zal een bezoeker het niet te zijn krijgen.
+          button:
+            label: Bewaar
+    validations:
+      required: Dit is een verplicht veld.
+    error: Er ging iets fout tijdens het bewaren van de gegevens.

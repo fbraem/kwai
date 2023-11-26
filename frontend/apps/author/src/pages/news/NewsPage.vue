@@ -1,5 +1,14 @@
 <script setup lang="ts">
-import { ContainerSection, ContainerSectionContent, ContainerSectionTitle, NewIcon, CheckIcon, EditIcon } from '@kwai/ui';
+import {
+  ContainerSection,
+  ContainerSectionContent,
+  ContainerSectionTitle,
+  NewIcon,
+  CheckIcon,
+  EditIcon,
+  OffsetPagination,
+  usePagination,
+} from '@kwai/ui';
 
 import { useNewsItems } from '@root/composables/useNewsItem';
 import PrimaryButton from '@root/components/PrimaryButton.vue';
@@ -7,7 +16,8 @@ import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n({ useScope: 'global' });
 
-const { data: newsItems } = useNewsItems({});
+const { offset, limit, page, changePage } = usePagination({ limit: 10 });
+const { data: newsItems } = useNewsItems({ offset, limit });
 </script>
 
 <template>
@@ -111,9 +121,15 @@ const { data: newsItems } = useNewsItems({});
           </tbody>
         </table>
       </div>
+      <OffsetPagination
+        v-if="newsItems"
+        :page="page"
+        :items-count="newsItems.meta.count"
+        :limit="limit"
+        @change-page="(newPage) => changePage(newPage)"
+      />
     </ContainerSectionContent>
   </ContainerSection>
-  {{ newsItems }}
 </template>
 
 <style scoped>
