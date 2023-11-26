@@ -13,6 +13,7 @@ import {
 import { useNewsItems } from '@root/composables/useNewsItem';
 import PrimaryButton from '@root/components/PrimaryButton.vue';
 import { useI18n } from 'vue-i18n';
+import PromotedIcon from '@root/components/icons/PromotedIcon.vue';
 
 const { t } = useI18n({ useScope: 'global' });
 
@@ -81,9 +82,13 @@ const { data: newsItems } = useNewsItems({ offset, limit });
               <tr>
                 <th
                   scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap flex items-center"
                 >
                   {{ newsItem.texts[0].title }}
+                  <PromotedIcon
+                    v-if="newsItem.priority > 0"
+                    class="ml-2 w-4 fill-yellow-400"
+                  />
                 </th>
                 <td class="px-6 py-4">
                   {{ newsItem.application.title }}
