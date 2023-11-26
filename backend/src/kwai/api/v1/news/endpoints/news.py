@@ -96,7 +96,7 @@ async def create_news_item(
     resource: NewsItemResource.get_resource_data_model(),
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
-):
+) -> NewsItemResource.get_document_model():
     """Create a new news item."""
     command = CreateNewsItemCommand(
         enabled=resource.data.attributes.enabled,
@@ -136,7 +136,7 @@ async def update_news_item(
     resource: NewsItemResource.get_resource_data_model(),
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
-):
+) -> NewsItemResource.get_document_model():
     """Update a new news item."""
     command = UpdateNewsItemCommand(
         id=id,
