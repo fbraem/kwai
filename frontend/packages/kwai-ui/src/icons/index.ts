@@ -7,3 +7,5 @@ export { default as EditIcon } from './EditIcon.vue';
 export { default as CloseIcon } from './CloseIcon.vue';
 export { default as CheckIcon } from './CheckIcon.vue';
 export { default as BarsIcon } from './BarsIcon.vue';
+export { default as LeftArrowIcon } from './LeftArrowIcon.vue';
+export { default as RightArrowIcon } from './RightArrowIcon.vue';
