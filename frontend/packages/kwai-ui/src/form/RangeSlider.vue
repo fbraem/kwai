@@ -14,6 +14,9 @@ const slots = useSlots();
 
 const nameRef = toRef(props, 'name');
 const { value, errorMessage } = useField(nameRef);
+if (value.value == null) {
+  value.value = 0;
+}
 </script>
 
 <template>
