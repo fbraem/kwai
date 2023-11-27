@@ -4,7 +4,7 @@ module.exports = {
     parser: '@typescript-eslint/parser',
   },
   plugins: ['@typescript-eslint', 'prettier'],
-  extends: ['standard', 'plugin:vue/vue3-recommended'],
+  extends: ['standard', 'plugin:@typescript-eslint/recommended', 'plugin:vue/vue3-recommended'],
   rules: {
     semi: [2, 'always'],
     'comma-dangle': ['error', {
