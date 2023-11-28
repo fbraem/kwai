@@ -1,3 +1,4 @@
+export { default as CancelIcon } from './CancelIcon.vue';
 export { default as RequiredIcon } from './RequiredIcon.vue';
 export { default as NewIcon } from './NewIcon.vue';
 export { default as LoadingIcon } from './LoadingIcon.vue';
