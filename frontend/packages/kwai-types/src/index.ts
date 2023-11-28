@@ -10,24 +10,24 @@ export const TextSchema = z.object({
 });
 
 export interface NewsItemText {
-  locale: string,
-  title: string,
-  summary: string,
-  content: string | null
+  locale: string;
+  title: string;
+  summary: string;
+  content: string | null;
 }
 
 export interface Application {
-  id?: string,
-  title: string,
-  name: string
+  id?: string;
+  title: string;
+  name: string;
 }
 
 export interface NewsItem {
-  id?: string,
-  priority: number,
-  publishDate: DateType,
-  texts: NewsItemText[],
-  application: Application
+  id?: string;
+  priority: number;
+  publishDate: DateType;
+  texts: NewsItemText[];
+  application: Application;
 }
 
 export const NewsItemSchema = JsonApiData.extend({
@@ -47,18 +47,24 @@ export const NewsItemSchema = JsonApiData.extend({
 export interface PageText extends NewsItemText {}
 
 export interface Page {
-  id?: string,
-  priority: number,
-  texts: PageText[]
+  id?: string;
+  priority: number;
+  texts: PageText[];
+  application: Application;
 }
 
-const PageSchema = JsonApiData.extend({
+export const PageSchema = JsonApiData.extend({
   type: z.literal('pages'),
   attributes: z.object({
     texts: z.array(TextSchema),
     remark: z.string(),
     priority: z.number(),
     enabled: z.boolean(),
+  }),
+  relationships: z.object({
+    application: z.object({
+      data: JsonResourceIdentifier,
+    }),
   }),
 });
 export type PageResource = z.infer<typeof PageSchema>;
