@@ -8,7 +8,7 @@ import { api } from '@kwai/config';
 import { z } from 'zod';
 
 export const JsonResourceIdentifier = z.object({
-  id: z.string(),
+  id: z.optional(z.string()),
   type: z.string(),
 });
 
