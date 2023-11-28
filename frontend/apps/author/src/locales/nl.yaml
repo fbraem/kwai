@@ -30,7 +30,9 @@ news:
         application: Applicatie
         state: Status
   edit:
-    title: Wijzig Nieuws
+    title: Wijzig Nieuwsbericht
+  create:
+    title: Maak Nieuwsbericht
   form:
     sections:
       news_item:

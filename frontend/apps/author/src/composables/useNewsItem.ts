@@ -161,7 +161,7 @@ export const useNewsItems = ({ application = null, offset = ref(0), limit = ref(
   });
 };
 
-const updateNewsItem = (newsItem: NewsItemForAuthor): Promise<NewsItemForAuthor> => {
+const mutateNewsItem = (newsItem: NewsItemForAuthor): Promise<NewsItemForAuthor> => {
   const payload: NewsItemDocument = {
     data: {
       id: newsItem.id,
@@ -195,16 +195,31 @@ const updateNewsItem = (newsItem: NewsItemForAuthor): Promise<NewsItemForAuthor>
       },
     },
   };
+  if (newsItem.id) { // Update
+    return useHttpApi()
+      .url(`/v1/news_items/${newsItem.id}`)
+      .patch(payload)
+      .json(json => {
+        const result = NewsItemDocumentSchema.safeParse(json);
+        if (result.success) {
+          return result.data as NewsItemForAuthor;
+        }
+        throw result.error;
+      })
+    ;
+  }
+  // Create
   return useHttpApi()
-    .url(`/v1/news_items/${newsItem.id}`)
-    .patch(payload)
+    .url('/v1/news_items')
+    .post(payload)
     .json(json => {
       const result = NewsItemDocumentSchema.safeParse(json);
       if (result.success) {
         return result.data as NewsItemForAuthor;
       }
       throw result.error;
-    });
+    })
+  ;
 };
 
 type OnSuccessCallback = () => void;
@@ -217,8 +232,8 @@ export const useNewsItemMutation = ({ onSuccess } : MutationOptions = {}) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: NewsItemForAuthor) => updateNewsItem(data),
-    onSuccess: async(data, variables) => {
+    mutationFn: (data: NewsItemForAuthor) => mutateNewsItem(data),
+    onSuccess: async(data) => {
       queryClient.setQueryData(['author/news_items', data.id], data);
       if (onSuccess) {
         if (onSuccess.constructor.name === 'AsyncFunction') {

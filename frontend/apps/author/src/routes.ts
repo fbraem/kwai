@@ -3,6 +3,7 @@ import { PortalLayout } from '@kwai/ui';
 import HomePage from '@root/pages/HomePage.vue';
 import AuthorToolbar from '@root/components/AuthorToolbar.vue';
 import NewsPage from '@root/pages/news/NewsPage.vue';
+import NewsCreatePage from '@root/pages/news/NewsCreatePage.vue';
 import NewsEditPage from '@root/pages/news/NewsEditPage.vue';
 import PagesPage from '@root/pages/PagesPage.vue';
 import ApplicationsPage from '@root/pages/applications/ApplicationsPage.vue';
@@ -33,6 +34,18 @@ const routes: RouteRecordRaw[] = [
         },
         meta: {
           title: 'Nieuws',
+        },
+      },
+      {
+        name: 'author.news.create',
+        path: '/news/create',
+        props: {
+          toolbar: false,
+          main: true,
+        },
+        components: {
+          toolbar: AuthorToolbar,
+          main: NewsCreatePage,
         },
       },
       {

@@ -4,6 +4,7 @@ import {
   ContainerSectionContent,
   ContainerSectionTitle,
   NewIcon,
+  CancelIcon,
   CheckIcon,
   EditIcon,
   OffsetPagination,
@@ -36,7 +37,10 @@ const { data: newsItems } = useNewsItems({ offset, limit });
                 {{ t('news.home.toolbar.description') }}
               </p>
             </div>
-            <PrimaryButton class="flex items-center">
+            <PrimaryButton
+              :route="{ name: 'author.news.create' }"
+              class="flex items-center"
+            >
               <NewIcon class="w-4 mr-2 fill-current" />
               {{ t('news.home.toolbar.button') }}
             </PrimaryButton>
@@ -100,6 +104,10 @@ const { data: newsItems } = useNewsItems({ offset, limit });
                   <CheckIcon
                     v-if="newsItem.enabled"
                     class="w-4 fill-green-600 font-bold"
+                  />
+                  <CancelIcon
+                    v-else
+                    class="w-f4 fill-red-500 font-bold"
                   />
                 </td>
                 <td
