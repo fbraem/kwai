@@ -15,6 +15,8 @@ class PageText(BaseModel):
     title: str
     summary: str
     content: str | None
+    original_summary: str
+    original_content: str | None
 
 
 @json_api.resource(type_="pages")
@@ -61,6 +63,8 @@ class PageResource:
                 content=MarkdownConverter().convert(text.content)
                 if text.content
                 else None,
+                original_summary=text.summary,
+                original_content=text.content,
             )
             for text in self._page.texts
         ]
