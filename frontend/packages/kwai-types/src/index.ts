@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { DateType } from '@kwai/date';
-import { JsonResourceIdentifier } from '@kwai/api';
+import { JsonApiData, JsonResourceIdentifier } from '@kwai/api';
 
 export const TextSchema = z.object({
   locale: z.string(),
@@ -17,21 +17,20 @@ export interface NewsItemText {
 }
 
 export interface Application {
-  id: string,
+  id?: string,
   title: string,
   name: string
 }
 
 export interface NewsItem {
-  id: string,
+  id?: string,
   priority: number,
   publishDate: DateType,
   texts: NewsItemText[],
   application: Application
 }
 
-export const NewsItemSchema = z.object({
-  id: z.string(),
+export const NewsItemSchema = JsonApiData.extend({
   type: z.literal('news_items'),
   attributes: z.object({
     priority: z.number(),
@@ -45,8 +44,7 @@ export const NewsItemSchema = z.object({
   }),
 });
 
-export const ApplicationSchema = z.object({
-  id: z.string(),
+export const ApplicationSchema = JsonApiData.extend({
   type: z.literal('applications'),
   attributes: z.object({
     name: z.string(),
