@@ -14,7 +14,7 @@ const { data: applications } = useApplications();
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <Card
           v-for="application in applications"
-          :key="application.id"
+          :key="application.id as string"
         >
           <template #header>
             <CardTitle class="p-3 font-bold text-lg text-gray-900">
