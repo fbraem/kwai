@@ -44,6 +44,25 @@ export const NewsItemSchema = JsonApiData.extend({
   }),
 });
 
+export interface PageText extends NewsItemText {}
+
+export interface Page {
+  id?: string,
+  priority: number,
+  texts: PageText[]
+}
+
+const PageSchema = JsonApiData.extend({
+  type: z.literal('pages'),
+  attributes: z.object({
+    texts: z.array(TextSchema),
+    remark: z.string(),
+    priority: z.number(),
+    enabled: z.boolean(),
+  }),
+});
+export type PageResource = z.infer<typeof PageSchema>;
+
 export const ApplicationSchema = JsonApiData.extend({
   type: z.literal('applications'),
   attributes: z.object({
