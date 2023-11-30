@@ -233,7 +233,7 @@ export const useNewsItemMutation = ({ onSuccess } : MutationOptions = {}) => {
 
   return useMutation({
     mutationFn: (data: NewsItemForAuthor) => mutateNewsItem(data),
-    onSuccess: async(data) => {
+    onSuccess: async(data: NewsItemForAuthor) => {
       queryClient.setQueryData(['author/news_items', data.id], data);
       if (onSuccess) {
         if (onSuccess.constructor.name === 'AsyncFunction') {

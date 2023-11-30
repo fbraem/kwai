@@ -221,7 +221,7 @@ export const usePageMutation = ({ onSuccess } : MutationOptions = {}) => {
 
   return useMutation({
     mutationFn: (data: PageForAuthor) => mutatePage(data),
-    onSuccess: async(data) => {
+    onSuccess: async(data: PageForAuthor) => {
       queryClient.setQueryData(['author/pages', data.id], data);
       if (onSuccess) {
         if (onSuccess.constructor.name === 'AsyncFunction') {
