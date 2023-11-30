@@ -63,7 +63,7 @@ class UpdatePage:
                 LocaleText(
                     locale=Locale(text.locale),
                     format=DocumentFormat(text.format),
-                    title=text.locale,
+                    title=text.title,
                     content=text.content,
                     summary=text.summary,
                     author=self._owner,
