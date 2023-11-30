@@ -8,15 +8,15 @@ interface PaginationOptions {
 export const usePagination = (options: PaginationOptions = { limit: 10 }) => {
   const offset = ref(0);
   const limit = toRef(options.limit);
-  const page = ref(1);
+  const currentPage = ref(1);
   const changePage = (newPage: number) => {
-    page.value = newPage;
+    currentPage.value = newPage;
     offset.value = (newPage - 1) * limit.value;
   };
   return {
     offset,
     limit,
-    page,
+    currentPage,
     changePage,
   };
 };

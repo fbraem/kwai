@@ -19,7 +19,7 @@ import PromotedIcon from '@root/components/icons/PromotedIcon.vue';
 
 const { t } = useI18n({ useScope: 'global' });
 
-const { offset, limit, page, changePage } = usePagination({ limit: 10 });
+const { offset, limit, currentPage, changePage } = usePagination({ limit: 10 });
 const { data: newsItems } = useNewsItems({ offset, limit });
 </script>
 
@@ -135,7 +135,7 @@ const { data: newsItems } = useNewsItems({ offset, limit });
       </div>
       <OffsetPagination
         v-if="newsItems"
-        :page="page"
+        :page="currentPage"
         :items-count="newsItems.meta.count"
         :limit="limit"
         @change-page="(newPage) => changePage(newPage)"

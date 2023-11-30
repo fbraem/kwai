@@ -46,7 +46,7 @@ const {
   next,
 } = useOffsetPagination({
   total: numberOfItems,
-  page: 1,
+  currentPage: 1,
   pageSize: 10,
   onPageChange: gotoPage,
   onPageSizeChange: gotoPage,
