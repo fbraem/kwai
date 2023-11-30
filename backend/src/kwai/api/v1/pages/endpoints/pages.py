@@ -82,8 +82,8 @@ async def create_page(
                 locale=text.locale,
                 format=text.format,
                 title=text.title,
-                summary=text.summary,
-                content=text.content,
+                summary=text.original_summary,
+                content=text.original_content,
             )
             for text in resource.data.attributes.texts
         ],
@@ -122,8 +122,8 @@ async def update_page(
                 locale=text.locale,
                 format=text.format,
                 title=text.title,
-                summary=text.summary,
-                content=text.content,
+                summary=text.original_summary,
+                content=text.original_content,
             )
             for text in resource.data.attributes.texts
         ],
