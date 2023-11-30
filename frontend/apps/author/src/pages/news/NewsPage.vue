@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   ContainerSection,
+  ContainerSectionBanner,
   ContainerSectionContent,
   ContainerSectionTitle,
   NewIcon,
@@ -26,27 +27,25 @@ const { data: newsItems } = useNewsItems({ offset, limit });
   <ContainerSection>
     <ContainerSectionTitle>{{ t('news.home.title') }}</ContainerSectionTitle>
     <ContainerSectionContent>
-      <div class="w-full max-w-screen-xl mx-auto">
-        <div class="relative overflow-hidden bg-white shadow-md sm:rounded-lg">
-          <div class="flex-row items-center justify-between p-4 space-y-3 sm:flex sm:space-y-0 sm:space-x-4">
-            <div>
-              <h5 class="mr-3 font-semibold">
-                {{ t('news.home.toolbar.title') }}
-              </h5>
-              <p class="text-gray-500">
-                {{ t('news.home.toolbar.description') }}
-              </p>
-            </div>
-            <PrimaryButton
-              :route="{ name: 'author.news.create' }"
-              class="flex items-center"
-            >
-              <NewIcon class="w-4 mr-2 fill-current" />
-              {{ t('news.home.toolbar.button') }}
-            </PrimaryButton>
-          </div>
-        </div>
-      </div>
+      <ContainerSectionBanner>
+        <template #left>
+          <h5 class="mr-3 font-semibold">
+            {{ t('news.home.toolbar.title') }}
+          </h5>
+          <p class="text-gray-500">
+            {{ t('news.home.toolbar.description') }}
+          </p>
+        </template>
+        <template #right>
+          <PrimaryButton
+            :route="{ name: 'author.news.create' }"
+            class="flex items-center"
+          >
+            <NewIcon class="w-4 mr-2 fill-current" />
+            {{ t('news.home.toolbar.button') }}
+          </PrimaryButton>
+        </template>
+      </ContainerSectionBanner>
       <div
         v-if="newsItems"
         class="relative w-full overflow-x-auto"
