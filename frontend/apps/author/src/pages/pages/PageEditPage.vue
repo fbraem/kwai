@@ -8,7 +8,7 @@ import {
 import { useI18n } from 'vue-i18n';
 import { useApplications } from '@root/composables/useApplication';
 import PageForm from '@root/pages/pages/components/PageForm.vue';
-import { usePage } from '@root/composables/usePageItem';
+import { usePage } from '@root/composables/usePage';
 
 interface Props {
   id: string

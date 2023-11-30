@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePages } from '@root/composables/usePageItem';
+import { usePages } from '@root/composables/usePage';
 import {
   usePagination,
   ContainerSection,

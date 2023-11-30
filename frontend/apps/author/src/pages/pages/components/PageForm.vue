@@ -18,8 +18,8 @@ import { useForm } from 'vee-validate';
 import type { ApplicationForAuthor } from '@root/composables/useApplication';
 import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import type { PageForAuthor } from '@root/composables/usePageItem';
-import { usePageMutation } from '@root/composables/usePageItem';
+import type { PageForAuthor } from '@root/composables/usePage';
+import { usePageMutation } from '@root/composables/usePage';
 import type { Application } from '@kwai/types';
 
 interface Props {
