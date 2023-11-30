@@ -22,7 +22,7 @@
     "@kwai/date": "*",
     "@kwai/types": "^1.0.0",
     "@kwai/ui": "*",
-    "@tanstack/vue-query": "^5.0.4",
+    "@tanstack/vue-query": "^5.10.0",
     "@vueuse/core": "^10.5.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5"
