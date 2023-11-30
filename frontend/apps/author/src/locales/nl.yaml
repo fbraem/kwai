@@ -22,7 +22,7 @@ news:
     title: Nieuws
     toolbar:
       title: Nieuwsberichten
-      description: Beheer de nieuwsberichten of publiceer nieuwe berichten
+      description: Beheer de nieuwsberichten van de website
       button: Nieuw
     table:
       columns:
@@ -84,6 +84,67 @@ news:
           active:
             label: Actief
             help: Zolang een bericht niet actief is, zal een bezoeker het niet te zijn krijgen.
+          button:
+            label: Bewaar
+    validations:
+      required: Dit is een verplicht veld.
+    error: Er ging iets fout tijdens het bewaren van de gegevens.
+pages:
+  home:
+    title: Pagina's
+    toolbar:
+      title: Pagina's
+      description: Beheer de pagina's van de website.
+      button: Nieuw
+    table:
+      columns:
+        title: Titel
+        application: Applicatie
+        state: Status
+    form:
+  edit:
+    title: Wijzig Pagina
+  create:
+    title: Maak Pagina
+  form:
+    sections:
+      page:
+        title: Pagina
+        description: Geef de pagina een titel, samenvatting en tekst.
+        fields:
+          title:
+            label: Titel
+            placeholder: Geef een titel in
+          summary:
+            label: Samenvatting
+            placeholder: Geef een samenvatting in
+          content:
+            label: Inhoud
+            placeholder: Geef de volledige pagina in
+      application:
+        title: Applicatie
+        description: Koppel de pagina een applicatie.
+        fields:
+          application:
+            label: Applicatie
+      promotion:
+        title: Prioriteit
+        description: De prioriteit kan gebruikt worden om de pagina's te sorteren in een overzicht.
+        fields:
+          priority:
+            label: Prioriteit
+      remark:
+        title: Opmerking
+        description: Een opmerking voor deze pagina. Een opmerking is niet zichtbaar voor een bezoeker.
+        fields:
+          remark:
+            label: Opmerking
+            placeholder: Geef een opmerking in
+      submit:
+        fields:
+          active:
+            label: Actief
+            help: Zolang een pagina niet actief is, zal een bezoeker het niet te zijn krijgen.
           button:
             label: Bewaar
     validations:

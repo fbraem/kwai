@@ -5,9 +5,11 @@ import AuthorToolbar from '@root/components/AuthorToolbar.vue';
 import NewsPage from '@root/pages/news/NewsPage.vue';
 import NewsCreatePage from '@root/pages/news/NewsCreatePage.vue';
 import NewsEditPage from '@root/pages/news/NewsEditPage.vue';
-import PagesPage from '@root/pages/PagesPage.vue';
+import PagesPage from '@root/pages/pages/PagesPage.vue';
 import ApplicationsPage from '@root/pages/applications/ApplicationsPage.vue';
 import ApplicationEditPage from '@root/pages/applications/ApplicationEditPage.vue';
+import PageCreatePage from '@root/pages/pages/PageCreatePage.vue';
+import PageEditPage from '@root/pages/pages/PageEditPage.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -69,6 +71,26 @@ const routes: RouteRecordRaw[] = [
         },
         meta: {
           title: "Pagina's",
+        },
+      },
+      {
+        name: 'author.pages.create',
+        path: '/pages/create',
+        components: {
+          toolbar: AuthorToolbar,
+          main: PageCreatePage,
+        },
+      },
+      {
+        name: 'author.pages.edit',
+        path: '/pages/edit/:id(\\d+)',
+        props: {
+          toolbar: false,
+          main: true,
+        },
+        components: {
+          toolbar: AuthorToolbar,
+          main: PageEditPage,
         },
       },
       {
