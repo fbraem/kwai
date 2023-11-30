@@ -114,7 +114,7 @@ export function formatToUTC(value: DateType | null, fmt: string = 'YYYY-MM-DD HH
 }
 
 export function now(): DateType {
-  return createDateFromString();
+  return wrapDayjs(dayjs());
 }
 
 export function getLocaleFormat(format: string = 'L'): string {
