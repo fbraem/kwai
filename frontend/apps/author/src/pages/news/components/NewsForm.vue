@@ -101,7 +101,7 @@ watch(newsItem, nv => {
     remark: nv.remark,
     active: nv.enabled,
   });
-});
+}, { immediate: true });
 
 const router = useRouter();
 const goBack = async() => {
