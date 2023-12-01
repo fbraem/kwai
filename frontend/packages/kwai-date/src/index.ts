@@ -1,23 +1,23 @@
 import dayjs, { ManipulateType, OpUnitType } from 'dayjs';
 
 // Load all necessary extensions
-import utc from 'dayjs/plugin/utc.js';
-import timezone from 'dayjs/plugin/timezone.js';
-import localizedFormat from 'dayjs/plugin/localizedFormat.js';
-import localeData from 'dayjs/plugin/localeData.js';
-import weekday from 'dayjs/plugin/weekday.js';
-import customParseFormat from 'dayjs/plugin/customParseFormat.js';
+import utcPlugin from 'dayjs/plugin/utc.js';
+import timezonePlugin from 'dayjs/plugin/timezone.js';
+import localizedFormatPlugin from 'dayjs/plugin/localizedFormat.js';
+import localeDataPlugin from 'dayjs/plugin/localeData.js';
+import weekdayPlugin from 'dayjs/plugin/weekday.js';
+import customParseFormatPlugin from 'dayjs/plugin/customParseFormat.js';
 
 // Set the locale
 import 'dayjs/locale/en.js';
 import 'dayjs/locale/nl.js';
 
-dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.extend(localizedFormat);
-dayjs.extend(localeData);
-dayjs.extend(weekday);
-dayjs.extend(customParseFormat);
+dayjs.extend(utcPlugin);
+dayjs.extend(timezonePlugin);
+dayjs.extend(localizedFormatPlugin);
+dayjs.extend(localeDataPlugin);
+dayjs.extend(weekdayPlugin);
+dayjs.extend(customParseFormatPlugin);
 // TODO: For now, use the nl locale, in the future this must be configurable.
 dayjs.locale('nl');
 
