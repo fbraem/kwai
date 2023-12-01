@@ -10,3 +10,4 @@ export { default as CheckIcon } from './CheckIcon.vue';
 export { default as BarsIcon } from './BarsIcon.vue';
 export { default as LeftArrowIcon } from './LeftArrowIcon.vue';
 export { default as RightArrowIcon } from './RightArrowIcon.vue';
+export { default as WarningIcon } from './WarningIcon.vue';
