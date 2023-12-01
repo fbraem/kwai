@@ -91,9 +91,9 @@ export function createFromDate(d: Date): DateType {
 }
 
 export function createDate(year?: number | null, month?: number | null, day?: number | null): DateType {
-  year = year || dayjs().year();
-  month = month || dayjs().month();
-  day = day || dayjs().date();
+  year = year ?? dayjs().year();
+  month = month ?? dayjs().month();
+  day = day ?? dayjs().date();
   return createFromDate(new Date(year, month, day));
 }
 
