@@ -120,3 +120,11 @@ export function now(): DateType {
 export function getLocaleFormat(format: string = 'L'): string {
   return dayjs.localeData().longDateFormat(format);
 }
+
+export function weekdays(): string[] {
+  return dayjs.weekdays() as string[];
+}
+
+export function weekday(day: number): string {
+  return weekdays()[day];
+}
