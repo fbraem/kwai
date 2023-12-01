@@ -32,7 +32,7 @@ type JsonApiTeamType = z.infer<typeof JsonApiTeam>;
 
 const JsonApiCoach = z.object({
   id: z.string(),
-  type: z.literal('coaches'),
+  type: z.literal('training_coaches'),
   attributes: z.object({
     name: z.string(),
   }),
