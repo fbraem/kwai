@@ -52,8 +52,16 @@ function wrapDayjs(d: dayjs.Dayjs): DateType {
     return d.format(format);
   }
 
+  function get(unit: string): number {
+    return d.get(unit);
+  }
+
   function month(): number {
     return d.month();
+  }
+
+  function set(unit: string, value: number) {
+    return d.set(unit, value);
   }
 
   function startOf(unit: string): DateType {
@@ -78,7 +86,9 @@ function wrapDayjs(d: dayjs.Dayjs): DateType {
     day,
     endOf,
     format,
+    get,
     month,
+    set,
     startOf,
     toDate,
     utc,
