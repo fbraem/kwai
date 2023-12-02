@@ -1,6 +1,7 @@
 import './index.css';
 export type { MenuItem } from './types';
 export * from './alerts';
+export * from './badges';
 export * from './card';
 export * from './dialogs';
 export * from './icons';
