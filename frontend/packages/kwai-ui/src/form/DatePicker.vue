@@ -21,7 +21,7 @@ const { value, errorMessage } = useField(nameRef);
 
 const format = (date: Date | null) : string => {
   if (date) {
-    const formatString = props.format ?? props.time ? 'L LTS' : 'L';
+    const formatString = props.format ?? (props.time ? 'L LTS' : 'L');
     try {
       return createFromDate(date).format(formatString);
     } catch (e) {
