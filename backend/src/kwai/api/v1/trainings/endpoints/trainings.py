@@ -154,7 +154,9 @@ async def create_training(
             for coach in resource.data.attributes.coaches
         ],
         teams=[int(team.id) for team in resource.data.relationships.teams.data],
-        definition=None,
+        definition=None
+        if resource.data.relationships.definition.data is None
+        else resource.data.relationships.definition.data.id,
         location=resource.data.attributes.event.location,
         remark=resource.data.attributes.remark,
     )
@@ -212,7 +214,9 @@ async def update_training(
             for coach in resource.data.attributes.coaches
         ],
         teams=[int(team.id) for team in resource.data.relationships.teams.data],
-        definition=None,
+        definition=None
+        if resource.data.relationships.definition.data is None
+        else resource.data.relationships.definition.data.id,
         location=resource.data.attributes.event.location,
         remark=resource.data.attributes.remark,
     )

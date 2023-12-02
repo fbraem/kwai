@@ -59,7 +59,7 @@ class CreateTraining:
                 cannot be found.
         """
         if command.definition:
-            definition = self._definition_repo.get_by_id(
+            definition = await self._definition_repo.get_by_id(
                 TrainingDefinitionIdentifier(command.definition)
             )
         else:

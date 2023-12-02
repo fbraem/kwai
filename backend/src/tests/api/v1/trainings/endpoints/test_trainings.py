@@ -6,6 +6,7 @@ from fastapi import status
 from fastapi.testclient import TestClient
 
 from kwai.modules.training.trainings.training import TrainingEntity
+from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
 
 pytestmark = pytest.mark.api
 
@@ -170,7 +171,54 @@ def test_create_training(secure_client: TestClient):
                 },
                 "remark": "",
             },
-            "relationships": {"coaches": {"data": []}, "teams": {"data": []}},
+            "relationships": {
+                "coaches": {"data": []},
+                "teams": {"data": []},
+                "definition": {"data": None},
+            },
+        }
+    }
+    response = secure_client.post("/api/v1/trainings", json=payload)
+    assert response.status_code == status.HTTP_201_CREATED, response.json()
+
+
+def test_create_training_with_definition(
+    secure_client: TestClient, training_definition_entity: TrainingDefinitionEntity
+):
+    """Test POST /api/v1/trainings."""
+    payload = {
+        "data": {
+            "type": "trainings",
+            "attributes": {
+                "texts": [
+                    {
+                        "locale": "en",
+                        "format": "md",
+                        "title": "U13 Training",
+                        "summary": "",
+                        "original_summary": "Training for U13",
+                    }
+                ],
+                "coaches": [],
+                "event": {
+                    "start_date": "2023-02-02 19:00:00",
+                    "end_date": "2023-02-02 20:00:00",
+                    "active": True,
+                    "cancelled": False,
+                    "location": "",
+                },
+                "remark": "",
+            },
+            "relationships": {
+                "coaches": {"data": []},
+                "teams": {"data": []},
+                "definition": {
+                    "data": {
+                        "id": str(training_definition_entity.id),
+                        "type": "training_definitions",
+                    }
+                },
+            },
         }
     }
     response = secure_client.post("/api/v1/trainings", json=payload)
@@ -207,6 +255,7 @@ def test_create_training_with_coaches(secure_client: TestClient):
             "relationships": {
                 "coaches": {"data": [{"type": "training_coaches", "id": "1"}]},
                 "teams": {"data": []},
+                "definition": {"data": None},
             },
         }
     }
@@ -242,6 +291,7 @@ def test_create_training_with_teams(secure_client: TestClient):
             "relationships": {
                 "coaches": {"data": []},
                 "teams": {"data": [{"type": "teams", "id": "1"}]},
+                "definition": {"data": None},
             },
         }
     }
@@ -278,6 +328,7 @@ def test_update_training(secure_client: TestClient, training_entity: TrainingEnt
             "relationships": {
                 "coaches": {"data": []},
                 "teams": {"data": []},
+                "definition": {"data": None},
             },
         }
     }

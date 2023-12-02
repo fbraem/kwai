@@ -68,7 +68,7 @@ class UpdateTraining:
         training = await self._repo.get_by_id(TrainingIdentifier(command.id))
 
         if command.definition:
-            definition = self._definition_repo.get_by_id(
+            definition = await self._definition_repo.get_by_id(
                 TrainingDefinitionIdentifier(command.definition)
             )
         else:
