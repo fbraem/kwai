@@ -13,6 +13,7 @@ const tag = computed(() => props.route ? 'router-link' : props.url ? 'a' : 'butt
 const to = computed(() => props.route ? 'to' : null);
 const href = computed(() => props.url ? 'href' : null);
 const click = computed(() => props.method ? 'click' : null);
+const type = computed(() => tag.value === 'button' ? 'button' : null);
 </script>
 
 <template>
@@ -20,6 +21,7 @@ const click = computed(() => props.method ? 'click' : null);
     :is="tag"
     :[to]="route"
     :[href]="url"
+    :type="type"
     @[click]="method"
   >
     <slot />
