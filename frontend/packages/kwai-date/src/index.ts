@@ -28,7 +28,7 @@ export interface DateType {
   format(format?: string): string;
   get(unit: string): number;
   month(): number;
-  set(unit: string, value: number): void;
+  set(unit: string, value: number): DateType;
   startOf(unit: string): DateType;
   toDate(): Date;
   utc(): DateType;
@@ -62,8 +62,8 @@ function wrapDayjs(d: dayjs.Dayjs): DateType {
     return d.month();
   }
 
-  function set(unit: string, value: number): void {
-    return d.set(unit, value);
+  function set(unit: string, value: number): DateType {
+    return wrapDayjs(d.set(unit, value));
   }
 
   function startOf(unit: string): DateType {
