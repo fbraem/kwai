@@ -83,7 +83,7 @@ news:
         fields:
           active:
             label: Actief
-            help: Zolang een bericht niet actief is, zal een bezoeker het niet te zijn krijgen.
+            help: Zolang een bericht niet actief is, zal een bezoeker het niet te zien krijgen.
           button:
             label: Bewaar
     validations:
