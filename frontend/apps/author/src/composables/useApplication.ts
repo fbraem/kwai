@@ -131,7 +131,7 @@ export const useApplicationMutation = (route?: LocationAsRelativeRaw) => {
 
   return useMutation({
     mutationFn: (data: ApplicationForAuthor) => updateApplication(data),
-    onSuccess: async(data, variables) => {
+    onSuccess: async(data) => {
       queryClient.setQueryData(['author/applications', data.id], data);
       if (route) {
         await router.push(route);
