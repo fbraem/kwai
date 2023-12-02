@@ -156,7 +156,8 @@ def test_create_training(secure_client: TestClient):
                         "locale": "en",
                         "format": "md",
                         "title": "U13 Training",
-                        "summary": "Training for U13",
+                        "summary": "",
+                        "original_summary": "Training for U13",
                     }
                 ],
                 "coaches": [],
@@ -187,7 +188,8 @@ def test_create_training_with_coaches(secure_client: TestClient):
                         "locale": "en",
                         "format": "md",
                         "title": "U13 Training",
-                        "summary": "Training for U13",
+                        "summary": "",
+                        "original_summary": "Training for U13",
                     }
                 ],
                 "coaches": [
@@ -223,7 +225,8 @@ def test_create_training_with_teams(secure_client: TestClient):
                         "locale": "en",
                         "format": "md",
                         "title": "U13 Training",
-                        "summary": "Training for U13",
+                        "summary": "",
+                        "original_summary": "Training for U13",
                     }
                 ],
                 "coaches": [],
@@ -258,7 +261,8 @@ def test_update_training(secure_client: TestClient, training_entity: TrainingEnt
                         "locale": "en",
                         "format": "md",
                         "title": "U13 Training",
-                        "summary": "Training for U13",
+                        "summary": "",
+                        "original_summary": "Training for U13",
                     }
                 ],
                 "coaches": [],
