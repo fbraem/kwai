@@ -81,7 +81,7 @@ export type ApplicationResource = z.infer<typeof ApplicationSchema>;
 export const EventSchema = z.object({
   start_date: z.string(),
   end_date: z.string(),
-  location: z.nullable(z.string()).optional(),
+  location: z.nullable(z.string()),
   cancelled: z.boolean(),
   active: z.boolean(),
 });
