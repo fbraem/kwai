@@ -1,0 +1,89 @@
+home:
+  description: Beheer trainingen, teams, ...
+  trainings:
+    title: Trainingen
+    description: Beheer de trainingen van de club.
+    list: Overzicht
+trainings:
+  title: Trainingen
+  banner:
+    title: Trainingen
+    description: Beheer de trainingen.
+    button: Nieuw
+  table:
+    columns:
+      date: Dag
+      hours: Uur
+      title: Titel
+      active: Actief
+    cancelled: Geannuleerd
+training:
+  edit:
+    title: Wijzig Training
+  create:
+    title: Maak een nieuwe training
+  form:
+    sections:
+      training:
+        title: Training
+        description: Informatie over deze training.
+        fields:
+          title:
+            label: Titel
+            placeholder: Geef een titel in
+          summary:
+            label: Samenvatting
+            placeholder: Geef een samenvatting
+          content:
+            label: Tekst
+            placeholder: Geef een tekst in
+      definition:
+        title: Trainingsmoment
+        description: |
+          Gebruik dit voor standaard instellingen van een training.
+          Wanneer je het moment wijzigt, gebruik dan de knop 'Toepassen' om
+          bestaande waarden te overschrijven.
+        fields:
+          definition:
+            label: Trainingsmoment
+            apply: Toepassen
+      date:
+        title: Tijdstip
+        description: |
+          Wanneer gaat de training door?
+        fields:
+          start_date:
+            label: Start
+            placeholder: Geef een starttijd in
+          end_date:
+            label: Einde
+            placeholder: Geef een eindtijd in
+          cancelled:
+            label: Geannuleerd
+            help: |
+              Een geannuleerde training is nog zichtbaar voor de bezoeker.
+              Bij de training zal een opmerking staan.
+      location:
+        title: Locatie
+        description: Waar gaat deze training door?
+        fields:
+          location:
+            label: Locatie
+            placeholder: Geef een locatie in
+      remark:
+        title: Opmerking
+        description: Een opmerking voor deze training. Een opmerking is niet zichtbaar voor een bezoeker.
+        fields:
+          remark:
+            label: Opmerking
+            placeholder: Geef een opmerking in
+      submit:
+        fields:
+          active:
+            label: Actief
+            help: Zolang een training niet actief is, zal een bezoeker die niet te zien krijgen.
+          button:
+            label: Bewaar
+    validations:
+      required: Dit is een verplicht veld.
+    error: Er ging iets fout tijdens het bewaren van de gegevens.
