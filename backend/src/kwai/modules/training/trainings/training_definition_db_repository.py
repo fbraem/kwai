@@ -6,6 +6,7 @@ from typing import Any, AsyncIterator
 from kwai.core.db.database import Database
 from kwai.core.db.rows import OwnersTable
 from kwai.core.domain.entity import Entity
+from kwai.modules.training.teams.team_tables import TeamsTable
 from kwai.modules.training.trainings.training_definition import (
     TrainingDefinitionEntity,
     TrainingDefinitionIdentifier,
@@ -28,7 +29,7 @@ from kwai.modules.training.trainings.training_tables import (
 
 def _create_entity(row: dict[str, Any]):
     return TrainingDefinitionsTable(row).create_entity(
-        owner=OwnersTable(row).create_owner()
+        team=TeamsTable(row).create_entity(), owner=OwnersTable(row).create_owner()
     )
 
 

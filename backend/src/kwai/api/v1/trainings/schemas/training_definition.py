@@ -1,4 +1,5 @@
 """Module for the training definition schema."""
+from kwai.api.v1.trainings.schemas.team import TeamResource
 from kwai.core import json_api
 from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
 
@@ -72,3 +73,10 @@ class TrainingDefinitionResource:
     def get_updated_at(self) -> str | None:
         """Get the timestamp of the last update."""
         return str(self._training_definition.traceable_time.updated_at)
+
+    @json_api.relationship(name="team")
+    def get_team(self) -> TeamResource | None:
+        """Get the teams of the training."""
+        if self._training_definition.team:
+            return TeamResource(self._training_definition.team)
+        return None

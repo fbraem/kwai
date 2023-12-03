@@ -166,10 +166,13 @@ class TrainingDefinitionRow:
     created_at: datetime
     updated_at: datetime | None
 
-    def create_entity(self, owner: Owner) -> TrainingDefinitionEntity:
+    def create_entity(
+        self, team: TeamEntity | None, owner: Owner
+    ) -> TrainingDefinitionEntity:
         """Create a training definition entity from a table row.
 
         Args:
+            team: A team that is associated with the definition.
             owner: The owner of the training definition.
 
         Returns:
@@ -187,6 +190,7 @@ class TrainingDefinitionRow:
             active=self.active == 1,
             location=self.location or "",
             remark=self.remark or "",
+            team=team,
             owner=owner,
             traceable_time=TraceableTime(
                 created_at=LocalTimestamp(self.created_at),
@@ -204,13 +208,15 @@ class TrainingDefinitionRow:
             name=training_definition.name,
             description=training_definition.description,
             season_id=None,
-            team_id=None,
             weekday=training_definition.weekday.value,
             start_time=training_definition.period.start,
             end_time=training_definition.period.end,
             active=1 if training_definition.active else 0,
             location=training_definition.location,
             remark=training_definition.remark,
+            team_id=None
+            if training_definition.team is None
+            else training_definition.team.id.value,
             user_id=training_definition.owner.id.value,
             created_at=training_definition.traceable_time.created_at.timestamp,
             updated_at=training_definition.traceable_time.updated_at.timestamp,

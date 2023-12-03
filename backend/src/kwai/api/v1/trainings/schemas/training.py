@@ -3,10 +3,10 @@
 from pydantic import BaseModel
 
 from kwai.api.converter import MarkdownConverter
+from kwai.api.v1.trainings.schemas.team import TeamResource
 from kwai.api.v1.trainings.schemas.training_definition import TrainingDefinitionResource
 from kwai.core import json_api
 from kwai.modules.training.coaches.coach import CoachEntity
-from kwai.modules.training.teams.team import TeamEntity
 from kwai.modules.training.trainings.training import TrainingEntity
 
 
@@ -57,24 +57,6 @@ class CoachResource:
     def get_name(self) -> str:
         """Get the name of the coach."""
         return str(self._coach.name)
-
-
-@json_api.resource(type_="teams")
-class TeamResource:
-    """Represent a team."""
-
-    def __init__(self, team: TeamEntity):
-        self._team = team
-
-    @json_api.id
-    def get_id(self) -> str:
-        """Return the id of the team."""
-        return str(self._team.id)
-
-    @json_api.attribute(name="name")
-    def get_name(self) -> str:
-        """Return the name of the team."""
-        return self._team.name
 
 
 @json_api.resource(type_="trainings")

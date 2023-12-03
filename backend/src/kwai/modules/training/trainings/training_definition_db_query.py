@@ -3,6 +3,7 @@ from sql_smith.functions import on
 
 from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.db.rows import OwnersTable
+from kwai.modules.training.teams.team_tables import TeamsTable
 from kwai.modules.training.trainings.training_definition import (
     TrainingDefinitionIdentifier,
 )
@@ -18,14 +19,27 @@ class TrainingDefinitionDbQuery(DatabaseQuery, TrainingDefinitionQuery):
     """A database query for a training definition."""
 
     def init(self):
-        return self._query.from_(TrainingDefinitionsTable.table_name).join(
-            OwnersTable.table_name,
-            on(OwnersTable.column("id"), TrainingDefinitionsTable.column("user_id")),
+        return (
+            self._query.from_(TrainingDefinitionsTable.table_name)
+            .join(
+                OwnersTable.table_name,
+                on(
+                    OwnersTable.column("id"), TrainingDefinitionsTable.column("user_id")
+                ),
+            )
+            .left_join(
+                TeamsTable.table_name,
+                on(TeamsTable.column("id"), TrainingDefinitionsTable.column("team_id")),
+            )
         )
 
     @property
     def columns(self):
-        return TrainingDefinitionsTable.aliases() + OwnersTable.aliases()
+        return (
+            TrainingDefinitionsTable.aliases()
+            + TeamsTable.aliases()
+            + OwnersTable.aliases()
+        )
 
     @property
     def count_column(self) -> str:

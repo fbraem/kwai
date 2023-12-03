@@ -9,6 +9,7 @@ from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.db.rows import OwnersTable
 from kwai.modules.training.coaches.coach import CoachEntity
 from kwai.modules.training.teams.team import TeamEntity
+from kwai.modules.training.teams.team_tables import TeamsTable
 from kwai.modules.training.trainings.training import TrainingIdentifier
 from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
 from kwai.modules.training.trainings.training_query import TrainingQuery
@@ -43,6 +44,7 @@ class TrainingDbQuery(TrainingQuery, DatabaseQuery):
             .columns(
                 *(
                     self.columns
+                    + TeamsTable.aliases()
                     + OwnersTable.aliases("definition_owners")
                     + TrainingContentsTable.aliases()
                     + OwnersTable.aliases()
@@ -60,6 +62,10 @@ class TrainingDbQuery(TrainingQuery, DatabaseQuery):
             .left_join(
                 alias(OwnersTable.table_name, "definition_owners"),
                 on(TrainingDefinitionsTable.column("user_id"), "definition_owners.id"),
+            )
+            .left_join(
+                TeamsTable.table_name,
+                on(TeamsTable.column("id"), TrainingDefinitionsTable.column("team_id")),
             )
             .join(
                 TrainingContentsTable.table_name,

@@ -5,6 +5,7 @@ from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.time_period import TimePeriod
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.weekday import Weekday
+from kwai.modules.training.teams.team import TeamEntity
 
 TrainingDefinitionIdentifier = IntIdentifier
 
@@ -26,8 +27,9 @@ class TrainingDefinitionEntity(Entity[TrainingDefinitionIdentifier]):
         active: bool = True,
         location: str = "",
         remark: str = "",
+        team: TeamEntity | None = None,
         owner: Owner,
-        traceable_time: TraceableTime | None = None
+        traceable_time: TraceableTime | None = None,
     ):
         """Initialize a training definition.
 
@@ -40,6 +42,7 @@ class TrainingDefinitionEntity(Entity[TrainingDefinitionIdentifier]):
             active: Is this definition active?
             location: The location of the recurring trainings.
             remark: A remark about this training definition.
+            team: A team that is associated with the definition.
             owner: The owner of this training definition.
             traceable_time: The creation and modification timestamp of the definition.
         """
@@ -51,6 +54,7 @@ class TrainingDefinitionEntity(Entity[TrainingDefinitionIdentifier]):
         self._active = active
         self._location = location
         self._remark = remark
+        self._team = team
         self._owner = owner
         self._traceable_time = traceable_time or TraceableTime()
 
@@ -103,3 +107,8 @@ class TrainingDefinitionEntity(Entity[TrainingDefinitionIdentifier]):
     def traceable_time(self) -> TraceableTime:
         """Return the creation/modification timestamp of this training definition."""
         return self._traceable_time
+
+    @property
+    def team(self) -> TeamEntity:
+        """Return the team that is associated with this definition."""
+        return self._team

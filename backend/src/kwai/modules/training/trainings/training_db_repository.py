@@ -7,6 +7,7 @@ from kwai.core.db.database import Database, Record
 from kwai.core.db.rows import OwnersTable
 from kwai.core.domain.entity import Entity
 from kwai.modules.training.teams.team import TeamEntity
+from kwai.modules.training.teams.team_tables import TeamsTable
 from kwai.modules.training.trainings.training import TrainingEntity, TrainingIdentifier
 from kwai.modules.training.trainings.training_coach_db_query import TrainingCoachDbQuery
 from kwai.modules.training.trainings.training_db_query import TrainingDbQuery
@@ -37,7 +38,8 @@ def _create_entity(rows: list[Record]) -> TrainingEntity:
         definition = None
     else:
         definition = TrainingDefinitionsTable(rows[0]).create_entity(
-            OwnersTable(rows[0], "definition_owners").create_owner()
+            team=TeamsTable(rows[0]).create_entity(),
+            owner=OwnersTable(rows[0], "definition_owners").create_owner(),
         )
     return TrainingsTable(rows[0]).create_entity(
         [
