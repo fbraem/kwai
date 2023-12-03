@@ -4,8 +4,7 @@ import sporthalImage from '/sporthal.jpg';
 
 import ApplicationList from '@root/components/ApplicationList.vue';
 import { useTrainings } from '@root/composables/useTraining';
-import type { Training, TrainingPeriod } from '@root/composables/useTraining';
-import type { Ref } from 'vue';
+import type { Training } from '@root/composables/useTraining';
 import { computed, ref } from 'vue';
 import { now } from '@kwai/date';
 import ImageSection from '@root/components/ImageSection.vue';
@@ -13,11 +12,9 @@ import BetweenIcon from '@root/components/icons/BetweenIcon.vue';
 import TrainingTimeline from '@root/pages/trainings/components/TrainingTimeline.vue';
 import { getHeroImageUrl } from '@root/composables/useHeroImage';
 
-const period : Ref<TrainingPeriod> = ref({
-  start: now(),
-  end: now().add(1, 'week'),
-});
-const { isLoading, data: trainings } = useTrainings(period);
+const start = ref(now());
+const end = ref(now().add(1, 'week'));
+const { isLoading, data: trainings } = useTrainings({ start, end });
 
 type TrainingDays = {[key: string] : Training[]};
 const trainingDays = computed(() => {
@@ -114,7 +111,7 @@ const trainingImage = getHeroImageUrl('trainings');
               Alle trainingen
             </router-link>
           </div>
-          <div class="text-xs">
+          <div class="lg:ml-12 text-xs">
             Al onze trainingen gaan door in de gevechtssportzaal van de sporthal te Stekene.
           </div>
         </div>

@@ -1,9 +1,10 @@
-import type { Ref } from 'vue';
 import type { DateType } from '@kwai/date';
 import { createDateTimeFromUTC } from '@kwai/date';
 import { z } from 'zod';
 import { JsonApiDocument, JsonResourceIdentifier, useHttpApi } from '@kwai/api';
 import { useQuery } from '@tanstack/vue-query';
+import type { Ref } from 'vue';
+import { computed, toValue } from 'vue';
 
 const JsonApiEvent = z.object({
   start_date: z.string(),
@@ -133,16 +134,11 @@ const toModel = (json: JsonApiTrainingDocumentType): Training | TrainingsWithMet
   return mapModel(json.data);
 };
 
-export interface TrainingPeriod {
-  start: DateType,
-  end: DateType
-}
-
-const getTrainings = (period: TrainingPeriod) : Promise<TrainingsWithMeta> => {
+const getTrainings = ({ start, end } : {start: DateType, end: DateType}) : Promise<TrainingsWithMeta> => {
   return useHttpApi().url('/v1/trainings')
     .query({
-      'filter[start]': period.start.format() + ' 00:00:00',
-      'filter[end]': period.end.format() + ' 00:00:00',
+      'filter[start]': start.format() + ' 00:00:00',
+      'filter[end]': end.format() + ' 00:00:00',
     })
     .get()
     .json()
@@ -156,10 +152,14 @@ const getTrainings = (period: TrainingPeriod) : Promise<TrainingsWithMeta> => {
     });
 };
 
-export const useTrainings = (period : Ref<TrainingPeriod>) => {
+export const useTrainings = ({ start, end } : {start: Ref<DateType>, end: Ref<DateType>}) => {
   return useQuery({
-    queryKey: ['portal/trainings', period],
-    queryFn: () => getTrainings(period.value),
+    queryKey: computed(() => [
+      'portal/trainings',
+      toValue(start)?.format('YYYY-MM-DD'),
+      toValue(end)?.format('YYYY-MM-DD'),
+    ]),
+    queryFn: () => getTrainings({ start: toValue(start), end: toValue(end) }),
   });
 };
 

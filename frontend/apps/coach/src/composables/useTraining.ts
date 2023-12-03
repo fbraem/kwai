@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { JsonApiData, JsonApiDocument, JsonResourceIdentifier, useHttpApi } from '@kwai/api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
 import { EventSchema, TextSchema } from '@kwai/types';
-import { ref, toValue } from 'vue';
+import { computed, ref, toValue } from 'vue';
 
 const TeamResourceSchema = JsonApiData.extend({
   type: z.literal('teams'),
@@ -207,7 +207,11 @@ const getTrainings = ({ start, end } : {start: DateType, end: DateType}) : Promi
 
 export const useTrainings = ({ start, end } : {start: MaybeRef<DateType>, end: MaybeRef<DateType>}) => {
   return useQuery({
-    queryKey: ['coach/trainings', start, end],
+    queryKey: computed(() => [
+      'portal/trainings',
+      toValue(start)?.format('YYYY-MM-DD'),
+      toValue(end)?.format('YYYY-MM-DD'),
+    ]),
     queryFn: () => getTrainings({ start: toValue(start), end: toValue(end) }),
   });
 };

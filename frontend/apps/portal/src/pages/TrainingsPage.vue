@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import IntroSection from '@root/components/IntroSection.vue';
 import { computed, ref, toRef, watch } from 'vue';
-import type { Ref } from 'vue';
+import { useRouteQuery } from '@vueuse/router';
 import { useRoute, useRouter } from 'vue-router';
 
 import { useApplications } from '@root/composables/useApplication';
 import { usePages } from '@root/composables/usePage';
 import { createDate, now } from '@kwai/date';
-import type { TrainingPeriod } from '@root/composables/useTraining';
 import { useTrainingDays, useTrainings } from '@root/composables/useTraining';
 import TrainingTimeline from '@root/pages/trainings/components/TrainingTimeline.vue';
 import SectionTitle from '@root/components/SectionTitle.vue';
@@ -51,51 +50,64 @@ const gotoPage = (id: string) => {
 
 // Trainings
 const toDay = now();
-const currentMonth = ref(toDay.month());
+const currentMonth = ref(toDay.month() + 1);
 const currentYear = ref(toDay.year());
 
-const year: Ref<number> = ref(Number.parseInt(route.query.year as string ?? currentYear.value));
-const month: Ref<number> = ref(Number.parseInt(route.query.month as string ?? currentMonth.value));
-const trainingPeriod = computed<TrainingPeriod>(() => ({
-  start: createDate(
-    year.value,
-    month.value
-  ).startOf('month'),
-  end: createDate(
-    year.value,
-    month.value
-  ).endOf('month'),
-}));
+const year = useRouteQuery('year', currentYear.value, { transform: Number });
+const month = useRouteQuery('month', currentMonth.value, { transform: Number });
 
-const { data: trainings } = useTrainings(toRef(trainingPeriod));
+const start = computed(() => createDate(year.value, month.value - 1).startOf('month'));
+const end = computed(() => createDate(year.value, month.value - 1).endOf('month'));
+
+const { data: trainings } = useTrainings({ start, end });
 
 const trainingDays = ref({});
-watch(trainings, (nv, ov) => {
-  trainingDays.value = useTrainingDays(trainings?.value?.items || []);
+watch(trainings, (nv) => {
+  if (!nv) {
+    trainingDays.value = [];
+  } else {
+    trainingDays.value = useTrainingDays(nv.items || []);
+  }
 });
 
 const showPrevMonth = () => {
-  if (month.value === 1) {
-    month.value = 11;
-    year.value = year.value - 1;
-  } else {
-    month.value = month.value - 1;
+  let prevMonth = month.value - 1;
+  let prevYear = year.value;
+  if (prevMonth < 1) {
+    prevMonth = 12;
+    prevYear -= 1;
   }
-  router.replace({ query: { ...route.query, year: year.value, month: month.value } });
+  router.replace({
+    query: {
+      ...route.query,
+      year: prevYear,
+      month: prevMonth,
+    },
+  });
 };
 const showCurrentMonth = () => {
-  month.value = currentMonth.value;
-  year.value = currentYear.value;
-  router.replace({ query: { ...route.query, year: year.value, month: month.value } });
+  router.replace({
+    query: {
+      ...route.query,
+      year: currentYear.value,
+      month: currentMonth.value,
+    },
+  });
 };
 const showNextMonth = () => {
-  if (month.value === 11) {
-    month.value = 0;
-    year.value = year.value + 1;
-  } else {
-    month.value = month.value + 1;
+  let nextMonth = month.value + 1;
+  let nextYear = year.value;
+  if (nextMonth > 12) {
+    nextMonth = 1;
+    nextYear += 1;
   }
-  router.replace({ query: { ...route.query, year: year.value, month: month.value } });
+  router.replace({
+    query: {
+      ...route.query,
+      year: nextYear,
+      month: nextMonth,
+    },
+  });
 };
 
 </script>
@@ -182,8 +194,9 @@ const showNextMonth = () => {
             <RightArrowIcon class="w-4 h-4 mr-2 fill-current" /> Volgende Maand
           </PrimaryButton>
         </div>
+        {{ month }} {{ year }}
         <h3 class="text-2xl pb-4">
-          {{ trainingPeriod.start.format("MMMM") }} {{ trainingPeriod.start.format("YYYY") }}
+          {{ start.format("MMMM") }} {{ start.format("YYYY") }}
         </h3>
         <TrainingTimeline
           :training-days="trainingDays"
