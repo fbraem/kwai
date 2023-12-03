@@ -24,7 +24,8 @@ dayjs.locale('nl');
 export interface DateType {
   add(n: number, unit: string): DateType;
   copy(from: DateType, unit: string | string[]): DateType;
-  day(): number;
+  dayOfWeek(): number;
+  dayOfMonth(): number;
   endOf(unit: string): DateType;
   format(format?: string): string;
   get(unit: string): number;
@@ -40,7 +41,7 @@ function wrapDayjs(d: dayjs.Dayjs): DateType {
   const value = d;
 
   function add(n: number, unit: string): DateType {
-    return wrapDayjs(d.add(n, <ManipulateType> unit));
+    return wrapDayjs(value.add(n, <ManipulateType> unit));
   }
 
   function copy(from: DateType, unit: string | string[]): DateType {
@@ -54,50 +55,55 @@ function wrapDayjs(d: dayjs.Dayjs): DateType {
     return wrapDayjs(newValue);
   }
 
-  function day(): number {
-    return d.day();
+  function dayOfMonth(): number {
+    return value.date();
+  }
+
+  function dayOfWeek(): number {
+    return value.day();
   }
 
   function endOf(unit: string): DateType {
-    return wrapDayjs(d.endOf(<OpUnitType> unit));
+    return wrapDayjs(value.endOf(<OpUnitType> unit));
   }
 
   function format(format: string = 'YYYY-MM-DD'): string {
-    return d.format(format);
+    return value.format(format);
   }
 
   function get(unit: string): number {
-    return d.get(<UnitType> unit);
+    return value.get(<UnitType> unit);
   }
 
   function month(): number {
-    return d.month();
+    return value.month();
   }
 
-  function set(unit: string, value: number): DateType {
-    return wrapDayjs(d.set(<UnitType> unit, value));
+  function set(unit: string, newValue: number): DateType {
+    return wrapDayjs(value.set(<UnitType> unit, newValue));
   }
 
   function startOf(unit: string): DateType {
-    return wrapDayjs(d.startOf(<OpUnitType> unit));
+    return wrapDayjs(value.startOf(<OpUnitType> unit));
   }
 
   function toDate(): Date {
-    return d.toDate();
+    return value.toDate();
   }
 
   function utc(): DateType {
-    return wrapDayjs(d.utc());
+    return wrapDayjs(value.utc());
   }
 
   function year(): number {
-    return d.year();
+    return value.year();
   }
 
   return Object.freeze({
     add,
     copy,
-    day,
+    dayOfWeek,
+    dayOfMonth,
     endOf,
     format,
     get,
