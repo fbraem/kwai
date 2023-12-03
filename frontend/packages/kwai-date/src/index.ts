@@ -1,4 +1,4 @@
-import dayjs, { ManipulateType, OpUnitType } from 'dayjs';
+import dayjs, { ManipulateType, OpUnitType, UnitType } from 'dayjs';
 
 // Load all necessary extensions
 import utcPlugin from 'dayjs/plugin/utc.js';
@@ -23,6 +23,7 @@ dayjs.locale('nl');
 
 export interface DateType {
   add(n: number, unit: string): DateType;
+  copy(from: DateType, unit: string | string[]): DateType;
   day(): number;
   endOf(unit: string): DateType;
   format(format?: string): string;
@@ -42,6 +43,17 @@ function wrapDayjs(d: dayjs.Dayjs): DateType {
     return wrapDayjs(d.add(n, <ManipulateType> unit));
   }
 
+  function copy(from: DateType, unit: string | string[]): DateType {
+    if (typeof unit === 'string') {
+      unit = [unit];
+    }
+    let newValue = value;
+    for (const u of unit) {
+      newValue = newValue.set(u as UnitType, from.get(u as UnitType));
+    }
+    return wrapDayjs(newValue);
+  }
+
   function day(): number {
     return d.day();
   }
@@ -55,7 +67,7 @@ function wrapDayjs(d: dayjs.Dayjs): DateType {
   }
 
   function get(unit: string): number {
-    return d.get(unit);
+    return d.get(<UnitType> unit);
   }
 
   function month(): number {
@@ -63,7 +75,7 @@ function wrapDayjs(d: dayjs.Dayjs): DateType {
   }
 
   function set(unit: string, value: number): DateType {
-    return wrapDayjs(d.set(unit, value));
+    return wrapDayjs(d.set(<UnitType> unit, value));
   }
 
   function startOf(unit: string): DateType {
@@ -83,8 +95,8 @@ function wrapDayjs(d: dayjs.Dayjs): DateType {
   }
 
   return Object.freeze({
-    value,
     add,
+    copy,
     day,
     endOf,
     format,
