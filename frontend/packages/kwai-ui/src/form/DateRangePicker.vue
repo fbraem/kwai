@@ -77,3 +77,9 @@ const format = (dates: Date[]) : string => {
     </p>
   </div>
 </template>
+
+<style scoped>
+.dp__main  {
+  @apply w-72;
+}
+</style>
