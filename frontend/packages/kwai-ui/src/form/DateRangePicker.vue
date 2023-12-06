@@ -50,6 +50,7 @@ const format = (dates: Date[]) : string => {
       range
       :format="format"
       :class="{ 'mt-1': !!slots.label, 'border-red-600': errorMessage, 'focus:ring-red-600': errorMessage, 'focus:border-red-600': errorMessage }"
+      :teleport="true"
     />
     <p
       v-if="!!slots.help"
