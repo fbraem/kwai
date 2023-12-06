@@ -6,13 +6,22 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { createFromDate } from '@kwai/date';
 
-const props = defineProps<{
+interface Props {
   name: string,
   id?: string,
   placeholder?: string
   time?: boolean
   required?: boolean
-}>();
+  partial?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  id: undefined,
+  placeholder: '',
+  partial: true,
+  required: false,
+  time: false,
+});
 const slots = useSlots();
 
 const nameRef = toRef(props, 'name');
@@ -46,11 +55,13 @@ const format = (dates: Date[]) : string => {
     <VueDatePicker
       :id="id ?? name"
       v-model="value"
-      :placeholder="placeholder ?? ''"
+      :placeholder="placeholder"
       range
       :format="format"
       :class="{ 'mt-1': !!slots.label, 'border-red-600': errorMessage, 'focus:ring-red-600': errorMessage, 'focus:border-red-600': errorMessage }"
       :teleport="true"
+      :partial-range="partial"
+      :enable-time-picker="time"
     />
     <p
       v-if="!!slots.help"
