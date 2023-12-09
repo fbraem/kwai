@@ -12,3 +12,4 @@ export { default as LeftArrowIcon } from './LeftArrowIcon.vue';
 export { default as RightArrowIcon } from './RightArrowIcon.vue';
 export { default as WarningIcon } from './WarningIcon.vue';
 export { default as InfoIcon } from './InfoIcon.vue';
+export { default as DeleteIcon } from './DeleteIcon.vue';
