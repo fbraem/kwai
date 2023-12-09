@@ -5,6 +5,8 @@ import HomePage from '@root/pages/home/HomePage.vue';
 import TrainingsPage from '@root/pages/trainings/TrainingsPage.vue';
 import TrainingEditPage from '@root/pages/trainings/TrainingEditPage.vue';
 import TrainingCreatePage from '@root/pages/trainings/TrainingCreatePage.vue';
+import TrainingDefinitionsPage from '@root/pages/training_definitions/TrainingDefinitionsPage.vue';
+import GenerateTrainingsPage from '@root/pages/training_definitions/GenerateTrainingsPage.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -50,6 +52,36 @@ const routes: RouteRecordRaw[] = [
         components: {
           toolbar: CoachToolbar,
           main: TrainingEditPage,
+        },
+      },
+      {
+        name: 'coach.training_definitions',
+        path: '/training_definitions',
+        components: {
+          toolbar: CoachToolbar,
+          main: TrainingDefinitionsPage,
+        },
+        meta: {
+          title: 'Trainingsmomenten',
+        },
+      },
+      {
+        name: 'coach.training_definitions.create',
+        path: '/training_definitions',
+        components: {
+          toolbar: CoachToolbar,
+          main: TrainingDefinitionsPage,
+        },
+      },
+      {
+        name: 'coach.training_definitions.generate_trainings',
+        path: '/training_definitions/generate_trainings/:id(\\d+)',
+        props: {
+          main: true,
+        },
+        components: {
+          toolbar: CoachToolbar,
+          main: GenerateTrainingsPage,
         },
       },
     ],

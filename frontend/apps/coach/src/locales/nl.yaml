@@ -4,6 +4,10 @@ home:
     title: Trainingen
     description: Beheer de trainingen van de club.
     list: Overzicht
+  training_definitions:
+    title: Trainingsmomenten
+    description: Beheer de trainingsmomenten van de club.
+    list: Overzicht
 trainings:
   title: Trainingen
   banner:
@@ -87,3 +91,29 @@ training:
     validations:
       required: Dit is een verplicht veld.
     error: Er ging iets fout tijdens het bewaren van de gegevens.
+training_definitions:
+  title: Trainingsmomenten
+  banner:
+    title: Trainingsmomenten
+    description: Beheer de trainingsmomenten
+    button: Nieuw
+  card:
+    buttons:
+      generate: Genereer Trainingen
+      edit: Wijzig
+generate_trainings:
+  title: Genereer Trainingen
+  banner:
+    title: Selecteer periode
+    description: |
+      Genereer trainingen in de geselecteerde periode op basis van het trainingsmoment.
+      Let op, trainingen worden nog niet direct aangemaakt. Je kan nog trainingen schrappen
+      alvorens ze definitief te bewaren.
+    button: Genereer
+  table:
+    columns:
+      date: Datum
+      period: Tijdstip
+      title: Titel
+  no_trainings: Er zijn nog geen trainingen gegenereerd.
+  save: Bewaar

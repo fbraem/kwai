@@ -2,6 +2,7 @@
 import { ContainerSection, ContainerSectionTitle, ContainerSectionContent, Card, CardTitle, ListIcon } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
 import PrimaryButton from '@root/components/PrimaryButton.vue';
+import TrainingDefinitionsCard from '@root/pages/home/components/TrainingDefinitionsCard.vue';
 const { t } = useI18n({ useScope: 'global' });
 </script>
 
@@ -11,6 +12,7 @@ const { t } = useI18n({ useScope: 'global' });
       {{ t('home.description') }}
     </ContainerSectionTitle>
     <ContainerSectionContent>
+      <TrainingDefinitionsCard />
       <Card class="w-full">
         <template #header>
           <CardTitle class="p-3 font-bold text-lg text-gray-900">

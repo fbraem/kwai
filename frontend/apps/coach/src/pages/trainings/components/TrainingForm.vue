@@ -142,7 +142,7 @@ const onSubmitForm = handleSubmit(async values => {
     start_date: createFromDate(values.start_date!),
     teams: training.value?.teams ?? [],
   };
-  mutate(payload, {
+  mutate({ training: payload }, {
     onError: error => {
       errorMessage.value = error.message;
     },

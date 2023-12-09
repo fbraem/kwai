@@ -311,8 +311,16 @@ const mutateTraining = (training: Training) : Promise<Training> => {
     });
 };
 
-type OnSuccessCallback = (resource: Training) => void;
-type OnSuccessAsyncCallback = (resource: Training) => Promise<void>;
+type MutationContext = {
+  index: number
+}
+type MutationVariable = {
+  training: Training,
+  context?: MutationContext
+}
+
+type OnSuccessCallback = (resource: Training, context?: MutationContext) => void;
+type OnSuccessAsyncCallback = (resource: Training, context?: MutationContext) => Promise<void>;
 interface MutationOptions {
   onSuccess?: OnSuccessCallback | OnSuccessAsyncCallback
 }
@@ -321,14 +329,14 @@ export const useTrainingMutation = ({ onSuccess } : MutationOptions = {}) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: Training) => mutateTraining(data),
-    onSuccess: async(data: Training) => {
+    mutationFn: (data: MutationVariable) => mutateTraining(data.training),
+    onSuccess: async(data: Training, variables: MutationVariable) => {
       queryClient.setQueryData(['coach/trainings', data.id], data);
       if (onSuccess) {
         if (onSuccess.constructor.name === 'AsyncFunction') {
-          await onSuccess(data);
+          await onSuccess(data, variables.context);
         } else {
-          onSuccess(data);
+          onSuccess(data, variables.context);
         }
       }
     },
