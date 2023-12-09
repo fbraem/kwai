@@ -12,6 +12,7 @@ class GetPagesCommand:
     offset: int | None = None
     limit: int | None = None
     application: int | str | None = None
+    enabled: bool = True
 
 
 class GetPages:
@@ -28,6 +29,9 @@ class GetPages:
     async def execute(self, command: GetPagesCommand) -> UseCaseBrowseResult:
         """Executes the use case."""
         query = self._repo.create_query()
+
+        if command.enabled:
+            query.filter_by_active()
 
         if command.application is not None:
             query.filter_by_application(command.application)
