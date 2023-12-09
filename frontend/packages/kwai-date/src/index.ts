@@ -29,11 +29,13 @@ export interface DateType {
   endOf(unit: string): DateType;
   format(format?: string): string;
   get(unit: string): number;
+  isBefore(check: DateType): boolean;
   month(): number;
   set(unit: string, value: number): DateType;
   startOf(unit: string): DateType;
   toDate(): Date;
   utc(): DateType;
+  value: dayjs.Dayjs;
   year(): number;
 }
 
@@ -75,6 +77,10 @@ function wrapDayjs(d: dayjs.Dayjs): DateType {
     return value.get(<UnitType> unit);
   }
 
+  function isBefore(check: DateType): boolean {
+    return value.isBefore(check.value);
+  }
+
   function month(): number {
     return value.month();
   }
@@ -107,11 +113,13 @@ function wrapDayjs(d: dayjs.Dayjs): DateType {
     endOf,
     format,
     get,
+    isBefore,
     month,
     set,
     startOf,
     toDate,
     utc,
+    value,
     year,
   });
 }
