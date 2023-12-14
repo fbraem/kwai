@@ -18,3 +18,13 @@ async def test_get_by_ids(database: Database):
         }
     except QueryException as qe:
         pytest.fail(str(qe))
+
+
+async def test_get_all(database: Database):
+    """Test get_all."""
+    repo = TeamDbRepository(database)
+
+    try:
+        repo.get_all()
+    except QueryException as qe:
+        pytest.fail(str(qe))
