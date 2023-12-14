@@ -68,6 +68,7 @@ def test_create_training_definition(secure_client: TestClient):
                 "active": True,
                 "location": "Sports Hall",
             },
+            "relationships": {"data": {}},
         }
     }
     response = secure_client.post("/api/v1/training_definitions", json=payload)
@@ -91,6 +92,7 @@ def test_update_training_definition(
                 "location": "Sports Hall",
                 "remark": "Updated with API",
             },
+            "relationships": {"data": {}},
         }
     }
     response = secure_client.patch(
