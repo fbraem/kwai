@@ -28,8 +28,12 @@ from kwai.modules.training.trainings.training_tables import (
 
 
 def _create_entity(row: dict[str, Any]):
+    if row[TrainingDefinitionsTable.alias_name("team_id")] is None:
+        team = None
+    else:
+        team = TeamsTable(row).create_entity()
     return TrainingDefinitionsTable(row).create_entity(
-        team=TeamsTable(row).create_entity(), owner=OwnersTable(row).create_owner()
+        team=team, owner=OwnersTable(row).create_owner()
     )
 
 
