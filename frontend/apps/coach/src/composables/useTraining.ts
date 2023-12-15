@@ -208,7 +208,7 @@ const getTrainings = ({ start, end } : {start: DateType, end: DateType}) : Promi
 export const useTrainings = ({ start, end } : {start: MaybeRef<DateType>, end: MaybeRef<DateType>}) => {
   return useQuery({
     queryKey: computed(() => [
-      'portal/trainings',
+      'coach/trainings',
       toValue(start)?.format('YYYY-MM-DD'),
       toValue(end)?.format('YYYY-MM-DD'),
     ]),
