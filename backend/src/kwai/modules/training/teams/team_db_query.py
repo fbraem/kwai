@@ -19,3 +19,7 @@ class TeamDbQuery(DatabaseQuery, TeamQuery):
         unpacked_ids = tuple(i.value for i in ids)
         self._query.and_where(TeamsTable.field("id").in_(*unpacked_ids))
         return self
+
+    def filter_by_id(self, id_: TeamIdentifier) -> "TeamQuery":
+        self._query.and_where(TeamsTable.field("id").eq(id_.value))
+        return self

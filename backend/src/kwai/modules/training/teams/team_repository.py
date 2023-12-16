@@ -6,6 +6,10 @@ from kwai.modules.training.teams.team import TeamEntity, TeamIdentifier
 from kwai.modules.training.teams.team_query import TeamQuery
 
 
+class TeamNotFoundException(Exception):
+    """Raised when a team cannot be found."""
+
+
 class TeamRepository(ABC):
     """Interface for a team repository."""
 
@@ -17,6 +21,15 @@ class TeamRepository(ABC):
     @abstractmethod
     async def get_all(self) -> AsyncIterator[TeamEntity]:
         """Get all teams."""
+
+    @abstractmethod
+    async def get_by_id(self, id: TeamIdentifier) -> TeamEntity:
+        """Get the team with the given id.
+
+        Args:
+            id: An id of a team.
+        """
+        raise NotImplementedError
 
     @abstractmethod
     async def get_by_ids(self, *ids: TeamIdentifier) -> AsyncIterator[TeamEntity]:

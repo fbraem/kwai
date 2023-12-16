@@ -24,6 +24,14 @@ class TeamDbRepository(TeamRepository):
         """Create the team query."""
         return TeamDbQuery(self._database)
 
+    async def get_by_id(self, id: TeamIdentifier) -> TeamEntity:
+        query = self.create_query()
+        query.filter_by_id(id)
+
+        row = await query.fetch_one()
+
+        return TeamsTable(row).create_entity()
+
     async def get_all(self) -> AsyncIterator[TeamEntity]:
         query = self.create_query()
         async for row in query.fetch():

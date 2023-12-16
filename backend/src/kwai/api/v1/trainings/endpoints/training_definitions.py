@@ -28,6 +28,7 @@ from kwai.modules.training.get_training_definitions import (
     GetTrainingDefinitionsCommand,
 )
 from kwai.modules.training.get_trainings import GetTrainings, GetTrainingsCommand
+from kwai.modules.training.teams.team_db_repository import TeamDbRepository
 from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository
 from kwai.modules.training.trainings.training_definition_db_repository import (
     TrainingDefinitionDbRepository,
@@ -101,6 +102,15 @@ async def create_training_definition(
     user: UserEntity = Depends(get_current_user),
 ) -> TrainingDefinitionResource.get_document_model():
     """Create a new training definition."""
+    if (
+        resource.data.relationships is not None
+        and resource.data.relationships.team is not None
+        and resource.data.relationships.team.data is not None
+    ):
+        team_id = int(resource.data.relationships.team.data.id)
+    else:
+        team_id = None
+
     command = CreateTrainingDefinitionCommand(
         name=resource.data.attributes.name,
         description=resource.data.attributes.description,
@@ -110,10 +120,12 @@ async def create_training_definition(
         active=resource.data.attributes.active,
         location=resource.data.attributes.location or "",
         remark=resource.data.attributes.remark or "",
+        team_id=team_id,
     )
     try:
         training_definition = await CreateTrainingDefinition(
             TrainingDefinitionDbRepository(db),
+            TeamDbRepository(db),
             Owner(id=user.id, uuid=user.uuid, name=user.name),
         ).execute(command)
     except ValueError as ve:
@@ -139,6 +151,14 @@ async def update_training_definition(
     user: UserEntity = Depends(get_current_user),
 ) -> TrainingDefinitionResource.get_document_model():
     """Update a training definition."""
+    if (
+        resource.data.relationships is not None
+        and resource.data.relationships.team is not None
+        and resource.data.relationships.team.data is not None
+    ):
+        team_id = int(resource.data.relationships.team.data.id)
+    else:
+        team_id = None
     command = UpdateTrainingDefinitionCommand(
         id=training_definition_id,
         name=resource.data.attributes.name,
@@ -149,10 +169,12 @@ async def update_training_definition(
         active=resource.data.attributes.active,
         location=resource.data.attributes.location or "",
         remark=resource.data.attributes.remark or "",
+        team_id=team_id,
     )
     try:
         training_definition = await UpdateTrainingDefinition(
             TrainingDefinitionDbRepository(db),
+            TeamDbRepository(db),
             Owner(id=user.id, uuid=user.uuid, name=user.name),
         ).execute(command)
     except TrainingDefinitionNotFoundException as ex:

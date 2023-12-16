@@ -7,6 +7,8 @@ from kwai.modules.training.create_training_definition import (
     CreateTrainingDefinition,
     CreateTrainingDefinitionCommand,
 )
+from kwai.modules.training.teams.team_db_repository import TeamDbRepository
+from kwai.modules.training.teams.team_repository import TeamRepository
 from kwai.modules.training.trainings.training_definition_db_repository import (
     TrainingDefinitionDbRepository,
 )
@@ -22,6 +24,12 @@ def training_definition_repo(database: Database) -> TrainingDefinitionRepository
 
 
 @pytest.fixture
+def team_repo(database: Database) -> TeamRepository:
+    """A fixture for a team repository."""
+    return TeamDbRepository(database)
+
+
+@pytest.fixture
 def command():
     """A fixture for a create command."""
     return CreateTrainingDefinitionCommand(
@@ -33,16 +41,18 @@ def command():
         active=True,
         location="Sports Hall",
         remark="Test",
+        team_id=None,
     )
 
 
 async def test_create_training_definition(
     training_definition_repo: TrainingDefinitionRepository,
+    team_repo: TeamRepository,
     command: CreateTrainingDefinitionCommand,
     owner: Owner,
 ):
     """Test the use "Create Training Definition"."""
     training_definition = await CreateTrainingDefinition(
-        training_definition_repo, owner
+        training_definition_repo, team_repo, owner
     ).execute(command)
     assert training_definition is not None, "There should be a training definition."

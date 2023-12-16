@@ -14,3 +14,4 @@ class TrainingDefinitionCommand:
     active: bool
     location: str
     remark: str | None
+    team_id: int | None
