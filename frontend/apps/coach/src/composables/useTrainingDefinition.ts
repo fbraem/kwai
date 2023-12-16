@@ -170,7 +170,7 @@ const mutateTrainingDefinition = (trainingDefinition: TrainingDefinition) : Prom
   }
   return useHttpApi()
     .url('/v1/training_definitions')
-    .post()
+    .post(payload)
     .json()
     .then(json => {
       const result = TrainingDefinitionDocumentSchema.safeParse(json);

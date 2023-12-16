@@ -62,7 +62,15 @@ const { data: trainingDefinitions } = useTrainingDefinitions();
                   <AddCalendarIcon class="w-4 mr-2 fill-current" />
                   {{ t('training_definitions.card.buttons.generate') }}
                 </PrimaryButton>
-                <PrimaryButton>
+                <PrimaryButton
+                  class="inline-flex items-center"
+                  :route="{
+                    name: 'coach.training_definitions.edit',
+                    params: {
+                      id: trainingDefinition.id
+                    }
+                  }"
+                >
                   <EditIcon class="w-4 mr-2 fill-current " />
                   {{ t('training_definitions.card.buttons.edit') }}
                 </PrimaryButton>
