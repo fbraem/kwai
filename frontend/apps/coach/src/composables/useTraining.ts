@@ -6,7 +6,7 @@ import { JsonApiData, JsonApiDocument, JsonResourceIdentifier, useHttpApi } from
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
 import { EventSchema, TextSchema } from '@kwai/types';
 import { TeamResourceSchema } from './useTeam';
-import type { TeamResource } from './useTeam';
+import type { Team, TeamResource } from './useTeam';
 import { computed, ref, toValue } from 'vue';
 
 const CoachResourceSchema = JsonApiData.extend({
@@ -25,7 +25,7 @@ const DefinitionResourceSchema = JsonApiData.extend({
 type DefinitionResource = z.infer<typeof DefinitionResourceSchema>;
 
 type TrainingDefinition = {
-  id: string,
+  id?: string,
   name: string
 };
 
@@ -63,11 +63,6 @@ const TrainingResourceSchema = JsonApiData.extend({
   }),
 });
 type TrainingResource = z.infer<typeof TrainingResourceSchema>;
-
-type Team = {
-  id: string,
-  name: string,
-}
 
 interface TrainingText {
   locale: string,
