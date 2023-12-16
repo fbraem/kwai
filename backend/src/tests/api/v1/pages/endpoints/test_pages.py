@@ -42,6 +42,9 @@ def test_create_page(secure_client: TestClient, application: ApplicationEntity):
                         "format": "md",
                         "title": "Test New Website",
                         "summary": "Testing the new website",
+                        "original_summary": "Testing the new website",
+                        "content": "Testing the new website content",
+                        "original_content": "Testing the new website content",
                     }
                 ],
                 "enabled": True,
@@ -75,6 +78,9 @@ def test_patch_page(
                         "format": "md",
                         "title": "Test New Website",
                         "summary": "Testing the new website (update)",
+                        "original_summary": "Testing the new website (update)",
+                        "content": "Testing the new website content (update)",
+                        "original_content": "Testing the new website content (update)",
                     }
                 ],
                 "enabled": True,
