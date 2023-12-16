@@ -1,8 +1,10 @@
-import { defineConfig } from 'vite';
+import { defineConfig, splitVendorChunkPlugin } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
 import { existsSync } from 'fs';
 import { resolve } from 'path';
+
+import { visualizer } from 'rollup-plugin-visualizer';
 
 const resolveTheme = (path: string) => {
   const themeFile = resolve(__dirname, `./src/theme/kwai${path}`);
@@ -24,7 +26,7 @@ export default defineConfig({
     port: 3000,
   },
   plugins: [
-    vue(),
+    vue(), splitVendorChunkPlugin(), visualizer(),
   ],
   resolve: {
     alias: [
@@ -38,5 +40,16 @@ export default defineConfig({
         replacement: `${resolve(__dirname)}/src/$1`,
       },
     ],
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id: string) {
+          if (id.includes('@vue')) {
+            return 'vue';
+          }
+        },
+      },
+    },
   },
 });

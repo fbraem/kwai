@@ -1,7 +1,8 @@
-import { defineConfig } from 'vite';
+import { defineConfig, splitVendorChunkPlugin } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig(({ mode }) => {
   return {
@@ -15,10 +16,12 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       vue(),
+      splitVendorChunkPlugin(),
       VueI18nPlugin({
         include: resolve(__dirname, './src/locales/**'),
         compositionOnly: true,
       }),
+      visualizer(),
     ],
     resolve: {
       alias: [
@@ -34,6 +37,17 @@ export default defineConfig(({ mode }) => {
         },
       ],
       dedupe: ['vue'],
+    },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id: string) {
+            if (id.includes('@vue')) {
+              return 'vue';
+            }
+          },
+        },
+      },
     },
     test: {
       global: true,
