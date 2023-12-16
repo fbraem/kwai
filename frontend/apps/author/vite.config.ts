@@ -39,16 +39,5 @@ export default defineConfig(({ mode }) => {
       ],
       dedupe: ['vue'],
     },
-    build: {
-      rollupOptions: {
-        output: {
-          manualChunks(id: string) {
-            if (id.includes('@vue')) {
-              return 'vue';
-            }
-          },
-        },
-      },
-    },
   };
 });
