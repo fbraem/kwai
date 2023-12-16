@@ -5,15 +5,9 @@ import { z } from 'zod';
 import { JsonApiData, JsonApiDocument, JsonResourceIdentifier, useHttpApi } from '@kwai/api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
 import { EventSchema, TextSchema } from '@kwai/types';
+import { TeamResourceSchema } from './useTeam';
+import type { TeamResource } from './useTeam';
 import { computed, ref, toValue } from 'vue';
-
-const TeamResourceSchema = JsonApiData.extend({
-  type: z.literal('teams'),
-  attributes: z.object({
-    name: z.string(),
-  }),
-});
-type TeamResource = z.infer<typeof TeamResourceSchema>;
 
 const CoachResourceSchema = JsonApiData.extend({
   type: z.literal('training_coaches'),
