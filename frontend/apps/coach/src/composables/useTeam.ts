@@ -35,7 +35,7 @@ export interface Team {
 }
 
 const getTeams = () : Promise<Team[]> => {
-  return useHttpApi().url('/v1/teams')
+  return useHttpApi().url('/v1/trainings/teams')
     .get()
     .json()
     .then(json => {
