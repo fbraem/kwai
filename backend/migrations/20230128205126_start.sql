@@ -261,6 +261,19 @@ create table if not exists training_coaches (
     primary key(training_id, coach_id)
 ) charset = utf8mb3;
 
+create table kwai.training_presences
+(
+    training_id int unsigned                        not null,
+    member_id   int unsigned                        not null,
+    remark      text                                null,
+    user_id     int unsigned                        not null,
+    created_at  timestamp default CURRENT_TIMESTAMP not null,
+    updated_at  timestamp                           null,
+    primary key (training_id, member_id)
+)
+charset = utf8mb3;
+
+
 create table if not exists persons(
     id int unsigned auto_increment        primary key,
     lastname varchar(255)                 not null,
@@ -308,6 +321,17 @@ create table if not exists sport_judo_members (
 create table judo_members like sport_judo_members;
 insert into judo_members select * from sport_judo_members;
 drop table sport_judo_members;
+
+create table member_imports
+(
+    id         int unsigned auto_increment primary key,
+    filename   text                                null,
+    remark     text                                null,
+    user_id    int unsigned                        not null,
+    created_at timestamp default CURRENT_TIMESTAMP not null,
+    updated_at timestamp                           null
+)
+charset = utf8mb3;
 
 create table if not exists seasons (
     id int unsigned auto_increment        primary key,
@@ -374,5 +398,36 @@ CREATE TABLE page_contents LIKE page_contents_2;
 INSERT INTO page_contents SELECT * FROM page_contents_2;
 drop table if exists page_contents_2;
 
-
+-- Remove unused tables
+drop table if exists abilities;
+drop table if exists ability_rules;
+drop table if exists children;
+drop table if exists club_members;
+drop table if exists clubs;
+drop table if exists abilities;
+drop table if exists contents;
+drop table if exists events;
+drop table if exists event_contents;
+drop table if exists mail_recipients;
+drop table if exists mails;
+drop table if exists events;
+drop table if exists events;
+drop table if exists oauth_access_token_scopes;
+drop table if exists oauth_auth_code_scopes;
+drop table if exists oauth_auth_codes;
+drop table if exists oauth_client_grants;
+drop table if exists oauth_client_scopes;
+drop table if exists oauth_clients;
+drop table if exists oauth_grants;
+drop table if exists oauth_scopes;
+drop table if exists oauth_user_grants;
+drop table if exists oauth_user_scopes;
+drop table if exists phinxlog;
+drop table if exists rule_actions;
+drop table if exists rule_subjects;
+drop table if exists rules;
+drop table if exists sport_judo_grades;
+drop table if exists sport_judo_member_grades;
+drop table if exists user_abilities;
+drop table if exists user_logs;
 -- migrate:down
