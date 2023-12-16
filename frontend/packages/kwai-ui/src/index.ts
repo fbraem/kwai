@@ -10,3 +10,4 @@ export type * from './form';
 export * from './layout';
 export * from './nav';
 export * from './section';
+export * from './validations';
