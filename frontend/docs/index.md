@@ -47,12 +47,15 @@ server {
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   proxy_set_header X-Forwarded-Proto $scheme;
   proxy_set_header X-Forwarded-Host $host:$server_port;
-      
-  location /author {
-           proxy_pass http://localhost:3001/author;
+
+  location /apps/author {
+           proxy_pass http://localhost:3001/apps/author;
   }
-  location /auth {
-           proxy_pass http://localhost:3002/auth;
+  location /apps/coach {
+           proxy_pass http://localhost:3003/apps/coach;
+  }
+  location /apps/auth {
+           proxy_pass http://localhost:3002/apps/auth;
   }
   location / {
            proxy_pass http://localhost:3000/;
