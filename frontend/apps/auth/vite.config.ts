@@ -23,7 +23,7 @@ const resolveTheme = (path: string) => {
 
 export default defineConfig(() => {
   return {
-    base: '/auth/',
+    base: '/apps/auth/',
     server: {
       host: '0.0.0.0',
       port: 3002,

@@ -6,7 +6,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig(({ mode }) => {
   return {
-    base: '/coach/',
+    base: '/apps/coach/',
     esbuild: {
       pure: mode === 'production' ? ['console.log'] : [],
     },
