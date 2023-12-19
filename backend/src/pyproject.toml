@@ -6,7 +6,7 @@ authors = ["Franky Braem <franky.braem@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-fastapi = "^0.100.0"
+fastapi = "^0.105.0"
 uvicorn = {extras = ["standard"], version = "^0.23.0"}
 mysql-connector-python = "^8.1.0"
 sql-smith = "^1.1.1"
@@ -18,11 +18,11 @@ jinja2 = "^3.1.2"
 tomli = "^2.0.1"
 pyjwt = "^2.7.0"
 typer = {extras = ["all"], version = "^0.9.0"}
-redis = "^4.5.5"
+redis = "^5.0.1"
 asyncmy = "^0.2.8"
 cryptography = "^41.0.3"
 markdown = "3.3.7"
-pydantic= "1.10.12"
+pydantic= "2.5.2"
 
 [tool.poetry.group.dev]
 optional = true
