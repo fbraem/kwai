@@ -72,14 +72,13 @@ router = APIRouter()
 
 @router.post(
     "/login",
-    response_model=TokenSchema,
     summary="Create access and refresh token for a user.",
 )
 async def login(
     settings: Settings = Depends(get_settings),
     db: Database = Depends(create_database),
     form_data: OAuth2PasswordRequestForm = Depends(),
-):
+) -> TokenSchema:
     """Login a user.
 
     The response is a TokenSchema.
@@ -162,14 +161,13 @@ async def logout(
 
 @router.post(
     "/access_token",
-    response_model=TokenSchema,
     summary="Renew an access token using a refresh token.",
 )
 async def renew_access_token(
     settings=Depends(get_settings),
     db=Depends(create_database),
     refresh_token: str = Form(),
-):
+) -> TokenSchema:
     """Refresh the access token.
 
     Args:
