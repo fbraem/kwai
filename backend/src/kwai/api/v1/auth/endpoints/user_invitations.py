@@ -4,7 +4,11 @@ from fastapi import APIRouter, Depends, HTTPException, Response, status
 from loguru import logger
 
 from kwai.api.dependencies import get_current_user
-from kwai.api.schemas.user_invitation import UserInvitationResource
+from kwai.api.schemas.user_invitation import (
+    UserInvitationAttributes,
+    UserInvitationDocument,
+    UserInvitationResource,
+)
 from kwai.core.dependencies import create_database
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import InvalidEmailException
@@ -20,6 +24,7 @@ from kwai.modules.identity.get_user_invitation import (
     GetUserInvitationCommand,
 )
 from kwai.modules.identity.invite_user import InviteUser, InviteUserCommand
+from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
     UserInvitationDbRepository,
 )
@@ -32,13 +37,34 @@ from kwai.modules.identity.users.user_db_repository import UserDbRepository
 router = APIRouter()
 
 
+def _create_resource(
+    user_invitation: UserInvitationEntity,
+) -> UserInvitationResource:
+    """Create a JSON:API resource for a user invitation."""
+    return UserInvitationResource(
+        id=str(user_invitation.id),
+        attributes=UserInvitationAttributes(
+            email=str(user_invitation.email),
+            first_name=user_invitation.user.name.first_name,
+            last_name=user_invitation.user.name.last_name,
+            remark=user_invitation.remark,
+            expired_at=str(user_invitation.expired_at)
+            if user_invitation.is_expired
+            else None,
+            confirmed_at=str(user_invitation.confirmed_at)
+            if user_invitation.confirmed
+            else None,
+        ),
+    )
+
+
 @router.post("/invitations")
 async def create_user_invitation(
-    resource: UserInvitationResource.get_document_model(),
+    resource: UserInvitationDocument,
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
     bus=Depends(create_bus),
-) -> UserInvitationResource.get_document_model():
+) -> UserInvitationDocument:
     """Create a user invitation."""
     command = InviteUserCommand(
         first_name=resource.data.attributes.first_name,
@@ -62,7 +88,7 @@ async def create_user_invitation(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ex)
         ) from ex
 
-    return UserInvitationResource(invitation).serialize()
+    return UserInvitationDocument(data=_create_resource(invitation))
 
 
 @router.delete(
@@ -95,18 +121,19 @@ async def get_user_invitations(
     pagination: PaginationModel = Depends(PaginationModel),
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
-) -> UserInvitationResource.get_document_model():
+) -> UserInvitationDocument:
     """Get all user invitations."""
     command = GetInvitationsCommand(offset=pagination.offset, limit=pagination.limit)
     count, invitation_iterator = await GetInvitations(
         UserInvitationDbRepository(db)
     ).execute(command)
 
-    document = UserInvitationResource.serialize_list(
-        [UserInvitationResource(invitation) async for invitation in invitation_iterator]
+    data = [_create_resource(invitation) async for invitation in invitation_iterator]
+
+    return UserInvitationDocument(
+        meta=Meta(count=count, limit=pagination.limit, offset=pagination.offset),
+        data=data,
     )
-    document.meta = Meta(count=count)
-    return document
 
 
 @router.get("/invitations/{uuid}")
@@ -114,7 +141,7 @@ async def get_user_invitation(
     uuid: str,
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
-) -> UserInvitationResource.get_document_model():
+) -> UserInvitationDocument:
     """Get the user invitation with the given unique id."""
     command = GetUserInvitationCommand(uuid=uuid)
     try:
@@ -126,4 +153,4 @@ async def get_user_invitation(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
         ) from ex
 
-    return UserInvitationResource(invitation).serialize()
+    return UserInvitationDocument(data=_create_resource(invitation))
