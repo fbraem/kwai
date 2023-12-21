@@ -54,8 +54,6 @@ def test_create_news_item(secure_client: TestClient, application: ApplicationEnt
                 ],
                 "enabled": True,
                 "publish_date": "2023-01-02 12:00:00",
-                "priority": 0,
-                "remark": "",
             },
             "relationships": {
                 "application": {

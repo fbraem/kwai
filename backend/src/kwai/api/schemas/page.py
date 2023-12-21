@@ -1,10 +1,13 @@
 """Module for defining the page JSON:API resource."""
+from types import NoneType
+
 from pydantic import BaseModel
 
-from kwai.api.converter import MarkdownConverter
-from kwai.api.schemas.application import ApplicationResource
-from kwai.core import json_api
-from kwai.modules.portal.pages.page import PageEntity
+from kwai.api.schemas.resources import (
+    ApplicationResourceIdentifier,
+    PageResourceIdentifier,
+)
+from kwai.core.json_api import Document, Relationship, ResourceData
 
 
 class PageText(BaseModel):
@@ -19,52 +22,38 @@ class PageText(BaseModel):
     original_content: str | None
 
 
-@json_api.resource(type_="pages")
-class PageResource:
-    """JSON:API resource for a page entity."""
+class PageAttributes(BaseModel):
+    """Attributes of a page JSON:API resource."""
 
-    def __init__(self, page_entity: PageEntity):
-        self._page = page_entity
+    enabled: bool
+    priority: int
+    remark: str
+    texts: list[PageText]
 
-    @json_api.id
-    def get_id(self) -> str:
-        """Get the id of the page."""
-        return str(self._page.id)
 
-    @json_api.attribute(name="enabled")
-    def is_enabled(self) -> bool:
-        """Return the enabled attribute of the page."""
-        return self._page.enabled
+class PageRelationships(BaseModel):
+    """Relationships of a page JSON:API resource."""
 
-    @json_api.attribute(name="priority")
-    def get_priority(self) -> int:
-        """Return the priority attribute of the page."""
-        return self._page.priority
+    application: Relationship[ApplicationResourceIdentifier]
 
-    @json_api.attribute(name="remark")
-    def get_remark(self) -> str:
-        """Return the remark attribute of the page."""
-        return self._page.remark or ""
 
-    @json_api.relationship(name="application")
-    def get_application(self) -> ApplicationResource:
-        """Return the application relationship."""
-        return ApplicationResource(self._page.application)
+class PageResource(
+    PageResourceIdentifier, ResourceData[PageAttributes, PageRelationships]
+):
+    """A JSON:API resource for a page."""
 
-    @json_api.attribute(name="texts")
-    def get_texts(self) -> list[PageText]:
-        """Get the text of the news item."""
-        return [
-            PageText(
-                locale=text.locale.value,
-                format=text.format.value,
-                title=text.title,
-                summary=MarkdownConverter().convert(text.summary),
-                content=MarkdownConverter().convert(text.content)
-                if text.content
-                else None,
-                original_summary=text.summary,
-                original_content=text.content,
-            )
-            for text in self._page.texts
-        ]
+
+class PageApplicationAttributes(BaseModel):
+    """Attributes of a JSON:API application resource related to a page."""
+
+    name: str
+    title: str
+
+
+class PageApplicationResource(
+    ApplicationResourceIdentifier, ResourceData[PageApplicationAttributes, NoneType]
+):
+    """A JSON:API resource for an application associated with a page."""
+
+
+PageDocument = Document[PageResource, PageApplicationResource]

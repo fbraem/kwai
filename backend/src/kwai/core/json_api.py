@@ -1,9 +1,16 @@
 """Module that defines some JSON:API related models."""
-from typing import Generic, TypeVar
+from typing import Any, Generic, TypeVar
 
 from fastapi import Query
-from pydantic import BaseModel, ConfigDict, Field
-from pydantic.json_schema import SkipJsonSchema
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    GetJsonSchemaHandler,
+    model_serializer,
+)
+from pydantic.json_schema import JsonSchemaValue, SkipJsonSchema
+from pydantic_core import CoreSchema
 
 
 class ResourceIdentifier(BaseModel):
@@ -12,11 +19,18 @@ class ResourceIdentifier(BaseModel):
     id: str | SkipJsonSchema[None] = None
     type: str
 
+    def __hash__(self) -> int:
+        """Create a hash for a resource."""
+        return hash(str(self.id) + self.type)
 
-class Relationship(BaseModel):
+
+T_RELATION_SHIP = TypeVar("T_RELATION_SHIP")
+
+
+class Relationship(BaseModel, Generic[T_RELATION_SHIP]):
     """A JSON:API relationship."""
 
-    data: ResourceIdentifier | list[ResourceIdentifier]
+    data: T_RELATION_SHIP | list[T_RELATION_SHIP]
 
 
 class ResourceMeta(BaseModel):
@@ -29,15 +43,25 @@ class ResourceMeta(BaseModel):
 
 
 T_ATTRS = TypeVar("T_ATTRS")
-T_RELATIONSHIP = TypeVar("T_RELATIONSHIP")
+T_RELATIONSHIPS = TypeVar("T_RELATIONSHIPS")
 
 
-class ResourceData(ResourceIdentifier, Generic[T_ATTRS, T_RELATIONSHIP]):
+class ResourceData(BaseModel, Generic[T_ATTRS, T_RELATIONSHIPS]):
     """A JSON:API resource."""
 
     meta: ResourceMeta | SkipJsonSchema[None] = None
     attributes: T_ATTRS
-    relationships: T_RELATIONSHIP | SkipJsonSchema[None] = None
+    relationships: T_RELATIONSHIPS | SkipJsonSchema[None] = None
+
+    @model_serializer(mode="wrap")
+    def serialize(self, handler) -> dict[str, Any]:
+        """Remove relationships and meta from serialization when the values are none."""
+        result = handler(self)
+        if self.relationships is None:
+            del result["relationships"]
+        if self.meta is None:
+            del result["meta"]
+        return result
 
 
 T_RESOURCE = TypeVar("T_RESOURCE")
@@ -67,7 +91,32 @@ class Document(BaseModel, Generic[T_RESOURCE, T_INCLUDE]):
 
     meta: Meta | SkipJsonSchema[None] = None
     data: T_RESOURCE | list[T_RESOURCE]
-    included: T_INCLUDE | SkipJsonSchema[None] = None
+    included: set[T_INCLUDE] | SkipJsonSchema[None] = None
+
+    @classmethod
+    def __get_pydantic_json_schema__(
+        cls,
+        core_schema: CoreSchema,
+        handler: GetJsonSchemaHandler,
+    ) -> JsonSchemaValue:
+        """Remove included when T_INCLUDE is NoneType."""
+        json_schema = handler(core_schema)
+        json_schema = handler.resolve_ref_schema(json_schema)
+        if "properties" in json_schema:
+            if "type" in json_schema["properties"]["included"]["items"]:
+                if json_schema["properties"]["included"]["items"]["type"] == "null":
+                    del json_schema["properties"]["included"]
+        return json_schema
+
+    @model_serializer(mode="wrap")
+    def serialize(self, handler) -> dict[str, Any]:
+        """Remove included and meta when the value is None."""
+        result = handler(self)
+        if self.included is None:
+            del result["included"]
+        if self.meta is None:
+            del result["meta"]
+        return result
 
 
 class PaginationModel(BaseModel):

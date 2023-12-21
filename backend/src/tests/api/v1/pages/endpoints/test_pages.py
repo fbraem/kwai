@@ -1,4 +1,5 @@
 """Module for testing the pages endpoint."""
+
 from fastapi import status
 from fastapi.testclient import TestClient
 
@@ -48,7 +49,6 @@ def test_create_page(secure_client: TestClient, application: ApplicationEntity):
                     }
                 ],
                 "enabled": True,
-                "publish_date": "2023-01-02 12:00:00",
                 "priority": 0,
                 "remark": "",
             },
@@ -84,7 +84,6 @@ def test_patch_page(
                     }
                 ],
                 "enabled": True,
-                "publish_date": "2023-01-02 12:00:00",
                 "priority": 0,
                 "remark": "Updated",
             },

@@ -2,12 +2,22 @@
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, Field
 
+from kwai.api.converter import MarkdownConverter
 from kwai.api.dependencies import get_current_user, get_optional_user
-from kwai.api.schemas.news_item import NewsItemResource
+from kwai.api.schemas.news_item import (
+    NewsItemApplicationAttributes,
+    NewsItemApplicationResource,
+    NewsItemAttributes,
+    NewsItemDocument,
+    NewsItemRelationships,
+    NewsItemResource,
+    NewsItemText,
+)
+from kwai.api.schemas.resources import ApplicationResourceIdentifier
 from kwai.core.dependencies import create_database
 from kwai.core.domain.use_case import TextCommand
 from kwai.core.domain.value_objects.owner import Owner
-from kwai.core.json_api import Meta, PaginationModel
+from kwai.core.json_api import Meta, PaginationModel, Relationship, ResourceMeta
 from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,
@@ -16,11 +26,56 @@ from kwai.modules.portal.create_news_item import CreateNewsItem, CreateNewsItemC
 from kwai.modules.portal.delete_news_item import DeleteNewsItem, DeleteNewsItemCommand
 from kwai.modules.portal.get_news_item import GetNewsItem, GetNewsItemCommand
 from kwai.modules.portal.get_news_items import GetNewsItems, GetNewsItemsCommand
+from kwai.modules.portal.news.news_item import NewsItemEntity
 from kwai.modules.portal.news.news_item_db_repository import NewsItemDbRepository
 from kwai.modules.portal.news.news_item_repository import NewsItemNotFoundException
 from kwai.modules.portal.update_news_item import UpdateNewsItem, UpdateNewsItemCommand
 
 router = APIRouter()
+
+
+def _create_resource(
+    news_item: NewsItemEntity,
+) -> tuple[NewsItemResource, NewsItemApplicationResource]:
+    return NewsItemResource(
+        id=str(news_item.id),
+        meta=ResourceMeta(
+            created_at=str(news_item.traceable_time.created_at),
+            updated_at=str(news_item.traceable_time.updated_at),
+        ),
+        attributes=NewsItemAttributes(
+            priority=news_item.promotion.priority,
+            publish_date=str(news_item.period.start_date),
+            end_date=str(news_item.period.end_date),
+            enabled=news_item.is_enabled,
+            remark=news_item.remark or "",
+            promotion_end_date=str(news_item.promotion.end_date),
+            texts=[
+                NewsItemText(
+                    locale=text.locale.value,
+                    format=text.format.value,
+                    title=text.title,
+                    summary=MarkdownConverter().convert(text.summary),
+                    content=MarkdownConverter().convert(text.content)
+                    if text.content
+                    else None,
+                    original_summary=text.summary,
+                    original_content=text.content,
+                )
+                for text in news_item.texts
+            ],
+        ),
+        relationships=NewsItemRelationships(
+            application=Relationship[ApplicationResourceIdentifier](
+                data=ApplicationResourceIdentifier(id=str(news_item.application.id))
+            )
+        ),
+    ), NewsItemApplicationResource(
+        id=str(news_item.application.id),
+        attributes=NewsItemApplicationAttributes(
+            name=news_item.application.name, title=news_item.application.title
+        ),
+    )
 
 
 class NewsFilterModel(BaseModel):
@@ -40,7 +95,7 @@ async def get_news_items(
     news_filter: NewsFilterModel = Depends(NewsFilterModel),
     db=Depends(create_database),
     user: UserEntity | None = Depends(get_optional_user),
-) -> NewsItemResource.get_document_model():
+) -> NewsItemDocument:
     """Get news items."""
     # Only a know user is allowed to see disabled news.
     if user is None and not news_filter.enabled:
@@ -60,12 +115,19 @@ async def get_news_items(
         command
     )
 
-    document = NewsItemResource.serialize_list(
-        [NewsItemResource(news_item) async for news_item in news_item_iterator]
-    )
-    document.meta = Meta(count=count, offset=command.offset, limit=command.limit)
+    data: list[NewsItemResource] = []
+    included: set[NewsItemApplicationResource] = set()
 
-    return document
+    async for news_item in news_item_iterator:
+        news_item_resource, application_resource = _create_resource(news_item)
+        data.append(news_item_resource)
+        included.add(application_resource)
+
+    return NewsItemDocument(
+        meta=Meta(count=count, offset=command.offset, limit=command.limit),
+        data=data,
+        included=included,
+    )
 
 
 @router.get("/news_items/{id}")
@@ -73,7 +135,7 @@ async def get_news_item(
     id: int,
     db=Depends(create_database),
     user: UserEntity | None = Depends(get_optional_user),
-) -> NewsItemResource.get_document_model():
+) -> NewsItemDocument:
     """Get a news item."""
     command = GetNewsItemCommand(id=id)
 
@@ -88,15 +150,19 @@ async def get_news_item(
     if not user and not news_item.is_enabled:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
 
-    return NewsItemResource.serialize(NewsItemResource(news_item))
+    news_item_resource, application_resource = _create_resource(news_item)
+    return NewsItemDocument(
+        data=news_item_resource,
+        included={application_resource},
+    )
 
 
 @router.post("/news_items", status_code=status.HTTP_201_CREATED)
 async def create_news_item(
-    resource: NewsItemResource.get_resource_data_model(),
+    resource: NewsItemDocument,
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
-) -> NewsItemResource.get_document_model():
+) -> NewsItemDocument:
     """Create a new news item."""
     command = CreateNewsItemCommand(
         enabled=resource.data.attributes.enabled,
@@ -123,7 +189,11 @@ async def create_news_item(
         Owner(id=user.id, uuid=user.uuid, name=user.name),
     ).execute(command)
 
-    return NewsItemResource.serialize(NewsItemResource(news_item))
+    news_item_resource, application_resource = _create_resource(news_item)
+    return NewsItemDocument(
+        data=news_item_resource,
+        included={application_resource},
+    )
 
 
 @router.patch(
@@ -133,10 +203,10 @@ async def create_news_item(
 )
 async def update_news_item(
     id: int,
-    resource: NewsItemResource.get_resource_data_model(),
+    resource: NewsItemDocument,
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
-) -> NewsItemResource.get_document_model():
+) -> NewsItemDocument:
     """Update a new news item."""
     command = UpdateNewsItemCommand(
         id=id,
@@ -169,7 +239,11 @@ async def update_news_item(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
         ) from ex
 
-    return NewsItemResource.serialize(NewsItemResource(news_item))
+    news_item_resource, application_resource = _create_resource(news_item)
+    return NewsItemDocument(
+        data=news_item_resource,
+        included={application_resource},
+    )
 
 
 @router.delete(

@@ -3,6 +3,7 @@ from types import NoneType
 
 from pydantic import BaseModel
 
+from kwai.api.schemas.resources import UserInvitationResourceIdentifier
 from kwai.core.json_api import Document, ResourceData
 
 
@@ -17,11 +18,11 @@ class UserInvitationAttributes(BaseModel):
     confirmed_at: str | None
 
 
-class UserInvitationResource(ResourceData[UserInvitationAttributes, NoneType]):
+class UserInvitationResource(
+    UserInvitationResourceIdentifier,
+    ResourceData[UserInvitationAttributes, NoneType],
+):
     """A JSON:API resource of a user invitation."""
 
-    type: str = "user_invitations"
 
-
-class UserInvitationDocument(Document[UserInvitationResource, NoneType]):
-    """A JSON:API document for a user invitation."""
+UserInvitationDocument = Document[UserInvitationResource, NoneType]
