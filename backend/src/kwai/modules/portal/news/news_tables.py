@@ -95,7 +95,7 @@ class NewsItemRow:
             ),
             application=application,
             texts=texts,
-            remark=self.remark,
+            remark=self.remark or "",
             traceable_time=TraceableTime(
                 created_at=LocalTimestamp(timestamp=self.created_at),
                 updated_at=LocalTimestamp(timestamp=self.updated_at),
