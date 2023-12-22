@@ -3,6 +3,7 @@ from types import NoneType
 
 from pydantic import BaseModel
 
+from kwai.api.schemas.application import ApplicationBaseAttributes
 from kwai.api.schemas.resources import (
     ApplicationResourceIdentifier,
     NewsItemResourceIdentifier,
@@ -46,15 +47,8 @@ class NewsItemResource(
     """A JSON:API resource for a news item."""
 
 
-class NewsItemApplicationAttributes(BaseModel):
-    """Attributes of a JSON:API application resource related to a news item."""
-
-    name: str
-    title: str
-
-
 class NewsItemApplicationResource(
-    ApplicationResourceIdentifier, ResourceData[NewsItemApplicationAttributes, NoneType]
+    ApplicationResourceIdentifier, ResourceData[ApplicationBaseAttributes, NoneType]
 ):
     """A JSON:API resource for an application associated with a page."""
 

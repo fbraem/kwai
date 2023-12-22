@@ -7,11 +7,16 @@ from kwai.api.schemas.resources import ApplicationResourceIdentifier
 from kwai.core.json_api import Document, ResourceData
 
 
-class ApplicationAttributes(BaseModel):
-    """Attributes for an application JSON:API resource."""
+class ApplicationBaseAttributes(BaseModel):
+    """Common attributes of an application JSON:API resource."""
 
     name: str
     title: str
+
+
+class ApplicationAttributes(ApplicationBaseAttributes):
+    """Attributes for an application JSON:API resource."""
+
     short_description: str
     description: str
     remark: str

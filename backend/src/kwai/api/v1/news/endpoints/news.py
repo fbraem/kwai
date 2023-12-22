@@ -4,8 +4,8 @@ from pydantic import BaseModel, Field
 
 from kwai.api.converter import MarkdownConverter
 from kwai.api.dependencies import get_current_user, get_optional_user
+from kwai.api.schemas.application import ApplicationBaseAttributes
 from kwai.api.schemas.news_item import (
-    NewsItemApplicationAttributes,
     NewsItemApplicationResource,
     NewsItemAttributes,
     NewsItemDocument,
@@ -72,7 +72,7 @@ def _create_resource(
         ),
     ), NewsItemApplicationResource(
         id=str(news_item.application.id),
-        attributes=NewsItemApplicationAttributes(
+        attributes=ApplicationBaseAttributes(
             name=news_item.application.name, title=news_item.application.title
         ),
     )

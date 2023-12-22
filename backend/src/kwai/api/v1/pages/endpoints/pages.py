@@ -4,8 +4,8 @@ from pydantic import BaseModel, Field
 
 from kwai.api.converter import MarkdownConverter
 from kwai.api.dependencies import get_current_user
+from kwai.api.schemas.application import ApplicationBaseAttributes
 from kwai.api.schemas.page import (
-    PageApplicationAttributes,
     PageApplicationResource,
     PageAttributes,
     PageDocument,
@@ -70,7 +70,7 @@ def _create_resource(page: PageEntity) -> tuple[PageResource, PageApplicationRes
         ),
     ), PageApplicationResource(
         id=str(page.application.id),
-        attributes=PageApplicationAttributes(
+        attributes=ApplicationBaseAttributes(
             name=page.application.name, title=page.application.title
         ),
     )
