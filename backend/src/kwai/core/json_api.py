@@ -118,6 +118,22 @@ class Document(BaseModel, Generic[T_RESOURCE, T_INCLUDE]):
             del result["meta"]
         return result
 
+    def merge(self, other: "Document"):
+        """Merge a document into this document.
+
+        When data is not a list yet, it will be converted to a list. When there are
+        included resources, they will be merged into this document.
+        meta is not merged.
+        """
+        if not isinstance(self.data, list):
+            self.data = [self.data]
+        self.data.append(other.data)
+        if other.included is not None:
+            if self.included is None:
+                self.included = other.included
+            else:
+                self.included = self.included.union(other.included)
+
 
 class PaginationModel(BaseModel):
     """A model for pagination query parameters.
