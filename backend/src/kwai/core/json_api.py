@@ -30,7 +30,7 @@ T_RELATION_SHIP = TypeVar("T_RELATION_SHIP")
 class Relationship(BaseModel, Generic[T_RELATION_SHIP]):
     """A JSON:API relationship."""
 
-    data: T_RELATION_SHIP | list[T_RELATION_SHIP]
+    data: T_RELATION_SHIP | list[T_RELATION_SHIP] | None
 
 
 class ResourceMeta(BaseModel):
