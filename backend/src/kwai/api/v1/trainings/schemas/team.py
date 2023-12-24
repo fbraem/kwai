@@ -1,21 +1,31 @@
 """Module that defines the team schema."""
-from kwai.core import json_api
+from types import NoneType
+
+from pydantic import BaseModel
+
+from kwai.api.schemas.resources import TeamResourceIdentifier
+from kwai.core.json_api import Document, ResourceData
 from kwai.modules.training.teams.team import TeamEntity
 
 
-@json_api.resource(type_="teams")
-class TeamResource:
-    """Represent a team."""
+class TeamAttributes(BaseModel):
+    """Attributes for a team JSON:API resource."""
 
-    def __init__(self, team: TeamEntity):
-        self._team = team
+    name: str
 
-    @json_api.id
-    def get_id(self) -> str:
-        """Return the id of the team."""
-        return str(self._team.id)
 
-    @json_api.attribute(name="name")
-    def get_name(self) -> str:
-        """Return the name of the team."""
-        return self._team.name
+class TeamResource(TeamResourceIdentifier, ResourceData[TeamAttributes, NoneType]):
+    """A JSON:API resource for a team."""
+
+
+class TeamDocument(Document[TeamResource, NoneType]):
+    """A JSON:API document for one or more teams."""
+
+    @classmethod
+    def create(cls, team: TeamEntity) -> "TeamDocument":
+        """Create a document from a team entity."""
+        return TeamDocument(
+            data=TeamResource(
+                id=str(team.id), attributes=TeamAttributes(name=team.name)
+            )
+        )

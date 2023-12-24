@@ -2,9 +2,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from kwai.api.dependencies import get_current_user
-from kwai.api.schemas.application import (
-    ApplicationResource,
-)
+from kwai.api.schemas.application import ApplicationDocument
 from kwai.core.dependencies import create_database
 from kwai.core.json_api import Meta
 from kwai.modules.portal.applications.application_db_repository import (
@@ -24,32 +22,28 @@ from tests.core.domain.test_entity import UserEntity
 router = APIRouter()
 
 
-ApplicationResourceDocument = ApplicationResource.get_document_model()
-
-
 @router.get("/applications")
 async def get_applications(
     db=Depends(create_database),
-) -> ApplicationResourceDocument:
+) -> ApplicationDocument:
     """Get all applications of kwai."""
     command = GetApplicationsCommand()
     count, application_iterator = await GetApplications(
         ApplicationDbRepository(db)
     ).execute(command)
 
-    result: ApplicationResourceDocument = ApplicationResource.serialize_list(
-        [ApplicationResource(application) async for application in application_iterator]
-    )
-    result.meta = Meta(count=count)
+    document = ApplicationDocument(meta=Meta(count=count), data=[])
+    async for application in application_iterator:
+        document.merge(ApplicationDocument.create(application))
 
-    return result
+    return document
 
 
 @router.get("/applications/{id}")
 async def get_application(
     id: int,
     db=Depends(create_database),
-) -> ApplicationResourceDocument:
+) -> ApplicationDocument:
     """Get application."""
     command = GetApplicationCommand(id=id)
 
@@ -60,20 +54,16 @@ async def get_application(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
         ) from ex
 
-    result: ApplicationResourceDocument = ApplicationResource.serialize(
-        ApplicationResource(application)
-    )
-
-    return result
+    return ApplicationDocument.create(application)
 
 
 @router.patch("/applications/{id}")
 async def update_application(
     id: int,
-    resource: ApplicationResource.get_resource_data_model(),
+    resource: ApplicationDocument,
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
-) -> ApplicationResourceDocument:
+) -> ApplicationDocument:
     """Get application."""
     command = UpdateApplicationCommand(
         id=id,
@@ -96,4 +86,4 @@ async def update_application(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
         ) from ex
 
-    return ApplicationResource.serialize(ApplicationResource(application))
+    return ApplicationDocument.create(application)

@@ -159,6 +159,8 @@ def test_create_training(secure_client: TestClient):
                         "title": "U13 Training",
                         "summary": "",
                         "original_summary": "Training for U13",
+                        "original_content": "",
+                        "content": "",
                     }
                 ],
                 "coaches": [],
@@ -197,6 +199,8 @@ def test_create_training_with_definition(
                         "title": "U13 Training",
                         "summary": "",
                         "original_summary": "Training for U13",
+                        "original_content": "",
+                        "content": "",
                     }
                 ],
                 "coaches": [],
@@ -238,6 +242,8 @@ def test_create_training_with_coaches(secure_client: TestClient):
                         "title": "U13 Training",
                         "summary": "",
                         "original_summary": "Training for U13",
+                        "original_content": "",
+                        "content": "",
                     }
                 ],
                 "coaches": [
@@ -253,7 +259,7 @@ def test_create_training_with_coaches(secure_client: TestClient):
                 "remark": "",
             },
             "relationships": {
-                "coaches": {"data": [{"type": "training_coaches", "id": "1"}]},
+                "coaches": {"data": [{"type": "coaches", "id": "1"}]},
                 "teams": {"data": []},
                 "definition": {"data": None},
             },
@@ -276,6 +282,8 @@ def test_create_training_with_teams(secure_client: TestClient):
                         "title": "U13 Training",
                         "summary": "",
                         "original_summary": "Training for U13",
+                        "original_content": "",
+                        "content": "",
                     }
                 ],
                 "coaches": [],
@@ -313,6 +321,8 @@ def test_update_training(secure_client: TestClient, training_entity: TrainingEnt
                         "title": "U13 Training",
                         "summary": "",
                         "original_summary": "Training for U13",
+                        "original_content": "",
+                        "content": "",
                     }
                 ],
                 "coaches": [],

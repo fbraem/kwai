@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, Field
 
 from kwai.api.dependencies import get_current_user
-from kwai.api.v1.trainings.schemas.training import TrainingResource
+from kwai.api.v1.trainings.schemas.training import TrainingDocument
 from kwai.core.dependencies import create_database
 from kwai.core.domain.use_case import TextCommand
 from kwai.core.domain.value_objects.owner import Owner
@@ -61,7 +61,7 @@ async def get_trainings(
     pagination: PaginationModel = Depends(PaginationModel),
     trainings_filter: TrainingsFilterModel = Depends(TrainingsFilterModel),
     db=Depends(create_database),
-) -> TrainingResource.get_document_model():
+) -> TrainingDocument:
     """Get all trainings."""
     command = GetTrainingsCommand(
         offset=pagination.offset or 0,
@@ -90,10 +90,11 @@ async def get_trainings(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
         ) from ex
 
-    document = TrainingResource.serialize_list(
-        [TrainingResource(training) async for training in training_iterator]
+    document: TrainingDocument = TrainingDocument(
+        meta=Meta(count=count, offset=command.offset, limit=command.limit), data=[]
     )
-    document.meta = Meta(count=count, offset=command.offset, limit=command.limit)
+    async for training in training_iterator:
+        document.merge(TrainingDocument.create(training))
 
     return document
 
@@ -105,7 +106,7 @@ async def get_trainings(
 async def get_training(
     training_id: int,
     db=Depends(create_database),
-) -> TrainingResource.get_document_model():
+) -> TrainingDocument:
     """Get the training with the given id."""
     command = GetTrainingCommand(id=training_id)
 
@@ -116,7 +117,7 @@ async def get_training(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
         ) from ex
 
-    return TrainingResource.serialize(TrainingResource(training))
+    return TrainingDocument.create(training)
 
 
 @router.post(
@@ -124,10 +125,10 @@ async def get_training(
     status_code=status.HTTP_201_CREATED,
 )
 async def create_training(
-    resource: TrainingResource.get_resource_data_model(),
+    resource: TrainingDocument,
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
-) -> TrainingResource.get_document_model():
+) -> TrainingDocument:
     """Create a new training."""
     command = CreateTrainingCommand(
         start_date=resource.data.attributes.event.start_date,
@@ -162,7 +163,7 @@ async def create_training(
     )
 
     try:
-        resource = await CreateTraining(
+        training = await CreateTraining(
             TrainingDbRepository(db),
             TrainingDefinitionDbRepository(db),
             CoachDbRepository(db),
@@ -174,7 +175,7 @@ async def create_training(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ve)
         ) from ve
 
-    return TrainingResource.serialize(TrainingResource(resource))
+    return TrainingDocument.create(training)
 
 
 @router.patch(
@@ -183,10 +184,10 @@ async def create_training(
 )
 async def update_training(
     training_id: int,
-    resource: TrainingResource.get_resource_data_model(),
+    resource: TrainingDocument,
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
-) -> TrainingResource.get_document_model():
+) -> TrainingDocument:
     """Update a training."""
     command = UpdateTrainingCommand(
         id=training_id,
@@ -222,7 +223,7 @@ async def update_training(
     )
 
     try:
-        resource = await UpdateTraining(
+        training = await UpdateTraining(
             TrainingDbRepository(db),
             TrainingDefinitionDbRepository(db),
             CoachDbRepository(db),
@@ -238,7 +239,7 @@ async def update_training(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ve)
         ) from ve
 
-    return TrainingResource.serialize(TrainingResource(resource))
+    return TrainingDocument.create(training)
 
 
 @router.delete(

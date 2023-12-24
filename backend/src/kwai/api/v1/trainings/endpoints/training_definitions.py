@@ -3,8 +3,10 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from kwai.api.dependencies import get_current_user
 from kwai.api.v1.trainings.endpoints.trainings import TrainingsFilterModel
-from kwai.api.v1.trainings.schemas.training import TrainingResource
-from kwai.api.v1.trainings.schemas.training_definition import TrainingDefinitionResource
+from kwai.api.v1.trainings.schemas.training import TrainingDocument
+from kwai.api.v1.trainings.schemas.training_definition import (
+    TrainingDefinitionDocument,
+)
 from kwai.core.dependencies import create_database
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.json_api import Meta, PaginationModel
@@ -48,7 +50,7 @@ router = APIRouter()
 async def get_training_definitions(
     pagination: PaginationModel = Depends(PaginationModel),
     db=Depends(create_database),
-) -> TrainingDefinitionResource.get_document_model():
+) -> TrainingDefinitionDocument:
     """Get all training definitions."""
     command = GetTrainingDefinitionsCommand(
         offset=pagination.offset or 0, limit=pagination.limit
@@ -56,13 +58,13 @@ async def get_training_definitions(
     count, iterator = await GetTrainingDefinitions(
         TrainingDefinitionDbRepository(db)
     ).execute(command)
-    document = TrainingDefinitionResource.serialize_list(
-        [
-            TrainingDefinitionResource(training_definition)
-            async for training_definition in iterator
-        ]
+
+    document: TrainingDefinitionDocument = TrainingDefinitionDocument(
+        meta=Meta(count=count, offset=command.offset, limit=command.limit), data=[]
     )
-    document.meta = Meta(count=count, offset=command.offset, limit=command.limit)
+    async for training_definition in iterator:
+        document.merge(TrainingDefinitionDocument.create(training_definition))
+
     return document
 
 
@@ -75,7 +77,7 @@ async def get_training_definitions(
 async def get_training_definition(
     training_definition_id: int,
     db=Depends(create_database),
-) -> TrainingDefinitionResource.get_document_model():
+) -> TrainingDefinitionDocument:
     """Get training definition with the given id."""
     command = GetTrainingDefinitionCommand(id=training_definition_id)
     try:
@@ -87,9 +89,7 @@ async def get_training_definition(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
         ) from ex
 
-    return TrainingDefinitionResource.serialize(
-        TrainingDefinitionResource(training_definition)
-    )
+    return TrainingDefinitionDocument.create(training_definition)
 
 
 @router.post(
@@ -97,10 +97,10 @@ async def get_training_definition(
     status_code=status.HTTP_201_CREATED,
 )
 async def create_training_definition(
-    resource: TrainingDefinitionResource.get_resource_data_model(),
+    resource: TrainingDefinitionDocument,
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
-) -> TrainingDefinitionResource.get_document_model():
+) -> TrainingDefinitionDocument:
     """Create a new training definition."""
     if (
         resource.data.relationships is not None
@@ -133,9 +133,7 @@ async def create_training_definition(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ve)
         ) from ve
 
-    return TrainingDefinitionResource.serialize(
-        TrainingDefinitionResource(training_definition)
-    )
+    return TrainingDefinitionDocument.create(training_definition)
 
 
 @router.patch(
@@ -146,10 +144,10 @@ async def create_training_definition(
 )
 async def update_training_definition(
     training_definition_id: int,
-    resource: TrainingDefinitionResource.get_resource_data_model(),
+    resource: TrainingDefinitionDocument,
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
-) -> TrainingDefinitionResource.get_document_model():
+) -> TrainingDefinitionDocument:
     """Update a training definition."""
     if (
         resource.data.relationships is not None
@@ -186,9 +184,7 @@ async def update_training_definition(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ve)
         ) from ve
 
-    return TrainingDefinitionResource.serialize(
-        TrainingDefinitionResource(training_definition)
-    )
+    return TrainingDefinitionDocument.create(training_definition)
 
 
 @router.delete(
@@ -224,7 +220,7 @@ async def get_trainings(
     pagination: PaginationModel = Depends(PaginationModel),
     trainings_filter: TrainingsFilterModel = Depends(TrainingsFilterModel),
     db=Depends(create_database),
-) -> TrainingResource.get_document_model():
+) -> TrainingDocument:
     """Get trainings of the given training definition."""
     command = GetTrainingsCommand(
         offset=pagination.offset or 0,
@@ -253,9 +249,10 @@ async def get_trainings(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
         ) from ex
 
-    document = TrainingResource.serialize_list(
-        [TrainingResource(training) async for training in training_iterator]
+    document: TrainingDocument = TrainingDocument(
+        meta=Meta(count=count, offset=command.offset, limit=command.limit), data=[]
     )
-    document.meta = Meta(count=count, offset=command.offset, limit=command.limit)
+    async for training in training_iterator:
+        document.merge(TrainingDocument.create(training))
 
     return document

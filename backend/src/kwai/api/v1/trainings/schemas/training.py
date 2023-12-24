@@ -1,12 +1,22 @@
 """Schemas for training(s)."""
+from types import NoneType
+from typing import Annotated
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from kwai.api.converter import MarkdownConverter
-from kwai.api.v1.trainings.schemas.team import TeamResource
-from kwai.api.v1.trainings.schemas.training_definition import TrainingDefinitionResource
-from kwai.core import json_api
-from kwai.modules.training.coaches.coach import CoachEntity
+from kwai.api.schemas.resources import (
+    CoachResourceIdentifier,
+    TeamResourceIdentifier,
+    TrainingDefinitionResourceIdentifier,
+    TrainingResourceIdentifier,
+)
+from kwai.api.v1.trainings.schemas.team import TeamDocument, TeamResource
+from kwai.api.v1.trainings.schemas.training_definition import (
+    TrainingDefinitionDocument,
+    TrainingDefinitionResource,
+)
+from kwai.core.json_api import Document, Relationship, ResourceData
 from kwai.modules.training.trainings.training import TrainingEntity
 
 
@@ -41,115 +51,124 @@ class TrainingEvent(BaseModel):
     active: bool
 
 
-@json_api.resource(type_="training_coaches")
-class CoachResource:
-    """Represent a coach attached to a training."""
+class CoachAttributes(BaseModel):
+    """Attributes for a coach JSON:API resource."""
 
-    def __init__(self, coach: CoachEntity):
-        self._coach = coach
-
-    @json_api.id
-    def get_id(self) -> str:
-        """Get the id of the coach."""
-        return str(self._coach.id)
-
-    @json_api.attribute(name="name")
-    def get_name(self) -> str:
-        """Get the name of the coach."""
-        return str(self._coach.name)
+    name: str
 
 
-@json_api.resource(type_="trainings")
-class TrainingResource:
-    """Represent a JSON:API resource for a training entity."""
+class CoachResource(CoachResourceIdentifier, ResourceData[CoachAttributes, NoneType]):
+    """A JSON:API resource for a coach."""
 
-    def __init__(self, training: TrainingEntity):
-        """Initialize a training resource.
 
-        Args:
-            training: The training entity that is transformed into a JSON:API resource.
-        """
-        self._training = training
+class TrainingAttributes(BaseModel):
+    """Attributes for training JSON:API resource."""
 
-    @json_api.id
-    def get_id(self) -> str:
-        """Get the id of the training."""
-        return str(self._training.id)
+    texts: list[TrainingText]
+    event: TrainingEvent
+    remark: str
+    coaches: list[TrainingCoach]
 
-    @json_api.attribute(name="texts")
-    def get_texts(self) -> list[TrainingText]:
-        """Get the content of the training."""
-        return [
-            TrainingText(
-                locale=text.locale.value,
-                format=text.format.value,
-                title=text.title,
-                original_summary=text.summary,
-                original_content=text.content,
-                summary=MarkdownConverter().convert(text.summary),
-                content=None
-                if text.content is None
-                else MarkdownConverter().convert(text.content),
-            )
-            for text in self._training.texts
-        ]
 
-    @json_api.attribute(name="event")
-    def get_event(self) -> TrainingEvent:
-        """Get the event information from a training."""
-        return TrainingEvent(
-            start_date=str(self._training.period.start_date),
-            end_date=str(self._training.period.end_date),
-            location=self._training.location or "",
-            cancelled=self._training.cancelled,
-            active=self._training.active,
+class TrainingRelationships(BaseModel):
+    """Relationships of a training JSON:API resource."""
+
+    coaches: Relationship[CoachResourceIdentifier]
+    teams: Relationship[TeamResourceIdentifier]
+    definition: Relationship[TrainingDefinitionResourceIdentifier] | None = None
+
+
+class TrainingResource(
+    TrainingResourceIdentifier, ResourceData[TrainingAttributes, TrainingRelationships]
+):
+    """A JSON:API resource for a training."""
+
+
+TrainingInclude = Annotated[
+    TeamResource | TrainingDefinitionResource | CoachResource,
+    Field(discriminator="type"),
+]
+
+
+class TrainingDocument(Document[TrainingResource, TrainingInclude]):
+    """A JSON:API document for one or more training resources."""
+
+    @classmethod
+    def create(cls, training: TrainingEntity) -> "TrainingDocument":
+        """Create a training document from a training entity."""
+        training_resource = TrainingResource(
+            id=str(training.id),
+            attributes=TrainingAttributes(
+                texts=[
+                    TrainingText(
+                        locale=text.locale.value,
+                        format=text.format.value,
+                        title=text.title,
+                        summary=MarkdownConverter().convert(text.summary),
+                        content=MarkdownConverter().convert(text.content)
+                        if text.content
+                        else None,
+                        original_summary=text.summary,
+                        original_content=text.content,
+                    )
+                    for text in training.texts
+                ],
+                event=TrainingEvent(
+                    start_date=str(training.period.start_date),
+                    end_date=str(training.period.end_date),
+                    location=training.location or "",
+                    cancelled=training.cancelled,
+                    active=training.active,
+                ),
+                remark=training.remark or "",
+                coaches=[
+                    TrainingCoach(
+                        id=str(coach.coach.id),
+                        head=coach.type == 1,
+                        present=coach.present,
+                        payed=coach.payed,
+                    )
+                    for coach in training.coaches
+                ],
+            ),
         )
 
-    @json_api.attribute(name="remark")
-    def get_remark(self) -> str:
-        """Get the remark of the training."""
-        return self._training.remark or ""
+        included: set[TrainingInclude] = set()
 
-    @json_api.attribute(name="coaches")
-    def get_training_coaches(self) -> list[TrainingCoach]:
-        """Get a list with coach data."""
-        return [
-            TrainingCoach(
-                id=training_coach.coach.id.value,
-                head=training_coach.type == 1,
-                present=training_coach.present,
-                payed=training_coach.payed,
+        training_resource.relationships = TrainingRelationships(
+            coaches=Relationship[CoachResourceIdentifier](data=[]),
+            teams=Relationship[TeamResourceIdentifier](data=[]),
+        )
+
+        for training_coach in training.coaches:
+            training_resource.relationships.coaches.data.append(
+                CoachResourceIdentifier(id=str(training_coach.coach.id))
             )
-            for training_coach in self._training.coaches
-        ]
+            included.add(
+                CoachResource(
+                    id=str(training_coach.coach.id),
+                    attributes=CoachAttributes(name=str(training_coach.coach.name)),
+                )
+            )
+        if training.definition:
+            training_resource.relationships.definition = Relationship[
+                TrainingDefinitionResourceIdentifier
+            ](
+                data=(
+                    TrainingDefinitionResourceIdentifier(id=str(training.definition.id))
+                )
+            )
+            training_definition_document = TrainingDefinitionDocument.create(
+                training.definition
+            )
+            included.add(training_definition_document.data)
+            included = included.union(training_definition_document.included)
 
-    @json_api.relationship(name="coaches")
-    def get_coaches(self) -> list[CoachResource]:
-        """Get the coaches attached to the training."""
-        return [
-            CoachResource(training_coach.coach)
-            for training_coach in self._training.coaches
-        ]
+        for team in training.teams:
+            training_resource.relationships.teams.data.append(
+                TeamResourceIdentifier(id=str(team.id))
+            )
+            team_document = TeamDocument.create(team)
+            included.add(team_document.data)
 
-    @json_api.relationship(name="teams")
-    def get_teams(self) -> list[TeamResource]:
-        """Get the teams of the training."""
-        return [TeamResource(team) for team in self._training.teams]
-
-    @json_api.relationship(name="definition")
-    def get_definition(self) -> TrainingDefinitionResource | None:
-        """Get the related training definition resource."""
-        definition = self._training.definition
-        if definition:
-            return TrainingDefinitionResource(definition)
-        return None
-
-    @json_api.attribute(name="created_at")
-    def get_created_at(self) -> str | None:
-        """Get the timestamp of creation."""
-        return str(self._training.traceable_time.created_at)
-
-    @json_api.attribute(name="updated_at")
-    def get_updated_at(self) -> str | None:
-        """Get the timestamp of the last update."""
-        return str(self._training.traceable_time.updated_at)
+        return TrainingDocument(data=training_resource, included=included)

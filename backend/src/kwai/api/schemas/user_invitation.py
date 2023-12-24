@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 from kwai.api.schemas.resources import UserInvitationResourceIdentifier
 from kwai.core.json_api import Document, ResourceData
+from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
 
 
 class UserInvitationAttributes(BaseModel):
@@ -14,8 +15,8 @@ class UserInvitationAttributes(BaseModel):
     first_name: str
     last_name: str
     remark: str
-    expired_at: str | None
-    confirmed_at: str | None
+    expired_at: str | None = None
+    confirmed_at: str | None = None
 
 
 class UserInvitationResource(
@@ -25,4 +26,26 @@ class UserInvitationResource(
     """A JSON:API resource of a user invitation."""
 
 
-UserInvitationDocument = Document[UserInvitationResource, NoneType]
+class UserInvitationDocument(Document[UserInvitationResource, NoneType]):
+    """A JSON:API document for one or more user invitations."""
+
+    @classmethod
+    def create(cls, user_invitation: UserInvitationEntity) -> "UserInvitationDocument":
+        """Create a document for a user invitation."""
+        return UserInvitationDocument(
+            data=UserInvitationResource(
+                id=str(user_invitation.uuid),
+                attributes=UserInvitationAttributes(
+                    email=str(user_invitation.email),
+                    first_name=user_invitation.user.name.first_name,
+                    last_name=user_invitation.user.name.last_name,
+                    remark=user_invitation.remark,
+                    expired_at=str(user_invitation.expired_at)
+                    if user_invitation.is_expired
+                    else None,
+                    confirmed_at=str(user_invitation.confirmed_at)
+                    if user_invitation.confirmed
+                    else None,
+                ),
+            )
+        )

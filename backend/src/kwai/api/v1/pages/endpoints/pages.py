@@ -2,22 +2,12 @@
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, Field
 
-from kwai.api.converter import MarkdownConverter
 from kwai.api.dependencies import get_current_user
-from kwai.api.schemas.application import ApplicationBaseAttributes
-from kwai.api.schemas.page import (
-    PageApplicationResource,
-    PageAttributes,
-    PageDocument,
-    PageRelationships,
-    PageResource,
-    PageText,
-)
-from kwai.api.schemas.resources import ApplicationResourceIdentifier
+from kwai.api.schemas.page import PageDocument
 from kwai.core.dependencies import create_database
 from kwai.core.domain.use_case import TextCommand
 from kwai.core.domain.value_objects.owner import Owner
-from kwai.core.json_api import Meta, PaginationModel, Relationship, ResourceMeta
+from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,
@@ -29,51 +19,11 @@ from kwai.modules.portal.create_page import CreatePage, CreatePageCommand
 from kwai.modules.portal.delete_page import DeletePage, DeletePageCommand
 from kwai.modules.portal.get_page import GetPage, GetPageCommand
 from kwai.modules.portal.get_pages import GetPages, GetPagesCommand
-from kwai.modules.portal.pages.page import PageEntity
 from kwai.modules.portal.pages.page_db_repository import PageDbRepository
 from kwai.modules.portal.pages.page_repository import PageNotFoundException
 from kwai.modules.portal.update_page import UpdatePage, UpdatePageCommand
 
 router = APIRouter()
-
-
-def _create_resource(page: PageEntity) -> tuple[PageResource, PageApplicationResource]:
-    return PageResource(
-        id=str(page.id),
-        meta=ResourceMeta(
-            created_at=str(page.traceable_time.created_at),
-            updated_at=str(page.traceable_time.updated_at),
-        ),
-        attributes=PageAttributes(
-            enabled=page.enabled,
-            priority=page.priority,
-            remark=page.remark or "",
-            texts=[
-                PageText(
-                    locale=text.locale.value,
-                    format=text.format.value,
-                    title=text.title,
-                    summary=MarkdownConverter().convert(text.summary),
-                    content=MarkdownConverter().convert(text.content)
-                    if text.content
-                    else None,
-                    original_summary=text.summary,
-                    original_content=text.content,
-                )
-                for text in page.texts
-            ],
-        ),
-        relationships=PageRelationships(
-            application=Relationship[ApplicationResourceIdentifier](
-                data=ApplicationResourceIdentifier(id=str(page.application.id))
-            )
-        ),
-    ), PageApplicationResource(
-        id=str(page.application.id),
-        attributes=ApplicationBaseAttributes(
-            name=page.application.name, title=page.application.title
-        ),
-    )
 
 
 class PageFilter(BaseModel):
@@ -96,19 +46,16 @@ async def get_pages(
     )
     count, page_iterator = await GetPages(PageDbRepository(db)).execute(command)
 
-    data: list[PageResource] = []
-    included: set[PageApplicationResource] = set()
+    result = PageDocument(
+        meta=Meta(count=count, offset=command.offset, limit=command.limit),
+        data=[],
+        included=set(),
+    )
 
     async for page in page_iterator:
-        page_resource, application_resource = _create_resource(page)
-        data.append(page_resource)
-        included.add(application_resource)
+        result.merge(PageDocument.create(page))
 
-    return PageDocument(
-        meta=Meta(count=count, offset=command.offset, limit=command.limit),
-        data=data,
-        included=included,
-    )
+    return result
 
 
 @router.get("/pages/{id}")
@@ -120,8 +67,7 @@ async def get_page(
     command = GetPageCommand(id=id)
     page = await GetPage(PageDbRepository(db)).execute(command)
 
-    page_resource, application_resource = _create_resource(page)
-    return PageDocument(data=page_resource, included={application_resource})
+    return PageDocument.create(page)
 
 
 @router.post("/pages", status_code=status.HTTP_201_CREATED)
@@ -159,8 +105,7 @@ async def create_page(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ex)
         ) from ex
 
-    page_resource, application_resource = _create_resource(page)
-    return PageDocument(data=page_resource, included={application_resource})
+    return PageDocument.create(page)
 
 
 @router.patch("/pages/{id}")
@@ -199,8 +144,7 @@ async def update_page(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ex)
         ) from ex
 
-    page_resource, application_resource = _create_resource(page)
-    return PageDocument(data=page_resource, included={application_resource})
+    return PageDocument.create(page)
 
 
 @router.delete(

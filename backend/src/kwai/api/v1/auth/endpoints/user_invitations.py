@@ -4,11 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, Response, status
 from loguru import logger
 
 from kwai.api.dependencies import get_current_user
-from kwai.api.schemas.user_invitation import (
-    UserInvitationAttributes,
-    UserInvitationDocument,
-    UserInvitationResource,
-)
+from kwai.api.schemas.user_invitation import UserInvitationDocument
 from kwai.core.dependencies import create_database
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import InvalidEmailException
@@ -24,7 +20,6 @@ from kwai.modules.identity.get_user_invitation import (
     GetUserInvitationCommand,
 )
 from kwai.modules.identity.invite_user import InviteUser, InviteUserCommand
-from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
     UserInvitationDbRepository,
 )
@@ -35,27 +30,6 @@ from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.identity.users.user_db_repository import UserDbRepository
 
 router = APIRouter()
-
-
-def _create_resource(
-    user_invitation: UserInvitationEntity,
-) -> UserInvitationResource:
-    """Create a JSON:API resource for a user invitation."""
-    return UserInvitationResource(
-        id=str(user_invitation.id),
-        attributes=UserInvitationAttributes(
-            email=str(user_invitation.email),
-            first_name=user_invitation.user.name.first_name,
-            last_name=user_invitation.user.name.last_name,
-            remark=user_invitation.remark,
-            expired_at=str(user_invitation.expired_at)
-            if user_invitation.is_expired
-            else None,
-            confirmed_at=str(user_invitation.confirmed_at)
-            if user_invitation.confirmed
-            else None,
-        ),
-    )
 
 
 @router.post("/invitations")
@@ -88,7 +62,7 @@ async def create_user_invitation(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ex)
         ) from ex
 
-    return UserInvitationDocument(data=_create_resource(invitation))
+    return UserInvitationDocument.create(invitation)
 
 
 @router.delete(
@@ -128,12 +102,15 @@ async def get_user_invitations(
         UserInvitationDbRepository(db)
     ).execute(command)
 
-    data = [_create_resource(invitation) async for invitation in invitation_iterator]
-
-    return UserInvitationDocument(
+    result = UserInvitationDocument(
         meta=Meta(count=count, limit=pagination.limit, offset=pagination.offset),
-        data=data,
+        data=[],
     )
+
+    async for invitation in invitation_iterator:
+        result.merge(UserInvitationDocument.create(invitation))
+
+    return result
 
 
 @router.get("/invitations/{uuid}")
@@ -153,4 +130,4 @@ async def get_user_invitation(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
         ) from ex
 
-    return UserInvitationDocument(data=_create_resource(invitation))
+    return UserInvitationDocument.create(invitation)
