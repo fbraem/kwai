@@ -62,7 +62,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     Args:
         settings: Settings to use in this application.
     """
-    app = FastAPI(title="kwai", lifespan=lifespan)
+    app = FastAPI(title="kwai", lifespan=lifespan, separate_input_output_schemas=False)
 
     if settings is None:
         settings = get_settings()
