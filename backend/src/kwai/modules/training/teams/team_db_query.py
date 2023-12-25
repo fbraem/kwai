@@ -9,7 +9,7 @@ class TeamDbQuery(DatabaseQuery, TeamQuery):
     """A database query for teams."""
 
     def init(self):
-        return self._query.from_(TeamsTable.table_name)
+        self._query.from_(TeamsTable.table_name)
 
     @property
     def columns(self):
