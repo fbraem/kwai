@@ -2,6 +2,11 @@ import { JsonApiData, JsonApiDocument, useHttpApi } from '@kwai/api';
 import { useQuery } from '@tanstack/vue-query';
 import { z } from 'zod';
 
+export interface Team {
+  id?: string
+  name: string
+}
+
 export const TeamResourceSchema = JsonApiData.extend({
   type: z.literal('teams'),
   attributes: z.object({
@@ -28,11 +33,6 @@ const TeamDocumentSchema = JsonApiDocument.extend({
   return mapModel(doc.data);
 });
 type TeamDocument = z.input<typeof TeamDocumentSchema>;
-
-export interface Team {
-  id?: string
-  name: string
-}
 
 const getTeams = () : Promise<Team[]> => {
   return useHttpApi().url('/v1/trainings/teams')
