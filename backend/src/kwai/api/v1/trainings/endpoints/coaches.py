@@ -1,4 +1,6 @@
 """Module for defining endpoints for coaches."""
+from typing import Annotated
+
 from fastapi import APIRouter, Depends
 
 from kwai.api.v1.trainings.schemas.coach import CoachDocument
@@ -12,7 +14,9 @@ router = APIRouter()
 
 
 @router.get("/trainings/coaches")
-async def get_coaches(database: Database = Depends(create_database)) -> CoachDocument:
+async def get_coaches(
+    database: Annotated[Database, Depends(create_database)]
+) -> CoachDocument:
     """Get coaches."""
     count, coach_iterator = await GetCoaches(CoachDbRepository(database)).execute()
 
