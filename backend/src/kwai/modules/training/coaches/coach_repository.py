@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from typing import AsyncIterator
 
 from kwai.modules.training.coaches.coach import CoachEntity, CoachIdentifier
+from kwai.modules.training.coaches.coach_query import CoachQuery
 
 
 class CoachNotFoundException(Exception):
@@ -11,6 +12,11 @@ class CoachNotFoundException(Exception):
 
 class CoachRepository(ABC):
     """Interface for a coach repository."""
+
+    @abstractmethod
+    def create_query(self) -> CoachQuery:
+        """Create a coach query."""
+        raise NotImplementedError
 
     @abstractmethod
     async def get_by_id(self, id: CoachIdentifier) -> CoachEntity:
@@ -32,4 +38,9 @@ class CoachRepository(ABC):
         Args:
             id: A variable number of coach ids.
         """
+        raise NotImplementedError
+
+    @abstractmethod
+    async def get_all(self) -> AsyncIterator[CoachEntity]:
+        """Get all coaches."""
         raise NotImplementedError

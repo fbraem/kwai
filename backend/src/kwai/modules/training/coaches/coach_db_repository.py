@@ -1,11 +1,10 @@
 """Module that defines a coach repository for a database."""
 from typing import AsyncIterator
 
-from sql_smith.functions import on
-from sql_smith.query import SelectQuery
-
 from kwai.core.db.database import Database
 from kwai.modules.training.coaches.coach import CoachEntity, CoachIdentifier
+from kwai.modules.training.coaches.coach_db_query import CoachDbQuery
+from kwai.modules.training.coaches.coach_query import CoachQuery
 from kwai.modules.training.coaches.coach_repository import (
     CoachNotFoundException,
     CoachRepository,
@@ -33,22 +32,13 @@ class CoachDbRepository(CoachRepository):
         """
         self._database = database
 
-    def _create_query(self) -> SelectQuery:
-        """Create the base select query."""
-        return (
-            self._database.create_query_factory()
-            .select()
-            .from_(CoachesTable.table_name)
-            .columns(*(CoachesTable.aliases() + PersonsTable.aliases()))
-            .join(
-                PersonsTable.table_name,
-                on(CoachesTable.column("person_id"), PersonsTable.column("id")),
-            )
-        )
+    def create_query(self) -> CoachQuery:
+        """Create the coach query."""
+        return CoachDbQuery(self._database)
 
     async def get_by_id(self, id: CoachIdentifier) -> CoachEntity:
-        query = self._create_query().and_where(CoachesTable.field("id").eq(id.value))
-        row = await self._database.fetch_one(query)
+        query = self.create_query().filter_by_id(id)
+        row = await query.fetch_one()
 
         if not row:
             raise CoachNotFoundException(f"Coach with id {id} not found.")
@@ -56,10 +46,12 @@ class CoachDbRepository(CoachRepository):
         return _create_entity(CoachesTable(row), PersonsTable(row))
 
     async def get_by_ids(self, *ids: CoachIdentifier) -> AsyncIterator[CoachEntity]:
-        unpacked_ids = tuple(i.value for i in ids)
-        query = self._create_query().and_where(
-            CoachesTable.field("id").in_(*unpacked_ids)
-        )
+        query = self.create_query().filter_by_ids(*ids)
 
-        async for row in self._database.fetch(query):
+        async for row in query.fetch():
+            yield _create_entity(CoachesTable(row), PersonsTable(row))
+
+    async def get_all(self) -> AsyncIterator[CoachEntity]:
+        query = self.create_query()
+        async for row in query.fetch():
             yield _create_entity(CoachesTable(row), PersonsTable(row))
