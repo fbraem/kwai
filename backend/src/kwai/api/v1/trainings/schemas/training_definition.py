@@ -67,6 +67,11 @@ class TrainingDefinitionDocument(Document[TrainingDefinitionResource, TeamResour
 
         included: set[TeamResource] = set()
         if training_definition.team is not None:
+            data.relationships = TrainingDefinitionRelationships(
+                team=Relationship[TeamResourceIdentifier](
+                    data=TeamResourceIdentifier(id=str(training_definition.team.id))
+                )
+            )
             included.add(
                 TeamResource(
                     id=str(training_definition.team.id),
