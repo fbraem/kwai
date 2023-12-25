@@ -27,7 +27,7 @@ export const teams = {
 };
 
 export const handlers = [
-  http.get('*/v1/teams', () => {
+  http.get('*/v1/trainings/teams', () => {
     return HttpResponse.json(teams, { status: 200 });
   }),
 ];
