@@ -25,3 +25,8 @@ class CoachQuery(Query, ABC):
             id_: one or more ids of a coach.
         """
         raise NotImplementedError
+
+    @abstractmethod
+    def filter_by_active(self) -> "CoachQuery":
+        """Add a filter for the active coaches."""
+        raise NotImplementedError

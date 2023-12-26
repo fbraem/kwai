@@ -51,7 +51,9 @@ class CoachDbRepository(CoachRepository):
         async for row in query.fetch():
             yield _create_entity(CoachesTable(row), PersonsTable(row))
 
-    async def get_all(self) -> AsyncIterator[CoachEntity]:
-        query = self.create_query()
+    async def get_all(
+        self, query: CoachQuery | None = None
+    ) -> AsyncIterator[CoachEntity]:
+        query = query or self.create_query()
         async for row in query.fetch():
             yield _create_entity(CoachesTable(row), PersonsTable(row))

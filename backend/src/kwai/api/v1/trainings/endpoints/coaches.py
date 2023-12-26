@@ -8,7 +8,7 @@ from kwai.core.db.database import Database
 from kwai.core.dependencies import create_database
 from kwai.core.json_api import Meta
 from kwai.modules.training.coaches.coach_db_repository import CoachDbRepository
-from kwai.modules.training.get_coaches import GetCoaches
+from kwai.modules.training.get_coaches import GetCoaches, GetCoachesCommand
 
 router = APIRouter()
 
@@ -18,7 +18,9 @@ async def get_coaches(
     database: Annotated[Database, Depends(create_database)]
 ) -> CoachDocument:
     """Get coaches."""
-    count, coach_iterator = await GetCoaches(CoachDbRepository(database)).execute()
+    count, coach_iterator = await GetCoaches(CoachDbRepository(database)).execute(
+        GetCoachesCommand(active=True)
+    )
 
     document = CoachDocument(meta=Meta(count=count), data=[])
     async for coach in coach_iterator:

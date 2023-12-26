@@ -34,3 +34,7 @@ class CoachDbQuery(DatabaseQuery, CoachQuery):
     def filter_by_id(self, id_: CoachIdentifier) -> "CoachQuery":
         self._query.and_where(CoachesTable.field("id").eq(id_.value))
         return self
+
+    def filter_by_active(self) -> "CoachQuery":
+        self._query.and_where(CoachesTable.field("active").eq(1))
+        return self

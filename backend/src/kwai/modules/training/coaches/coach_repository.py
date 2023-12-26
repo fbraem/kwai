@@ -41,6 +41,14 @@ class CoachRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def get_all(self) -> AsyncIterator[CoachEntity]:
-        """Get all coaches."""
+    async def get_all(
+        self, query: CoachQuery | None = None
+    ) -> AsyncIterator[CoachEntity]:
+        """Get all coaches.
+
+        Args:
+            query: The query to use for getting all coaches.
+
+        When query is omitted, all coaches will be returned.
+        """
         raise NotImplementedError
