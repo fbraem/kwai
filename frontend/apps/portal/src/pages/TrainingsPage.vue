@@ -14,6 +14,7 @@ import LeftArrowIcon from '@root/components/icons/LeftArrowIcon.vue';
 import RightArrowIcon from '@root/components/icons/RightArrowIcon.vue';
 import PrimaryButton from '@root/components/PrimaryButton.vue';
 import FullArticle from '@root/components/FullArticle.vue';
+import CoachList from '@root/pages/trainings/components/CoachList.vue';
 
 const route = useRoute();
 const applicationName = route.meta.application as string;
@@ -202,6 +203,11 @@ const showNextMonth = () => {
           class="text-gray-600"
         />
       </div>
+    </div>
+  </section>
+  <section id="coaches">
+    <div class="container mx-auto">
+      <CoachList />
     </div>
   </section>
 </template>
