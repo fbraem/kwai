@@ -2,7 +2,7 @@
   <section class="bg-zinc-50">
     <div class="container mx-auto">
       <div class="grid grid-cols-12">
-        <div class="grid col-span-12 xl:col-span-7 mt-5 p-10 gap-4">
+        <div class="grid col-span-12 xl:col-span-7 mt-5 p-10 gap-8">
           <div>
             <h2 class="text-4xl mb-2 font-medium">
               Wat heeft onze club te bieden?
@@ -11,9 +11,9 @@
               Judokwai Kemzeke biedt in de gemeente Stekene judo aan op recreatief en competitief niveau, voor 5- tot plus 60- jarigen.
             </p>
           </div>
-          <div class="flex gap-4 mt-12">
+          <div class="flex gap-8 mt-12">
             <img
-              src="/goud_jeugdsport_2019.jpg"
+              src="/jeugdsport.png"
               class="object-contain w-32"
             >
             <div class="flex flex-col pl-3">
@@ -25,9 +25,9 @@
               </p>
             </div>
           </div>
-          <div class="flex gap-4">
+          <div class="flex gap-8">
             <img
-              src="/kim_ono.png"
+              src="/judo_vlaanderen.svg"
               class="object-contain w-32"
             >
             <div class="flex flex-col pl-3">
@@ -39,7 +39,7 @@
               </p>
             </div>
           </div>
-          <div class="flex gap-4">
+          <div class="flex gap-8">
             <img
               src="/hartveilig.jpg"
               class="object-contain w-32"
@@ -53,7 +53,7 @@
               </p>
             </div>
           </div>
-          <div class="flex gap-4">
+          <div class="flex gap-8">
             <img
               src="/gezond.jpg"
               class="object-contain w-32"
@@ -67,7 +67,7 @@
               </p>
             </div>
           </div>
-          <div class="flex gap-4">
+          <div class="flex gap-8 pb-12 xl:pb-24">
             <img
               src="/panathlon.jpg"
               class="object-contain w-32"
