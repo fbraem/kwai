@@ -28,7 +28,7 @@ const { data: coaches } = useCoaches();
           <div class="flex items-center gap-x-6">
             <img
               class="h-16 w-16 rounded-full"
-              src="no_avatar.png"
+              src="/no_avatar.png"
               alt=""
             >
             <div>
