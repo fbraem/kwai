@@ -23,6 +23,7 @@ asyncmy = "^0.2.8"
 cryptography = "^41.0.3"
 markdown = "3.3.7"
 pydantic= "2.5.2"
+faststream = {extras = ["rabbit"], version = "^0.3.10"}
 
 [tool.poetry.group.dev]
 optional = true
