@@ -79,32 +79,43 @@ export const useHttpAuth = (options: Options = {}) => useHttp(options).defer(
   })
 ;
 
+const renewToken = async(options: Options = {}) => {
+  const accessToken = localStorage.accessToken;
+  const refreshToken = localStorage.refreshToken;
+
+  const form = {
+    refresh_token: refreshToken.value,
+  };
+
+  await useHttp(options)
+    .url('/v1/auth/access_token')
+    .formData(form)
+    .post()
+    .json()
+    .then(json => {
+      const token = <AccessTokenJSON> json;
+      accessToken.value = token.access_token;
+      refreshToken.value = token.refresh_token;
+    })
+    .catch(error => {
+      accessToken.value = null;
+      refreshToken.value = null;
+      console.log(error);
+    })
+  ;
+};
+let activeRenewTokenRequest = null;
+
 export const useHttpWithAuthCatcher = (options: Options = {}) => useHttpAuth(options)
   // eslint-disable-next-line n/handle-callback-err
   .catcher(401, async(err, request) => {
-    const accessToken = options.accessToken ?? localStorage.accessToken;
-    const refreshToken = options.refreshToken ?? localStorage.refreshToken;
-    if (refreshToken.value) {
-      const form = {
-        refresh_token: refreshToken.value,
-      };
-      await useHttp(options)
-        .url('/v1/auth/access_token')
-        .formData(form)
-        .post()
-        .json()
-        .then(json => {
-          const token = <AccessTokenJSON> json;
-          accessToken.value = token.access_token;
-          refreshToken.value = token.refresh_token;
-        })
-        .catch(error => {
-          accessToken.value = null;
-          refreshToken.value = null;
-          console.log(error);
-        })
-      ;
+    if (activeRenewTokenRequest == null) {
+      activeRenewTokenRequest = renewToken(options);
     }
+    await activeRenewTokenRequest();
+    activeRenewTokenRequest = null;
+
+    const accessToken = localStorage.accessToken;
 
     return request
       .addon(FormDataAddon)
