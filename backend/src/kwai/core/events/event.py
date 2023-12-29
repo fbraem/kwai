@@ -9,6 +9,7 @@ from typing import ClassVar
 class EventMeta:
     """Metadata for the event."""
 
+    module: str
     name: str
 
 
