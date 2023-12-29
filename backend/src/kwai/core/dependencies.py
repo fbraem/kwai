@@ -5,11 +5,8 @@ Auto-wiring is avoided. It should be clear why and when a class is loaded.
 from typing import AsyncGenerator
 
 from fastapi import Depends
-from redis.asyncio import Redis
 
 from kwai.core.db.database import Database
-from kwai.core.events.bus import Bus
-from kwai.core.events.redis_bus import RedisBus
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.smtp_mailer import SmtpMailer
 from kwai.core.settings import get_settings
@@ -45,18 +42,3 @@ def create_mailer(settings=Depends(get_settings)) -> Mailer:
     if settings.email.user:
         mailer.login(settings.email.user, settings.email.password)
     return mailer
-
-
-def create_redis(settings=Depends(get_settings)) -> Redis:
-    """Create the redis dependency."""
-    redis_settings = settings.redis
-    return Redis(
-        host=redis_settings.host,
-        port=redis_settings.port or 6379,
-        password=redis_settings.password,
-    )
-
-
-def create_event_bus(redis=Depends(create_redis)) -> Bus:
-    """Create the event bus dependency."""
-    return RedisBus(redis)
