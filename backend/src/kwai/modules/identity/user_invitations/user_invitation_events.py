@@ -9,5 +9,7 @@ from kwai.core.events.event import Event, EventMeta
 class UserInvitationCreatedEvent(Event):
     """Event raised when a user invitation is created."""
 
-    meta: ClassVar[EventMeta] = EventMeta(name="identity.user_invitation.created")
+    meta: ClassVar[EventMeta] = EventMeta(
+        module="identity", name="user_invitation.created"
+    )
     uuid: str

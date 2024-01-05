@@ -22,8 +22,8 @@ asyncmy = "^0.2.8"
 cryptography = "^41.0.3"
 markdown = "3.3.7"
 pydantic= "2.5.2"
-taskiq = "^0.10.4"
-taskiq-aio-pika = "^0.4.0"
+svcs = "^23.21.0"
+faststream = {extras = ["rabbit"], version = "^0.3.12"}
 
 [tool.poetry.group.dev]
 optional = true

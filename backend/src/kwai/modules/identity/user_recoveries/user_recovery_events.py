@@ -9,5 +9,7 @@ from kwai.core.events.event import Event, EventMeta
 class UserRecoveryCreatedEvent(Event):
     """Event that is raised when a user recovery is created."""
 
-    meta: ClassVar[EventMeta] = EventMeta(name="identity.user_recovery.created")
+    meta: ClassVar[EventMeta] = EventMeta(
+        module="identity", name="user_recovery.created"
+    )
     uuid: str

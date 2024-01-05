@@ -3,15 +3,12 @@ import asyncio
 from typing import AsyncIterator, Iterator
 
 import pytest
-from redis.asyncio import Redis
 
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.password import Password
-from kwai.core.events.bus import Bus
-from kwai.core.events.redis_bus import RedisBus
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipient, Recipients
 from kwai.core.settings import get_settings
@@ -42,25 +39,6 @@ async def database():
     db = Database(get_settings().db)
     yield db
     await db.close()
-
-
-@pytest.fixture(scope="session")
-async def redis() -> Redis:
-    """Fixture for a redis instance."""
-    settings = get_settings()
-    redis = Redis(
-        host=settings.redis.host,
-        port=settings.redis.port,
-        password=settings.redis.password,
-    )
-    yield redis
-    await redis.close()
-
-
-@pytest.fixture(scope="session")
-async def bus(redis: Redis) -> Bus:
-    """Fixture for a message bus."""
-    return RedisBus(redis)
 
 
 @pytest.fixture(scope="module")

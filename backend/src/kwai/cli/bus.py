@@ -1,14 +1,10 @@
 """bus contains subcommands for the event bus."""
 import os
-from asyncio import run
 
 import typer
 from rich import print
-from rich.tree import Tree
 from typer import Typer
 
-from kwai.core.dependencies import create_redis
-from kwai.core.events.stream import RedisStream
 from kwai.core.settings import ENV_SETTINGS_FILE, get_settings
 
 
@@ -44,85 +40,3 @@ def show(password: bool = typer.Option(False, help="Show the password")):
         print("[bold red]Failed![/bold red] Could not load the settings!")
         print(ex)
         raise typer.Exit(code=1) from None
-
-
-@app.command(help="Test the redis connection.")
-def test():
-    """Command for testing the redis connection."""
-    try:
-        create_redis(get_settings())
-    except Exception as ex:
-        print("[bold red]Failed![/bold red] Could not connect to redis!")
-        print(ex)
-        raise typer.Exit(code=1) from None
-
-    print("[bold green]Success![/bold green] Connection to redis established!")
-
-
-@app.command(help="Get information about a stream")
-def stream(  # noqa
-    name: str = typer.Option(..., help="The name of the stream"),
-    messages: bool = typer.Option(False, help="List all messages"),
-):
-    """Command for getting information about a stream.
-
-    Args:
-        name: The name of the stream.
-        messages: List all messages or not? Default is False.
-    """
-    try:
-        redis = create_redis(get_settings())
-    except Exception as ex:
-        print("[bold red]Failed![/bold red] Could not connect to redis!")
-        print(ex)
-        raise typer.Exit(code=1) from None
-
-    stream_name = f"kwai.{name}"
-
-    async def _main():
-        """Closure for handling the async code."""
-        stream_ = RedisStream(redis, stream_name)
-        info = await stream_.info()
-        print(f"Stream: [bold]{stream_.name}[/bold]")
-        print(f"Number of messages: [bold]{info.length}[/bold]")
-        print(f"First entry: [bold]{info.first_entry}[/bold]")
-        print(f"Last entry: [bold]{info.last_entry}[/bold]")
-
-        if not messages:
-            return
-
-        if info.length > 100:
-            if not typer.confirm(
-                f"You are about to browse {info.length} messages. Are you sure?"
-            ):
-                return
-
-        stream_ = RedisStream(redis, stream_name)
-
-        tree = Tree("Messages")
-        last_id = "0-0"
-        while True:
-            message = await stream_.read(last_id)
-            if message is None:
-                break
-            last_id = message.id
-
-            leaf = tree.add(f"[bold]{message.id}[/bold]")
-            if "meta" in message.data:
-                if "name" in message.data["meta"]:
-                    text = (
-                        "[green]"
-                        f"[bold]{message.data['meta']['name']}[/bold]"
-                        "[/green]:"
-                    )
-                else:
-                    text = ""
-                if "date" in message.data["meta"]:
-                    text += f" {message.data['meta']['date']}"
-                if len(text) > 0:
-                    leaf = leaf.add(text)
-            leaf.add(str(message.data["data"]))
-
-        print(tree)
-
-    run(_main())

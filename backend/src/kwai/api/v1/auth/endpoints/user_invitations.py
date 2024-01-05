@@ -3,13 +3,12 @@
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from loguru import logger
 
-from kwai.api.dependencies import get_current_user
+from kwai.api.dependencies import get_bus, get_current_user
 from kwai.api.schemas.user_invitation import UserInvitationDocument
 from kwai.core.dependencies import create_database
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import InvalidEmailException
 from kwai.core.json_api import Meta, PaginationModel
-from kwai.kwai_bus import create_bus
 from kwai.modules.identity.delete_user_invitation import (
     DeleteUserInvitation,
     DeleteUserInvitationCommand,
@@ -37,7 +36,7 @@ async def create_user_invitation(
     resource: UserInvitationDocument,
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
-    bus=Depends(create_bus),
+    bus=Depends(get_bus),
 ) -> UserInvitationDocument:
     """Create a user invitation."""
     command = InviteUserCommand(

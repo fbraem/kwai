@@ -1,11 +1,14 @@
 """Module that defines entry points for tasks for user recoveries."""
 from typing import Any
 
+from fast_depends import Depends
+from faststream.rabbit import ExchangeType, RabbitExchange, RabbitQueue, RabbitRouter
 from loguru import logger
 
-from kwai.core.dependencies import create_database, create_mailer, get_template_engine
+from kwai.api.dependencies import create_database
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.core.events.dependencies import create_mailer, create_template_engine
 from kwai.core.mail.recipient import Recipient, Recipients
 from kwai.core.settings import get_settings
 from kwai.core.template.mail_template import MailTemplate
@@ -13,23 +16,40 @@ from kwai.modules.identity.mail_user_recovery import (
     MailUserRecovery,
     MailUserRecoveryCommand,
 )
+from kwai.modules.identity.user_invitations.user_invitation_events import (
+    UserInvitationCreatedEvent,
+)
 from kwai.modules.identity.user_recoveries.user_recovery_db_repository import (
     UserRecoveryDbRepository,
+)
+from kwai.modules.identity.user_recoveries.user_recovery_events import (
+    UserRecoveryCreatedEvent,
 )
 from kwai.modules.identity.user_recoveries.user_recovery_repository import (
     UserRecoveryNotFoundException,
 )
 
+router = RabbitRouter()
+exchange = RabbitExchange(
+    name=UserRecoveryCreatedEvent.meta.module, type=ExchangeType.TOPIC
+)
 
-async def email_user_recovery_task(event: dict[str, Any]):
+
+@router.subscriber(
+    RabbitQueue(
+        UserInvitationCreatedEvent.meta.name,
+        routing_key=UserInvitationCreatedEvent.meta.name,
+    ),
+    exchange,
+)
+async def email_user_recovery_task(
+    event: dict[str, Any],
+    settings=Depends(get_settings),
+    database=Depends(create_database),
+    mailer=Depends(create_mailer),
+    template_engine=Depends(create_template_engine),
+):
     """Actor for sending a user recovery mail."""
-    logger.info(f"Trying to handle event {event['meta']['name']}")
-
-    settings = get_settings()
-    mailer = create_mailer(settings)
-    template_engine = get_template_engine(settings)
-    database = create_database(settings)
-
     command = MailUserRecoveryCommand(uuid=event["data"]["uuid"])
 
     try:

@@ -1,11 +1,15 @@
 """Module that integrates the dependencies in FastAPI."""
+from typing import AsyncGenerator
+
 import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
+from faststream.rabbit import RabbitBroker
 from jwt import ExpiredSignatureError
 
 from kwai.core.db.database import Database
-from kwai.core.dependencies import create_database
+from kwai.core.events.faststream_publisher import FaststreamPublisher
+from kwai.core.events.publisher import Publisher
 from kwai.core.settings import SecuritySettings, get_settings
 from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
@@ -17,6 +21,17 @@ from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.users.user import UserEntity
 
 oauth = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
+
+
+async def create_database(
+    settings=Depends(get_settings),
+) -> AsyncGenerator[Database, None]:
+    """Create the database dependency."""
+    database = Database(settings.db)
+    try:
+        yield database
+    finally:
+        await database.close()
 
 
 async def get_current_user(
@@ -33,6 +48,19 @@ async def get_current_user(
 
 
 optional_oauth = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login", auto_error=False)
+
+
+def get_publisher(settings=Depends(get_settings)) -> Publisher:
+    """Get the publisher dependency."""
+    return FaststreamPublisher(
+        RabbitBroker(
+            host=settings.rabbitmq.host,
+            port=settings.rabbitmq.port,
+            login=settings.rabbitmq.user,
+            password=settings.rabbitmq.password,
+            virtualhost=settings.rabbitmq.vhost,
+        )
+    )
 
 
 async def get_optional_user(

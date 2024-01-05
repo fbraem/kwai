@@ -9,7 +9,7 @@ class Bus:
     """Interface for a message bus."""
 
     @abstractmethod
-    async def publish(self, event: Event):
+    def publish(self, event: Event):
         """Publish an event."""
         raise NotImplementedError
 

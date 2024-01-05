@@ -57,11 +57,13 @@ class EmailSettings(BaseModel):
     address: str = Field(alias="from")
 
 
-class RedisSettings(BaseModel):
-    """Settings for redis."""
+class RabbitmqSettings(BaseModel):
+    """Settings for rabbitmq."""
 
     host: str
-    port: int = 6379
+    port: int = 5672
+    vhost: str = "kwai"
+    user: str
     password: str | None = None
     logger: LoggerSettings | None = None
 
@@ -99,7 +101,7 @@ class Settings(BaseModel):
 
     email: EmailSettings
 
-    redis: RedisSettings
+    rabbitmq: RabbitmqSettings
 
 
 def get_settings() -> Settings:

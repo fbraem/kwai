@@ -261,7 +261,7 @@ files = [
 name = "attrs"
 version = "23.1.0"
 description = "Classes Without Boilerplate"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -776,6 +776,27 @@ files = [
 test = ["pytest (>=6)"]
 
 [[package]]
+name = "fast-depends"
+version = "2.2.8"
+description = "FastDepends - extracted and cleared from HTTP domain logic FastAPI Dependency Injection System. Async and sync are both supported."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "fast_depends-2.2.8-py3-none-any.whl", hash = "sha256:72a1c69625e3563d06b6a4df1749e030640a9c8d79425de9943983bfb30e96b3"},
+    {file = "fast_depends-2.2.8.tar.gz", hash = "sha256:d3ecfa92b88c186641314891e27b7f8b27d4185ed02ad89d4000076c7ceea812"},
+]
+
+[package.dependencies]
+anyio = ">=3.0.0,<5.0.0"
+pydantic = ">=1.7.4,<1.8 || >1.8,<1.8.1 || >1.8.1,<3.0.0"
+
+[package.extras]
+dev = ["black (==23.12.0)", "fast-depends[doc]", "fast-depends[test]", "isort (==5.13.2)", "mypy (==1.7.1)", "pyupgrade-directories (==0.3.0)", "ruff (==0.1.8)"]
+doc = ["mdx-include (>=1.4.1,<2.0.0)", "mkdocs-markdownextradata-plugin (>=0.1.7,<0.3.0)", "mkdocs-material (>=9.4.0,<10.0.0)", "mkdocs-minify-plugin (>=0.7.0,<1.0.0)"]
+test = ["coverage[toml] (>=7.2.0,<8.0.0)", "pytest (==7.4.3)"]
+
+[[package]]
 name = "fastapi"
 version = "0.105.0"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
@@ -795,6 +816,37 @@ typing-extensions = ">=4.8.0"
 
 [package.extras]
 all = ["email-validator (>=2.0.0)", "httpx (>=0.23.0)", "itsdangerous (>=1.1.0)", "jinja2 (>=2.11.2)", "orjson (>=3.2.1)", "pydantic-extra-types (>=2.0.0)", "pydantic-settings (>=2.0.0)", "python-multipart (>=0.0.5)", "pyyaml (>=5.3.1)", "ujson (>=4.0.1,!=4.0.2,!=4.1.0,!=4.2.0,!=4.3.0,!=5.0.0,!=5.1.0)", "uvicorn[standard] (>=0.12.0)"]
+
+[[package]]
+name = "faststream"
+version = "0.3.12"
+description = "FastStream: the simplest way to work with a messaging queues"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "faststream-0.3.12-py3-none-any.whl", hash = "sha256:d2961419f85211e9a3c640225677504fb893ab524964a835f7f8ed41471b5a5d"},
+    {file = "faststream-0.3.12.tar.gz", hash = "sha256:55977ed898cd9eabc770842d2870de4839424f58ee46add27f8aab7e6d3ae1cf"},
+]
+
+[package.dependencies]
+aio-pika = {version = ">=9,<10", optional = true, markers = "extra == \"rabbit\""}
+anyio = ">=3.7.1,<5"
+fast-depends = ">=2.2.6,<3"
+typer = ">=0.9,<1"
+typing-extensions = ">=4.8.0"
+
+[package.extras]
+dev = ["detect-secrets (==1.4.0)", "faststream[devdocs,docs,kafka,lint,nats,rabbit,redis,testing]", "pre-commit (==3.5.0)", "pre-commit (==3.6.0)"]
+devdocs = ["black (==23.12.0)", "cairosvg (==2.7.1)", "mdx-include (==1.4.2)", "mike (==2.0.0)", "mkdocs-git-revision-date-localized-plugin (==1.2.1)", "mkdocs-glightbox (==0.3.6)", "mkdocs-literate-nav (==0.6.1)", "mkdocs-macros-plugin (==1.0.5)", "mkdocs-material (==9.5.3)", "mkdocs-minify-plugin (==0.7.1)", "mkdocs-static-i18n (==1.2.0)", "mkdocstrings[python] (==0.24.0)", "pillow (==10.1.0)", "requests"]
+docs = ["fastapi (>=0.100.0,<1.0.0)", "uvicorn (>=0.17.0,<1.0.0)"]
+kafka = ["aiokafka (>=0.9,<0.11)"]
+lint = ["bandit (==1.7.6)", "mypy (==1.8.0)", "pyupgrade-directories (==0.3.0)", "ruff (==0.1.9)", "semgrep (==1.52.0)", "types-docutils", "types-pygments", "types-pyyaml", "types-redis", "types-setuptools", "types-ujson"]
+nats = ["nats-py (>=2.3.1,<3.0.0)"]
+rabbit = ["aio-pika (>=9,<10)"]
+redis = ["redis (>=5.0.0,<6.0.0)"]
+test-core = ["coverage[toml] (==7.4.0)", "dirty-equals (==0.7.1.post0)", "pytest (==7.4.4)", "pytest-asyncio (==0.23.2)"]
+testing = ["email-validator (==2.1.0.post1)", "fastapi (==0.108.0)", "faststream[test-core]", "httpx (==0.26.0)", "pydantic-settings (==2.1.0)", "pyyaml (==6.0.1)", "watchfiles (==0.21.0)"]
 
 [[package]]
 name = "filelock"
@@ -1066,26 +1118,6 @@ files = [
     {file = "idna-3.6-py3-none-any.whl", hash = "sha256:c05567e9c24a6b9faaa835c4821bad0590fbb9d5779e7caa6e1cc4978e7eb24f"},
     {file = "idna-3.6.tar.gz", hash = "sha256:9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"},
 ]
-
-[[package]]
-name = "importlib-metadata"
-version = "7.0.1"
-description = "Read metadata from Python packages"
-category = "main"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "importlib_metadata-7.0.1-py3-none-any.whl", hash = "sha256:4805911c3a4ec7c3966410053e9ec6a1fecd629117df5adee56dfc9432a1081e"},
-    {file = "importlib_metadata-7.0.1.tar.gz", hash = "sha256:f238736bb06590ae52ac1fab06a3a9ef1d8dce2b7a35b5ab329371d6c8f5d2cc"},
-]
-
-[package.dependencies]
-zipp = ">=0.5"
-
-[package.extras]
-docs = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (<7.2.5)", "sphinx (>=3.5)", "sphinx-lint"]
-perf = ["ipython"]
-testing = ["flufl.flake8", "importlib-resources (>=1.3)", "packaging", "pyfakefs", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-mypy (>=0.9.1)", "pytest-perf (>=0.9.2)", "pytest-ruff"]
 
 [[package]]
 name = "iniconfig"
@@ -1614,7 +1646,7 @@ setuptools = "*"
 name = "packaging"
 version = "23.2"
 description = "Core utilities for Python packages"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -1767,17 +1799,6 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 files = [
     {file = "pycparser-2.21-py2.py3-none-any.whl", hash = "sha256:8ee45429555515e1f6b185e78100aea234072576aa43ab53aefcae078162fca9"},
     {file = "pycparser-2.21.tar.gz", hash = "sha256:e644fdec12f7872f86c58ff790da456218b10f863970249516d60a5eaca77206"},
-]
-
-[[package]]
-name = "pycron"
-version = "3.0.0"
-description = "Simple cron-like parser, which determines if current datetime matches conditions."
-category = "main"
-optional = false
-python-versions = ">=3.5"
-files = [
-    {file = "pycron-3.0.0.tar.gz", hash = "sha256:b916044e3e8253d5409c68df3ac64a3472c4e608dab92f40e8f595e5d3acb3de"},
 ]
 
 [[package]]
@@ -2131,18 +2152,6 @@ text-unidecode = ">=1.3"
 unidecode = ["Unidecode (>=1.1.1)"]
 
 [[package]]
-name = "pytz"
-version = "2023.3.post1"
-description = "World timezone definitions, modern and historical"
-category = "main"
-optional = false
-python-versions = "*"
-files = [
-    {file = "pytz-2023.3.post1-py2.py3-none-any.whl", hash = "sha256:ce42d816b81b68506614c11e8937d3aa9e41007ceb50bfdcb0749b921bf646c7"},
-    {file = "pytz-2023.3.post1.tar.gz", hash = "sha256:7b4fddbeb94a1eba4b557da24f19fdf9db575192544270a9101d8509f9f43d7b"},
-]
-
-[[package]]
 name = "pyyaml"
 version = "6.0.1"
 description = "YAML parser and emitter for Python"
@@ -2475,63 +2484,25 @@ anyio = ">=3.4.0,<5"
 full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart", "pyyaml"]
 
 [[package]]
-name = "taskiq"
-version = "0.10.4"
-description = "Distributed task queue with full async support"
+name = "svcs"
+version = "23.21.0"
+description = "A Flexible Service Locator"
 category = "main"
 optional = false
-python-versions = ">=3.8.1,<4.0.0"
+python-versions = ">=3.8"
 files = [
-    {file = "taskiq-0.10.4-py3-none-any.whl", hash = "sha256:f63d8b4c83b5a5d5c3c8448a4a5c25e45616b1c42a651f3b003271104179d8a0"},
-    {file = "taskiq-0.10.4.tar.gz", hash = "sha256:149da75a61789565bc4abdf756f41f2cb7bd7e45520b880518e7603981d2a36c"},
+    {file = "svcs-23.21.0-py3-none-any.whl", hash = "sha256:5f7c0cab2d022db627abad1f89d5c8a82401cd27bd9b55a701099970192b1e8b"},
+    {file = "svcs-23.21.0.tar.gz", hash = "sha256:b56db0b55c1b08b7834fba91ac7a30c0d4a238453ab660bf39de9abcb2f21b31"},
 ]
 
 [package.dependencies]
-anyio = ">=3"
-importlib-metadata = "*"
-packaging = ">=19"
-pycron = ">=3.0.0,<4.0.0"
-pydantic = ">=1.0,<=3.0"
-pytz = "*"
-taskiq_dependencies = ">=1.3.1,<2"
-typing-extensions = ">=3.10.0.0"
+attrs = ">=21.3.0"
 
 [package.extras]
-cbor = ["cbor2 (>=5.4.6,<6.0.0)"]
-metrics = ["prometheus_client (>=0,<1)"]
-msgpack = ["msgpack (>=1.0.7,<2.0.0)"]
-orjson = ["orjson (>=3.9.9,<4.0.0)"]
-reload = ["gitignore-parser (>=0,<1)", "watchdog (>=2.1.9,<3.0.0)"]
-uv = ["uvloop (>=0.16.0,<1)"]
-zmq = ["pyzmq (>=23.2.0,<24.0.0)"]
-
-[[package]]
-name = "taskiq-aio-pika"
-version = "0.4.0"
-description = "RabbitMQ broker for taskiq"
-category = "main"
-optional = false
-python-versions = ">=3.8.1,<4.0.0"
-files = [
-    {file = "taskiq_aio_pika-0.4.0-py3-none-any.whl", hash = "sha256:3d96acf8ee5d9170bdc3f726b7a2f9d29f58e0fbc760fb13a50f40eeaa1368a3"},
-    {file = "taskiq_aio_pika-0.4.0.tar.gz", hash = "sha256:9295e911ad2c808e10571adee262dcfe51344a2aebba0fbc89249e666bbe44a1"},
-]
-
-[package.dependencies]
-aio-pika = ">=9.0,<10.0"
-taskiq = ">=0.6.0,<1"
-
-[[package]]
-name = "taskiq-dependencies"
-version = "1.5.0"
-description = "FastAPI like dependency injection implementation"
-category = "main"
-optional = false
-python-versions = ">=3.8.1,<4.0.0"
-files = [
-    {file = "taskiq_dependencies-1.5.0-py3-none-any.whl", hash = "sha256:877eb4c84e5bde32d141c1345a6077a06f63891bfdecd5573453b0c195e68adf"},
-    {file = "taskiq_dependencies-1.5.0.tar.gz", hash = "sha256:2de6a0b55202e4d7c2123d15906c613a64b1d1675b8b8e7f678376539a7d397f"},
-]
+dev = ["httpx", "svcs[tests,typing]", "tox (>4)"]
+docs = ["aiohttp", "fastapi", "flask", "furo (>=2023.8.17)", "httpx", "myst-parser", "pyramid", "pytest", "sphinx (>=7.2.2)", "sphinx-copybutton", "sphinx-design", "sphinx-notfound-page", "sphinxext-opengraph", "sqlalchemy", "starlette", "sybil"]
+tests = ["pytest", "pytest-asyncio", "sybil", "typing-extensions"]
+typing = ["aiohttp", "fastapi", "flask", "mypy (>=1.4)", "pyramid", "starlette"]
 
 [[package]]
 name = "termcolor"
@@ -3048,23 +3019,7 @@ files = [
 idna = ">=2.0"
 multidict = ">=4.0"
 
-[[package]]
-name = "zipp"
-version = "3.17.0"
-description = "Backport of pathlib-compatible object wrapper for zip files"
-category = "main"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "zipp-3.17.0-py3-none-any.whl", hash = "sha256:0e923e726174922dce09c53c59ad483ff7bbb8e572e00c7f7c46b88556409f31"},
-    {file = "zipp-3.17.0.tar.gz", hash = "sha256:84e64a1c28cf7e91ed2078bb8cc8c259cb19b76942096c8d7b84947690cabaf0"},
-]
-
-[package.extras]
-docs = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (<7.2.5)", "sphinx (>=3.5)", "sphinx-lint"]
-testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-ignore-flaky", "pytest-mypy (>=0.9.1)", "pytest-ruff"]
-
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "570d7cbbb458d94619ee96d9cb8e4694b985c810a7a92e2c00bf59852a7a3131"
+content-hash = "ef596a8c929923f78e93a4b2476d4c6fc3b47b8ac70a06ddb6e9bb1cc920b60d"

@@ -7,14 +7,13 @@ from jwt import ExpiredSignatureError
 from loguru import logger
 from pydantic import BaseModel
 
-from kwai.api.dependencies import get_current_user
+from kwai.api.dependencies import get_current_user, get_publisher
 from kwai.core.db.database import Database
 from kwai.core.dependencies import create_database
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import InvalidEmailException
-from kwai.core.events.bus import Bus
+from kwai.core.events.publisher import Publisher
 from kwai.core.settings import SecuritySettings, Settings, get_settings
-from kwai.kwai_bus import create_bus
 from kwai.modules.identity.authenticate_user import (
     AuthenticateUser,
     AuthenticateUserCommand,
@@ -214,7 +213,9 @@ async def renew_access_token(
     response_class=Response,
 )
 async def recover_user(
-    email: str = Form(), db=Depends(create_database), bus: Bus = Depends(create_bus)
+    email: str = Form(),
+    db=Depends(create_database),
+    publisher: Publisher = Depends(get_publisher),
 ) -> None:
     """Start a recover password flow for the given email address.
 
@@ -226,12 +227,12 @@ async def recover_user(
     Args:
         email(str): The email of the user that wants to reset the password.
         db(Database): Database dependency
-        bus(Bus): A message bus used to publish the event
+        publisher(Publisher): A publisher to publish the event
     """
     command = RecoverUserCommand(email=email)
     try:
         await RecoverUser(
-            UserAccountDbRepository(db), UserRecoveryDbRepository(db), bus
+            UserAccountDbRepository(db), UserRecoveryDbRepository(db), publisher
         ).execute(command)
     except UserAccountNotFoundException:
         logger.warning(f"Unknown email address used for a password recovery: {email}")

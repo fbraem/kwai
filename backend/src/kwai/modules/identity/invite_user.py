@@ -6,7 +6,7 @@ from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.core.events.bus import Bus
+from kwai.core.events.publisher import Publisher
 from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
 from kwai.modules.identity.user_invitations.user_invitation_events import (
     UserInvitationCreatedEvent,
@@ -53,7 +53,7 @@ class InviteUser:
         user: UserEntity,
         user_repo: UserRepository,
         user_invitation_repo: UserInvitationRepository,
-        bus: Bus,
+        publisher: Publisher,
     ):
         """Initialize the use case.
 
@@ -61,12 +61,12 @@ class InviteUser:
             user: The inviter.
             user_repo: The repository to check if the email address is still free.
             user_invitation_repo: The repository for creating an invitation.
-            bus: A message bus for publishing the user invitation created event.
+            publisher: A publisher for publishing the user invitation created event.
         """
         self._user = user
         self._user_repo = user_repo
         self._user_invitation_repo = user_invitation_repo
-        self._bus = bus
+        self._publisher = publisher
 
     async def execute(self, command: InviteUserCommand) -> UserInvitationEntity:
         """Execute the use case.
@@ -110,6 +110,6 @@ class InviteUser:
             )
         )
 
-        await self._bus.publish(UserInvitationCreatedEvent(uuid=str(invitation.uuid)))
+        self._publisher.publish(UserInvitationCreatedEvent(uuid=str(invitation.uuid)))
 
         return invitation

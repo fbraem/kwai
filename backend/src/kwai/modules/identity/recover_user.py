@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
-from kwai.core.events.bus import Bus
+from kwai.core.events.publisher import Publisher
 from kwai.modules.identity.user_recoveries.user_recovery import UserRecoveryEntity
 from kwai.modules.identity.user_recoveries.user_recovery_events import (
     UserRecoveryCreatedEvent,
@@ -30,7 +30,7 @@ class RecoverUser:
             user account.
         _user_recovery_repo (UserRecoveryRepository): The repository for creating a
             user recovery.
-        _event_bus (Bus): An event bus for dispatching the UserRecoveryCreatedEvent
+        _publisher (Bus): An event bus for dispatching the UserRecoveryCreatedEvent
             event.
     """
 
@@ -38,11 +38,11 @@ class RecoverUser:
         self,
         user_repo: UserAccountRepository,
         user_recovery_repo: UserRecoveryRepository,
-        event_bus: Bus,
+        publisher: Publisher,
     ):
         self._user_account_repo = user_repo
         self._user_recovery_repo = user_recovery_repo
-        self._event_bus = event_bus
+        self._publisher = publisher
 
     async def execute(self, command: RecoverUserCommand) -> UserRecoveryEntity:
         """Execute the use case.
@@ -68,8 +68,6 @@ class RecoverUser:
             )
         )
 
-        await self._event_bus.publish(
-            UserRecoveryCreatedEvent(uuid=str(user_recovery.uuid))
-        )
+        self._publisher.publish(UserRecoveryCreatedEvent(uuid=str(user_recovery.uuid)))
 
         return user_recovery
