@@ -13,5 +13,5 @@ class Publisher:
     """Interface for a publisher."""
 
     @abstractmethod
-    def publish(self, event: Event):
+    async def publish(self, event: Event):
         """Publish an event."""
