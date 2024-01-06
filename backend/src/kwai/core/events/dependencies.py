@@ -6,7 +6,7 @@ from fast_depends import Depends
 from kwai.core.db.database import Database
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.smtp_mailer import SmtpMailer
-from kwai.core.settings import Settings, get_settings
+from kwai.core.settings import get_settings
 from kwai.core.template.jinja2_engine import Jinja2Engine
 from kwai.core.template.template_engine import TemplateEngine
 
@@ -22,12 +22,12 @@ async def create_database(
         await database.close()
 
 
-def create_template_engine(settings=Depends(Settings)) -> TemplateEngine:
+def create_template_engine(settings=Depends(get_settings)) -> TemplateEngine:
     """Create the template engine dependency."""
     return Jinja2Engine(settings.template.path, website=settings.website)
 
 
-def create_mailer(settings=Depends(Settings)) -> Mailer:
+def create_mailer(settings=Depends(get_settings)) -> Mailer:
     """Create the mailer dependency."""
     mailer = SmtpMailer(
         host=settings.email.host,
