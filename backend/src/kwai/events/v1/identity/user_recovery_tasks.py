@@ -16,9 +16,6 @@ from kwai.modules.identity.mail_user_recovery import (
     MailUserRecovery,
     MailUserRecoveryCommand,
 )
-from kwai.modules.identity.user_invitations.user_invitation_events import (
-    UserInvitationCreatedEvent,
-)
 from kwai.modules.identity.user_recoveries.user_recovery_db_repository import (
     UserRecoveryDbRepository,
 )
@@ -37,8 +34,8 @@ exchange = RabbitExchange(
 
 @router.subscriber(
     RabbitQueue(
-        UserInvitationCreatedEvent.meta.name,
-        routing_key=UserInvitationCreatedEvent.meta.name,
+        UserRecoveryCreatedEvent.meta.name,
+        routing_key=UserRecoveryCreatedEvent.meta.name,
     ),
     exchange,
 )
