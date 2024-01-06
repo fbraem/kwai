@@ -50,17 +50,22 @@ async def get_current_user(
 optional_oauth = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login", auto_error=False)
 
 
-def get_publisher(settings=Depends(get_settings)) -> Publisher:
+async def get_publisher(
+    settings=Depends(get_settings),
+) -> AsyncGenerator[Publisher, None]:
     """Get the publisher dependency."""
-    return FaststreamPublisher(
-        RabbitBroker(
-            host=settings.rabbitmq.host,
-            port=settings.rabbitmq.port,
-            login=settings.rabbitmq.user,
-            password=settings.rabbitmq.password,
-            virtualhost=settings.rabbitmq.vhost,
-        )
+    broker = RabbitBroker(
+        host=settings.rabbitmq.host,
+        port=settings.rabbitmq.port,
+        login=settings.rabbitmq.user,
+        password=settings.rabbitmq.password,
+        virtualhost=settings.rabbitmq.vhost,
     )
+    await broker.connect()
+    try:
+        yield FaststreamPublisher(broker)
+    finally:
+        await broker.close()
 
 
 async def get_optional_user(
