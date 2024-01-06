@@ -110,6 +110,8 @@ class InviteUser:
             )
         )
 
-        self._publisher.publish(UserInvitationCreatedEvent(uuid=str(invitation.uuid)))
+        await self._publisher.publish(
+            UserInvitationCreatedEvent(uuid=str(invitation.uuid))
+        )
 
         return invitation

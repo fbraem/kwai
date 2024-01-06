@@ -68,6 +68,8 @@ class RecoverUser:
             )
         )
 
-        self._publisher.publish(UserRecoveryCreatedEvent(uuid=str(user_recovery.uuid)))
+        await self._publisher.publish(
+            UserRecoveryCreatedEvent(uuid=str(user_recovery.uuid))
+        )
 
         return user_recovery
