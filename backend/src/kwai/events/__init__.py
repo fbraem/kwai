@@ -1,9 +1,10 @@
 """Package for events.
 
-Events are implemented as actors for Dramatiq. Use EventActor as base class for an
-actor. EventActor will set up logging information and provides the actor the dependency
-container.
+Subscribe to an event to process the event. One event can have multiple subscribers.
+Just use a different queue for each subscriber of the same event. Subscribers are
+triggered by the FastStream application.
 
-Note: Don't pass the container to the business code, get the dependencies from
-the container and pass them through.
+A use case is responsible for publishing the events to a broker.
+
+Events are dataclasses.
 """
