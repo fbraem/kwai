@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from loguru import logger
 
-from kwai.api.dependencies import get_bus, get_current_user
+from kwai.api.dependencies import get_current_user, get_publisher
 from kwai.api.schemas.user_invitation import UserInvitationDocument
 from kwai.core.dependencies import create_database
 from kwai.core.domain.exceptions import UnprocessableException
@@ -36,7 +36,7 @@ async def create_user_invitation(
     resource: UserInvitationDocument,
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
-    bus=Depends(get_bus),
+    publisher=Depends(get_publisher),
 ) -> UserInvitationDocument:
     """Create a user invitation."""
     command = InviteUserCommand(
@@ -48,7 +48,7 @@ async def create_user_invitation(
 
     try:
         invitation = await InviteUser(
-            user, UserDbRepository(db), UserInvitationDbRepository(db), bus
+            user, UserDbRepository(db), UserInvitationDbRepository(db), publisher
         ).execute(command)
     except InvalidEmailException as exc:
         raise HTTPException(
