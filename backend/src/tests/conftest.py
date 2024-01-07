@@ -3,12 +3,15 @@ import asyncio
 from typing import AsyncIterator, Iterator
 
 import pytest
+from faststream.rabbit import RabbitBroker, TestRabbitBroker
 
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.password import Password
+from kwai.core.events.faststream_publisher import FaststreamPublisher
+from kwai.core.events.publisher import Publisher
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipient, Recipients
 from kwai.core.settings import get_settings
@@ -39,6 +42,22 @@ async def database():
     db = Database(get_settings().db)
     yield db
     await db.close()
+
+
+@pytest.fixture(scope="module")
+async def publisher() -> Publisher:
+    """Fixture for a publisher."""
+    settings = get_settings()
+    async with TestRabbitBroker(
+        RabbitBroker(
+            host=settings.rabbitmq.host,
+            port=settings.rabbitmq.port,
+            login=settings.rabbitmq.user,
+            password=settings.rabbitmq.password,
+            virtualhost=settings.rabbitmq.vhost,
+        )
+    ) as broker:
+        yield FaststreamPublisher(broker)
 
 
 @pytest.fixture(scope="module")

@@ -3,7 +3,7 @@ import pytest
 
 from kwai.core.db.database import Database
 from kwai.core.domain.exceptions import UnprocessableException
-from kwai.core.events.bus import Bus
+from kwai.core.events.publisher import Publisher
 from kwai.modules.identity.invite_user import InviteUser, InviteUserCommand
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
     UserInvitationDbRepository,
@@ -24,7 +24,10 @@ def repo(database: Database) -> UserInvitationRepository:
 
 
 async def test_invite_user(
-    database: Database, repo: UserInvitationRepository, user: UserEntity, bus: Bus
+    database: Database,
+    repo: UserInvitationRepository,
+    user: UserEntity,
+    publisher: Publisher,
 ):
     """Test use case: invite a user."""
     user_repo = UserDbRepository(database)
@@ -35,7 +38,7 @@ async def test_invite_user(
         remark="Created with pytest test_invite_user",
     )
     user_invitation = await InviteUser(
-        user=user, user_repo=user_repo, user_invitation_repo=repo, bus=bus
+        user=user, user_repo=user_repo, user_invitation_repo=repo, publisher=publisher
     ).execute(command)
 
     assert user_invitation is not None, "There should be a user invitation"
@@ -45,7 +48,7 @@ async def test_user_already_exists(
     database: Database,
     repo: UserInvitationRepository,
     user: UserEntity,
-    bus: Bus,
+    publisher: Publisher,
 ):
     """Test if an exception is raised when a user with the email already exists."""
     user_repo = UserDbRepository(database)
@@ -58,12 +61,18 @@ async def test_user_already_exists(
 
     with pytest.raises(UnprocessableException):
         await InviteUser(
-            user=user, user_repo=user_repo, user_invitation_repo=repo, bus=bus
+            user=user,
+            user_repo=user_repo,
+            user_invitation_repo=repo,
+            publisher=publisher,
         ).execute(command)
 
 
 async def test_already_invited_user(
-    database: Database, repo: UserInvitationRepository, user: UserEntity, bus: Bus
+    database: Database,
+    repo: UserInvitationRepository,
+    user: UserEntity,
+    publisher: Publisher,
 ):
     """Test if an exception is raised when there is an invitation pending."""
     user_repo = UserDbRepository(database)
@@ -76,5 +85,8 @@ async def test_already_invited_user(
 
     with pytest.raises(UnprocessableException):
         await InviteUser(
-            user=user, user_repo=user_repo, user_invitation_repo=repo, bus=bus
+            user=user,
+            user_repo=user_repo,
+            user_invitation_repo=repo,
+            publisher=publisher,
         ).execute(command)
