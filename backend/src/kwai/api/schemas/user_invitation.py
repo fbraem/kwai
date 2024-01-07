@@ -14,7 +14,7 @@ class UserInvitationAttributes(BaseModel):
     email: str
     first_name: str
     last_name: str
-    remark: str
+    remark: str = ""
     expired_at: str | None = None
     confirmed_at: str | None = None
 
