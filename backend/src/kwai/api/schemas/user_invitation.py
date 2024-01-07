@@ -37,12 +37,10 @@ class UserInvitationDocument(Document[UserInvitationResource, NoneType]):
                 id=str(user_invitation.uuid),
                 attributes=UserInvitationAttributes(
                     email=str(user_invitation.email),
-                    first_name=user_invitation.user.name.first_name,
-                    last_name=user_invitation.user.name.last_name,
+                    first_name=user_invitation.name.first_name,
+                    last_name=user_invitation.name.last_name,
                     remark=user_invitation.remark,
-                    expired_at=str(user_invitation.expired_at)
-                    if user_invitation.is_expired
-                    else None,
+                    expired_at=str(user_invitation.expired_at),
                     confirmed_at=str(user_invitation.confirmed_at)
                     if user_invitation.confirmed
                     else None,
