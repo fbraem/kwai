@@ -75,7 +75,7 @@ class TrainingRelationships(BaseModel):
 
     coaches: Relationship[CoachResourceIdentifier]
     teams: Relationship[TeamResourceIdentifier]
-    definition: Relationship[TrainingDefinitionResourceIdentifier] | None = None
+    definition: Relationship[TrainingDefinitionResourceIdentifier]
 
 
 class TrainingResource(
@@ -138,6 +138,7 @@ class TrainingDocument(Document[TrainingResource, TrainingInclude]):
         training_resource.relationships = TrainingRelationships(
             coaches=Relationship[CoachResourceIdentifier](data=[]),
             teams=Relationship[TeamResourceIdentifier](data=[]),
+            definition=Relationship[TrainingDefinitionResourceIdentifier](data=None),
         )
 
         for training_coach in training.coaches:
