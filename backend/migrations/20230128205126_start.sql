@@ -261,7 +261,7 @@ create table if not exists training_coaches (
     primary key(training_id, coach_id)
 ) charset = utf8mb3;
 
-create table if not exists kwai.training_presences
+create table if not exists training_presences
 (
     training_id int unsigned                        not null,
     member_id   int unsigned                        not null,
