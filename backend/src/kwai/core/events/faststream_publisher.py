@@ -2,7 +2,7 @@
 
 See: https://faststream.airt.ai/latest/
 """
-from faststream.rabbit import ExchangeType, RabbitBroker, RabbitExchange
+from faststream.redis import RedisBroker
 from loguru import logger
 
 from kwai.core.events.event import Event
@@ -16,16 +16,14 @@ class FaststreamPublisher(Publisher):
     while the event name is the routing key.
     """
 
-    def __init__(self, broker: RabbitBroker):
+    def __init__(self, broker: RedisBroker):
         self._broker = broker
 
     async def publish(self, event: Event):
         logger.info(
             f"Publishing event {event.meta.name} to exchange {event.meta.module}"
         )
-        exchange = RabbitExchange(name=event.meta.module, type=ExchangeType.TOPIC)
         await self._broker.publish(
             event.data,
-            routing_key=event.meta.name,
-            exchange=exchange,
+            stream=f"{event.meta.version}.{event.meta.module}.{event.meta.name}",
         )

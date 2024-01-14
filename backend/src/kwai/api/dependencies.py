@@ -4,7 +4,8 @@ from typing import AsyncGenerator
 import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from faststream.rabbit import RabbitBroker
+from faststream.redis import RedisBroker
+from faststream.security import SASLPlaintext
 from jwt import ExpiredSignatureError
 
 from kwai.core.db.database import Database
@@ -54,13 +55,11 @@ async def get_publisher(
     settings=Depends(get_settings),
 ) -> AsyncGenerator[Publisher, None]:
     """Get the publisher dependency."""
-    broker = RabbitBroker(
-        host=settings.rabbitmq.host,
-        port=settings.rabbitmq.port,
-        login=settings.rabbitmq.user,
-        password=settings.rabbitmq.password,
-        virtualhost=settings.rabbitmq.vhost,
+    security = SASLPlaintext(
+        username="",
+        password="wazari",
     )
+    broker = RedisBroker(url="redis://api.kwai.com:6379", security=security)
     await broker.connect()
     try:
         yield FaststreamPublisher(broker)

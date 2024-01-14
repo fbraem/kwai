@@ -7,6 +7,7 @@ KWAI_DATABASE_PASSWORD=$3
 KWAI_RABBITMQ_VHOST=$4
 KWAI_RABBITMQ_USER=$5
 KWAI_RABBITMQ_PASSWORD=$6
+KWAI_REDIS_PASSWORD=$7
 
 apt-get update
 
@@ -66,3 +67,20 @@ rabbitmqctl add_user "$KWAI_RABBITMQ_USER" "$KWAI_RABBITMQ_PASSWORD"
 rabbitmqctl add_vhost "$KWAI_RABBITMQ_VHOST"
 rabbitmqctl set_user_tags "$KWAI_RABBITMQ_USER" administrator
 rabbitmqctl set_permissions -p "$KWAI_RABBITMQ_VHOST" "$KWAI_RABBITMQ_USER" ".*" ".*" ".*"
+
+# Install Redis
+apt-get install redis-server -y
+REDIS_CONFIG=$(cat <<EOF
+port 6379
+daemonize yes
+save 60 1
+bind 0.0.0.0
+tcp-keepalive 300
+dbfilename dump.rdb
+dir /var/lib/redis
+rdbcompression yes
+requirepass ${KWAI_REDIS_PASSWORD}
+EOF
+)
+echo "${REDIS_CONFIG}" > /etc/redis/redis.conf
+sudo /etc/init.d/redis-server restart

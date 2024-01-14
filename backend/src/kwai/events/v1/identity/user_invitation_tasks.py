@@ -2,7 +2,7 @@
 from typing import Any
 
 from fast_depends import Depends
-from faststream.rabbit import ExchangeType, RabbitExchange, RabbitQueue, RabbitRouter
+from faststream.redis import RedisRouter
 from loguru import logger
 
 from kwai.core.domain.exceptions import UnprocessableException
@@ -29,19 +29,10 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationNotFoundException,
 )
 
-router = RabbitRouter()
-exchange = RabbitExchange(
-    name=UserInvitationCreatedEvent.meta.module, type=ExchangeType.TOPIC
-)
+router = RedisRouter()
 
 
-@router.subscriber(
-    RabbitQueue(
-        UserInvitationCreatedEvent.meta.name,
-        routing_key=UserInvitationCreatedEvent.meta.name,
-    ),
-    exchange,
-)
+@router.subscriber(stream=UserInvitationCreatedEvent.meta.name)
 async def email_user_invitation_task(
     event: dict[str, Any],
     settings=Depends(get_settings),
@@ -50,6 +41,7 @@ async def email_user_invitation_task(
     template_engine=Depends(create_template_engine),
 ):
     """Task for sending the user invitation email."""
+    print("First task!")
     command = MailUserInvitationCommand(uuid=event["data"]["uuid"])
 
     try:

@@ -23,7 +23,7 @@ cryptography = "^41.0.3"
 markdown = "3.3.7"
 pydantic= "2.5.2"
 svcs = "^23.21.0"
-faststream = {extras = ["rabbit"], version = "^0.3.12"}
+faststream = {extras = ["rabbit", "redis"], version = "^0.3.13"}
 
 [tool.poetry.group.dev]
 optional = true

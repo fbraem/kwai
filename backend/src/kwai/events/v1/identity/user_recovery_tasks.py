@@ -2,7 +2,7 @@
 from typing import Any
 
 from fast_depends import Depends
-from faststream.rabbit import ExchangeType, RabbitExchange, RabbitQueue, RabbitRouter
+from faststream.redis import RedisRouter
 from loguru import logger
 
 from kwai.api.dependencies import create_database
@@ -26,19 +26,10 @@ from kwai.modules.identity.user_recoveries.user_recovery_repository import (
     UserRecoveryNotFoundException,
 )
 
-router = RabbitRouter()
-exchange = RabbitExchange(
-    name=UserRecoveryCreatedEvent.meta.module, type=ExchangeType.TOPIC
-)
+router = RedisRouter()
 
 
-@router.subscriber(
-    RabbitQueue(
-        UserRecoveryCreatedEvent.meta.name,
-        routing_key=UserRecoveryCreatedEvent.meta.name,
-    ),
-    exchange,
-)
+@router.subscriber(stream=UserRecoveryCreatedEvent.meta.name)
 async def email_user_recovery_task(
     event: dict[str, Any],
     settings=Depends(get_settings),

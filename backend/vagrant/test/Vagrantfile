@@ -36,6 +36,7 @@ Vagrant.configure("2") do |config|
         kwai_config['mail']['port'],
         kwai_config['mail']['user'],
         kwai_config['mail']['password'],
-        kwai_config['jwt']['secret']
+        kwai_config['jwt']['secret'],
+        kwai_config['redis']['password']
     ]
 end

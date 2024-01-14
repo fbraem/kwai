@@ -3,7 +3,8 @@ import os
 import sys
 
 from faststream import BaseMiddleware, FastStream
-from faststream.rabbit import RabbitBroker
+from faststream.redis import RedisBroker
+from faststream.security import SASLPlaintext
 from faststream.types import DecodedMessage
 from loguru import logger
 
@@ -60,13 +61,13 @@ else:
     middlewares = []
 
 
-broker = RabbitBroker(
-    host=settings.rabbitmq.host,
-    port=settings.rabbitmq.port,
-    login=settings.rabbitmq.user,
-    password=settings.rabbitmq.password,
-    virtualhost=settings.rabbitmq.vhost,
+broker = RedisBroker(
+    url="redis://api.kwai.com:6379",
     middlewares=middlewares,
+    security=SASLPlaintext(
+        username="",
+        password="wazari",
+    ),
 )
 broker.include_router(router)
 app = FastStream(broker)

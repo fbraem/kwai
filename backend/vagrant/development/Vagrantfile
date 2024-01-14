@@ -31,7 +31,8 @@ Vagrant.configure("2") do |config|
         kwai_config['database']['password'],
         kwai_config['rabbitmq']['vhost'],
         kwai_config['rabbitmq']['user'],
-        kwai_config['rabbitmq']['password']
+        kwai_config['rabbitmq']['password'],
+        kwai_config['redis']['password']
     ]
 
   # Mailcatcher
