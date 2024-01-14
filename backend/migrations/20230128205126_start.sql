@@ -261,7 +261,7 @@ create table if not exists training_coaches (
     primary key(training_id, coach_id)
 ) charset = utf8mb3;
 
-create table kwai.training_presences
+create table if not exists kwai.training_presences
 (
     training_id int unsigned                        not null,
     member_id   int unsigned                        not null,
@@ -322,7 +322,7 @@ create table judo_members like sport_judo_members;
 insert into judo_members select * from sport_judo_members;
 drop table sport_judo_members;
 
-create table member_imports
+create table if not exists member_imports
 (
     id         int unsigned auto_increment primary key,
     filename   text                                null,
