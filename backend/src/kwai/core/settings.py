@@ -58,13 +58,11 @@ class EmailSettings(BaseModel):
     address: str = Field(alias="from")
 
 
-class RabbitmqSettings(BaseModel):
-    """Settings for rabbitmq."""
+class RedisSettings(BaseModel):
+    """Settings for Redis."""
 
-    host: str
-    port: int = 5672
-    vhost: str = "kwai"
-    user: str
+    host: str = "127.0.0.1"
+    port: int = 6379
     password: str | None = None
     logger: LoggerSettings | None = None
 
@@ -102,7 +100,7 @@ class Settings(BaseModel):
 
     email: EmailSettings
 
-    rabbitmq: RabbitmqSettings
+    redis: RedisSettings
 
 
 @lru_cache
