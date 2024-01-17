@@ -1,1 +1,1 @@
-"""Package for testing events."""
+"""Package for testing the core events modules."""

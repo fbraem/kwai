@@ -3,15 +3,15 @@ import asyncio
 from typing import AsyncIterator, Iterator
 
 import pytest
-from faststream.rabbit import RabbitBroker, TestRabbitBroker
+from redis.asyncio import Redis
 
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.password import Password
-from kwai.core.events.faststream_publisher import FaststreamPublisher
 from kwai.core.events.publisher import Publisher
+from kwai.core.events.redis_bus import RedisBus
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipient, Recipients
 from kwai.core.settings import get_settings
@@ -44,20 +44,29 @@ async def database():
     await db.close()
 
 
-@pytest.fixture(scope="module")
-async def publisher() -> Publisher:
-    """Fixture for a publisher."""
+@pytest.fixture(scope="session")
+async def redis() -> Redis:
+    """Fixture for a redis instance."""
     settings = get_settings()
-    async with TestRabbitBroker(
-        RabbitBroker(
-            host=settings.rabbitmq.host,
-            port=settings.rabbitmq.port,
-            login=settings.rabbitmq.user,
-            password=settings.rabbitmq.password,
-            virtualhost=settings.rabbitmq.vhost,
-        )
-    ) as broker:
-        yield FaststreamPublisher(broker)
+    redis = Redis(
+        host=settings.redis.host,
+        port=settings.redis.port,
+        password=settings.redis.password,
+    )
+    yield redis
+    await redis.close()
+
+
+@pytest.fixture(scope="session")
+async def bus(redis: Redis) -> RedisBus:
+    """Fixture for a message bus."""
+    return RedisBus(redis)
+
+
+@pytest.fixture(scope="module")
+async def publisher(bus: RedisBus) -> Publisher:
+    """Fixture for a publisher."""
+    return bus
 
 
 @pytest.fixture(scope="module")

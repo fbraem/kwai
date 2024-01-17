@@ -1,8 +1,6 @@
 """Module for defining an interface for a publisher.
 
-A publisher should publish events to a broker. Subscribers should be defined to
-receive and process the event. It must be possible that different subscribers
-handle the same event (pub/sub).
+A publisher should publish events to an event bus.
 """
 from abc import abstractmethod
 

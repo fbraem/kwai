@@ -1,25 +1,15 @@
-"""Module for defining the faststream application."""
+"""Module for defining the event application."""
+import asyncio
 import os
 import sys
 
-from faststream import BaseMiddleware, FastStream
-from faststream.rabbit import RabbitBroker
-from faststream.types import DecodedMessage
 from loguru import logger
+from redis.asyncio import Redis
 
+from kwai.core.events.redis_bus import RedisBus
 from kwai.core.settings import LoggerSettings, get_settings
-from kwai.events.v1 import router
 
 settings = get_settings()
-
-
-class LoggerMiddleware(BaseMiddleware):
-    """Middleware for setting up logger."""
-
-    async def on_consume(self, msg: DecodedMessage) -> DecodedMessage:
-        """Set up a context for the logger."""
-        with logger.contextualize():
-            return await super().on_consume(msg)
 
 
 def configure_logger(logger_settings: LoggerSettings):
@@ -31,12 +21,12 @@ def configure_logger(logger_settings: LoggerSettings):
 
     def log_format(record):
         """Change the format when a request_id is set in extra."""
-        if "event_id" in record["extra"]:
-            new_format = (
-                "{time} - {level} - ({extra[event_id]}) - {message}" + os.linesep
-            )
-        else:
-            new_format = "{time} - {level} - {message}" + os.linesep
+        new_format = "{time} - {level}"
+        if "stream" in record["extra"]:
+            new_format += " - {extra[stream]}"
+        if "message_id" in record["extra"]:
+            new_format += " - ({extra[message_id]})"
+        new_format += " - {message}" + os.linesep
         if record["exception"]:
             new_format += "{exception}" + os.linesep
         return new_format
@@ -53,20 +43,11 @@ def configure_logger(logger_settings: LoggerSettings):
     )
 
 
-if settings.rabbitmq.logger:
-    configure_logger(settings.rabbitmq.logger)
-    middlewares = [LoggerMiddleware]
-else:
-    middlewares = []
-
-
-broker = RabbitBroker(
-    host=settings.rabbitmq.host,
-    port=settings.rabbitmq.port,
-    login=settings.rabbitmq.user,
-    password=settings.rabbitmq.password,
-    virtualhost=settings.rabbitmq.vhost,
-    middlewares=middlewares,
+redis = Redis(
+    host=settings.redis.host,
+    port=settings.redis.port,
+    password=settings.redis.password,
 )
-broker.include_router(router)
-app = FastStream(broker)
+
+bus = RedisBus(redis)
+asyncio.run(bus.run())
