@@ -229,7 +229,7 @@ files = [
 name = "attrs"
 version = "23.1.0"
 description = "Classes Without Boilerplate"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -1045,6 +1045,18 @@ python-versions = ">=3.7"
 files = [
     {file = "iniconfig-2.0.0-py3-none-any.whl", hash = "sha256:b6a85871a79d2e3b22d2d1b94ac2824226a63c6b741c88f7ae975f18b6778374"},
     {file = "iniconfig-2.0.0.tar.gz", hash = "sha256:2d91e135bf72d31a410b17c16da610a82cb55f6b0477d1a902134b24a455b8b3"},
+]
+
+[[package]]
+name = "inject"
+version = "5.2.0"
+description = "Python dependency injection framework."
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "inject-5.2.0-py2.py3-none-any.whl", hash = "sha256:0eaed0083c180b1dd3dba169dfa2b7b077fc0d65f454b4cbed1866243cc231a0"},
+    {file = "inject-5.2.0.tar.gz", hash = "sha256:cb4f8dcdec6fabb2a2921733a3c36037ea46efc4fecfb6629b43b51debbdb352"},
 ]
 
 [[package]]
@@ -2403,27 +2415,6 @@ anyio = ">=3.4.0,<5"
 full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart", "pyyaml"]
 
 [[package]]
-name = "svcs"
-version = "23.21.0"
-description = "A Flexible Service Locator"
-category = "main"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "svcs-23.21.0-py3-none-any.whl", hash = "sha256:5f7c0cab2d022db627abad1f89d5c8a82401cd27bd9b55a701099970192b1e8b"},
-    {file = "svcs-23.21.0.tar.gz", hash = "sha256:b56db0b55c1b08b7834fba91ac7a30c0d4a238453ab660bf39de9abcb2f21b31"},
-]
-
-[package.dependencies]
-attrs = ">=21.3.0"
-
-[package.extras]
-dev = ["httpx", "svcs[tests,typing]", "tox (>4)"]
-docs = ["aiohttp", "fastapi", "flask", "furo (>=2023.8.17)", "httpx", "myst-parser", "pyramid", "pytest", "sphinx (>=7.2.2)", "sphinx-copybutton", "sphinx-design", "sphinx-notfound-page", "sphinxext-opengraph", "sqlalchemy", "starlette", "sybil"]
-tests = ["pytest", "pytest-asyncio", "sybil", "typing-extensions"]
-typing = ["aiohttp", "fastapi", "flask", "mypy (>=1.4)", "pyramid", "starlette"]
-
-[[package]]
 name = "termcolor"
 version = "2.4.0"
 description = "ANSI color formatting for output in terminal"
@@ -2941,4 +2932,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "be3fa9abbb052a10369b69970059052a566cf60781ab87b31f7d5bc7a6dd52f8"
+content-hash = "622b7765f85eb663dcf38790d9ce33893b62097211ef46e9551c00d922c382a7"

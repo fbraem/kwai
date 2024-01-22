@@ -22,8 +22,8 @@ asyncmy = "^0.2.8"
 cryptography = "^41.0.3"
 markdown = "3.3.7"
 pydantic= "2.5.2"
-svcs = "^23.21.0"
 redis = "^5.0.1"
+inject = "^5.2.0"
 
 [tool.poetry.group.dev]
 optional = true
