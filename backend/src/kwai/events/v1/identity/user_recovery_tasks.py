@@ -1,17 +1,17 @@
 """Module that defines entry points for tasks for user recoveries."""
 from typing import Any
 
-from fast_depends import Depends
-from faststream.rabbit import ExchangeType, RabbitExchange, RabbitQueue, RabbitRouter
+import inject
 from loguru import logger
 
-from kwai.api.dependencies import create_database
+from kwai.core.db.database import Database
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.core.events.dependencies import create_mailer, create_template_engine
+from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipient, Recipients
-from kwai.core.settings import get_settings
+from kwai.core.settings import Settings
 from kwai.core.template.mail_template import MailTemplate
+from kwai.core.template.template_engine import TemplateEngine
 from kwai.modules.identity.mail_user_recovery import (
     MailUserRecovery,
     MailUserRecoveryCommand,
@@ -26,25 +26,14 @@ from kwai.modules.identity.user_recoveries.user_recovery_repository import (
     UserRecoveryNotFoundException,
 )
 
-router = RabbitRouter()
-exchange = RabbitExchange(
-    name=UserRecoveryCreatedEvent.meta.module, type=ExchangeType.TOPIC
-)
 
-
-@router.subscriber(
-    RabbitQueue(
-        UserRecoveryCreatedEvent.meta.name,
-        routing_key=UserRecoveryCreatedEvent.meta.name,
-    ),
-    exchange,
-)
+@inject.autoparams()
 async def email_user_recovery_task(
     event: dict[str, Any],
-    settings=Depends(get_settings),
-    database=Depends(create_database),
-    mailer=Depends(create_mailer),
-    template_engine=Depends(create_template_engine),
+    settings: Settings,
+    database: Database,
+    mailer: Mailer,
+    template_engine: TemplateEngine,
 ):
     """Actor for sending a user recovery mail."""
     command = MailUserRecoveryCommand(uuid=event["data"]["uuid"])
@@ -71,3 +60,6 @@ async def email_user_recovery_task(
             f"Mail not send because user recovery does not exist "
             f"with uuid {command.uuid}"
         )
+
+
+router = (UserRecoveryCreatedEvent, email_user_recovery_task)

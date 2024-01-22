@@ -54,7 +54,7 @@ class RedisBus(Publisher, Subscriber):
                     else:
                         task(message.data)
                 except Exception as ex:
-                    logger.warning(f"The handler raised an exception: {ex}")
+                    logger.warning(f"The handler raised an exception: {ex!r}")
                     return False
                 return True
 

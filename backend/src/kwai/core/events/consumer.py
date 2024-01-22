@@ -50,7 +50,7 @@ class RedisConsumer:
                     try:
                         await self._trigger_callback(message)
                     except Exception as ex:
-                        print(f"Exception: {ex}")
+                        print(f"Exception: {ex!r}")
                         # avoid a break of the loop
                         continue
                 else:
