@@ -7,6 +7,7 @@ from loguru import logger
 from kwai.core.db.database import Database
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.core.events.event_router import EventRouter
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipient, Recipients
 from kwai.core.settings import Settings
@@ -62,4 +63,6 @@ async def email_user_invitation_task(
         )
 
 
-router = (UserInvitationCreatedEvent, email_user_invitation_task)
+router = (
+    EventRouter(event=UserInvitationCreatedEvent, callback=email_user_invitation_task),
+)

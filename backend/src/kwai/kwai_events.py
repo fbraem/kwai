@@ -58,7 +58,7 @@ async def main(settings: Settings):
 
     bus = RedisBus(redis)
     for route_element in router:
-        bus.subscribe(route_element[0], route_element[1])
+        bus.subscribe(route_element)
 
     logger.info("Starting the event bus.")
     await bus.run()

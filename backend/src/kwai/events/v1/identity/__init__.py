@@ -6,6 +6,6 @@ from kwai.events.v1.identity.user_invitation_tasks import (
 from kwai.events.v1.identity.user_recovery_tasks import router as user_recovery_router
 
 router = (
-    user_invitation_router,
-    user_recovery_router,
+    *user_invitation_router,
+    *user_recovery_router,
 )

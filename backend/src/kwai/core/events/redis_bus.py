@@ -1,13 +1,12 @@
 """Module for defining a publisher using Redis."""
 import asyncio
-import inspect
-from typing import Any, Callable
 
 from loguru import logger
 from redis.asyncio import Redis
 
 from kwai.core.events.consumer import RedisConsumer
 from kwai.core.events.event import Event, EventMeta
+from kwai.core.events.event_router import EventRouter
 from kwai.core.events.publisher import Publisher
 from kwai.core.events.stream import RedisMessage, RedisStream
 from kwai.core.events.subscriber import Subscriber
@@ -26,37 +25,26 @@ class RedisBus(Publisher, Subscriber):
         stream = RedisStream(self._redis, stream_name)
         await stream.add(RedisMessage(data=event.data))
 
-    def subscribe(
-        self, event: type[Event], task: Callable[[dict[str, Any]], Any]
-    ) -> None:
-        stream_name = self._get_stream_name(event.meta)
+    def subscribe(self, event_router: EventRouter) -> None:
+        stream_name = self._get_stream_name(event_router.event.meta)
         self._consumers.append(
             RedisConsumer(
                 RedisStream(self._redis, stream_name),
-                task.__qualname__,
-                RedisBus._create_event_trigger(event, task),
+                event_router.callback.__qualname__,
+                RedisBus._create_event_trigger(event_router),
             )
         )
 
     @classmethod
-    def _create_event_trigger(
-        cls, event: type[Event], task: Callable[[dict[str, Any]], Any]
-    ):
+    def _create_event_trigger(cls, event_router: EventRouter):
         """Create an event trigger."""
 
         async def trigger(message: RedisMessage) -> bool:
             with logger.contextualize(
-                stream=RedisBus._get_stream_name(event.meta), message_id=message.id
+                stream=RedisBus._get_stream_name(event_router.event.meta),
+                message_id=message.id,
             ):
-                try:
-                    if inspect.iscoroutinefunction(task):
-                        await task(message.data)
-                    else:
-                        task(message.data)
-                except Exception as ex:
-                    logger.warning(f"The handler raised an exception: {ex!r}")
-                    return False
-                return True
+                return await event_router.execute(message.data)
 
         return trigger
 
