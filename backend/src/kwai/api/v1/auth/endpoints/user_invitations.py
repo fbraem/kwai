@@ -3,9 +3,8 @@
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from loguru import logger
 
-from kwai.api.dependencies import get_current_user, get_publisher
+from kwai.api.dependencies import create_database, get_current_user, get_publisher
 from kwai.api.schemas.user_invitation import UserInvitationDocument
-from kwai.core.dependencies import create_database
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import InvalidEmailException
 from kwai.core.json_api import Meta, PaginationModel

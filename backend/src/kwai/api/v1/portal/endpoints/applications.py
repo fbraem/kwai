@@ -1,9 +1,8 @@
 """Module that implements applications endpoints."""
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from kwai.api.dependencies import get_current_user
+from kwai.api.dependencies import create_database, get_current_user
 from kwai.api.schemas.application import ApplicationDocument
-from kwai.core.dependencies import create_database
 from kwai.core.json_api import Meta
 from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,

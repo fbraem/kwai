@@ -2,9 +2,8 @@
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, Field
 
-from kwai.api.dependencies import get_current_user
+from kwai.api.dependencies import create_database, get_current_user
 from kwai.api.schemas.page import PageDocument
-from kwai.core.dependencies import create_database
 from kwai.core.domain.use_case import TextCommand
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.json_api import Meta, PaginationModel

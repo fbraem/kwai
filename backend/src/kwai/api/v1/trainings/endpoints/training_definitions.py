@@ -1,13 +1,12 @@
 """Module for endpoints for training definitions."""
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from kwai.api.dependencies import get_current_user
+from kwai.api.dependencies import create_database, get_current_user
 from kwai.api.v1.trainings.endpoints.trainings import TrainingsFilterModel
 from kwai.api.v1.trainings.schemas.training import TrainingDocument
 from kwai.api.v1.trainings.schemas.training_definition import (
     TrainingDefinitionDocument,
 )
-from kwai.core.dependencies import create_database
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.identity.users.user import UserEntity

@@ -7,9 +7,8 @@ from jwt import ExpiredSignatureError
 from loguru import logger
 from pydantic import BaseModel
 
-from kwai.api.dependencies import get_current_user, get_publisher
+from kwai.api.dependencies import create_database, get_current_user, get_publisher
 from kwai.core.db.database import Database
-from kwai.core.dependencies import create_database
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import InvalidEmailException
 from kwai.core.events.publisher import Publisher

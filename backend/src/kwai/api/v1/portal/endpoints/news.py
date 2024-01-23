@@ -1,9 +1,9 @@
 """Module that implements news endpoints."""
 from fastapi import APIRouter, Depends
 
+from kwai.api.dependencies import create_database
 from kwai.api.schemas.news_item import NewsItemDocument
 from kwai.core.db.database import Database
-from kwai.core.dependencies import create_database
 from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.portal.get_news_items import GetNewsItems, GetNewsItemsCommand
 from kwai.modules.portal.news.news_item_db_repository import NewsItemDbRepository
