@@ -2,11 +2,12 @@
 import os
 from asyncio import run
 
+import inject
 import typer
 from rich import print
 from typer import Typer
 
-from kwai.core.dependencies import create_database
+from kwai.core.db.database import Database
 from kwai.core.settings import ENV_SETTINGS_FILE, get_settings
 
 
@@ -49,10 +50,10 @@ def show(password: bool = typer.Option(False, help="Show the password")):
 def test():
     """Command for testing the database connection."""
 
-    async def _main():
+    @inject.autoparams()
+    async def _main(database: Database):
         """Closure for handling the async code."""
         try:
-            database = await anext(create_database(get_settings()))
             await database.check_connection()
             await database.close()
         except Exception as ex:
