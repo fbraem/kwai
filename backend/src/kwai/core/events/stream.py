@@ -185,6 +185,10 @@ class RedisStream:
         result = await self._redis.delete(self._stream_name)
         return result == 1
 
+    async def delete_group(self, group_name: str) -> None:
+        """Delete the group."""
+        await self._redis.xgroup_destroy(self._stream_name, group_name)
+
     async def delete_entries(self, *ids) -> int:
         """Delete entries from the stream.
 
