@@ -57,8 +57,8 @@ const currentYear = ref(toDay.year());
 const year = useRouteQuery('year', currentYear.value, { transform: Number });
 const month = useRouteQuery('month', currentMonth.value, { transform: Number });
 
-const start = computed(() => createDate(year.value, month.value - 1).startOf('month'));
-const end = computed(() => createDate(year.value, month.value - 1).endOf('month'));
+const start = computed(() => createDate(year.value, month.value - 1, 1).startOf('month'));
+const end = computed(() => createDate(year.value, month.value - 1, 1).endOf('month'));
 
 const { data: trainings } = useTrainings({ start, end });
 
@@ -195,6 +195,7 @@ const showNextMonth = () => {
             <RightArrowIcon class="w-4 h-4 mr-2 fill-current" /> Volgende Maand
           </PrimaryButton>
         </div>
+        {{ start }} - {{ end }}
         <h3 class="text-2xl pb-4">
           {{ start.format("MMMM") }} {{ start.format("YYYY") }}
         </h3>
