@@ -6,7 +6,11 @@ import pendulum
 
 @dataclass(kw_only=True, frozen=True, slots=True)
 class Date:
-    """An immutable value object for a date."""
+    """An immutable value object for a date.
+
+    This class is a decorator of a pendulum object.
+    See: https://pendulum.eustace.io
+    """
 
     date: pendulum
 
