@@ -2,10 +2,26 @@
 from kwai.core.domain.value_objects.date import Date
 
 
-def test_create():
+def test_create_from_string():
     """Test the factory method create_from_string."""
     date = Date.create_from_string("1860-10-04")
     assert str(date) == "1860-10-04"
+
+
+def test_create_with_year():
+    """Test the factory method create with only a year."""
+    date = Date.create(2024)
+    assert date.year == 2024
+    assert date.month == 1
+    assert date.day == 1
+
+
+def test_create():
+    """Test the factory method create with all arguments."""
+    date = Date.create(2024, 3, 9)
+    assert date.year == 2024
+    assert date.month == 3
+    assert date.day == 9
 
 
 def test_day():

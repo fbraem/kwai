@@ -6,7 +6,7 @@ import pendulum
 
 @dataclass(kw_only=True, frozen=True, slots=True)
 class Date:
-    """A value object for a date."""
+    """An immutable value object for a date."""
 
     date: pendulum
 
@@ -14,6 +14,10 @@ class Date:
     def day(self) -> int:
         """Return the day of the date."""
         return self.date.day
+
+    def end_of(self, unit: str) -> "Date":
+        """Returns a new date resetting it to the end of the given unit."""
+        return Date(date=self.date.end_of(unit))
 
     def get_age(self, some_date: "Date"):
         """Return the age on the given date."""
@@ -42,6 +46,11 @@ class Date:
     def create_from_string(cls, value: str, format_: str = "YYYY-MM-DD") -> "Date":
         """Create a Date from a string."""
         return Date(date=pendulum.from_format(value, format_))
+
+    @classmethod
+    def create(cls, year: int, month: int = 1, day: int = 1):
+        """Create a date with the given year, month and day."""
+        return Date(date=pendulum.date(year, month, day))
 
     def __str__(self) -> str:
         """Return a string representation of the date."""
