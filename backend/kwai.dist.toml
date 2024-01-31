@@ -1,4 +1,7 @@
 # Rename this file to kwai.toml and set the env KWAI_SETTINGS_FILE to the path of this file.
+[files]
+path="/var/tmp/kwai"
+
 [security]
 access_token_expires_in=60  # 60 minutes
 refresh_token_expires_in=43200  # 30 days
