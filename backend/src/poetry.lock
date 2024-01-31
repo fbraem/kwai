@@ -2545,7 +2545,7 @@ files = [
 name = "time-machine"
 version = "2.13.0"
 description = "Travel through time in your tests."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
@@ -3113,4 +3113,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "468972ab756ce18b929dcb040f1a28228fc434d4d98c0ee53b701cdd45ce12cc"
+content-hash = "164788ffa973ada736ad9375545154ca80612b6bdd90f339afe6738ba216aa8c"
