@@ -32,6 +32,11 @@ class Date:
         )
 
     @property
+    def past(self) -> bool:
+        """Is this date in the past?"""
+        return self.date < pendulum.now()
+
+    @property
     def month(self) -> int:
         """Return the month of the date."""
         return self.date.month
