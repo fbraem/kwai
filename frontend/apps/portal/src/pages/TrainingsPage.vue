@@ -195,7 +195,6 @@ const showNextMonth = () => {
             <RightArrowIcon class="w-4 h-4 mr-2 fill-current" /> Volgende Maand
           </PrimaryButton>
         </div>
-        {{ start }} - {{ end }}
         <h3 class="text-2xl pb-4">
           {{ start.format("MMMM") }} {{ start.format("YYYY") }}
         </h3>
