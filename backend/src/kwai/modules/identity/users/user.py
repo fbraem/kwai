@@ -4,6 +4,7 @@ from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.name import Name
+from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 
@@ -58,3 +59,7 @@ class UserEntity(Entity[UserIdentifier]):
     def uuid(self) -> UniqueId:
         """Return the unique id the user."""
         return self._uuid
+
+    def create_owner(self) -> Owner:
+        """Create an owner value object from the user entity."""
+        return Owner(id=self.id, uuid=self.uuid, name=self.name)
