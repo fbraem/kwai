@@ -30,7 +30,7 @@ poetry install
 
 ## Step 3: Configuration
 
-Kwai needs a configuration file. When this is the first time, we need to 
+Kwai needs a configuration file. When this is the first time, we need to
 create it.
 
 ````shell
@@ -59,7 +59,7 @@ To start the application use the following command:
 
 ````shell
 cd backend/src
-poetry run python kwai/kwai_api.py
+poetry run python -m kwai.api
 ````
 
 This python script will start an uvicorn server. The host

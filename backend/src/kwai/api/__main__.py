@@ -21,12 +21,11 @@ def create_args():
     return parser.parse_args()
 
 
-if __name__ == "__main__":
-    args = create_args()
-    uvicorn.run(
-        "kwai.api.app:create_app",
-        host=args.host,
-        port=args.port,
-        factory=True,
-        reload=args.reload,
-    )
+args = create_args()
+uvicorn.run(
+    "kwai.api.app:create_app",
+    host=args.host,
+    port=args.port,
+    factory=True,
+    reload=args.reload,
+)
