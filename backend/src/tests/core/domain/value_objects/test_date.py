@@ -1,4 +1,6 @@
 """Module for testing the Date value object."""
+import datetime
+
 from kwai.core.domain.value_objects.date import Date
 
 
@@ -22,6 +24,14 @@ def test_create():
     assert date.year == 2024
     assert date.month == 3
     assert date.day == 9
+
+
+def test_create_from_date():
+    """Test the factory method to create a date from datetime.date."""
+    date = Date.create_from_date(datetime.date.today())
+    assert date.year == datetime.date.today().year
+    assert date.month == datetime.date.today().month
+    assert date.day == datetime.date.today().day
 
 
 def test_day():

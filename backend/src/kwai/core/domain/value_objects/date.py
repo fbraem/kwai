@@ -1,4 +1,5 @@
 """Module for defining a date value object."""
+import datetime
 from dataclasses import dataclass
 
 import pendulum
@@ -55,6 +56,11 @@ class Date:
     def create_from_string(cls, value: str, format_: str = "YYYY-MM-DD") -> "Date":
         """Create a Date from a string."""
         return Date(date=pendulum.from_format(value, format_))
+
+    @classmethod
+    def create_from_date(cls, date: datetime.date) -> "Date":
+        """Create a Date from a datetime.date."""
+        return cls.create(date.year, date.month, date.day)
 
     @classmethod
     def create(cls, year: int, month: int = 1, day: int = 1):
