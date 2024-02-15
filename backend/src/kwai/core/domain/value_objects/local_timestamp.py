@@ -10,7 +10,7 @@ class LocalTimestamp:
     The datetime should always be in UTC.
     """
 
-    timestamp: datetime = None
+    timestamp: datetime | None = None
 
     @property
     def empty(self):
@@ -20,7 +20,8 @@ class LocalTimestamp:
     @property
     def is_past(self) -> bool:
         """Return True when the timestamp in the past."""
-        assert not self.empty, "No datetime set"
+        if self.timestamp is None:
+            raise ValueError("Empty timestamp")
 
         return self.timestamp < datetime.utcnow()
 
@@ -87,7 +88,7 @@ class LocalTimestamp:
             A formatted timestamp in format YYYY-MM-DD HH:mm:ss.
             An empty string will be returned, when no timestamp is available.
         """
-        if self.empty:
+        if self.timestamp is None:
             return ""
 
         return self.timestamp.strftime("%Y-%m-%d %H:%M:%S")
@@ -98,6 +99,8 @@ class LocalTimestamp:
         Returns:
             LocalTimestamp: A new timestamp with the delta.
         """
+        if self.timestamp is None:
+            raise ValueError("Empty timestamp")
         return LocalTimestamp(self.timestamp + timedelta(**kwargs))
 
     @classmethod
