@@ -1,6 +1,7 @@
 """Module for defining a date value object."""
 import datetime
 from dataclasses import dataclass
+from typing import Self
 
 import pendulum
 
@@ -15,16 +16,20 @@ class Date:
 
     date: pendulum
 
+    def add(self, **kwargs) -> Self:
+        """Add time."""
+        return Date(date=self.date.add(**kwargs))
+
     @property
     def day(self) -> int:
         """Return the day of the date."""
         return self.date.day
 
-    def end_of(self, unit: str) -> "Date":
+    def end_of(self, unit: str) -> Self:
         """Returns a new date resetting it to the end of the given unit."""
         return Date(date=self.date.end_of(unit))
 
-    def get_age(self, some_date: "Date"):
+    def get_age(self, some_date: Self):
         """Return the age on the given date."""
         return (
             some_date.year
@@ -48,17 +53,17 @@ class Date:
         return self.date.year
 
     @classmethod
-    def today(cls) -> "Date":
+    def today(cls) -> Self:
         """Return today as date."""
         return Date(date=pendulum.today())
 
     @classmethod
-    def create_from_string(cls, value: str, format_: str = "YYYY-MM-DD") -> "Date":
+    def create_from_string(cls, value: str, format_: str = "YYYY-MM-DD") -> Self:
         """Create a Date from a string."""
         return Date(date=pendulum.from_format(value, format_))
 
     @classmethod
-    def create_from_date(cls, date: datetime.date) -> "Date":
+    def create_from_date(cls, date: datetime.date) -> Self:
         """Create a Date from a datetime.date."""
         return cls.create(date.year, date.month, date.day)
 
