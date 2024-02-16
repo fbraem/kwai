@@ -3,12 +3,15 @@ import csv
 from typing import Any, AsyncGenerator
 
 from kwai.core.domain.value_objects.date import Date
+from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.owner import Owner
+from kwai.modules.club.members.contact import ContactEntity
 from kwai.modules.club.members.country_repository import CountryRepository
 from kwai.modules.club.members.member import MemberEntity
 from kwai.modules.club.members.member_importer import MemberImporter
-from kwai.modules.club.members.value_objects import Birthdate, Gender, License
+from kwai.modules.club.members.person import PersonEntity
+from kwai.modules.club.members.value_objects import Address, Birthdate, Gender, License
 
 
 class FlemishMemberImporter(MemberImporter):
@@ -46,16 +49,34 @@ class FlemishMemberImporter(MemberImporter):
                     continue
 
                 yield MemberEntity(
-                    name=Name(first_name=row["voornaam"], last_name=row["achternaam"]),
                     license=License(
                         number=row["vergunning"],
                         end_date=Date.create_from_string(row["vervaldatum"]),
                     ),
-                    gender=gender,
-                    birthdate=Birthdate(
-                        date=Date.create_from_string(row["geboortedatum"])
+                    person=PersonEntity(
+                        name=Name(
+                            first_name=row["voornaam"], last_name=row["achternaam"]
+                        ),
+                        gender=gender,
+                        birthdate=Birthdate(
+                            date=Date.create_from_string(row["geboortedatum"])
+                        ),
+                        nationality=country,
+                        contact=ContactEntity(
+                            email=EmailAddress(row["email"]),
+                            address=Address(
+                                address=row["straatnummer"],
+                                postal_code=row["postnummer"],
+                                city=row["gemeente"],
+                                county="",
+                                country=await self._get_country(
+                                    self._country_repo, row["land"]
+                                ),
+                            ),
+                            mobile=row["telefoon1"],
+                            tel=row["telefoon2"],
+                        ),
                     ),
-                    nationality=country,
                     active=row["status"] == "ACTIEF",
                 )
         self._get_country.cache_clear()
