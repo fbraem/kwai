@@ -25,6 +25,7 @@ pydantic= "2.6.0"
 redis = "^5.0.1"
 inject = "^5.2.0"
 pendulum = "^3.0.0"
+async-lru = "^2.0.4"
 
 [tool.poetry.group.dev]
 optional = true
@@ -39,6 +40,7 @@ httpx = "^0.23.3"
 pytest-asyncio = "^0.20.3"
 pytest-cov = "^4.1.0"
 pre-commit = "^3.4.0"
+pendulum = {extras = ["test"], version = "^3.0.0"}
 
 [tool.poetry.group.docs]
 optional = true
