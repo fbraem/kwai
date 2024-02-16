@@ -5,6 +5,7 @@ from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.modules.club.members.country_db_repository import CountryDbRepository
 from kwai.modules.club.members.flemish_member_importer import FlemishMemberImporter
+from kwai.modules.club.members.member_importer import MemberImportedResult
 from kwai.modules.club.members.value_objects import Gender
 
 
@@ -16,13 +17,18 @@ async def test_import(database: Database, owner: Owner):
     )
     members = importer.import_()
 
-    member = await anext(members)
-    assert member is not None
-    assert str(member.person.nationality) == "BE"
-    assert str(member.person.birthdate) == "1973-06-05"
-    assert member.person.gender == Gender.FEMALE
-
-    member = await anext(members)
-    assert member is not None
-    assert str(member.person.nationality) == "JP"
-    assert member.person.gender == Gender.MALE
+    result = await anext(members)
+    match result:
+        case MemberImportedResult():
+            member = result.member
+            assert member is not None
+            assert str(member.person.nationality) == "BE"
+            assert str(member.person.birthdate) == "1973-06-05"
+            assert member.person.gender == Gender.FEMALE
+    result = await anext(members)
+    match result:
+        case MemberImportedResult():
+            member = result.member
+            assert member is not None
+            assert str(member.person.nationality) == "JP"
+            assert member.person.gender == Gender.MALE

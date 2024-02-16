@@ -1,5 +1,6 @@
 """Module for defining an abstract class for importing member entities."""
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
 
 from async_lru import alru_cache
 from typing_extensions import AsyncGenerator
@@ -9,6 +10,27 @@ from kwai.modules.club.members.country_repository import CountryRepository
 from kwai.modules.club.members.file_upload import FileUploadEntity
 from kwai.modules.club.members.member import MemberEntity
 from kwai.modules.club.members.value_objects import Country
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class ImportResult:
+    """Base dataclass for a result of a member import."""
+
+    row: int
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class MemberImportedResult(ImportResult):
+    """Dataclass for a successful member import."""
+
+    member: MemberEntity
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class ImportFailureResult(ImportResult):
+    """Dataclass for a failed member import."""
+
+    message: str
 
 
 class MemberImporter(ABC):
@@ -27,10 +49,10 @@ class MemberImporter(ABC):
         self._country_repo = country_repo
 
     @abstractmethod
-    async def import_(self) -> AsyncGenerator[MemberEntity, None]:
+    async def import_(self) -> AsyncGenerator[ImportResult, None]:
         """Import member entities.
 
-        When a member is available, use yield to pass the member entity.
+        For each imported (or failed import) of a member, a result will be yielded.
         """
 
     def create_file_upload_entity(self) -> FileUploadEntity:
