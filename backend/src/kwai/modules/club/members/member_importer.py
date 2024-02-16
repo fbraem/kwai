@@ -1,7 +1,7 @@
 """Module for defining an abstract class for importing member entities."""
 from abc import ABC, abstractmethod
-from functools import lru_cache
 
+from async_lru import alru_cache
 from typing_extensions import AsyncGenerator
 
 from kwai.core.domain.value_objects.owner import Owner
@@ -38,7 +38,7 @@ class MemberImporter(ABC):
         return FileUploadEntity(filename=self._filename, owner=self._owner)
 
     @staticmethod
-    @lru_cache
+    @alru_cache
     async def _get_country(
         country_repo: CountryRepository, iso_2: str
     ) -> Country | None:
