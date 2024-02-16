@@ -18,11 +18,11 @@ async def test_import(database: Database, owner: Owner):
 
     member = await anext(members)
     assert member is not None
-    assert str(member.nationality) == "BE"
-    assert str(member.birthdate) == "1973-06-05"
-    assert member.gender == Gender.FEMALE
+    assert str(member.person.nationality) == "BE"
+    assert str(member.person.birthdate) == "1973-06-05"
+    assert member.person.gender == Gender.FEMALE
 
     member = await anext(members)
     assert member is not None
-    assert str(member.nationality) == "JP"
-    assert member.gender == Gender.MALE
+    assert str(member.person.nationality) == "JP"
+    assert member.person.gender == Gender.MALE
