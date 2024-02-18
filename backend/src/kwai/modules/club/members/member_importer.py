@@ -20,14 +20,14 @@ class ImportResult:
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class MemberImportedResult(ImportResult):
+class MemberImportResult(ImportResult):
     """Dataclass for a successful member import."""
 
     member: MemberEntity
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class ImportFailureResult(ImportResult):
+class MemberImportFailure(ImportResult):
     """Dataclass for a failed member import."""
 
     message: str

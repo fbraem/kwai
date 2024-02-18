@@ -13,10 +13,10 @@ from kwai.modules.club.members.contact import ContactEntity
 from kwai.modules.club.members.country_repository import CountryRepository
 from kwai.modules.club.members.member import MemberEntity
 from kwai.modules.club.members.member_importer import (
-    ImportFailureResult,
     ImportResult,
-    MemberImportedResult,
     MemberImporter,
+    MemberImportFailure,
+    MemberImportResult,
 )
 from kwai.modules.club.members.person import PersonEntity
 from kwai.modules.club.members.value_objects import Address, Birthdate, Gender, License
@@ -54,7 +54,7 @@ class FlemishMemberImporter(MemberImporter):
                     self._country_repo, row["nationaliteit"]
                 )
                 if nationality is None:
-                    yield ImportFailureResult(
+                    yield MemberImportFailure(
                         row=row_index,
                         message=f"Unrecognized country: {row['nationaliteit']}",
                     )
@@ -63,14 +63,14 @@ class FlemishMemberImporter(MemberImporter):
                 try:
                     email = EmailAddress(row["email"].split(";")[0])
                 except InvalidEmailException:
-                    yield ImportFailureResult(
+                    yield MemberImportFailure(
                         row=row_index, message=f"{row['email']} is invalid"
                     )
                     continue
 
                 country = await self._get_country(self._country_repo, row["land"])
 
-                yield MemberImportedResult(
+                yield MemberImportResult(
                     row=row_index,
                     member=MemberEntity(
                         license=License(
