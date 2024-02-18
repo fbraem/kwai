@@ -47,7 +47,7 @@ optional = true
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "^1.4.3"
-mkdocstrings = "^0.22.0"
+mkdocstrings = "^0.24.0"
 mkdocs-material = "^9.1.19"
 mkdocs-monorepo-plugin = "^1.0.5"
 mkdocstrings-python = "^1.2.1"
