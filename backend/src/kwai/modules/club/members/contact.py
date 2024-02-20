@@ -1,4 +1,5 @@
 """Module that defines the contact entity."""
+
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.identifier import IntIdentifier
@@ -15,7 +16,7 @@ class ContactEntity(Entity[ContactIdentifier]):
         self,
         *,
         id_: ContactIdentifier | None = None,
-        email: EmailAddress,
+        emails: list[EmailAddress] | None = None,
         tel: str = "",
         mobile: str = "",
         address: Address,
@@ -24,7 +25,7 @@ class ContactEntity(Entity[ContactIdentifier]):
     ):
         """Initialize the contact entity."""
         super().__init__(id_ or ContactIdentifier())
-        self._email = email
+        self._emails = emails or []
         self._tel = tel
         self._mobile = mobile
         self._address = address
@@ -32,9 +33,20 @@ class ContactEntity(Entity[ContactIdentifier]):
         self._traceable_time = traceable_time or TraceableTime()
 
     @property
-    def email(self) -> EmailAddress:
-        """Return the email."""
-        return self._email
+    def emails(self) -> list[EmailAddress]:
+        """Return the emails of the contact.
+
+        Note: the returned list is a copy.
+        """
+        return self._emails.copy()
+
+    def add_email(self, email: EmailAddress) -> None:
+        """Add an email to the contact."""
+        self._emails.append(email)
+
+    def remove_email(self, email: EmailAddress) -> None:
+        """Remove the email from the contact."""
+        self._emails.remove(email)
 
     @property
     def tel(self) -> str:
