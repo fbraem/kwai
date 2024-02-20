@@ -1,4 +1,5 @@
 """Module for testing the member database repository."""
+
 import pytest
 
 from kwai.core.db.database import Database
@@ -39,7 +40,7 @@ async def member(member_repo: MemberRepository) -> MemberEntity:
             birthdate=Birthdate(date=Date.create(1860, 10, 28)),
             nationality=Country(id=84, iso_2="JP", iso_3="JPN"),
             contact=ContactEntity(
-                email=EmailAddress("jigoro.kano@kwai.com"),
+                emails=[EmailAddress("jigoro.kano@kwai.com")],
                 address=Address(
                     address="",
                     postal_code="",
