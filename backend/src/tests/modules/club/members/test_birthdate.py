@@ -16,3 +16,12 @@ def test_get_age_in_year():
     """Test get age in year."""
     birthdate = Birthdate(date=Date.create_from_string("1860-10-04"))
     assert birthdate.get_age_in_year(1938) == 78
+
+
+def test_birth_date():
+    """Test birthdate creating from a string."""
+    birthdate = Birthdate(date=Date.create_from_string("1959-08-11"))
+    assert birthdate.date.year == 1959
+    assert birthdate.date.month == 8
+    assert birthdate.date.day == 11
+    assert str(birthdate) == "1959-08-11"
