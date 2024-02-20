@@ -1,4 +1,5 @@
 """Module that defines all tables related to members."""
+
 from dataclasses import dataclass
 from datetime import date, datetime
 from typing import Self
@@ -101,9 +102,10 @@ class ContactRow:
 
     def create_entity(self, country: Country) -> ContactEntity:
         """Create a contact entity from a table row."""
+        emails = [EmailAddress(email) for email in self.email.split(";")]
         return ContactEntity(
             id_=ContactIdentifier(self.id),
-            email=EmailAddress(self.email),
+            emails=emails,
             tel=self.tel,
             mobile=self.mobile,
             remark=self.remark or "",
@@ -121,7 +123,7 @@ class ContactRow:
         """Create a row from a contact entity."""
         return ContactRow(
             id=contact.id.value,
-            email=str(contact.email),
+            email=";".join([str(email) for email in contact.emails]),
             tel=contact.tel,
             mobile=contact.mobile,
             address=contact.address.address,
