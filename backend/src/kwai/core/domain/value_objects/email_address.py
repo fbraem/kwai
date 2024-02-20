@@ -1,4 +1,5 @@
 """Module for an email address value object."""
+
 from dataclasses import dataclass
 
 from pyisemail import is_email
@@ -17,7 +18,7 @@ class EmailAddress:
     def __post_init__(self):
         """Check if the email address is valid."""
         if not is_email(self.email):
-            raise InvalidEmailException()
+            raise InvalidEmailException(f"{self.email} is not a valid email address.")
 
     def __str__(self):
         """Return the string representation of an email address."""
