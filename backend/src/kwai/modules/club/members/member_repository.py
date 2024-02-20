@@ -15,6 +15,14 @@ class MemberRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    async def get(self, query: MemberQuery | None = None) -> MemberEntity | None:
+        """Return the first returned element of the given query.
+
+        Args:
+            query: The query to use for getting the first member.
+        """
+
+    @abstractmethod
     async def get_all(
         self,
         query: MemberQuery | None = None,

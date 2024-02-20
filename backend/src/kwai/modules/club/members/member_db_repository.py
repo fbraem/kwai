@@ -54,6 +54,13 @@ class MemberDbRepository(MemberRepository):
         async for row in query.fetch(limit, offset):
             yield _create_entity(row)
 
+    async def get(self, query: MemberQuery | None = None) -> MemberEntity | None:
+        member_iterator = self.get_all(query)
+        try:
+            return await anext(member_iterator)
+        except StopAsyncIteration:
+            return None
+
     async def create(self, member: MemberEntity) -> MemberEntity:
         # When there is no contact id, create it.
         if member.person.contact.id.is_empty():
