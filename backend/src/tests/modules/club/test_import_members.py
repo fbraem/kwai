@@ -7,6 +7,7 @@ from kwai.modules.club.import_members import ImportMembers
 from kwai.modules.club.members.country_db_repository import CountryDbRepository
 from kwai.modules.club.members.file_upload_db_repository import FileUploadDbRepository
 from kwai.modules.club.members.flemish_member_importer import FlemishMemberImporter
+from kwai.modules.club.members.member_db_repository import MemberDbRepository
 
 
 async def test_import_members(database: Database, owner: Owner):
@@ -16,5 +17,8 @@ async def test_import_members(database: Database, owner: Owner):
     importer = FlemishMemberImporter(
         str(filename), owner, CountryDbRepository(database)
     )
-    result = await ImportMembers(importer, FileUploadDbRepository(database)).execute()
-    assert result.file_upload is not None, "There should be a fileupload result"
+
+    async for result in ImportMembers(
+        importer, FileUploadDbRepository(database), MemberDbRepository(database)
+    ).execute():
+        assert result.file_upload is not None, "There should be a fileupload result"
