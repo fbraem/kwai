@@ -26,3 +26,7 @@ repos:
     -   id: ruff
         types: [python]
         args: [--ignore=D102]
+-   repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.2
+    hooks:
+    -   id: gitleaks
