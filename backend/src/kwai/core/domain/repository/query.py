@@ -1,4 +1,5 @@
 """Module that defines an interface for a query."""
+
 from abc import abstractmethod
 from typing import Any, AsyncIterator
 
@@ -12,7 +13,7 @@ class Query:
         raise NotImplementedError
 
     @abstractmethod
-    async def fetch_one(self) -> dict[str, Any]:
+    async def fetch_one(self) -> dict[str, Any] | None:
         """Fetch just one row."""
         raise NotImplementedError
 
