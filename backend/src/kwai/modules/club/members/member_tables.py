@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from datetime import date, datetime
 from typing import Self
 
-from kwai.core.db.table import Table
+from kwai.core.db.table_row import TableRow
 from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
@@ -25,7 +25,7 @@ from kwai.modules.club.members.value_objects import (
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class CountryRow:
+class CountryRow(TableRow):
     """Represent a row of the countries table.
 
     Attributes:
@@ -33,6 +33,8 @@ class CountryRow:
         iso_2: The ISO 2 code of the country.
         iso_3: The ISO 3 code of the country.
     """
+
+    __table_name__ = "countries"
 
     id: int
     iso_2: str
@@ -49,12 +51,19 @@ class CountryRow:
         return Country(id=self.id, iso_2=self.iso_2, iso_3=self.iso_3)
 
 
-CountriesTable = Table("countries", CountryRow)
-
-
 @dataclass(kw_only=True, frozen=True, slots=True)
-class FileUploadRow:
-    """Represents a row of the imports table."""
+class FileUploadRow(TableRow):
+    """Represents a row of the imports table.
+
+    Attributes:
+        id: The id of the fileupload.
+        filename: The name of the uploaded file.
+        user_id: The id of the user that uploaded the file.
+        created_at: The timestamp of creation.
+        updated_at: The timestamp of modification.
+    """
+
+    __table_name__ = "imports"
 
     id: int
     filename: str
@@ -80,12 +89,11 @@ class FileUploadRow:
         )
 
 
-FileUploadsTable = Table("imports", FileUploadRow)
-
-
 @dataclass(kw_only=True, frozen=True, slots=True)
-class ContactRow:
+class ContactRow(TableRow):
     """Represents a row of the contacts table."""
+
+    __table_name__ = "contacts"
 
     id: int
     email: str
@@ -94,7 +102,7 @@ class ContactRow:
     address: str
     postal_code: str
     city: str
-    county: str
+    county: str | None
     country_id: int
     remark: str | None
     created_at: datetime
@@ -113,7 +121,7 @@ class ContactRow:
                 address=self.address,
                 postal_code=self.postal_code,
                 city=self.city,
-                county=self.county,
+                county=self.county or "",
                 country=country,
             ),
         )
@@ -137,12 +145,11 @@ class ContactRow:
         )
 
 
-ContactsTable = Table("contacts", ContactRow)
-
-
 @dataclass(kw_only=True, frozen=True, slots=True)
-class PersonRow:
+class PersonRow(TableRow):
     """Represents a row of the persons table."""
+
+    __table_name__ = "persons"
 
     id: int
     lastname: str
@@ -192,19 +199,18 @@ class PersonRow:
         )
 
 
-PersonsTable = Table("persons", PersonRow)
-
-
 @dataclass(kw_only=True, frozen=True, slots=True)
-class MemberRow:
+class MemberRow(TableRow):
     """Represents a row of the members table."""
+
+    __table_name__ = "judo_members"
 
     id: int
     uuid: str
     license: str
     license_end_date: date
     person_id: int
-    remark: str
+    remark: str | None
     competition: int
     created_at: datetime
     updated_at: datetime | None
@@ -244,6 +250,3 @@ class MemberRow:
             created_at=member.traceable_time.created_at.timestamp,  # type: ignore[arg-type]
             updated_at=member.traceable_time.updated_at.timestamp,
         )
-
-
-MembersTable = Table("judo_members", MemberRow)

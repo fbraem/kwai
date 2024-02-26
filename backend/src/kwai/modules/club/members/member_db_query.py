@@ -1,18 +1,43 @@
 """Module that implements a MemberQuery for a database."""
+
+from dataclasses import dataclass
 from typing import Self
 
 from sql_smith.functions import alias, on
 
 from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
-from kwai.modules.club.members.member import MemberIdentifier
+from kwai.core.db.table_row import JoinedTableRow
+from kwai.modules.club.members.member import MemberEntity, MemberIdentifier
 from kwai.modules.club.members.member_query import MemberQuery
 from kwai.modules.club.members.member_tables import (
-    ContactsTable,
-    CountriesTable,
-    MembersTable,
-    PersonsTable,
+    ContactRow,
+    CountryRow,
+    MemberRow,
+    PersonRow,
 )
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class MemberQueryRow(JoinedTableRow):
+    """A data transfer object for the Member query."""
+
+    member: MemberRow
+    person: PersonRow
+    nationality: CountryRow
+    contact: ContactRow
+    country: CountryRow
+
+    def create_entity(self) -> MemberEntity:
+        """Create a Member entity from a row."""
+        return self.member.create_entity(
+            person=self.person.create_entity(
+                nationality=self.nationality.create_country(),
+                contact=self.contact.create_entity(
+                    country=self.country.create_country()
+                ),
+            )
+        )
 
 
 class MemberDbQuery(MemberQuery, DatabaseQuery):
@@ -22,37 +47,31 @@ class MemberDbQuery(MemberQuery, DatabaseQuery):
         super().__init__(database)
 
     def init(self):
-        self._query.from_(MembersTable.table_name).inner_join(
-            PersonsTable.table_name,
-            on(PersonsTable.column("id"), MembersTable.column("person_id")),
+        self._query.from_(MemberRow.__table_name__).inner_join(
+            PersonRow.__table_name__,
+            on(PersonRow.column("id"), MemberRow.column("person_id")),
         ).inner_join(
-            alias(CountriesTable.table_name, "nationalities"),
+            alias(CountryRow.__table_name__, "nationality"),
             on(
-                "nationalities.id",
-                PersonsTable.column("nationality_id"),
+                "nationality.id",
+                PersonRow.column("nationality_id"),
             ),
         ).inner_join(
-            ContactsTable.table_name,
-            on(ContactsTable.column("id"), PersonsTable.column("contact_id")),
+            ContactRow.__table_name__,
+            on(ContactRow.column("id"), PersonRow.column("contact_id")),
         ).inner_join(
-            CountriesTable.table_name,
-            on(CountriesTable.column("id"), ContactsTable.column("country_id")),
+            CountryRow.__table_name__,
+            on(CountryRow.column("id"), ContactRow.column("country_id")),
         )
 
     @property
     def columns(self):
-        return (
-            MembersTable.aliases()
-            + PersonsTable.aliases()
-            + CountriesTable.aliases("nationalities")
-            + ContactsTable.aliases()
-            + CountriesTable.aliases()
-        )
+        return MemberQueryRow.get_aliases()
 
     def filter_by_id(self, id_: MemberIdentifier) -> Self:
-        self._query.and_where(MembersTable.field("id").eq(id_.value))
+        self._query.and_where(MemberRow.field("id").eq(id_.value))
         return self
 
     def filter_by_license(self, license: str) -> Self:
-        self._query.and_where(MembersTable.field("license").eq(license))
+        self._query.and_where(MemberRow.field("license").eq(license))
         return self
