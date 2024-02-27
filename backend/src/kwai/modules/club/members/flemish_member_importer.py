@@ -14,10 +14,10 @@ from kwai.modules.club.members.contact import ContactEntity
 from kwai.modules.club.members.country_repository import CountryRepository
 from kwai.modules.club.members.member import MemberEntity
 from kwai.modules.club.members.member_importer import (
+    FailureResult,
     MemberImporter,
-    MemberImporterFailure,
-    MemberImporterOk,
-    MemberImporterResult,
+    OkResult,
+    Result,
 )
 from kwai.modules.club.members.person import PersonEntity
 from kwai.modules.club.members.value_objects import Address, Birthdate, Gender, License
@@ -39,7 +39,7 @@ class FlemishMemberImporter(MemberImporter):
         """
         super().__init__(filename, owner, country_repo)
 
-    async def import_(self) -> AsyncGenerator[MemberImporterResult, None]:
+    async def import_(self) -> AsyncGenerator[Result, None]:
         with open(self._filename) as csv_file:
             member_reader = csv.DictReader(csv_file)
             row: dict[str, Any]
@@ -55,7 +55,7 @@ class FlemishMemberImporter(MemberImporter):
                     self._country_repo, row["nationaliteit"]
                 )
                 if nationality is None:
-                    yield MemberImporterFailure(
+                    yield FailureResult(
                         row=row_index,
                         message=f"Unrecognized country: {row['nationaliteit']}",
                     )
@@ -66,12 +66,12 @@ class FlemishMemberImporter(MemberImporter):
                     for email in row["email"].split(";"):
                         emails.append(EmailAddress(email))
                 except InvalidEmailException as exc:
-                    yield MemberImporterFailure(row=row_index, message=str(exc))
+                    yield FailureResult(row=row_index, message=str(exc))
                     continue
 
                 country = await self._get_country(self._country_repo, row["land"])
 
-                yield MemberImporterOk(
+                yield OkResult(
                     row=row_index,
                     member=MemberEntity(
                         license=License(

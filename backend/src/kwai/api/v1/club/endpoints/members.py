@@ -10,9 +10,9 @@ from kwai.api.dependencies import create_database, get_current_user
 from kwai.core.db.database import Database
 from kwai.core.settings import Settings, get_settings
 from kwai.modules.club.import_members import (
+    FailureResult,
     ImportMembers,
-    ImportMembersFailure,
-    ImportMembersOk,
+    OkResult,
 )
 from kwai.modules.club.members.country_db_repository import CountryDbRepository
 from kwai.modules.club.members.file_upload_db_repository import FileUploadDbRepository
@@ -77,11 +77,11 @@ async def upload(
     ).execute():
         row += 1
         match result:
-            case ImportMembersOk():
+            case OkResult():
                 response.members.append(
                     UploadMemberModel(row=row, id=result.member.id.value)
                 )
-            case ImportMembersFailure():
+            case FailureResult():
                 response.members.append(
                     UploadMemberModel(row=row, message=result.to_message())
                 )

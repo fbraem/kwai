@@ -1,23 +1,20 @@
 """Module that implements a use case for importing members."""
+
 from abc import ABC
 from dataclasses import dataclass
 from typing import AsyncGenerator
 
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.use_case import UseCaseResult
+from kwai.modules.club.members import member_importer
 from kwai.modules.club.members.file_upload import FileUploadEntity
 from kwai.modules.club.members.file_upload_repository import FileUploadRepository
 from kwai.modules.club.members.member import MemberEntity
-from kwai.modules.club.members.member_importer import (
-    MemberImporter,
-    MemberImporterFailure,
-    MemberImporterOk,
-)
 from kwai.modules.club.members.member_repository import MemberRepository
 
 
 @dataclass(kw_only=True, slots=True, frozen=True)
-class ImportMembersResult(UseCaseResult, ABC):
+class Result(UseCaseResult, ABC):
     """The result of the use case ImportMembers."""
 
     file_upload: FileUploadEntity
@@ -25,7 +22,7 @@ class ImportMembersResult(UseCaseResult, ABC):
 
 
 @dataclass(kw_only=True, slots=True, frozen=True)
-class ImportMembersOk(ImportMembersResult):
+class OkResult(Result):
     """A successful import of a member."""
 
     member: MemberEntity
@@ -35,7 +32,7 @@ class ImportMembersOk(ImportMembersResult):
 
 
 @dataclass(kw_only=True, slots=True, frozen=True)
-class ImportMembersFailure(ImportMembersResult):
+class FailureResult(Result):
     """An import of a member failed."""
 
     message: str
@@ -49,7 +46,7 @@ class ImportMembers:
 
     def __init__(
         self,
-        importer: MemberImporter,
+        importer: member_importer.MemberImporter,
         file_upload_repo: FileUploadRepository,
         member_repo: MemberRepository,
     ):
@@ -64,7 +61,7 @@ class ImportMembers:
         self._file_upload_repo = file_upload_repo
         self._member_repo = member_repo
 
-    async def execute(self) -> AsyncGenerator[ImportMembersResult, None]:
+    async def execute(self) -> AsyncGenerator[Result, None]:
         """Execute the use case.
 
         Yields:
@@ -76,15 +73,15 @@ class ImportMembers:
         )
         async for import_result in self._importer.import_():
             match import_result:
-                case MemberImporterOk():
+                case member_importer.OkResult():
                     member = await self._save_member(import_result.member)
-                    yield ImportMembersOk(
+                    yield OkResult(
                         file_upload=file_upload_entity,
                         row=import_result.row,
                         member=member,
                     )
-                case MemberImporterFailure():
-                    yield ImportMembersFailure(
+                case member_importer.FailureResult():
+                    yield FailureResult(
                         file_upload=file_upload_entity,
                         row=import_result.row,
                         message=import_result.message,

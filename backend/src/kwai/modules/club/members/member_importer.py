@@ -1,4 +1,5 @@
 """Module for defining an abstract class for importing member entities."""
+
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import AsyncGenerator
@@ -13,21 +14,21 @@ from kwai.modules.club.members.value_objects import Country
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class MemberImporterResult:
+class Result:
     """Base dataclass for a result of a member import."""
 
     row: int
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class MemberImporterOk(MemberImporterResult):
+class OkResult(Result):
     """Dataclass for a successful member import."""
 
     member: MemberEntity
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class MemberImporterFailure(MemberImporterResult):
+class FailureResult(Result):
     """Dataclass for a failed member import."""
 
     message: str
@@ -49,7 +50,7 @@ class MemberImporter(ABC):
         self._country_repo = country_repo
 
     @abstractmethod
-    async def import_(self) -> AsyncGenerator[MemberImporterResult, None]:
+    def import_(self) -> AsyncGenerator[Result, None]:
         """Import member entities.
 
         For each imported (or failed import) of a member, a result will be yielded.
