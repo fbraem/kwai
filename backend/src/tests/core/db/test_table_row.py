@@ -21,7 +21,7 @@ class JudokaRow(TableRow):
 
 def test_aliases():
     """Test if the aliases are created correctly."""
-    aliases = JudokaRow.aliases()
+    aliases = JudokaRow.get_aliases()
     assert len(aliases) == 3, "There should be 3 aliases."
     assert aliases[0].sql(CommonEngine()) == '"judokas"."id" AS "judokas_id"'
     assert aliases[1].sql(CommonEngine()) == '"judokas"."name" AS "judokas_name"'
@@ -36,7 +36,7 @@ def test_column():
 
 def test_create_aliases_with_other_table_name():
     """Test the creation of column aliases when the table name is also aliased."""
-    aliases = JudokaRow.aliases("my_judokas")
+    aliases = JudokaRow.get_aliases("my_judokas")
     assert len(aliases) == 3, "There should be 3 aliases"
     assert aliases[0].sql(CommonEngine()) == '"judokas"."id" AS "my_judokas_id"'
     assert aliases[1].sql(CommonEngine()) == '"judokas"."name" AS "my_judokas_name"'

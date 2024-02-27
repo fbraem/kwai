@@ -38,7 +38,7 @@ class TableRow:
         return f"{prefix}_{name}"
 
     @classmethod
-    def aliases(cls, prefix: str | None = None) -> list[ExpressionInterface]:
+    def get_aliases(cls, prefix: str | None = None) -> list[ExpressionInterface]:
         """Return aliases for all the fields of the dataclass."""
         result = []
         for field in fields(cls):
@@ -101,7 +101,7 @@ class JoinedTableRow:
 
         aliases = []
         for field in fields(cls):
-            aliases.extend(field.type.aliases(field.name))
+            aliases.extend(field.type.get_aliases(field.name))
         return aliases
 
     @classmethod
