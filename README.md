@@ -23,7 +23,8 @@ Python and uses [FastAPI](https://fastapi.tiangolo.com/) as web framework to pro
 
 The code of the [backend](./backend)
 
-At the moment there is no release available yet.
+At the moment there is no release available yet, but the code is already used by our
+judo club: [Judokwai Kemzeke](https://www.judokwaikemzeke.be)
 
 ## Acknowledgments
 
