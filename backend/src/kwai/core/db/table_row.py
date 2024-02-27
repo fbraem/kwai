@@ -27,6 +27,9 @@ class TableRow:
     """A data transfer object for a row of one table.
 
     The derived class must be a dataclass.
+
+    Note:
+        The derived class is also the ideal place to act as builder for an entity.
     """
 
     __table_name__: ClassVar[str]
@@ -89,6 +92,9 @@ class JoinedTableRow:
     table.
 
     The derived class must be a dataclass.
+
+    Note:
+        The derived class is also the ideal place to act as builder for an entity.
     """
 
     @classmethod
