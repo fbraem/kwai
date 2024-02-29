@@ -1,4 +1,5 @@
 """Module that defines an interface for a repository of trainings."""
+
 from abc import ABC, abstractmethod
 from typing import AsyncIterator
 
@@ -20,7 +21,7 @@ class TrainingRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def get_all(
+    def get_all(
         self,
         query: TrainingQuery | None = None,
         limit: int | None = None,
