@@ -84,7 +84,7 @@ async def test_update(repo: TrainingRepository, context: Context):
     try:
         await repo.update(updated_training)
     except QueryException as qe:
-        pytest.fail(qe)
+        pytest.fail(str(qe))
 
 
 async def test_get_all(repo: TrainingRepository):
@@ -108,7 +108,7 @@ async def test_delete(repo: TrainingRepository, context: Context):
     try:
         await repo.delete(training)
     except QueryException as qe:
-        pytest.fail(qe)
+        pytest.fail(str(qe))
 
 
 @pytest.fixture(scope="module")
