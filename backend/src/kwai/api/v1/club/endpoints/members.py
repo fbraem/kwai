@@ -63,10 +63,9 @@ async def upload(
     with open(member_filename, "wb") as fh:
         fh.write(await member_file.read())
 
-    row = 0
     response = UploadMembersModel()
 
-    async for result in ImportMembers(
+    imported_member_generator = ImportMembers(
         FlemishMemberImporter(
             str(member_filename),
             user.create_owner(),
@@ -74,16 +73,17 @@ async def upload(
         ),
         FileUploadDbRepository(database),
         MemberDbRepository(database),
-    ).execute():
-        row += 1
+    ).execute()
+
+    async for result in imported_member_generator:
         match result:
             case OkResult():
                 response.members.append(
-                    UploadMemberModel(row=row, id=result.member.id.value)
+                    UploadMemberModel(row=result.row, id=result.member.id.value)
                 )
             case FailureResult():
                 response.members.append(
-                    UploadMemberModel(row=row, message=result.to_message())
+                    UploadMemberModel(row=result.row, message=result.to_message())
                 )
             case _:
                 raise HTTPException(
