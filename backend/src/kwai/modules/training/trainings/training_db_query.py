@@ -1,4 +1,5 @@
 """Module that implements a training query for a database."""
+
 from datetime import datetime
 from typing import AsyncIterator
 
@@ -59,7 +60,7 @@ class TrainingDbQuery(TrainingQuery, DatabaseQuery):
                     TrainingDefinitionsTable.column("id"),
                 ),
             )
-            .left_join(
+            .right_join(
                 alias(OwnersTable.table_name, "definition_owners"),
                 on(TrainingDefinitionsTable.column("user_id"), "definition_owners.id"),
             )
