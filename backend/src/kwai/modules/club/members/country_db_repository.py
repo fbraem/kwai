@@ -3,7 +3,10 @@
 from sql_smith.query import SelectQuery
 
 from kwai.core.db.database import Database
-from kwai.modules.club.members.country_repository import CountryRepository
+from kwai.modules.club.members.country_repository import (
+    CountryNotFoundException,
+    CountryRepository,
+)
 from kwai.modules.club.members.member_tables import CountryRow
 from kwai.modules.club.members.value_objects import Country
 
@@ -23,4 +26,4 @@ class CountryDbRepository(CountryRepository):
         if row:
             return CountryRow.map(row).create_country()
 
-        return None
+        raise CountryNotFoundException(f"Country with iso 2 {iso_2} does not exist.")

@@ -11,7 +11,10 @@ from kwai.core.domain.value_objects.email_address import (
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.modules.club.members.contact import ContactEntity
-from kwai.modules.club.members.country_repository import CountryRepository
+from kwai.modules.club.members.country_repository import (
+    CountryNotFoundException,
+    CountryRepository,
+)
 from kwai.modules.club.members.member import MemberEntity
 from kwai.modules.club.members.member_importer import (
     FailureResult,
@@ -51,10 +54,11 @@ class FlemishMemberImporter(MemberImporter):
                 else:
                     gender = Gender.UNKNOWN
 
-                nationality = await self._get_country(
-                    self._country_repo, row["nationaliteit"]
-                )
-                if nationality is None:
+                try:
+                    nationality = await self._get_country(
+                        self._country_repo, row["nationaliteit"]
+                    )
+                except CountryNotFoundException:
                     yield FailureResult(
                         row=row_index,
                         message=f"Unrecognized country: {row['nationaliteit']}",
@@ -69,7 +73,14 @@ class FlemishMemberImporter(MemberImporter):
                     yield FailureResult(row=row_index, message=str(exc))
                     continue
 
-                country = await self._get_country(self._country_repo, row["land"])
+                try:
+                    country = await self._get_country(self._country_repo, row["land"])
+                except CountryNotFoundException:
+                    yield FailureResult(
+                        row=row_index,
+                        message=f"Unrecognized country: {row['land']}",
+                    )
+                    continue
 
                 yield OkResult(
                     row=row_index,

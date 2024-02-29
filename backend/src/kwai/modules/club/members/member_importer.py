@@ -62,12 +62,11 @@ class MemberImporter(ABC):
 
     @staticmethod
     @alru_cache
-    async def _get_country(
-        country_repo: CountryRepository, iso_2: str
-    ) -> Country | None:
+    async def _get_country(country_repo: CountryRepository, iso_2: str) -> Country:
         """Gets the country from the repository.
 
-        The value is cached.
+        The value is cached. When the country does not exist, a CountryNotFoundException
+        is raised.
 
         Note: to avoid memory leaks, this method is a static method.
         """

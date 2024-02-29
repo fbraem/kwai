@@ -1,7 +1,12 @@
 """Module that defines an interface for the country repository."""
+
 from abc import ABC, abstractmethod
 
 from kwai.modules.club.members.value_objects import Country
+
+
+class CountryNotFoundException(Exception):
+    """Raised when the country is not found."""
 
 
 class CountryRepository(ABC):
