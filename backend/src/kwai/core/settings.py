@@ -12,6 +12,12 @@ class SettingsException(Exception):
     """Raised when a problem occurred while loading the settings."""
 
 
+class FilesSettings(BaseModel):
+    """Settings for files (upload)."""
+
+    path: str
+
+
 class WebsiteSettings(BaseModel):
     """Settings about the website."""
 
@@ -85,6 +91,8 @@ class TemplateSettings(BaseModel):
 
 class Settings(BaseModel):
     """Class with settings."""
+
+    files: FilesSettings
 
     security: SecuritySettings
 
