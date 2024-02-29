@@ -10,7 +10,10 @@ from kwai.modules.club.members import member_importer
 from kwai.modules.club.members.file_upload import FileUploadEntity
 from kwai.modules.club.members.file_upload_repository import FileUploadRepository
 from kwai.modules.club.members.member import MemberEntity
-from kwai.modules.club.members.member_repository import MemberRepository
+from kwai.modules.club.members.member_repository import (
+    MemberNotFoundException,
+    MemberRepository,
+)
 
 
 @dataclass(kw_only=True, slots=True, frozen=True)
@@ -89,10 +92,7 @@ class ImportMembers:
 
     async def _save_member(self, member: MemberEntity) -> MemberEntity:
         """Create or update the member."""
-        member_query = self._member_repo.create_query()
-        member_query.filter_by_license(member.license.number)
-
-        existing_member = await self._member_repo.get(member_query)
+        existing_member = await self._get_member(member)
         if existing_member is not None:
             updated_contact = Entity.replace(
                 existing_member.person.contact,
@@ -115,3 +115,19 @@ class ImportMembers:
             return updated_member
 
         return await self._member_repo.create(member)
+
+    async def _get_member(self, member: MemberEntity) -> MemberEntity | None:
+        """Return the member.
+
+        Returns:
+            If found the member is returned, otherwise None is returned.
+        """
+        member_query = self._member_repo.create_query()
+        member_query.filter_by_license(member.license.number)
+
+        try:
+            member = await self._member_repo.get(member_query)
+        except MemberNotFoundException:
+            return None
+
+        return member
