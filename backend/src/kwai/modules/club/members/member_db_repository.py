@@ -8,7 +8,10 @@ from kwai.modules.club.members.contact import ContactIdentifier
 from kwai.modules.club.members.member import MemberEntity, MemberIdentifier
 from kwai.modules.club.members.member_db_query import MemberDbQuery, MemberQueryRow
 from kwai.modules.club.members.member_query import MemberQuery
-from kwai.modules.club.members.member_repository import MemberRepository
+from kwai.modules.club.members.member_repository import (
+    MemberNotFoundException,
+    MemberRepository,
+)
 from kwai.modules.club.members.member_tables import (
     ContactRow,
     MemberRow,
@@ -42,12 +45,12 @@ class MemberDbRepository(MemberRepository):
         async for row in query.fetch(limit, offset):
             yield MemberQueryRow.map(row).create_entity()
 
-    async def get(self, query: MemberQuery | None = None) -> MemberEntity | None:
+    async def get(self, query: MemberQuery | None = None) -> MemberEntity:
         member_iterator = self.get_all(query)
         try:
             return await anext(member_iterator)
         except StopAsyncIteration:
-            return None
+            raise MemberNotFoundException("Member not found") from None
 
     async def create(self, member: MemberEntity) -> MemberEntity:
         # When there is no contact id, create it.

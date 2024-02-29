@@ -1,9 +1,14 @@
 """Module that defines an interface for a Member repository."""
+
 from abc import ABC, abstractmethod
 from typing import AsyncIterator
 
 from kwai.modules.club.members.member import MemberEntity
 from kwai.modules.club.members.member_query import MemberQuery
+
+
+class MemberNotFoundException(Exception):
+    """Raised when a Member cannot be found."""
 
 
 class MemberRepository(ABC):
@@ -15,11 +20,14 @@ class MemberRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def get(self, query: MemberQuery | None = None) -> MemberEntity | None:
+    async def get(self, query: MemberQuery | None = None) -> MemberEntity:
         """Return the first returned element of the given query.
 
         Args:
             query: The query to use for getting the first member.
+
+        Raises:
+            MemberNotFoundException
         """
 
     @abstractmethod
