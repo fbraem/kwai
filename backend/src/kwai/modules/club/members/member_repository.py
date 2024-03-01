@@ -29,6 +29,7 @@ class MemberRepository(ABC):
         Raises:
             MemberNotFoundException
         """
+        raise NotImplementedError
 
     @abstractmethod
     async def get_all(
