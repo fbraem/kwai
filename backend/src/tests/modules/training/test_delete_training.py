@@ -1,4 +1,5 @@
 """Module for testing the use case "Delete Training"."""
+
 import pytest
 
 from kwai.core.db.database import Database
@@ -33,7 +34,7 @@ async def test_delete_training(
     try:
         await DeleteTraining(training_repo).execute(command)
     except TrainingNotFoundException as ex:
-        pytest.fail(ex)
+        pytest.fail(str(ex))
 
     with pytest.raises(TrainingNotFoundException):
         await training_repo.get_by_id(saved_training_entity.id)
