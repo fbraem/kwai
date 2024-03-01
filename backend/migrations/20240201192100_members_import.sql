@@ -1,12 +1,23 @@
 -- migrate:up
-rename table judo_member_imports to imports;
+create table imports
+(
+    id         int unsigned auto_increment primary key,
+    filename   text                                null,
+    remark     text                                null,
+    user_id    int                                 not null,
+    created_at timestamp default CURRENT_TIMESTAMP not null,
+    updated_at timestamp                           null
+)
+charset = utf8mb3;
+
 
 create table judo_member_imports (
     member_id int unsigned not null,
     import_id int unsigned not null,
     created_at  datetime default CURRENT_TIMESTAMP not null,
     primary key (import_id, member_id)
-);
+)
+charset = utf8mb3;
 
 alter table judo_members drop column import_id;
 alter table judo_members add index judo_members_license_index(license);
