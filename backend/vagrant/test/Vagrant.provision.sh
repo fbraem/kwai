@@ -21,9 +21,13 @@ EOF
 )
 echo "$PROFILE" >> "$VAGRANT_HOME/.profile"
 
+# Python 3.12
+add-apt-repository ppa:deadsnakes/ppa
 apt-get update
+apt-get install python3.12 -y
+apt-get install python3.12-dev -y
 
-# Python
+# Python - pip/poetry
 apt-get install python3-pip -y
 pip --version
 su -c "pip install poetry" vagrant
@@ -67,6 +71,8 @@ sudo /etc/init.d/redis-server restart
 
 # Generate .kwai.toml
 KWAI_TOML=$(cat << EOF
+[files]
+path = "$VAGRANT_HOME/kwai/files/upload"
 [security]
 jwt_secret="$KWAI_JWT_SECRET"
 jwt_refresh_secret="$KWAI_JWT_SECRET"
