@@ -1,7 +1,7 @@
 """Module that defines an interface for a Member repository."""
 
 from abc import ABC, abstractmethod
-from typing import AsyncIterator
+from typing import AsyncGenerator
 
 from kwai.modules.club.members.member import MemberEntity
 from kwai.modules.club.members.member_query import MemberQuery
@@ -37,7 +37,7 @@ class MemberRepository(ABC):
         query: MemberQuery | None = None,
         limit: int | None = None,
         offset: int | None = None,
-    ) -> AsyncIterator[MemberEntity]:
+    ) -> AsyncGenerator[MemberEntity, None]:
         """Return all members of a given query.
 
         Args:
@@ -45,8 +45,8 @@ class MemberRepository(ABC):
             limit: The maximum number of entities to return.
             offset: Skip the offset rows before beginning to return entities.
 
-        Returns:
-            An iterator of members.
+        Yields:
+            A member entity.
         """
         raise NotImplementedError
 

@@ -1,6 +1,6 @@
 """Module for defining a member repository using a database."""
 
-from typing import AsyncIterator
+from typing import AsyncGenerator
 
 from kwai.core.db.database import Database
 from kwai.core.domain.entity import Entity
@@ -39,7 +39,7 @@ class MemberDbRepository(MemberRepository):
         query: MemberQuery | None = None,
         limit: int | None = None,
         offset: int | None = None,
-    ) -> AsyncIterator[MemberEntity]:
+    ) -> AsyncGenerator[MemberEntity, None]:
         query = query or self.create_query()
 
         async for row in query.fetch(limit, offset):
