@@ -60,7 +60,7 @@ class TrainingDbQuery(TrainingQuery, DatabaseQuery):
                     TrainingDefinitionsTable.column("id"),
                 ),
             )
-            .right_join(
+            .left_join(
                 alias(OwnersTable.table_name, "definition_owners"),
                 on(TrainingDefinitionsTable.column("user_id"), "definition_owners.id"),
             )
