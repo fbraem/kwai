@@ -94,27 +94,32 @@ class ImportMembers:
         """Create or update the member."""
         existing_member = await self._get_member(member)
         if existing_member is not None:
-            updated_contact = Entity.replace(
-                existing_member.person.contact,
-                id_=existing_member.person.contact.id,
-                traceable_time=existing_member.person.contact.traceable_time.mark_for_update(),
-            )
-            updated_person = Entity.replace(
-                existing_member.person,
-                id_=existing_member.person.id,
-                contact=updated_contact,
-                traceable_time=existing_member.person.traceable_time.mark_for_update(),
-            )
-            updated_member = Entity.replace(
-                member,
-                id_=existing_member.id,
-                person=updated_person,
-                traceable_time=existing_member.traceable_time.mark_for_update(),
-            )
-            await self._member_repo.update(updated_member)
-            return updated_member
-
+            return await self._update_member(existing_member, member)
         return await self._member_repo.create(member)
+
+    async def _update_member(
+        self, old_member: MemberEntity, new_member: MemberEntity
+    ) -> MemberEntity:
+        """Update an existing member with the new imported data."""
+        updated_contact = Entity.replace(
+            old_member.person.contact,
+            id_=old_member.person.contact.id,
+            traceable_time=old_member.person.contact.traceable_time.mark_for_update(),
+        )
+        updated_person = Entity.replace(
+            old_member.person,
+            id_=old_member.person.id,
+            contact=updated_contact,
+            traceable_time=old_member.person.traceable_time.mark_for_update(),
+        )
+        updated_member = Entity.replace(
+            new_member,
+            id_=old_member.id,
+            person=updated_person,
+            traceable_time=old_member.traceable_time.mark_for_update(),
+        )
+        await self._member_repo.update(updated_member)
+        return updated_member
 
     async def _get_member(self, member: MemberEntity) -> MemberEntity | None:
         """Return the member.
