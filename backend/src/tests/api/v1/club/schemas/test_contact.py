@@ -9,7 +9,7 @@ from kwai.api.v1.club.schemas.contact import ContactDocument
 from kwai.modules.club.members.contact import ContactEntity
 
 
-def test_contact_document(
+def test_create_contact_document(
     contact: ContactEntity, expected_contact_json: dict[str, Any]
 ):
     """Test the creation of a contact document."""
