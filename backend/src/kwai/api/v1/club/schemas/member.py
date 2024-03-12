@@ -4,9 +4,12 @@ from typing import Annotated, Self
 
 from pydantic import BaseModel, Field
 
-from kwai.api.v1.club.schemas.contact import ContactAttributes, ContactResource
+from kwai.api.v1.club.schemas.contact import ContactResource
 from kwai.api.v1.club.schemas.country import CountryResource
-from kwai.api.v1.club.schemas.person import PersonAttributes, PersonResource
+from kwai.api.v1.club.schemas.person import (
+    PersonDocument,
+    PersonResource,
+)
 from kwai.api.v1.club.schemas.resources import (
     MemberResourceIdentifier,
     PersonResourceIdentifier,
@@ -49,6 +52,8 @@ class MemberDocument(Document[MemberResource, MemberInclude]):
     @classmethod
     def create(cls, member: MemberEntity) -> Self:
         """Create a member document from a member entity."""
+        person_document = PersonDocument.create(member.person)
+
         member_resource = MemberResource(
             id=str(member.id),
             attributes=MemberAttributes(
@@ -66,38 +71,12 @@ class MemberDocument(Document[MemberResource, MemberInclude]):
         )
         member_resource.relationships = MemberRelationships(
             person=Relationship[PersonResourceIdentifier](
-                data=PersonResourceIdentifier(id=str(member.person.id))
+                data=PersonResourceIdentifier(id=person_document.resource.id)
             )
         )
         included: set[MemberInclude] = set()
-        included.add(
-            PersonResource(
-                id=str(member.person.id),
-                attributes=PersonAttributes(
-                    first_name=member.person.name.first_name,
-                    last_name=member.person.name.last_name,
-                    gender=member.person.gender.value,
-                    birthdate=str(member.person.birthdate),
-                    remark=member.person.remark,
-                ),
-                meta=ResourceMeta(
-                    created_at=str(member.person.traceable_time.created_at),
-                    updated_at=str(member.person.traceable_time.updated_at),
-                ),
-            )
-        )
-        included.add(
-            ContactResource(
-                id=str(member.person.contact.id),
-                attributes=ContactAttributes(
-                    emails=[str(email) for email in member.person.contact.emails],
-                    tel=member.person.contact.tel,
-                    mobile=member.person.contact.mobile,
-                    address=member.person.contact.address.address,
-                    postal_code=member.person.contact.address.postal_code,
-                    city=member.person.contact.address.city,
-                    county=member.person.contact.address.county,
-                    remark=member.person.contact.remark,
-                ),
-            )
-        )
+        included.add(person_document.resource)
+        if person_document.included is not None:
+            included = included.union(person_document.included)
+
+        return cls(data=member_resource, included=included)
