@@ -95,7 +95,7 @@ class FlemishMemberImporter(MemberImporter):
                             ),
                             gender=gender,
                             birthdate=Birthdate(
-                                date=Date.create_from_string(row["geboortedatum"])
+                                Date.create_from_string(row["geboortedatum"])
                             ),
                             nationality=nationality,
                             contact=ContactEntity(

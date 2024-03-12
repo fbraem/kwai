@@ -171,7 +171,7 @@ class PersonRow(TableRow):
             id_=PersonIdentifier(self.id),
             name=Name(last_name=self.lastname, first_name=self.firstname),
             gender=Gender(self.gender),
-            birthdate=Birthdate(date=Date.create_from_date(self.birthdate)),
+            birthdate=Birthdate(Date.create_from_date(self.birthdate)),
             remark=self.remark or "",
             contact=contact,
             traceable_time=TraceableTime(

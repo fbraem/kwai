@@ -1,4 +1,5 @@
 """Module for defining value objects for the members module."""
+
 from dataclasses import dataclass
 from enum import Enum
 
@@ -30,7 +31,7 @@ class Gender(Enum):
     FEMALE = 2
 
 
-@dataclass(kw_only=True, frozen=True, slots=True)
+@dataclass(frozen=True, slots=True)
 class Birthdate:
     """A birthdate of a person."""
 

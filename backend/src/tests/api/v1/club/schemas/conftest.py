@@ -91,7 +91,7 @@ def person(contact: ContactEntity, country: Country) -> PersonEntity:
         id_=PersonIdentifier(1),
         name=Name(first_name="Jigoro", last_name="Kano"),
         gender=Gender.MALE,
-        birthdate=Birthdate(date=Date.create(year=1860, month=10, day=28)),
+        birthdate=Birthdate(Date.create(year=1860, month=10, day=28)),
         contact=contact,
         nationality=country,
     )

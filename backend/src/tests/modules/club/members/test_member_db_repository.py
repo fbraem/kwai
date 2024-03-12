@@ -37,7 +37,7 @@ async def member(member_repo: MemberRepository) -> MemberEntity:
         person=PersonEntity(
             name=Name(first_name="Jigoro", last_name="Kano"),
             gender=Gender.MALE,
-            birthdate=Birthdate(date=Date.create(1860, 10, 28)),
+            birthdate=Birthdate(Date.create(1860, 10, 28)),
             nationality=Country(id=84, iso_2="JP", iso_3="JPN"),
             contact=ContactEntity(
                 emails=[EmailAddress("jigoro.kano@kwai.com")],
