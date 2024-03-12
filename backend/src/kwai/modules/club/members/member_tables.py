@@ -79,7 +79,7 @@ class FileUploadRow(TableRow):
         Args:
             file_upload: The entity to persist.
         """
-        return FileUploadRow(
+        return cls(
             id=file_upload.id.value,
             filename=file_upload.filename,
             remark=file_upload.remark,
@@ -129,7 +129,7 @@ class ContactRow(TableRow):
     @classmethod
     def persist(cls, contact: ContactEntity) -> Self:
         """Create a row from a contact entity."""
-        return ContactRow(
+        return cls(
             id=contact.id.value,
             email=";".join([str(email) for email in contact.emails]),
             tel=contact.tel,
@@ -184,7 +184,7 @@ class PersonRow(TableRow):
     @classmethod
     def persist(cls, person: PersonEntity) -> Self:
         """Create a row from a person entity."""
-        return PersonRow(
+        return cls(
             id=person.id.value,
             lastname=person.name.last_name or "",
             firstname=person.name.first_name or "",
@@ -225,7 +225,7 @@ class MemberRow(TableRow):
                 number=self.license,
                 end_date=Date.create_from_date(self.license_end_date),
             ),
-            remark=self.remark,
+            remark=self.remark or "",
             competition=self.competition == 1,
             active=self.active == 1,
             person=person,
@@ -238,7 +238,7 @@ class MemberRow(TableRow):
     @classmethod
     def persist(cls, member: MemberEntity) -> Self:
         """Create a row from the member entity."""
-        return MemberRow(
+        return cls(
             id=member.id.value,
             uuid=str(member.uuid),
             license=member.license.number,
