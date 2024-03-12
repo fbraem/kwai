@@ -1,5 +1,6 @@
 """Module that defines some JSON:API related models."""
-from typing import Any, Generic, TypeVar
+
+from typing import Any, Generic, TypeVar, cast
 
 from fastapi import Query
 from pydantic import (
@@ -93,6 +94,24 @@ class Document(BaseModel, Generic[T_RESOURCE, T_INCLUDE]):
     data: T_RESOURCE | list[T_RESOURCE]
     included: set[T_INCLUDE] | SkipJsonSchema[None] = None
 
+    @property
+    def resource(self) -> T_RESOURCE:
+        """Return the resource of this document.
+
+        An assert will occur, when the resource is a list.
+        """
+        assert not isinstance(self.data, list)
+        return self.data
+
+    @property
+    def resources(self) -> list[T_RESOURCE]:
+        """Return the list of resources of this document.
+
+        An assert will occur, when the resource is not a list.
+        """
+        assert isinstance(self.data, list)
+        return self.data
+
     @classmethod
     def __get_pydantic_json_schema__(
         cls,
@@ -127,7 +146,7 @@ class Document(BaseModel, Generic[T_RESOURCE, T_INCLUDE]):
         """
         if not isinstance(self.data, list):
             self.data = [self.data]
-        self.data.append(other.data)
+        self.data.append(cast(Any, other.data))
         if other.included is not None:
             if self.included is None:
                 self.included = other.included
