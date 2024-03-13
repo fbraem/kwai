@@ -1,6 +1,5 @@
 """Module for defining the JSON:API resource for a country."""
 
-from types import NoneType
 from typing import Self
 
 from pydantic import BaseModel
@@ -17,13 +16,11 @@ class CountryAttributes(BaseModel):
     iso_3: str
 
 
-class CountryResource(
-    CountryResourceIdentifier, ResourceData[CountryAttributes, NoneType]
-):
+class CountryResource(CountryResourceIdentifier, ResourceData[CountryAttributes, None]):
     """A JSON:API resource for a country."""
 
 
-class CountryDocument(Document[CountryResource, NoneType]):
+class CountryDocument(Document[CountryResource, None]):
     """A JSON:API document for one or more countries."""
 
     @classmethod
@@ -33,4 +30,4 @@ class CountryDocument(Document[CountryResource, NoneType]):
             id=str(country.id),
             attributes=CountryAttributes(iso_2=country.iso_2, iso_3=country.iso_3),
         )
-        return CountryDocument(data=country_resource)
+        return cls(data=country_resource)
