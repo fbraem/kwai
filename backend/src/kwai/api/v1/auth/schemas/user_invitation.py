@@ -1,4 +1,5 @@
 """Schemas for a user invitation resource."""
+
 from types import NoneType
 
 from pydantic import BaseModel
@@ -41,9 +42,11 @@ class UserInvitationDocument(Document[UserInvitationResource, NoneType]):
                     last_name=user_invitation.name.last_name,
                     remark=user_invitation.remark,
                     expired_at=str(user_invitation.expired_at),
-                    confirmed_at=str(user_invitation.confirmed_at)
-                    if user_invitation.confirmed
-                    else None,
+                    confirmed_at=(
+                        str(user_invitation.confirmed_at)
+                        if user_invitation.confirmed
+                        else None
+                    ),
                 ),
             )
         )
