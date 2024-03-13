@@ -1,6 +1,6 @@
 """Schemas for a user invitation resource."""
 
-from types import NoneType
+from typing import Self
 
 from pydantic import BaseModel
 
@@ -22,24 +22,24 @@ class UserInvitationAttributes(BaseModel):
 
 class UserInvitationResource(
     UserInvitationResourceIdentifier,
-    ResourceData[UserInvitationAttributes, NoneType],
+    ResourceData[UserInvitationAttributes, None],
 ):
     """A JSON:API resource of a user invitation."""
 
 
-class UserInvitationDocument(Document[UserInvitationResource, NoneType]):
+class UserInvitationDocument(Document[UserInvitationResource, None]):
     """A JSON:API document for one or more user invitations."""
 
     @classmethod
-    def create(cls, user_invitation: UserInvitationEntity) -> "UserInvitationDocument":
+    def create(cls, user_invitation: UserInvitationEntity) -> Self:
         """Create a document for a user invitation."""
-        return UserInvitationDocument(
+        return cls(
             data=UserInvitationResource(
                 id=str(user_invitation.uuid),
                 attributes=UserInvitationAttributes(
                     email=str(user_invitation.email),
-                    first_name=user_invitation.name.first_name,
-                    last_name=user_invitation.name.last_name,
+                    first_name=user_invitation.name.first_name or "",
+                    last_name=user_invitation.name.last_name or "",
                     remark=user_invitation.remark,
                     expired_at=str(user_invitation.expired_at),
                     confirmed_at=(
