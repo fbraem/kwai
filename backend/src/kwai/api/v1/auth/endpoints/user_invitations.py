@@ -32,17 +32,17 @@ router = APIRouter()
 
 @router.post("/invitations")
 async def create_user_invitation(
-    user_invitation_resource: UserInvitationDocument,
+    user_invitation_document: UserInvitationDocument,
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
     publisher=Depends(get_publisher),
 ) -> UserInvitationDocument:
     """Create a user invitation."""
     command = InviteUserCommand(
-        first_name=user_invitation_resource.resource.attributes.first_name,
-        last_name=user_invitation_resource.resource.attributes.last_name,
-        email=user_invitation_resource.resource.attributes.email,
-        remark=user_invitation_resource.resource.attributes.remark,
+        first_name=user_invitation_document.resource.attributes.first_name,
+        last_name=user_invitation_document.resource.attributes.last_name,
+        email=user_invitation_document.resource.attributes.email,
+        remark=user_invitation_document.resource.attributes.remark,
     )
 
     try:
