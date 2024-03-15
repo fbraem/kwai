@@ -124,7 +124,7 @@ async def logout(
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
     refresh_token: str = Form(),
-):
+) -> None:
     """Log out the current user.
 
     A user is logged out by revoking the refresh token. The associated access token
