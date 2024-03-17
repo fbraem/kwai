@@ -66,6 +66,7 @@ class FileUploadRow(TableRow):
     __table_name__ = "imports"
 
     id: int
+    uuid: str
     filename: str
     remark: str
     user_id: int
@@ -81,6 +82,7 @@ class FileUploadRow(TableRow):
         """
         return cls(
             id=file_upload.id.value,
+            uuid=str(file_upload.uuid),
             filename=file_upload.filename,
             remark=file_upload.remark,
             user_id=file_upload.owner.id.value,
