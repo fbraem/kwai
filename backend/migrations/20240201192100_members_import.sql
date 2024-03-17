@@ -2,14 +2,15 @@
 create table imports
 (
     id         int unsigned auto_increment primary key,
-    filename   text                                null,
+    uuid       varchar(255)                        not null,
+    filename   varchar(512)                        not null,
     remark     text                                null,
     user_id    int                                 not null,
     created_at timestamp default CURRENT_TIMESTAMP not null,
     updated_at timestamp                           null
 )
 charset = utf8mb3;
-
+alter table imports add constraint uq_uuid unique(uuid);
 
 create table judo_member_imports (
     member_id int unsigned not null,
