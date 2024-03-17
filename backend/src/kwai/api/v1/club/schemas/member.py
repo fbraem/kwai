@@ -21,7 +21,6 @@ from kwai.modules.club.members.member import MemberEntity
 class MemberAttributes(BaseModel):
     """Attributes for the member JSON:API resource."""
 
-    uuid: str
     license_number: str
     license_end_date: str
     remark: str
@@ -55,9 +54,8 @@ class MemberDocument(Document[MemberResource, MemberInclude]):
         person_document = PersonDocument.create(member.person)
 
         member_resource = MemberResource(
-            id=str(member.id),
+            id=str(member.uuid),
             attributes=MemberAttributes(
-                uuid=str(member.uuid),
                 license_number=member.license.number,
                 license_end_date=str(member.license.end_date),
                 remark=member.remark,

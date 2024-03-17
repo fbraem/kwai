@@ -30,10 +30,9 @@ def expected_member_json(
     """A fixture for a JSON:API resource of a member."""
     return {
         "data": {
-            "id": "1",
+            "id": str(member.uuid),
             "type": "members",
             "attributes": {
-                "uuid": str(member.uuid),
                 "license_number": "1234567890",
                 "license_end_date": str(member.license.end_date),
                 "remark": "",
