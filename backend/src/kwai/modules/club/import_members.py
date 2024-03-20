@@ -68,8 +68,8 @@ class ImportMembers:
         """Execute the use case.
 
         Yields:
-            ImportMembersOk: When the row was successfully imported.
-            ImportMembersFailure: When the row was not successfully imported.
+            OkResult: When the row was successfully imported.
+            FailureResult: When the row was not successfully imported.
         """
         file_upload_entity = await self._file_upload_repo.create(
             self._importer.create_file_upload_entity()
