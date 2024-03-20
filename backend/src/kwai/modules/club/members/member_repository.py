@@ -32,7 +32,7 @@ class MemberRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def get_all(
+    def get_all(
         self,
         query: MemberQuery | None = None,
         limit: int | None = None,
