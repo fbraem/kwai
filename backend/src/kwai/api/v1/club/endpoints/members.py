@@ -7,7 +7,9 @@ from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from pydantic import BaseModel, Field
 
 from kwai.api.dependencies import create_database, get_current_user
+from kwai.api.v1.club.schemas.member import MemberDocument
 from kwai.core.db.database import Database
+from kwai.core.json_api import Meta
 from kwai.core.settings import Settings, get_settings
 from kwai.modules.club.import_members import (
     FailureResult,
@@ -49,7 +51,7 @@ async def upload(
     settings: Annotated[Settings, Depends(get_settings)],
     database: Annotated[Database, Depends(create_database)],
     user: Annotated[UserEntity, Depends(get_current_user)],
-) -> UploadMembersModel:
+) -> MemberDocument:
     """Upload a members csv file."""
     if member_file.filename is None:
         raise HTTPException(
@@ -63,8 +65,6 @@ async def upload(
     with open(member_filename, "wb") as fh:
         fh.write(await member_file.read())
 
-    response = UploadMembersModel()
-
     imported_member_generator = ImportMembers(
         FlemishMemberImporter(
             str(member_filename),
@@ -75,16 +75,21 @@ async def upload(
         MemberDbRepository(database),
     ).execute()
 
+    meta = Meta(count=0, offset=0, limit=0, errors=[])
+    response = MemberDocument(meta=meta, data=[])
+    upload_entity = None
     async for result in imported_member_generator:
+        if upload_entity is None:
+            upload_entity = result.file_upload
+
         match result:
             case OkResult():
-                response.members.append(
-                    UploadMemberModel(row=result.row, id=result.member.id.value)
-                )
+                member_document = MemberDocument.create(result.member)
+                member_document.resource.meta.row = result.row
+                meta.count += 1
+                response.merge(member_document)
             case FailureResult():
-                response.members.append(
-                    UploadMemberModel(row=result.row, message=result.to_message())
-                )
+                meta.errors.append({"row": result.row, "message": result.to_message()})
             case _:
                 raise HTTPException(
                     status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,

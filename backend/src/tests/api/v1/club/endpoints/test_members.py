@@ -19,5 +19,5 @@ def test_import_members(secure_client: TestClient):
         )
         assert response.status_code == status.HTTP_200_OK
         result = response.json()
-        assert "members" in result, "There should be a 'members' property."
-        assert len(result["members"]) == 2, "There should be 2 members uploaded."
+        assert "data" in result, "There should be a 'members' property."
+        assert len(result["data"]) == 2, "There should be 2 members uploaded."
