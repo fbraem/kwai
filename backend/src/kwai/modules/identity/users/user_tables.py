@@ -1,4 +1,5 @@
 """Modules that defines all table classes for a user."""
+
 from dataclasses import dataclass
 from datetime import datetime
 
@@ -89,7 +90,7 @@ class UserAccountRow:
         """Create a user account entity from the table row."""
         return UserAccountEntity(
             id_=UserAccountIdentifier(self.id),
-            password=Password(hashed_password=self.password),
+            password=Password(hashed_password=self.password.encode()),
             last_login=LocalTimestamp(self.last_login),
             last_unsuccessful_login=LocalTimestamp(self.last_unsuccessful_login),
             revoked=self.revoked == 1,

@@ -1,26 +1,26 @@
 """Module that defines a value object for a password."""
+
 from dataclasses import dataclass
+from typing import Self
 
-from passlib.context import CryptContext
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+import bcrypt
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
 class Password:
     """A value object for a password."""
 
-    hashed_password: str
+    hashed_password: bytes
 
     @classmethod
-    def create_from_string(cls, password: str) -> "Password":
+    def create_from_string(cls, password: str) -> Self:
         """Create a password from a string."""
-        return Password(hashed_password=pwd_context.hash(password))
+        return cls(hashed_password=bcrypt.hashpw(password.encode(), bcrypt.gensalt()))
 
     def verify(self, password: str) -> bool:
         """Verify this password against the given password."""
-        return pwd_context.verify(password, self.hashed_password)
+        return bcrypt.checkpw(password.encode(), self.hashed_password)
 
     def __str__(self):
         """Return a string representation (hashed password)."""
-        return self.hashed_password
+        return self.hashed_password.decode()
