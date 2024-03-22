@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 from typing import Self
 
-from sql_smith.functions import alias, on
+from sql_smith.functions import alias, criteria, func, group, literal, on
 
 from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
@@ -46,6 +46,10 @@ class MemberDbQuery(MemberQuery, DatabaseQuery):
     def __init__(self, database: Database):
         super().__init__(database)
 
+    @property
+    def count_column(self):
+        return MemberRow.column("id")
+
     def init(self):
         self._query.from_(MemberRow.__table_name__).inner_join(
             PersonRow.__table_name__,
@@ -74,4 +78,25 @@ class MemberDbQuery(MemberQuery, DatabaseQuery):
 
     def filter_by_license(self, license: str) -> Self:
         self._query.and_where(MemberRow.field("license").eq(license))
+        return self
+
+    def filter_by_license_date(
+        self, license_end_month: int, license_end_year: int
+    ) -> Self:
+        condition = criteria(
+            "{} = {}",
+            func("YEAR", MemberRow.column("license_end_date")),
+            literal(license_end_year),
+        ).and_(
+            criteria(
+                "{} = {}",
+                func("MONTH", MemberRow.column("license_end_date")),
+                literal(license_end_month),
+            ),
+        )
+        self._query.and_where(group(condition))
+        return self
+
+    def filter_by_active(self) -> Self:
+        self._query.and_where(MemberRow.field("active").eq(1))
         return self

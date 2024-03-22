@@ -1,98 +1,47 @@
-"""Module that defines the members API."""
+"""Module for defining the endpoints for members of the club API."""
 
-from pathlib import Path
-from typing import Annotated
-
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
+from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel, Field
 
 from kwai.api.dependencies import create_database, get_current_user
 from kwai.api.v1.club.schemas.member import MemberDocument
-from kwai.core.db.database import Database
-from kwai.core.json_api import Meta
-from kwai.core.settings import Settings, get_settings
-from kwai.modules.club.import_members import (
-    FailureResult,
-    ImportMembers,
-    OkResult,
-)
-from kwai.modules.club.members.country_db_repository import CountryDbRepository
-from kwai.modules.club.members.file_upload_db_repository import FileUploadDbRepository
-from kwai.modules.club.members.flemish_member_importer import FlemishMemberImporter
+from kwai.core.json_api import Meta, PaginationModel
+from kwai.modules.club.get_members import GetMembers, GetMembersCommand
 from kwai.modules.club.members.member_db_repository import MemberDbRepository
-from kwai.modules.identity.users.user import UserEntity
+from tests.core.domain.test_entity import UserEntity
 
 router = APIRouter()
 
 
-class UploadMemberModel(BaseModel):
-    """Model containing information about a row.
+class MembersFilterModel(BaseModel):
+    """Define the JSON:API filter for members."""
 
-    The id will be set, when a member is successfully imported. When a member was
-    not imported, the message will contain a description about the problem.
-    """
-
-    row: int
-    id: int | None = None
-    message: str = ""
+    enabled: bool = Field(Query(default=True, alias="filter[enabled]"))
+    license_end_month: int = Field(Query(default=0, alias="filter[license_end_month]"))
+    license_end_year: int = Field(Query(default=0, alias="filter[license_end_year]"))
 
 
-class UploadMembersModel(BaseModel):
-    """Model that contains the information about all rows."""
-
-    members: list[UploadMemberModel] = Field(..., default_factory=list)
-
-
-@router.post("/members/upload")
-async def upload(
-    member_file: Annotated[
-        UploadFile, File(description="A file with members to upload into kwai")
-    ],
-    settings: Annotated[Settings, Depends(get_settings)],
-    database: Annotated[Database, Depends(create_database)],
-    user: Annotated[UserEntity, Depends(get_current_user)],
+@router.get("/members")
+async def get_members(
+    pagination: PaginationModel = Depends(PaginationModel),
+    members_filter: MembersFilterModel = Depends(MembersFilterModel),
+    db=Depends(create_database),
+    user: UserEntity = Depends(get_current_user),
 ) -> MemberDocument:
-    """Upload a members csv file."""
-    if member_file.filename is None:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="There is no filename available for the uploaded file.",
-        )
+    """Get members."""
+    command = GetMembersCommand(
+        offset=pagination.offset or 0,
+        limit=pagination.limit or 10,
+        active=members_filter.enabled,
+        license_end_year=members_filter.license_end_year,
+        license_end_month=members_filter.license_end_month,
+    )
+    count, member_iterator = await GetMembers(MemberDbRepository(db)).execute(command)
+    result = MemberDocument(
+        meta=Meta(count=count, offset=command.offset, limit=command.limit), data=[]
+    )
+    async for member in member_iterator:
+        member_document = MemberDocument.create(member)
+        result.merge(member_document)
 
-    file_path = Path(settings.files.path)
-    file_path.mkdir(parents=True, exist_ok=True)
-    member_filename = file_path / member_file.filename
-    with open(member_filename, "wb") as fh:
-        fh.write(await member_file.read())
-
-    imported_member_generator = ImportMembers(
-        FlemishMemberImporter(
-            str(member_filename),
-            user.create_owner(),
-            CountryDbRepository(database),
-        ),
-        FileUploadDbRepository(database),
-        MemberDbRepository(database),
-    ).execute()
-
-    meta = Meta(count=0, offset=0, limit=0, errors=[])
-    response = MemberDocument(meta=meta, data=[])
-    upload_entity = None
-    async for result in imported_member_generator:
-        if upload_entity is None:
-            upload_entity = result.file_upload
-
-        match result:
-            case OkResult():
-                member_document = MemberDocument.create(result.member)
-                member_document.resource.meta.row = result.row
-                meta.count += 1
-                response.merge(member_document)
-            case FailureResult():
-                meta.errors.append({"row": result.row, "message": result.to_message()})
-            case _:
-                raise HTTPException(
-                    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                    detail="Unexpected result returned",
-                )
-    return response
+    return result

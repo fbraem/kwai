@@ -1,4 +1,5 @@
 """Module that defines an interface for a Member query."""
+
 from abc import ABC, abstractmethod
 from typing import Self
 
@@ -16,3 +17,13 @@ class MemberQuery(Query, ABC):
     @abstractmethod
     def filter_by_license(self, license: str) -> Self:
         """Filter on the license of the member."""
+
+    @abstractmethod
+    def filter_by_license_date(
+        self, license_end_month: int, license_end_year: int
+    ) -> Self:
+        """Filter on the license expiration date."""
+
+    @abstractmethod
+    def filter_by_active(self) -> Self:
+        """Filter on the active members."""
