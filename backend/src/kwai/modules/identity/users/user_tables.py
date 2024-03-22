@@ -90,7 +90,7 @@ class UserAccountRow:
         """Create a user account entity from the table row."""
         return UserAccountEntity(
             id_=UserAccountIdentifier(self.id),
-            password=Password(hashed_password=self.password.encode()),
+            password=Password(self.password.encode()),
             last_login=LocalTimestamp(self.last_login),
             last_unsuccessful_login=LocalTimestamp(self.last_unsuccessful_login),
             revoked=self.revoked == 1,

@@ -6,7 +6,7 @@ from typing import Self
 import bcrypt
 
 
-@dataclass(kw_only=True, frozen=True, slots=True)
+@dataclass(frozen=True, slots=True)
 class Password:
     """A value object for a password."""
 
@@ -15,7 +15,7 @@ class Password:
     @classmethod
     def create_from_string(cls, password: str) -> Self:
         """Create a password from a string."""
-        return cls(hashed_password=bcrypt.hashpw(password.encode(), bcrypt.gensalt()))
+        return cls(bcrypt.hashpw(password.encode(), bcrypt.gensalt()))
 
     def verify(self, password: str) -> bool:
         """Verify this password against the given password."""
