@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 from typing import Self
 
 from kwai.core.domain.repository.query import Query
+from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.members.member import MemberIdentifier
 
 
@@ -27,3 +28,7 @@ class MemberQuery(Query, ABC):
     @abstractmethod
     def filter_by_active(self) -> Self:
         """Filter on the active members."""
+
+    @abstractmethod
+    def filter_by_uuid(self, uuid: UniqueId) -> Self:
+        """Filter on the uuid."""

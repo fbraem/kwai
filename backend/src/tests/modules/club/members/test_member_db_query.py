@@ -3,6 +3,7 @@
 import pytest
 
 from kwai.core.db.database import Database
+from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.members.member import MemberIdentifier
 from kwai.modules.club.members.member_db_query import MemberDbQuery
 from kwai.modules.club.members.member_query import MemberQuery
@@ -47,6 +48,16 @@ async def test_filter_by_active(query: MemberQuery):
 async def test_filter_by_license_date(query: MemberQuery):
     """Test filtering by license date."""
     query.filter_by_license_date(1, 2024)
+
+    try:
+        await query.fetch_one()
+    except Exception as exc:
+        pytest.fail(f"An exception occurred: {exc}")
+
+
+async def test_filter_by_uuid(query: MemberQuery):
+    """Test filtering by uuid."""
+    query.filter_by_uuid(UniqueId.generate())
 
     try:
         await query.fetch_one()

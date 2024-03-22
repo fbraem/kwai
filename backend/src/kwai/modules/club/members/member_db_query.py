@@ -8,6 +8,7 @@ from sql_smith.functions import alias, criteria, func, group, literal, on
 from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.db.table_row import JoinedTableRow
+from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.members.member import MemberEntity, MemberIdentifier
 from kwai.modules.club.members.member_query import MemberQuery
 from kwai.modules.club.members.member_tables import (
@@ -99,4 +100,8 @@ class MemberDbQuery(MemberQuery, DatabaseQuery):
 
     def filter_by_active(self) -> Self:
         self._query.and_where(MemberRow.field("active").eq(1))
+        return self
+
+    def filter_by_uuid(self, uuid: UniqueId) -> Self:
+        self._query.and_where(MemberRow.field("uuid").eq(str(uuid)))
         return self
