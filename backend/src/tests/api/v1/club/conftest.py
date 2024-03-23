@@ -58,3 +58,5 @@ async def member_entity(
     )
 
     yield member
+
+    await repo.delete(member)
