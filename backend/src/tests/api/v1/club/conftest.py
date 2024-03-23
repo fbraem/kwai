@@ -1,5 +1,7 @@
 """Module that defines fixtures for testing the club endpoints."""
 
+from typing import AsyncGenerator
+
 import pytest
 
 from kwai.core.db.database import Database
@@ -28,7 +30,9 @@ async def country(database: Database) -> Country:
 
 
 @pytest.fixture
-async def member_entity(database: Database, country: Country) -> MemberEntity:
+async def member_entity(
+    database: Database, country: Country
+) -> AsyncGenerator[MemberEntity, None]:
     """A fixture for a member in the database."""
     repo = MemberDbRepository(database)
     member = await repo.create(
