@@ -5,6 +5,7 @@ from fastapi import status
 from fastapi.testclient import TestClient
 
 from kwai.core.domain.value_objects.unique_id import UniqueId
+from kwai.modules.club.members.member import MemberEntity
 
 pytestmark = pytest.mark.api
 
@@ -29,6 +30,12 @@ def test_get_members_with_license_end_date(secure_client: TestClient):
         "/api/v1/club/members",
         params={"filter[license_end_month]": 1, "filter[license_end_year]": 2024},
     )
+    assert response.status_code == status.HTTP_200_OK
+
+
+def test_get_member(secure_client: TestClient, member_entity: MemberEntity):
+    """Test /api/v1/club/members/{uuid} for members with given unique id."""
+    response = secure_client.get(f"/api/v1/club/members/{member_entity.uuid}")
     assert response.status_code == status.HTTP_200_OK
 
 
