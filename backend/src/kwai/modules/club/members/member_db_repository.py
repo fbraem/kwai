@@ -109,4 +109,7 @@ class MemberDbRepository(MemberRepository):
         await self._database.commit()
 
     async def delete(self, member: MemberEntity) -> None:
-        pass
+        await self._database.delete(member.person.contact.id, ContactRow.__table_name__)
+        await self._database.delete(member.person.id, PersonRow.__table_name__)
+        await self._database.delete(member.id, MemberRow.__table_name__)
+        await self._database.commit()
