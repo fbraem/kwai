@@ -13,5 +13,5 @@ class CountryRepository(ABC):
     """An interface for a country repository."""
 
     @abstractmethod
-    async def get_by_iso_2(self, iso_2: str) -> Country | None:
+    async def get_by_iso_2(self, iso_2: str) -> Country:
         """Get a country using the iso2 code of the country."""

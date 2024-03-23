@@ -17,7 +17,7 @@ class CountryDbRepository(CountryRepository):
     def __init__(self, database: Database):
         self._database = database
 
-    async def get_by_iso_2(self, iso_2: str) -> Country | None:
+    async def get_by_iso_2(self, iso_2: str) -> Country:
         query: SelectQuery = Database.create_query_factory().select()
         query.from_(CountryRow.__table_name__).columns(*CountryRow.get_aliases()).where(
             CountryRow.field("iso_2").eq(iso_2)
