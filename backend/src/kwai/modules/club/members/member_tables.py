@@ -1,7 +1,7 @@
 """Module that defines all tables related to members."""
 
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import UTC, date, datetime
 from typing import Self
 
 from kwai.core.db.table_row import TableRow
@@ -12,13 +12,13 @@ from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.members.contact import ContactEntity, ContactIdentifier
+from kwai.modules.club.members.country import CountryEntity, CountryIdentifier
 from kwai.modules.club.members.file_upload import FileUploadEntity
 from kwai.modules.club.members.member import MemberEntity, MemberIdentifier
 from kwai.modules.club.members.person import PersonEntity, PersonIdentifier
 from kwai.modules.club.members.value_objects import (
     Address,
     Birthdate,
-    Country,
     Gender,
     License,
 )
@@ -36,19 +36,40 @@ class CountryRow(TableRow):
 
     __table_name__ = "countries"
 
-    id: int
+    id: int | None = None
     iso_2: str
     iso_3: str
+    name: str
     created_at: datetime
     updated_at: datetime | None
 
-    def create_country(self) -> Country:
+    def create_country(self) -> CountryEntity:
         """Create a Country value object from the row.
 
         Returns:
             A country value object.
         """
-        return Country(id=self.id, iso_2=self.iso_2, iso_3=self.iso_3)
+        return CountryEntity(
+            id_=CountryIdentifier(self.id),
+            iso_2=self.iso_2,
+            iso_3=self.iso_3,
+            name=self.name,
+        )
+
+    @classmethod
+    def persist(cls, country: CountryEntity):
+        """Persist a country to this table.
+
+        Args:
+            country: The country to persist.
+        """
+        return cls(
+            iso_2=country.iso_2,
+            iso_3=country.iso_3,
+            name=country.name,
+            created_at=datetime.now(UTC),
+            updated_at=None,
+        )
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -110,7 +131,7 @@ class ContactRow(TableRow):
     created_at: datetime
     updated_at: datetime | None
 
-    def create_entity(self, country: Country) -> ContactEntity:
+    def create_entity(self, country: CountryEntity) -> ContactEntity:
         """Create a contact entity from a table row."""
         emails = [EmailAddress(email) for email in self.email.split(";")]
         return ContactEntity(
@@ -166,7 +187,7 @@ class PersonRow(TableRow):
     updated_at: datetime | None
 
     def create_entity(
-        self, nationality: Country, contact: ContactEntity
+        self, nationality: CountryEntity, contact: ContactEntity
     ) -> PersonEntity:
         """Create a person entity from a table row."""
         return PersonEntity(

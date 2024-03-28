@@ -7,10 +7,10 @@ from typing import AsyncGenerator
 from async_lru import alru_cache
 
 from kwai.core.domain.value_objects.owner import Owner
+from kwai.modules.club.members.country import CountryEntity
 from kwai.modules.club.members.country_repository import CountryRepository
 from kwai.modules.club.members.file_upload import FileUploadEntity
 from kwai.modules.club.members.member import MemberEntity
-from kwai.modules.club.members.value_objects import Country
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -62,7 +62,9 @@ class MemberImporter(ABC):
 
     @staticmethod
     @alru_cache
-    async def _get_country(country_repo: CountryRepository, iso_2: str) -> Country:
+    async def _get_country(
+        country_repo: CountryRepository, iso_2: str
+    ) -> CountryEntity:
         """Gets the country from the repository.
 
         The value is cached. When the country does not exist, a CountryNotFoundException

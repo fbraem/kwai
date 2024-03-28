@@ -9,6 +9,7 @@ from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.modules.club.members.contact import ContactEntity
+from kwai.modules.club.members.country import CountryEntity
 from kwai.modules.club.members.country_db_repository import CountryDbRepository
 from kwai.modules.club.members.member import MemberEntity
 from kwai.modules.club.members.member_db_repository import MemberDbRepository
@@ -16,14 +17,13 @@ from kwai.modules.club.members.person import PersonEntity
 from kwai.modules.club.members.value_objects import (
     Address,
     Birthdate,
-    Country,
     Gender,
     License,
 )
 
 
 @pytest.fixture
-async def country(database: Database) -> Country:
+async def country(database: Database) -> CountryEntity:
     """A fixture for a country."""
     repo = CountryDbRepository(database)
     return await repo.get_by_iso_2("JP")
@@ -31,7 +31,7 @@ async def country(database: Database) -> Country:
 
 @pytest.fixture
 async def member_entity(
-    database: Database, country: Country
+    database: Database, country: CountryEntity
 ) -> AsyncGenerator[MemberEntity, None]:
     """A fixture for a member in the database."""
     repo = MemberDbRepository(database)

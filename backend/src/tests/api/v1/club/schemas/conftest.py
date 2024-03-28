@@ -8,14 +8,17 @@ from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.modules.club.members.contact import ContactEntity, ContactIdentifier
+from kwai.modules.club.members.country import CountryEntity, CountryIdentifier
 from kwai.modules.club.members.person import PersonEntity, PersonIdentifier
-from kwai.modules.club.members.value_objects import Address, Birthdate, Country, Gender
+from kwai.modules.club.members.value_objects import Address, Birthdate, Gender
 
 
 @pytest.fixture
-def country() -> Country:
+def country() -> CountryEntity:
     """A fixture for a country."""
-    return Country(id=1, iso_2="JP", iso_3="JPN")
+    return CountryEntity(
+        id_=CountryIdentifier(1), iso_2="JP", iso_3="JPN", name="Japan"
+    )
 
 
 @pytest.fixture
@@ -31,7 +34,7 @@ def expected_country_json() -> dict[str, Any]:
 
 
 @pytest.fixture
-def contact(country: Country) -> ContactEntity:
+def contact(country: CountryEntity) -> ContactEntity:
     """A fixture for a contact entity."""
     return ContactEntity(
         id_=ContactIdentifier(1),
@@ -85,7 +88,7 @@ def expected_contact_json(
 
 
 @pytest.fixture
-def person(contact: ContactEntity, country: Country) -> PersonEntity:
+def person(contact: ContactEntity, country: CountryEntity) -> PersonEntity:
     """A fixture for a person entity."""
     return PersonEntity(
         id_=PersonIdentifier(1),

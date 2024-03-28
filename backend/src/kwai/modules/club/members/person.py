@@ -1,10 +1,12 @@
 """Module that defines an entity for a person."""
+
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.club.members.contact import ContactEntity
-from kwai.modules.club.members.value_objects import Birthdate, Country, Gender
+from kwai.modules.club.members.country import CountryEntity
+from kwai.modules.club.members.value_objects import Birthdate, Gender
 
 PersonIdentifier = IntIdentifier
 
@@ -19,7 +21,7 @@ class PersonEntity(Entity[PersonIdentifier]):
         name: Name,
         gender: Gender,
         birthdate: Birthdate,
-        nationality: Country,
+        nationality: CountryEntity,
         contact: ContactEntity,
         remark: str = "",
         traceable_time: TraceableTime | None = None,
@@ -71,7 +73,7 @@ class PersonEntity(Entity[PersonIdentifier]):
         return self._contact
 
     @property
-    def nationality(self) -> Country:
+    def nationality(self) -> CountryEntity:
         """Return the nationality."""
         return self._nationality
 

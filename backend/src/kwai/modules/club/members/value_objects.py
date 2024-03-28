@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 from kwai.core.domain.value_objects.date import Date
+from kwai.modules.club.members.country import CountryEntity
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -53,19 +54,6 @@ class Birthdate:
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class Country:
-    """A country."""
-
-    id: int
-    iso_2: str
-    iso_3: str
-
-    def __str__(self) -> str:
-        """Returns a string representation (iso_2) of the country."""
-        return self.iso_2
-
-
-@dataclass(kw_only=True, frozen=True, slots=True)
 class Address:
     """An address."""
 
@@ -73,4 +61,4 @@ class Address:
     postal_code: str
     city: str
     county: str
-    country: Country
+    country: CountryEntity

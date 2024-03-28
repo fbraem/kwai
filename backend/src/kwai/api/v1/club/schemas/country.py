@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 from kwai.api.v1.club.schemas.resources import CountryResourceIdentifier
 from kwai.core.json_api import Document, ResourceData
-from kwai.modules.club.members.value_objects import Country
+from kwai.modules.club.members.country import CountryEntity
 
 
 class CountryAttributes(BaseModel):
@@ -24,7 +24,7 @@ class CountryDocument(Document[CountryResource, None]):
     """A JSON:API document for one or more countries."""
 
     @classmethod
-    def create(cls, country: Country) -> Self:
+    def create(cls, country: CountryEntity) -> Self:
         """Create a country document from a country value object."""
         country_resource = CountryResource(
             id=str(country.id),

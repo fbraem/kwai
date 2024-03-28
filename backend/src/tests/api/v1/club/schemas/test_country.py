@@ -6,11 +6,11 @@ from typing import Any
 from deepdiff import DeepDiff
 
 from kwai.api.v1.club.schemas.country import CountryDocument
-from kwai.modules.club.members.value_objects import Country
+from kwai.modules.club.members.country import CountryEntity
 
 
 def test_create_country_document(
-    country: Country, expected_country_json: dict[str, Any]
+    country: CountryEntity, expected_country_json: dict[str, Any]
 ):
     """Test the creation of a document with a Country resource."""
     country_document = CountryDocument.create(country)
