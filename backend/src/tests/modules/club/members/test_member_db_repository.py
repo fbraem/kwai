@@ -9,6 +9,7 @@ from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.members.contact import ContactEntity
+from kwai.modules.club.members.country import CountryEntity, CountryIdentifier
 from kwai.modules.club.members.member import MemberEntity
 from kwai.modules.club.members.member_db_repository import MemberDbRepository
 from kwai.modules.club.members.member_repository import MemberRepository
@@ -16,7 +17,6 @@ from kwai.modules.club.members.person import PersonEntity
 from kwai.modules.club.members.value_objects import (
     Address,
     Birthdate,
-    Country,
     Gender,
     License,
 )
@@ -38,7 +38,9 @@ async def member(member_repo: MemberRepository) -> MemberEntity:
             name=Name(first_name="Jigoro", last_name="Kano"),
             gender=Gender.MALE,
             birthdate=Birthdate(Date.create(1860, 10, 28)),
-            nationality=Country(id=84, iso_2="JP", iso_3="JPN"),
+            nationality=CountryEntity(
+                id_=CountryIdentifier(84), iso_2="JP", iso_3="JPN", name="Japan"
+            ),
             contact=ContactEntity(
                 emails=[EmailAddress("jigoro.kano@kwai.com")],
                 address=Address(
@@ -46,7 +48,9 @@ async def member(member_repo: MemberRepository) -> MemberEntity:
                     postal_code="",
                     city="Tokyo",
                     county="",
-                    country=Country(id=84, iso_2="JP", iso_3="JPN"),
+                    country=CountryEntity(
+                        id_=CountryIdentifier(84), iso_2="JP", iso_3="JPN", name="Japan"
+                    ),
                 ),
             ),
         ),
