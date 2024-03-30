@@ -37,5 +37,5 @@ class CountryDbRepository(CountryRepository):
         return Entity.replace(country, id_=CountryIdentifier(new_id))
 
     async def delete(self, country: CountryEntity):
-        await self._database.delete(country.id, CountryRow.__table_name__)
+        await self._database.delete(country.id.value, CountryRow.__table_name__)
         await self._database.commit()
