@@ -37,6 +37,12 @@ def make_country() -> CountryFixtureFactory:
     return _make_country
 
 
+@pytest.fixture
+def country_japan() -> CountryEntity:
+    """A factory fixture for the country Japan."""
+    return CountryEntity(iso_2="JP", iso_3="JPN", name="Japan")
+
+
 type CountryDbFixtureFactory = Callable[[], AsyncGenerator[CountryEntity, None]]
 
 
