@@ -28,7 +28,7 @@ type CountryFixtureFactory = Callable[[Unpack[CountryType]], CountryEntity]
 
 
 @pytest.fixture
-async def make_country() -> CountryFixtureFactory:
+def make_country() -> CountryFixtureFactory:
     """A factory fixture for a country."""
 
     def _make_country(iso_2="XX", iso_3="XXX", name="Test Country"):
