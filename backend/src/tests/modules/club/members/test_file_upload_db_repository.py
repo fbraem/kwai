@@ -1,9 +1,13 @@
 """Module for testing the file upload repository."""
 
+import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.modules.club.members.file_upload import FileUploadEntity
 from kwai.modules.club.members.file_upload_db_repository import FileUploadDbRepository
+
+pytestmark = pytest.mark.db
 
 
 async def test_create(database: Database, owner: Owner):

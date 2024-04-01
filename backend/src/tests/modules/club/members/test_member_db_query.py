@@ -8,6 +8,8 @@ from kwai.modules.club.members.member import MemberIdentifier
 from kwai.modules.club.members.member_db_query import MemberDbQuery
 from kwai.modules.club.members.member_query import MemberQuery
 
+pytestmark = pytest.mark.db
+
 
 @pytest.fixture
 def query(database: Database) -> MemberQuery:

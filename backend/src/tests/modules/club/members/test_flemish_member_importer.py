@@ -2,12 +2,16 @@
 
 from pathlib import Path
 
+import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.modules.club.members.country_db_repository import CountryDbRepository
 from kwai.modules.club.members.flemish_member_importer import FlemishMemberImporter
 from kwai.modules.club.members.member_importer import Result
 from kwai.modules.club.members.value_objects import Gender
+
+pytestmark = pytest.mark.db
 
 
 async def test_import(database: Database, owner: Owner):

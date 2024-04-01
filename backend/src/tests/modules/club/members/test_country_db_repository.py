@@ -10,6 +10,8 @@ from kwai.modules.club.members.country_repository import (
     CountryRepository,
 )
 
+pytestmark = pytest.mark.db
+
 
 @pytest.fixture
 async def country_repo(database: Database) -> CountryRepository:

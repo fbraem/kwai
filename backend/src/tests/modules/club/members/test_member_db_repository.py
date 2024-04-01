@@ -21,6 +21,8 @@ from kwai.modules.club.members.value_objects import (
     License,
 )
 
+pytestmark = pytest.mark.db
+
 
 @pytest.fixture(scope="module")
 def member_repo(database: Database) -> MemberRepository:
