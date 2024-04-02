@@ -1,4 +1,5 @@
 """Module for database classes/functions."""
+
 import dataclasses
 from typing import Any, AsyncIterator, TypeAlias
 
@@ -250,3 +251,13 @@ class Database:
         settings.
         """
         return self._settings.copy()
+
+    async def begin(self):
+        """Start a transaction."""
+        await self.check_connection()
+        await self._connection.begin()
+
+    async def rollback(self):
+        """Rollback a transaction."""
+        await self.check_connection()
+        await self._connection.rollback()
