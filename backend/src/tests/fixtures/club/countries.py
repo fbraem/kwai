@@ -11,6 +11,7 @@ from typing import (
 import pytest
 
 from kwai.core.db.database import Database
+from kwai.core.db.uow import UnitOfWork
 from kwai.modules.club.members.country import CountryEntity
 from kwai.modules.club.members.country_db_repository import CountryDbRepository
 from kwai.modules.club.members.country_repository import CountryNotFoundException
@@ -65,11 +66,13 @@ async def make_country_in_db(
             country = await repo.get_by_iso_2(country.iso_2)
             return country
         except CountryNotFoundException:
-            country = await repo.create(country)
+            async with UnitOfWork(database):
+                country = await repo.create(country)
 
             def cleanup():
                 async def acleanup():
-                    await repo.delete(country)
+                    async with UnitOfWork(database):
+                        await repo.delete(country)
 
                 event_loop.run_until_complete(acleanup())
 
