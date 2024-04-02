@@ -2,3 +2,4 @@
 
 from tests.fixtures.club.countries import *  # noqa
 from tests.fixtures.club.members import *  # noqa
+from tests.fixtures.club.contacts import *  # noqa

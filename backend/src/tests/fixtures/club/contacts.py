@@ -1,0 +1,124 @@
+"""Module for defining fixtures for contacts."""
+
+from typing import (
+    Awaitable,
+    Callable,
+    NotRequired,
+    TypedDict,
+    Unpack,
+)
+
+import pytest
+
+from kwai.core.db.database import Database
+from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.modules.club.members.contact import ContactEntity
+from kwai.modules.club.members.contact_db_repository import ContactDbRepository
+from kwai.modules.club.members.country import CountryEntity
+from kwai.modules.club.members.value_objects import Address
+
+
+class AddressType(TypedDict):
+    """Keyword arguments for the Address fixture factory method."""
+
+    address: NotRequired[str]
+    postal_code: NotRequired[str]
+    city: NotRequired[str]
+    county: NotRequired[str]
+    country: NotRequired[CountryEntity]
+
+
+type AddressFixtureFactory = Callable[[Unpack[AddressType]], Address]
+
+
+@pytest.fixture
+def make_address(country_japan) -> AddressFixtureFactory:
+    """A factory fixture for an address."""
+
+    def _make_address(
+        *,
+        address: str = "1-16-30 Kasuga",
+        postal_code: str = "112-0003",
+        city: str = "Tokyo",
+        county: str = "Bunkyo-ku",
+        country: CountryEntity | None = None,
+    ) -> Address:
+        return Address(
+            address=address,
+            postal_code=postal_code,
+            city=city,
+            county=county,
+            country=country or country_japan,
+        )
+
+    return _make_address
+
+
+class ContactType(TypedDict):
+    """Keyword arguments for the Contact fixture factory method."""
+
+    emails: NotRequired[list[EmailAddress]]
+    address: NotRequired[Address]
+
+
+type ContactFixtureFactory = Callable[[Unpack[ContactType]], ContactEntity]
+
+
+@pytest.fixture
+def make_emails() -> Callable[[str | None], list[EmailAddress]]:
+    """A factory fixture for a contact email."""
+
+    def _make_emails(email: str | None = None) -> list[EmailAddress]:
+        if email is None:
+            return [EmailAddress("jigoro.kano@kwai.com")]
+        return [EmailAddress(email)]
+
+    return _make_emails
+
+
+@pytest.fixture
+def make_contact(make_emails, make_address) -> ContactFixtureFactory:
+    """A factory fixture for a contact."""
+
+    def _make_contact(
+        emails: list[EmailAddress] | None = None, address: Address | None = None
+    ):
+        return ContactEntity(
+            emails=emails or make_emails(),
+            address=address or make_address(),
+        )
+
+    return _make_contact
+
+
+@pytest.fixture
+def make_contact_in_db(
+    request,
+    event_loop,
+    database: Database,
+    make_emails,
+    make_address,
+    make_contact: ContactFixtureFactory,
+) -> Callable[[list[EmailAddress] | None, Address | None], Awaitable[ContactEntity]]:
+    """A fixture for a contact in the database."""
+
+    async def _make_contact_in_db(
+        *, emails: list[EmailAddress] | None = None, address: Address | None = None
+    ) -> ContactEntity:
+        emails = emails or make_emails()
+        address = address or make_address()
+        contact = make_contact(emails, address)
+        repo = ContactDbRepository(database)
+        contact = await repo.create(contact)
+
+        def cleanup():
+            async def acleanup():
+                await repo.delete(contact)
+
+            event_loop.run_until_complete(acleanup())
+
+        request.addfinalizer(cleanup)
+
+        return contact
+
+    return _make_contact_in_db
