@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field
 from kwai.api.dependencies import create_database, get_current_user
 from kwai.api.v1.club.schemas.member import MemberDocument
 from kwai.core.db.database import Database
+from kwai.core.db.uow import UnitOfWork
 from kwai.core.json_api import Meta
 from kwai.core.settings import Settings, get_settings
 from kwai.modules.club.import_members import (
@@ -65,15 +66,16 @@ async def upload(
     with open(member_filename, "wb") as fh:
         fh.write(await member_file.read())
 
-    imported_member_generator = ImportMembers(
-        FlemishMemberImporter(
-            str(member_filename),
-            user.create_owner(),
-            CountryDbRepository(database),
-        ),
-        FileUploadDbRepository(database),
-        MemberDbRepository(database),
-    ).execute()
+    async with UnitOfWork(database):
+        imported_member_generator = ImportMembers(
+            FlemishMemberImporter(
+                str(member_filename),
+                user.create_owner(),
+                CountryDbRepository(database),
+            ),
+            FileUploadDbRepository(database),
+            MemberDbRepository(database),
+        ).execute()
 
     meta = Meta(count=0, offset=0, limit=0, errors=[])
     response = MemberDocument(meta=meta, data=[])

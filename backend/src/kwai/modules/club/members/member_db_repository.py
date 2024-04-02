@@ -84,8 +84,6 @@ class MemberDbRepository(MemberRepository):
             MemberRow.__table_name__, MemberRow.persist(member)
         )
 
-        await self._database.commit()
-
         return Entity.replace(member, id_=MemberIdentifier(new_id))
 
     async def update(self, member: MemberEntity) -> None:
@@ -106,10 +104,7 @@ class MemberDbRepository(MemberRepository):
             ContactRow.persist(member.person.contact),
         )
 
-        await self._database.commit()
-
     async def delete(self, member: MemberEntity) -> None:
         await self._database.delete(member.person.contact.id, ContactRow.__table_name__)
         await self._database.delete(member.person.id, PersonRow.__table_name__)
         await self._database.delete(member.id, MemberRow.__table_name__)
-        await self._database.commit()
