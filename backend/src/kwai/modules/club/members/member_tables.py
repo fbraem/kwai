@@ -161,7 +161,7 @@ class ContactRow(TableRow):
             postal_code=contact.address.postal_code,
             city=contact.address.city,
             county=contact.address.county,
-            country_id=contact.address.country.id,
+            country_id=contact.address.country.id.value,
             remark=contact.remark,
             created_at=contact.traceable_time.created_at.timestamp,  # type: ignore[arg-type]
             updated_at=contact.traceable_time.updated_at.timestamp,
