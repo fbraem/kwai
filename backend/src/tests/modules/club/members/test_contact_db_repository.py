@@ -3,8 +3,12 @@
 import pytest
 
 from kwai.core.db.database import Database
+from kwai.core.db.uow import UnitOfWork
 from kwai.modules.club.members.contact_db_repository import ContactDbRepository
-from kwai.modules.club.members.contact_repository import ContactRepository
+from kwai.modules.club.members.contact_repository import (
+    ContactNotFoundException,
+    ContactRepository,
+)
 
 pytestmark = pytest.mark.db
 
@@ -15,14 +19,25 @@ def contact_repo(database: Database) -> ContactRepository:
     return ContactDbRepository(database)
 
 
-async def test_create_contact(make_country_in_db, make_contact_in_db):
+async def test_create_contact(make_contact_in_db):
     """Test creating a contact."""
     contact = await make_contact_in_db()
     assert not contact.id.is_empty(), "Contact should be saved"
 
 
-async def test_get_contact_by_id(contact_repo, make_contact_in_db):
+async def test_get_contact_by_id(contact_repo: ContactRepository, make_contact_in_db):
     """Test getting the contact with the id."""
     contact = await make_contact_in_db()
     contact = await contact_repo.get(contact.id)
     assert contact is not None, "Contact should be returned"
+
+
+async def test_delete_contact(
+    database: Database, contact_repo: ContactRepository, make_contact_in_db
+):
+    """Test delete of a contact."""
+    contact = await make_contact_in_db()
+    async with UnitOfWork(database):
+        await contact_repo.delete(contact)
+    with pytest.raises(ContactNotFoundException):
+        await contact_repo.get(contact.id)
