@@ -53,8 +53,8 @@ async def make_country_in_db(
 ) -> CountryDbFixtureFactory:
     """A fixture for a country in the database.
 
-    When the country is already in the database, it will be yielded.
-    If not it will be saved in the database, yielded and deleted afterward.
+    When the country is already in the database, it will be returned.
+    If not it will be saved in the database, returned and deleted afterward.
     """
 
     async def _make_country_in_db(
