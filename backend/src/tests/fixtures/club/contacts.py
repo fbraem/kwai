@@ -4,6 +4,7 @@ from typing import (
     Awaitable,
     Callable,
     NotRequired,
+    TypeAlias,
     TypedDict,
     Unpack,
 )
@@ -29,7 +30,7 @@ class AddressType(TypedDict):
     country: NotRequired[CountryEntity]
 
 
-type AddressFixtureFactory = Callable[[Unpack[AddressType]], Address]
+AddressFixtureFactory: TypeAlias = Callable[[Unpack[AddressType]], Address]
 
 
 @pytest.fixture
@@ -62,7 +63,7 @@ class ContactType(TypedDict):
     address: NotRequired[Address]
 
 
-type ContactFixtureFactory = Callable[[Unpack[ContactType]], ContactEntity]
+ContactFixtureFactory: TypeAlias = Callable[[Unpack[ContactType]], ContactEntity]
 
 
 @pytest.fixture
@@ -82,7 +83,7 @@ def make_contact(make_emails, make_address) -> ContactFixtureFactory:
     """A factory fixture for a contact."""
 
     def _make_contact(
-        emails: list[EmailAddress] | None = None, address: Address | None = None
+        *, emails: list[EmailAddress] | None = None, address: Address | None = None
     ):
         return ContactEntity(
             emails=emails or make_emails(),
@@ -90,6 +91,11 @@ def make_contact(make_emails, make_address) -> ContactFixtureFactory:
         )
 
     return _make_contact
+
+
+ContactDbFixtureFactory: TypeAlias = Callable[
+    [Unpack[ContactType]], Awaitable[ContactEntity]
+]
 
 
 @pytest.fixture
@@ -101,7 +107,7 @@ def make_contact_in_db(
     make_address,
     make_contact,
     make_country_in_db,
-) -> Callable[[list[EmailAddress] | None, Address | None], Awaitable[ContactEntity]]:
+) -> ContactDbFixtureFactory:
     """A fixture for a contact in the database."""
 
     async def _make_contact_in_db(
@@ -109,7 +115,7 @@ def make_contact_in_db(
     ) -> ContactEntity:
         emails = emails or make_emails()
         address = address or make_address(country=await make_country_in_db())
-        contact = make_contact(emails, address)
+        contact = make_contact(emails=emails, address=address)
         repo = ContactDbRepository(database)
         async with UnitOfWork(database):
             contact = await repo.create(contact)
