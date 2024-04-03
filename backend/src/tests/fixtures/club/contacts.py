@@ -98,7 +98,8 @@ def make_contact_in_db(
     database: Database,
     make_emails,
     make_address,
-    make_contact: ContactFixtureFactory,
+    make_contact,
+    make_country_in_db,
 ) -> Callable[[list[EmailAddress] | None, Address | None], Awaitable[ContactEntity]]:
     """A fixture for a contact in the database."""
 
@@ -106,7 +107,7 @@ def make_contact_in_db(
         *, emails: list[EmailAddress] | None = None, address: Address | None = None
     ) -> ContactEntity:
         emails = emails or make_emails()
-        address = address or make_address()
+        address = address or make_address(country=await make_country_in_db())
         contact = make_contact(emails, address)
         repo = ContactDbRepository(database)
         contact = await repo.create(contact)

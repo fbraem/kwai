@@ -15,18 +15,14 @@ def contact_repo(database: Database) -> ContactRepository:
     return ContactDbRepository(database)
 
 
-async def test_create_contact(make_country_in_db, make_address, make_contact_in_db):
+async def test_create_contact(make_country_in_db, make_contact_in_db):
     """Test creating a contact."""
-    address = make_address(country=await make_country_in_db())
-    contact = await make_contact_in_db(address=address)
+    contact = await make_contact_in_db()
     assert not contact.id.is_empty(), "Contact should be saved"
 
 
-async def test_get_contact_by_id(
-    contact_repo, make_country_in_db, make_address, make_contact_in_db
-):
+async def test_get_contact_by_id(contact_repo, make_contact_in_db):
     """Test getting the contact with the id."""
-    address = make_address(country=await make_country_in_db())
-    contact = await make_contact_in_db(address=address)
+    contact = await make_contact_in_db()
     contact = await contact_repo.get(contact.id)
     assert contact is not None, "Contact should be returned"
