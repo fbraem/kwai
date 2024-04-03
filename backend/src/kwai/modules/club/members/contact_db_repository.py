@@ -45,7 +45,7 @@ class ContactDbRepository(ContactRepository):
     async def get(self, id_: ContactIdentifier) -> ContactEntity:
         query = Database.create_query_factory().select()
         query.from_(ContactRow.__table_name__).columns(
-            ContactQueryRow.get_aliases()
+            *ContactQueryRow.get_aliases()
         ).inner_join(
             CountryRow.__table_name__,
             on(CountryRow.column("id"), ContactRow.column("country_id")),
