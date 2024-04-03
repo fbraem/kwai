@@ -11,6 +11,7 @@ from typing import (
 import pytest
 
 from kwai.core.db.database import Database
+from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.modules.club.members.contact import ContactEntity
 from kwai.modules.club.members.contact_db_repository import ContactDbRepository
@@ -110,11 +111,13 @@ def make_contact_in_db(
         address = address or make_address(country=await make_country_in_db())
         contact = make_contact(emails, address)
         repo = ContactDbRepository(database)
-        contact = await repo.create(contact)
+        async with UnitOfWork(database):
+            contact = await repo.create(contact)
 
         def cleanup():
             async def acleanup():
-                await repo.delete(contact)
+                async with UnitOfWork(database):
+                    await repo.delete(contact)
 
             event_loop.run_until_complete(acleanup())
 
