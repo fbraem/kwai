@@ -10,7 +10,7 @@ pytestmark = pytest.mark.db
 
 
 @pytest.fixture
-async def contact_repo(database: Database) -> ContactRepository:
+def contact_repo(database: Database) -> ContactRepository:
     """A fixture for a contact repository."""
     return ContactDbRepository(database)
 
@@ -20,3 +20,13 @@ async def test_create_contact(make_country_in_db, make_address, make_contact_in_
     address = make_address(country=await make_country_in_db())
     contact = await make_contact_in_db(address=address)
     assert not contact.id.is_empty(), "Contact should be saved"
+
+
+async def test_get_contact_by_id(
+    contact_repo, make_country_in_db, make_address, make_contact_in_db
+):
+    """Test getting the contact with the id."""
+    address = make_address(country=await make_country_in_db())
+    contact = await make_contact_in_db(address=address)
+    contact = await contact_repo.get(contact.id)
+    assert contact is not None, "Contact should be returned"
