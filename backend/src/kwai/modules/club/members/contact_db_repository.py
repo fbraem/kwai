@@ -42,6 +42,11 @@ class ContactDbRepository(ContactRepository):
     async def delete(self, contact: ContactEntity):
         await self._database.delete(contact.id.value, ContactRow.__table_name__)
 
+    async def update(self, contact: ContactEntity):
+        await self._database.update(
+            contact.id.value, ContactRow.__table_name__, ContactRow.persist(contact)
+        )
+
     async def get(self, id_: ContactIdentifier) -> ContactEntity:
         query = Database.create_query_factory().select()
         query.from_(ContactRow.__table_name__).columns(

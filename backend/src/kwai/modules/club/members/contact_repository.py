@@ -21,5 +21,9 @@ class ContactRepository(ABC):
         """Delete a contact entity."""
 
     @abstractmethod
+    async def update(self, contact: ContactEntity):
+        """Update a contact entity."""
+
+    @abstractmethod
     async def get(self, id_: ContactIdentifier) -> ContactEntity:
         """Get the contact for the given id."""

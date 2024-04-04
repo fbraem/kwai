@@ -4,6 +4,7 @@ import pytest
 
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
+from kwai.core.domain.entity import Entity
 from kwai.modules.club.members.contact_db_repository import ContactDbRepository
 from kwai.modules.club.members.contact_repository import (
     ContactNotFoundException,
@@ -30,6 +31,15 @@ async def test_get_contact_by_id(contact_repo: ContactRepository, make_contact_i
     contact = await make_contact_in_db()
     contact = await contact_repo.get(contact.id)
     assert contact is not None, "Contact should be returned"
+
+
+async def test_update_contact(contact_repo: ContactRepository, make_contact_in_db):
+    """Test updating a contact."""
+    contact = await make_contact_in_db()
+    contact = Entity.replace(contact, remark="This is an update")
+    await contact_repo.update(contact)
+    contact = await contact_repo.get(contact.id)
+    assert contact.remark == "This is an update", "The contact should be updated."
 
 
 async def test_delete_contact(
