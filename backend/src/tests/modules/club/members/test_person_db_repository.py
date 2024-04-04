@@ -4,6 +4,7 @@ import pytest
 
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
+from kwai.core.domain.entity import Entity
 from kwai.modules.club.members.person_db_repository import PersonDbRepository
 from kwai.modules.club.members.person_repository import (
     PersonNotFoundException,
@@ -30,6 +31,18 @@ async def test_get_person_by_id(person_repo: PersonRepository, make_person_in_db
     person = await make_person_in_db()
     person = await person_repo.get(person.id)
     assert person is not None, "There should be a person."
+
+
+async def test_update_person(
+    database: Database, person_repo: PersonRepository, make_person_in_db
+):
+    """Test updating a person."""
+    person = await make_person_in_db()
+    person = Entity.replace(person, remark="This is updated.")
+    async with UnitOfWork(database):
+        await person_repo.update(person)
+    person = await person_repo.get(person.id)
+    assert person.remark == "This is updated.", "The person should be updated."
 
 
 async def test_delete_person(

@@ -51,7 +51,10 @@ class PersonDbRepository(PersonRepository):
         return Entity.replace(person, id_=PersonIdentifier(new_id))
 
     async def update(self, person: PersonEntity) -> PersonEntity:
-        pass
+        await ContactDbRepository(self._database).update(person.contact)
+        await self._database.update(
+            person.id.value, PersonRow.__table_name__, PersonRow.persist(person)
+        )
 
     async def delete(self, person: PersonEntity):
         await ContactDbRepository(self._database).delete(person.contact)
