@@ -3,22 +3,12 @@
 import pytest
 
 from kwai.core.db.database import Database
+from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.entity import Entity
-from kwai.core.domain.value_objects.date import Date
-from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.core.domain.value_objects.name import Name
-from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.club.members.contact import ContactEntity
-from kwai.modules.club.members.country import CountryEntity, CountryIdentifier
-from kwai.modules.club.members.member import MemberEntity
 from kwai.modules.club.members.member_db_repository import MemberDbRepository
-from kwai.modules.club.members.member_repository import MemberRepository
-from kwai.modules.club.members.person import PersonEntity
-from kwai.modules.club.members.value_objects import (
-    Address,
-    Birthdate,
-    Gender,
-    License,
+from kwai.modules.club.members.member_repository import (
+    MemberNotFoundException,
+    MemberRepository,
 )
 
 pytestmark = pytest.mark.db
@@ -30,71 +20,40 @@ def member_repo(database: Database) -> MemberRepository:
     return MemberDbRepository(database)
 
 
-@pytest.fixture(scope="module")
-async def member(member_repo: MemberRepository) -> MemberEntity:
-    """Create a member entity."""
-    member = MemberEntity(
-        uuid=UniqueId.generate(),
-        license=License(number="12346789", end_date=Date.today().add(years=1)),
-        person=PersonEntity(
-            name=Name(first_name="Jigoro", last_name="Kano"),
-            gender=Gender.MALE,
-            birthdate=Birthdate(Date.create(1860, 10, 28)),
-            nationality=CountryEntity(
-                id_=CountryIdentifier(84), iso_2="JP", iso_3="JPN", name="Japan"
-            ),
-            contact=ContactEntity(
-                emails=[EmailAddress("jigoro.kano@kwai.com")],
-                address=Address(
-                    address="",
-                    postal_code="",
-                    city="Tokyo",
-                    county="",
-                    country=CountryEntity(
-                        id_=CountryIdentifier(84), iso_2="JP", iso_3="JPN", name="Japan"
-                    ),
-                ),
-            ),
-        ),
-    )
-    return await member_repo.create(member)
-
-
-async def test_create_member(member: MemberEntity):
+async def test_create_member(make_member_in_db):
     """Test create member."""
+    member = await make_member_in_db()
     assert not member.id.is_empty(), "There should be a member created."
 
 
-async def test_update_member(member_repo: MemberRepository, member: MemberEntity):
+async def test_update_member(
+    member_repo: MemberRepository, database: Database, make_member_in_db
+):
     """Test update member."""
-    contact = Entity.replace(
-        member.person.contact,
-        remark="Update contact from test",
-        traceable_time=member.person.contact.traceable_time.mark_for_update(),
-    )
-    person = Entity.replace(
-        member.person,
-        remark="Update person from test",
-        contact=contact,
-        traceable_time=member.person.traceable_time.mark_for_update(),
-    )
-    member = Entity.replace(
-        member,
-        remark="Update member from test",
-        person=person,
-        traceable_time=member.traceable_time.mark_for_update(),
-    )
-
-    try:
+    member = await make_member_in_db()
+    member = Entity.replace(member, remark="This is an update.")
+    async with UnitOfWork(database):
         await member_repo.update(member)
-    except Exception as exc:
-        pytest.fail(f"An exception occurred: {exc}")
+    member = await member_repo.get(member_repo.create_query().filter_by_id(member.id))
+    assert member.remark == "This is an update.", "The member should be updated."
 
 
-async def test_get_all(member_repo: MemberRepository):
+async def test_get_all(member_repo: MemberRepository, make_member_in_db):
     """Test get all."""
+    await make_member_in_db()
     try:
         it = member_repo.get_all()
         await anext(it)
     except Exception as exc:
         pytest.fail(f"An exception occurred: {exc}")
+
+
+async def test_delete(
+    member_repo: MemberRepository, database: Database, make_member_in_db
+):
+    """Test deleting a member."""
+    member = await make_member_in_db()
+    async with UnitOfWork(database):
+        await member_repo.delete(member)
+    with pytest.raises(MemberNotFoundException):
+        await member_repo.get(member_repo.create_query().filter_by_id(member.id))
