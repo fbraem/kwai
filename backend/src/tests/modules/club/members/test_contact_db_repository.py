@@ -33,11 +33,14 @@ async def test_get_contact_by_id(contact_repo: ContactRepository, make_contact_i
     assert contact is not None, "Contact should be returned"
 
 
-async def test_update_contact(contact_repo: ContactRepository, make_contact_in_db):
+async def test_update_contact(
+    database, contact_repo: ContactRepository, make_contact_in_db
+):
     """Test updating a contact."""
     contact = await make_contact_in_db()
     contact = Entity.replace(contact, remark="This is an update")
-    await contact_repo.update(contact)
+    async with UnitOfWork(database):
+        await contact_repo.update(contact)
     contact = await contact_repo.get(contact.id)
     assert contact.remark == "This is an update", "The contact should be updated."
 
