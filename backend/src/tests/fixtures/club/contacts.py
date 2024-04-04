@@ -94,7 +94,7 @@ def make_contact(make_emails, make_address) -> ContactFixtureFactory:
 
 
 ContactDbFixtureFactory: TypeAlias = Callable[
-    [Unpack[ContactType]], Awaitable[ContactEntity]
+    [ContactEntity | None], Awaitable[ContactEntity]
 ]
 
 
@@ -103,19 +103,18 @@ def make_contact_in_db(
     request,
     event_loop,
     database: Database,
-    make_emails,
-    make_address,
     make_contact,
+    make_address,
     make_country_in_db,
 ) -> ContactDbFixtureFactory:
     """A fixture for a contact in the database."""
 
     async def _make_contact_in_db(
-        *, emails: list[EmailAddress] | None = None, address: Address | None = None
+        contact: ContactEntity | None = None,
     ) -> ContactEntity:
-        emails = emails or make_emails()
-        address = address or make_address(country=await make_country_in_db())
-        contact = make_contact(emails=emails, address=address)
+        contact = contact or make_contact(
+            address=make_address(country=await make_country_in_db())
+        )
         repo = ContactDbRepository(database)
         async with UnitOfWork(database):
             contact = await repo.create(contact)
