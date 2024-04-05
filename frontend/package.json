@@ -18,7 +18,7 @@
     "syncpack": "^12.3.0",
     "turbo": "latest",
     "typescript": "^5.2.2",
-    "vite": "^4.4.11"
+    "vite": "^4.5.3"
   },
   "engines": {
     "node": ">=18.0.0"
