@@ -1,26 +1,10 @@
 {
   "name": "@kwai/ui",
-  "version": "1.0.0",
   "description": "UI library for kwai",
-  "private": true,
-  "files": [
-    "dist/**"
-  ],
-  "type": "module",
-  "main": "dist/kwai-ui.umd.cjs",
-  "types": "dist/index.d.ts",
-  "module": "dist/kwai-ui.js",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/kwai-ui.js",
-      "require": "./dist/kwai-ui.umd.cjs"
-    },
-    "./index.css": "./dist/style.css"
-  },
-  "license": "MIT",
-  "scripts": {
-    "build": "vite build --config ./vite.config.ts"
+  "version": "1.0.0",
+  "dependencies": {
+    "@kwai/date": "*",
+    "@vuepic/vue-datepicker": "^7.3.0"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.6",
@@ -31,12 +15,28 @@
     "vite-plugin-dts": "^3.6.3",
     "vue": "^3.3.4"
   },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/kwai-ui.js",
+      "require": "./dist/kwai-ui.umd.cjs"
+    },
+    "./index.css": "./dist/style.css"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "license": "MIT",
+  "main": "dist/kwai-ui.umd.cjs",
+  "module": "dist/kwai-ui.js",
   "peerDependencies": {
     "vee-validate": "^4.9.6",
     "vue-router": "^4.2.2"
   },
-  "dependencies": {
-    "@kwai/date": "*",
-    "@vuepic/vue-datepicker": "^7.3.0"
-  }
+  "private": true,
+  "scripts": {
+    "build": "vite build --config ./vite.config.ts"
+  },
+  "type": "module",
+  "types": "dist/index.d.ts"
 }

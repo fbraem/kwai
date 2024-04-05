@@ -1,15 +1,6 @@
 {
   "name": "kwai",
-  "private": true,
   "version": "1.0.0",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-  "scripts": {
-    "dev": "turbo run dev --parallel --continue",
-    "build": "turbo run build --force"
-  },
   "devDependencies": {
     "@vue/test-utils": "^2.4.3",
     "eslint-config-kwai": "*",
@@ -22,5 +13,14 @@
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "private": true,
+  "scripts": {
+    "build": "turbo run build --force",
+    "dev": "turbo run dev --parallel --continue"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
 }

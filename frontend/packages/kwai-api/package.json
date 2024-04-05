@@ -1,27 +1,7 @@
 {
   "name": "@kwai/api",
-  "version": "0.0.1",
   "description": "HTTP library for kwai",
-  "private": true,
-  "files": [
-    "dist/**"
-  ],
-  "type": "module",
-  "main": "dist/kwai-api.umd.cjs",
-  "types": "dist/index.d.ts",
-  "module": "dist/kwai-api.js",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/kwai-api.js",
-      "require": "./dist/kwai-api.umd.cjs"
-    }
-  },
-  "license": "MIT",
-  "scripts": {
-    "build": "vite build",
-    "test": "vitest"
-  },
+  "version": "0.0.1",
   "dependencies": {
     "@kwai/config": "*",
     "@vueuse/core": "^10.7.0",
@@ -31,5 +11,25 @@
   "devDependencies": {
     "vite-plugin-dts": "^3.6.3",
     "vitest": "^0.34.6"
-  }
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/kwai-api.js",
+      "require": "./dist/kwai-api.umd.cjs"
+    }
+  },
+  "files": [
+    "dist/**"
+  ],
+  "license": "MIT",
+  "main": "dist/kwai-api.umd.cjs",
+  "module": "dist/kwai-api.js",
+  "private": true,
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest"
+  },
+  "type": "module",
+  "types": "dist/index.d.ts"
 }

@@ -1,16 +1,16 @@
 {
   "name": "@kwai/types",
-  "version": "1.0.0",
   "description": "Common Typescript types for kwai",
-  "private": true,
-  "main": "src/index.ts",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "tsc --emitDeclarationOnly"
-  },
+  "version": "1.0.0",
   "dependencies": {
     "@kwai/api": "*",
     "@kwai/date": "*",
     "zod": "^3.22.4"
-  }
+  },
+  "main": "src/index.ts",
+  "private": true,
+  "scripts": {
+    "build": "tsc --emitDeclarationOnly"
+  },
+  "types": "dist/index.d.ts"
 }

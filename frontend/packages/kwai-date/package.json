@@ -1,12 +1,13 @@
 {
   "name": "@kwai/date",
-  "version": "1.0.0",
   "description": "Date library for kwai",
-  "private": true,
-  "type": "module",
-  "main": "dist/kwai-date.umd.cjs",
-  "types": "dist/index.d.ts",
-  "module": "dist/kwai-date.js",
+  "version": "1.0.0",
+  "dependencies": {
+    "dayjs": "^1.11.10"
+  },
+  "devDependencies": {
+    "vitest": "^0.34.6"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -18,14 +19,13 @@
     "dist/**"
   ],
   "license": "MIT",
+  "main": "dist/kwai-date.umd.cjs",
+  "module": "dist/kwai-date.js",
+  "private": true,
   "scripts": {
-    "test": "vitest",
-    "build": "vite build --config vite.config.js"
+    "build": "vite build --config vite.config.js",
+    "test": "vitest"
   },
-  "dependencies": {
-    "dayjs": "^1.11.10"
-  },
-  "devDependencies": {
-    "vitest": "^0.34.6"
-  }
+  "type": "module",
+  "types": "dist/index.d.ts"
 }
