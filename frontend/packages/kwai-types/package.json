@@ -9,8 +9,8 @@
     "build": "tsc --emitDeclarationOnly"
   },
   "dependencies": {
-    "@kwai/api": "^0.0.1",
-    "@kwai/date": "^1.0.0",
+    "@kwai/api": "*",
+    "@kwai/date": "*",
     "zod": "^3.22.4"
   }
 }
