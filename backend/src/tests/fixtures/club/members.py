@@ -20,13 +20,16 @@ def make_member(make_person) -> MemberFixtureFactory:
     """A factory fixture for a member."""
 
     def _make_member_entity(
-        *, license: License | None = None, person: PersonEntity | None = None
+        *,
+        license: License | None = None,
+        person: PersonEntity | None = None,
+        active: bool = True,
     ) -> MemberEntity:
         license = license or License(
             number="12345678", end_date=Date.today().add(years=1)
         )
         person = person or make_person()
-        return MemberEntity(license=license, person=person)
+        return MemberEntity(license=license, person=person, active=active)
 
     return _make_member_entity
 

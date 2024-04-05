@@ -37,3 +37,18 @@ async def test_get_members_with_license_date(
     command = GetMembersCommand(license_end_year=2023, license_end_month=2)
     result = await GetMembers(member_repo).execute(command)
     assert result.count == 1, "There should only be one member"
+
+
+async def test_get_all_members(
+    member_repo: MemberRepository, make_member, make_member_in_db, make_person_in_db
+):
+    """Test get members to include inactive members."""
+    await make_member_in_db(
+        make_member(
+            active=False,
+            person=await make_person_in_db(),
+        )
+    )
+    command = GetMembersCommand(active=False)
+    result = await GetMembers(member_repo).execute(command)
+    assert result.count > 0, "There should be at least one inactive member"
