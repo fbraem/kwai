@@ -28,7 +28,7 @@ const menuItems = useMenu();
         </div>
         <div class="flex flex-col place-items-end md:w-1/3">
           <div>
-            <PrimaryButton :url="`${website.url}/auth/login`">
+            <PrimaryButton :url="`${website.url}/apps/auth/login`">
               Login
             </PrimaryButton>
           </div>
