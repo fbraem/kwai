@@ -9,7 +9,7 @@
     "@kwai/date": "*",
     "@kwai/types": "*",
     "@kwai/ui": "*",
-    "@tanstack/vue-query": "^5.10.0",
+    "@tanstack/vue-query": "^5.29.0",
     "@vuepic/vue-datepicker": "^7.3.0",
     "@vueuse/core": "^10.7.0",
     "vee-validate": "^4.12.2",
