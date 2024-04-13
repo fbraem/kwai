@@ -9,6 +9,7 @@ import { useRouter } from 'vue-router';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import PrimaryButton from '@root/components/PrimaryButton.vue';
+import { isLoggedIn, useHttpLogout } from '@kwai/api';
 
 const { t } = useI18n({ useScope: 'global' });
 
@@ -25,6 +26,12 @@ const menuItems = computed(() : MenuItem[] => {
   }
   return result;
 });
+
+const loggedIn = isLoggedIn;
+const logout = () => {
+  useHttpLogout();
+  window.location.reload();
+};
 </script>
 
 <template>
@@ -46,8 +53,13 @@ const menuItems = computed(() : MenuItem[] => {
           </p>
         </div>
         <div class="flex flex-col place-items-end md:w-1/3">
-          <div>
-            <PrimaryButton :url="`${website.url}/auth/login`">
+          <div v-if="loggedIn">
+            <PrimaryButton :method="logout">
+              Logout
+            </PrimaryButton>
+          </div>
+          <div v-else>
+            <PrimaryButton :url="`${website.url}/apps/auth/login`">
               Login
             </PrimaryButton>
           </div>

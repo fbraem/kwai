@@ -1,3 +1,7 @@
 home:
   title: Club
   description: Beheer leden, teams, ...
+not_allowed:
+  title: Niet toegelaten!
+  description: |
+    Om deze applicatie te kunnen gebruiken moet je ingelogd zijn.
