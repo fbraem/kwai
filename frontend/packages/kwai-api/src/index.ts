@@ -39,11 +39,13 @@ export const JsonApiDocument = z.object({
 });
 export type JsonApiDocumentType = z.infer<typeof JsonApiDocument>;
 
-interface LocalStorage {
+export interface LocalStorage {
+    loginRedirect: Ref<string|null>,
     accessToken: Ref<string|null>,
     refreshToken: Ref<string|null>
 }
-const localStorage: LocalStorage = {
+export const localStorage: LocalStorage = {
+  loginRedirect: useLocalStorage('login_redirect', null),
   accessToken: useLocalStorage('access_token', null),
   refreshToken: useLocalStorage('refresh_token', null),
 };
