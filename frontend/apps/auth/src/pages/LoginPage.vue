@@ -72,7 +72,7 @@
 <script setup lang="ts">
 import { CheckIcon, InputField, Button, ErrorAlert } from '@kwai/ui';
 import { useForm } from 'vee-validate';
-import { useHttpLogin } from '@kwai/api';
+import { localStorage, useHttpLogin } from '@kwai/api';
 import { website } from '@kwai/config';
 import { ref } from 'vue';
 import type { Ref } from 'vue';
@@ -118,7 +118,14 @@ const onSubmitForm = handleSubmit(async values => {
   showNotification.value = true;
   setTimeout(() => {
     showNotification.value = false;
-    window.location.replace(website.url);
+    if (localStorage.loginRedirect.value) {
+      const redirectUrl = localStorage.loginRedirect.value;
+      localStorage.loginRedirect.value = '';
+      console.log(`${website.url}${redirectUrl}`);
+      window.location.replace(`${website.url}${redirectUrl}`);
+    } else {
+      window.location.replace(website.url);
+    }
   }, 3000);
 });
 
