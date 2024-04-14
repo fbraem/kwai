@@ -89,7 +89,10 @@ const closeNotification = () => {
       </p>
     </div>
   </div>
-  <form class="flex-auto">
+  <form
+    class="flex-auto"
+    @submit="onSubmitForm"
+  >
     <InputField
       name="email"
       :placeholder="t('login.form.email.placeholder')"
@@ -127,6 +130,7 @@ const closeNotification = () => {
       <Button
         id="submit"
         class="bg-gray-700 text-white focus:bg-gray-900 z-20"
+        :button="true"
         @click="onSubmitForm"
       >
         {{ t('login.form.submit.label') }}
