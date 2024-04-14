@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@kwai/date": "*",
-    "@vuepic/vue-datepicker": "^7.3.0"
+    "@vuepic/vue-datepicker": "8.4.0"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.6",
