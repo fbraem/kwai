@@ -33,7 +33,7 @@ async def get_members(
     """Get members."""
     command = GetMembersCommand(
         offset=pagination.offset or 0,
-        limit=pagination.limit or 10,
+        limit=pagination.limit or 0,
         active=members_filter.enabled,
         license_end_year=members_filter.license_end_year,
         license_end_month=members_filter.license_end_month,
