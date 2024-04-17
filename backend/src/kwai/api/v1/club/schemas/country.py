@@ -14,6 +14,7 @@ class CountryAttributes(BaseModel):
 
     iso_2: str
     iso_3: str
+    name: str
 
 
 class CountryResource(CountryResourceIdentifier, ResourceData[CountryAttributes, None]):
@@ -28,6 +29,8 @@ class CountryDocument(Document[CountryResource, None]):
         """Create a country document from a country value object."""
         country_resource = CountryResource(
             id=str(country.id),
-            attributes=CountryAttributes(iso_2=country.iso_2, iso_3=country.iso_3),
+            attributes=CountryAttributes(
+                iso_2=country.iso_2, iso_3=country.iso_3, name=country.name
+            ),
         )
         return cls(data=country_resource)

@@ -28,7 +28,7 @@ def expected_country_json() -> dict[str, Any]:
         "data": {
             "id": "1",
             "type": "countries",
-            "attributes": {"iso_2": "JP", "iso_3": "JPN"},
+            "attributes": {"iso_2": "JP", "iso_3": "JPN", "name": "Japan"},
         }
     }
 
