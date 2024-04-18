@@ -3,6 +3,7 @@
   "description": "The club application for Kwai",
   "version": "1.0.0",
   "dependencies": {
+    "@indielayer/ui": "^1.7.1",
     "@intlify/unplugin-vue-i18n": "4.0.0",
     "@kwai/api": "*",
     "@kwai/config": "*",
@@ -10,6 +11,7 @@
     "@kwai/types": "*",
     "@kwai/ui": "*",
     "@tanstack/vue-query": "^5.29.0",
+    "@vueuse/core": "^10.9.0",
     "vee-validate": "^4.12.2",
     "vue": "^3.3.9",
     "vue-i18n": "^9.8.0",
