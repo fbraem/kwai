@@ -5,3 +5,5 @@ not_allowed:
   title: Niet toegelaten!
   description: |
     Om deze applicatie te kunnen gebruiken moet je ingelogd zijn.
+members:
+  title: Alle Actieve Leden
