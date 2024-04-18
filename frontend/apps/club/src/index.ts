@@ -13,6 +13,8 @@ import messages from '@intlify/unplugin-vue-i18n/messages';
 import routes from './routes';
 import { localStorage } from '@kwai/api';
 
+import { createUI, BaseTheme, XButton, XAlert, XButtonGroup } from '@indielayer/ui';
+
 const app = createApp(App);
 app.use(VueQueryPlugin);
 
@@ -44,9 +46,15 @@ router.beforeEach((to, from, next) => {
       next(); // Already logged in
     }
   } else {
-    next(); // Loggin not needed
+    next(); // Login not needed
   }
 });
 app.use(router);
+
+const UI = createUI({
+  components: [XButton, XButtonGroup, XAlert],
+  theme: BaseTheme,
+});
+app.use(UI);
 
 app.mount('#app');
