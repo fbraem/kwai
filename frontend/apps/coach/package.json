@@ -11,7 +11,7 @@
     "@kwai/ui": "*",
     "@tanstack/vue-query": "^5.29.0",
     "@vuepic/vue-datepicker": "8.4.0",
-    "@vueuse/core": "^10.7.0",
+    "@vueuse/core": "^10.9.0",
     "vee-validate": "^4.12.2",
     "vue": "^3.3.9",
     "vue-i18n": "^9.8.0",
