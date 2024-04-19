@@ -1,19 +1,38 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, getCurrentInstance, useAttrs } from 'vue';
+import ButtonGroup from './ButtonGroup.vue';
+import type { LocationAsRelativeRaw, RouteRecord } from 'vue-router';
 
 defineEmits(['click']);
 interface Props {
-  button?: boolean
+  to?: RouteRecord | LocationAsRelativeRaw
 }
 const props = defineProps<Props>();
 
-const tag = computed(() => props.button ? 'button' : 'a');
+const instance = getCurrentInstance();
+const inButtonGroup = computed(() => {
+  let result = false;
+  if (instance && instance.parent) {
+    result = instance.parent.type === ButtonGroup;
+  }
+  return result;
+});
+const attrs = useAttrs();
+const htmlTag = computed(() => attrs.href ? 'a' : props.to ? 'router-link' : 'button');
+const classObject = computed(() => ({
+  rounded: !inButtonGroup.value,
+  shadow: !inButtonGroup.value,
+  'hover:shadow-lg': !inButtonGroup.value,
+  'first:rounded-l-md': inButtonGroup.value,
+  'last:rounded-r-md': inButtonGroup.value,
+}));
 </script>
 
 <template>
   <component
-    :is="tag"
-    class="hover:cursor-pointer text-sm font-bold px-12 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+    :is="htmlTag"
+    class="hover:cursor-pointer text-sm border font-bold outline-none focus:outline-none"
+    :class="classObject"
     tabindex="0"
     @click="$emit('click')"
   >
