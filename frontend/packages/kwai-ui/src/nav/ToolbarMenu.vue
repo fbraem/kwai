@@ -19,7 +19,7 @@ const toggleMenu = () => {
 </script>
 
 <template>
-  <nav class="w-full lg:px-6 lg:mx-auto lg:max-w-6xl">
+  <nav class="w-full lg:px-6 lg:mx-auto lg:max-w-6xl bg-primary-500 text-primary-text">
     <div
       v-bind="$attrs"
       class="px-4 py-3"
