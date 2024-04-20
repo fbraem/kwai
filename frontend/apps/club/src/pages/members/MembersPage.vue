@@ -3,6 +3,8 @@ import {
   ContainerSection,
   ContainerSectionContent,
   ContainerSectionTitle,
+  ButtonGroup,
+  Button,
 } from '@kwai/ui';
 import { type Member, useMembers } from '@root/composables/useMember';
 import { computed } from 'vue';
@@ -47,43 +49,39 @@ const alphabet = [...Array(26)].map((_, i) => String.fromCharCode(65 + i));
       {{ t('members.title') }}
     </ContainerSectionTitle>
     <ContainerSectionContent>
-      <x-button-group v-if="largerThanLg">
-        <x-button
+      <ButtonGroup
+        v-if="largerThanLg"
+      >
+        <Button
           v-for="letter in alphabet"
           :key="letter"
-          size="xs"
-          color="primary"
-          class="px-3"
+          class="p-3 bg-primary-500 text-primary-text border-primary-400 hover:bg-primary-400"
         >
           {{ letter }}
-        </x-button>
-      </x-button-group>
+        </Button>
+      </ButtonGroup>
       <div
         v-else
         class="flex flex-col items-center"
       >
-        <x-button-group>
-          <x-button
+        <ButtonGroup>
+          <Button
             v-for="n in 13"
             :key="n"
-            size="xs"
-            color="primary"
-            class="px-3"
+            class="p-3 bg-primary-500 border-primary-400 hover:bg-primary-400"
           >
             {{ alphabet[n-1] }}
-          </x-button>
-        </x-button-group>
-        <x-button-group>
-          <x-button
+          </Button>
+        </ButtonGroup>
+        <ButtonGroup>
+          <Button
             v-for="n in 13"
             :key="n"
-            size="xs"
-            color="primary"
-            class="px-3"
+            class="p-3 bg-primary-500 border-primary-400 hover:bg-primary-400"
           >
             {{ alphabet[n+12] }}
-          </x-button>
-        </x-button-group>
+          </Button>
+        </ButtonGroup>
       </div>
       <ul class="columns-3xs w-2/3 mx-auto">
         <li
