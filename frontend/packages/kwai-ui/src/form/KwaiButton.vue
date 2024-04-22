@@ -1,10 +1,12 @@
+<!-- A wrapper around PrimeVue Button -->
 <script setup lang="ts">
 import Button from 'primevue/button';
 import { LocationAsRelativeRaw, RouteRecord } from 'vue-router';
 import { computed, useAttrs } from 'vue';
 interface Props {
   to?: RouteRecord | LocationAsRelativeRaw,
-  method?: () => void
+  method?: () => void,
+  small: boolean,
 }
 const props = defineProps<Props>();
 
@@ -17,6 +19,8 @@ const wrapperTag = computed(() => attrs.href ? 'a' : props.to ? 'router-link' : 
 const toAttr = computed(() => props.to ? 'to' : null);
 const hrefAttr = computed(() => attrs.href ? 'href' : null);
 const clickAttr = computed(() => props.method ? 'click' : null);
+
+const size = computed(() => props.small ? 'small' : undefined);
 </script>
 
 <template>
@@ -26,13 +30,17 @@ const clickAttr = computed(() => props.method ? 'click' : null);
     :[toAttr]="to"
     :[hrefAttr]="$attrs.href"
   >
-    <Button v-bind="$attrs">
+    <Button
+      v-bind="$attrs"
+      :size="size"
+    >
       <slot />
     </Button>
   </component>
   <Button
     v-else
     v-bind="$attrs"
+    :size="size"
     @[clickAttr]="method"
   >
     <slot />
