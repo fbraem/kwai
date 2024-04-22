@@ -13,6 +13,8 @@ import messages from '@intlify/unplugin-vue-i18n/messages';
 import routes from './routes';
 import { localStorage } from '@kwai/api';
 
+import { init } from '@kwai/ui';
+
 const app = createApp(App);
 app.use(VueQueryPlugin);
 
@@ -48,5 +50,6 @@ router.beforeEach((to, from, next) => {
   }
 });
 app.use(router);
+init(app);
 
 app.mount('#app');
