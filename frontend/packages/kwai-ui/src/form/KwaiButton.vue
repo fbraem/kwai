@@ -6,7 +6,7 @@ import { computed, useAttrs } from 'vue';
 interface Props {
   to?: RouteRecord | LocationAsRelativeRaw,
   method?: () => void,
-  small: boolean,
+  small?: boolean,
 }
 const props = defineProps<Props>();
 
