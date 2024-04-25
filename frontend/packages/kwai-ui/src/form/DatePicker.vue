@@ -17,7 +17,7 @@ const props = defineProps<{
 const slots = useSlots();
 
 const nameRef = toRef(props, 'name');
-const { value, errorMessage } = useField(nameRef);
+const { value, errorMessage } = useField<Date>(nameRef);
 
 const format = (date: Date | null) : string => {
   if (date) {

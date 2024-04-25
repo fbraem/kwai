@@ -15,13 +15,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, StyleValue } from 'vue';
+import type { Ref } from 'vue';
 
 const props = defineProps<{
   image?: string
 }>();
 
-const styles = ref<object[]>([]);
+const styles: Ref<StyleValue[]> = ref([]);
 if (props.image) {
   styles.value.push({ 'background-image': `url(${props.image}` });
 }

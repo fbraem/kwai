@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
 const slots = useSlots();
 
 const nameRef = toRef(props, 'name');
-const { value, errorMessage } = useField(nameRef);
+const { value, errorMessage } = useField<Date>(nameRef);
 
 const format = (dates: Date[]) : string => {
   const format = props.time ? 'L LTS' : 'L';

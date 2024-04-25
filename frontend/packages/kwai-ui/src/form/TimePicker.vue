@@ -3,6 +3,7 @@ import { computed, toRef, useSlots } from 'vue';
 import { useField } from 'vee-validate';
 import RequiredIcon from '../icons/RequiredIcon.vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
+import type { TimeModel } from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 
 const props = defineProps<{
@@ -15,7 +16,7 @@ const props = defineProps<{
 const slots = useSlots();
 
 const nameRef = toRef(props, 'name');
-const { value, errorMessage } = useField(nameRef);
+const { value, errorMessage } = useField<TimeModel>(nameRef);
 
 const format = computed(() => props.format ?? 'HH:mm');
 </script>
