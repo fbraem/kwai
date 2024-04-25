@@ -8,10 +8,10 @@
     "@kwai/ui": "*",
     "@vueuse/core": "^10.9.0",
     "pinia": "^2.1.7",
-    "vee-validate": "^4.12.2",
-    "vue": "^3.3.9",
-    "vue-i18n": "^9.8.0",
-    "vue-router": "^4.2.5"
+    "vee-validate": "^4.12.6",
+    "vue": "^3.4.25",
+    "vue-i18n": "^9.13.1",
+    "vue-router": "^4.3.2"
   },
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "^1.4.0",
