@@ -148,7 +148,7 @@ export function createDateTimeFromUTC(value: string, fmt: string = 'YYYY-MM-DD H
 }
 
 export function formatToUTC(value: DateType | null, fmt: string = 'YYYY-MM-DD HH:mm:ss'): string | null {
-  return value?.utc().format(fmt);
+  return value?.utc().format(fmt) ?? null;
 }
 
 export function now(): DateType {
