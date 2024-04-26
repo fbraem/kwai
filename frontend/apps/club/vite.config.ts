@@ -8,12 +8,15 @@ import { visualizer } from 'rollup-plugin-visualizer';
 export default defineConfig(({ mode }) => {
   return {
     base: '/apps/club/',
-    esbuild: {
-      pure: mode === 'production' ? ['console.log'] : [],
-    },
     server: {
       host: '0.0.0.0',
       port: 3004,
+    },
+    esbuild: {
+      pure: mode === 'production' ? ['console.log'] : [],
+    },
+    build: {
+      sourcemap: 'inline',
     },
     plugins: [
       vue(),

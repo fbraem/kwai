@@ -11,6 +11,7 @@ export default defineConfig({
     visualizer(),
   ],
   build: {
+    sourcemap: 'inline',
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: '@kwai/ui',
