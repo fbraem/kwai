@@ -10,16 +10,14 @@ interface Props {
 const props = defineProps<Props>();
 
 const tag = computed(() => props.route ? 'router-link' : 'a');
-const to = computed(() => props.route ? 'to' : null);
-const href = computed(() => props.url ? 'href' : null);
 const click = computed(() => props.method ? 'click' : null);
 </script>
 
 <template>
   <component
     :is="tag"
-    :[to]="route"
-    :[href]="url"
+    :to="route"
+    :href="url"
     @[click]="method"
   >
     <slot />

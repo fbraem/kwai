@@ -16,8 +16,6 @@ defineOptions({
 });
 
 const wrapperTag = computed(() => attrs.href ? 'a' : props.to ? 'router-link' : null);
-const toAttr = computed(() => props.to ? 'to' : null);
-const hrefAttr = computed(() => attrs.href ? 'href' : null);
 const clickAttr = computed(() => props.method ? 'click' : null);
 
 const size = computed(() => props.small ? 'small' : undefined);
@@ -27,8 +25,8 @@ const size = computed(() => props.small ? 'small' : undefined);
   <component
     :is="wrapperTag"
     v-if="wrapperTag"
-    :[toAttr]="to"
-    :[hrefAttr]="$attrs.href"
+    :to="to"
+    :href="$attrs.href"
   >
     <Button
       v-bind="$attrs"
