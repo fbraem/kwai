@@ -50,7 +50,7 @@ class MemberDbRepository(MemberRepository):
     async def create(self, member: MemberEntity) -> MemberEntity:
         # When there is no person id, create it.
         if member.person.id.is_empty():
-            person = PersonDbRepository(self._database).create(member.person)
+            person = await PersonDbRepository(self._database).create(member.person)
             member = Entity.replace(member, person=person)
 
         new_id = await self._database.insert(
