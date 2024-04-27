@@ -17,7 +17,7 @@ class PersonRepository(ABC):
         """Save a person entity."""
 
     @abstractmethod
-    async def update(self, person: PersonEntity) -> PersonEntity:
+    async def update(self, person: PersonEntity) -> None:
         """Update a person entity."""
 
     @abstractmethod
