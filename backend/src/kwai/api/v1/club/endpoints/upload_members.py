@@ -68,7 +68,7 @@ async def upload(
         member_file_path.stem + "_", member_file_path.suffix
     )
     while True:
-        member_filename = Path(next(member_filename_generator))
+        member_filename = file_path / next(member_filename_generator)
         if not member_filename.exists():
             break
 
