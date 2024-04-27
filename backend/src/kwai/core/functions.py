@@ -37,6 +37,6 @@ def generate_filenames(prefix, suffix, places=3):
 
     The index field is padded with leading zeroes to the specified number of places
     """
-    pattern = "{}{{:0{}d}}.{}".format(prefix, places, suffix)
+    pattern = "{}{{:0{}d}}{}".format(prefix, places, suffix)
     for i in count(1):
         yield pattern.format(i)

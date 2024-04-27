@@ -23,7 +23,7 @@ async def test_async_groupby():
 
 def test_generate_filenames():
     """Test generate_filenames."""
-    filename_generator = generate_filenames("test_", "csv")
+    filename_generator = generate_filenames("test_", ".csv")
 
     assert next(filename_generator) == "test_001.csv"
     assert next(filename_generator) == "test_002.csv"
@@ -32,7 +32,7 @@ def test_generate_filenames():
 
 def test_generate_filenames_with_shorter_suffix():
     """Test generate_filenames."""
-    filename_generator = generate_filenames("test_", "csv", 2)
+    filename_generator = generate_filenames("test_", ".csv", 2)
 
     assert next(filename_generator) == "test_01.csv"
     assert next(filename_generator) == "test_02.csv"
