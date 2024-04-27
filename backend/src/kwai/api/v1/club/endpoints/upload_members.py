@@ -10,6 +10,7 @@ from kwai.api.dependencies import create_database, get_current_user
 from kwai.api.v1.club.schemas.member import MemberDocument
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
+from kwai.core.functions import generate_filenames
 from kwai.core.json_api import Meta
 from kwai.core.settings import Settings, get_settings
 from kwai.modules.club.import_members import (
@@ -62,7 +63,15 @@ async def upload(
 
     file_path = Path(settings.files.path)
     file_path.mkdir(parents=True, exist_ok=True)
-    member_filename = file_path / member_file.filename
+    member_file_path = file_path / member_file.filename
+    member_filename_generator = generate_filenames(
+        member_file_path.stem + "_", member_file_path.suffix
+    )
+    while True:
+        member_filename = Path(next(member_filename_generator))
+        if not member_filename.exists():
+            break
+
     with open(member_filename, "wb") as fh:
         fh.write(await member_file.read())
 
