@@ -44,6 +44,13 @@ class FailureResult(Result):
         return f"Import failed for row {self.row}: {self.message}."
 
 
+@dataclass(kw_only=True, slots=True, frozen=True)
+class ImportMembersCommand:
+    """Input for the use case "ImportMembers"."""
+
+    test: bool = True
+
+
 class ImportMembers:
     """Use case for importing members."""
 
@@ -64,7 +71,9 @@ class ImportMembers:
         self._file_upload_repo = file_upload_repo
         self._member_repo = member_repo
 
-    async def execute(self) -> AsyncGenerator[Result, None]:
+    async def execute(
+        self, command: ImportMembersCommand
+    ) -> AsyncGenerator[Result, None]:
         """Execute the use case.
 
         Yields:
@@ -77,7 +86,7 @@ class ImportMembers:
         async for import_result in self._importer.import_():
             match import_result:
                 case member_importer.OkResult():
-                    member = await self._save_member(import_result.member)
+                    member = await self._save_member(import_result.member, command.test)
                     yield OkResult(
                         file_upload=file_upload_entity,
                         row=import_result.row,
@@ -90,15 +99,21 @@ class ImportMembers:
                         message=import_result.message,
                     )
 
-    async def _save_member(self, member: MemberEntity) -> MemberEntity:
+    async def _save_member(self, member: MemberEntity, test: bool) -> MemberEntity:
         """Create or update the member."""
         existing_member = await self._get_member(member)
         if existing_member is not None:
-            return await self._update_member(existing_member, member)
-        return await self._member_repo.create(member)
+            updated_member = self._update_member(existing_member, member)
+            if not test:
+                await self._member_repo.update(updated_member)
+            return updated_member
+        if not test:
+            return await self._member_repo.create(member)
+        return member
 
-    async def _update_member(
-        self, old_member: MemberEntity, new_member: MemberEntity
+    @classmethod
+    def _update_member(
+        cls, old_member: MemberEntity, new_member: MemberEntity
     ) -> MemberEntity:
         """Update an existing member with the new imported data."""
         updated_contact = Entity.replace(
@@ -118,7 +133,6 @@ class ImportMembers:
             person=updated_person,
             traceable_time=old_member.traceable_time.mark_for_update(),
         )
-        await self._member_repo.update(updated_member)
         return updated_member
 
     async def _get_member(self, member: MemberEntity) -> MemberEntity | None:
