@@ -130,6 +130,10 @@ class ImportMembers:
         updated_member = Entity.replace(
             new_member,
             id_=old_member.id,
+            uuid=old_member.uuid,
+            remark=old_member.remark,
+            competition=old_member.is_competitive,
+            active=old_member.is_active,
             person=updated_person,
             traceable_time=old_member.traceable_time.mark_for_update(),
         )
