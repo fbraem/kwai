@@ -1,7 +1,7 @@
 """Module that defines some common functions."""
 
 from itertools import count
-from typing import Any, AsyncIterator, Callable, TypeVar
+from typing import Any, AsyncIterator, Callable, Generator, TypeVar
 
 T = TypeVar("T")
 R = TypeVar("R")
@@ -32,7 +32,7 @@ async def async_groupby(
     yield current_key, group
 
 
-def generate_filenames(prefix, suffix, places=3):
+def generate_filenames(prefix, suffix, places=3) -> Generator[str, None, None]:
     """Generate sequential filenames with the format <prefix><index><suffix>.
 
     The index field is padded with leading zeroes to the specified number of places
