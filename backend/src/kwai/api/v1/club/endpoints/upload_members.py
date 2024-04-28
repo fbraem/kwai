@@ -16,6 +16,7 @@ from kwai.core.settings import Settings, get_settings
 from kwai.modules.club.import_members import (
     FailureResult,
     ImportMembers,
+    ImportMembersCommand,
     OkResult,
 )
 from kwai.modules.club.members.country_db_repository import CountryDbRepository
@@ -42,7 +43,7 @@ class UploadMemberModel(BaseModel):
 class UploadMembersModel(BaseModel):
     """Model that contains the information about all rows."""
 
-    members: list[UploadMemberModel] = Field(..., default_factory=list)
+    members: list[UploadMemberModel] = Field(default_factory=list)
 
 
 @router.post("/members/upload")
@@ -61,19 +62,13 @@ async def upload(
             detail="There is no filename available for the uploaded file.",
         )
 
-    file_path = Path(settings.files.path)
-    file_path.mkdir(parents=True, exist_ok=True)
-    member_file_path = file_path / member_file.filename
-    member_filename_generator = generate_filenames(
-        member_file_path.stem + "_", member_file_path.suffix
-    )
-    while True:
-        member_filename = file_path / next(member_filename_generator)
-        if not member_filename.exists():
-            break
-
-    with open(member_filename, "wb") as fh:
-        fh.write(await member_file.read())
+    try:
+        member_filename = await upload_file(member_file, settings.files.path)
+    except Exception as ex:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to upload members file: {ex}",
+        ) from ex
 
     async with UnitOfWork(database):
         imported_member_generator = ImportMembers(
@@ -84,7 +79,7 @@ async def upload(
             ),
             FileUploadDbRepository(database),
             MemberDbRepository(database),
-        ).execute()
+        ).execute(ImportMembersCommand())
 
     meta = Meta(count=0, offset=0, limit=0, errors=[])
     response = MemberDocument(meta=meta, data=[])
@@ -97,6 +92,7 @@ async def upload(
             case OkResult():
                 member_document = MemberDocument.create(result.member)
                 member_document.resource.meta.row = result.row
+                member_document.resource.meta.new = not result.member.has_id()
                 meta.count += 1
                 response.merge(member_document)
             case FailureResult():
@@ -107,3 +103,22 @@ async def upload(
                     detail="Unexpected result returned",
                 )
     return response
+
+
+async def upload_file(uploaded_file, path: str):
+    """Creates a unique file for the uploaded file."""
+    file_path = Path(path)
+    file_path.mkdir(parents=True, exist_ok=True)
+    member_file_path = file_path / uploaded_file.filename
+    member_filename_generator = generate_filenames(
+        member_file_path.stem + "_", member_file_path.suffix
+    )
+    while True:
+        member_filename = file_path / next(member_filename_generator)
+        if not member_filename.exists():
+            break
+
+    with open(member_filename, "wb") as fh:
+        fh.write(await uploaded_file.read())
+
+    return member_filename
