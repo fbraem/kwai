@@ -14,7 +14,7 @@
     "postcss": "^8.4.31",
     "tailwindcss": "^3.4.3",
     "vite-plugin-dts": "^3.6.3",
-    "vue": "^3.3.4"
+    "vue": "3.4.25"
   },
   "exports": {
     ".": {
