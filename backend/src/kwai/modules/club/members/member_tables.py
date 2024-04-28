@@ -216,7 +216,7 @@ class PersonRow(TableRow):
             remark=person.remark,
             user_id=None,
             contact_id=person.contact.id.value,
-            nationality_id=person.nationality.id,
+            nationality_id=person.nationality.id.value,
             created_at=person.traceable_time.created_at.timestamp,  # type: ignore[arg-type]
             updated_at=person.traceable_time.updated_at.timestamp,
         )
