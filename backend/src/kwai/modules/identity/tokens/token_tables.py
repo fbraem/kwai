@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from kwai.core.db.table import Table
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.identity.tokens.access_token import (
     AccessTokenEntity,
@@ -39,8 +39,8 @@ class AccessTokenRow:
             user_account=user_account,
             revoked=self.revoked,
             traceable_time=TraceableTime(
-                created_at=LocalTimestamp(timestamp=self.created_at),
-                updated_at=LocalTimestamp(timestamp=self.updated_at),
+                created_at=Timestamp(timestamp=self.created_at),
+                updated_at=Timestamp(timestamp=self.updated_at),
             ),
         )
 
@@ -82,8 +82,8 @@ class RefreshTokenRow:
             expiration=self.expiration,
             revoked=self.revoked,
             traceable_time=TraceableTime(
-                created_at=LocalTimestamp(timestamp=self.created_at),
-                updated_at=LocalTimestamp(timestamp=self.updated_at),
+                created_at=Timestamp(timestamp=self.created_at),
+                updated_at=Timestamp(timestamp=self.updated_at),
             ),
         )
 

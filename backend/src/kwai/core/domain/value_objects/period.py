@@ -3,15 +3,15 @@
 from dataclasses import dataclass, field
 from datetime import timedelta
 
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 
 
 @dataclass(frozen=True, kw_only=True, slots=True)
 class Period:
     """Value object for handling a period between dates."""
 
-    start_date: LocalTimestamp = field(default_factory=LocalTimestamp.create_now)
-    end_date: LocalTimestamp = field(default_factory=LocalTimestamp)
+    start_date: Timestamp = field(default_factory=Timestamp.create_now)
+    end_date: Timestamp = field(default_factory=Timestamp)
 
     def __post_init__(self):
         """Perform post initialization.
@@ -36,7 +36,7 @@ class Period:
         return self.end_date.empty
 
     @classmethod
-    def create_from_delta(cls, start_date: LocalTimestamp = None, **kwargs) -> "Period":
+    def create_from_delta(cls, start_date: Timestamp = None, **kwargs) -> "Period":
         """Create a period from a delta."""
-        date = start_date or LocalTimestamp.create_now()
+        date = start_date or Timestamp.create_now()
         return Period(start_date=date, end_date=date.add_delta(**kwargs))

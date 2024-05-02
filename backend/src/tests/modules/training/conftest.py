@@ -12,7 +12,7 @@ from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
 from kwai.core.domain.value_objects.time_period import TimePeriod
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.weekday import Weekday
 from kwai.modules.training.coaches.coach_tables import (
     CoachesTable,
@@ -96,7 +96,7 @@ async def seed_teams(database: Database, context: Context):
 @pytest.fixture
 async def training_entity(owner: Owner) -> TrainingEntity:
     """A fixture for a training entity."""
-    start_date = LocalTimestamp.create_now()
+    start_date = Timestamp.create_now()
     training = TrainingEntity(
         texts=[
             LocaleText(

@@ -8,7 +8,7 @@ from kwai.core.db.table_row import TableRow
 from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.members.contact import ContactEntity, ContactIdentifier
@@ -198,8 +198,8 @@ class PersonRow(TableRow):
             remark=self.remark or "",
             contact=contact,
             traceable_time=TraceableTime(
-                created_at=LocalTimestamp(self.created_at),
-                updated_at=LocalTimestamp(self.updated_at),
+                created_at=Timestamp(self.created_at),
+                updated_at=Timestamp(self.updated_at),
             ),
             nationality=nationality,
         )
@@ -253,8 +253,8 @@ class MemberRow(TableRow):
             active=self.active == 1,
             person=person,
             traceable_time=TraceableTime(
-                created_at=LocalTimestamp(self.created_at),
-                updated_at=LocalTimestamp(self.updated_at),
+                created_at=Timestamp(self.created_at),
+                updated_at=Timestamp(self.updated_at),
             ),
         )
 

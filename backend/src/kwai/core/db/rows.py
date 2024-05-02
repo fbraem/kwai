@@ -8,7 +8,7 @@ from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 
@@ -72,7 +72,7 @@ class TextRow:
             summary=self.summary,
             author=author,
             traceable_time=TraceableTime(
-                created_at=LocalTimestamp(timestamp=self.created_at),
-                updated_at=LocalTimestamp(timestamp=self.updated_at),
+                created_at=Timestamp(timestamp=self.created_at),
+                updated_at=Timestamp(timestamp=self.updated_at),
             ),
         )

@@ -6,7 +6,7 @@ from datetime import datetime
 from kwai.core.db.table import Table
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_invitations.user_invitation import (
@@ -64,15 +64,15 @@ class UserInvitationRow:
             email=EmailAddress(self.email),
             name=Name(last_name=self.last_name, first_name=self.first_name),
             uuid=UniqueId.create_from_string(self.uuid),
-            expired_at=LocalTimestamp(self.expired_at),
+            expired_at=Timestamp(self.expired_at),
             user=user,
             remark=self.remark or "",
-            mailed_at=LocalTimestamp(self.mailed_at),
-            confirmed_at=LocalTimestamp(self.confirmed_at),
+            mailed_at=Timestamp(self.mailed_at),
+            confirmed_at=Timestamp(self.confirmed_at),
             revoked=self.revoked == 1,
             traceable_time=TraceableTime(
-                created_at=LocalTimestamp(self.created_at),
-                updated_at=LocalTimestamp(self.updated_at),
+                created_at=Timestamp(self.created_at),
+                updated_at=Timestamp(self.updated_at),
             ),
         )
 

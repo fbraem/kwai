@@ -6,7 +6,7 @@ from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import LocaleText
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.portal.applications.application import ApplicationEntity
 
@@ -18,7 +18,7 @@ class Promotion:
     """Value object for handling promoted news items."""
 
     priority: int = 0
-    end_date: LocalTimestamp = field(default_factory=LocalTimestamp)
+    end_date: Timestamp = field(default_factory=Timestamp)
 
 
 class NewsItemEntity(Entity[NewsItemIdentifier]):

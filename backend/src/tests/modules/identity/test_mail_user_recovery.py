@@ -4,7 +4,7 @@ import pytest
 
 from kwai.core.db.database import Database
 from kwai.core.domain.exceptions import UnprocessableException
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipients
 from kwai.core.template.mail_template import MailTemplate
@@ -36,7 +36,7 @@ async def user_recovery(
 ) -> UserRecoveryEntity:
     """Create a user recovery."""
     user_recovery = UserRecoveryEntity(
-        expiration=LocalTimestamp.create_with_delta(hours=2),
+        expiration=Timestamp.create_with_delta(hours=2),
         user=user,
     )
     entity = await repo.create(user_recovery)

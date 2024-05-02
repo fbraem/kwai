@@ -6,7 +6,7 @@ from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.portal.applications.application import ApplicationIdentifier
 from kwai.modules.portal.applications.application_repository import (
     ApplicationRepository,
@@ -68,7 +68,7 @@ class UpdateNewsItem:
             else:
                 promotion = Promotion(
                     priority=command.promotion,
-                    end_date=LocalTimestamp.create_from_string(
+                    end_date=Timestamp.create_from_string(
                         command.promotion_end_datetime
                     ),
                 )
@@ -81,11 +81,11 @@ class UpdateNewsItem:
             application=application,
             promotion=promotion,
             period=Period(
-                start_date=LocalTimestamp.create_from_string(command.publish_datetime),
+                start_date=Timestamp.create_from_string(command.publish_datetime),
                 end_date=(
                     None
                     if command.end_datetime
-                    else LocalTimestamp.create_from_string(command.end_datetime)
+                    else Timestamp.create_from_string(command.end_datetime)
                 ),
             ),
             texts=[

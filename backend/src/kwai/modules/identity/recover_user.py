@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.events.publisher import Publisher
 from kwai.modules.identity.user_recoveries.user_recovery import UserRecoveryEntity
 from kwai.modules.identity.user_recoveries.user_recovery_events import (
@@ -65,7 +65,7 @@ class RecoverUser:
         user_recovery = await self._user_recovery_repo.create(
             UserRecoveryEntity(
                 user=user_account.user,
-                expiration=LocalTimestamp.create_with_delta(hours=2),
+                expiration=Timestamp.create_with_delta(hours=2),
             )
         )
 

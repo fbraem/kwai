@@ -1,18 +1,18 @@
 """Module for testing LocalTimestamp."""
 
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 
 
 def test_create_now():
     """Test the create_now factory method."""
-    timestamp = LocalTimestamp.create_now()
+    timestamp = Timestamp.create_now()
 
     assert timestamp is not None, "There should be a timestamp."
 
 
 def test_add_delta():
     """Test the add delta method."""
-    timestamp = LocalTimestamp.create_now()
+    timestamp = Timestamp.create_now()
     new_timestamp = timestamp.add_delta(hours=1)
 
     assert (
@@ -22,14 +22,14 @@ def test_add_delta():
 
 def test_create_with_delta():
     """Test the create_with_delta factory method."""
-    timestamp = LocalTimestamp.create_with_delta(hours=1)
+    timestamp = Timestamp.create_with_delta(hours=1)
 
     assert timestamp is not None, "There should be a timestamp."
 
 
 def test_create_from_string():
     """Test creating a local timestamp with a string."""
-    timestamp = LocalTimestamp.create_from_string("1969-03-09 09:00:00")
+    timestamp = Timestamp.create_from_string("1969-03-09 09:00:00")
     assert timestamp is not None, "There should be a timestamp"
     assert timestamp.year == 1969, "The year should be 1969"
     assert timestamp.month == 3, "The month should be 3"

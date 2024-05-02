@@ -6,7 +6,7 @@ from datetime import datetime
 from kwai.core.db.rows import TextRow
 from kwai.core.db.table import Table
 from kwai.core.domain.value_objects.text import LocaleText
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.pages.page import PageEntity, PageIdentifier
@@ -80,8 +80,8 @@ class PageRow:
             texts=content,
             remark=self.remark,
             traceable_time=TraceableTime(
-                created_at=LocalTimestamp(timestamp=self.created_at),
-                updated_at=LocalTimestamp(timestamp=self.updated_at),
+                created_at=Timestamp(timestamp=self.created_at),
+                updated_at=Timestamp(timestamp=self.updated_at),
             ),
         )
 

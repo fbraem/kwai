@@ -3,7 +3,7 @@
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.password import Password
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.identity.exceptions import NotAllowedException
 from kwai.modules.identity.users.user import UserEntity
 
@@ -19,16 +19,16 @@ class UserAccountEntity(Entity[UserAccountIdentifier]):
         user: UserEntity,
         password: Password,
         id_: UserAccountIdentifier | None = None,
-        last_login: LocalTimestamp | None = None,
-        last_unsuccessful_login: LocalTimestamp | None = None,
+        last_login: Timestamp | None = None,
+        last_unsuccessful_login: Timestamp | None = None,
         revoked: bool = False,
         admin: bool = False,
     ):
         super().__init__(id_ or UserAccountIdentifier())
         self._user = user
         self._password = password
-        self._last_login = last_login or LocalTimestamp()
-        self._last_unsuccessful_login = last_unsuccessful_login or LocalTimestamp()
+        self._last_login = last_login or Timestamp()
+        self._last_unsuccessful_login = last_unsuccessful_login or Timestamp()
         self._revoked = revoked
         self._admin = admin
 
@@ -38,12 +38,12 @@ class UserAccountEntity(Entity[UserAccountIdentifier]):
         return self._admin
 
     @property
-    def last_login(self) -> LocalTimestamp:
+    def last_login(self) -> Timestamp:
         """Return the timestamp of the last successful login."""
         return self._last_login
 
     @property
-    def last_unsuccessful_login(self) -> LocalTimestamp:
+    def last_unsuccessful_login(self) -> Timestamp:
         """Return the timestamp of the last unsuccessful login."""
         return self._last_unsuccessful_login
 
@@ -57,10 +57,10 @@ class UserAccountEntity(Entity[UserAccountIdentifier]):
             password(str): The password.
         """
         if self._password.verify(password):
-            self._last_login = LocalTimestamp.create_now()
+            self._last_login = Timestamp.create_now()
             return True
 
-        self._last_unsuccessful_login = LocalTimestamp.create_now()
+        self._last_unsuccessful_login = Timestamp.create_now()
         return False
 
     @property

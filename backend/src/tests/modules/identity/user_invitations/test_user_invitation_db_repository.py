@@ -5,7 +5,7 @@ import pytest
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
     UserInvitationDbRepository,
@@ -76,7 +76,7 @@ async def test_query_filter_by_email(repo: UserInvitationRepository):
 async def test_query_filter_active(repo: UserInvitationRepository):
     """Test the filter active query."""
     query = repo.create_query()
-    query.filter_active(LocalTimestamp.create_now())
+    query.filter_active(Timestamp.create_now())
     assert await query.count() > 0, "There should be at least 1 row"
 
 

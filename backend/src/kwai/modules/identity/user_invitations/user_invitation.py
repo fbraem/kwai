@@ -4,7 +4,7 @@ from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.name import Name
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.users.user import UserEntity
@@ -25,11 +25,11 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
         email: EmailAddress,
         name: Name,
         uuid: UniqueId | None = None,
-        expired_at: LocalTimestamp | None = None,
+        expired_at: Timestamp | None = None,
         remark: str = "",
-        mailed_at: LocalTimestamp | None = None,
+        mailed_at: Timestamp | None = None,
         user: UserEntity,
-        confirmed_at: LocalTimestamp | None = None,
+        confirmed_at: Timestamp | None = None,
         revoked: bool = False,
         traceable_time: TraceableTime | None = None,
     ):
@@ -52,11 +52,11 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
         self._email = email
         self._name = name
         self._uuid = uuid or UniqueId.generate()
-        self._expired_at = expired_at or LocalTimestamp.create_with_delta(days=7)
+        self._expired_at = expired_at or Timestamp.create_with_delta(days=7)
         self._remark = remark
-        self._mailed_at = mailed_at or LocalTimestamp()
+        self._mailed_at = mailed_at or Timestamp()
         self._user = user
-        self._confirmed_at = confirmed_at or LocalTimestamp()
+        self._confirmed_at = confirmed_at or Timestamp()
         self._revoked = revoked
         self._traceable_time = traceable_time or TraceableTime()
 
@@ -76,7 +76,7 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
         return self._uuid
 
     @property
-    def expired_at(self) -> LocalTimestamp:
+    def expired_at(self) -> Timestamp:
         """Return when the invitation will expire."""
         return self._expired_at
 
@@ -91,7 +91,7 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
         return not self._mailed_at.empty
 
     @property
-    def mailed_at(self) -> LocalTimestamp:
+    def mailed_at(self) -> Timestamp:
         """Return the timestamp of sending the email."""
         return self._mailed_at
 
@@ -107,7 +107,7 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
 
     def confirm(self):
         """Confirm the invitation, the invitation was used to create a new user."""
-        self._confirmed_at = LocalTimestamp.create_now()
+        self._confirmed_at = Timestamp.create_now()
         self._traceable_time = self._traceable_time.mark_for_update()
 
     @property
@@ -116,7 +116,7 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
         return not self._confirmed_at.empty
 
     @property
-    def confirmed_at(self) -> LocalTimestamp:
+    def confirmed_at(self) -> Timestamp:
         """Return when this invitation was used."""
         return self._confirmed_at
 
@@ -132,5 +132,5 @@ class UserInvitationEntity(Entity[UserInvitationIdentifier]):
 
     def mail_sent(self):
         """Set the timestamp when the mail has been sent."""
-        self._mailed_at = LocalTimestamp.create_now()
+        self._mailed_at = Timestamp.create_now()
         self._traceable_time = self._traceable_time.mark_for_update()

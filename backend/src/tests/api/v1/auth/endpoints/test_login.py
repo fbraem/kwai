@@ -5,7 +5,7 @@ from fastapi import status
 from fastapi.testclient import TestClient
 
 from kwai.core.db.database import Database
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.identity.user_recoveries.user_recovery import UserRecoveryEntity
 from kwai.modules.identity.user_recoveries.user_recovery_db_repository import (
     UserRecoveryDbRepository,
@@ -88,7 +88,7 @@ async def test_reset_password(
 ):
     """Test the reset password api."""
     user_recovery = UserRecoveryEntity(
-        expiration=LocalTimestamp.create_with_delta(hours=2),
+        expiration=Timestamp.create_with_delta(hours=2),
         user=user_account.user,
     )
     user_recovery = await UserRecoveryDbRepository(database).create(user_recovery)

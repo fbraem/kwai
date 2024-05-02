@@ -5,7 +5,7 @@ from datetime import date, datetime, time, timedelta
 
 
 @dataclass(frozen=True)
-class LocalTimestamp:
+class Timestamp:
     """A value object for a timestamp.
 
     The datetime should always be in UTC.
@@ -94,15 +94,15 @@ class LocalTimestamp:
 
         return self.timestamp.strftime("%Y-%m-%d %H:%M:%S")
 
-    def add_delta(self, **kwargs) -> "LocalTimestamp":
+    def add_delta(self, **kwargs) -> "Timestamp":
         """Create a new timestamp by adding the delta to the timestamp.
 
         Returns:
-            LocalTimestamp: A new timestamp with the delta.
+            Timestamp: A new timestamp with the delta.
         """
         if self.timestamp is None:
             raise ValueError("Empty timestamp")
-        return LocalTimestamp(self.timestamp + timedelta(**kwargs))
+        return Timestamp(self.timestamp + timedelta(**kwargs))
 
     @classmethod
     def create_with_delta(cls, **kwargs):
@@ -112,12 +112,12 @@ class LocalTimestamp:
     @classmethod
     def create_now(cls):
         """Create a timestamp with the current UTC time."""
-        return LocalTimestamp(timestamp=datetime.utcnow())
+        return Timestamp(timestamp=datetime.utcnow())
 
     @classmethod
     def create_from_string(
         cls, date_time: str | None = None, date_format: str = "%Y-%m-%d %H:%M:%S"
-    ) -> "LocalTimestamp":
+    ) -> "Timestamp":
         """Create a timestamp from a string.
 
         Args:
@@ -126,7 +126,7 @@ class LocalTimestamp:
             date_format: The format used in the string.
         """
         if date_time is None:
-            return LocalTimestamp()
+            return Timestamp()
         if len(date_time) == 0:
-            return LocalTimestamp()
-        return LocalTimestamp(datetime.strptime(date_time, date_format))
+            return Timestamp()
+        return Timestamp(datetime.strptime(date_time, date_format))

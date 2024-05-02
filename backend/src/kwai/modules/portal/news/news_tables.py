@@ -7,7 +7,7 @@ from kwai.core.db.rows import TextRow
 from kwai.core.db.table import Table
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import LocaleText
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.news.news_item import (
@@ -88,18 +88,18 @@ class NewsItemRow:
             enabled=self.enabled == 1,
             promotion=Promotion(
                 priority=self.promotion,
-                end_date=LocalTimestamp(self.promotion_end_date),
+                end_date=Timestamp(self.promotion_end_date),
             ),
             period=Period(
-                start_date=LocalTimestamp(self.publish_date),
-                end_date=LocalTimestamp(self.end_date),
+                start_date=Timestamp(self.publish_date),
+                end_date=Timestamp(self.end_date),
             ),
             application=application,
             texts=texts,
             remark=self.remark or "",
             traceable_time=TraceableTime(
-                created_at=LocalTimestamp(timestamp=self.created_at),
-                updated_at=LocalTimestamp(timestamp=self.updated_at),
+                created_at=Timestamp(timestamp=self.created_at),
+                updated_at=Timestamp(timestamp=self.updated_at),
             ),
         )
 

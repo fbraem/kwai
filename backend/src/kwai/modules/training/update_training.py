@@ -6,7 +6,7 @@ from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.training.coaches.coach import CoachIdentifier
 from kwai.modules.training.coaches.coach_repository import CoachRepository
 from kwai.modules.training.teams.team import TeamIdentifier
@@ -112,8 +112,8 @@ class UpdateTraining:
             coaches=coaches,
             teams=teams,
             period=Period(
-                start_date=LocalTimestamp.create_from_string(command.start_date),
-                end_date=LocalTimestamp.create_from_string(command.end_date),
+                start_date=Timestamp.create_from_string(command.start_date),
+                end_date=Timestamp.create_from_string(command.end_date),
             ),
             active=command.active,
             cancelled=command.cancelled,

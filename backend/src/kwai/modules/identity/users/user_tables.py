@@ -7,7 +7,7 @@ from kwai.core.db.table import Table
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.password import Password
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.users.user import UserEntity, UserIdentifier
@@ -43,8 +43,8 @@ class UserRow:
             remark=self.remark,
             email=EmailAddress(self.email),
             traceable_time=TraceableTime(
-                created_at=LocalTimestamp(timestamp=self.created_at),
-                updated_at=LocalTimestamp(timestamp=self.updated_at),
+                created_at=Timestamp(timestamp=self.created_at),
+                updated_at=Timestamp(timestamp=self.updated_at),
             ),
         )
 
@@ -91,8 +91,8 @@ class UserAccountRow:
         return UserAccountEntity(
             id_=UserAccountIdentifier(self.id),
             password=Password(self.password.encode()),
-            last_login=LocalTimestamp(self.last_login),
-            last_unsuccessful_login=LocalTimestamp(self.last_unsuccessful_login),
+            last_login=Timestamp(self.last_login),
+            last_unsuccessful_login=Timestamp(self.last_unsuccessful_login),
             revoked=self.revoked == 1,
             admin=self.admin == 1,
             user=UserEntity(
@@ -104,8 +104,8 @@ class UserAccountRow:
                 ),
                 email=EmailAddress(self.email),
                 traceable_time=TraceableTime(
-                    created_at=LocalTimestamp(self.created_at),
-                    updated_at=LocalTimestamp(self.updated_at),
+                    created_at=Timestamp(self.created_at),
+                    updated_at=Timestamp(self.updated_at),
                 ),
             ),
         )

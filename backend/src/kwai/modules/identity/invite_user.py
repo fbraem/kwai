@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.core.events.publisher import Publisher
 from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
@@ -92,7 +92,7 @@ class InviteUser:
         query = (
             self._user_invitation_repo.create_query()
             .filter_by_email(email_address)
-            .filter_active(LocalTimestamp.create_now())
+            .filter_active(Timestamp.create_now())
         )
         if await query.count() > 0:
             raise UnprocessableException(
@@ -104,9 +104,7 @@ class InviteUser:
                 email=email_address,
                 name=Name(first_name=command.first_name, last_name=command.last_name),
                 uuid=UniqueId.generate(),
-                expired_at=LocalTimestamp.create_with_delta(
-                    days=command.expiration_in_days
-                ),
+                expired_at=Timestamp.create_with_delta(days=command.expiration_in_days),
                 user=self._user,
             )
         )

@@ -9,7 +9,7 @@ from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
 from kwai.core.domain.value_objects.time_period import TimePeriod
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.weekday import Weekday
 from kwai.modules.training.trainings.training import TrainingEntity
 from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository
@@ -36,7 +36,7 @@ async def training_entity(database: Database, owner: Owner) -> TrainingEntity:
                 )
             ],
             period=Period.create_from_delta(
-                LocalTimestamp.create_from_string("2023-01-02 20:00:00"), hours=2
+                Timestamp.create_from_string("2023-01-02 20:00:00"), hours=2
             ),
             remark="Created as fixture for testing endpoint trainings",
         )

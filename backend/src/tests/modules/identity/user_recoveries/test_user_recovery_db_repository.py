@@ -5,7 +5,7 @@ from datetime import datetime
 import pytest
 
 from kwai.core.db.database import Database
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.identity.user_recoveries.user_recovery import UserRecoveryEntity
 from kwai.modules.identity.user_recoveries.user_recovery_db_repository import (
     UserRecoveryDbRepository,
@@ -31,7 +31,7 @@ async def user_recovery(
 ) -> UserRecoveryEntity:
     """Fixture for creating a user recovery entity."""
     user_recovery = UserRecoveryEntity(
-        expiration=LocalTimestamp(timestamp=datetime.utcnow()),
+        expiration=Timestamp(timestamp=datetime.utcnow()),
         user=user,
     )
     return await repo.create(user_recovery)

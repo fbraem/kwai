@@ -9,7 +9,7 @@ from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import LocaleText
 from kwai.core.domain.value_objects.time_period import TimePeriod
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.weekday import Weekday
 from kwai.modules.training.coaches.coach import CoachEntity
@@ -104,16 +104,16 @@ class TrainingRow:
             texts=content,
             definition=definition,
             period=Period(
-                start_date=LocalTimestamp(self.start_date),
-                end_date=LocalTimestamp(self.end_date),
+                start_date=Timestamp(self.start_date),
+                end_date=Timestamp(self.end_date),
             ),
             active=self.active == 1,
             cancelled=self.cancelled == 1,
             location=self.location,
             remark=self.remark,
             traceable_time=TraceableTime(
-                created_at=LocalTimestamp(self.created_at),
-                updated_at=LocalTimestamp(self.updated_at),
+                created_at=Timestamp(self.created_at),
+                updated_at=Timestamp(self.updated_at),
             ),
         )
 
@@ -193,8 +193,8 @@ class TrainingDefinitionRow:
             team=team,
             owner=owner,
             traceable_time=TraceableTime(
-                created_at=LocalTimestamp(self.created_at),
-                updated_at=LocalTimestamp(self.updated_at),
+                created_at=Timestamp(self.created_at),
+                updated_at=Timestamp(self.updated_at),
             ),
         )
 

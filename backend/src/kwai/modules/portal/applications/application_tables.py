@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from kwai.core.db.table import Table
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.portal.applications.application import (
     ApplicationEntity,
@@ -62,8 +62,8 @@ class ApplicationRow:
             events=self.events == 1,
             weight=self.weight,
             traceable_time=TraceableTime(
-                created_at=LocalTimestamp(self.created_at),
-                updated_at=LocalTimestamp(self.updated_at),
+                created_at=Timestamp(self.created_at),
+                updated_at=Timestamp(self.updated_at),
             ),
         )
 

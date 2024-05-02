@@ -7,7 +7,7 @@ from kwai.core.domain.use_case import TextCommand
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.training.coaches.coach import CoachEntity, CoachIdentifier
 from kwai.modules.training.coaches.coach_db_repository import CoachDbRepository
 from kwai.modules.training.coaches.coach_repository import CoachRepository
@@ -78,7 +78,7 @@ async def training_entity(
     owner: Owner,
 ) -> TrainingEntity:
     """A fixture for a training entity."""
-    start_date = LocalTimestamp.create_now()
+    start_date = Timestamp.create_now()
     return await training_repo.create(
         TrainingEntity(
             texts=[
@@ -109,7 +109,7 @@ async def test_update_training(
     owner: Owner,
 ):
     """Test the use case "Update Training"."""
-    start_date = LocalTimestamp.create_now().add_delta(hours=1)
+    start_date = Timestamp.create_now().add_delta(hours=1)
     end_date = start_date.add_delta(hours=1)
     command = UpdateTrainingCommand(
         id=training_entity.id.value,

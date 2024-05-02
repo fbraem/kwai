@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from kwai.core.db.table import Table
-from kwai.core.domain.value_objects.timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_recoveries.user_recovery import (
@@ -34,13 +34,13 @@ class UserRecoveryRow:
             id_=UserRecoveryIdentifier(self.id),
             uuid=UniqueId.create_from_string(self.uuid),
             user=user,
-            expiration=LocalTimestamp(self.expired_at),
+            expiration=Timestamp(self.expired_at),
             remark=self.remark,
-            confirmation=LocalTimestamp(self.confirmed_at),
-            mailed_at=LocalTimestamp(self.mailed_at),
+            confirmation=Timestamp(self.confirmed_at),
+            mailed_at=Timestamp(self.mailed_at),
             traceable_time=TraceableTime(
-                created_at=LocalTimestamp(timestamp=self.created_at),
-                updated_at=LocalTimestamp(timestamp=self.updated_at),
+                created_at=Timestamp(timestamp=self.created_at),
+                updated_at=Timestamp(timestamp=self.updated_at),
             ),
         )
 
