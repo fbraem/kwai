@@ -1,4 +1,5 @@
 """Module for the training definition schema."""
+
 from pydantic import BaseModel
 
 from kwai.api.schemas.resources import (
@@ -18,6 +19,7 @@ class TrainingDefinitionAttributes(BaseModel):
     weekday: int
     start_time: str
     end_time: str
+    timezone: str
     active: bool
     location: str
     remark: str | None = None
@@ -59,6 +61,7 @@ class TrainingDefinitionDocument(Document[TrainingDefinitionResource, TeamResour
                 weekday=training_definition.weekday.value,
                 start_time=str(training_definition.period.start),
                 end_time=str(training_definition.period.end),
+                timezone=training_definition.period.timezone,
                 active=training_definition.active,
                 location=training_definition.location,
                 remark=training_definition.remark or "",

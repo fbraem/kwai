@@ -1,4 +1,5 @@
 """Module for testing the use case "Update Training Definition"."""
+
 import pytest
 
 from kwai.core.db.database import Database
@@ -63,6 +64,7 @@ async def test_update_training_definition(
         weekday=training_definition_entity.weekday.value,
         start_time="20:00",
         end_time="21:00",
+        timezone="Europe/Brussels",
         active=training_definition_entity.active,
         location=training_definition_entity.location,
         remark="This is an update test",

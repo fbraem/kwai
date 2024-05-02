@@ -1,4 +1,5 @@
 """Module for testing the use case "Create Training Definition"."""
+
 import pytest
 
 from kwai.core.db.database import Database
@@ -38,6 +39,7 @@ def command():
         weekday=1,
         start_time="20:00",
         end_time="21:00",
+        timezone="Europe/Brussels",
         active=True,
         location="Sports Hall",
         remark="Test",

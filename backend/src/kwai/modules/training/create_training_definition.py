@@ -1,4 +1,5 @@
 """Module for the use case "Create Training Definition"."""
+
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.time_period import TimePeriod
 from kwai.core.domain.value_objects.weekday import Weekday
@@ -51,7 +52,9 @@ class CreateTrainingDefinition:
             description=command.description,
             weekday=Weekday(command.weekday),
             period=TimePeriod.create_from_string(
-                start=command.start_time, end=command.end_time
+                start=command.start_time,
+                end=command.end_time,
+                timezone=command.timezone,
             ),
             active=command.active,
             location=command.location,

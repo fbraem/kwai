@@ -1,4 +1,5 @@
 """Module that defines the common input for the use cases Training Definitions."""
+
 from dataclasses import dataclass
 
 
@@ -11,6 +12,7 @@ class TrainingDefinitionCommand:
     weekday: int
     start_time: str
     end_time: str
+    timezone: str
     active: bool
     location: str
     remark: str | None

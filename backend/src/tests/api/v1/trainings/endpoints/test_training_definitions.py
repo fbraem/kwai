@@ -1,4 +1,5 @@
 """Module for testing the training_definitions end point."""
+
 from typing import Any
 
 import pytest
@@ -65,6 +66,7 @@ def test_create_training_definition(secure_client: TestClient):
                 "weekday": 1,
                 "start_time": "19:00",
                 "end_time": "20:00",
+                "timezone": "Europe/Brussels",
                 "active": True,
                 "location": "Sports Hall",
             },
@@ -88,6 +90,7 @@ def test_update_training_definition(
                 "weekday": 1,
                 "start_time": "19:00",
                 "end_time": "20:00",
+                "timezone": "Europe/Brussels",
                 "active": True,
                 "location": "Sports Hall",
                 "remark": "Updated with API",

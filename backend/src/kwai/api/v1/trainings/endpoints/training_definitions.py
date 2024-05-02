@@ -1,4 +1,5 @@
 """Module for endpoints for training definitions."""
+
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from kwai.api.dependencies import create_database, get_current_user
@@ -116,6 +117,7 @@ async def create_training_definition(
         weekday=resource.data.attributes.weekday,
         start_time=resource.data.attributes.start_time,
         end_time=resource.data.attributes.end_time,
+        timezone=resource.data.attributes.timezone,
         active=resource.data.attributes.active,
         location=resource.data.attributes.location or "",
         remark=resource.data.attributes.remark or "",
@@ -163,6 +165,7 @@ async def update_training_definition(
         weekday=resource.data.attributes.weekday,
         start_time=resource.data.attributes.start_time,
         end_time=resource.data.attributes.end_time,
+        timezone=resource.data.attributes.timezone,
         active=resource.data.attributes.active,
         location=resource.data.attributes.location or "",
         remark=resource.data.attributes.remark or "",

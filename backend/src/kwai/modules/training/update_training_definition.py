@@ -1,4 +1,5 @@
 """Module for the use case "Update Training Definition"."""
+
 from dataclasses import dataclass
 
 from kwai.core.domain.entity import Entity
@@ -69,7 +70,9 @@ class UpdateTrainingDefinition:
             description=command.description,
             weekday=Weekday(command.weekday),
             period=TimePeriod.create_from_string(
-                start=command.start_time, end=command.end_time
+                start=command.start_time,
+                end=command.end_time,
+                timezone=command.timezone,
             ),
             active=command.active,
             location=command.location,

@@ -165,6 +165,7 @@ class TrainingDefinitionRow:
     user_id: int
     created_at: datetime
     updated_at: datetime | None
+    timezone: str
 
     def create_entity(
         self, team: TeamEntity | None, owner: Owner
@@ -186,6 +187,7 @@ class TrainingDefinitionRow:
             period=TimePeriod(
                 start=self.start_time,
                 end=self.end_time,
+                timezone=self.timezone,
             ),
             active=self.active == 1,
             location=self.location or "",
@@ -222,6 +224,7 @@ class TrainingDefinitionRow:
             user_id=training_definition.owner.id.value,
             created_at=training_definition.traceable_time.created_at.timestamp,
             updated_at=training_definition.traceable_time.updated_at.timestamp,
+            timezone=training_definition.period.timezone,
         )
 
 
