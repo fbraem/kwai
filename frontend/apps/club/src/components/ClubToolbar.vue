@@ -69,7 +69,6 @@ const logout = () => {
   </header>
   <ToolbarMenu
     :menu-items="menuItems"
-    class="bg-green-500"
     item-class="text-gray-600 hover:text-black"
   />
 </template>

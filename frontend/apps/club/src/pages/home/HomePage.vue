@@ -1,7 +1,14 @@
 <script setup lang="ts">
-import { Card, CardTitle, ContainerSection, ContainerSectionTitle, ContainerSectionContent, ListIcon } from '@kwai/ui';
+import {
+  Card,
+  CardTitle,
+  ContainerSection,
+  ContainerSectionTitle,
+  ContainerSectionContent,
+  KwaiButton,
+  ListIcon,
+} from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
-import PrimaryButton from '@root/components/PrimaryButton.vue';
 const { t } = useI18n({ useScope: 'global' });
 </script>
 
@@ -22,12 +29,18 @@ const { t } = useI18n({ useScope: 'global' });
         </p>
         <template #footer>
           <div class="flex justify-between items-center p-3">
-            <PrimaryButton :route="{ name: 'club.members' }">
+            <KwaiButton :to="{ name: 'club.members' }">
               <ListIcon
                 class="w-4 mr-2 fill-current"
               />
               Overzicht
-            </primarybutton>
+            </KwaiButton>
+            <KwaiButton :to="{ name: 'club.upload' }">
+              <ListIcon
+                class="w-4 mr-2 fill-current"
+              />
+              Upload
+            </KwaiButton>
           </div>
         </template>
       </Card>

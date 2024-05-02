@@ -3,8 +3,8 @@ import {
   ContainerSection,
   ContainerSectionContent,
   ContainerSectionTitle,
-  ButtonGroup,
-  Button,
+  KwaiButton,
+  KwaiButtonGroup,
 } from '@kwai/ui';
 import { type Member, useMembers } from '@root/composables/useMember';
 import { computed } from 'vue';
@@ -49,45 +49,52 @@ const alphabet = [...Array(26)].map((_, i) => String.fromCharCode(65 + i));
       {{ t('members.title') }}
     </ContainerSectionTitle>
     <ContainerSectionContent>
-      <ButtonGroup
+      <KwaiButtonGroup
         v-if="largerThanLg"
       >
-        <Button
+        <KwaiButton
           v-for="letter in alphabet"
           :key="letter"
-          class="p-3 bg-primary-500 text-primary-text border-primary-400 hover:bg-primary-400"
+          class="bg-primary-500 text-primary-text"
+          small
+          :href="`#a_member_${letter}`"
         >
           {{ letter }}
-        </Button>
-      </ButtonGroup>
+        </KwaiButton>
+      </KwaiButtonGroup>
       <div
         v-else
         class="flex flex-col items-center"
       >
-        <ButtonGroup>
-          <Button
+        <KwaiButtonGroup>
+          <KwaiButton
             v-for="n in 13"
             :key="n"
-            class="p-3 bg-primary-500 border-primary-400 hover:bg-primary-400"
+            class="bg-primary-500 text-primary-text"
+            small
+            :href="`#a_member_${alphabet[n-1]}`"
           >
             {{ alphabet[n-1] }}
-          </Button>
-        </ButtonGroup>
-        <ButtonGroup>
-          <Button
+          </KwaiButton>
+        </KwaiButtonGroup>
+        <KwaiButtonGroup>
+          <KwaiButton
             v-for="n in 13"
             :key="n"
-            class="p-3 bg-primary-500 border-primary-400 hover:bg-primary-400"
+            class="bg-primary-500 text-primary-text"
+            small
+            :href="`#a_member_${alphabet[n+12]}`"
           >
             {{ alphabet[n+12] }}
-          </Button>
-        </ButtonGroup>
+          </KwaiButton>
+        </KwaiButtonGroup>
       </div>
       <ul class="columns-3xs w-2/3 mx-auto">
         <li
           v-for="letter in memberLetters"
           :key="letter"
         >
+          <a :id="`a_member_${letter}`" />
           <h2 class="text-2xl font-extrabold py-2">
             {{ letter }}
           </h2>

@@ -152,9 +152,15 @@ export const useHttpLogin = (formData: LoginFormData, options: Options = {}) => 
     });
 };
 
+export const useHttpForm = (formData: FormData, options: Options = {}) => {
+  return useHttpAuth(options)
+    .formData(formData)
+  ;
+};
+
 export const useHttpApi = (options: Options = {}) => useHttpWithAuthCatcher(options)
   .accept('application/vnd.api+json')
-  .content('application/vnd.api+json')
+//  .content('application/vnd.api+json')
 ;
 
 export const useHttpLogout = async(options: Options = {}) => {

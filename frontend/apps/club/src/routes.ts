@@ -4,6 +4,7 @@ import HomePage from '@root/pages/home/HomePage.vue';
 import NotAllowedPage from '@root/pages/not_allowed/NotAllowedPage.vue';
 import MembersPage from '@root/pages/members/MembersPage.vue';
 import ClubToolbar from '@root/components/ClubToolbar.vue';
+import UploadMembersPage from '@root/pages/members/MembersUploadPage.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -38,6 +39,14 @@ const routes: RouteRecordRaw[] = [
         components: {
           toolbar: ClubToolbar,
           main: MembersPage,
+        },
+      },
+      {
+        name: 'club.upload',
+        path: '/members/upload',
+        components: {
+          toolbar: ClubToolbar,
+          main: UploadMembersPage,
         },
       },
     ],
