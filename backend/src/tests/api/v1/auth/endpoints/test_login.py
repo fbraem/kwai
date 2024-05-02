@@ -1,10 +1,11 @@
 """Module for testing the auth endpoints login."""
+
 import pytest
 from fastapi import status
 from fastapi.testclient import TestClient
 
 from kwai.core.db.database import Database
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.modules.identity.user_recoveries.user_recovery import UserRecoveryEntity
 from kwai.modules.identity.user_recoveries.user_recovery_db_repository import (
     UserRecoveryDbRepository,

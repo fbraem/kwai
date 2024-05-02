@@ -7,8 +7,8 @@ from typing import Self
 from kwai.core.db.table_row import TableRow
 from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.name import Name
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.members.contact import ContactEntity, ContactIdentifier

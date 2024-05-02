@@ -2,7 +2,7 @@
 
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.users.user import UserEntity

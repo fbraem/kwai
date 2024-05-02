@@ -1,9 +1,10 @@
 """Module that implements the recover user use case."""
+
 from dataclasses import dataclass
 
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.core.events.publisher import Publisher
 from kwai.modules.identity.user_recoveries.user_recovery import UserRecoveryEntity
 from kwai.modules.identity.user_recoveries.user_recovery_events import (

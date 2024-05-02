@@ -1,9 +1,10 @@
 """Module that implements a UserInvitationQuery for a database."""
+
 from sql_smith.functions import on
 
 from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_invitations.user_invitation import (
     UserInvitationIdentifier,

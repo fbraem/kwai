@@ -1,8 +1,9 @@
 """Module for defining the use case "Create News Item"."""
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
+
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.modules.portal.applications.application import ApplicationIdentifier
 from kwai.modules.portal.applications.application_repository import (
     ApplicationRepository,

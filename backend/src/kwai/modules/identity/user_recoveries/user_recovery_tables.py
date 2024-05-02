@@ -1,9 +1,10 @@
 """Module that defines the table for a user recovery."""
+
 from dataclasses import dataclass
 from datetime import datetime
 
 from kwai.core.db.table import Table
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_recoveries.user_recovery import (

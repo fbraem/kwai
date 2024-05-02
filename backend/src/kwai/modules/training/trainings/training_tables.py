@@ -5,11 +5,11 @@ from datetime import datetime, time
 
 from kwai.core.db.rows import TextRow
 from kwai.core.db.table import Table
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import LocaleText
 from kwai.core.domain.value_objects.time_period import TimePeriod
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.weekday import Weekday
 from kwai.modules.training.coaches.coach import CoachEntity
@@ -129,9 +129,9 @@ class TrainingRow:
         """
         return TrainingRow(
             id=training.id.value,
-            definition_id=None
-            if training.definition is None
-            else training.definition.id.value,
+            definition_id=(
+                None if training.definition is None else training.definition.id.value
+            ),
             season_id=None,
             created_at=training.traceable_time.created_at.timestamp,
             updated_at=training.traceable_time.updated_at.timestamp,
@@ -214,9 +214,11 @@ class TrainingDefinitionRow:
             active=1 if training_definition.active else 0,
             location=training_definition.location,
             remark=training_definition.remark,
-            team_id=None
-            if training_definition.team is None
-            else training_definition.team.id.value,
+            team_id=(
+                None
+                if training_definition.team is None
+                else training_definition.team.id.value
+            ),
             user_id=training_definition.owner.id.value,
             created_at=training_definition.traceable_time.created_at.timestamp,
             updated_at=training_definition.traceable_time.updated_at.timestamp,

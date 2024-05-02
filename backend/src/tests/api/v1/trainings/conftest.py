@@ -1,14 +1,15 @@
 """Module that defines fixtures for testing the trainings endpoints."""
+
 from datetime import time
 
 import pytest
 
 from kwai.core.db.database import Database
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
 from kwai.core.domain.value_objects.time_period import TimePeriod
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.weekday import Weekday
 from kwai.modules.training.trainings.training import TrainingEntity
 from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository

@@ -1,7 +1,8 @@
 """Module for testing the user recovery entity."""
+
 from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.name import Name
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.modules.identity.user_recoveries.user_recovery import UserRecoveryEntity
 from kwai.modules.identity.users.user import UserEntity
 

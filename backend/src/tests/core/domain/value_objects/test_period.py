@@ -1,10 +1,11 @@
 """Module for testing the value object Period."""
+
 import datetime
 
 import pytest
 
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.period import Period
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 
 
 def test_period_delta():

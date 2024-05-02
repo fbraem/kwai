@@ -1,9 +1,10 @@
 """Module that defines all dataclasses for the tables containing applications."""
+
 from dataclasses import dataclass
 from datetime import datetime
 
 from kwai.core.db.table import Table
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.portal.applications.application import (
     ApplicationEntity,

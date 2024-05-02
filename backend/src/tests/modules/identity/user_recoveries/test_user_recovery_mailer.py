@@ -1,11 +1,12 @@
 """Module with tests for the user recovery mailer."""
+
 from datetime import datetime
 
 import pytest
 
 from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.name import Name
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipients
 from kwai.core.template.mail_template import MailTemplate

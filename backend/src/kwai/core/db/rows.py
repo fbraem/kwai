@@ -1,13 +1,14 @@
 """Module that defines common table classes."""
+
 from dataclasses import dataclass
 from datetime import datetime
 
 from kwai.core.db.table import Table
 from kwai.core.domain.value_objects.identifier import IntIdentifier
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 

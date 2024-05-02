@@ -1,11 +1,12 @@
 """Module for defining all table classes for page."""
+
 from dataclasses import dataclass
 from datetime import datetime
 
 from kwai.core.db.rows import TextRow
 from kwai.core.db.table import Table
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.text import LocaleText
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.pages.page import PageEntity, PageIdentifier

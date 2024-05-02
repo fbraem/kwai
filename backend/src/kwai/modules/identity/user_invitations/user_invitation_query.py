@@ -1,9 +1,10 @@
 """Module that defines an interface for a user invitation query."""
+
 from abc import ABC
 
 from kwai.core.domain.repository.query import Query
 from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_invitations.user_invitation import (
     UserInvitationIdentifier,

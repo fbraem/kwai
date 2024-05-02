@@ -1,9 +1,9 @@
 """Module for the use case "Create training"."""
 
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.modules.training.coaches.coach import CoachIdentifier
 from kwai.modules.training.coaches.coach_repository import CoachRepository
 from kwai.modules.training.teams.team import TeamIdentifier

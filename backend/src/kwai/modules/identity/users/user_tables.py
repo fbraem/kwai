@@ -5,9 +5,9 @@ from datetime import datetime
 
 from kwai.core.db.table import Table
 from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.password import Password
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.users.user import UserEntity, UserIdentifier

@@ -1,11 +1,12 @@
 """Module for implementing the use case "Update News Item"."""
+
 from dataclasses import dataclass
 
 from kwai.core.domain.entity import Entity
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.modules.portal.applications.application import ApplicationIdentifier
 from kwai.modules.portal.applications.application_repository import (
     ApplicationRepository,
@@ -81,9 +82,11 @@ class UpdateNewsItem:
             promotion=promotion,
             period=Period(
                 start_date=LocalTimestamp.create_from_string(command.publish_datetime),
-                end_date=None
-                if command.end_datetime
-                else LocalTimestamp.create_from_string(command.end_datetime),
+                end_date=(
+                    None
+                    if command.end_datetime
+                    else LocalTimestamp.create_from_string(command.end_datetime)
+                ),
             ),
             texts=[
                 LocaleText(

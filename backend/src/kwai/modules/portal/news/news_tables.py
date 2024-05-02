@@ -1,12 +1,13 @@
 """Module that defines all dataclasses for the tables containing stories."""
+
 from dataclasses import dataclass
 from datetime import datetime
 
 from kwai.core.db.rows import TextRow
 from kwai.core.db.table import Table
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import LocaleText
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.news.news_item import (
@@ -115,9 +116,11 @@ class NewsItemRow:
             promotion=news_item.promotion.priority,
             promotion_end_date=news_item.promotion.end_date.timestamp,
             publish_date=news_item.period.start_date.timestamp,
-            end_date=None
-            if news_item.period.endless
-            else news_item.period.end_date.timestamp,
+            end_date=(
+                None
+                if news_item.period.endless
+                else news_item.period.end_date.timestamp
+            ),
             remark=news_item.remark,
             application_id=news_item.application.id.value,
             created_at=news_item.traceable_time.created_at.timestamp,

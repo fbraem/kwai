@@ -1,10 +1,11 @@
 """Module for testing UserInvitationDbRepository."""
+
 import pytest
 
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.name import Name
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
     UserInvitationDbRepository,

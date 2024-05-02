@@ -1,10 +1,11 @@
 """Module for testing the use case "Create Training"."""
+
 import pytest
 
 from kwai.core.db.database import Database
 from kwai.core.domain.use_case import TextCommand
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
 from kwai.core.domain.value_objects.owner import Owner
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 from kwai.modules.training.coaches.coach import CoachEntity, CoachIdentifier
 from kwai.modules.training.coaches.coach_db_repository import CoachDbRepository
 from kwai.modules.training.coaches.coach_repository import CoachRepository

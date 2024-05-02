@@ -1,7 +1,8 @@
 """Module that defines a value object to trace creation/update time of an entity."""
+
 from dataclasses import dataclass, field
 
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 
 
 @dataclass(frozen=True, kw_only=True)

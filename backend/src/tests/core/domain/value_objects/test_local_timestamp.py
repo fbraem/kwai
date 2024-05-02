@@ -1,6 +1,6 @@
 """Module for testing LocalTimestamp."""
 
-from kwai.core.domain.value_objects.local_timestamp import LocalTimestamp
+from kwai.core.domain.value_objects.timestamp import LocalTimestamp
 
 
 def test_create_now():
