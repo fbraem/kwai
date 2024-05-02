@@ -10,6 +10,7 @@ class TimePeriod:
 
     start: time
     end: time | None = None
+    timezone: str = "UTC"
 
     def __post_init__(self):
         """Perform post initialization.
@@ -42,12 +43,15 @@ class TimePeriod:
         )
 
     @classmethod
-    def create_from_string(cls, start: str, end: str | None = None) -> "TimePeriod":
+    def create_from_string(
+        cls, start: str, end: str | None = None, timezone: str = "UTC"
+    ) -> "TimePeriod":
         """Create a time period from one or two strings.
 
         Args:
             start: a start time in format 00:00
             end: an optional end time in format 00:00
+            timezone: an optional timezone name
 
         Returns:
             A new time period.
@@ -55,4 +59,5 @@ class TimePeriod:
         return TimePeriod(
             start=datetime.strptime(start, "%H:%M").time(),
             end=None if end is None else datetime.strptime(end, "%H:%M").time(),
+            timezone=timezone,
         )
