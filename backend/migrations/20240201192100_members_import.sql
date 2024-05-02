@@ -1,5 +1,5 @@
 -- migrate:up
-create table imports
+create table if not exists imports
 (
     id         int unsigned auto_increment primary key,
     uuid       varchar(255)                        not null,
@@ -12,7 +12,7 @@ create table imports
 charset = utf8mb3;
 alter table imports add constraint uq_uuid unique(uuid);
 
-create table judo_member_imports (
+create table if not exists judo_member_imports (
     member_id int unsigned not null,
     import_id int unsigned not null,
     created_at  datetime default CURRENT_TIMESTAMP not null,
