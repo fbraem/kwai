@@ -20,10 +20,10 @@ CREATE TABLE `applications` (
   `title` varchar(255) NOT NULL,
   `description` text,
   `remark` text,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
   `short_description` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `news` tinyint(1) NOT NULL DEFAULT '1',
   `pages` tinyint(1) NOT NULL DEFAULT '1',
   `events` tinyint(1) NOT NULL DEFAULT '1',
@@ -41,12 +41,12 @@ CREATE TABLE `applications` (
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `coaches` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `person_id` int unsigned NOT NULL,
+  `person_id` int NOT NULL,
   `description` text,
   `diploma` varchar(255) DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `remark` text,
-  `user_id` int unsigned DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -68,7 +68,7 @@ CREATE TABLE `contacts` (
   `postal_code` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
   `county` varchar(255) DEFAULT NULL,
-  `country_id` int unsigned NOT NULL,
+  `country_id` int NOT NULL,
   `remark` text,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -95,6 +95,38 @@ CREATE TABLE `countries` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `imports`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `imports` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(255) NOT NULL,
+  `filename` varchar(512) NOT NULL,
+  `remark` text,
+  `user_id` int NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `judo_member_imports`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `judo_member_imports` (
+  `member_id` int unsigned NOT NULL,
+  `import_id` int unsigned NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`member_id`,`import_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `judo_members`
 --
 
@@ -104,31 +136,15 @@ CREATE TABLE `judo_members` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `license` varchar(255) NOT NULL,
   `license_end_date` date NOT NULL,
-  `person_id` int unsigned NOT NULL,
+  `person_id` int NOT NULL,
   `remark` text,
   `competition` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `import_id` int unsigned DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `member_imports`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `member_imports` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `filename` text,
-  `remark` text,
-  `user_id` int unsigned NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `uuid` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `judo_members_license_index` (`license`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -139,15 +155,15 @@ CREATE TABLE `member_imports` (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `news_contents` (
-  `news_id` int unsigned NOT NULL,
+  `news_id` int NOT NULL,
   `locale` varchar(255) NOT NULL,
   `format` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text,
   `summary` text NOT NULL,
   `user_id` int NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`news_id`,`locale`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -166,9 +182,9 @@ CREATE TABLE `news_stories` (
   `publish_date` datetime NOT NULL,
   `end_date` datetime DEFAULT NULL,
   `remark` text,
-  `application_id` int unsigned NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL,
+  `application_id` int NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -185,8 +201,8 @@ CREATE TABLE `oauth_access_tokens` (
   `user_id` int NOT NULL,
   `expiration` timestamp NULL DEFAULT NULL,
   `revoked` tinyint(1) NOT NULL DEFAULT '0',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -201,10 +217,10 @@ CREATE TABLE `oauth_refresh_tokens` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `identifier` varchar(128) NOT NULL,
   `access_token_id` int NOT NULL,
-  `expiration` datetime DEFAULT NULL,
+  `expiration` timestamp NULL DEFAULT NULL,
   `revoked` tinyint(1) NOT NULL DEFAULT '0',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -216,15 +232,15 @@ CREATE TABLE `oauth_refresh_tokens` (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `page_contents` (
-  `page_id` int unsigned NOT NULL,
+  `page_id` int NOT NULL,
   `locale` varchar(255) NOT NULL,
   `format` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text,
   `summary` text NOT NULL,
   `user_id` int NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`page_id`,`locale`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -239,7 +255,7 @@ CREATE TABLE `pages` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `enabled` tinyint(1) NOT NULL DEFAULT '0',
   `remark` text,
-  `application_id` int unsigned NOT NULL,
+  `application_id` int NOT NULL,
   `priority` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -261,10 +277,10 @@ CREATE TABLE `persons` (
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `birthdate` date NOT NULL,
   `remark` text,
-  `user_id` int unsigned DEFAULT NULL,
-  `contact_id` int unsigned DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
+  `contact_id` int DEFAULT NULL,
   `code` varchar(255) DEFAULT NULL,
-  `nationality_id` int unsigned NOT NULL,
+  `nationality_id` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -313,7 +329,7 @@ CREATE TABLE `team_categories` (
   `start_age` int DEFAULT NULL,
   `end_age` int DEFAULT NULL,
   `competition` tinyint(1) NOT NULL DEFAULT '0',
-  `gender` tinyint(1) NOT NULL DEFAULT '0',
+  `gender` int NOT NULL DEFAULT '0',
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `remark` text,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -347,8 +363,8 @@ CREATE TABLE `team_members` (
 CREATE TABLE `teams` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
-  `season_id` int unsigned DEFAULT NULL,
-  `team_category_id` int unsigned DEFAULT NULL,
+  `season_id` int DEFAULT NULL,
+  `team_category_id` int DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `remark` text,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -364,13 +380,13 @@ CREATE TABLE `teams` (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `training_coaches` (
-  `training_id` int unsigned NOT NULL,
-  `coach_id` int unsigned NOT NULL,
-  `coach_type` tinyint(1) NOT NULL DEFAULT '0',
+  `training_id` int NOT NULL,
+  `coach_id` int NOT NULL,
+  `coach_type` int NOT NULL,
   `present` tinyint(1) NOT NULL DEFAULT '0',
   `payed` tinyint(1) NOT NULL DEFAULT '0',
   `remark` text,
-  `user_id` int unsigned NOT NULL,
+  `user_id` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`training_id`,`coach_id`)
@@ -384,15 +400,15 @@ CREATE TABLE `training_coaches` (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `training_contents` (
-  `training_id` int unsigned NOT NULL,
+  `training_id` int NOT NULL,
   `locale` varchar(255) NOT NULL,
   `format` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text,
   `summary` text NOT NULL,
-  `user_id` int unsigned NOT NULL,
+  `user_id` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`training_id`,`locale`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -407,7 +423,7 @@ CREATE TABLE `training_definitions` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `season_id` int unsigned DEFAULT NULL,
+  `season_id` int DEFAULT NULL,
   `team_id` int DEFAULT NULL,
   `weekday` int NOT NULL,
   `start_time` time NOT NULL,
@@ -415,9 +431,10 @@ CREATE TABLE `training_definitions` (
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `location` varchar(255) DEFAULT NULL,
   `remark` text,
-  `user_id` int unsigned NOT NULL,
+  `user_id` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `timezone` varchar(255) NOT NULL DEFAULT 'Europe/Brussels',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -429,10 +446,10 @@ CREATE TABLE `training_definitions` (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `training_presences` (
-  `training_id` int unsigned NOT NULL,
-  `member_id` int unsigned NOT NULL,
+  `training_id` int NOT NULL,
+  `member_id` int NOT NULL,
   `remark` text,
-  `user_id` int unsigned NOT NULL,
+  `user_id` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`training_id`,`member_id`)
@@ -446,8 +463,8 @@ CREATE TABLE `training_presences` (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `training_teams` (
-  `training_id` int unsigned NOT NULL,
-  `team_id` int unsigned NOT NULL,
+  `training_id` int NOT NULL,
+  `team_id` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`training_id`,`team_id`)
@@ -462,8 +479,8 @@ CREATE TABLE `training_teams` (
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `trainings` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `definition_id` int unsigned DEFAULT NULL,
-  `season_id` int unsigned DEFAULT NULL,
+  `definition_id` int DEFAULT NULL,
+  `season_id` int DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   `start_date` datetime NOT NULL,
@@ -489,8 +506,8 @@ CREATE TABLE `user_invitations` (
   `expired_at` datetime NOT NULL,
   `remark` text,
   `user_id` int NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
   `revoked` tinyint(1) NOT NULL DEFAULT '0',
   `confirmed_at` datetime DEFAULT NULL,
   `mailed_at` datetime DEFAULT NULL,
@@ -535,8 +552,8 @@ CREATE TABLE `users` (
   `last_name` varchar(255) DEFAULT NULL,
   `remark` text,
   `uuid` varchar(255) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
   `person_id` int DEFAULT NULL,
   `revoked` tinyint(1) NOT NULL DEFAULT '0',
   `last_unsuccessful_login` datetime DEFAULT NULL,
@@ -567,5 +584,7 @@ CREATE TABLE `users` (
 LOCK TABLES `schema_migrations` WRITE;
 INSERT INTO `schema_migrations` (version) VALUES
   ('20230128205126'),
-  ('20231110160912');
+  ('20231110160912'),
+  ('20240201192100'),
+  ('20240502185700');
 UNLOCK TABLES;
