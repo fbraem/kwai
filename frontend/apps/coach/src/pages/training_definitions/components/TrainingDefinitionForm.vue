@@ -113,15 +113,16 @@ const onSubmitForm = handleSubmit(async values => {
   const payload: TrainingDefinition = {
     location: values.location,
     weekday: values.weekday,
-    end_time: now()
-      .set('hours', values.end_time!.hours as number)
-      .set('minutes', values.end_time!.minutes as number),
-    active: values.active,
-    description: values.description,
-    name: values.name,
     start_time: now()
       .set('hours', values.start_time!.hours as number)
       .set('minutes', values.start_time!.minutes as number),
+    end_time: now()
+      .set('hours', values.end_time!.hours as number)
+      .set('minutes', values.end_time!.minutes as number),
+    timezone: 'Europe/Brussels',
+    active: values.active,
+    description: values.description,
+    name: values.name,
     remark: values.remark,
     team,
     id: definition.value?.id,

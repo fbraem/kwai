@@ -2,7 +2,7 @@ import { JsonApiData, JsonApiDocument, JsonResourceIdentifier, useHttpApi } from
 import { z } from 'zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
 import type { DateType } from '@kwai/date';
-import { createDateTimeFromUTC, formatToUTC } from '@kwai/date';
+import { createDatetimeFromString } from '@kwai/date';
 import type { Ref } from 'vue';
 import { toValue } from 'vue';
 import type { Team } from '@root/composables/useTeam';
@@ -21,10 +21,11 @@ const TrainingDefinitionResourceSchema = JsonApiData.extend({
     name: z.string(),
     active: z.boolean(),
     description: z.string(),
+    start_time: z.string(),
     end_time: z.string(),
+    timezone: z.string(),
     location: z.string(),
     remark: z.string(),
-    start_time: z.string(),
     weekday: z.number(),
   }),
   relationships: z.object({
@@ -39,12 +40,13 @@ export type TrainingDefinition = {
   id?: string,
   active: boolean,
   description: string,
+  start_time: DateType,
   end_time: DateType,
+  timezone: string,
   location: string,
   name: string,
   remark: string,
   team: Team | null,
-  start_time: DateType,
   weekday: number,
 }
 
@@ -68,9 +70,10 @@ const TrainingDefinitionDocumentSchema = JsonApiDocument.extend({
       id: trainingDefinitionResource.id!,
       name: trainingDefinitionResource.attributes.name,
       description: trainingDefinitionResource.attributes.description,
-      end_time: createDateTimeFromUTC(trainingDefinitionResource.attributes.end_time, 'HH:mm'),
+      start_time: createDatetimeFromString(trainingDefinitionResource.attributes.start_time, trainingDefinitionResource.attributes.timezone, 'HH:mm'),
+      end_time: createDatetimeFromString(trainingDefinitionResource.attributes.end_time, trainingDefinitionResource.attributes.timezone, 'HH:mm'),
+      timezone: trainingDefinitionResource.attributes.timezone,
       active: trainingDefinitionResource.attributes.active,
-      start_time: createDateTimeFromUTC(trainingDefinitionResource.attributes.start_time, 'HH:mm'),
       weekday: trainingDefinitionResource.attributes.weekday,
       location: trainingDefinitionResource.attributes.location,
       remark: trainingDefinitionResource.attributes.remark,
@@ -137,8 +140,9 @@ const mutateTrainingDefinition = (trainingDefinition: TrainingDefinition) : Prom
         name: trainingDefinition.name,
         active: trainingDefinition.active,
         description: trainingDefinition.description,
-        start_time: formatToUTC(trainingDefinition.start_time, 'HH:mm')!,
-        end_time: formatToUTC(trainingDefinition.end_time, 'HH:mm')!,
+        start_time: trainingDefinition.start_time.format('HH:mm'),
+        end_time: trainingDefinition.end_time.format('HH:mm'),
+        timezone: trainingDefinition.timezone,
         location: trainingDefinition.location,
         remark: trainingDefinition.remark,
         weekday: trainingDefinition.weekday,
