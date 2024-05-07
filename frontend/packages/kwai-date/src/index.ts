@@ -139,8 +139,11 @@ export function createDateFromString(value?: string, fmt: string = 'YYYY-MM-DD')
   return wrapDayjs(value ? dayjs(value, fmt) : dayjs());
 }
 
-export function createDatetimeFromString(value?: string, fmt: string = 'YYYY-MM-DD HH:mm:ss'): DateType {
-  return createDateFromString(value, fmt);
+export function createDatetimeFromString(value?: string, timezone?: string, fmt: string = 'YYYY-MM-DD HH:mm:ss'): DateType {
+  if (timezone) {
+    return wrapDayjs(dayjs.tz(value, fmt, timezone).tz());
+  }
+  return wrapDayjs(value ? dayjs(value, fmt) : dayjs());
 }
 
 export function createDateTimeFromUTC(value: string, fmt: string = 'YYYY-MM-DD HH:mm:ss'): DateType {
