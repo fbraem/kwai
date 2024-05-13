@@ -175,7 +175,7 @@ export const usePeriod = ({ start, end } : {start?: MaybeRef<DateType>, end?: Ma
   };
 };
 
-const getTrainings = ({ start, end } : {start: DateType, end: DateType}) : Promise<Trainings> => {
+const getTrainings = async({ start, end } : {start: DateType, end: DateType}) : Promise<Trainings> => {
   return useHttpApi().url('/v1/trainings')
     .query({
       'filter[start]': start.format() + ' 00:00:00',
@@ -205,7 +205,7 @@ export const useTrainings = ({ start, end } : {start: MaybeRef<DateType>, end: M
   });
 };
 
-const getTraining = (id: string) => {
+const getTraining = async(id: string): Promise<Training> => {
   return useHttpApi()
     .url(`/v1/trainings/${id}`)
     .get()
@@ -215,7 +215,6 @@ const getTraining = (id: string) => {
       if (result.success) {
         return result.data as Training;
       }
-      console.log(result.error);
       throw result.error;
     });
 };
@@ -227,7 +226,7 @@ export const useTraining = (id: MaybeRef<string>, { enabled } : { enabled: Ref<b
   });
 };
 
-const mutateTraining = (training: Training) : Promise<Training> => {
+const mutateTraining = async(training: Training) : Promise<Training> => {
   const payload: TrainingDocument = {
     data: {
       id: training.id,
@@ -279,7 +278,8 @@ const mutateTraining = (training: Training) : Promise<Training> => {
     return useHttpApi()
       .url(`/v1/trainings/${training.id}`)
       .patch(payload)
-      .json(json => {
+      .json()
+      .then(json => {
         const result = TrainingDocumentSchema.safeParse(json);
         if (result.success) {
           return result.data as Training;
@@ -291,7 +291,8 @@ const mutateTraining = (training: Training) : Promise<Training> => {
   return useHttpApi()
     .url('/v1/trainings')
     .post(payload)
-    .json(json => {
+    .json()
+    .then(json => {
       const result = TrainingDocumentSchema.safeParse(json);
       if (result.success) {
         return result.data as Training;
