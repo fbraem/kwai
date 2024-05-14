@@ -120,8 +120,6 @@ export const useHttpWithAuthCatcher = (options: Options = {}) => useHttpAuth(opt
     const accessToken = localStorage.accessToken;
 
     return request
-      .addon(FormDataAddon)
-      .addon(QueryStringAddon)
       .auth(accessToken.value as string)
       .fetch()
       .unauthorized(err => { throw err; })
