@@ -21,6 +21,7 @@ export const JsonApiData = JsonResourceIdentifier.extend({
     z.string(),
     z.any()
   ),
+  meta: z.record(z.string(), z.any()).optional(),
   relationships: z.record(
     z.string(),
     JsonApiRelationship
