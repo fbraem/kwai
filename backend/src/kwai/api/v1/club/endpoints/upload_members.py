@@ -93,6 +93,19 @@ async def upload(
                 member_document = MemberDocument.create(result.member)
                 member_document.resource.meta.row = result.row
                 member_document.resource.meta.new = not result.member.has_id()
+                # A new member has related resources that are not saved yet,
+                # so give them temporarily the same id as the member.
+                if member_document.resource.meta.new:
+                    member_document.resource.relationships.person.data.id = (
+                        member_document.resource.id
+                    )
+                    for included in member_document.included:
+                        if included.type == "persons":
+                            included.relationships.contact.data.id = (
+                                member_document.resource.id
+                            )
+                        if included.id == "0":
+                            included.id = member_document.resource.id
                 meta.count += 1
                 response.merge(member_document)
             case FailureResult():
