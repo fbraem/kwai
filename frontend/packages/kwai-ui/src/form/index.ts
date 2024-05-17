@@ -12,6 +12,7 @@ export { default as DateRangePicker } from './DateRangePicker.vue';
 export { default as DatePicker } from './DatePicker.vue';
 export type { TimeModel } from '@vuepic/vue-datepicker';
 export { default as TimePicker } from './TimePicker.vue';
+export { default as CheckBox } from './CheckBox.vue';
 export { default as KwaiButton } from './KwaiButton.vue';
 export { default as KwaiButtonGroup } from './KwaiButtonGroup.vue';
 export { default as KwaiCheckbox } from './KwaiCheckbox.vue';
