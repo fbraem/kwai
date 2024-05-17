@@ -41,11 +41,12 @@ export interface Member {
   license: License,
   remark: string,
   active: boolean,
-  competition: boolean
-  person: Person
+  competition: boolean,
+  person: Person,
+  new: boolean
 }
 
-interface Members {
+export interface Members {
   meta: { count: number, offset: number, limit: number },
   items: Member[]
 }
@@ -117,7 +118,7 @@ const CountryResourceSchema = JsonApiData.extend({
 });
 type CountryResource = z.infer<typeof CountryResourceSchema>;
 
-const MemberDocumentSchema = JsonApiDocument.extend({
+export const MemberDocumentSchema = JsonApiDocument.extend({
   data: z.union([
     MemberResourceSchema,
     z.array(MemberResourceSchema).default([]),
@@ -138,6 +139,7 @@ const MemberDocumentSchema = JsonApiDocument.extend({
 
     return {
       id: data.id,
+      new: data.meta?.new ?? false,
       active: data.attributes.active,
       competition: data.attributes.competition,
       remark: data.attributes.remark,
