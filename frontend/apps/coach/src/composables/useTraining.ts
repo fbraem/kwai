@@ -179,7 +179,7 @@ const getTrainings = async({ start, end } : {start: DateType, end: DateType}) : 
   return useHttpApi().url('/v1/trainings')
     .query({
       'filter[start]': start.format() + ' 00:00:00',
-      'filter[end]': end.format() + ' 00:00:00',
+      'filter[end]': end.format() + ' 23:59:59',
       'filter[active]': false,
     })
     .get()
