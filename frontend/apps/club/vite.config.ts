@@ -15,9 +15,6 @@ export default defineConfig(({ mode }) => {
     esbuild: {
       pure: mode === 'production' ? ['console.log'] : [],
     },
-    build: {
-      sourcemap: 'inline',
-    },
     plugins: [
       vue(),
       VueI18nPlugin({
