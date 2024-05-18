@@ -1,3 +1,6 @@
+[api]
+base_url = ""
+
 [website]
 title = ""
 copyright = ""
@@ -27,6 +30,3 @@ text = ""
 [[portal.links]]
 title = ""
 url = ""
-
-[api]
-base_url = ""
