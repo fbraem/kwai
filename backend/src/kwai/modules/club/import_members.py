@@ -48,7 +48,7 @@ class FailureResult(Result):
 class ImportMembersCommand:
     """Input for the use case "ImportMembers"."""
 
-    test: bool = True
+    preview: bool = True
 
 
 class ImportMembers:
@@ -86,7 +86,9 @@ class ImportMembers:
         async for import_result in self._importer.import_():
             match import_result:
                 case member_importer.OkResult():
-                    member = await self._save_member(import_result.member, command.test)
+                    member = await self._save_member(
+                        import_result.member, command.preview
+                    )
                     yield OkResult(
                         file_upload=file_upload_entity,
                         row=import_result.row,
