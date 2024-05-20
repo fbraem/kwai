@@ -34,6 +34,11 @@ markdown_extensions:
       toc_depth: 4
   - admonition
   - codehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 
 plugins:
   - monorepo
