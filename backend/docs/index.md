@@ -5,9 +5,12 @@
 
 [![coverage](./tests/coverage/coverage.svg)](./tests/coverage/index.html)
 
-kwai API is the backend for the kwai sports club management system.
+This is the backend for the kwai sports club management system. This system
+contains a [JSON:API](https://jsonapi.org/) REST API, a CLI and an event bus.
 
-All server side code is written with Python using [FastAPI](https://fastapi.tiangolo.com/) as web framework.
+All server side code is written with Python using [FastAPI](https://fastapi.tiangolo.com/) for the REST API
+and [Typer](https://typer.tiangolo.com/) for the CLI.
+Currently, the event bus is custom code.
 
 ## Install
 
