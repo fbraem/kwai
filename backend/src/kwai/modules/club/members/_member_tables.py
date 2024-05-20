@@ -16,7 +16,7 @@ from kwai.modules.club.domain.country import CountryEntity, CountryIdentifier
 from kwai.modules.club.domain.file_upload import FileUploadEntity
 from kwai.modules.club.domain.member import MemberEntity, MemberIdentifier
 from kwai.modules.club.domain.person import PersonEntity, PersonIdentifier
-from kwai.modules.club.members.value_objects import (
+from kwai.modules.club.domain.value_objects import (
     Address,
     Birthdate,
     Gender,

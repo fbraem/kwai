@@ -4,7 +4,7 @@ import pytest
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.modules.club.domain.contact import ContactEntity
 from kwai.modules.club.domain.country import CountryEntity, CountryIdentifier
-from kwai.modules.club.members.value_objects import Address
+from kwai.modules.club.domain.value_objects import Address
 
 
 @pytest.fixture

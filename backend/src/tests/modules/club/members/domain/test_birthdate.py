@@ -2,7 +2,7 @@
 
 import pendulum
 from kwai.core.domain.value_objects.date import Date
-from kwai.modules.club.members.value_objects import Birthdate
+from kwai.modules.club.domain.value_objects import Birthdate
 
 
 def test_age():
