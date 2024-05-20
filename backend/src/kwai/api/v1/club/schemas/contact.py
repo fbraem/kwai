@@ -13,7 +13,7 @@ from kwai.api.v1.club.schemas.resources import (
     CountryResourceIdentifier,
 )
 from kwai.core.json_api import Document, Relationship, ResourceData, ResourceMeta
-from kwai.modules.club.members.contact import ContactEntity
+from kwai.modules.club.domain.contact import ContactEntity
 
 
 class ContactAttributes(BaseModel):
