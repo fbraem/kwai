@@ -84,10 +84,12 @@ module = "deepdiff.*"
 ignore_missing_imports = true
 
 [tool.ruff]
-lint.select = ["E", "W", "F", "C", "B", "D", "I", "N"]
-lint.fixable = ["I"]
-lint.ignore = ["D107", "D203", "D213", "D406", "D407", "E501", "N818", "B008"]
 target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "C", "B", "D", "I", "N"]
+fixable = ["I"]
+ignore = ["D107", "D203", "D213", "D406", "D407", "E501", "N818", "B008"]
 
 [tool.ruff.pydocstyle]
 convention = "google"
