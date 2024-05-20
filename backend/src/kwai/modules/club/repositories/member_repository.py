@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from typing import AsyncGenerator
 
 from kwai.modules.club.domain.member import MemberEntity
-from kwai.modules.club.members.member_query import MemberQuery
+from kwai.modules.club.repositories.member_query import MemberQuery
 
 
 class MemberNotFoundException(Exception):

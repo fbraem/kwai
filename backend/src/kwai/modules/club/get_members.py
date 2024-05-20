@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 from kwai.core.domain.use_case import UseCaseBrowseResult
 from kwai.core.domain.value_objects.date import Date
-from kwai.modules.club.members.member_repository import MemberRepository
+from kwai.modules.club.repositories.member_repository import MemberRepository
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

@@ -9,7 +9,7 @@ from kwai.core.domain.value_objects.date import Date
 from kwai.modules.club.domain.member import MemberEntity
 from kwai.modules.club.domain.person import PersonEntity
 from kwai.modules.club.domain.value_objects import License
-from kwai.modules.club.members.member_db_repository import MemberDbRepository
+from kwai.modules.club.repositories.member_db_repository import MemberDbRepository
 
 MemberFixtureFactory: TypeAlias = Callable[[License | None], MemberEntity]
 

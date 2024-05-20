@@ -1,12 +1,11 @@
 """Module for testing the person repository for a database."""
 
 import pytest
-
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.entity import Entity
-from kwai.modules.club.members.person_db_repository import PersonDbRepository
-from kwai.modules.club.members.person_repository import (
+from kwai.modules.club.repositories.person_db_repository import PersonDbRepository
+from kwai.modules.club.repositories.person_repository import (
     PersonNotFoundException,
     PersonRepository,
 )

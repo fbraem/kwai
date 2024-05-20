@@ -1,11 +1,10 @@
 """Module for testing the use case 'Get Member'."""
 
 import pytest
-
 from kwai.core.db.database import Database
 from kwai.modules.club.get_member import GetMember, GetMemberCommand
-from kwai.modules.club.members.member_db_repository import MemberDbRepository
-from kwai.modules.club.members.member_repository import MemberRepository
+from kwai.modules.club.repositories.member_db_repository import MemberDbRepository
+from kwai.modules.club.repositories.member_repository import MemberRepository
 
 
 @pytest.fixture

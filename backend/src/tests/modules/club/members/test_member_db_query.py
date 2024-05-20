@@ -4,8 +4,8 @@ import pytest
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.domain.member import MemberIdentifier
-from kwai.modules.club.members.member_db_query import MemberDbQuery
-from kwai.modules.club.members.member_query import MemberQuery
+from kwai.modules.club.repositories.member_db_query import MemberDbQuery
+from kwai.modules.club.repositories.member_query import MemberQuery
 
 pytestmark = pytest.mark.db
 

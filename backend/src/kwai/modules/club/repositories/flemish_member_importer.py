@@ -14,11 +14,11 @@ from kwai.modules.club.domain.contact import ContactEntity
 from kwai.modules.club.domain.member import MemberEntity
 from kwai.modules.club.domain.person import PersonEntity
 from kwai.modules.club.domain.value_objects import Address, Birthdate, Gender, License
-from kwai.modules.club.members.country_repository import (
+from kwai.modules.club.repositories.country_repository import (
     CountryNotFoundException,
     CountryRepository,
 )
-from kwai.modules.club.members.member_importer import (
+from kwai.modules.club.repositories.member_importer import (
     FailureResult,
     MemberImporter,
     OkResult,

@@ -3,8 +3,8 @@
 import pytest
 from kwai.core.db.database import Database
 from kwai.modules.club.domain.country import CountryEntity
-from kwai.modules.club.members.country_db_repository import CountryDbRepository
-from kwai.modules.club.members.country_repository import (
+from kwai.modules.club.repositories.country_db_repository import CountryDbRepository
+from kwai.modules.club.repositories.country_repository import (
     CountryNotFoundException,
     CountryRepository,
 )

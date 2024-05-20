@@ -5,8 +5,8 @@ from sql_smith.query import SelectQuery
 from kwai.core.db.database import Database
 from kwai.core.domain.entity import Entity
 from kwai.modules.club.domain.country import CountryEntity, CountryIdentifier
-from kwai.modules.club.members._member_tables import CountryRow
-from kwai.modules.club.members.country_repository import (
+from kwai.modules.club.repositories._member_tables import CountryRow
+from kwai.modules.club.repositories.country_repository import (
     CountryNotFoundException,
     CountryRepository,
 )

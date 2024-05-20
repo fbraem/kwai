@@ -5,10 +5,12 @@ from pathlib import Path
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.modules.club.import_members import ImportMembers, ImportMembersCommand
-from kwai.modules.club.members.country_db_repository import CountryDbRepository
-from kwai.modules.club.members.file_upload_db_repository import FileUploadDbRepository
-from kwai.modules.club.members.flemish_member_importer import FlemishMemberImporter
-from kwai.modules.club.members.member_db_repository import MemberDbRepository
+from kwai.modules.club.repositories.country_db_repository import CountryDbRepository
+from kwai.modules.club.repositories.file_upload_db_repository import (
+    FileUploadDbRepository,
+)
+from kwai.modules.club.repositories.flemish_member_importer import FlemishMemberImporter
+from kwai.modules.club.repositories.member_db_repository import MemberDbRepository
 
 
 async def test_import_members(database: Database, owner: Owner):

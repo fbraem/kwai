@@ -16,7 +16,7 @@ from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.modules.club.domain.contact import ContactEntity
 from kwai.modules.club.domain.country import CountryEntity
 from kwai.modules.club.domain.value_objects import Address
-from kwai.modules.club.members.contact_db_repository import ContactDbRepository
+from kwai.modules.club.repositories.contact_db_repository import ContactDbRepository
 
 
 class AddressType(TypedDict):

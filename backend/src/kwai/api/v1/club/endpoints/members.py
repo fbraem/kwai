@@ -2,15 +2,15 @@
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, Field
+from tests.core.domain.test_entity import UserEntity
 
 from kwai.api.dependencies import create_database, get_current_user
 from kwai.api.v1.club.schemas.member import MemberDocument
 from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.club.get_member import GetMember, GetMemberCommand
 from kwai.modules.club.get_members import GetMembers, GetMembersCommand
-from kwai.modules.club.members.member_db_repository import MemberDbRepository
-from kwai.modules.club.members.member_repository import MemberNotFoundException
-from tests.core.domain.test_entity import UserEntity
+from kwai.modules.club.repositories.member_db_repository import MemberDbRepository
+from kwai.modules.club.repositories.member_repository import MemberNotFoundException
 
 router = APIRouter()
 

@@ -9,7 +9,7 @@ from kwai.modules.club.domain.contact import ContactEntity
 from kwai.modules.club.domain.country import CountryEntity
 from kwai.modules.club.domain.person import PersonEntity
 from kwai.modules.club.domain.value_objects import Birthdate, Gender
-from kwai.modules.club.members.person_db_repository import PersonDbRepository
+from kwai.modules.club.repositories.person_db_repository import PersonDbRepository
 
 
 @pytest.fixture

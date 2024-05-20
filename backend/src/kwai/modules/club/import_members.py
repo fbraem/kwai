@@ -8,9 +8,9 @@ from kwai.core.domain.entity import Entity
 from kwai.core.domain.use_case import UseCaseResult
 from kwai.modules.club.domain.file_upload import FileUploadEntity
 from kwai.modules.club.domain.member import MemberEntity
-from kwai.modules.club.members import member_importer
-from kwai.modules.club.members.file_upload_repository import FileUploadRepository
-from kwai.modules.club.members.member_repository import (
+from kwai.modules.club.repositories import member_importer
+from kwai.modules.club.repositories.file_upload_repository import FileUploadRepository
+from kwai.modules.club.repositories.member_repository import (
     MemberNotFoundException,
     MemberRepository,
 )

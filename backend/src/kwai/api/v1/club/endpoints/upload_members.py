@@ -19,10 +19,12 @@ from kwai.modules.club.import_members import (
     ImportMembersCommand,
     OkResult,
 )
-from kwai.modules.club.members.country_db_repository import CountryDbRepository
-from kwai.modules.club.members.file_upload_db_repository import FileUploadDbRepository
-from kwai.modules.club.members.flemish_member_importer import FlemishMemberImporter
-from kwai.modules.club.members.member_db_repository import MemberDbRepository
+from kwai.modules.club.repositories.country_db_repository import CountryDbRepository
+from kwai.modules.club.repositories.file_upload_db_repository import (
+    FileUploadDbRepository,
+)
+from kwai.modules.club.repositories.flemish_member_importer import FlemishMemberImporter
+from kwai.modules.club.repositories.member_db_repository import MemberDbRepository
 from kwai.modules.identity.users.user import UserEntity
 
 router = APIRouter()

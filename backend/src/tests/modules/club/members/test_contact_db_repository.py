@@ -1,12 +1,11 @@
 """Module for testing the contact repository for a database."""
 
 import pytest
-
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.entity import Entity
-from kwai.modules.club.members.contact_db_repository import ContactDbRepository
-from kwai.modules.club.members.contact_repository import (
+from kwai.modules.club.repositories.contact_db_repository import ContactDbRepository
+from kwai.modules.club.repositories.contact_repository import (
     ContactNotFoundException,
     ContactRepository,
 )
