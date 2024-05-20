@@ -4,6 +4,7 @@ docs_dir: docs
 
 nav:
   - index.md
+  - architecture.md
   - API:
     - auth: api/api_auth.md
   - cli.md
