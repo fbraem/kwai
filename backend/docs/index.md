@@ -90,8 +90,10 @@ The backend is written in Python. The following tools are used to develop kwai:
 There are pre-commit hooks defined for formatting and linting the code. Use
 Poetry to create the pre-commit hooks:
 
+> Use the backend folder as working directory for the poetry commands.
+
 ````
-poetry -C ./backend/src/pyproject.toml pre-commit install
+poetry run pre-commit install
 ````
 
 ### Testing
