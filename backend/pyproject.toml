@@ -91,7 +91,7 @@ select = ["E", "W", "F", "C", "B", "D", "I", "N"]
 fixable = ["I"]
 ignore = ["D107", "D203", "D213", "D406", "D407", "E501", "N818", "B008"]
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"
 
 [build-system]
