@@ -24,3 +24,4 @@ __pycache__
 /frontend/apps/portal/images/*.jpg
 *.tsbuildinfo
 stats.html
+/backend/.venv/
