@@ -3,7 +3,7 @@
 from abc import ABC, abstractmethod
 from typing import AsyncGenerator
 
-from kwai.modules.club.members.member import MemberEntity
+from kwai.modules.club.domain.member import MemberEntity
 from kwai.modules.club.members.member_query import MemberQuery
 
 

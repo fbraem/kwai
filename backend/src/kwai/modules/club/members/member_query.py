@@ -5,7 +5,7 @@ from typing import Self
 
 from kwai.core.domain.repository.query import Query
 from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.club.members.member import MemberIdentifier
+from kwai.modules.club.domain.member import MemberIdentifier
 
 
 class MemberQuery(Query, ABC):

@@ -9,7 +9,7 @@ from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.db.table_row import JoinedTableRow
 from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.club.members.member import MemberEntity, MemberIdentifier
+from kwai.modules.club.domain.member import MemberEntity, MemberIdentifier
 from kwai.modules.club.members.member_query import MemberQuery
 from kwai.modules.club.members.member_tables import (
     ContactRow,

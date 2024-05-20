@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 from kwai.api.v1.club.schemas.resources import CountryResourceIdentifier
 from kwai.core.json_api import Document, ResourceData
-from kwai.modules.club.members.country import CountryEntity
+from kwai.modules.club.domain.country import CountryEntity
 
 
 class CountryAttributes(BaseModel):

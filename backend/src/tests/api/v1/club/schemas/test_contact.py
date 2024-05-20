@@ -4,9 +4,8 @@ import json
 from typing import Any
 
 from deepdiff import DeepDiff
-
 from kwai.api.v1.club.schemas.contact import ContactDocument
-from kwai.modules.club.members.contact import ContactEntity
+from kwai.modules.club.domain.contact import ContactEntity
 
 
 def test_create_contact_document(

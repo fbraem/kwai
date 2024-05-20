@@ -2,7 +2,7 @@
 
 from abc import ABC, abstractmethod
 
-from kwai.modules.club.members.country import CountryEntity
+from kwai.modules.club.domain.country import CountryEntity
 
 
 class CountryNotFoundException(Exception):

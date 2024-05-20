@@ -1,7 +1,6 @@
 """Module for testing the Birthdate value object."""
 
 import pendulum
-
 from kwai.core.domain.value_objects.date import Date
 from kwai.modules.club.members.value_objects import Birthdate
 

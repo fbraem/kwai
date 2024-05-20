@@ -2,7 +2,7 @@
 
 from kwai.core.db.database import Database
 from kwai.core.domain.entity import Entity
-from kwai.modules.club.members.file_upload import FileUploadEntity, FileUploadIdentifier
+from kwai.modules.club.domain.file_upload import FileUploadEntity, FileUploadIdentifier
 from kwai.modules.club.members.file_upload_repository import FileUploadRepository
 from kwai.modules.club.members.member_tables import FileUploadRow
 

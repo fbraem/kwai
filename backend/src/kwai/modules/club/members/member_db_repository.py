@@ -4,7 +4,7 @@ from typing import AsyncGenerator
 
 from kwai.core.db.database import Database
 from kwai.core.domain.entity import Entity
-from kwai.modules.club.members.member import MemberEntity, MemberIdentifier
+from kwai.modules.club.domain.member import MemberEntity, MemberIdentifier
 from kwai.modules.club.members.member_db_query import MemberDbQuery, MemberQueryRow
 from kwai.modules.club.members.member_query import MemberQuery
 from kwai.modules.club.members.member_repository import (

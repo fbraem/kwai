@@ -1,14 +1,13 @@
 """Module for defining fixtures for persons."""
 
 import pytest
-
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.name import Name
-from kwai.modules.club.members.contact import ContactEntity
-from kwai.modules.club.members.country import CountryEntity
-from kwai.modules.club.members.person import PersonEntity
+from kwai.modules.club.domain.contact import ContactEntity
+from kwai.modules.club.domain.country import CountryEntity
+from kwai.modules.club.domain.person import PersonEntity
 from kwai.modules.club.members.person_db_repository import PersonDbRepository
 from kwai.modules.club.members.value_objects import Birthdate, Gender
 

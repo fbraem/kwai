@@ -3,13 +3,12 @@
 from typing import Callable, TypeAlias
 
 import pytest
-
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.value_objects.date import Date
-from kwai.modules.club.members.member import MemberEntity
+from kwai.modules.club.domain.member import MemberEntity
+from kwai.modules.club.domain.person import PersonEntity
 from kwai.modules.club.members.member_db_repository import MemberDbRepository
-from kwai.modules.club.members.person import PersonEntity
 from kwai.modules.club.members.value_objects import License
 
 MemberFixtureFactory: TypeAlias = Callable[[License | None], MemberEntity]

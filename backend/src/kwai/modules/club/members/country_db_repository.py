@@ -4,7 +4,7 @@ from sql_smith.query import SelectQuery
 
 from kwai.core.db.database import Database
 from kwai.core.domain.entity import Entity
-from kwai.modules.club.members.country import CountryEntity, CountryIdentifier
+from kwai.modules.club.domain.country import CountryEntity, CountryIdentifier
 from kwai.modules.club.members.country_repository import (
     CountryNotFoundException,
     CountryRepository,

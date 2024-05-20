@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 
 from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.club.members.member import MemberEntity
+from kwai.modules.club.domain.member import MemberEntity
 from kwai.modules.club.members.member_repository import MemberRepository
 
 

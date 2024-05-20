@@ -7,10 +7,10 @@ from typing import AsyncGenerator
 from async_lru import alru_cache
 
 from kwai.core.domain.value_objects.owner import Owner
-from kwai.modules.club.members.country import CountryEntity
+from kwai.modules.club.domain.country import CountryEntity
+from kwai.modules.club.domain.file_upload import FileUploadEntity
+from kwai.modules.club.domain.member import MemberEntity
 from kwai.modules.club.members.country_repository import CountryRepository
-from kwai.modules.club.members.file_upload import FileUploadEntity
-from kwai.modules.club.members.member import MemberEntity
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

@@ -2,7 +2,7 @@
 
 from abc import ABC, abstractmethod
 
-from kwai.modules.club.members.contact import ContactEntity, ContactIdentifier
+from kwai.modules.club.domain.contact import ContactEntity, ContactIdentifier
 
 
 class ContactNotFoundException(Exception):

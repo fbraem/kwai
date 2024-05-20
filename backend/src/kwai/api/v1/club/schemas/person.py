@@ -12,7 +12,7 @@ from kwai.api.v1.club.schemas.resources import (
     PersonResourceIdentifier,
 )
 from kwai.core.json_api import Document, Relationship, ResourceData, ResourceMeta
-from kwai.modules.club.members.person import PersonEntity
+from kwai.modules.club.domain.person import PersonEntity
 
 
 class PersonAttributes(BaseModel):

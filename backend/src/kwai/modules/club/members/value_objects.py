@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 from kwai.core.domain.value_objects.date import Date
-from kwai.modules.club.members.country import CountryEntity
+from kwai.modules.club.domain.country import CountryEntity
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

@@ -3,13 +3,12 @@
 from typing import Any
 
 import pytest
-
 from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
-from kwai.modules.club.members.contact import ContactEntity, ContactIdentifier
-from kwai.modules.club.members.country import CountryEntity, CountryIdentifier
-from kwai.modules.club.members.person import PersonEntity, PersonIdentifier
+from kwai.modules.club.domain.contact import ContactEntity, ContactIdentifier
+from kwai.modules.club.domain.country import CountryEntity, CountryIdentifier
+from kwai.modules.club.domain.person import PersonEntity, PersonIdentifier
 from kwai.modules.club.members.value_objects import Address, Birthdate, Gender
 
 

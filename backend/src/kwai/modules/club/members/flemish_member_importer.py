@@ -10,19 +10,19 @@ from kwai.core.domain.value_objects.email_address import (
 )
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.owner import Owner
-from kwai.modules.club.members.contact import ContactEntity
+from kwai.modules.club.domain.contact import ContactEntity
+from kwai.modules.club.domain.member import MemberEntity
+from kwai.modules.club.domain.person import PersonEntity
 from kwai.modules.club.members.country_repository import (
     CountryNotFoundException,
     CountryRepository,
 )
-from kwai.modules.club.members.member import MemberEntity
 from kwai.modules.club.members.member_importer import (
     FailureResult,
     MemberImporter,
     OkResult,
     Result,
 )
-from kwai.modules.club.members.person import PersonEntity
 from kwai.modules.club.members.value_objects import Address, Birthdate, Gender, License
 
 

@@ -4,8 +4,8 @@ from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
-from kwai.modules.club.members.contact import ContactEntity
-from kwai.modules.club.members.country import CountryEntity
+from kwai.modules.club.domain.contact import ContactEntity
+from kwai.modules.club.domain.country import CountryEntity
 from kwai.modules.club.members.value_objects import Birthdate, Gender
 
 PersonIdentifier = IntIdentifier

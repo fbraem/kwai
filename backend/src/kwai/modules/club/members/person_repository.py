@@ -2,7 +2,7 @@
 
 from abc import ABC, abstractmethod
 
-from kwai.modules.club.members.person import PersonEntity, PersonIdentifier
+from kwai.modules.club.domain.person import PersonEntity, PersonIdentifier
 
 
 class PersonNotFoundException(Exception):

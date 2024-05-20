@@ -4,9 +4,8 @@ import json
 from typing import Any
 
 from deepdiff import DeepDiff
-
 from kwai.api.v1.club.schemas.country import CountryDocument
-from kwai.modules.club.members.country import CountryEntity
+from kwai.modules.club.domain.country import CountryEntity
 
 
 def test_create_country_document(

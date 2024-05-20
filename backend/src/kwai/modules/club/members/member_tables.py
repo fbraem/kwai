@@ -11,11 +11,11 @@ from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.club.members.contact import ContactEntity, ContactIdentifier
-from kwai.modules.club.members.country import CountryEntity, CountryIdentifier
-from kwai.modules.club.members.file_upload import FileUploadEntity
-from kwai.modules.club.members.member import MemberEntity, MemberIdentifier
-from kwai.modules.club.members.person import PersonEntity, PersonIdentifier
+from kwai.modules.club.domain.contact import ContactEntity, ContactIdentifier
+from kwai.modules.club.domain.country import CountryEntity, CountryIdentifier
+from kwai.modules.club.domain.file_upload import FileUploadEntity
+from kwai.modules.club.domain.member import MemberEntity, MemberIdentifier
+from kwai.modules.club.domain.person import PersonEntity, PersonIdentifier
 from kwai.modules.club.members.value_objects import (
     Address,
     Birthdate,

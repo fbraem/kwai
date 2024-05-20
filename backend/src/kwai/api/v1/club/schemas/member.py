@@ -15,7 +15,7 @@ from kwai.api.v1.club.schemas.resources import (
     PersonResourceIdentifier,
 )
 from kwai.core.json_api import Document, Relationship, ResourceData, ResourceMeta
-from kwai.modules.club.members.member import MemberEntity
+from kwai.modules.club.domain.member import MemberEntity
 
 
 class MemberAttributes(BaseModel):

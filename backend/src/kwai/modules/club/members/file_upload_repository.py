@@ -1,7 +1,8 @@
 """Module that defines an interface for a file upload repository."""
+
 from abc import ABC, abstractmethod
 
-from kwai.modules.club.members.file_upload import FileUploadEntity
+from kwai.modules.club.domain.file_upload import FileUploadEntity
 
 
 class FileUploadRepository(ABC):
