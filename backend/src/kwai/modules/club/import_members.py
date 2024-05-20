@@ -101,15 +101,15 @@ class ImportMembers:
                         message=import_result.message,
                     )
 
-    async def _save_member(self, member: MemberEntity, test: bool) -> MemberEntity:
+    async def _save_member(self, member: MemberEntity, preview: bool) -> MemberEntity:
         """Create or update the member."""
         existing_member = await self._get_member(member)
         if existing_member is not None:
             updated_member = self._update_member(existing_member, member)
-            if not test:
+            if not preview:
                 await self._member_repo.update(updated_member)
             return updated_member
-        if not test:
+        if not preview:
             return await self._member_repo.create(member)
         return member
 
