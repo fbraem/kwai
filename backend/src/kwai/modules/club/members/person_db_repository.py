@@ -8,8 +8,8 @@ from kwai.core.db.database import Database
 from kwai.core.db.table_row import JoinedTableRow
 from kwai.core.domain.entity import Entity
 from kwai.modules.club.domain.person import PersonEntity, PersonIdentifier
+from kwai.modules.club.members._member_tables import ContactRow, CountryRow, PersonRow
 from kwai.modules.club.members.contact_db_repository import ContactDbRepository
-from kwai.modules.club.members.member_tables import ContactRow, CountryRow, PersonRow
 from kwai.modules.club.members.person_repository import (
     PersonNotFoundException,
     PersonRepository,

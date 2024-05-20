@@ -8,11 +8,11 @@ from kwai.core.db.database import Database
 from kwai.core.db.table_row import JoinedTableRow
 from kwai.core.domain.entity import Entity
 from kwai.modules.club.domain.contact import ContactEntity, ContactIdentifier
+from kwai.modules.club.members._member_tables import ContactRow, CountryRow
 from kwai.modules.club.members.contact_repository import (
     ContactNotFoundException,
     ContactRepository,
 )
-from kwai.modules.club.members.member_tables import ContactRow, CountryRow
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
