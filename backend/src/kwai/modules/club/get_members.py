@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 
-from kwai.core.domain.presenter import IterableResult, Presenter
+from kwai.core.domain.presenter import AsyncPresenter, IterableResult
 from kwai.core.domain.value_objects.date import Date
 from kwai.modules.club.domain.member import MemberEntity
 from kwai.modules.club.repositories.member_repository import MemberRepository
@@ -31,7 +31,9 @@ class GetMembers:
     """Use case get members."""
 
     def __init__(
-        self, repo: MemberRepository, presenter: Presenter[IterableResult[MemberEntity]]
+        self,
+        repo: MemberRepository,
+        presenter: AsyncPresenter[IterableResult[MemberEntity]],
     ):
         """Initialize use case.
 

@@ -1,7 +1,7 @@
 """Module that defines presenters for the club api."""
 
 from kwai.api.v1.club.schemas.member import MemberDocument
-from kwai.core.domain.presenter import IterableResult, Presenter
+from kwai.core.domain.presenter import AsyncPresenter, IterableResult, Presenter
 from kwai.core.json_api import Meta
 from kwai.modules.club.domain.member import MemberEntity
 
@@ -25,7 +25,7 @@ class JsonApiMemberPresenter(JsonApiPresenter[MemberDocument], Presenter[MemberE
 
 
 class JsonApiMembersPresenter(
-    JsonApiPresenter[MemberDocument], Presenter[IterableResult[MemberEntity]]
+    JsonApiPresenter[MemberDocument], AsyncPresenter[IterableResult[MemberEntity]]
 ):
     """A presenter that transform an iterator for members into a JSON:API document."""
 
