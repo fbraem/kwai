@@ -39,7 +39,7 @@ async def get_members(
         license_end_year=members_filter.license_end_year,
         license_end_month=members_filter.license_end_month,
     )
-    presenter = JsonApiMembersPresenter(offset=command.offset, limit=command.limit)
+    presenter = JsonApiMembersPresenter()
     await GetMembers(MemberDbRepository(db), presenter).execute(command)
 
     return presenter.get_document()
