@@ -29,13 +29,9 @@ class JsonApiMembersPresenter(
 ):
     """A presenter that transform an iterator for members into a JSON:API document."""
 
-    def __init__(self, offset: int = 0, limit: int = 0):
-        self._offset = offset
-        self._limit = limit
-
     async def handle(self, result: IterableResult[MemberEntity]) -> None:
         self._document = MemberDocument(
-            meta=Meta(count=result.count, offset=self._offset, limit=self._limit),
+            meta=Meta(count=result.count, offset=result.offset, limit=result.limit),
             data=[],
         )
         async for member in result.iterator:

@@ -10,6 +10,8 @@ class IterableResult[T]:
     """A dataclass used to represent a result with multiple entities."""
 
     count: int
+    offset: int = 0
+    limit: int = 0
     iterator: AsyncIterator[T]
 
 

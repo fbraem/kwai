@@ -63,6 +63,8 @@ class GetMembers:
         await self._presenter.handle(
             IterableResult(
                 count=await query.count(),
+                limit=command.limit,
+                offset=command.offset,
                 iterator=self._repo.get_all(query, command.limit, command.offset),
             )
         )
