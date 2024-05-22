@@ -18,15 +18,16 @@ class IterableResult[T]:
 class Presenter[T](ABC):
     """An interface for a presenter.
 
-    A presenter is used to transform an entity into another object.
+    A presenter is used to transform an entity into another object that can be used
+    in a view.
 
     An example: convert to a JSON:API resource for returning the entity in a restful
     API.
     """
 
     @abstractmethod
-    def handle(self, use_case_result: T) -> None:
-        """Handle the entity.
+    def present(self, use_case_result: T) -> None:
+        """Present the entity.
 
         This method is responsible for converting the entity.
         """
@@ -35,15 +36,16 @@ class Presenter[T](ABC):
 class AsyncPresenter[T](ABC):
     """An interface for an async presenter.
 
-    A presenter is used to transform an entity into another object.
+    A presenter is used to transform an entity into another object that can be used
+    in a view.
 
     An example: convert to a JSON:API resource for returning the entity in a restful
     API.
     """
 
     @abstractmethod
-    async def handle(self, use_case_result: T) -> None:
-        """Handle the entity.
+    async def present(self, use_case_result: T) -> None:
+        """Present the entity.
 
         This method is responsible for converting the entity.
         """

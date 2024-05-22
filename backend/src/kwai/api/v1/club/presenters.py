@@ -20,7 +20,7 @@ class JsonApiPresenter[Document]:
 class JsonApiMemberPresenter(JsonApiPresenter[MemberDocument], Presenter[MemberEntity]):
     """A presenter that transform a member entity into a JSON:API document."""
 
-    def handle(self, member: MemberEntity) -> None:
+    def present(self, member: MemberEntity) -> None:
         self._document = MemberDocument.create(member)
 
 
@@ -29,7 +29,7 @@ class JsonApiMembersPresenter(
 ):
     """A presenter that transform an iterator for members into a JSON:API document."""
 
-    async def handle(self, result: IterableResult[MemberEntity]) -> None:
+    async def present(self, result: IterableResult[MemberEntity]) -> None:
         self._document = MemberDocument(
             meta=Meta(count=result.count, offset=result.offset, limit=result.limit),
             data=[],

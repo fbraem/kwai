@@ -48,4 +48,4 @@ class GetMember:
         query.filter_by_uuid(UniqueId.create_from_string(command.uuid))
 
         member = await self._repo.get(query)
-        self._presenter.handle(member)
+        self._presenter.present(member)

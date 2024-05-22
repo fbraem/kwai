@@ -60,7 +60,7 @@ class GetMembers:
                 command.license_end_month, command.license_end_year or Date.today().year
             )
 
-        await self._presenter.handle(
+        await self._presenter.present(
             IterableResult(
                 count=await query.count(),
                 limit=command.limit,
