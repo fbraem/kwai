@@ -90,6 +90,7 @@ class FileUploadRow(TableRow):
     uuid: str
     filename: str
     remark: str
+    preview: int
     user_id: int
     created_at: datetime
     updated_at: datetime | None
@@ -106,6 +107,7 @@ class FileUploadRow(TableRow):
             uuid=str(file_upload.uuid),
             filename=file_upload.filename,
             remark=file_upload.remark,
+            preview=1 if file_upload.preview else 0,
             user_id=file_upload.owner.id.value,
             created_at=file_upload.traceable_time.created_at.timestamp,  # type: ignore[arg-type]
             updated_at=file_upload.traceable_time.updated_at.timestamp,

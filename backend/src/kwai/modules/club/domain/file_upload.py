@@ -20,6 +20,7 @@ class FileUploadEntity(Entity[FileUploadIdentifier]):
         filename: str,
         owner: Owner,
         remark: str = "",
+        preview: bool = False,
         traceable_time: TraceableTime | None = None,
     ):
         """Initialize a file upload entity.
@@ -28,8 +29,9 @@ class FileUploadEntity(Entity[FileUploadIdentifier]):
             id_: The id of the upload.
             uuid: The unique id of the upload.
             filename: The name of the file.
-            remark: A remark about the upload.
             owner: The user who uploaded the file.
+            remark: A remark about the upload.
+            preview: Whether the upload is a preview.
             traceable_time: The creation and modification timestamp of the upload.
         """
         super().__init__(id_ or FileUploadIdentifier())
@@ -37,6 +39,7 @@ class FileUploadEntity(Entity[FileUploadIdentifier]):
         self._filename = filename
         self._owner = owner
         self._remark = remark
+        self._preview = preview
         self._traceable_time = traceable_time or TraceableTime()
 
     @property
@@ -58,6 +61,11 @@ class FileUploadEntity(Entity[FileUploadIdentifier]):
     def uuid(self) -> UniqueId:
         """Return the uuid."""
         return self._uuid
+
+    @property
+    def preview(self) -> bool:
+        """Return the preview."""
+        return self._preview
 
     @property
     def traceable_time(self) -> TraceableTime:

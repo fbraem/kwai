@@ -108,6 +108,7 @@ CREATE TABLE `imports` (
   `user_id` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `preview` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -586,5 +587,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20230128205126'),
   ('20231110160912'),
   ('20240201192100'),
-  ('20240502185700');
+  ('20240502185700'),
+  ('20240525191900');
 UNLOCK TABLES;
