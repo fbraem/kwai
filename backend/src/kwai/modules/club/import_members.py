@@ -81,7 +81,7 @@ class ImportMembers:
             FailureResult: When the row was not successfully imported.
         """
         file_upload_entity = await self._file_upload_repo.create(
-            self._importer.create_file_upload_entity()
+            self._importer.create_file_upload_entity(command.preview)
         )
         async for import_result in self._importer.import_():
             match import_result:

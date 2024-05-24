@@ -56,9 +56,11 @@ class MemberImporter(ABC):
         For each imported (or failed import) of a member, a result will be yielded.
         """
 
-    def create_file_upload_entity(self) -> FileUploadEntity:
+    def create_file_upload_entity(self, preview: bool) -> FileUploadEntity:
         """Create a file upload entity."""
-        return FileUploadEntity(filename=self._filename, owner=self._owner)
+        return FileUploadEntity(
+            filename=self._filename, owner=self._owner, preview=preview
+        )
 
     @staticmethod
     @alru_cache
