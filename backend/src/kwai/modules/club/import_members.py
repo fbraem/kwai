@@ -2,9 +2,9 @@
 
 from abc import ABC
 from dataclasses import dataclass
-from typing import AsyncGenerator
 
 from kwai.core.domain.entity import Entity
+from kwai.core.domain.presenter import Presenter
 from kwai.core.domain.use_case import UseCaseResult
 from kwai.modules.club.domain.file_upload import FileUploadEntity
 from kwai.modules.club.domain.member import MemberEntity
@@ -17,7 +17,7 @@ from kwai.modules.club.repositories.member_repository import (
 
 
 @dataclass(kw_only=True, slots=True, frozen=True)
-class Result(UseCaseResult, ABC):
+class MemberImportResult(UseCaseResult, ABC):
     """The result of the use case ImportMembers."""
 
     file_upload: FileUploadEntity
@@ -25,7 +25,7 @@ class Result(UseCaseResult, ABC):
 
 
 @dataclass(kw_only=True, slots=True, frozen=True)
-class OkResult(Result):
+class OkMemberImportResult(MemberImportResult):
     """A successful import of a member."""
 
     member: MemberEntity
@@ -35,7 +35,7 @@ class OkResult(Result):
 
 
 @dataclass(kw_only=True, slots=True, frozen=True)
-class FailureResult(Result):
+class FailureMemberImportResult(MemberImportResult):
     """An import of a member failed."""
 
     message: str
@@ -59,6 +59,7 @@ class ImportMembers:
         importer: member_importer.MemberImporter,
         file_upload_repo: FileUploadRepository,
         member_repo: MemberRepository,
+        presenter: Presenter,
     ):
         """Initialize the use case.
 
@@ -66,20 +67,15 @@ class ImportMembers:
             importer: A class that is responsible for importing members from a resource.
             file_upload_repo: A repository for storing the file upload information.
             member_repo: A repository for managing members.
+            presenter: A presenter
         """
         self._importer = importer
         self._file_upload_repo = file_upload_repo
         self._member_repo = member_repo
+        self._presenter = presenter
 
-    async def execute(
-        self, command: ImportMembersCommand
-    ) -> AsyncGenerator[Result, None]:
-        """Execute the use case.
-
-        Yields:
-            OkResult: When the row was successfully imported.
-            FailureResult: When the row was not successfully imported.
-        """
+    async def execute(self, command: ImportMembersCommand):
+        """Execute the use case."""
         file_upload_entity = await self._file_upload_repo.create(
             self._importer.create_file_upload_entity(command.preview)
         )
@@ -87,30 +83,39 @@ class ImportMembers:
             match import_result:
                 case member_importer.OkResult():
                     member = await self._save_member(
-                        import_result.member, command.preview
+                        file_upload_entity, import_result.member, command.preview
                     )
-                    yield OkResult(
-                        file_upload=file_upload_entity,
-                        row=import_result.row,
-                        member=member,
+                    self._presenter.present(
+                        OkMemberImportResult(
+                            file_upload=file_upload_entity,
+                            row=import_result.row,
+                            member=member,
+                        )
                     )
                 case member_importer.FailureResult():
-                    yield FailureResult(
-                        file_upload=file_upload_entity,
-                        row=import_result.row,
-                        message=import_result.message,
+                    self._present.present(
+                        FailureMemberImportResult(
+                            file_upload=file_upload_entity,
+                            row=import_result.row,
+                            message=import_result.message,
+                        )
                     )
 
-    async def _save_member(self, member: MemberEntity, preview: bool) -> MemberEntity:
+    async def _save_member(
+        self, file_upload: FileUploadEntity, member: MemberEntity, preview: bool
+    ) -> MemberEntity:
         """Create or update the member."""
         existing_member = await self._get_member(member)
         if existing_member is not None:
             updated_member = self._update_member(existing_member, member)
             if not preview:
                 await self._member_repo.update(updated_member)
+                await self._file_upload_repo.save_member(file_upload, updated_member)
             return updated_member
+
         if not preview:
-            return await self._member_repo.create(member)
+            member = await self._member_repo.create(member)
+            await self._file_upload_repo.save_member(file_upload, member)
         return member
 
     @classmethod
