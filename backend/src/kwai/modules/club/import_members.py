@@ -41,7 +41,7 @@ class FailureMemberImportResult(MemberImportResult):
     message: str
 
     def to_message(self) -> str:
-        return f"Import failed for row {self.row}: {self.message}."
+        return self.message
 
 
 @dataclass(kw_only=True, slots=True, frozen=True)
