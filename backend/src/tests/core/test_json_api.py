@@ -4,7 +4,7 @@ from types import NoneType
 from typing import Literal
 
 import pytest
-from kwai.core.json_api import Document, ResourceData, ResourceIdentifier
+from kwai.core.json_api import Document, Error, ResourceData, ResourceIdentifier
 from pydantic import BaseModel
 from rich import json
 
@@ -72,3 +72,20 @@ def test_dump_json(judoka_resource: JudokaResource):
     assert (
         json_doc["data"]["attributes"]["name"] == "Jigoro Kano"
     ), "The judoka should have a name."
+
+
+def test_error():
+    """Test the error of a JSON:API document."""
+    json_doc = JudokaDocument(
+        data=[],
+        errors=[
+            Error(
+                title="No judoka selected",
+                detail="There is no judoka selected for this tournament",
+            )
+        ],
+    )
+    json_doc = json.loads(json_doc.model_dump_json())
+    print(json_doc)
+    assert "errors" in json_doc, "There should be a 'errors' in the document."
+    assert json_doc["errors"][0]["title"] == "No judoka selected"
