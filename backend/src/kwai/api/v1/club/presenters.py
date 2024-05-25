@@ -2,7 +2,7 @@
 
 from kwai.api.v1.club.schemas.member import MemberDocument
 from kwai.core.domain.presenter import AsyncPresenter, IterableResult, Presenter
-from kwai.core.json_api import Meta
+from kwai.core.json_api import Error, ErrorSource, Meta
 from kwai.modules.club.domain.member import MemberEntity
 from kwai.modules.club.import_members import (
     FailureMemberImportResult,
@@ -51,12 +51,11 @@ class JsonApiUploadMemberPresenter(
 
     def __init__(self) -> None:
         super().__init__()
-        self._meta = Meta(count=0, offset=0, limit=0, errors=[])
+        self._document = MemberDocument(
+            meta=Meta(count=0, offset=0, limit=0), data=[], errors=[]
+        )
 
     def present(self, result: MemberImportResult) -> None:
-        if self._document is None:
-            self._document = MemberDocument(data=[])
-
         match result:
             case OkMemberImportResult():
                 member_document = MemberDocument.create(result.member)
@@ -75,9 +74,12 @@ class JsonApiUploadMemberPresenter(
                             )
                         if included.id == "0":
                             included.id = member_document.resource.id
-                self._meta.count += 1
+                self._document.meta.count += 1
                 self._document.merge(member_document)
             case FailureMemberImportResult():
-                self._meta.errors.append(
-                    {"row": result.row, "message": result.to_message()}
+                self._document.errors.append(
+                    Error(
+                        source=ErrorSource(pointer=str(result.row)),
+                        detail=result.to_message(),
+                    )
                 )
