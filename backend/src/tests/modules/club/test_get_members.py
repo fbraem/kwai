@@ -2,11 +2,29 @@
 
 import pytest
 from kwai.core.db.database import Database
+from kwai.core.domain.presenter import AsyncPresenter, IterableResult
 from kwai.core.domain.value_objects.date import Date
+from kwai.modules.club.domain.member import MemberEntity
 from kwai.modules.club.domain.value_objects import License
 from kwai.modules.club.get_members import GetMembers, GetMembersCommand
 from kwai.modules.club.repositories.member_db_repository import MemberDbRepository
 from kwai.modules.club.repositories.member_repository import MemberRepository
+
+
+class TestPresenter(AsyncPresenter[IterableResult[MemberEntity]]):
+    """A dummy presenter for checking the use case result."""
+
+    def __init__(self):
+        super().__init__()
+        self._count = 0
+
+    @property
+    def count(self):
+        """Return count."""
+        return self._count
+
+    async def present(self, use_case_result: IterableResult[MemberEntity]) -> None:
+        self._count += 1
 
 
 @pytest.fixture
@@ -19,8 +37,9 @@ async def test_get_members(member_repo: MemberRepository, make_member_in_db):
     """Test get members."""
     await make_member_in_db()
     command = GetMembersCommand()
-    result = await GetMembers(member_repo).execute(command)
-    assert result.count > 0, "There should be at least one member"
+    presenter = TestPresenter()
+    await GetMembers(member_repo, presenter).execute(command)
+    assert presenter.count > 0, "There should be at least one member"
 
 
 async def test_get_members_with_license_date(
@@ -34,8 +53,9 @@ async def test_get_members_with_license_date(
         )
     )
     command = GetMembersCommand(license_end_year=2023, license_end_month=2)
-    result = await GetMembers(member_repo).execute(command)
-    assert result.count == 1, "There should only be one member"
+    presenter = TestPresenter()
+    await GetMembers(member_repo, presenter).execute(command)
+    assert presenter.count == 1, "There should only be one member"
 
 
 async def test_get_all_members(
@@ -49,5 +69,6 @@ async def test_get_all_members(
         )
     )
     command = GetMembersCommand(active=False)
-    result = await GetMembers(member_repo).execute(command)
-    assert result.count > 0, "There should be at least one inactive member"
+    presenter = TestPresenter()
+    await GetMembers(member_repo, presenter).execute(command)
+    assert presenter.count > 0, "There should be at least one inactive member"
