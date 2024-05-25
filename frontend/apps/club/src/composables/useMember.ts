@@ -130,7 +130,10 @@ export const MemberDocumentSchema = JsonApiDocument.extend({
       CountryResourceSchema,
     ])
   ).default([]),
-}).transform(doc => {
+});
+type MemberDocument = z.infer<typeof MemberDocumentSchema>;
+
+export const transform = (doc: MemberDocument) : Member | Members => {
   const mapModel = (data: MemberResource): Member => {
     const person = doc.included.find(included => included.type === PersonResourceSchema.shape.type.value && included.id === data.relationships.person.data.id) as PersonResource;
     const nationality = doc.included.find(included => included.type === CountryResourceSchema.shape.type.value && included.id === person.relationships.nationality.data.id) as CountryResource;
@@ -186,8 +189,7 @@ export const MemberDocumentSchema = JsonApiDocument.extend({
     };
   }
   return mapModel(doc.data);
-});
-type MemberDocument = z.input<typeof MemberDocumentSchema>;
+};
 
 const getMembers = async({
   offset = null,
@@ -208,7 +210,7 @@ const getMembers = async({
   return api.get().json().then(json => {
     const result = MemberDocumentSchema.safeParse(json);
     if (result.success) {
-      return result.data as Members;
+      return transform(result.data) as Members;
     }
     console.log(result.error);
     throw result.error;

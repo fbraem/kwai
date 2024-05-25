@@ -8,8 +8,8 @@ import {
   KwaiCheckbox,
 } from '@kwai/ui';
 import { type Ref, ref } from 'vue';
-import { useHttpApi } from '@kwai/api';
-import { MemberDocumentSchema, type Members } from '@root/composables/useMember';
+import { useHttpApi, type JsonApiErrorType } from '@kwai/api';
+import { MemberDocumentSchema, type Members, transform } from '@root/composables/useMember';
 
 const { t } = useI18n({ useScope: 'global' });
 
@@ -20,13 +20,17 @@ const useMemberUpload = (files: File[]) => {
     formData.append('member_file', files[0]);
     await useHttpApi()
       .url('/v1/club/members/upload')
+      .query({ preview: preview.value })
       .body(formData)
       .post()
       .json()
       .then(json => {
         const result = MemberDocumentSchema.safeParse(json);
         if (result.success) {
-          members.value = result.data as Members;
+          console.log(result.data);
+          errors.value = result.data.errors ?? [];
+          count.value = result.data.meta?.count ?? 0;
+          members.value = transform(result.data) as Members;
         } else {
           console.log(result.error);
           throw result.error;
@@ -39,6 +43,8 @@ const useMemberUpload = (files: File[]) => {
 
 const members = ref();
 const preview: Ref<boolean> = ref(true);
+const errors: Ref<JsonApiErrorType[]> = ref([]);
+const count = ref(0);
 
 const upload = (files: File[]) => {
   members.value = useMemberUpload(files);
@@ -63,6 +69,7 @@ const upload = (files: File[]) => {
         Preview
       </template>
     </KwaiCheckbox>
+    {{ errors }}
     {{ members }}
   </ContainerSection>
 </template>
