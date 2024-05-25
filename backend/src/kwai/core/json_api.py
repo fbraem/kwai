@@ -96,10 +96,10 @@ class ErrorSource(BaseModel):
 class Error(BaseModel):
     """Defines the model for a JSON:API error."""
 
-    status: str | None = None
+    status: str = ""
     source: ErrorSource | None = None
-    title: str | None = None
-    detail: str | None = None
+    title: str = ""
+    detail: str = ""
 
 
 class Document(BaseModel, Generic[T_RESOURCE, T_INCLUDE]):
@@ -151,6 +151,8 @@ class Document(BaseModel, Generic[T_RESOURCE, T_INCLUDE]):
             del result["included"]
         if self.meta is None:
             del result["meta"]
+        if not self.errors:
+            del result["errors"]
         return result
 
     def merge(self, other: "Document"):
