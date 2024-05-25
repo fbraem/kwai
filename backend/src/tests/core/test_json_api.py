@@ -1,12 +1,12 @@
 """Module for testing the JSON:API models."""
+
 from types import NoneType
 from typing import Literal
 
 import pytest
+from kwai.core.json_api import Document, ResourceData, ResourceIdentifier
 from pydantic import BaseModel
 from rich import json
-
-from kwai.core.json_api import Document, ResourceData, ResourceIdentifier
 
 
 class JudokaResourceIdentifier(ResourceIdentifier):

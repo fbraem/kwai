@@ -87,12 +87,28 @@ class Meta(BaseModel):
     limit: int | None = None
 
 
+class ErrorSource(BaseModel):
+    """Defines the model for an error source."""
+
+    pointer: str
+
+
+class Error(BaseModel):
+    """Defines the model for a JSON:API error."""
+
+    status: str | None = None
+    source: ErrorSource | None = None
+    title: str | None = None
+    detail: str | None = None
+
+
 class Document(BaseModel, Generic[T_RESOURCE, T_INCLUDE]):
     """A JSON:API document."""
 
     meta: Meta | SkipJsonSchema[None] = None
     data: T_RESOURCE | list[T_RESOURCE]
     included: set[T_INCLUDE] | SkipJsonSchema[None] = None
+    errors: list[Error] | SkipJsonSchema[None] = None
 
     @property
     def resource(self) -> T_RESOURCE:
