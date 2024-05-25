@@ -86,6 +86,5 @@ def test_error():
         ],
     )
     json_doc = json.loads(json_doc.model_dump_json())
-    print(json_doc)
     assert "errors" in json_doc, "There should be a 'errors' in the document."
     assert json_doc["errors"][0]["title"] == "No judoka selected"
