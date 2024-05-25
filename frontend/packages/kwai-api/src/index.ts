@@ -29,6 +29,16 @@ export const JsonApiData = JsonResourceIdentifier.extend({
 });
 export type JsonApiDataType = z.infer<typeof JsonApiData>;
 
+export const JsonApiError = z.object({
+  status: z.string().default(''),
+  source: z.object({
+    pointer: z.string(),
+  }).optional(),
+  title: z.string().default(''),
+  detail: z.string().default(''),
+});
+export type JsonApiErrorType = z.infer<typeof JsonApiError>;
+
 export const JsonApiDocument = z.object({
   meta: z.object({
     count: z.number().optional(),
@@ -37,6 +47,7 @@ export const JsonApiDocument = z.object({
   }).optional(),
   data: z.union([JsonApiData, z.array(JsonApiData)]),
   included: z.array(JsonApiData).optional(),
+  errors: z.array(JsonApiError).optional(),
 });
 export type JsonApiDocumentType = z.infer<typeof JsonApiDocument>;
 
