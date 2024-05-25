@@ -93,7 +93,7 @@ class ImportMembers:
                         )
                     )
                 case member_importer.FailureResult():
-                    self._present.present(
+                    self._presenter.present(
                         FailureMemberImportResult(
                             file_upload=file_upload_entity,
                             row=import_result.row,
