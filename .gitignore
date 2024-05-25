@@ -25,3 +25,4 @@ __pycache__
 *.tsbuildinfo
 stats.html
 /backend/.venv/
+/frontend/packages/kwai-config/src/config.production.toml
