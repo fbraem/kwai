@@ -275,3 +275,22 @@ class MemberRow(TableRow):
             created_at=member.traceable_time.created_at.timestamp,  # type: ignore[arg-type]
             updated_at=member.traceable_time.updated_at.timestamp,
         )
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class MemberUploadRow(TableRow):
+    """Represents a row of the judo member imports table."""
+
+    __table_name__ = "judo_member_imports"
+
+    member_id: int
+    import_id: int
+    created_at: datetime
+
+    @classmethod
+    def persist(cls, upload: FileUploadEntity, member: MemberEntity) -> Self:
+        return cls(
+            member_id=member.id.value,
+            import_id=upload.id.value,
+            created_at=datetime.now(UTC),
+        )
