@@ -32,7 +32,9 @@ class DummyPresenter[MemberImportResult](Presenter):
 
 async def test_import_members(database: Database, owner: Owner):
     """Test the use case Import Members."""
-    filename = Path(__file__).parent / "data" / "flemish_members_test.csv"
+    filename = (
+        Path(__file__).parent / "repositories" / "data" / "flemish_members_test.csv"
+    )
 
     importer = FlemishMemberImporter(
         str(filename), owner, CountryDbRepository(database)
