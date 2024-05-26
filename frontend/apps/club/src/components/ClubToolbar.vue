@@ -4,11 +4,10 @@ import { website } from '@kwai/config';
 // eslint-disable-next-line import/no-absolute-path
 import logoUrl from '/logo.png';
 import type { MenuItem } from '@kwai/ui';
-import { ToolbarLogo, ToolbarMenu } from '@kwai/ui';
+import { ToolbarLogo, ToolbarMenu, KwaiButton } from '@kwai/ui';
 import { useRouter } from 'vue-router';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import PrimaryButton from '@root/components/PrimaryButton.vue';
 import { isLoggedIn, useHttpLogout } from '@kwai/api';
 
 const { t } = useI18n({ useScope: 'global' });
@@ -54,14 +53,14 @@ const logout = () => {
         </div>
         <div class="flex flex-col place-items-end md:w-1/3">
           <div v-if="loggedIn">
-            <PrimaryButton :method="logout">
+            <KwaiButton :method="logout">
               Logout
-            </PrimaryButton>
+            </KwaiButton>
           </div>
           <div v-else>
-            <PrimaryButton :url="`${website.url}/apps/auth/login`">
+            <KwaiButton :url="`${website.url}/apps/auth/login`">
               Login
-            </PrimaryButton>
+            </KwaiButton>
           </div>
         </div>
       </div>
