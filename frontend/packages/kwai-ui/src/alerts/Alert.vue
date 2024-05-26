@@ -1,11 +1,23 @@
-<template>
-  <div class="flex p-4 mb-4 border-l-4 items-center" role="alert">
-    <slot name="icon" />
-    <div class="ml-3">
-      <slot />
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
+import Message from 'primevue/message';
+interface Props {
+  severity?: 'success' | 'info' | 'warn' | 'error',
+  closable?: boolean
+}
+withDefaults(defineProps<Props>(), {
+  severity: 'info',
+  closable: false,
+});
 </script>
+
+<template>
+  <Message
+    :severity="severity"
+    :closable="closable"
+  >
+    <template #messageicon>
+      <slot name="icon" />
+    </template>
+    <slot />
+  </Message>
+</template>
