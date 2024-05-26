@@ -11,3 +11,11 @@ members_upload:
   title: Opladen Leden
   description: |
     Via deze pagina kan u een bestand opladen met nieuwe of gewijzigde leden.
+  preview_description: |
+    Met preview kan je eerst controleren of het bestand correct verwerkt kan worden.
+  preview: Preview
+  error:
+    message: |
+      Opgelet er zijn fouten gevonden in het opgeladen bestand!
+    row: Rij
+    description: Omschrijving
