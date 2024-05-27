@@ -51,7 +51,7 @@ const upload = (files: File[]) => {
 </script>
 
 <template>
-  <ContainerSection>
+  <ContainerSection class="space-y-4">
     <ContainerSectionTitle>
       {{ t('members_upload.title') }}
     </ContainerSectionTitle>
@@ -79,9 +79,7 @@ const upload = (files: File[]) => {
         </div>
       </div>
     </ContainerSectionContent>
-  </ContainerSection>
-  <ContainerSection v-if="errors.length > 0">
-    <ContainerSectionContent>
+    <ContainerSectionContent v-if="errors.length > 0">
       <ErrorAlert>
         {{ t('members_upload.error.message') }}
       </ErrorAlert>
@@ -111,9 +109,7 @@ const upload = (files: File[]) => {
         </tbody>
       </table>
     </ContainerSectionContent>
-  </ContainerSection>
-  <ContainerSection v-if="members && members.items">
-    <ContainerSectionContent>
+    <ContainerSectionContent v-if="members && members.items">
       <div>
         <p>
           Er zijn {{ members.meta.count }} leden gevonden in dit bestand.
