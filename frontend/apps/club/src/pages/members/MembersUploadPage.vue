@@ -79,10 +79,12 @@ const upload = (files: File[]) => {
         </div>
       </div>
     </ContainerSectionContent>
-    <ErrorAlert v-if="errors.length > 0">
-      {{ t('members_upload.error.message') }}
-    </ErrorAlert>
-    <template v-if="errors.length > 0">
+  </ContainerSection>
+  <ContainerSection v-if="errors.length > 0">
+    <ContainerSectionContent>
+      <ErrorAlert>
+        {{ t('members_upload.error.message') }}
+      </ErrorAlert>
       <table class="divide-y divide-gray-400 w-full rounded-lg">
         <thead>
           <tr>
@@ -108,42 +110,44 @@ const upload = (files: File[]) => {
           </tr>
         </tbody>
       </table>
-    </template>
-    <template v-if="members && members.items">
+    </ContainerSectionContent>
+  </ContainerSection>
+  <ContainerSection v-if="members && members.items">
+    <ContainerSectionContent>
       <div>
         <p>
           Er zijn {{ members.meta.count }} leden gevonden in dit bestand.
         </p>
       </div>
-    </template>
-    <table
-      v-if="members && members.items"
-      class="divide-y divide-gray-400 w-full rounded-lg"
-    >
-      <thead>
-        <tr>
-          <th class="w-1/6 px-6 py-3 text-left text-sm uppercase">
-            {{ t('members_upload.error.row') }}
-          </th>
-          <th class="px-6 py-3 text-left text-sm uppercase">
-            {{ t('members_upload.error.description') }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(member, index) in members.items"
-          :key="index"
-        >
-          <th class="w-1/6 px-6 py-1 text-left">
-            {{ index + 1 }}
-          </th>
-          <td class="px-6 py-1 text-left">
-            {{ member.person.lastName }} {{ member.person.firstName }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <table
+        v-if="members && members.items"
+        class="divide-y divide-gray-400 w-full rounded-lg"
+      >
+        <thead>
+          <tr>
+            <th class="w-1/6 px-6 py-3 text-left text-sm uppercase">
+              {{ t('members_upload.error.row') }}
+            </th>
+            <th class="px-6 py-3 text-left text-sm uppercase">
+              {{ t('members_upload.error.description') }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(member, index) in members.items"
+            :key="index"
+          >
+            <th class="w-1/6 px-6 py-1 text-left">
+              {{ index + 1 }}
+            </th>
+            <td class="px-6 py-1 text-left">
+              {{ member.person.lastName }} {{ member.person.firstName }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ContainerSectionContent>
   </ContainerSection>
 </template>
 
