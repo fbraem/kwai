@@ -68,7 +68,7 @@ class FlemishMemberImporter(MemberImporter):
                 emails = []
                 try:
                     for email in row["email"].split(";"):
-                        emails.append(EmailAddress(email))
+                        emails.append(EmailAddress(email.strip()))
                 except InvalidEmailException as exc:
                     yield FailureResult(row=row_index, message=str(exc))
                     continue
