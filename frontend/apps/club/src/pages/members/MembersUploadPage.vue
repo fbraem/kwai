@@ -6,6 +6,7 @@ import {
   ContainerSectionTitle,
   KwaiFileUpload,
   KwaiCheckbox,
+  KwaiTag,
   ErrorAlert,
 } from '@kwai/ui';
 import { type Ref, ref } from 'vue';
@@ -94,10 +95,11 @@ const upload = (files: File[]) => {
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="divide-y divide-gray-200">
           <tr
             v-for="error in errors"
             :key="error.source!.pointer"
+            class="even:bg-slate-50"
           >
             <th class="w-1/6 px-6 py-3 text-left">
               {{ error.source!.pointer }}
@@ -129,16 +131,21 @@ const upload = (files: File[]) => {
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="divide-y divide-gray-200">
           <tr
             v-for="(member, index) in members.items"
             :key="index"
+            class="even:bg-slate-50"
           >
             <th class="w-1/6 px-6 py-1 text-left">
               {{ index + 1 }}
             </th>
-            <td class="px-6 py-1 text-left">
+            <td class="px-6 py-1 text-left items-center">
               {{ member.person.lastName }} {{ member.person.firstName }}
+              <KwaiTag
+                v-if="member.new"
+                value="Nieuw"
+              />
             </td>
           </tr>
         </tbody>
