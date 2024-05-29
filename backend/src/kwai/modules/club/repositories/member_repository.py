@@ -3,6 +3,7 @@
 from abc import ABC, abstractmethod
 from typing import AsyncGenerator
 
+from kwai.modules.club.domain.file_upload import FileUploadEntity
 from kwai.modules.club.domain.member import MemberEntity
 from kwai.modules.club.repositories.member_query import MemberQuery
 
@@ -78,4 +79,14 @@ class MemberRepository(ABC):
         Args:
             member: The member to delete.
         """
+        raise NotImplementedError
+
+    @abstractmethod
+    async def activate_members(self, upload: FileUploadEntity) -> None:
+        """Activate all members that have been uploaded."""
+        raise NotImplementedError
+
+    @abstractmethod
+    async def deactivate_members(self, upload: FileUploadEntity) -> None:
+        """Deactivate all members that are not being uploaded."""
         raise NotImplementedError

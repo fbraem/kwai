@@ -2,10 +2,13 @@
 
 from typing import AsyncGenerator
 
+from sql_smith.functions import field
+
 from kwai.core.db.database import Database
 from kwai.core.domain.entity import Entity
+from kwai.modules.club.domain.file_upload import FileUploadEntity
 from kwai.modules.club.domain.member import MemberEntity, MemberIdentifier
-from kwai.modules.club.repositories._tables import MemberRow
+from kwai.modules.club.repositories._tables import MemberRow, MemberUploadRow
 from kwai.modules.club.repositories.member_db_query import MemberDbQuery, MemberQueryRow
 from kwai.modules.club.repositories.member_query import MemberQuery
 from kwai.modules.club.repositories.member_repository import (
@@ -70,3 +73,31 @@ class MemberDbRepository(MemberRepository):
     async def delete(self, member: MemberEntity) -> None:
         await PersonDbRepository(self._database).delete(member.person)
         await self._database.delete(member.id, MemberRow.__table_name__)
+
+    async def activate_members(self, upload: FileUploadEntity) -> None:
+        member_upload_query = (
+            self._database.create_query_factory()
+            .select("member_id")
+            .from_(MemberUploadRow.__table_name__)
+            .where(field("import.id") == upload.id.value)
+        )
+        update_query = (
+            self._database.create_query_factory()
+            .update(MemberRow.__table_name__, {"active": 1})
+            .where(field("id").in_(member_upload_query))
+        )
+        await self._database.execute(update_query)
+
+    async def deactivate_members(self, upload: FileUploadEntity) -> None:
+        member_upload_query = (
+            self._database.create_query_factory()
+            .select("member_id")
+            .from_(MemberUploadRow.__table_name__)
+            .where(field("import.id") == upload.id.value)
+        )
+        update_query = (
+            self._database.create_query_factory()
+            .update(MemberRow.__table_name__, {"active": 0})
+            .where(field("id").not_in(member_upload_query))
+        )
+        await self._database.execute(update_query)

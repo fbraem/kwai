@@ -100,6 +100,8 @@ class ImportMembers:
                             message=import_result.message,
                         )
                     )
+        if not command.preview:
+            await self._activate_members(file_upload_entity)
 
     async def _save_member(
         self, file_upload: FileUploadEntity, member: MemberEntity, preview: bool
@@ -161,3 +163,12 @@ class ImportMembers:
             return None
 
         return member
+
+    async def _activate_members(self, upload_entity: FileUploadEntity):
+        """Activate members.
+
+        Members that are part of the upload will be activated.
+        Members not part of the upload will be deactivated.
+        """
+        await self._member_repo.activate_members(upload_entity)
+        await self._member_repo.deactivate_members(upload_entity)
