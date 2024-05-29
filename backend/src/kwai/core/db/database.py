@@ -96,6 +96,8 @@ class Database:
         async with self._connection.cursor() as cursor:
             try:
                 await cursor.execute(compiled_query.sql, compiled_query.params)
+                if cursor.rowcount != -1:
+                    self.log_affected_rows(cursor.rowcount)
                 return cursor.lastrowid
             except Exception as exc:
                 raise QueryException(compiled_query.sql) from exc
@@ -241,6 +243,19 @@ class Database:
         db_logger = logger.bind(database=self._settings.name)
         db_logger.info(
             "DB: {database} - Query: {query}", database=self._settings.name, query=query
+        )
+
+    def log_affected_rows(self, rowcount: int):
+        """Log the number of affected rows of the last executed query.
+
+        Args:
+            rowcount: The number of affected rows.
+        """
+        db_logger = logger.bind(database=self._settings.name)
+        db_logger.info(
+            "DB: {database} - Affected rows: {rowcount}",
+            database=self._settings.name,
+            rowcount=rowcount,
         )
 
     @property
