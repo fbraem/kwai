@@ -1,50 +1,9 @@
-import type { DateType } from '@kwai/date';
+import { createDateFromString } from '@kwai/date';
 import { JsonApiData, JsonApiDocument, JsonResourceIdentifier, useHttpApi } from '@kwai/api';
 import { type Ref, ref, toValue } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 import { z } from 'zod';
-import { createDateFromString } from '@kwai/date';
-
-interface Country {
-  iso2: string,
-  iso3: string,
-  name: string
-}
-interface Contact {
-  emails: string[],
-  tel: string,
-  mobile: string,
-  address: string,
-  postalCode: string,
-  city: string,
-  county: string,
-  country: Country
-}
-
-interface Person {
-  firstName: string,
-  lastName: string,
-  gender: number,
-  birthdate: DateType,
-  remark: string,
-  contact: Contact,
-  nationality: Country
-}
-
-interface License {
-  number: string,
-  end_date: DateType
-}
-
-export interface Member {
-  id?: string,
-  license: License,
-  remark: string,
-  active: boolean,
-  competition: boolean,
-  person: Person,
-  new: boolean
-}
+import type { Member } from '@root/types/member';
 
 export interface Members {
   meta: { count: number, offset: number, limit: number },

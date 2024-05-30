@@ -6,11 +6,12 @@ import {
   KwaiButton,
   KwaiButtonGroup,
 } from '@kwai/ui';
-import { type Member, useMembers } from '@root/composables/useMember';
+import { useMembers } from '@root/composables/useMember';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
+import type { Member } from '@root/types/member';
 
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const largerThanLg = breakpoints.greater('lg');
