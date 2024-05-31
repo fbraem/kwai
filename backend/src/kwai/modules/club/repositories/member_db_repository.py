@@ -79,7 +79,7 @@ class MemberDbRepository(MemberRepository):
             self._database.create_query_factory()
             .select("member_id")
             .from_(MemberUploadRow.__table_name__)
-            .where(field("import.id") == upload.id.value)
+            .where(field("import_id").eq(upload.id.value))
         )
         update_query = (
             self._database.create_query_factory()
@@ -93,7 +93,7 @@ class MemberDbRepository(MemberRepository):
             self._database.create_query_factory()
             .select("member_id")
             .from_(MemberUploadRow.__table_name__)
-            .where(field("import.id") == upload.id.value)
+            .where(field("import_id").eq(upload.id.value))
         )
         update_query = (
             self._database.create_query_factory()
