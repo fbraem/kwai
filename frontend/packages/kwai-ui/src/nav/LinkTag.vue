@@ -18,6 +18,7 @@ const click = computed(() => props.method ? 'click' : null);
     :is="tag"
     :to="route"
     :href="url"
+    class="cursor-pointer"
     @[click]="method"
   >
     <slot />
