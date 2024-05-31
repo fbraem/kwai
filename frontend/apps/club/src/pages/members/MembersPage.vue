@@ -19,6 +19,7 @@ const largerThanLg = breakpoints.greater('lg');
 const { t } = useI18n({ useScope: 'global' });
 
 const { data: members } = useMembers({});
+
 const sortedMembers = computed(() => {
   const result: Record<string, Member[]> = {};
   if (!members.value) return result;
@@ -50,6 +51,9 @@ const alphabet = [...Array(26)].map((_, i) => String.fromCharCode(65 + i));
       {{ t('members.title') }}
     </ContainerSectionTitle>
     <ContainerSectionContent>
+      <span v-if="members">
+        {{ t('members.count', { count: members.meta.count }) }}
+      </span>
       <KwaiButtonGroup
         v-if="largerThanLg"
       >
