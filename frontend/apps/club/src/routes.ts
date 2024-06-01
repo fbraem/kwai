@@ -5,6 +5,7 @@ import NotAllowedPage from '@root/pages/not_allowed/NotAllowedPage.vue';
 import MembersPage from '@root/pages/members/MembersPage.vue';
 import ClubToolbar from '@root/components/ClubToolbar.vue';
 import UploadMembersPage from '@root/pages/members/MembersUploadPage.vue';
+import TeamsPage from '@root/pages/teams/TeamsPage.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -47,6 +48,17 @@ const routes: RouteRecordRaw[] = [
         components: {
           toolbar: ClubToolbar,
           main: UploadMembersPage,
+        },
+      },
+      {
+        name: 'club.teams',
+        path: '/members/teams',
+        components: {
+          toolbar: ClubToolbar,
+          main: TeamsPage,
+        },
+        meta: {
+          title: 'Teams',
         },
       },
     ],
