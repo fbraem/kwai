@@ -6,10 +6,10 @@ import { computed } from 'vue';
 interface Props {
   items: MenuItem[]
 }
-const props = defineProps<Props>();
+const properties = defineProps<Props>();
 
 const menuItems = computed(() => {
-  return props.items.map(item => ({
+  return properties.items.map(item => ({
     label: item.title,
     command: item.method,
     route: item.route,
@@ -23,11 +23,45 @@ const menuItems = computed(() => {
     :model="menuItems"
     pt:root:class="bg-primary-500 text-primary-text w-full lg:px-6 lg:mx-auto lg:max-w-6xl"
     :pt-options="{ mergeSections: false, mergeProps: true }"
-  />
+  >
+    <template #item="{ item, props, hasSubmenu }">
+      <router-link
+        v-if="item.route"
+        v-slot="{ href, navigate }"
+        :to="item.route"
+        custom
+      >
+        <a
+          :href="href"
+          v-bind="props.action"
+          @click="navigate"
+        >
+          <span :class="item.icon" />
+          <span class="ml-2">{{ item.label }}</span>
+        </a>
+      </router-link>
+      <a
+        v-else
+        :href="item.url"
+        :target="item.target"
+        v-bind="props.action"
+      >
+        <span :class="item.icon" />
+        <span class="ml-2">{{ item.label }}</span>
+        <span
+          v-if="hasSubmenu"
+          class="pi pi-fw pi-angle-down ml-2"
+        />
+      </a>
+    </template>
+  </Menubar>
 </template>
 
 <style>
 li[data-pc-section="menuitem"] {
   @apply text-gray-700;
+}
+ul[data-pc-section="menu"] {
+  @apply bg-white;
 }
 </style>
