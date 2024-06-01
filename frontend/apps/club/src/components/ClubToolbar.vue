@@ -3,28 +3,13 @@
 import { website } from '@kwai/config';
 // eslint-disable-next-line import/no-absolute-path
 import logoUrl from '/logo.png';
-import type { MenuItem } from '@kwai/ui';
-import { ToolbarLogo, ToolbarMenu, KwaiButton } from '@kwai/ui';
-import { useRouter } from 'vue-router';
-import { computed } from 'vue';
+import { useMenu, ToolbarLogo, KwaiMenubar, KwaiButton } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
 import { isLoggedIn, useHttpLogout } from '@kwai/api';
 
 const { t } = useI18n({ useScope: 'global' });
 
-const router = useRouter();
-const menuItems = computed(() : MenuItem[] => {
-  const result: MenuItem[] = [];
-  for (const route of router.getRoutes()) {
-    if (route.meta.title) {
-      result.push({
-        title: route.meta.title as string,
-        route,
-      });
-    }
-  }
-  return result;
-});
+const menuItems = useMenu();
 
 const loggedIn = isLoggedIn;
 const logout = () => {
@@ -66,8 +51,8 @@ const logout = () => {
       </div>
     </div>
   </header>
-  <ToolbarMenu
-    :menu-items="menuItems"
+  <KwaiMenubar
+    :items="menuItems"
     item-class="text-gray-600 hover:text-black"
   />
 </template>
