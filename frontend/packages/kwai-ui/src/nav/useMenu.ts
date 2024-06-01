@@ -1,6 +1,6 @@
 import { useRouter } from 'vue-router';
 import { computed } from 'vue';
-import { MenuItem } from '../../dist';
+import { MenuItem } from '../types';
 
 /**
  * A composable that returns a MenuItem array based on the routes.
@@ -16,6 +16,7 @@ export const useMenu = () => {
         result.push({
           title: route.meta.title as string,
           route,
+          disabled: false,
         });
       }
     }
