@@ -2,6 +2,7 @@
 
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
+from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.domain.person import PersonEntity
@@ -60,6 +61,11 @@ class MemberEntity(Entity[MemberIdentifier]):
     def license(self) -> License:
         """Return the license."""
         return self._license
+
+    @property
+    def name(self) -> Name:
+        """Return the name of the member."""
+        return self.person.name
 
     @property
     def person(self) -> PersonEntity:
