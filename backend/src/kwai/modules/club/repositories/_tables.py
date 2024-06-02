@@ -11,6 +11,7 @@ from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
+from kwai.modules.club.domain.coach import CoachEntity
 from kwai.modules.club.domain.contact import ContactEntity, ContactIdentifier
 from kwai.modules.club.domain.country import CountryEntity, CountryIdentifier
 from kwai.modules.club.domain.file_upload import FileUploadEntity
@@ -293,4 +294,35 @@ class MemberUploadRow(TableRow):
             member_id=member.id.value,
             import_id=upload.id.value,
             created_at=datetime.now(UTC),
+        )
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class CoachRow(TableRow):
+    """Represents a row of the coach table."""
+
+    __table_name__ = "coaches"
+
+    id: int
+    member_id: int
+    description: str
+    diploma: str
+    active: int
+    remark: str
+    user_id: int | None
+    created_at: datetime
+    updated_at: datetime | None
+
+    @classmethod
+    def persist(cls, coach: CoachEntity) -> Self:
+        return cls(
+            id=coach.id.value,
+            member_id=coach.member.id.value,
+            description=coach.description,
+            diploma=coach.diploma,
+            active=1 if coach.is_active else 0,
+            remark=coach.remark,
+            user_id=None if coach.user is None else coach.user.id.value,
+            created_at=coach.traceable_time.created_at.timestamp,  # type: ignore[arg-type]
+            updated_at=coach.traceable_time.updated_at.timestamp,
         )
