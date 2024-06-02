@@ -9,12 +9,12 @@ from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.db.rows import OwnersTable, OwnerTableRow
 from kwai.core.db.table_row import JoinedTableRow
 from kwai.core.domain.value_objects.name import Name
-from kwai.modules.training.coaches.coach import CoachEntity, CoachIdentifier
-from kwai.modules.training.coaches.coach_tables import (
+from kwai.modules.training.coaches._tables import (  # noqa
     CoachRow,
     MemberRow,
     PersonRow,
 )
+from kwai.modules.training.coaches.coach import CoachEntity, CoachIdentifier
 from kwai.modules.training.trainings.training import TrainingIdentifier
 from kwai.modules.training.trainings.training_tables import (
     TrainingCoachRow,

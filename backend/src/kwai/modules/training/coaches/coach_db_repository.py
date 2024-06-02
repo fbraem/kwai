@@ -3,16 +3,16 @@
 from typing import AsyncIterator
 
 from kwai.core.db.database import Database
+from kwai.modules.training.coaches._tables import (
+    CoachRow,
+    PersonRow,
+)
 from kwai.modules.training.coaches.coach import CoachEntity, CoachIdentifier
 from kwai.modules.training.coaches.coach_db_query import CoachDbQuery, CoachQueryRow
 from kwai.modules.training.coaches.coach_query import CoachQuery
 from kwai.modules.training.coaches.coach_repository import (
     CoachNotFoundException,
     CoachRepository,
-)
-from kwai.modules.training.coaches.coach_tables import (
-    CoachRow,
-    PersonRow,
 )
 
 

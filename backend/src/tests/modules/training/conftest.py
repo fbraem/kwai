@@ -13,7 +13,7 @@ from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleTe
 from kwai.core.domain.value_objects.time_period import TimePeriod
 from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.weekday import Weekday
-from kwai.modules.training.coaches.coach_tables import (
+from kwai.modules.training.coaches._tables import (
     CoachRow,
     PersonRow,
 )
