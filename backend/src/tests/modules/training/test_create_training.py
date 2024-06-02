@@ -1,12 +1,11 @@
 """Module for testing the use case "Create Training"."""
 
 import pytest
-
 from kwai.core.db.database import Database
 from kwai.core.domain.use_case import TextCommand
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.timestamp import Timestamp
-from kwai.modules.training.coaches.coach import CoachEntity, CoachIdentifier
+from kwai.modules.training.coaches.coach import CoachEntity
 from kwai.modules.training.coaches.coach_db_repository import CoachDbRepository
 from kwai.modules.training.coaches.coach_repository import CoachRepository
 from kwai.modules.training.create_training import CreateTraining, CreateTrainingCommand
@@ -22,6 +21,7 @@ from kwai.modules.training.trainings.training_definition_repository import (
     TrainingDefinitionRepository,
 )
 from kwai.modules.training.trainings.training_repository import TrainingRepository
+
 from tests.modules.training.conftest import Context
 
 
@@ -50,11 +50,9 @@ def team_repo(database: Database) -> TeamRepository:
 
 
 @pytest.fixture
-async def coach(
-    database: Database, context: Context, coach_repo: CoachRepository
-) -> CoachEntity:
+async def coach(make_coach_in_db) -> CoachEntity:
     """A fixture for a coach."""
-    return await coach_repo.get_by_id(CoachIdentifier(context.get("coaches")[0].id))
+    return await make_coach_in_db()
 
 
 @pytest.fixture

@@ -1,6 +1,6 @@
 """Module for testing the use case "Get Training"."""
-import pytest
 
+import pytest
 from kwai.core.db.database import Database
 from kwai.modules.training.get_training import GetTraining, GetTrainingCommand
 from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository

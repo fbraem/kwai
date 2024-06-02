@@ -1,38 +1,36 @@
 """Module that defines all dataclasses for the tables containing coaches."""
+
 from dataclasses import dataclass
 
-from kwai.core.db.table import Table
-from kwai.core.domain.value_objects.name import Name
-from kwai.modules.training.coaches.coach import CoachEntity, CoachIdentifier
+from kwai.core.db.table_row import TableRow
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class PersonRow:
+class MemberRow(TableRow):
+    """Represent a row of the members table."""
+
+    __table_name__ = "judo_members"
+
+    id: int
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class PersonRow(TableRow):
     """Represent a row of the persons table."""
+
+    __table_name__ = "persons"
 
     id: int
     lastname: str
     firstname: str
 
 
-PersonsTable = Table("persons", PersonRow)
-
-
 @dataclass(kw_only=True, frozen=True, slots=True)
-class CoachRow:
+class CoachRow(TableRow):
     """Represent a row of the coaches table."""
 
+    __table_name__ = "coaches"
+
     id: int
-    person_id: int
+    member_id: int
     active: int
-
-    def create_entity(self, person_row: PersonRow) -> CoachEntity:
-        """Create a coach entity from this row."""
-        return CoachEntity(
-            id_=CoachIdentifier(self.id),
-            name=Name(first_name=person_row.firstname, last_name=person_row.lastname),
-            active=self.active == 1,
-        )
-
-
-CoachesTable = Table("coaches", CoachRow)

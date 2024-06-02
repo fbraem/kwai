@@ -1,7 +1,6 @@
 """Module for testing the training definition repository."""
 
 import pytest
-
 from kwai.core.db.database import Database
 from kwai.core.domain.entity import Entity
 from kwai.modules.training.trainings.training_definition import (

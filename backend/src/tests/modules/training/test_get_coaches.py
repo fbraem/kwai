@@ -1,4 +1,5 @@
 """Module for testing the GetCoaches use case."""
+
 from kwai.core.db.database import Database
 from kwai.modules.training.coaches.coach_db_repository import CoachDbRepository
 from kwai.modules.training.get_coaches import GetCoaches, GetCoachesCommand

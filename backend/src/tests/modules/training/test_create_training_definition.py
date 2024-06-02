@@ -1,7 +1,6 @@
 """Module for testing the use case "Create Training Definition"."""
 
 import pytest
-
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.modules.training.create_training_definition import (

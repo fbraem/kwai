@@ -1,8 +1,8 @@
 """Module for testing TrainingDbQuery."""
+
 from datetime import datetime, time, timedelta
 
 import pytest
-
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.name import Name

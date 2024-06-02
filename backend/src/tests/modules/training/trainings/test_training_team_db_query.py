@@ -1,7 +1,6 @@
 """Module for testing TrainingTeamDbQuery."""
 
 import pytest
-
 from kwai.core.db.database import Database
 from kwai.modules.training.trainings.training import TrainingIdentifier
 from kwai.modules.training.trainings.training_team_db_query import TrainingTeamDbQuery

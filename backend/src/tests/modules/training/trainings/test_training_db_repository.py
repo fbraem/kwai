@@ -1,7 +1,6 @@
 """Module for testing the training database repository."""
 
 import pytest
-
 from kwai.core.db.database import Database
 from kwai.core.db.exceptions import QueryException
 from kwai.core.domain.entity import Entity
@@ -23,6 +22,7 @@ from kwai.modules.training.trainings.training_repository import (
     TrainingRepository,
 )
 from kwai.modules.training.trainings.value_objects import TrainingCoach
+
 from tests.modules.training.conftest import Context
 
 pytestmark = pytest.mark.db

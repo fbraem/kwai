@@ -1,8 +1,8 @@
 """Module for testing the use case "Get Training Definitions"."""
+
 from typing import AsyncIterator
 
 import pytest
-
 from kwai.core.db.database import Database
 from kwai.modules.training.get_training_definitions import (
     GetTrainingDefinitions,

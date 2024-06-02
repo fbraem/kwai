@@ -6,7 +6,6 @@ from datetime import datetime, time
 from typing import Any
 
 import pytest
-
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
@@ -15,14 +14,18 @@ from kwai.core.domain.value_objects.time_period import TimePeriod
 from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.weekday import Weekday
 from kwai.modules.training.coaches.coach_tables import (
-    CoachesTable,
     CoachRow,
     PersonRow,
-    PersonsTable,
 )
 from kwai.modules.training.teams.team_tables import TeamRow, TeamsTable
 from kwai.modules.training.trainings.training import TrainingEntity
 from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
+
+from tests.fixtures.club.coaches import *  # noqa
+from tests.fixtures.club.contacts import *  # noqa
+from tests.fixtures.club.countries import *  # noqa
+from tests.fixtures.club.members import *  # noqa
+from tests.fixtures.club.persons import *  # noqa
 
 Context = dict[str, list[Any]]
 
@@ -47,7 +50,7 @@ async def seed_persons(database: Database, person_row: PersonRow, context: Conte
     """Seed the database with persons."""
     # For now, we create the query, in the future a repository from the members
     # bounded context can be used.
-    query = database.create_query_factory().insert(PersonsTable.table_name)
+    query = database.create_query_factory().insert(PersonRow.__table_name__)
     person_dict = dataclasses.asdict(person_row)
     del person_dict["id"]
     person_dict["gender"] = 1
@@ -63,13 +66,13 @@ async def seed_persons(database: Database, person_row: PersonRow, context: Conte
 @pytest.fixture(scope="module")
 def coach_row(seed_persons, context: Context) -> CoachRow:
     """Fixture for creating a coach row."""
-    return CoachRow(id=0, person_id=context["persons"][0].id, active=True)
+    return CoachRow(id=0, member_id=context["persons"][0].id, active=True)
 
 
 @pytest.fixture(scope="module", autouse=True)
 async def seed_coaches(database: Database, coach_row: CoachRow, context: Context):
     """Seed the database with coaches."""
-    query = database.create_query_factory().insert(CoachesTable.table_name)
+    query = database.create_query_factory().insert(CoachRow.__table_name__)
     coach_dict = dataclasses.asdict(coach_row)
     del coach_dict["id"]
     query.columns(*coach_dict.keys()).values(*coach_dict.values())

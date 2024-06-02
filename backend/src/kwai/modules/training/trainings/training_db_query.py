@@ -15,7 +15,7 @@ from kwai.modules.training.trainings.training import TrainingIdentifier
 from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
 from kwai.modules.training.trainings.training_query import TrainingQuery
 from kwai.modules.training.trainings.training_tables import (
-    TrainingCoachesTable,
+    TrainingCoachRow,
     TrainingContentsTable,
     TrainingDefinitionsTable,
     TrainingsTable,
@@ -118,9 +118,9 @@ class TrainingDbQuery(TrainingQuery, DatabaseQuery):
         inner_select = (
             self._database.create_query_factory()
             .select()
-            .columns(TrainingCoachesTable.column("training_id"))
-            .from_(TrainingCoachesTable.table_name)
-            .where(TrainingCoachesTable.field("coach_id").eq(coach.id.value))
+            .columns(TrainingCoachRow.column("training_id"))
+            .from_(TrainingCoachRow.__table_name__)
+            .where(TrainingCoachRow.field("coach_id").eq(coach.id.value))
         )
         condition = TrainingsTable.field("id").in_(express("{}", inner_select))
         self._query.and_where(group(condition))

@@ -1,6 +1,6 @@
 """Module for testing the team database repository."""
-import pytest
 
+import pytest
 from kwai.core.db.database import Database
 from kwai.core.db.exceptions import QueryException
 from kwai.modules.training.teams.team import TeamIdentifier
