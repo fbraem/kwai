@@ -41,7 +41,7 @@ CREATE TABLE `applications` (
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `coaches` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `person_id` int NOT NULL,
+  `member_id` int NOT NULL,
   `description` text,
   `diploma` varchar(255) DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
@@ -347,11 +347,11 @@ CREATE TABLE `team_categories` (
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `team_members` (
   `team_id` int NOT NULL,
-  `person_id` int NOT NULL,
+  `member_id` int NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`team_id`,`person_id`)
+  PRIMARY KEY (`team_id`,`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -555,7 +555,7 @@ CREATE TABLE `users` (
   `uuid` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `person_id` int DEFAULT NULL,
+  `member_id` int DEFAULT NULL,
   `revoked` tinyint(1) NOT NULL DEFAULT '0',
   `last_unsuccessful_login` datetime DEFAULT NULL,
   `admin` tinyint(1) NOT NULL DEFAULT '0',
@@ -588,5 +588,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20231110160912'),
   ('20240201192100'),
   ('20240502185700'),
-  ('20240525191900');
+  ('20240525191900'),
+  ('20240601194900');
 UNLOCK TABLES;
