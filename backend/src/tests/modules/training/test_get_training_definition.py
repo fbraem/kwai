@@ -6,7 +6,6 @@ from kwai.modules.training.get_training_definition import (
     GetTrainingDefinition,
     GetTrainingDefinitionCommand,
 )
-from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
 from kwai.modules.training.trainings.training_definition_db_repository import (
     TrainingDefinitionDbRepository,
 )
@@ -21,21 +20,13 @@ def training_definition_repo(database: Database) -> TrainingDefinitionRepository
     return TrainingDefinitionDbRepository(database)
 
 
-@pytest.fixture
-async def saved_training_definition(
-    training_definition_repo: TrainingDefinitionRepository,
-    training_definition: TrainingDefinitionEntity,
-) -> TrainingDefinitionEntity:
-    """A fixture for a training definition in the database."""
-    return await training_definition_repo.create(training_definition)
-
-
 async def test_get_training_definition(
     training_definition_repo: TrainingDefinitionRepository,
-    saved_training_definition: TrainingDefinitionEntity,
+    make_training_definition_in_db,
 ):
     """Test a successful execution of the use case."""
-    command = GetTrainingDefinitionCommand(id=saved_training_definition.id.value)
+    definition = await make_training_definition_in_db()
+    command = GetTrainingDefinitionCommand(id=definition.id.value)
     training_definition = await GetTrainingDefinition(training_definition_repo).execute(
         command
     )
