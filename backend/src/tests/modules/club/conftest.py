@@ -1,4 +1,4 @@
-"""Module for defining common fixtures for testing code related to members."""
+"""Module for common fixtures used for testing code of the club module."""
 
 from tests.fixtures.club.countries import *  # noqa
 from tests.fixtures.club.contacts import *  # noqa
