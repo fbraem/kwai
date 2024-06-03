@@ -17,6 +17,7 @@ from kwai.modules.club.domain.country import CountryEntity, CountryIdentifier
 from kwai.modules.club.domain.file_upload import FileUploadEntity
 from kwai.modules.club.domain.member import MemberEntity, MemberIdentifier
 from kwai.modules.club.domain.person import PersonEntity, PersonIdentifier
+from kwai.modules.club.domain.team import TeamEntity
 from kwai.modules.club.domain.value_objects import (
     Address,
     Birthdate,
@@ -325,4 +326,33 @@ class CoachRow(TableRow):
             user_id=None if coach.user is None else coach.user.id.value,
             created_at=coach.traceable_time.created_at.timestamp,  # type: ignore[arg-type]
             updated_at=coach.traceable_time.updated_at.timestamp,
+        )
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class TeamRow(TableRow):
+    """Represents a row of the teams table."""
+
+    __table_name__ = "teams"
+
+    id: int
+    name: str
+    season_id: int | None
+    team_category_id: int | None
+    active: int
+    remark: str
+    created_at: datetime
+    updated_at: datetime | None
+
+    @classmethod
+    def persist(cls, team: TeamEntity) -> Self:
+        return cls(
+            id=team.id.value,
+            name=team.name,
+            season_id=None,
+            team_category_id=None,
+            active=1 if team.is_active else 0,
+            remark=team.remark,
+            created_at=team.traceable_time.created_at.timestamp,  # type: ignore[arg-type]
+            updated_at=team.traceable_time.updated_at.timestamp,
         )
