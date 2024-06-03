@@ -1,5 +1,9 @@
 """Module for testing the coach database repository."""
 
+import pytest
+
+pytestmark = pytest.mark.db
+
 
 async def test_create_coach(make_coach_in_db, make_member_in_db):
     """Test creating a coach."""
