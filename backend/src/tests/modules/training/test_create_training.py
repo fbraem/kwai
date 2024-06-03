@@ -9,7 +9,6 @@ from kwai.modules.training.coaches.coach import CoachEntity
 from kwai.modules.training.coaches.coach_db_repository import CoachDbRepository
 from kwai.modules.training.coaches.coach_repository import CoachRepository
 from kwai.modules.training.create_training import CreateTraining, CreateTrainingCommand
-from kwai.modules.training.teams.team import TeamEntity, TeamIdentifier
 from kwai.modules.training.teams.team_db_repository import TeamDbRepository
 from kwai.modules.training.teams.team_repository import TeamRepository
 from kwai.modules.training.training_command import Coach
@@ -21,8 +20,6 @@ from kwai.modules.training.trainings.training_definition_repository import (
     TrainingDefinitionRepository,
 )
 from kwai.modules.training.trainings.training_repository import TrainingRepository
-
-from tests.modules.training.conftest import Context
 
 
 @pytest.fixture
@@ -56,17 +53,10 @@ async def coach(make_coach_in_db) -> CoachEntity:
 
 
 @pytest.fixture
-async def team(
-    database: Database, context: Context, team_repo: TeamRepository
-) -> TeamEntity:
-    """A fixture for a team repository."""
-    teams_iterator = team_repo.get_by_ids(TeamIdentifier(context.get("teams")[0].id))
-    return await anext(teams_iterator)
-
-
-@pytest.fixture
-async def command(coach: CoachEntity, team: TeamEntity) -> CreateTrainingCommand:
+async def command(make_coach_in_db, make_team_in_db) -> CreateTrainingCommand:
     """A fixture for a training entity."""
+    coach = await make_coach_in_db()
+    team = await make_team_in_db()
     start_date = Timestamp.create_now()
     return CreateTrainingCommand(
         start_date=str(start_date),
