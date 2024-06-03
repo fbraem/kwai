@@ -3,7 +3,6 @@
 import pytest
 from kwai.core.db.database import Database
 from kwai.modules.training.delete_training import DeleteTraining, DeleteTrainingCommand
-from kwai.modules.training.trainings.training import TrainingEntity
 from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository
 from kwai.modules.training.trainings.training_repository import (
     TrainingNotFoundException,
@@ -17,23 +16,14 @@ def training_repo(database: Database) -> TrainingRepository:
     return TrainingDbRepository(database)
 
 
-@pytest.fixture
-async def saved_training_entity(
-    training_repo: TrainingRepository, training_entity: TrainingEntity
-):
-    """A fixture for a training in the repository."""
-    return await training_repo.create(training_entity)
-
-
-async def test_delete_training(
-    training_repo: TrainingRepository, saved_training_entity
-):
+async def test_delete_training(training_repo: TrainingRepository, make_training_in_db):
     """Test the use case "Delete Training"."""
-    command = DeleteTrainingCommand(id=saved_training_entity.id.value)
+    training = await make_training_in_db()
+    command = DeleteTrainingCommand(id=training.id.value)
     try:
         await DeleteTraining(training_repo).execute(command)
     except TrainingNotFoundException as ex:
         pytest.fail(str(ex))
 
     with pytest.raises(TrainingNotFoundException):
-        await training_repo.get_by_id(saved_training_entity.id)
+        await training_repo.get_by_id(training.id)
