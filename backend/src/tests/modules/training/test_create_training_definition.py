@@ -30,8 +30,9 @@ def team_repo(database: Database) -> TeamRepository:
 
 
 @pytest.fixture
-def command():
+async def command(make_team_in_db):
     """A fixture for a create command."""
+    team = await make_team_in_db()
     return CreateTrainingDefinitionCommand(
         name="U11 Monday Training",
         description="Training for U11 on Monday",
@@ -42,7 +43,7 @@ def command():
         active=True,
         location="Sports Hall",
         remark="Test",
-        team_id=None,
+        team_id=team.id.value,
     )
 
 
