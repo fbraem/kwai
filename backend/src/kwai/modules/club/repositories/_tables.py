@@ -356,3 +356,30 @@ class TeamRow(TableRow):
             created_at=team.traceable_time.created_at.timestamp,  # type: ignore[arg-type]
             updated_at=team.traceable_time.updated_at.timestamp,
         )
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class TeamMemberRow(TableRow):
+    """Represents a row of the members table used for a team member."""
+
+    __table_name__ = "judo_members"
+
+    id: int
+    uuid: str
+    license: str
+    license_end_date: date
+    person_id: int
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class TeamMemberPersonRow(TableRow):
+    """Represents a row of the persons table used for a team member."""
+
+    __table_name__ = "persons"
+
+    id: int
+    firstname: str
+    lastname: str
+    gender: int
+    birthdate: date
+    nationality_id: int

@@ -1,7 +1,7 @@
 """Module for defining a team member repository for a database."""
 
 from dataclasses import dataclass
-from typing import AsyncGenerator
+from typing import AsyncGenerator, Self
 
 from sql_smith.functions import on
 
@@ -19,6 +19,7 @@ from kwai.modules.club.repositories._tables import (
     TeamMemberRow,
 )
 from kwai.modules.club.repositories.team_member_repository import (
+    TeamMemberNotFoundException,
     TeamMemberQuery,
     TeamMemberRepository,
 )
@@ -70,6 +71,21 @@ class TeamMemberDbQuery(TeamMemberQuery, DatabaseQuery):
     def count_column(self):
         return TeamMemberRow.column("id")
 
+    def find_by_id(self, id_: TeamMemberIdentifier) -> Self:
+        self._query.and_where(TeamMemberRow.field("id").eq(id_.value))
+        return self
+
+    def find_by_birthdate(self, start_date: Date, end_date: Date | None = None) -> Self:
+        if end_date is None:
+            self._query.and_where(
+                TeamMemberPersonRow.field("birthdate").gte(start_date)
+            )
+        else:
+            self._query.and_where(
+                TeamMemberPersonRow.field("birthdate").between(start_date, end_date)
+            )
+        return self
+
 
 class TeamMemberDbRepository(TeamMemberRepository):
     """A team member repository for a database."""
@@ -81,7 +97,11 @@ class TeamMemberDbRepository(TeamMemberRepository):
         return TeamMemberDbQuery(self._database)
 
     async def get(self, query: TeamMemberQuery | None = None) -> TeamMemberEntity:
-        pass
+        team_member_iterator = self.get_all(query)
+        try:
+            return await anext(team_member_iterator)
+        except StopAsyncIteration:
+            raise TeamMemberNotFoundException("Member not found") from None
 
     async def get_all(
         self,

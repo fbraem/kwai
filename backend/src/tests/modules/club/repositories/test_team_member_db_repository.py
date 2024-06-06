@@ -14,3 +14,10 @@ async def test_get_all(database: Database):
     repo = TeamMemberDbRepository(database)
     team_members = {team_member.id: team_member async for team_member in repo.get_all()}
     assert team_members is not None
+
+
+async def test_get(database: Database):
+    """Test get team member."""
+    repo = TeamMemberDbRepository(database)
+    team_member = await repo.get()
+    assert team_member is not None

@@ -1,10 +1,11 @@
 """Module for defining the team member repository interface."""
 
 from abc import ABC, abstractmethod
-from typing import AsyncGenerator
+from typing import AsyncGenerator, Self
 
 from kwai.core.domain.repository.query import Query
-from kwai.modules.club.domain.team_member import TeamMemberEntity
+from kwai.core.domain.value_objects.date import Date
+from kwai.modules.club.domain.team_member import TeamMemberEntity, TeamMemberIdentifier
 
 
 class TeamMemberNotFoundException(Exception):
@@ -13,6 +14,16 @@ class TeamMemberNotFoundException(Exception):
 
 class TeamMemberQuery(Query, ABC):
     """An interface for a team member query."""
+
+    @abstractmethod
+    def find_by_id(self, id_: TeamMemberIdentifier) -> Self:
+        """Find a team member by its id."""
+        raise NotImplementedError
+
+    @abstractmethod
+    def find_by_birthdate(self, start_date: Date, end_date: Date | None = None) -> Self:
+        """Find team members by their birthdate."""
+        raise NotImplementedError
 
 
 class TeamMemberRepository(ABC):
