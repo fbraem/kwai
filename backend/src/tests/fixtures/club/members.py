@@ -1,7 +1,5 @@
 """Module for defining fixtures of members."""
 
-from typing import Callable, TypeAlias
-
 import pytest
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
@@ -11,11 +9,9 @@ from kwai.modules.club.domain.person import PersonEntity
 from kwai.modules.club.domain.value_objects import License
 from kwai.modules.club.repositories.member_db_repository import MemberDbRepository
 
-MemberFixtureFactory: TypeAlias = Callable[[License | None], MemberEntity]
-
 
 @pytest.fixture
-def make_member(make_person) -> MemberFixtureFactory:
+def make_member(make_person):
     """A factory fixture for a member."""
 
     def _make_member_entity(
@@ -40,11 +36,22 @@ def make_member_in_db(
     database: Database,
     make_member,
     make_person_in_db,
+    make_person,
+    make_contact_in_db,
+    make_country_in_db,
+    country_japan,
 ):
     """A fixture for a member in the database."""
 
     async def _make_member_in_db(member: MemberEntity | None = None) -> MemberEntity:
-        member = member or make_member(person=await make_person_in_db())
+        member = member or make_member(
+            person=await make_person_in_db(
+                make_person(
+                    contact=await make_contact_in_db(),
+                    nationality=await make_country_in_db(country_japan),
+                ),
+            )
+        )
         repo = MemberDbRepository(database)
         async with UnitOfWork(database):
             member = await repo.create(member)
