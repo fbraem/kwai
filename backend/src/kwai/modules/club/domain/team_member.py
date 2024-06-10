@@ -1,12 +1,11 @@
 """Module for defining the team member entity."""
 
 from kwai.core.domain.entity import Entity
-from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.domain.country import CountryEntity
-from kwai.modules.club.domain.value_objects import Gender, License
+from kwai.modules.club.domain.value_objects import Birthdate, Gender, License
 
 TeamMemberIdentifier = IntIdentifier
 
@@ -25,7 +24,7 @@ class TeamMemberEntity(Entity[TeamMemberIdentifier]):
         uuid: UniqueId,
         name: Name,
         license: License,
-        birthdate: Date,
+        birthdate: Birthdate,
         nationality: CountryEntity,
         gender: Gender,
     ):
@@ -53,7 +52,7 @@ class TeamMemberEntity(Entity[TeamMemberIdentifier]):
         return self._license
 
     @property
-    def birthdate(self) -> Date:
+    def birthdate(self) -> Birthdate:
         """Return the birthdate."""
         return self._birthdate
 
