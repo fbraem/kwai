@@ -12,7 +12,7 @@ from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.domain.team_member import TeamMemberEntity, TeamMemberIdentifier
-from kwai.modules.club.domain.value_objects import Gender, License
+from kwai.modules.club.domain.value_objects import Birthdate, Gender, License
 from kwai.modules.club.repositories._tables import (
     CountryRow,
     TeamMemberPersonRow,
@@ -43,7 +43,7 @@ class TeamMemberQueryRow(JoinedTableRow):
                 number=self.member.license,
                 end_date=Date.create_from_date(self.member.license_end_date),
             ),
-            birthdate=Date.create_from_date(self.person.birthdate),
+            birthdate=Birthdate(Date.create_from_date(self.person.birthdate)),
             gender=Gender(self.person.gender),
             nationality=self.country.create_country(),
         )
