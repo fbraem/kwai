@@ -383,3 +383,16 @@ class TeamMemberPersonRow(TableRow):
     gender: int
     birthdate: date
     nationality_id: int
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class TeamMembersRow(TableRow):
+    """Represents a row of the team members table."""
+
+    __table_name__ = "team_members"
+
+    team_id: int
+    member_id: int
+    active: int
+    created_at: datetime
+    updated_at: datetime | None
