@@ -1,7 +1,7 @@
 """Module that defines fixtures for the api tests."""
+
 import pytest
 from fastapi.testclient import TestClient
-
 from kwai.api.app import create_app
 from kwai.core.settings import get_settings
 from kwai.modules.identity.users.user_account import UserAccountEntity
