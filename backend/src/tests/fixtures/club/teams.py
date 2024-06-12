@@ -3,8 +3,8 @@
 import pytest
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
-from kwai.modules.club.domain.team import TeamEntity
-from kwai.modules.club.repositories.team_db_repository import TeamDbRepository
+from kwai.modules.teams.domain.team import TeamEntity
+from kwai.modules.teams.repositories.team_db_repository import TeamDbRepository
 
 
 @pytest.fixture

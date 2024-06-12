@@ -5,7 +5,7 @@ from typing import AsyncGenerator, Self
 
 from kwai.core.domain.repository.query import Query
 from kwai.core.domain.value_objects.date import Date
-from kwai.modules.club.domain.team_member import TeamMemberEntity, TeamMemberIdentifier
+from kwai.modules.teams.domain.team_member import TeamMemberEntity, TeamMemberIdentifier
 
 
 class TeamMemberNotFoundException(Exception):

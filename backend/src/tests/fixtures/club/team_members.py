@@ -2,7 +2,7 @@
 
 import pytest
 from kwai.modules.club.domain.member import MemberEntity
-from kwai.modules.club.domain.team_member import TeamMemberEntity
+from kwai.modules.teams.domain.team_member import TeamMemberEntity
 
 
 @pytest.fixture

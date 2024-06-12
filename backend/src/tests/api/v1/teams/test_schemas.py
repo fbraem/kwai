@@ -9,9 +9,9 @@ from kwai.api.v1.teams.schemas import TeamDocument, TeamMemberDocument
 from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.club.domain.team import TeamEntity, TeamIdentifier
-from kwai.modules.club.domain.team_member import TeamMemberEntity, TeamMemberIdentifier
 from kwai.modules.club.domain.value_objects import Birthdate, Gender, License
+from kwai.modules.teams.domain.team import TeamEntity, TeamIdentifier
+from kwai.modules.teams.domain.team_member import TeamMemberEntity, TeamMemberIdentifier
 
 from tests.fixtures.club.countries import *  # noqa
 

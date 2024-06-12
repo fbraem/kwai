@@ -11,8 +11,8 @@ from kwai.api.v1.club.schemas.resources import (
     MemberResourceIdentifier,
 )
 from kwai.core.json_api import Document, Relationship, ResourceData
-from kwai.modules.club.domain.team import TeamEntity
-from kwai.modules.club.domain.team_member import TeamMemberEntity
+from kwai.modules.teams.domain.team import TeamEntity
+from kwai.modules.teams.domain.team_member import TeamMemberEntity
 
 
 class TeamMemberAttributes(BaseModel):

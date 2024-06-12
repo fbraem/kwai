@@ -3,9 +3,9 @@
 import pytest
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.date import Date
-from kwai.modules.club.domain.team_member import TeamMemberIdentifier
-from kwai.modules.club.repositories.team_member_db_repository import TeamMemberDbQuery
-from kwai.modules.club.repositories.team_member_repository import TeamMemberQuery
+from kwai.modules.teams.domain.team_member import TeamMemberIdentifier
+from kwai.modules.teams.repositories.team_member_db_repository import TeamMemberDbQuery
+from kwai.modules.teams.repositories.team_member_repository import TeamMemberQuery
 
 pytestmark = pytest.mark.db
 

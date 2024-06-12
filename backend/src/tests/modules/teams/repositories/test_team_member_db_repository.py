@@ -4,7 +4,7 @@ import pytest
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.date import Date
 from kwai.modules.club.domain.value_objects import Birthdate
-from kwai.modules.club.repositories.team_member_db_repository import (
+from kwai.modules.teams.repositories.team_member_db_repository import (
     TeamMemberDbRepository,
 )
 

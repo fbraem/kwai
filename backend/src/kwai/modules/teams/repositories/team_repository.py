@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from typing import AsyncGenerator, Self
 
 from kwai.core.domain.repository.query import Query
-from kwai.modules.club.domain.team import TeamEntity, TeamIdentifier
+from kwai.modules.teams.domain.team import TeamEntity, TeamIdentifier
 
 
 class TeamNotFoundException(Exception):

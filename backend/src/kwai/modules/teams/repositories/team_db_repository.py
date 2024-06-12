@@ -9,15 +9,17 @@ from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.db.table_row import JoinedTableRow
 from kwai.core.domain.entity import Entity
-from kwai.modules.club.domain.team import TeamEntity, TeamIdentifier
 from kwai.modules.club.repositories._tables import (
     CountryRow,
+)
+from kwai.modules.teams.domain.team import TeamEntity, TeamIdentifier
+from kwai.modules.teams.repositories._tables import (
     TeamMemberPersonRow,
     TeamMemberRow,
     TeamMembersRow,
     TeamRow,
 )
-from kwai.modules.club.repositories.team_repository import TeamQuery, TeamRepository
+from kwai.modules.teams.repositories.team_repository import TeamQuery, TeamRepository
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 
 from kwai.core.domain.presenter import Presenter
-from kwai.modules.club.domain.team import TeamEntity
+from kwai.modules.teams.domain.team import TeamEntity
 from kwai.modules.training.teams.team_repository import TeamRepository
 
 
