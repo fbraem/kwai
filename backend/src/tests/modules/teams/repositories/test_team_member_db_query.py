@@ -3,7 +3,7 @@
 import pytest
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.date import Date
-from kwai.modules.teams.domain.team_member import TeamMemberIdentifier
+from kwai.modules.teams.domain.team_member import MemberIdentifier
 from kwai.modules.teams.repositories.team_member_db_repository import TeamMemberDbQuery
 from kwai.modules.teams.repositories.team_member_repository import TeamMemberQuery
 
@@ -18,7 +18,7 @@ def query(database: Database) -> TeamMemberQuery:
 
 async def test_filter_by_id(query: TeamMemberQuery):
     """Test filtering by id."""
-    query.find_by_id(TeamMemberIdentifier(1))
+    query.find_by_id(MemberIdentifier(1))
     try:
         await query.fetch_one()
     except Exception as exc:

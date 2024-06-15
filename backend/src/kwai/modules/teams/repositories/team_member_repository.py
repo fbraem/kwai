@@ -5,7 +5,7 @@ from typing import AsyncGenerator, Self
 
 from kwai.core.domain.repository.query import Query
 from kwai.core.domain.value_objects.date import Date
-from kwai.modules.teams.domain.team_member import TeamMemberEntity, TeamMemberIdentifier
+from kwai.modules.teams.domain.team_member import MemberEntity, MemberIdentifier
 
 
 class TeamMemberNotFoundException(Exception):
@@ -16,7 +16,7 @@ class TeamMemberQuery(Query, ABC):
     """An interface for a team member query."""
 
     @abstractmethod
-    def find_by_id(self, id_: TeamMemberIdentifier) -> Self:
+    def find_by_id(self, id_: MemberIdentifier) -> Self:
         """Find a team member by its id."""
         raise NotImplementedError
 
@@ -35,7 +35,7 @@ class TeamMemberRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def get(self, query: TeamMemberQuery | None = None) -> TeamMemberEntity:
+    async def get(self, query: TeamMemberQuery | None = None) -> MemberEntity:
         """Return the first returned element of the given query.
 
         Args:
@@ -52,7 +52,7 @@ class TeamMemberRepository(ABC):
         query: TeamMemberQuery | None = None,
         limit: int | None = None,
         offset: int | None = None,
-    ) -> AsyncGenerator[TeamMemberEntity, None]:
+    ) -> AsyncGenerator[MemberEntity, None]:
         """Return all team members of the given query.
 
         Args:

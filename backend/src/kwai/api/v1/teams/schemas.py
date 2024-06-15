@@ -12,7 +12,7 @@ from kwai.api.v1.club.schemas.resources import (
 )
 from kwai.core.json_api import Document, Relationship, ResourceData
 from kwai.modules.teams.domain.team import TeamEntity
-from kwai.modules.teams.domain.team_member import TeamMemberEntity
+from kwai.modules.teams.domain.team_member import MemberEntity
 
 
 class TeamMemberAttributes(BaseModel):
@@ -46,7 +46,7 @@ class TeamMemberDocument(Document[TeamMemberResource, TeamMemberInclude]):
     """A JSON:API document for one or more team members."""
 
     @classmethod
-    def create(cls, team_member: TeamMemberEntity) -> Self:
+    def create(cls, team_member: MemberEntity) -> Self:
         """Create a team member document."""
         nationality_document = CountryDocument.create(team_member.nationality)
 

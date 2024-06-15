@@ -11,16 +11,16 @@ from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.domain.value_objects import Birthdate, Gender, License
 from kwai.modules.teams.domain.team import TeamEntity, TeamIdentifier
-from kwai.modules.teams.domain.team_member import TeamMemberEntity, TeamMemberIdentifier
+from kwai.modules.teams.domain.team_member import MemberEntity, MemberIdentifier
 
 from tests.fixtures.club.countries import *  # noqa
 
 
 @pytest.fixture
-def team_member(country_japan) -> TeamMemberEntity:
+def team_member(country_japan) -> MemberEntity:
     """A fixture for a team member."""
-    return TeamMemberEntity(
-        id_=TeamMemberIdentifier(1),
+    return MemberEntity(
+        id_=MemberIdentifier(1),
         name=Name(first_name="Jigoro", last_name="Kano"),
         uuid=UniqueId.generate(),
         license=License(number="1234", end_date=Date.today().add(years=1)),
@@ -31,7 +31,7 @@ def team_member(country_japan) -> TeamMemberEntity:
 
 
 @pytest.fixture
-def expected_team_member_json(team_member: TeamMemberEntity) -> dict[str, Any]:
+def expected_team_member_json(team_member: MemberEntity) -> dict[str, Any]:
     """A fixture for a JSON:API resource of a team member."""
     return {
         "data": {
@@ -65,7 +65,7 @@ def expected_team_member_json(team_member: TeamMemberEntity) -> dict[str, Any]:
 
 
 def test_create_team_member_document(
-    team_member: TeamMemberEntity, expected_team_member_json: dict[str, Any]
+    team_member: MemberEntity, expected_team_member_json: dict[str, Any]
 ):
     """Test the creation of a JSON:API document for a team member resource."""
     team_member_document = TeamMemberDocument.create(team_member)
@@ -76,7 +76,7 @@ def test_create_team_member_document(
 
 
 @pytest.fixture
-def team(team_member: TeamMemberEntity) -> TeamEntity:
+def team(team_member: MemberEntity) -> TeamEntity:
     """A fixture for a team entity."""
     return TeamEntity(
         id_=TeamIdentifier(1),

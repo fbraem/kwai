@@ -1,16 +1,19 @@
 """Module for defining the team member entity."""
 
+from dataclasses import dataclass
+
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.name import Name
+from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.domain.country import CountryEntity
 from kwai.modules.club.domain.value_objects import Birthdate, Gender, License
 
-TeamMemberIdentifier = IntIdentifier
+MemberIdentifier = IntIdentifier
 
 
-class TeamMemberEntity(Entity[TeamMemberIdentifier]):
+class MemberEntity(Entity[MemberIdentifier]):
     """A team member entity.
 
     A team member entity is an entity which holds specific information of a member
@@ -20,7 +23,7 @@ class TeamMemberEntity(Entity[TeamMemberIdentifier]):
     def __init__(
         self,
         *,
-        id_: TeamMemberIdentifier,
+        id_: MemberIdentifier,
         uuid: UniqueId,
         name: Name,
         license: License,
@@ -65,3 +68,12 @@ class TeamMemberEntity(Entity[TeamMemberIdentifier]):
     def gender(self) -> Gender:
         """Return the gender."""
         return self._gender
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class TeamMember:
+    """Represent a member of a team."""
+
+    active: bool
+    member: MemberEntity
+    traceable_time: TraceableTime

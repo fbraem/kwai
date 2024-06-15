@@ -15,7 +15,7 @@ from kwai.modules.club.domain.value_objects import Birthdate, Gender, License
 from kwai.modules.club.repositories._tables import (
     CountryRow,
 )
-from kwai.modules.teams.domain.team_member import TeamMemberEntity, TeamMemberIdentifier
+from kwai.modules.teams.domain.team_member import MemberEntity, MemberIdentifier
 from kwai.modules.teams.repositories._tables import TeamMemberPersonRow, TeamMemberRow
 from kwai.modules.teams.repositories.team_member_repository import (
     TeamMemberNotFoundException,
@@ -32,10 +32,10 @@ class TeamMemberQueryRow(JoinedTableRow):
     person: TeamMemberPersonRow
     country: CountryRow
 
-    def create_entity(self) -> TeamMemberEntity:
+    def create_entity(self) -> MemberEntity:
         """Create a team member entity from a row."""
-        return TeamMemberEntity(
-            id_=TeamMemberIdentifier(self.member.id),
+        return MemberEntity(
+            id_=MemberIdentifier(self.member.id),
             uuid=UniqueId.create_from_string(self.member.uuid),
             name=Name(first_name=self.person.firstname, last_name=self.person.lastname),
             license=License(
@@ -70,7 +70,7 @@ class TeamMemberDbQuery(TeamMemberQuery, DatabaseQuery):
     def count_column(self):
         return TeamMemberRow.column("id")
 
-    def find_by_id(self, id_: TeamMemberIdentifier) -> Self:
+    def find_by_id(self, id_: MemberIdentifier) -> Self:
         self._query.and_where(TeamMemberRow.field("id").eq(id_.value))
         return self
 
@@ -95,7 +95,7 @@ class TeamMemberDbRepository(TeamMemberRepository):
     def create_query(self) -> TeamMemberQuery:
         return TeamMemberDbQuery(self._database)
 
-    async def get(self, query: TeamMemberQuery | None = None) -> TeamMemberEntity:
+    async def get(self, query: TeamMemberQuery | None = None) -> MemberEntity:
         team_member_iterator = self.get_all(query)
         try:
             return await anext(team_member_iterator)
@@ -107,7 +107,7 @@ class TeamMemberDbRepository(TeamMemberRepository):
         query: TeamMemberQuery | None = None,
         limit: int | None = None,
         offset: int | None = None,
-    ) -> AsyncGenerator[TeamMemberEntity, None]:
+    ) -> AsyncGenerator[MemberEntity, None]:
         query = query or self.create_query()
 
         async for row in query.fetch(limit, offset):

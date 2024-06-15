@@ -3,7 +3,7 @@
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
-from kwai.modules.teams.domain.team_member import TeamMemberEntity
+from kwai.modules.teams.domain.team_member import MemberEntity
 
 TeamIdentifier = IntIdentifier
 
@@ -18,7 +18,7 @@ class TeamEntity(Entity[TeamIdentifier]):
         name: str,
         active: bool = True,
         remark: str = "",
-        members: list[TeamMemberEntity] = None,
+        members: list[MemberEntity] = None,
         traceable_time: TraceableTime | None = None,
     ):
         super().__init__(id_ or TeamIdentifier())
@@ -49,7 +49,7 @@ class TeamEntity(Entity[TeamIdentifier]):
         return self._traceable_time
 
     @property
-    def members(self) -> list[TeamMemberEntity]:
+    def members(self) -> list[MemberEntity]:
         """Return the members.
 
         Note: the returned list is a copy.
