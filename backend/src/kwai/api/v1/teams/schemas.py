@@ -10,14 +10,15 @@ from kwai.api.v1.club.schemas.resources import (
     CountryResourceIdentifier,
     MemberResourceIdentifier,
 )
-from kwai.core.json_api import Document, Relationship, ResourceData
+from kwai.core.json_api import Document, Relationship, ResourceData, ResourceMeta
 from kwai.modules.teams.domain.team import TeamEntity
-from kwai.modules.teams.domain.team_member import MemberEntity
+from kwai.modules.teams.domain.team_member import TeamMember
 
 
 class TeamMemberAttributes(BaseModel):
     """Attributes for a team member."""
 
+    active: bool
     first_name: str
     last_name: str
     license_number: str
@@ -46,19 +47,24 @@ class TeamMemberDocument(Document[TeamMemberResource, TeamMemberInclude]):
     """A JSON:API document for one or more team members."""
 
     @classmethod
-    def create(cls, team_member: MemberEntity) -> Self:
+    def create(cls, team_member: TeamMember) -> Self:
         """Create a team member document."""
-        nationality_document = CountryDocument.create(team_member.nationality)
+        nationality_document = CountryDocument.create(team_member.member.nationality)
 
         team_member_resource = TeamMemberResource(
-            id=str(team_member.uuid),
+            id=str(team_member.member.uuid),
             attributes=TeamMemberAttributes(
-                first_name=team_member.name.first_name,
-                last_name=team_member.name.last_name,
-                license_number=team_member.license.number,
-                license_end_date=str(team_member.license.end_date),
-                gender=team_member.gender,
-                birthdate=str(team_member.birthdate),
+                active=team_member.active,
+                first_name=team_member.member.name.first_name,
+                last_name=team_member.member.name.last_name,
+                license_number=team_member.member.license.number,
+                license_end_date=str(team_member.member.license.end_date),
+                gender=team_member.member.gender,
+                birthdate=str(team_member.member.birthdate),
+            ),
+            meta=ResourceMeta(
+                created_at=str(team_member.traceable_time.created_at),
+                updated_at=str(team_member.traceable_time.updated_at),
             ),
         )
         team_member_resource.relationships = TeamMemberRelationships(
