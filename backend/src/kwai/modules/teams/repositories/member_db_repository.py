@@ -16,20 +16,23 @@ from kwai.modules.club.repositories._tables import (
     CountryRow,
 )
 from kwai.modules.teams.domain.team_member import MemberEntity, MemberIdentifier
-from kwai.modules.teams.repositories._tables import TeamMemberPersonRow, TeamMemberRow
-from kwai.modules.teams.repositories.team_member_repository import (
-    TeamMemberNotFoundException,
-    TeamMemberQuery,
-    TeamMemberRepository,
+from kwai.modules.teams.repositories._tables import (
+    MemberPersonRow,
+    MemberRow,
+)
+from kwai.modules.teams.repositories.member_repository import (
+    MemberNotFoundException,
+    MemberQuery,
+    MemberRepository,
 )
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class TeamMemberQueryRow(JoinedTableRow):
-    """A data transfer object for the team member query."""
+class MemberQueryRow(JoinedTableRow):
+    """A data transfer object for the member query."""
 
-    member: TeamMemberRow
-    person: TeamMemberPersonRow
+    member: MemberRow
+    person: MemberPersonRow
     country: CountryRow
 
     def create_entity(self) -> MemberEntity:
@@ -48,67 +51,65 @@ class TeamMemberQueryRow(JoinedTableRow):
         )
 
 
-class TeamMemberDbQuery(TeamMemberQuery, DatabaseQuery):
+class MemberDbQuery(MemberQuery, DatabaseQuery):
     """A team member query for a database."""
 
     def __init__(self, database: Database):
         super().__init__(database)
 
     def init(self):
-        self._query.from_(TeamMemberRow.__table_name__).inner_join(
-            TeamMemberPersonRow.__table_name__,
-            on(TeamMemberPersonRow.column("id"), TeamMemberRow.column("person_id")),
+        self._query.from_(MemberRow.__table_name__).inner_join(
+            MemberPersonRow.__table_name__,
+            on(MemberPersonRow.column("id"), MemberRow.column("person_id")),
         ).inner_join(
             CountryRow.__table_name__,
-            on(CountryRow.column("id"), TeamMemberPersonRow.column("nationality_id")),
+            on(CountryRow.column("id"), MemberPersonRow.column("nationality_id")),
         )
 
     @property
     def columns(self):
-        return TeamMemberQueryRow.get_aliases()
+        return MemberQueryRow.get_aliases()
 
     def count_column(self):
-        return TeamMemberRow.column("id")
+        return MemberRow.column("id")
 
     def find_by_id(self, id_: MemberIdentifier) -> Self:
-        self._query.and_where(TeamMemberRow.field("id").eq(id_.value))
+        self._query.and_where(MemberRow.field("id").eq(id_.value))
         return self
 
     def find_by_birthdate(self, start_date: Date, end_date: Date | None = None) -> Self:
         if end_date is None:
-            self._query.and_where(
-                TeamMemberPersonRow.field("birthdate").gte(start_date)
-            )
+            self._query.and_where(MemberPersonRow.field("birthdate").gte(start_date))
         else:
             self._query.and_where(
-                TeamMemberPersonRow.field("birthdate").between(start_date, end_date)
+                MemberPersonRow.field("birthdate").between(start_date, end_date)
             )
         return self
 
 
-class TeamMemberDbRepository(TeamMemberRepository):
-    """A team member repository for a database."""
+class MemberDbRepository(MemberRepository):
+    """A member repository for a database."""
 
     def __init__(self, database: Database):
         self._database = database
 
-    def create_query(self) -> TeamMemberQuery:
-        return TeamMemberDbQuery(self._database)
+    def create_query(self) -> MemberQuery:
+        return MemberDbQuery(self._database)
 
-    async def get(self, query: TeamMemberQuery | None = None) -> MemberEntity:
+    async def get(self, query: MemberQuery | None = None) -> MemberEntity:
         team_member_iterator = self.get_all(query)
         try:
             return await anext(team_member_iterator)
         except StopAsyncIteration:
-            raise TeamMemberNotFoundException("Member not found") from None
+            raise MemberNotFoundException("Member not found") from None
 
     async def get_all(
         self,
-        query: TeamMemberQuery | None = None,
+        query: MemberQuery | None = None,
         limit: int | None = None,
         offset: int | None = None,
     ) -> AsyncGenerator[MemberEntity, None]:
         query = query or self.create_query()
 
         async for row in query.fetch(limit, offset):
-            yield TeamMemberQueryRow.map(row).create_entity()
+            yield MemberQueryRow.map(row).create_entity()

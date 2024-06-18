@@ -36,7 +36,7 @@ class TeamRow(TableRow):
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class TeamMemberRow(TableRow):
+class MemberRow(TableRow):
     """Represents a row of the members table used for a team member."""
 
     __table_name__ = "judo_members"
@@ -49,7 +49,7 @@ class TeamMemberRow(TableRow):
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class TeamMemberPersonRow(TableRow):
+class MemberPersonRow(TableRow):
     """Represents a row of the persons table used for a team member."""
 
     __table_name__ = "persons"
@@ -63,7 +63,7 @@ class TeamMemberPersonRow(TableRow):
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class TeamMembersRow(TableRow):
+class TeamMemberRow(TableRow):
     """Represents a row of the team members table."""
 
     __table_name__ = "team_members"

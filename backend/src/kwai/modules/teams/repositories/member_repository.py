@@ -1,4 +1,4 @@
-"""Module for defining the team member repository interface."""
+"""Module for defining the member repository interface."""
 
 from abc import ABC, abstractmethod
 from typing import AsyncGenerator, Self
@@ -8,12 +8,12 @@ from kwai.core.domain.value_objects.date import Date
 from kwai.modules.teams.domain.team_member import MemberEntity, MemberIdentifier
 
 
-class TeamMemberNotFoundException(Exception):
-    """Raised when a team member does not exist."""
+class MemberNotFoundException(Exception):
+    """Raised when a member does not exist."""
 
 
-class TeamMemberQuery(Query, ABC):
-    """An interface for a team member query."""
+class MemberQuery(Query, ABC):
+    """An interface for a member query."""
 
     @abstractmethod
     def find_by_id(self, id_: MemberIdentifier) -> Self:
@@ -26,34 +26,34 @@ class TeamMemberQuery(Query, ABC):
         raise NotImplementedError
 
 
-class TeamMemberRepository(ABC):
-    """An interface for a team member repository."""
+class MemberRepository(ABC):
+    """An interface for a member repository."""
 
     @abstractmethod
-    def create_query(self) -> TeamMemberQuery:
+    def create_query(self) -> MemberQuery:
         """Create a query for querying team members."""
         raise NotImplementedError
 
     @abstractmethod
-    async def get(self, query: TeamMemberQuery | None = None) -> MemberEntity:
+    async def get(self, query: MemberQuery | None = None) -> MemberEntity:
         """Return the first returned element of the given query.
 
         Args:
             query: The query to use for getting the first member.
 
         Raises:
-            TeamMemberNotFoundException: If the team member is not found.
+            MemberNotFoundException: If the member is not found.
         """
         raise NotImplementedError
 
     @abstractmethod
     def get_all(
         self,
-        query: TeamMemberQuery | None = None,
+        query: MemberQuery | None = None,
         limit: int | None = None,
         offset: int | None = None,
     ) -> AsyncGenerator[MemberEntity, None]:
-        """Return all team members of the given query.
+        """Return all members of the given query.
 
         Args:
             query: The query to use for getting the members.

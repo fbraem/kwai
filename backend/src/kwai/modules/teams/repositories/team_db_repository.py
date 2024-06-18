@@ -14,9 +14,9 @@ from kwai.modules.club.repositories._tables import (
 )
 from kwai.modules.teams.domain.team import TeamEntity, TeamIdentifier
 from kwai.modules.teams.repositories._tables import (
-    TeamMemberPersonRow,
+    MemberPersonRow,
+    MemberRow,
     TeamMemberRow,
-    TeamMembersRow,
     TeamRow,
 )
 from kwai.modules.teams.repositories.team_repository import TeamQuery, TeamRepository
@@ -27,7 +27,7 @@ class TeamQueryRow(JoinedTableRow):
     """A data transfer object for the team query."""
 
     team: TeamRow
-    team_members: TeamMembersRow
+    team_members: TeamMemberRow
 
 
 class TeamDbQuery(TeamQuery, DatabaseQuery):
@@ -38,17 +38,17 @@ class TeamDbQuery(TeamQuery, DatabaseQuery):
 
     def init(self):
         self._query.from_(TeamRow.__table_name__).inner_join(
-            TeamMembersRow.__table_name__,
-            on(TeamMembersRow.column("team_id"), TeamRow.column("id")),
-        ).inner_join(
             TeamMemberRow.__table_name__,
-            on(TeamMemberRow.column("id"), TeamMembersRow.column("member_id")),
+            on(TeamMemberRow.column("team_id"), TeamRow.column("id")),
         ).inner_join(
-            TeamMemberPersonRow.__table_name__,
-            on(TeamMemberPersonRow.column("id"), TeamMemberRow.column("person_id")),
+            MemberRow.__table_name__,
+            on(MemberRow.column("id"), TeamMemberRow.column("member_id")),
+        ).inner_join(
+            MemberPersonRow.__table_name__,
+            on(MemberPersonRow.column("id"), MemberRow.column("person_id")),
         ).inner_join(
             CountryRow.__table_name__,
-            on(CountryRow.column("id"), TeamMemberPersonRow.column("nationality_id")),
+            on(CountryRow.column("id"), MemberPersonRow.column("nationality_id")),
         )
 
     @property

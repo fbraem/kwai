@@ -4,19 +4,19 @@ import pytest
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.date import Date
 from kwai.modules.teams.domain.team_member import MemberIdentifier
-from kwai.modules.teams.repositories.team_member_db_repository import TeamMemberDbQuery
-from kwai.modules.teams.repositories.team_member_repository import TeamMemberQuery
+from kwai.modules.teams.repositories.member_db_repository import MemberDbQuery
+from kwai.modules.teams.repositories.member_repository import MemberQuery
 
 pytestmark = pytest.mark.db
 
 
 @pytest.fixture
-def query(database: Database) -> TeamMemberQuery:
+def query(database: Database) -> MemberQuery:
     """A fixture for a team member query."""
-    return TeamMemberDbQuery(database)
+    return MemberDbQuery(database)
 
 
-async def test_filter_by_id(query: TeamMemberQuery):
+async def test_filter_by_id(query: MemberQuery):
     """Test filtering by id."""
     query.find_by_id(MemberIdentifier(1))
     try:
@@ -25,7 +25,7 @@ async def test_filter_by_id(query: TeamMemberQuery):
         pytest.fail(f"An exception occurred: {exc}")
 
 
-async def test_filter_by_birthdate_without_end_date(query: TeamMemberQuery):
+async def test_filter_by_birthdate_without_end_date(query: MemberQuery):
     """Test filtering by birthdate."""
     query.find_by_birthdate(Date.create(2015, 1, 1))
     try:
@@ -34,7 +34,7 @@ async def test_filter_by_birthdate_without_end_date(query: TeamMemberQuery):
         pytest.fail(f"An exception occurred: {exc}")
 
 
-async def test_filter_by_birthdate(query: TeamMemberQuery):
+async def test_filter_by_birthdate(query: MemberQuery):
     """Test filtering by birthdate between two dates."""
     query.find_by_birthdate(Date.create(2015, 1, 1), Date.create(2015, 1, 31))
     try:

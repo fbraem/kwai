@@ -4,30 +4,30 @@ import pytest
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.date import Date
 from kwai.modules.club.domain.value_objects import Birthdate
-from kwai.modules.teams.repositories.team_member_db_repository import (
-    TeamMemberDbRepository,
+from kwai.modules.teams.repositories.member_db_repository import (
+    MemberDbRepository,
 )
 
 pytestmark = pytest.mark.db
 
 
 async def test_get_all(database: Database, make_member_in_db):
-    """Test getting all team members."""
+    """Test getting all members."""
     member = await make_member_in_db()
-    repo = TeamMemberDbRepository(database)
-    team_members = {team_member.id: team_member async for team_member in repo.get_all()}
-    assert team_members is not None
-    assert member.id in team_members, "The team member should be returned."
+    repo = MemberDbRepository(database)
+    members = {member.id: member async for member in repo.get_all()}
+    assert members is not None
+    assert member.id in members, "The member should be returned."
 
 
 async def test_get_by_id(database: Database, make_member_in_db):
-    """Test get team member by its ids."""
+    """Test get member by its ids."""
     member = await make_member_in_db()
-    repo = TeamMemberDbRepository(database)
+    repo = MemberDbRepository(database)
     query = repo.create_query()
     query.find_by_id(member.id)
-    team_member = await repo.get(query)
-    assert team_member is not None
+    member = await repo.get(query)
+    assert member is not None
 
 
 async def test_get_by_birthdate(
@@ -54,11 +54,11 @@ async def test_get_by_birthdate(
         )
     )
 
-    repo = TeamMemberDbRepository(database)
+    repo = MemberDbRepository(database)
     query = repo.create_query()
     query.find_by_birthdate(birthdate.date)
-    team_member = await repo.get(query)
-    assert team_member is not None
+    member = await repo.get(query)
+    assert member is not None
 
 
 async def test_get_by_birthdate_between_dates(
@@ -84,10 +84,10 @@ async def test_get_by_birthdate_between_dates(
             )
         )
     )
-    repo = TeamMemberDbRepository(database)
+    repo = MemberDbRepository(database)
     query = repo.create_query()
     start_date = Date.create(year=1990, month=1, day=1)
     end_date = Date.create(year=1990, month=12, day=31)
     query.find_by_birthdate(start_date, end_date)
-    team_member = await repo.get(query)
-    assert team_member is not None
+    member = await repo.get(query)
+    assert member is not None
