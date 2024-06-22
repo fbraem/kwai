@@ -10,6 +10,8 @@ from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.db.table_row import JoinedTableRow
 from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.name import Name
+from kwai.core.domain.value_objects.timestamp import Timestamp
+from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.domain.value_objects import Birthdate, Gender, License
 from kwai.modules.teams.domain.team import TeamIdentifier
@@ -38,7 +40,7 @@ class TeamMemberQueryRow(JoinedTableRow):
     def create_team_member(self) -> TeamMember:
         """Create a team member from a row."""
         return TeamMember(
-            active=self.team_member.active,
+            active=self.team_member.active == 1,
             member=MemberEntity(
                 id_=MemberIdentifier(self.member.id),
                 uuid=UniqueId.create_from_string(self.member.uuid),
@@ -52,6 +54,10 @@ class TeamMemberQueryRow(JoinedTableRow):
                 birthdate=Birthdate(Date.create_from_date(self.person.birthdate)),
                 gender=Gender(self.person.gender),
                 nationality=self.country.create_country(),
+            ),
+            traceable_time=TraceableTime(
+                created_at=Timestamp(self.team_member.created_at),
+                updated_at=Timestamp(self.team_member.updated_at),
             ),
         )
 
