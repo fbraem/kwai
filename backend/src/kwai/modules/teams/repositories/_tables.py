@@ -3,6 +3,7 @@ from datetime import date, datetime
 from typing import Self
 
 from kwai.core.db.table_row import TableRow
+from kwai.modules.club.domain.country import CountryEntity, CountryIdentifier
 from kwai.modules.teams.domain.team import TeamEntity
 
 
@@ -73,3 +74,36 @@ class TeamMemberRow(TableRow):
     active: int
     created_at: datetime
     updated_at: datetime | None
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class CountryRow(TableRow):
+    """Represent a row of the countries table.
+
+    Attributes:
+        id: The id of the country.
+        iso_2: The ISO 2 code of the country.
+        iso_3: The ISO 3 code of the country.
+    """
+
+    __table_name__ = "countries"
+
+    id: int | None = None
+    iso_2: str
+    iso_3: str
+    name: str
+    created_at: datetime
+    updated_at: datetime | None
+
+    def create_country(self) -> CountryEntity:
+        """Create a Country value object from the row.
+
+        Returns:
+            A country value object.
+        """
+        return CountryEntity(
+            id_=CountryIdentifier(self.id),
+            iso_2=self.iso_2,
+            iso_3=self.iso_3,
+            name=self.name,
+        )

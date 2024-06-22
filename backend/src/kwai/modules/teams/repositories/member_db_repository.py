@@ -12,11 +12,9 @@ from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.domain.value_objects import Birthdate, Gender, License
-from kwai.modules.club.repositories._tables import (
-    CountryRow,
-)
 from kwai.modules.teams.domain.team_member import MemberEntity, MemberIdentifier
 from kwai.modules.teams.repositories._tables import (
+    CountryRow,
     MemberPersonRow,
     MemberRow,
 )
