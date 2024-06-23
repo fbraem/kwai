@@ -14,9 +14,9 @@ MemberIdentifier = IntIdentifier
 
 
 class MemberEntity(Entity[MemberIdentifier]):
-    """A team member entity.
+    """A member entity.
 
-    A team member entity is an entity which holds specific information of a member
+    A member entity is an entity which holds specific information of a member
     that can be used for a member of a team.
     """
 
@@ -38,6 +38,14 @@ class MemberEntity(Entity[MemberIdentifier]):
         self._birthdate = birthdate
         self._nationality = nationality
         self._gender = gender
+
+    def __str__(self) -> str:
+        """Return a string of this entity."""
+        return f"{self._uuid} - {self._name}"
+
+    def __repr__(self) -> str:
+        """Return a representation of this entity."""
+        return f"<{self.__class__.__name__} id={self.id}, uuid={self.uuid}, name={self.name}>"
 
     @property
     def name(self) -> Name:
