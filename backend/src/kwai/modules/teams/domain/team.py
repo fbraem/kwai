@@ -28,6 +28,14 @@ class TeamEntity(Entity[TeamIdentifier]):
         self._members = [] if members is None else members.copy()
         self._traceable_time = traceable_time or TraceableTime()
 
+    def __str__(self):
+        """Return string representation of the team entity."""
+        return f"<Team id={self.id} name={self._name}>"
+
+    def __repr__(self):
+        """Return representation of the team entity."""
+        return f"<{self.__class__.__name__} id={self.id} name={self.name!r}>"
+
     @property
     def name(self) -> str:
         """Return the name of the team."""
