@@ -1,7 +1,7 @@
 """Module that implements a team repository for a database."""
 
 from dataclasses import dataclass
-from typing import AsyncGenerator, Self
+from typing import Any, AsyncGenerator, Self
 
 from sql_smith.functions import on
 
@@ -9,11 +9,15 @@ from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.db.table_row import JoinedTableRow
 from kwai.core.domain.entity import Entity
-from kwai.modules.club.repositories._tables import (
-    CountryRow,
-)
+from kwai.core.domain.value_objects.date import Date
+from kwai.core.domain.value_objects.name import Name
+from kwai.core.domain.value_objects.unique_id import UniqueId
+from kwai.core.functions import async_groupby
+from kwai.modules.club.domain.value_objects import Birthdate, Gender, License
 from kwai.modules.teams.domain.team import TeamEntity, TeamIdentifier
+from kwai.modules.teams.domain.team_member import MemberEntity, MemberIdentifier
 from kwai.modules.teams.repositories._tables import (
+    CountryRow,
     MemberPersonRow,
     MemberRow,
     TeamMemberRow,
@@ -23,11 +27,54 @@ from kwai.modules.teams.repositories.team_repository import TeamQuery, TeamRepos
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class TeamQueryRow(JoinedTableRow):
+class MemberPersonCountryMixin:
+    """Dataclass for a member related row."""
+
+    member: MemberRow
+    member_person: MemberPersonRow
+    country: CountryRow
+
+    def create_member_entity(self) -> MemberEntity:
+        """Create a member entity from a row."""
+        return MemberEntity(
+            id_=MemberIdentifier(self.member.id),
+            name=Name(
+                first_name=self.member_person.firstname,
+                last_name=self.member_person.lastname,
+            ),
+            license=License(
+                number=self.member.license,
+                end_date=Date.create_from_date(self.member.license_end_date),
+            ),
+            birthdate=Birthdate(
+                date=Date.create_from_date(self.member_person.birthdate)
+            ),
+            nationality=self.country.create_country(),
+            gender=Gender(self.member_person.gender),
+            uuid=UniqueId.create_from_string(self.member.uuid),
+        )
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class TeamQueryRow(MemberPersonCountryMixin, JoinedTableRow):
     """A data transfer object for the team query."""
 
     team: TeamRow
-    team_members: TeamMemberRow
+    team_member: TeamMemberRow
+
+    @classmethod
+    def create_entity(cls, rows: list[dict[str, Any]]) -> TeamEntity:
+        """Create a team entity from a group of rows."""
+        team_query_row = cls.map(rows[0])
+        team_members = []
+        for row in rows:
+            mapped_row = cls.map(row)
+            team_members.append(
+                mapped_row.team_member.create_team_member(
+                    mapped_row.create_member_entity()
+                )
+            )
+        return team_query_row.team.create_entity(team_members)
 
 
 class TeamDbQuery(TeamQuery, DatabaseQuery):
@@ -53,7 +100,7 @@ class TeamDbQuery(TeamQuery, DatabaseQuery):
 
     @property
     def columns(self):
-        pass
+        return TeamQueryRow.get_aliases()
 
     def find_by_id(self, id_: TeamIdentifier) -> Self:
         pass
@@ -63,18 +110,26 @@ class TeamDbRepository(TeamRepository):
     """A team repository for a database."""
 
     def create_query(self) -> TeamQuery:
-        pass
+        return TeamDbQuery(self._database)
 
     async def get(self, query: TeamQuery | None = None) -> TeamEntity:
         pass
 
-    def get_all(
+    async def get_all(
         self,
         query: TeamQuery | None = None,
         limit: int | None = None,
         offset: int | None = None,
     ) -> AsyncGenerator[TeamEntity, None]:
-        pass
+        if query is None:
+            query = self.create_query()
+
+        group_by_column = "team_id"
+        row_iterator = query.fetch(limit=limit, offset=offset)
+        async for _, group in async_groupby(
+            row_iterator, key=lambda row: row[group_by_column]
+        ):
+            yield TeamQueryRow.create_entity(group)
 
     def __init__(self, database: Database):
         self._database = database

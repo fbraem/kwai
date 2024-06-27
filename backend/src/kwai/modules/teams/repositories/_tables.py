@@ -3,8 +3,11 @@ from datetime import date, datetime
 from typing import Self
 
 from kwai.core.db.table_row import TableRow
+from kwai.core.domain.value_objects.timestamp import Timestamp
+from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.club.domain.country import CountryEntity, CountryIdentifier
-from kwai.modules.teams.domain.team import TeamEntity
+from kwai.modules.teams.domain.team import TeamEntity, TeamIdentifier
+from kwai.modules.teams.domain.team_member import MemberEntity, TeamMember
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -21,6 +24,15 @@ class TeamRow(TableRow):
     remark: str
     created_at: datetime
     updated_at: datetime | None
+
+    def create_entity(self, team_members: list[TeamMember]) -> TeamEntity:
+        return TeamEntity(
+            id_=TeamIdentifier(self.id),
+            name=self.name,
+            active=self.active == 1,
+            remark=self.remark,
+            members=team_members,
+        )
 
     @classmethod
     def persist(cls, team: TeamEntity) -> Self:
@@ -74,6 +86,16 @@ class TeamMemberRow(TableRow):
     active: int
     created_at: datetime
     updated_at: datetime | None
+
+    def create_team_member(self, member: MemberEntity):
+        return TeamMember(
+            active=True if self.active == 1 else False,
+            member=member,
+            traceable_time=TraceableTime(
+                created_at=Timestamp(self.created_at),
+                updated_at=Timestamp(self.updated_at),
+            ),
+        )
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
