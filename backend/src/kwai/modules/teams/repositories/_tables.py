@@ -21,7 +21,7 @@ class TeamRow(TableRow):
     season_id: int | None
     team_category_id: int | None
     active: int
-    remark: str
+    remark: str | None
     created_at: datetime
     updated_at: datetime | None
 
@@ -30,7 +30,7 @@ class TeamRow(TableRow):
             id_=TeamIdentifier(self.id),
             name=self.name,
             active=self.active == 1,
-            remark=self.remark,
+            remark=self.remark or "",
             members=team_members,
         )
 
@@ -54,11 +54,11 @@ class MemberRow(TableRow):
 
     __table_name__ = "judo_members"
 
-    id: int
-    uuid: str
-    license: str
-    license_end_date: date
-    person_id: int
+    id: int | None
+    uuid: str | None
+    license: str | None
+    license_end_date: date | None
+    person_id: int | None
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -67,12 +67,12 @@ class MemberPersonRow(TableRow):
 
     __table_name__ = "persons"
 
-    id: int
-    firstname: str
-    lastname: str
-    gender: int
-    birthdate: date
-    nationality_id: int
+    id: int | None
+    firstname: str | None
+    lastname: str | None
+    gender: int | None
+    birthdate: date | None
+    nationality_id: int | None
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -81,10 +81,10 @@ class TeamMemberRow(TableRow):
 
     __table_name__ = "team_members"
 
-    team_id: int
-    member_id: int
-    active: int
-    created_at: datetime
+    team_id: int | None
+    member_id: int | None
+    active: int | None
+    created_at: datetime | None
     updated_at: datetime | None
 
     def create_team_member(self, member: MemberEntity):
@@ -111,10 +111,10 @@ class CountryRow(TableRow):
     __table_name__ = "countries"
 
     id: int | None = None
-    iso_2: str
-    iso_3: str
-    name: str
-    created_at: datetime
+    iso_2: str | None
+    iso_3: str | None
+    name: str | None
+    created_at: datetime | None
     updated_at: datetime | None
 
     def create_country(self) -> CountryEntity:

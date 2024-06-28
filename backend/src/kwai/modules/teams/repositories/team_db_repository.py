@@ -69,6 +69,9 @@ class TeamQueryRow(MemberPersonCountryMixin, JoinedTableRow):
         team_members = []
         for row in rows:
             mapped_row = cls.map(row)
+            if mapped_row.member.id is None:
+                continue
+
             team_members.append(
                 mapped_row.team_member.create_team_member(
                     mapped_row.create_member_entity()
@@ -84,16 +87,16 @@ class TeamDbQuery(TeamQuery, DatabaseQuery):
         super().__init__(database)
 
     def init(self):
-        self._query.from_(TeamRow.__table_name__).inner_join(
+        self._query.from_(TeamRow.__table_name__).left_join(
             TeamMemberRow.__table_name__,
-            on(TeamMemberRow.column("team_id"), TeamRow.column("id")),
-        ).inner_join(
+            on(TeamRow.column("id"), TeamMemberRow.column("team_id")),
+        ).left_join(
             MemberRow.__table_name__,
             on(MemberRow.column("id"), TeamMemberRow.column("member_id")),
-        ).inner_join(
+        ).left_join(
             MemberPersonRow.__table_name__,
             on(MemberPersonRow.column("id"), MemberRow.column("person_id")),
-        ).inner_join(
+        ).left_join(
             CountryRow.__table_name__,
             on(CountryRow.column("id"), MemberPersonRow.column("nationality_id")),
         )
@@ -101,6 +104,10 @@ class TeamDbQuery(TeamQuery, DatabaseQuery):
     @property
     def columns(self):
         return TeamQueryRow.get_aliases()
+
+    @property
+    def count_column(self) -> str:
+        return TeamRow.column("id")
 
     def find_by_id(self, id_: TeamIdentifier) -> Self:
         pass
