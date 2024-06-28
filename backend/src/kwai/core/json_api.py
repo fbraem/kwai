@@ -128,6 +128,16 @@ class Document(BaseModel, Generic[T_RESOURCE, T_INCLUDE]):
         assert isinstance(self.data, list)
         return self.data
 
+    def __repr__(self):
+        """Return representation of a document."""
+        if isinstance(self.data, list):
+            if len(self.data) > 0:
+                return f"<{self.__class__.__name__} type={self.data[0].type}[]>"
+            else:
+                return f"<{self.__class__.__name__} type=[]>"
+        else:
+            return f"<{self.__class__.__name__} type={self.data.type}>"
+
     @classmethod
     def __get_pydantic_json_schema__(
         cls,
