@@ -185,3 +185,14 @@ class PaginationModel(BaseModel):
 
     offset: int | None = Field(Query(default=None, alias="page[offset]"))
     limit: int | None = Field(Query(default=None, alias="page[limit]"))
+
+
+class JsonApiPresenter[Document]:
+    """An interface for a presenter that generates a JSON:API document."""
+
+    def __init__(self):
+        self._document: Document = None
+
+    def get_document(self) -> Document:
+        """Return the JSON:API document."""
+        return self._document

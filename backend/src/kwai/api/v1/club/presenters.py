@@ -2,24 +2,13 @@
 
 from kwai.api.v1.club.schemas.member import MemberDocument
 from kwai.core.domain.presenter import AsyncPresenter, IterableResult, Presenter
-from kwai.core.json_api import Error, ErrorSource, Meta
+from kwai.core.json_api import Error, ErrorSource, JsonApiPresenter, Meta
 from kwai.modules.club.domain.member import MemberEntity
 from kwai.modules.club.import_members import (
     FailureMemberImportResult,
     MemberImportResult,
     OkMemberImportResult,
 )
-
-
-class JsonApiPresenter[Document]:
-    """An interface for a presenter that generates a JSON:API document."""
-
-    def __init__(self):
-        self._document: Document = None
-
-    def get_document(self) -> Document:
-        """Return the JSON:API document."""
-        return self._document
 
 
 class JsonApiMemberPresenter(JsonApiPresenter[MemberDocument], Presenter[MemberEntity]):
