@@ -23,12 +23,6 @@ class ContactResourceIdentifier(ResourceIdentifier):
     type: Literal["contacts"] = "contacts"
 
 
-class CountryResourceIdentifier(ResourceIdentifier):
-    """A JSON:API resource identifier for a country."""
-
-    type: Literal["countries"] = "countries"
-
-
 class UploadResourceIdentifier(ResourceIdentifier):
     """A JSON:API resource identifier for a upload."""
 

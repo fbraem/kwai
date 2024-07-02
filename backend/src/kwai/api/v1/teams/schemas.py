@@ -5,11 +5,9 @@ from typing import Annotated, Self
 from pydantic import BaseModel, Field
 
 from kwai.api.schemas.resources import TeamResourceIdentifier
-from kwai.api.v1.club.schemas.country import CountryDocument, CountryResource
-from kwai.api.v1.club.schemas.resources import (
-    CountryResourceIdentifier,
-    MemberResourceIdentifier,
-)
+from kwai.api.v1.resources import CountryResourceIdentifier
+from kwai.api.v1.schemas import CountryDocument, CountryResource
+from kwai.api.v1.teams.resources import TeamMemberResourceIdentifier
 from kwai.core.json_api import Document, Relationship, ResourceData, ResourceMeta
 from kwai.modules.teams.domain.team import TeamEntity
 from kwai.modules.teams.domain.team_member import TeamMember
@@ -34,7 +32,7 @@ class TeamMemberRelationships(BaseModel):
 
 
 class TeamMemberResource(
-    MemberResourceIdentifier,
+    TeamMemberResourceIdentifier,
     ResourceData[TeamMemberAttributes, TeamMemberRelationships],
 ):
     """A JSON:API resource for a team member."""
@@ -87,7 +85,7 @@ class TeamAttributes(BaseModel):
 class TeamRelationships(BaseModel):
     """Relationships for a team JSON:API resource."""
 
-    members: Relationship[MemberResourceIdentifier]
+    members: Relationship[TeamMemberResourceIdentifier]
 
 
 class TeamResource(
@@ -117,7 +115,7 @@ class TeamDocument(Document[TeamResource, TeamInclude]):
                 name=team.name, active=team.is_active, remark=team.remark
             ),
             relationships=TeamRelationships(
-                members=Relationship[MemberResourceIdentifier](
+                members=Relationship[TeamMemberResourceIdentifier](
                     data=team_member_document.resources
                 )
             ),

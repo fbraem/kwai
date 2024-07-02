@@ -1,10 +1,10 @@
-"""Module for defining the JSON:API resource for a country."""
+"""Module for defining common JSON:API schemas."""
 
 from typing import Self
 
 from pydantic import BaseModel
 
-from kwai.api.v1.club.schemas.resources import CountryResourceIdentifier
+from kwai.api.v1.resources import CountryResourceIdentifier
 from kwai.core.json_api import Document, ResourceData
 from kwai.modules.club.domain.country import CountryEntity
 

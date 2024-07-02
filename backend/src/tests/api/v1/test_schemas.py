@@ -1,10 +1,10 @@
-"""Module for testing the country JSON:API resource."""
+"""Module for testing the common JSON:API schemas."""
 
 import json
 from typing import Any
 
 from deepdiff import DeepDiff
-from kwai.api.v1.club.schemas.country import CountryDocument
+from kwai.api.v1.schemas import CountryDocument
 from kwai.modules.club.domain.country import CountryEntity
 
 
