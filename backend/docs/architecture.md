@@ -19,8 +19,8 @@ outdated, we only need to change these value objects.
 > domain.
 
 Dependency injection containers are only used on the outside. There should not be any magic code in the domain.
-So, dependency injection can only be used in the API entry code, the CLI entry code, ... From there on, the dependency
-should be passed as an argument (and passing it down should be done using an interface).
+So, dependency injection containers can only be used in the API entry code, the CLI entry code, ... From there on,
+the dependency should be passed as an argument (and passing it down should be done using an interface).
 
 Actors
 ======
