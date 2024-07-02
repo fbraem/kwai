@@ -85,7 +85,7 @@ class TeamAttributes(BaseModel):
 class TeamRelationships(BaseModel):
     """Relationships for a team JSON:API resource."""
 
-    members: Relationship[TeamMemberResourceIdentifier]
+    team_members: Relationship[TeamMemberResourceIdentifier]
 
 
 class TeamResource(
@@ -115,7 +115,7 @@ class TeamDocument(Document[TeamResource, TeamInclude]):
                 name=team.name, active=team.is_active, remark=team.remark
             ),
             relationships=TeamRelationships(
-                members=Relationship[TeamMemberResourceIdentifier](
+                team_members=Relationship[TeamMemberResourceIdentifier](
                     data=team_member_document.resources
                 )
             ),
