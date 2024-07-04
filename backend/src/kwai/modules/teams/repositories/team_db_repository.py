@@ -23,7 +23,11 @@ from kwai.modules.teams.repositories._tables import (
     TeamMemberRow,
     TeamRow,
 )
-from kwai.modules.teams.repositories.team_repository import TeamQuery, TeamRepository
+from kwai.modules.teams.repositories.team_repository import (
+    TeamNotFoundException,
+    TeamQuery,
+    TeamRepository,
+)
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -110,7 +114,8 @@ class TeamDbQuery(TeamQuery, DatabaseQuery):
         return TeamRow.column("id")
 
     def find_by_id(self, id_: TeamIdentifier) -> Self:
-        pass
+        self._query.and_where(TeamRow.field("id").eq(id_.value))
+        return self
 
 
 class TeamDbRepository(TeamRepository):
@@ -120,7 +125,11 @@ class TeamDbRepository(TeamRepository):
         return TeamDbQuery(self._database)
 
     async def get(self, query: TeamQuery | None = None) -> TeamEntity:
-        pass
+        team_iterator = self.get_all(query)
+        try:
+            return await anext(team_iterator)
+        except StopIteration:
+            raise TeamNotFoundException("Team not found") from None
 
     async def get_all(
         self,
