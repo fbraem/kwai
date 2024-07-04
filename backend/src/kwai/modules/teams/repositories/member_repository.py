@@ -16,12 +16,14 @@ class MemberQuery(Query, ABC):
     """An interface for a member query."""
 
     @abstractmethod
-    def find_by_id(self, id_: MemberIdentifier) -> Self:
+    def filter_by_id(self, id_: MemberIdentifier) -> Self:
         """Find a team member by its id."""
         raise NotImplementedError
 
     @abstractmethod
-    def find_by_birthdate(self, start_date: Date, end_date: Date | None = None) -> Self:
+    def filter_by_birthdate(
+        self, start_date: Date, end_date: Date | None = None
+    ) -> Self:
         """Find team members by their birthdate."""
         raise NotImplementedError
 

@@ -71,11 +71,13 @@ class MemberDbQuery(MemberQuery, DatabaseQuery):
     def count_column(self):
         return MemberRow.column("id")
 
-    def find_by_id(self, id_: MemberIdentifier) -> Self:
+    def filter_by_id(self, id_: MemberIdentifier) -> Self:
         self._query.and_where(MemberRow.field("id").eq(id_.value))
         return self
 
-    def find_by_birthdate(self, start_date: Date, end_date: Date | None = None) -> Self:
+    def filter_by_birthdate(
+        self, start_date: Date, end_date: Date | None = None
+    ) -> Self:
         if end_date is None:
             self._query.and_where(MemberPersonRow.field("birthdate").gte(start_date))
         else:

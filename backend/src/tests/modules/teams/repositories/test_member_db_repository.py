@@ -25,7 +25,7 @@ async def test_get_by_id(database: Database, make_member_in_db):
     member = await make_member_in_db()
     repo = MemberDbRepository(database)
     query = repo.create_query()
-    query.find_by_id(member.id)
+    query.filter_by_id(member.id)
     member = await repo.get(query)
     assert member is not None
 
@@ -56,7 +56,7 @@ async def test_get_by_birthdate(
 
     repo = MemberDbRepository(database)
     query = repo.create_query()
-    query.find_by_birthdate(birthdate.date)
+    query.filter_by_birthdate(birthdate.date)
     member = await repo.get(query)
     assert member is not None
 
@@ -88,6 +88,6 @@ async def test_get_by_birthdate_between_dates(
     query = repo.create_query()
     start_date = Date.create(year=1990, month=1, day=1)
     end_date = Date.create(year=1990, month=12, day=31)
-    query.find_by_birthdate(start_date, end_date)
+    query.filter_by_birthdate(start_date, end_date)
     member = await repo.get(query)
     assert member is not None

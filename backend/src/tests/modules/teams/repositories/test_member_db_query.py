@@ -18,7 +18,7 @@ def query(database: Database) -> MemberQuery:
 
 async def test_filter_by_id(query: MemberQuery):
     """Test filtering by id."""
-    query.find_by_id(MemberIdentifier(1))
+    query.filter_by_id(MemberIdentifier(1))
     try:
         await query.fetch_one()
     except Exception as exc:
@@ -27,7 +27,7 @@ async def test_filter_by_id(query: MemberQuery):
 
 async def test_filter_by_birthdate_without_end_date(query: MemberQuery):
     """Test filtering by birthdate."""
-    query.find_by_birthdate(Date.create(2015, 1, 1))
+    query.filter_by_birthdate(Date.create(2015, 1, 1))
     try:
         await query.fetch_one()
     except Exception as exc:
@@ -36,7 +36,7 @@ async def test_filter_by_birthdate_without_end_date(query: MemberQuery):
 
 async def test_filter_by_birthdate(query: MemberQuery):
     """Test filtering by birthdate between two dates."""
-    query.find_by_birthdate(Date.create(2015, 1, 1), Date.create(2015, 1, 31))
+    query.filter_by_birthdate(Date.create(2015, 1, 1), Date.create(2015, 1, 31))
     try:
         await query.fetch_one()
     except Exception as exc:
