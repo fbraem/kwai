@@ -113,7 +113,7 @@ class TeamDbQuery(TeamQuery, DatabaseQuery):
     def count_column(self) -> str:
         return TeamRow.column("id")
 
-    def find_by_id(self, id_: TeamIdentifier) -> Self:
+    def filter_by_id(self, id_: TeamIdentifier) -> Self:
         self._query.and_where(TeamRow.field("id").eq(id_.value))
         return self
 

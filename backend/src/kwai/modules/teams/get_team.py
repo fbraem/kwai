@@ -29,5 +29,5 @@ class GetTeam:
     async def execute(self, command: GetTeamCommand) -> None:
         """Execute the use case."""
         query = self._team_repo.create_query()
-        query.find_by_id(TeamIdentifier(command.id))
+        query.filter_by_id(TeamIdentifier(command.id))
         self._presenter.present(await self._team_repo.get(query))

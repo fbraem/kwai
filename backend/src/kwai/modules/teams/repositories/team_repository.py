@@ -15,7 +15,7 @@ class TeamQuery(Query, ABC):
     """An interface for a team query."""
 
     @abstractmethod
-    def find_by_id(self, id_: TeamIdentifier) -> Self:
+    def filter_by_id(self, id_: TeamIdentifier) -> Self:
         """Find a team by its id."""
         raise NotImplementedError
 
