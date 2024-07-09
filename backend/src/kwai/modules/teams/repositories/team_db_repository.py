@@ -127,8 +127,8 @@ class TeamDbRepository(TeamRepository):
     async def get(self, query: TeamQuery | None = None) -> TeamEntity:
         team_iterator = self.get_all(query)
         try:
-            return await anext(team_iterator)
-        except StopIteration:
+            await anext(team_iterator)
+        except StopAsyncIteration:
             raise TeamNotFoundException("Team not found") from None
 
     async def get_all(
