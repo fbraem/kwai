@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 from typing import Any, AsyncGenerator, Self
 
-from sql_smith.functions import on
+from sql_smith.functions import field, on
 
 from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
@@ -157,4 +157,10 @@ class TeamDbRepository(TeamRepository):
         return Entity.replace(team, id_=TeamIdentifier(new_team_id))
 
     async def delete(self, team: TeamEntity) -> None:
+        delete_team_members_query = (
+            self._database.create_query_factory()
+            .delete(TeamMemberRow.__table_name__)
+            .where(field("team_id").eq(team.id.value))
+        )
+        await self._database.execute(delete_team_members_query)
         await self._database.delete(team.id.value, TeamRow.__table_name__)
