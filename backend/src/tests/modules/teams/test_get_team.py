@@ -26,7 +26,6 @@ class TestPresenter(Presenter[TeamEntity]):
 async def test_get_teams(database: Database, make_team_in_db):
     """Test get teams."""
     team = await make_team_in_db()
-    print(team)
     command = GetTeamCommand(id=team.id.value)
     presenter = TestPresenter()
     await GetTeam(TeamDbRepository(database), presenter).execute(command)
