@@ -164,3 +164,8 @@ class TeamDbRepository(TeamRepository):
         )
         await self._database.execute(delete_team_members_query)
         await self._database.delete(team.id.value, TeamRow.__table_name__)
+
+    async def update(self, team: TeamEntity) -> TeamEntity:
+        await self._database.update(
+            team.id.value, TeamRow.__table_name__, TeamRow.persist(team)
+        )

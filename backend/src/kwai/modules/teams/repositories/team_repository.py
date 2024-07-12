@@ -67,3 +67,7 @@ class TeamRepository(ABC):
     @abstractmethod
     async def delete(self, team: TeamEntity) -> None:
         """Delete a team."""
+
+    @abstractmethod
+    async def update(self, team: TeamEntity) -> TeamEntity:
+        """Update a team."""

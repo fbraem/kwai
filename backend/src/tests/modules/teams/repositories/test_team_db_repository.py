@@ -2,6 +2,7 @@
 
 import pytest
 from kwai.core.db.database import Database
+from kwai.core.domain.entity import Entity
 from kwai.modules.teams.repositories.team_db_repository import TeamDbRepository
 from kwai.modules.teams.repositories.team_repository import TeamNotFoundException
 
@@ -39,3 +40,15 @@ async def test_delete_team(database: Database, make_team_in_db):
 
     with pytest.raises(TeamNotFoundException):
         await team_repo.get(team_repo.create_query().filter_by_id(team.id))
+
+
+async def test_update_team(database: Database, make_team_in_db):
+    """Test updating a team in the database."""
+    team_repo = TeamDbRepository(database)
+    team = await make_team_in_db()
+
+    team = Entity.replace(team, remark="This is a test.")
+    await team_repo.update(team)
+
+    team = await team_repo.get(team_repo.create_query().filter_by_id(team.id))
+    assert team.remark == "This is a test.", "The team should be updated."
