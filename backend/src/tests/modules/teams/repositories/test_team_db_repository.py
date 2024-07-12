@@ -19,7 +19,7 @@ async def test_get_team(database: Database, make_team_in_db):
     """Test getting a team from the database."""
     team = await make_team_in_db()
     repo = TeamDbRepository(database)
-    team = repo.get(repo.create_query().filter_by_id(team.id))
+    team = await repo.get(repo.create_query().filter_by_id(team.id))
     assert team is not None, "There should be a team in the database."
 
 
