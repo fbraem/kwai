@@ -43,3 +43,24 @@ async def test_create_team(secure_client: TestClient, make_team):
     }
     response = secure_client.post("/api/v1/teams", json=payload)
     assert response.status_code == status.HTTP_201_CREATED
+
+
+async def test_update_team(secure_client: TestClient, make_team_in_db):
+    """Test /api/v1/teams endpoint for updating a team."""
+    team = await make_team_in_db()
+    payload = {
+        "data": {
+            "id": str(team.id),
+            "type": "teams",
+            "attributes": {
+                "name": team.name,
+                "active": team.is_active,
+                "remark": "This is a test",
+            },
+        }
+    }
+    response = secure_client.patch(f"/api/v1/teams/{team.id}", json=payload)
+    assert response.status_code == status.HTTP_200_OK
+    assert (
+        response.json()["data"]["attributes"]["remark"] == "This is a test"
+    ), "The team should be updated."

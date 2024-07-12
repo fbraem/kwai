@@ -19,6 +19,7 @@ from kwai.modules.teams.delete_team import DeleteTeam, DeleteTeamCommand
 from kwai.modules.teams.get_team import GetTeam, GetTeamCommand
 from kwai.modules.teams.get_teams import GetTeams, GetTeamsCommand
 from kwai.modules.teams.repositories.team_db_repository import TeamDbRepository
+from kwai.modules.teams.update_team import UpdateTeam, UpdateTeamCommand
 from kwai.modules.training.teams.team_repository import TeamNotFoundException
 
 router = APIRouter(tags=["teams"])
@@ -47,18 +48,6 @@ async def get_team(
     return presenter.get_document()
 
 
-@router.get("/teams/{id}/members")
-async def get_team_members(
-    id: int,
-    database: Annotated[Database, Depends(create_database)],
-) -> TeamMemberDocument:
-    """Get the member of the team with the given id."""
-    presenter = JsonApiTeamMembersPresenter()
-    command = GetTeamCommand(id=id)
-    await GetTeam(TeamDbRepository(database), presenter).execute(command)
-    return presenter.get_document()
-
-
 @router.post("/teams", status_code=status.HTTP_201_CREATED)
 async def create_team(
     resource: TeamDocument,
@@ -74,6 +63,30 @@ async def create_team(
     team_presenter = JsonApiTeamPresenter()
     async with UnitOfWork(database):
         await CreateTeam(TeamDbRepository(database), team_presenter).execute(command)
+    return team_presenter.get_document()
+
+
+@router.patch(
+    "/teams/{id}",
+    status_code=status.HTTP_200_OK,
+    responses={status.HTTP_404_NOT_FOUND: {"description": "Team not found"}},
+)
+async def update_team(
+    id: int,
+    resource: TeamDocument,
+    database: Annotated[Database, Depends(create_database)],
+    user: Annotated[UserEntity, Depends(get_current_user)],
+) -> TeamDocument:
+    """Update an existing team."""
+    command = UpdateTeamCommand(
+        id=id,
+        name=resource.data.attributes.name,
+        active=resource.data.attributes.active,
+        remark=resource.data.attributes.remark,
+    )
+    team_presenter = JsonApiTeamPresenter()
+    async with UnitOfWork(database):
+        await UpdateTeam(TeamDbRepository(database), team_presenter).execute(command)
     return team_presenter.get_document()
 
 
@@ -97,3 +110,15 @@ async def delete_team(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
         ) from ex
+
+
+@router.get("/teams/{id}/members")
+async def get_team_members(
+    id: int,
+    database: Annotated[Database, Depends(create_database)],
+) -> TeamMemberDocument:
+    """Get the member of the team with the given id."""
+    presenter = JsonApiTeamMembersPresenter()
+    command = GetTeamCommand(id=id)
+    await GetTeam(TeamDbRepository(database), presenter).execute(command)
+    return presenter.get_document()
