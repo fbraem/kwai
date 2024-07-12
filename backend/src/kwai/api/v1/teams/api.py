@@ -91,7 +91,8 @@ async def delete_team(
     command = DeleteTeamCommand(id=id)
 
     try:
-        await DeleteTeam(TeamDbRepository(database)).execute(command)
+        async with UnitOfWork(database):
+            await DeleteTeam(TeamDbRepository(database)).execute(command)
     except TeamNotFoundException as ex:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
