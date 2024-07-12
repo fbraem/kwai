@@ -12,7 +12,9 @@ from kwai.api.v1.teams.presenters import (
 )
 from kwai.api.v1.teams.schemas import TeamDocument, TeamMemberDocument
 from kwai.core.db.database import Database
+from kwai.core.db.uow import UnitOfWork
 from kwai.modules.identity.users.user import UserEntity
+from kwai.modules.teams.create_team import CreateTeam, CreateTeamCommand
 from kwai.modules.teams.delete_team import DeleteTeam, DeleteTeamCommand
 from kwai.modules.teams.get_team import GetTeam, GetTeamCommand
 from kwai.modules.teams.get_teams import GetTeams, GetTeamsCommand
@@ -55,6 +57,24 @@ async def get_team_members(
     command = GetTeamCommand(id=id)
     await GetTeam(TeamDbRepository(database), presenter).execute(command)
     return presenter.get_document()
+
+
+@router.post("/teams", status_code=status.HTTP_201_CREATED)
+async def create_team(
+    resource: TeamDocument,
+    database: Annotated[Database, Depends(create_database)],
+    user: Annotated[UserEntity, Depends(get_current_user)],
+) -> TeamDocument:
+    """Create a new team."""
+    command = CreateTeamCommand(
+        name=resource.data.attributes.name,
+        active=resource.data.attributes.active,
+        remark=resource.data.attributes.remark,
+    )
+    team_presenter = JsonApiTeamPresenter()
+    async with UnitOfWork(database):
+        await CreateTeam(TeamDbRepository(database), team_presenter).execute(command)
+    return team_presenter.get_document()
 
 
 @router.delete(

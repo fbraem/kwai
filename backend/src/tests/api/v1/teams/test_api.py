@@ -26,3 +26,20 @@ async def test_delete_team(secure_client: TestClient, make_team_in_db):
     team = await make_team_in_db()
     response = secure_client.delete(f"/api/v1/teams/{team.id}")
     assert response.status_code == status.HTTP_200_OK
+
+
+async def test_create_team(secure_client: TestClient, make_team):
+    """Test /api/v1/teams endpoint for creating a team."""
+    team = make_team()
+    payload = {
+        "data": {
+            "type": "teams",
+            "attributes": {
+                "name": team.name,
+                "active": team.is_active,
+                "remark": team.remark,
+            },
+        }
+    }
+    response = secure_client.post("/api/v1/teams", json=payload)
+    assert response.status_code == status.HTTP_201_CREATED
