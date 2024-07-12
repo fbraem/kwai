@@ -6,6 +6,8 @@ from kwai.modules.teams.delete_team import DeleteTeam, DeleteTeamCommand
 from kwai.modules.teams.repositories.team_db_repository import TeamDbRepository
 from kwai.modules.teams.repositories.team_repository import TeamNotFoundException
 
+pytestmark = pytest.mark.db
+
 
 async def test_delete_team(database: Database, make_team_in_db):
     """Test deleting a team."""

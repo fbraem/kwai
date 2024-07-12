@@ -1,10 +1,13 @@
 """Module for defining tests for the use case 'Get Teams'."""
 
+import pytest
 from kwai.core.db.database import Database
 from kwai.core.domain.presenter import AsyncPresenter, IterableResult
 from kwai.modules.teams.domain.team import TeamEntity
 from kwai.modules.teams.get_teams import GetTeams, GetTeamsCommand
 from kwai.modules.teams.repositories.team_db_repository import TeamDbRepository
+
+pytestmark = pytest.mark.db
 
 
 class TestPresenter(AsyncPresenter[IterableResult[TeamEntity]]):
