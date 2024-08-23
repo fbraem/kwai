@@ -7,6 +7,13 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig(({ mode }) => {
   return {
+    experimental: {
+      renderBuiltUrl(filename, { type }) {
+        if (type === 'public') {
+          return `public/${filename}`;
+        }
+      },
+    },
     base: '/apps/author/',
     esbuild: {
       pure: mode === 'production' ? ['console.log'] : [],
@@ -14,6 +21,12 @@ export default defineConfig(({ mode }) => {
     server: {
       host: '0.0.0.0',
       port: 3001,
+    },
+    build: {
+      manifest: true,
+      rollupOptions: {
+        input: 'src/index.ts',
+      },
     },
     plugins: [
       vue(),

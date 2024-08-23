@@ -18,6 +18,7 @@ from kwai.api.v1.portal.api import api_router as portal_api_router
 from kwai.api.v1.teams.api import router as teams_api_router
 from kwai.api.v1.trainings.api import api_router as training_api_router
 from kwai.core.settings import LoggerSettings, Settings, get_settings
+from kwai.frontend.app import create_frontend
 
 
 @asynccontextmanager
@@ -119,5 +120,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(teams_api_router, prefix="/api/v1")
     app.include_router(training_api_router, prefix="/api/v1")
     app.include_router(club_api_router, prefix="/api/v1")
+
+    app.mount("/", create_frontend())
 
     return app

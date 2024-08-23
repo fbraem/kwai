@@ -21,10 +21,24 @@ const resolveTheme = (path: string) => {
 
 export default defineConfig(() => {
   return {
-    base: '/',
+    experimental: {
+      renderBuiltUrl(filename, { type }) {
+        if (type === 'public') {
+          return `public/${filename}`;
+        }
+      },
+    },
+    base: '/apps/portal',
     server: {
+      origin: 'http://localhost:3000',
       host: '0.0.0.0',
       port: 3000,
+    },
+    build: {
+      manifest: true,
+      rollupOptions: {
+        input: 'src/index.ts',
+      },
     },
     plugins: [
       vue(), splitVendorChunkPlugin(), visualizer(),

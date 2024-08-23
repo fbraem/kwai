@@ -1,9 +1,11 @@
 """Module that integrates the dependencies in FastAPI."""
+
 from typing import AsyncGenerator
 
 import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
+from fastapi.templating import Jinja2Templates
 from jwt import ExpiredSignatureError
 from redis.asyncio import Redis
 
@@ -32,6 +34,13 @@ async def create_database(
         yield database
     finally:
         await database.close()
+
+
+async def create_templates(settings=Depends(get_settings)) -> Jinja2Templates:
+    """Create the template engine dependency."""
+    templates = Jinja2Templates(directory=settings.template.path)
+    templates.env.add_extension("jinja2.ext.do")
+    return templates
 
 
 async def get_current_user(

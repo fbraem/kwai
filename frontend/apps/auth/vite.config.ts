@@ -23,10 +23,23 @@ const resolveTheme = (path: string) => {
 
 export default defineConfig(() => {
   return {
+    experimental: {
+      renderBuiltUrl(filename, { type }) {
+        if (type === 'public') {
+          return `public/${filename}`;
+        }
+      },
+    },
     base: '/apps/auth/',
     server: {
       host: '0.0.0.0',
       port: 3002,
+    },
+    build: {
+      manifest: true,
+      rollupOptions: {
+        input: 'src/index.ts',
+      },
     },
     plugins: [
       vue(),

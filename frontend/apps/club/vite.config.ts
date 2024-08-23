@@ -7,10 +7,23 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig(({ mode }) => {
   return {
+    experimental: {
+      renderBuiltUrl(filename, { type }) {
+        if (type === 'public') {
+          return `public/${filename}`;
+        }
+      },
+    },
     base: '/apps/club/',
     server: {
       host: '0.0.0.0',
       port: 3004,
+    },
+    build: {
+      manifest: true,
+      rollupOptions: {
+        input: 'src/index.ts',
+      },
     },
     esbuild: {
       pure: mode === 'production' ? ['console.log'] : [],
