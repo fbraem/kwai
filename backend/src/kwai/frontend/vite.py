@@ -41,9 +41,13 @@ class DevelopmentVite(Vite):
         self._entries = entries
 
     def generate_scripts(self) -> list[str]:
-        scripts = [f'<script src="{self._base_path}/@vite/client"></script>']
+        scripts = [
+            f'<script type="module" src="{self._base_path}/@vite/client"></script>'
+        ]
         for entry in self._entries:
-            scripts.append(f'<script src="{self._base_path}/{entry}"></script>')
+            scripts.append(
+                f'<script type="module" src="{self._base_path}/{entry}"></script>'
+            )
         return scripts
 
     def generate_css(self) -> list[str]:
