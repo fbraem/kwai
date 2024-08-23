@@ -1,0 +1,114 @@
+{
+  "_vendor-97e41b2b.js": {
+    "file": "assets/vendor-97e41b2b.js"
+  },
+  "images/hero.jpg": {
+    "file": "assets/hero-7d6583ab.jpg",
+    "src": "images/hero.jpg"
+  },
+  "images/hero_club.jpg": {
+    "file": "assets/hero_club-163a0a1d.jpg",
+    "src": "images/hero_club.jpg"
+  },
+  "images/hero_judo.jpg": {
+    "file": "assets/hero_judo-98309ea4.jpg",
+    "src": "images/hero_judo.jpg"
+  },
+  "images/hero_news.jpg": {
+    "file": "assets/hero_news-7e409a2c.jpg",
+    "src": "images/hero_news.jpg"
+  },
+  "images/hero_shop.jpg": {
+    "file": "assets/hero_shop-b55abed0.jpg",
+    "src": "images/hero_shop.jpg"
+  },
+  "images/hero_tournaments.jpg": {
+    "file": "assets/hero_tournaments-59e5271e.jpg",
+    "src": "images/hero_tournaments.jpg"
+  },
+  "images/hero_trainings.jpg": {
+    "file": "assets/hero_trainings-47dcea06.jpg",
+    "src": "images/hero_trainings.jpg"
+  },
+  "src/components/icons/FacebookIcon.vue": {
+    "file": "assets/FacebookIcon-44b697a2.js",
+    "imports": [
+      "src/index.ts",
+      "_vendor-97e41b2b.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/components/icons/FacebookIcon.vue"
+  },
+  "src/components/icons/InstagramIcon.vue": {
+    "file": "assets/InstagramIcon-ce6d9dfa.js",
+    "imports": [
+      "src/index.ts",
+      "_vendor-97e41b2b.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/components/icons/InstagramIcon.vue"
+  },
+  "src/components/icons/LoadingIcon.vue": {
+    "file": "assets/LoadingIcon-3b690cc8.js",
+    "imports": [
+      "src/index.ts",
+      "_vendor-97e41b2b.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/components/icons/LoadingIcon.vue"
+  },
+  "src/components/icons/NextIcon.vue": {
+    "file": "assets/NextIcon-771d3f7f.js",
+    "imports": [
+      "src/index.ts",
+      "_vendor-97e41b2b.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/components/icons/NextIcon.vue"
+  },
+  "src/components/icons/PrevIcon.vue": {
+    "file": "assets/PrevIcon-41277b2b.js",
+    "imports": [
+      "src/index.ts",
+      "_vendor-97e41b2b.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/components/icons/PrevIcon.vue"
+  },
+  "src/index.css": {
+    "file": "assets/index-ace45c09.css",
+    "src": "src/index.css"
+  },
+  "src/index.ts": {
+    "assets": [
+      "assets/hero-7d6583ab.jpg",
+      "assets/hero_club-163a0a1d.jpg",
+      "assets/hero_judo-98309ea4.jpg",
+      "assets/hero_news-7e409a2c.jpg",
+      "assets/hero_shop-b55abed0.jpg",
+      "assets/hero_tournaments-59e5271e.jpg",
+      "assets/hero_trainings-47dcea06.jpg"
+    ],
+    "css": [
+      "assets/index-ace45c09.css"
+    ],
+    "dynamicImports": [
+      "src/components/icons/FacebookIcon.vue",
+      "src/components/icons/InstagramIcon.vue",
+      "src/components/icons/LoadingIcon.vue",
+      "src/components/icons/NextIcon.vue",
+      "src/components/icons/PrevIcon.vue",
+      "src/components/icons/FacebookIcon.vue",
+      "src/components/icons/InstagramIcon.vue",
+      "src/components/icons/LoadingIcon.vue",
+      "src/components/icons/NextIcon.vue",
+      "src/components/icons/PrevIcon.vue"
+    ],
+    "file": "assets/index-533fa9ea.js",
+    "imports": [
+      "_vendor-97e41b2b.js"
+    ],
+    "isEntry": true,
+    "src": "src/index.ts"
+  }
+}
