@@ -68,7 +68,6 @@ const gotoPage = (id: string) => {
   <IntroSection
     :hero-image-url="heroImageUrl"
   >
-    <span class="text-white">{{ applicationName }}</span>
     <div class="container lg:max-w-5xl relative mx-auto flex h-full items-center">
       <div
         v-if="application"
