@@ -51,13 +51,6 @@ def create_frontend_app(frontend_app: FastAPI, settings: Settings, application: 
 
         Remark: the router:path is required for handling a refresh on a vue-router page.
         """
-        manifest_path = root_path / "manifest.json"
-        if not manifest_path.exists():
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Manifest file {manifest_path} not found",
-            )
-
         if not hasattr(settings.frontend.apps, app):
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
@@ -74,6 +67,12 @@ def create_frontend_app(frontend_app: FastAPI, settings: Settings, application: 
                 )
             vite = DevelopmentVite(app_setting.base_dev)
         else:
+            manifest_path = root_path / "manifest.json"
+            if not manifest_path.exists():
+                raise HTTPException(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    detail=f"Manifest file {manifest_path} not found",
+                )
             vite = ProductionVite(manifest_path, app_setting.base)
 
         return templates.TemplateResponse(
