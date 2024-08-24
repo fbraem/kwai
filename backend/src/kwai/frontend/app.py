@@ -19,8 +19,11 @@ from kwai.frontend.vite import DevelopmentVite, ProductionVite
 class FrontendApplicationName(str, Enum):
     """Defines all available frontend application names."""
 
-    portal = "portal"
+    auth = "auth"
+    author = "author"
+    club = "club"
     coach = "coach"
+    portal = "portal"
 
     @classmethod
     def list(cls):
