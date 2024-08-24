@@ -32,6 +32,7 @@ export default defineConfig(() => {
     },
     base: '/apps/auth/',
     server: {
+      origin: 'http://localhost:3002',
       host: '0.0.0.0',
       port: 3002,
     },

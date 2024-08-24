@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => {
     },
     base: '/apps/club/',
     server: {
+      origin: 'http://localhost:3004',
       host: '0.0.0.0',
       port: 3004,
     },

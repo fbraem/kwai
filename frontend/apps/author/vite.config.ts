@@ -19,6 +19,7 @@ export default defineConfig(({ mode }) => {
       pure: mode === 'production' ? ['console.log'] : [],
     },
     server: {
+      origin: 'http://localhost:3001',
       host: '0.0.0.0',
       port: 3001,
     },
