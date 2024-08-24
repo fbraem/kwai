@@ -5,6 +5,7 @@ from typing import AsyncGenerator, Self
 
 from kwai.core.domain.repository.query import Query
 from kwai.core.domain.value_objects.date import Date
+from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.teams.domain.team_member import MemberEntity, MemberIdentifier
 
 
@@ -18,6 +19,11 @@ class MemberQuery(Query, ABC):
     @abstractmethod
     def filter_by_id(self, id_: MemberIdentifier) -> Self:
         """Find a team member by its id."""
+        raise NotImplementedError
+
+    @abstractmethod
+    def filter_by_uuid(self, uuid: UniqueId) -> Self:
+        """Find a team member by its uuid."""
         raise NotImplementedError
 
     @abstractmethod

@@ -86,6 +86,10 @@ class MemberDbQuery(MemberQuery, DatabaseQuery):
             )
         return self
 
+    def filter_by_uuid(self, uuid: UniqueId) -> Self:
+        self._query.and_where(MemberRow.field("uuid").eq(str(uuid)))
+        return self
+
 
 class MemberDbRepository(MemberRepository):
     """A member repository for a database."""
