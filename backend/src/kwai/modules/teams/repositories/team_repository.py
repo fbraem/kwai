@@ -5,6 +5,7 @@ from typing import AsyncGenerator, Self
 
 from kwai.core.domain.repository.query import Query
 from kwai.modules.teams.domain.team import TeamEntity, TeamIdentifier
+from kwai.modules.teams.domain.team_member import TeamMember
 
 
 class TeamNotFoundException(Exception):
@@ -71,3 +72,7 @@ class TeamRepository(ABC):
     @abstractmethod
     async def update(self, team: TeamEntity) -> TeamEntity:
         """Update a team."""
+
+    @abstractmethod
+    async def add_team_member(self, team: TeamEntity, member: TeamMember):
+        """Add a member to a team."""

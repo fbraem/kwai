@@ -52,3 +52,12 @@ async def test_update_team(database: Database, make_team_in_db):
 
     team = await team_repo.get(team_repo.create_query().filter_by_id(team.id))
     assert team.remark == "This is a test.", "The team should be updated."
+
+
+async def test_add_team_member(database: Database, make_team_in_db, make_team_member):
+    """Test adding a team member to a team."""
+    team_repo = TeamDbRepository(database)
+    team = await make_team_in_db()
+    team_member = make_team_member()
+
+    await team_repo.add_team_member(team, team_member)

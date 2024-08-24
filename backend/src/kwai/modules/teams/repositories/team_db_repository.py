@@ -15,7 +15,11 @@ from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.core.functions import async_groupby
 from kwai.modules.club.domain.value_objects import Birthdate, Gender, License
 from kwai.modules.teams.domain.team import TeamEntity, TeamIdentifier
-from kwai.modules.teams.domain.team_member import MemberEntity, MemberIdentifier
+from kwai.modules.teams.domain.team_member import (
+    MemberEntity,
+    MemberIdentifier,
+    TeamMember,
+)
 from kwai.modules.teams.repositories._tables import (
     CountryRow,
     MemberPersonRow,
@@ -169,3 +173,7 @@ class TeamDbRepository(TeamRepository):
         await self._database.update(
             team.id.value, TeamRow.__table_name__, TeamRow.persist(team)
         )
+
+    async def add_team_member(self, team: TeamEntity, member: TeamMember):
+        team_member_row = TeamMemberRow.persist(team, member)
+        await self._database.insert(TeamMemberRow.__table_name__, team_member_row)

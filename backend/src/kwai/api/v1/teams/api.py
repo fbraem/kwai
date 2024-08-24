@@ -6,6 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from kwai.api.dependencies import create_database, get_current_user
 from kwai.api.v1.teams.presenters import (
+    JsonApiTeamMemberPresenter,
     JsonApiTeamMembersPresenter,
     JsonApiTeamPresenter,
     JsonApiTeamsPresenter,
@@ -15,9 +16,14 @@ from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
 from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.teams.create_team import CreateTeam, CreateTeamCommand
+from kwai.modules.teams.create_team_member import (
+    CreateTeamMember,
+    CreateTeamMemberCommand,
+)
 from kwai.modules.teams.delete_team import DeleteTeam, DeleteTeamCommand
 from kwai.modules.teams.get_team import GetTeam, GetTeamCommand
 from kwai.modules.teams.get_teams import GetTeams, GetTeamsCommand
+from kwai.modules.teams.repositories.member_db_repository import MemberDbRepository
 from kwai.modules.teams.repositories.team_db_repository import TeamDbRepository
 from kwai.modules.teams.update_team import UpdateTeam, UpdateTeamCommand
 from kwai.modules.training.teams.team_repository import TeamNotFoundException
@@ -121,4 +127,23 @@ async def get_team_members(
     presenter = JsonApiTeamMembersPresenter()
     command = GetTeamCommand(id=id)
     await GetTeam(TeamDbRepository(database), presenter).execute(command)
+    return presenter.get_document()
+
+
+@router.post("/teams/{id}/members", status_code=status.HTTP_201_CREATED)
+async def create_team_member(
+    id: int,
+    resource: TeamMemberDocument,
+    database: Annotated[Database, Depends(create_database)],
+) -> TeamMemberDocument:
+    """Add a member to the team with the given id."""
+    presenter = JsonApiTeamMemberPresenter()
+    command = CreateTeamMemberCommand(
+        team_id=id,
+        member_id=resource.data.id,
+        active=resource.data.attributes.active,
+    )
+    await CreateTeamMember(
+        TeamDbRepository(database), MemberDbRepository(database), presenter
+    ).execute(command)
     return presenter.get_document()

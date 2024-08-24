@@ -84,4 +84,4 @@ class TeamMember:
 
     active: bool
     member: MemberEntity
-    traceable_time: TraceableTime
+    traceable_time: TraceableTime = TraceableTime()

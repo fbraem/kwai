@@ -97,6 +97,17 @@ class TeamMemberRow(TableRow):
             ),
         )
 
+    @classmethod
+    def persist(cls, team: TeamEntity, team_member: TeamMember) -> Self:
+        """Persist a team member to the table row."""
+        return cls(
+            team_id=team.id.value,
+            member_id=team_member.member.id.value,
+            active=1 if team_member.active else 0,
+            created_at=team_member.traceable_time.created_at.timestamp,  # type: ignore[arg-type]
+            updated_at=team_member.traceable_time.updated_at.timestamp,
+        )
+
 
 @dataclass(kw_only=True, frozen=True, slots=True)
 class CountryRow(TableRow):

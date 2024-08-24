@@ -4,6 +4,7 @@ from kwai.api.v1.teams.schemas import TeamDocument, TeamMemberDocument
 from kwai.core.domain.presenter import AsyncPresenter, IterableResult, Presenter
 from kwai.core.json_api import JsonApiPresenter, Meta
 from kwai.modules.teams.domain.team import TeamEntity
+from kwai.modules.teams.domain.team_member import TeamMember
 
 
 class JsonApiTeamPresenter(JsonApiPresenter[TeamDocument], Presenter[TeamEntity]):
@@ -41,3 +42,12 @@ class JsonApiTeamMembersPresenter(
         for member in use_case_result.members:
             team_member_document = TeamMemberDocument.create(member)
             self._document.merge(team_member_document)
+
+
+class JsonApiTeamMemberPresenter(
+    JsonApiPresenter[TeamMemberDocument], Presenter[TeamMember]
+):
+    """A presenter that transforms a team member into a JSON:API document."""
+
+    def present(self, use_case_result: TeamMember) -> None:
+        self._document = TeamMemberDocument.create(use_case_result)

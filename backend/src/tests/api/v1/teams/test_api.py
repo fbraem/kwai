@@ -64,3 +64,43 @@ async def test_update_team(secure_client: TestClient, make_team_in_db):
     assert (
         response.json()["data"]["attributes"]["remark"] == "This is a test"
     ), "The team should be updated."
+
+
+async def test_get_team_members(secure_client: TestClient, make_team_in_db):
+    """Test /api/v1/teams/<id>/members endpoint for getting a team's members."""
+    team = await make_team_in_db()
+    response = secure_client.get(f"/api/v1/teams/{team.id}/members")
+    assert response.status_code == status.HTTP_200_OK
+
+
+async def test_create_team_member(
+    secure_client: TestClient, make_team_in_db, make_member_in_db
+):
+    """Test /api/v1/teams/<id>/members endpoint for creating a team's member."""
+    team = await make_team_in_db()
+    member = await make_member_in_db()
+    payload = {
+        "data": {
+            "type": "team_members",
+            "id": str(member.uuid),
+            "attributes": {
+                "active": True,
+                "first_name": member.person.name.first_name,
+                "last_name": member.person.name.last_name,
+                "license_number": member.license.number,
+                "license_end_date": str(member.license.end_date),
+                "gender": member.person.gender.value,
+                "birthdate": str(member.person.birthdate),
+            },
+            "relationships": {
+                "nationality": {
+                    "data": {
+                        "type": "countries",
+                        "id": str(member.person.nationality.id),
+                    }
+                }
+            },
+        }
+    }
+    response = secure_client.post(f"/api/v1/teams/{team.id}/members", json=payload)
+    assert response.status_code == status.HTTP_201_CREATED, response.json()
