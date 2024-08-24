@@ -24,8 +24,11 @@ class FrontendApplicationSettings(BaseModel):
 class FrontendApplications(BaseModel):
     """All applications."""
 
-    portal: FrontendApplicationSettings
+    auth: FrontendApplicationSettings
+    author: FrontendApplicationSettings
+    club: FrontendApplicationSettings
     coach: FrontendApplicationSettings
+    portal: FrontendApplicationSettings
 
 
 class FrontendSettings(BaseModel):
