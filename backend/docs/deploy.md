@@ -53,9 +53,29 @@ cd backend/migrations
 dbmate -d . -u "<database_uri>" up
 ````
 
-## Step 4: Run
+## Step 4: Frontend
 
-To start the application use the following command:
+Build the frontend with `npm run build.` This will result in a folder `dist` in all the frontend applications.
+FastAPI will be used to render the frontend. Add all applications to the `.kwai.toml` configuration file:
+
+````toml
+[frontend]
+path = "/home/kwai/frontend"
+root_app = "portal"
+
+[frontend.apps]
+
+[frontend.apps.portal]
+base="/apps/portal"
+entries="/src/index.ts"
+````
+
+In this example there should be a `/home/kwai/frontend/apps/portal/dist` folder that contains the result of the
+build command.
+
+## Step 5: Run
+
+To start the backend application use the following command:
 
 ````shell
 cd backend/src
