@@ -43,7 +43,7 @@ const logout = () => {
             </KwaiButton>
           </div>
           <div v-else>
-            <KwaiButton :url="`${website.url}/apps/auth/login`">
+            <KwaiButton :href="`${website.url}/apps/auth/login`">
               Login
             </KwaiButton>
           </div>
