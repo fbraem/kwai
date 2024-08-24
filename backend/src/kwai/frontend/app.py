@@ -54,7 +54,7 @@ def create_frontend_app(frontend_app: FastAPI, settings: Settings, application: 
         manifest_path = root_path / "manifest.json"
         if not manifest_path.exists():
             raise HTTPException(
-                status_code=status.INTERNAL_SERVER_ERROR,
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Manifest file {manifest_path} not found",
             )
 
