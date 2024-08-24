@@ -55,7 +55,14 @@ dbmate -d . -u "<database_uri>" up
 
 ## Step 4: Frontend
 
-Build the frontend with `npm run build.` This will result in a folder `dist` in all the frontend applications.
+Build the frontend :
+
+````shell
+cd frontend
+npm run build
+````
+
+This will result in a folder `dist` in all the frontend applications.
 FastAPI will be used to render the frontend. Add all applications to the `.kwai.toml` configuration file:
 
 ````toml
