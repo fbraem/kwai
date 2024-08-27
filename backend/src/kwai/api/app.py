@@ -19,13 +19,15 @@ from kwai.api.v1.teams.api import router as teams_api_router
 from kwai.api.v1.trainings.api import api_router as training_api_router
 from kwai.core.settings import LoggerSettings, Settings, get_settings
 
+APP_NAME = "kwai API"
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Log the start/stop of the application."""
-    logger.info("kwai is starting")
+    logger.info(f"{APP_NAME} is starting")
     yield
-    logger.warning("kwai has ended!")
+    logger.warning(f"{APP_NAME} has ended!")
 
 
 def configure_logger(settings: LoggerSettings):
@@ -59,7 +61,7 @@ def configure_logger(settings: LoggerSettings):
     )
 
 
-def create_app(settings: Settings | None = None) -> FastAPI:
+def create_api(settings: Settings | None = None) -> FastAPI:
     """Create the FastAPI application.
 
     Args:

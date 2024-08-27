@@ -89,15 +89,11 @@ def create_frontend():
     """Create the frontend."""
     frontend_app = FastAPI()
 
-    @frontend_app.get("/")
-    async def get_root(settings: Annotated[Settings, Depends(get_settings)]):
-        """Redirect the root path to the portal application."""
-        return RedirectResponse(f"/apps/{settings.frontend.root_app}")
-
     @frontend_app.middleware("http")
     async def log(request: Request, call_next):
         """Middleware for logging the requests."""
         request_id = str(uuid.uuid4())
+        print("LOGGING!!!")
         with logger.contextualize(request_id=request_id):
             logger.info(f"{request.url} - {request.method} - Request started")
 
@@ -121,6 +117,11 @@ def create_frontend():
                 )
 
             return response
+
+    @frontend_app.get("/")
+    async def get_root(settings: Annotated[Settings, Depends(get_settings)]):
+        """Redirect the root path to the portal application."""
+        return RedirectResponse(f"/apps/{settings.frontend.root_app}")
 
     kwai_settings = get_settings()
     for application in FrontendApplicationName.list():
