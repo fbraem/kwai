@@ -1,31 +1,38 @@
-"""Module for starting the api server."""
-import argparse
+"""Module for starting the api server.
+
+This will only start the api server. Use this when the frontend is not served
+by FastAPI or if the api server is running on another server.
+"""
+
+from contextlib import asynccontextmanager
 
 import uvicorn
+from fastapi import FastAPI
+from loguru import logger
+
+from kwai.core.args import create_args
+
+APP_NAME = "kwai API"
 
 
-def create_args():
-    """Parse and create cli arguments."""
-    parser = argparse.ArgumentParser(description="kwai backend")
-    parser.add_argument(
-        "--reload",
-        action=argparse.BooleanOptionalAction,
-        help="Watch for code changes or not",
-    )
-    parser.add_argument(
-        "--host", type=str, default="0.0.0.0", help="The host of the api server."
-    )
-    parser.add_argument(
-        "--port", type=int, default=8000, help="The port of the api server."
-    )
-    return parser.parse_args()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Log the start/stop of the API application.
+
+    Remark: This will only be executed when kwai API is the main application.
+    """
+    logger.info(f"{APP_NAME} is starting")
+    yield
+    logger.warning(f"{APP_NAME} has ended!")
 
 
-args = create_args()
+api_app = FastAPI(title="kwai API", lifespan=lifespan)
+
+
+args = create_args(APP_NAME)
 uvicorn.run(
-    "kwai.api.app:create_app",
+    api_app,
     host=args.host,
     port=args.port,
-    factory=True,
     reload=args.reload,
 )
