@@ -93,7 +93,6 @@ def create_frontend():
     async def log(request: Request, call_next):
         """Middleware for logging the requests."""
         request_id = str(uuid.uuid4())
-        print("LOGGING!!!")
         with logger.contextualize(request_id=request_id):
             logger.info(f"{request.url} - {request.method} - Request started")
 
