@@ -22,6 +22,7 @@ async def lifespan(app: FastAPI):
 def create_app() -> FastAPI:
     """Create the FastAPI application for API and frontend."""
     main_app = FastAPI(title=APP_NAME, lifespan=lifespan)
+
     api_app = create_api()
     main_app.mount("/api", api_app)
 

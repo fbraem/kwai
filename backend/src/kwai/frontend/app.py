@@ -1,88 +1,12 @@
 """Module that defines a sub application for handling the frontend."""
 
 import uuid
-from enum import Enum
-from pathlib import Path
-from typing import Annotated
 
-from fastapi import Depends, FastAPI, HTTPException, Request, status
-from fastapi.responses import JSONResponse, RedirectResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
+from fastapi import FastAPI, Request, status
+from fastapi.responses import JSONResponse
 from loguru import logger
 
-from kwai.api.dependencies import create_templates
-from kwai.core.settings import Settings, get_settings
-from kwai.frontend.vite import DevelopmentVite, ProductionVite
-
-
-class FrontendApplicationName(str, Enum):
-    """Defines all available frontend application names."""
-
-    auth = "auth"
-    author = "author"
-    club = "club"
-    coach = "coach"
-    portal = "portal"
-
-    @classmethod
-    def list(cls):
-        """List all available frontend application names."""
-        return [c.value for c in cls]
-
-
-def create_frontend_app(frontend_app: FastAPI, settings: Settings, application: str):
-    """Create a frontend for an application."""
-    # Public files
-    root_path = Path(settings.frontend.path) / "apps" / application / "dist"
-    frontend_app.mount(f"/apps/{application}/public", StaticFiles(directory=root_path))
-    # Assets
-    frontend_app.mount(
-        f"/apps/{application}/assets", StaticFiles(directory=root_path / "assets")
-    )
-
-    @frontend_app.get("/apps/{app}/{router:path}")
-    async def get_app(
-        request: Request,
-        templates: Annotated[Jinja2Templates, Depends(create_templates)],
-        app: FrontendApplicationName,
-    ):
-        """Get the html page for a given frontend application.
-
-        Remark: the router:path is required for handling a refresh on a vue-router page.
-        """
-        if not hasattr(settings.frontend.apps, app):
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"Application {app} does not exist.",
-            )
-
-        app_setting = getattr(settings.frontend.apps, app)
-
-        if settings.frontend.test:
-            if app_setting.base_dev is None:
-                raise HTTPException(
-                    status_code=status.HTTP_400_BAD_REQUEST,
-                    detail=f"Setting base_dev not set for application {app}",
-                )
-            vite = DevelopmentVite(app_setting.base_dev)
-        else:
-            manifest_path = root_path / "manifest.json"
-            if not manifest_path.exists():
-                raise HTTPException(
-                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                    detail=f"Manifest file {manifest_path} not found",
-                )
-            vite = ProductionVite(manifest_path, app_setting.base)
-
-        return templates.TemplateResponse(
-            "index.jinja2",
-            {
-                "request": request,
-                "settings": settings,
-                "vite": vite,
-            },
-        )
+from kwai.frontend.apps import apps_router, portal_router
 
 
 def create_frontend():
@@ -117,13 +41,7 @@ def create_frontend():
 
             return response
 
-    @frontend_app.get("/")
-    async def get_root(settings: Annotated[Settings, Depends(get_settings)]):
-        """Redirect the root path to the portal application."""
-        return RedirectResponse(f"/apps/{settings.frontend.root_app}")
-
-    kwai_settings = get_settings()
-    for application in FrontendApplicationName.list():
-        create_frontend_app(frontend_app, kwai_settings, application)
+    frontend_app.include_router(apps_router, prefix="/apps")
+    frontend_app.include_router(portal_router)
 
     return frontend_app
