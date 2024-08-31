@@ -15,5 +15,4 @@ apps_router.include_router(auth_router)
 apps_router.include_router(author_router)
 apps_router.include_router(club_router)
 apps_router.include_router(coach_router)
-
-__all__ = ["apps_router", "portal_router"]
+apps_router.include_router(portal_router)

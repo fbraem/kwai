@@ -14,7 +14,7 @@ from kwai.frontend.vite import Vite
 
 APP_NAME = "portal"
 
-router = APIRouter()
+router = APIRouter(prefix=f"/{APP_NAME}")
 
 _portal_dependency = FrontendApplicationDependency(APP_NAME)
 _portal_vite_dependency = ViteDependency(APP_NAME)
@@ -35,6 +35,7 @@ async def get_app(
     app_settings: Annotated[FrontendApplicationSettings, Depends(_portal_dependency)],
     vite: Annotated[Vite, Depends(_portal_vite_dependency)],
 ):
+    print("Portal???")
     return templates.TemplateResponse(
         "index.jinja2",
         {

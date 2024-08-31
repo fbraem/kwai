@@ -28,7 +28,7 @@ export default defineConfig(() => {
         }
       },
     },
-    base: '/apps/portal',
+    base: '/apps/portal/',
     server: {
       origin: 'http://localhost:3000',
       host: '0.0.0.0',

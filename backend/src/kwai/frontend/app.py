@@ -1,12 +1,14 @@
 """Module that defines a sub application for handling the frontend."""
 
 import uuid
+from typing import Annotated
 
-from fastapi import FastAPI, Request, status
-from fastapi.responses import JSONResponse
+from fastapi import Depends, FastAPI, Request, status
+from fastapi.responses import JSONResponse, RedirectResponse
 from loguru import logger
 
-from kwai.frontend.apps import apps_router, portal_router
+from kwai.core.settings import Settings, get_settings
+from kwai.frontend.apps import apps_router
 
 
 def create_frontend():
@@ -42,6 +44,9 @@ def create_frontend():
             return response
 
     frontend_app.include_router(apps_router, prefix="/apps")
-    frontend_app.include_router(portal_router)
+
+    @frontend_app.get("/")
+    def root(settings: Annotated[Settings, Depends(get_settings)]):
+        return RedirectResponse(f"/apps/{settings.frontend.root_app}")
 
     return frontend_app
