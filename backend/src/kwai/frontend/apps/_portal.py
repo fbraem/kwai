@@ -35,7 +35,6 @@ async def get_app(
     app_settings: Annotated[FrontendApplicationSettings, Depends(_portal_dependency)],
     vite: Annotated[Vite, Depends(_portal_vite_dependency)],
 ):
-    print("Portal???")
     return templates.TemplateResponse(
         "index.jinja2",
         {
