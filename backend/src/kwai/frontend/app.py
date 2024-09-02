@@ -1,6 +1,7 @@
 """Module that defines a sub application for handling the frontend."""
 
 import uuid
+from pathlib import Path
 from typing import Annotated
 
 from fastapi import Depends, FastAPI, Request, status
@@ -45,8 +46,27 @@ def create_frontend():
 
     frontend_app.include_router(apps_router, prefix="/apps")
 
+    @frontend_app.get("/news/{path:path}")
+    def news(path: Path, settings: Annotated[Settings, Depends(get_settings)]):
+        """Redirect the news path to the portal application.
+
+        When FastAPI serves the frontend, the root path can't be used for the portal.
+        So redirect this url to the root application.
+        """
+        return RedirectResponse(f"/apps/{settings.frontend.root_app}/news/{path}")
+
+    @frontend_app.get("/pages/{path:path}")
+    def pages(path: Path, settings: Annotated[Settings, Depends(get_settings)]):
+        """Redirect the pages path to the portal application.
+
+        When FastAPI serves the frontend, the root path can't be used for the portal.
+        So redirect this url to the root application.
+        """
+        return RedirectResponse(f"/apps/{settings.frontend.root_app}/pages/{path}")
+
     @frontend_app.get("/")
     def root(settings: Annotated[Settings, Depends(get_settings)]):
+        """Redirect index to the portal application."""
         return RedirectResponse(f"/apps/{settings.frontend.root_app}")
 
     return frontend_app
