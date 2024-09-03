@@ -8,8 +8,6 @@ from kwai.frontend.apps._club import router as club_router
 from kwai.frontend.apps._coach import router as coach_router
 from kwai.frontend.apps._portal import router as portal_router
 
-# All routers, except for the portal, because that will be added as root by the frontend
-# application.
 apps_router = APIRouter()
 apps_router.include_router(auth_router)
 apps_router.include_router(author_router)
