@@ -20,3 +20,8 @@ members_upload:
       Opgelet er zijn fouten gevonden in het opgeladen bestand!
     row: Rij
     description: Omschrijving
+teams:
+  title: Teams
+  error: Er is een fout gebeurd tijdens het ophalen van de teams.
+  name: Naam
+  remark: Opmerking

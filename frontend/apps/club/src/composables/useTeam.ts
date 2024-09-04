@@ -1,0 +1,90 @@
+import type { Team } from '@root/types/team';
+import { JsonApiData, JsonApiDocument, useHttpApi } from '@kwai/api';
+import { z } from 'zod';
+import { type Ref, ref, toValue } from 'vue';
+import { useQuery } from '@tanstack/vue-query';
+
+export interface Teams {
+  meta: {
+    count: number,
+    offset: number,
+    limit: number
+  },
+  items: Team[]
+}
+
+const TeamResourceSchema = JsonApiData.extend({
+  type: z.literal('teams'),
+  attributes: z.object({
+    name: z.string(),
+    active: z.boolean(),
+    remark: z.string(),
+  }),
+});
+
+type TeamResource = z.infer<typeof TeamResourceSchema>;
+
+export const TeamDocumentSchema = JsonApiDocument.extend({
+  data: z.union([
+    TeamResourceSchema,
+    z.array(TeamResourceSchema).default([]),
+  ]),
+});
+type TeamDocument = z.infer<typeof TeamDocumentSchema>;
+
+const transform = (doc: TeamDocument) : Team | Teams => {
+  const mapModel = (data: TeamResource): Team => {
+    return {
+      id: data.id,
+      name: data.attributes.name,
+      active: data.attributes.active,
+      remark: data.attributes.remark,
+    };
+  };
+  if (Array.isArray(doc.data)) {
+    return {
+      meta: {
+        count: doc.meta?.count || 0,
+        offset: doc.meta?.offset || 0,
+        limit: doc.meta?.limit || 0,
+      },
+      items: doc.data.map(mapModel),
+    };
+  }
+  return mapModel(doc.data);
+};
+
+const getTeams = async({
+  offset = null,
+  limit = null,
+} : {
+  offset?: number | null,
+  limit?: number | null,
+}) => {
+  let api = useHttpApi().url('/v1/teams');
+  if (offset) {
+    api = api.query({ 'page[offset]': offset });
+  }
+  if (limit) {
+    api = api.query({ 'page[limit]': limit });
+  }
+  return api.get().json().then(json => {
+    const result = TeamDocumentSchema.safeParse(json);
+    if (result.success) {
+      return transform(result.data) as Teams;
+    }
+    console.log(result.error);
+    throw result.error;
+  });
+};
+
+export const useTeams = ({ offset = ref(0), limit = ref(0) } : { offset?: Ref<number>, limit?: Ref<number>}) => {
+  const queryKey : { offset: Ref<number>, limit: Ref<number> } = { offset, limit };
+  return useQuery({
+    queryKey: ['club/teams', queryKey],
+    queryFn: () => getTeams({
+      offset: toValue(offset),
+      limit: toValue(limit),
+    }),
+  });
+};
