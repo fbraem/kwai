@@ -25,3 +25,4 @@ teams:
   error: Er is een fout gebeurd tijdens het ophalen van de teams.
   name: Naam
   remark: Opmerking
+  members: Leden

@@ -33,7 +33,7 @@ const { data: teams, isPending, isError } = useTeams({});
         v-else-if="teams"
         class="w-full text-sm text-left"
       >
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <thead class="text-xs text-gray-700 uppercase bg-primary-100">
           <tr>
             <th
               scope="col"
@@ -49,11 +49,18 @@ const { data: teams, isPending, isError } = useTeams({});
               scope="col"
               class="px-6 py-3"
             >
+              {{ t('teams.members') }}
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3"
+            >
               {{ t('teams.remark') }}
             </th>
+            <th />
           </tr>
         </thead>
-        <tbody>
+        <tbody class="divide-y divide-primary-100">
           <tr
             v-for="team in teams.items"
             :key="team.id"
@@ -72,7 +79,13 @@ const { data: teams, isPending, isError } = useTeams({});
               {{ team.name }}
             </td>
             <td class="px-6 py-4">
+              {{ team.members.length }}
+            </td>
+            <td class="px-6 py-4">
               {{ team.remark }}
+            </td>
+            <td class="px-6 py-4">
+              Edit
             </td>
           </tr>
         </tbody>
