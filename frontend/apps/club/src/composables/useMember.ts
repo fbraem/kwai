@@ -4,6 +4,7 @@ import { type Ref, ref, toValue } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 import { z } from 'zod';
 import type { Member } from '@root/types/member';
+import { CountryResourceSchema } from '@root/composables/useCountry';
 
 export interface Members {
   meta: { count: number, offset: number, limit: number },
@@ -66,16 +67,6 @@ const ContactResourceSchema = JsonApiData.extend({
   }),
 });
 type ContactResource = z.infer<typeof ContactResourceSchema>;
-
-const CountryResourceSchema = JsonApiData.extend({
-  type: z.literal('countries'),
-  attributes: z.object({
-    iso_2: z.string(),
-    iso_3: z.string(),
-    name: z.string(),
-  }),
-});
-type CountryResource = z.infer<typeof CountryResourceSchema>;
 
 export const MemberDocumentSchema = JsonApiDocument.extend({
   data: z.union([
