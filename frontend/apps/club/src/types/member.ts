@@ -1,7 +1,7 @@
 import type { DateType } from '@kwai/date';
 import type { Person } from './person';
 
-interface License {
+export interface License {
   number: string,
   end_date: DateType
 }
