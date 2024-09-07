@@ -1,8 +1,22 @@
-import type { Team } from '@root/types/team';
-import { JsonApiData, JsonApiDocument, useHttpApi } from '@kwai/api';
+import type { Team, TeamMember } from '@root/types/team';
+import {
+  JsonApiData,
+  JsonApiDocument,
+  JsonResourceIdentifier,
+  transformResourceArrayToObject,
+  useHttpApi,
+} from '@kwai/api';
 import { z } from 'zod';
 import { type Ref, ref, toValue } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
+import { CountryResourceSchema } from '@root/composables/useCountry';
+
+const TeamMemberSchema = JsonApiData.extend({
+  type: z.literal('team_members'),
+  attributes: z.object({
+    name: z.string(),
+  }),
+});
 
 export interface Teams {
   meta: {
@@ -20,6 +34,11 @@ const TeamResourceSchema = JsonApiData.extend({
     active: z.boolean(),
     remark: z.string(),
   }),
+  relationships: z.object({
+    team_members: z.object({
+      data: z.array(JsonResourceIdentifier).default([]),
+    }),
+  }),
 });
 
 type TeamResource = z.infer<typeof TeamResourceSchema>;
@@ -27,18 +46,44 @@ type TeamResource = z.infer<typeof TeamResourceSchema>;
 export const TeamDocumentSchema = JsonApiDocument.extend({
   data: z.union([
     TeamResourceSchema,
-    z.array(TeamResourceSchema).default([]),
+    z.array(TeamResourceSchema),
   ]),
+  included: z.array(z.union([TeamMemberSchema, CountryResourceSchema])).default([]),
 });
-type TeamDocument = z.infer<typeof TeamDocumentSchema>;
+export type TeamDocument = z.infer<typeof TeamDocumentSchema>;
 
-const transform = (doc: TeamDocument) : Team | Teams => {
-  const mapModel = (data: TeamResource): Team => {
+export const transform = (doc: TeamDocument) : Team | Teams => {
+  const included = transformResourceArrayToObject(doc.included);
+  const mapModel = (teamResource: TeamResource): Team => {
+    const teamMembers: TeamMember[] = [];
+    for (const teamMemberIdentifier of teamResource.relationships.team_members.data) {
+      const teamMember = included[teamMemberIdentifier.type][teamMemberIdentifier.id];
+      const nationality = included[teamMember.relationships.nationality.data.type][teamMember.relationships.nationality.data.id];
+      teamMembers.push(
+        {
+          id: teamMemberIdentifier.id,
+          name: teamMember.attributes.name,
+          license: {
+            number: teamMember.attributes.license_number,
+            end_date: teamMember.attributes.license_end_date,
+          },
+          gender: teamMember.attributes.gender,
+          birthdate: teamMember.attributes.birthdate,
+          nationality: {
+            iso_2: nationality.attributes.iso_2,
+            iso_3: nationality.attributes.iso_3,
+            name: nationality.attributes.name,
+          },
+        }
+      );
+    }
+
     return {
-      id: data.id,
-      name: data.attributes.name,
-      active: data.attributes.active,
-      remark: data.attributes.remark,
+      id: teamResource.id,
+      name: teamResource.attributes.name,
+      active: teamResource.attributes.active,
+      remark: teamResource.attributes.remark,
+      members: teamMembers,
     };
   };
   if (Array.isArray(doc.data)) {
