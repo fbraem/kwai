@@ -6,7 +6,7 @@
     "@kwai/api": "*",
     "@kwai/config": "*",
     "@kwai/ui": "*",
-    "@vueuse/core": "^10.9.0",
+    "@vueuse/core": "11.0.3",
     "pinia": "^2.1.7",
     "vee-validate": "^4.12.6",
     "vue": "^3.4.25",
