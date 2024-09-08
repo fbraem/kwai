@@ -11,6 +11,7 @@ export const JsonResourceIdentifier = z.object({
   id: z.optional(z.string()),
   type: z.string(),
 });
+export type JsonResourceIdentifierType = z.infer<typeof JsonResourceIdentifier>;
 
 export const JsonApiRelationship = z.object({
   data: z.union([JsonResourceIdentifier, z.array(JsonResourceIdentifier)]),
