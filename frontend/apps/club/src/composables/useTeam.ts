@@ -1,8 +1,8 @@
 import type { Team, TeamMember } from '@root/types/team';
 import {
   JsonApiData,
-  JsonApiDocument,
-  JsonResourceIdentifier,
+  JsonApiDocument, JsonResourceIdentifier,
+  type JsonResourceIdentifierType,
   transformResourceArrayToObject,
   useHttpApi,
 } from '@kwai/api';
@@ -57,11 +57,12 @@ export const transform = (doc: TeamDocument) : Team | Teams => {
   const mapModel = (teamResource: TeamResource): Team => {
     const teamMembers: TeamMember[] = [];
     for (const teamMemberIdentifier of teamResource.relationships.team_members.data) {
-      const teamMember = included[teamMemberIdentifier.type][teamMemberIdentifier.id];
-      const nationality = included[teamMember.relationships.nationality.data.type][teamMember.relationships.nationality.data.id];
+      const teamMember = included[teamMemberIdentifier.type][teamMemberIdentifier.id as string];
+      const countryResourceId = teamMember.relationships!.nationality.data as JsonResourceIdentifierType;
+      const nationality = included[countryResourceId.type][countryResourceId.id as string];
       teamMembers.push(
         {
-          id: teamMemberIdentifier.id,
+          id: teamMemberIdentifier.id as string,
           name: teamMember.attributes.name,
           license: {
             number: teamMember.attributes.license_number,
@@ -70,8 +71,8 @@ export const transform = (doc: TeamDocument) : Team | Teams => {
           gender: teamMember.attributes.gender,
           birthdate: teamMember.attributes.birthdate,
           nationality: {
-            iso_2: nationality.attributes.iso_2,
-            iso_3: nationality.attributes.iso_3,
+            iso2: nationality.attributes.iso_2,
+            iso3: nationality.attributes.iso_3,
             name: nationality.attributes.name,
           },
         }
