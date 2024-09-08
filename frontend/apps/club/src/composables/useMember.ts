@@ -4,7 +4,7 @@ import { type Ref, ref, toValue } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 import { z } from 'zod';
 import type { Member } from '@root/types/member';
-import { CountryResourceSchema } from '@root/composables/useCountry';
+import { type CountryResource, CountryResourceSchema } from '@root/composables/useCountry';
 
 export interface Members {
   meta: { count: number, offset: number, limit: number },
