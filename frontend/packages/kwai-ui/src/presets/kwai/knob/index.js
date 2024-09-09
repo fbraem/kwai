@@ -26,13 +26,13 @@ export default {
             'animate-dash-frame',
 
             // Color
-            'stroke-primary-500 dark:stroke-primary-400',
+            'stroke-primary',
 
             // Fill
             'fill-none'
         ]
     },
-    label: {
+    text: {
         class: [
             // Text Style
             'text-center text-xl',

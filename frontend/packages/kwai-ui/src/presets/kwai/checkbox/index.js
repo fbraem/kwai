@@ -34,7 +34,7 @@ export default {
             // Colors
             {
                 'border-surface-200 bg-surface-0 dark:border-surface-700 dark:bg-surface-900': !context.checked && !props.invalid,
-                'border-primary-500 bg-primary-500 dark:border-primary-400 dark:bg-primary-400': context.checked
+                'border-primary bg-primary': context.checked
             },
 
             // Invalid State
@@ -42,8 +42,8 @@ export default {
 
             // States
             {
-                'peer-hover:border-primary-500 dark:peer-hover:border-primary-400': !props.disabled && !context.checked && !props.invalid,
-                'peer-hover:bg-primary-600 dark:peer-hover:bg-primary-300 peer-hover:border-primary-700 dark:peer-hover:border-primary-300': !props.disabled && context.checked,
+                'peer-hover:border-primary': !props.disabled && !context.checked && !props.invalid,
+                'peer-hover:bg-primary-emphasis peer-hover:border-primary-emphasis': !props.disabled && context.checked,
                 'peer-focus-visible:border-primary-500 dark:peer-focus-visible:border-primary-400 peer-focus-visible:ring-2 peer-focus-visible:ring-primary-400/20 dark:peer-focus-visible:ring-primary-300/20': !props.disabled,
                 'cursor-default opacity-60': props.disabled
             },
@@ -81,7 +81,7 @@ export default {
             'cursor-pointer'
         ]
     },
-    icon: {
+    icon: ({ state, context }) => ({
         class: [
             // Font
             'text-base leading-none',
@@ -91,11 +91,14 @@ export default {
             'h-4',
 
             // Colors
-            'text-white dark:text-surface-900',
+            {
+                'text-white dark:text-surface-900': context.checked,
+                'text-primary': state.d_indeterminate
+            },
 
             // Transitions
             'transition-all',
             'duration-200'
         ]
-    }
+    })
 };

@@ -8,10 +8,10 @@ export default {
             { 'opacity-60 select-none pointer-events-none cursor-default': props.disabled }
         ]
     }),
-    input: {
+    preview: {
         class: [
             // Font
-            'font-sans text-base ',
+            'text-base ',
 
             // Spacing
             'm-0',
@@ -25,7 +25,7 @@ export default {
             'border border-surface-300 dark:border-surface-700',
 
             // States
-            'hover:border-primary-500 dark:hover:border-primary-400',
+            'hover:border-primary',
             'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-primary-400/50 dark:focus:ring-primary-300/50',
 
             // Transition
@@ -50,7 +50,7 @@ export default {
             'bg-surface-800 border-surface-900 dark:border-surface-600'
         ]
     }),
-    selector: {
+    colorSelector: {
         class: [
             // Position
             'absolute top-[8px] left-[8px]',
@@ -66,7 +66,7 @@ export default {
         ],
         style: 'background: linear-gradient(to top, #000 0%, rgb(0 0 0 / 0) 100%), linear-gradient(to right, #fff 0%, rgb(255 255 255 / 0) 100%)'
     },
-    colorhandle: {
+    colorHandle: {
         class: [
             'absolute',
 
@@ -99,7 +99,7 @@ export default {
         ],
         style: 'background: linear-gradient(0deg, red 0, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, red)'
     },
-    huehandle: {
+    hueHandle: {
         class: [
             // Position
             'absolute left-0 -ml-[2px] -mt-[5px]',

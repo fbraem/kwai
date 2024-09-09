@@ -15,19 +15,20 @@ export default {
             'dark:border dark:border-surface-700'
         ]
     },
-    menu: {
+    rootList: {
         class: [
             // Spacings and Shape
+            'flex flex-col',
             'list-none',
             'm-0',
             'p-0',
             'outline-none'
         ]
     },
-    menuitem: {
+    item: {
         class: 'relative'
     },
-    content: ({ context }) => ({
+    itemContent: ({ context }) => ({
         class: [
             //Shape
             'rounded-none',
@@ -36,8 +37,7 @@ export default {
             {
                 'text-surface-500 dark:text-white/70': !context.focused && !context.active,
                 'text-surface-500 dark:text-white/70 bg-surface-200 dark:bg-surface-600/90': context.focused && !context.active,
-                'text-primary-700 dark:text-surface-0/80 bg-primary-50 dark:bg-primary-400/30': context.focused && context.active,
-                'text-primary-700 dark:text-surface-0/80 bg-primary-50 dark:bg-primary-400/30': !context.focused && context.active
+                'bg-highlight': (context.focused && context.active) || context.active || (!context.focused && context.active)
             },
 
             // Transitions
@@ -47,14 +47,14 @@ export default {
             // States
             {
                 'hover:bg-surface-100 dark:hover:bg-surface-600/80': !context.active,
-                'hover:bg-primary-400/30 dark:hover:bg-primary-300/30 text-primary-700 dark:text-surface-0/80': context.active
+                'hover:bg-highlight-emphasis': context.active
             },
 
             // Disabled
             { 'opacity-60 pointer-events-none cursor-default': context.disabled }
         ]
     }),
-    action: {
+    itemLink: {
         class: [
             'relative',
             // Flexbox
@@ -76,7 +76,7 @@ export default {
             'select-none'
         ]
     },
-    icon: {
+    itemIcon: {
         class: [
             // Spacing
             'mr-2',
@@ -85,11 +85,12 @@ export default {
             'text-surface-600 dark:text-white/70'
         ]
     },
-    label: {
+    itemLabel: {
         class: ['leading-none']
     },
     submenu: ({ props }) => ({
         class: [
+            'flex flex-col',
             // Size
             'w-full sm:w-48',
 
@@ -112,7 +113,7 @@ export default {
             'bg-surface-0 dark:bg-surface-700'
         ]
     }),
-    submenuicon: {
+    submenuIcon: {
         class: ['ml-auto']
     },
     separator: {
