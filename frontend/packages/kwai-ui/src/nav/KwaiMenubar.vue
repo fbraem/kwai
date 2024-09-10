@@ -34,6 +34,7 @@ const menuItems = computed(() => {
         <a
           :href="href"
           v-bind="props.action"
+          class="flex items-center"
           @click="navigate"
         >
           <span :class="item.icon" />
@@ -56,12 +57,3 @@ const menuItems = computed(() => {
     </template>
   </Menubar>
 </template>
-
-<style>
-li[data-pc-section="menuitem"] {
-  @apply text-gray-700;
-}
-ul[data-pc-section="menu"] {
-  @apply bg-white;
-}
-</style>
