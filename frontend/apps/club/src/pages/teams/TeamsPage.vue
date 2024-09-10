@@ -47,7 +47,7 @@ const { data: teams, isPending, isError } = useTeams({});
             </th>
             <th
               scope="col"
-              class="px-6 py-3"
+              class="px-6 py-3 text-center"
             >
               {{ t('teams.members') }}
             </th>
@@ -78,7 +78,7 @@ const { data: teams, isPending, isError } = useTeams({});
             <td class="px-6 py-4">
               {{ team.name }}
             </td>
-            <td class="px-6 py-4">
+            <td class="px-6 py-4 text-center">
               {{ team.members.length }}
             </td>
             <td class="px-6 py-4">
