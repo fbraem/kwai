@@ -7,8 +7,12 @@ interface Props {
   to?: RouteRecord | LocationAsRelativeRaw,
   method?: () => void,
   small?: boolean,
+  primary?: boolean
 }
-const props = defineProps<Props>();
+const props = withDefaults(
+  defineProps<Props>(),
+  { to: undefined, method: undefined, small: false, primary: true }
+);
 
 const attrs = useAttrs();
 defineOptions({
@@ -31,6 +35,15 @@ const size = computed(() => props.small ? 'small' : undefined);
     <Button
       v-bind="$attrs"
       :size="size"
+      :pt="{
+        root: {
+          class: {
+            'bg-primary-500': primary,
+            'text-primary-text': primary,
+          }
+        }
+      }"
+      :pt-options="{ mergeSections: false, mergeProps: true }"
     >
       <slot />
     </Button>
@@ -39,6 +52,15 @@ const size = computed(() => props.small ? 'small' : undefined);
     v-else
     v-bind="$attrs"
     :size="size"
+    :pt="{
+      root: {
+        class: {
+          'bg-primary-500': primary,
+          'text-primary-text': primary,
+        }
+      }
+    }"
+    :pt-options="{ mergeSections: false, mergeProps: true }"
     @[clickAttr]="method"
   >
     <slot />
