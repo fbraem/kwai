@@ -46,6 +46,9 @@ const size = computed(() => props.small ? 'small' : undefined);
       :pt-options="{ mergeSections: false, mergeProps: true }"
     >
       <slot />
+      <template #icon>
+        <slot name="icon" />
+      </template>
     </Button>
   </component>
   <Button
@@ -64,6 +67,9 @@ const size = computed(() => props.small ? 'small' : undefined);
     @[clickAttr]="method"
   >
     <slot />
+    <template #icon>
+      <slot name="icon" />
+    </template>
   </Button>
 </template>
 
