@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import { website } from '@kwai/config';
+import { KwaiButton } from '@kwai/ui';
 </script>
 
 <template>
   <div class="flex flex-col place-items-end">
     <div>
-      <a
-        :href="`${website.url}/apps/auth/login`"
-        class="px-3 py-2 flex items-center bg-red-600 text-white hover:bg-white hover:text-red-600 hover:cursor-pointer border border-red-600"
-      >
+      <KwaiButton :href="`${website.url}/apps/auth/login`">
         Login
-      </a>
+      </KwaiButton>
     </div>
   </div>
 </template>
