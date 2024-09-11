@@ -10,6 +10,8 @@ import messages from '@intlify/unplugin-vue-i18n/messages';
 // Setup pinia store
 import { createPinia } from 'pinia';
 
+import { init } from '@kwai/ui';
+
 // Setup router
 import { createRouter, createWebHistory } from 'vue-router';
 import { routes } from './routes';
@@ -30,5 +32,6 @@ const router = createRouter({
   routes,
 });
 app.use(router);
+init(app);
 
 app.mount('#app');
