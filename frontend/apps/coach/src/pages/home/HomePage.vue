@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ContainerSection, ContainerSectionTitle, ContainerSectionContent, Card, CardTitle, ListIcon } from '@kwai/ui';
+import { ContainerSection, ContainerSectionTitle, ContainerSectionContent, Card, CardTitle, KwaiButton, ListIcon } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
 import TrainingDefinitionsCard from '@root/pages/home/components/TrainingDefinitionsCard.vue';
 const { t } = useI18n({ useScope: 'global' });

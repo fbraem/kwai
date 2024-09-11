@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Card, CardTitle, ListIcon } from '@kwai/ui';
+import { Card, CardTitle, ListIcon, KwaiButton } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n({ useScope: 'global' });
 </script>
