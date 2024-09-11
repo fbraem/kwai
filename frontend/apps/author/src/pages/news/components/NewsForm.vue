@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  Button,
+  KwaiButton,
   CheckBox,
   DatePicker,
   DateRangePicker,
@@ -282,13 +282,12 @@ const onSubmitForm = handleSubmit(async values => {
           </template>
         </CheckBox>
         <div class="flex flex-col items-end mt-6">
-          <Button
+          <KwaiButton
             id="submit"
-            class="bg-yellow-300 text-gray-600 border border-yellow-300 focus:bg-white focus:ring-2 focus:ring-yellow-300 hover:bg-white hover:border hover:border-yellow-300"
-            @click="onSubmitForm"
+            :method="onSubmitForm"
           >
             {{ t('news.form.sections.submit.fields.button.label') }}
-          </Button>
+          </KwaiButton>
         </div>
         <ErrorAlert v-if="errorMessage">
           {{ t('news.form.error') }}

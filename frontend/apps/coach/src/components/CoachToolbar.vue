@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { ToolbarLogo, ToolbarMenu, useMenu } from '@kwai/ui';
+import { KwaiButton, ToolbarLogo, ToolbarMenu, useMenu } from '@kwai/ui';
 import { website } from '@kwai/config';
 // eslint-disable-next-line import/no-absolute-path
 import logoUrl from '/logo.png';
-import PrimaryButton from '@root/components/PrimaryButton.vue';
 
 const menuItems = useMenu();
 </script>
@@ -28,9 +27,9 @@ const menuItems = useMenu();
         </div>
         <div class="flex flex-col place-items-end md:w-1/3">
           <div>
-            <PrimaryButton :url="`${website.url}/apps/auth/login`">
+            <KwaiButton :href="`${website.url}/apps/auth/login`">
               Login
-            </PrimaryButton>
+            </KwaiButton>
           </div>
         </div>
       </div>

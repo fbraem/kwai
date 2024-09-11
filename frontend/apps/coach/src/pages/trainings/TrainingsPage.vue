@@ -12,9 +12,9 @@ import {
   CancelIcon,
   CheckIcon,
   EditIcon,
+  KwaiButton,
   TextBadge,
 } from '@kwai/ui';
-import PrimaryButton from '@root/components/PrimaryButton.vue';
 import { createDate, createFromDate, now } from '@kwai/date';
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -103,16 +103,13 @@ const setToCurrent = () => {
               :format="format"
               auto-apply
             />
-            <PrimaryButton :method="setToCurrent">
+            <KwaiButton :method="setToCurrent">
               <NowIcon class="w-4 fill-current" />
-            </PrimaryButton>
-            <PrimaryButton
-              :route="{ name: 'coach.trainings.create' }"
-              class="flex items-center"
-            >
+            </KwaiButton>
+            <KwaiButton :to="{ name: 'coach.trainings.create' }">
               <NewIcon class="w-4 mr-2 fill-current" />
               {{ t('trainings.banner.button') }}
-            </PrimaryButton>
+            </KwaiButton>
           </div>
         </template>
       </ContainerSectionBanner>
@@ -188,12 +185,9 @@ const setToCurrent = () => {
                   />
                 </td>
                 <td class="px-6 py-4">
-                  <router-link
-                    :to="{ name: 'coach.trainings.edit', params: { id: training.id } }"
-                    class="border-none text-base inline-flex justify-center items-center align-middle no-underline rounded-full cursor-pointer focus:outline-none hover:no-underline hover:bg-orange-500 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed p-2"
-                  >
+                  <KwaiButton :to="{ name: 'coach.trainings.edit', params: { id: training.id } }">
                     <EditIcon class="w-4 fill-current" />
-                  </router-link>
+                  </KwaiButton>
                 </td>
               </tr>
             </template>

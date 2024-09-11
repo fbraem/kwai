@@ -6,10 +6,13 @@ import {
   ContainerSectionTitle,
   ContainerSectionContent,
   ErrorAlert,
+  KwaiButton,
   LoadingIcon,
   CheckIcon,
   CancelIcon,
+  EditIcon,
 } from '@kwai/ui';
+import AddMemberIcon from '@root/components/icons/AddMemberIcon.vue';
 
 const { t } = useI18n({ useScope: 'global' });
 const { data: teams, isPending, isError } = useTeams({});
@@ -84,8 +87,17 @@ const { data: teams, isPending, isError } = useTeams({});
             <td class="px-6 py-4">
               {{ team.remark }}
             </td>
-            <td class="px-6 py-4">
-              Edit
+            <td class="px-6 py-4 flex flex-col space-y-1 sm:flex-row sm:space-y-0 sm:space-x-1 sm:justify-end">
+              <KwaiButton class="w-12">
+                <template #icon>
+                  <EditIcon class="w-4 fill-current" />
+                </template>
+              </KwaiButton>
+              <KwaiButton class="w-12">
+                <template #icon>
+                  <AddMemberIcon class="w-4 fill-current" />
+                </template>
+              </KwaiButton>
             </td>
           </tr>
         </tbody>

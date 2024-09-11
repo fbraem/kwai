@@ -3,10 +3,9 @@
 import logoUrl from '/logo.png';
 import { website } from '@kwai/config';
 import type { MenuItem } from '@kwai/ui';
-import { ToolbarLogo, ToolbarMenu } from '@kwai/ui';
+import { KwaiButton, ToolbarLogo, ToolbarMenu } from '@kwai/ui';
 import { useRouter } from 'vue-router';
 import { computed } from 'vue';
-import PrimaryButton from '@root/components/PrimaryButton.vue';
 
 const router = useRouter();
 const menuItems = computed(() : MenuItem[] => {
@@ -43,9 +42,9 @@ const menuItems = computed(() : MenuItem[] => {
         </div>
         <div class="flex flex-col place-items-end md:w-1/3">
           <div>
-            <PrimaryButton :url="`${website.url}/apps/auth/login`">
+            <KwaiButton :href="`${website.url}/apps/auth/login`">
               Login
-            </PrimaryButton>
+            </KwaiButton>
           </div>
         </div>
       </div>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import {
-  Button,
   CheckBox,
   DatePicker,
   ErrorAlert,
   FormSection,
   FormSectionFields,
   InputField,
+  KwaiButton,
   SelectOption,
   TextareaField,
 } from '@kwai/ui';
@@ -17,7 +17,6 @@ import type { TrainingDefinition } from '@root/composables/useTrainingDefinition
 import { computed, ref, watch } from 'vue';
 import { useField, useForm } from 'vee-validate';
 import { createFromDate, getLocaleFormat, weekdays } from '@kwai/date';
-import PrimaryButton from '@root/components/PrimaryButton.vue';
 import { useRouter } from 'vue-router';
 import { useTrainingMutation } from '@root/composables/useTraining';
 
@@ -205,12 +204,12 @@ const applyDefinition = () => {
             </SelectOption>
           </div>
           <div class="self-end">
-            <PrimaryButton
+            <KwaiButton
               :method="applyDefinition"
               :disabled="!enableApplyDefinition"
             >
               {{ t('training.form.sections.definition.fields.definition.apply') }}
-            </PrimaryButton>
+            </KwaiButton>
           </div>
         </div>
       </FormSectionFields>
@@ -343,13 +342,12 @@ const applyDefinition = () => {
           </template>
         </CheckBox>
         <div class="flex flex-col items-end mt-6">
-          <Button
+          <KwaiButton
             id="submit"
-            class="bg-yellow-300 text-gray-600 border border-yellow-300 focus:bg-white focus:ring-2 focus:ring-yellow-300 hover:bg-white hover:border hover:border-yellow-300"
-            @click="onSubmitForm"
+            :method="onSubmitForm"
           >
             {{ t('training.form.sections.submit.fields.button.label') }}
-          </Button>
+          </KwaiButton>
         </div>
         <ErrorAlert v-if="errorMessage">
           {{ t('training.form.error') }}
@@ -358,7 +356,3 @@ const applyDefinition = () => {
     </FormSection>
   </form>
 </template>
-
-<style scoped>
-
-</style>

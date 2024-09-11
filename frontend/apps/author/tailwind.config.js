@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import colors from 'tailwindcss/colors';
 module.exports = {
   content: [
     './index.html',
@@ -6,7 +7,12 @@ module.exports = {
     '../../packages/kwai-ui/src/**/*.{html,js,ts,vue,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: colors.yellow,
+        'primary-text': colors.white,
+      },
+    },
   },
   plugins: [],
 };

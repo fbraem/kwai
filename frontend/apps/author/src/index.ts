@@ -12,6 +12,8 @@ import messages from '@intlify/unplugin-vue-i18n/messages';
 
 import routes from './routes';
 
+import { init } from '@kwai/ui';
+
 const app = createApp(App);
 app.use(VueQueryPlugin);
 
@@ -27,5 +29,6 @@ const router = createRouter({
   routes,
 });
 app.use(router);
+init(app);
 
 app.mount('#app');

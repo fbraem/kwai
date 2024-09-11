@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n';
 import { useForm } from 'vee-validate';
 
 import {
-  Button,
+  KwaiButton,
   CheckBox,
   ErrorAlert,
   FormSection,
@@ -278,13 +278,12 @@ watch(definition, nv => {
           </template>
         </CheckBox>
         <div class="flex flex-col items-end mt-6">
-          <Button
+          <KwaiButton
             id="submit"
-            class="font-medium text-sm text-white outline-none focus:outline-none rounded border border-orange-500 disabled:bg-orange-300 bg-orange-500 hover:bg-white hover:disabled:text-white hover:text-black focus:ring-2 focus:ring-orange-500"
-            @click="onSubmitForm"
+            :method="onSubmitForm"
           >
             {{ t('training_definition.form.sections.submit.fields.button.label') }}
-          </Button>
+          </KwaiButton>
         </div>
         <ErrorAlert v-if="errorMessage">
           {{ t('training_definition.form.error') }}
