@@ -39,6 +39,7 @@ const size = computed(() => props.small ? 'small' : undefined);
         root: {
           class: {
             'bg-primary-500': primary,
+            'hover:bg-primary-600': primary,
             'text-primary-text': primary,
           }
         }
@@ -59,6 +60,7 @@ const size = computed(() => props.small ? 'small' : undefined);
       root: {
         class: {
           'bg-primary-500': primary,
+          'hover:bg-primary-600': primary,
           'text-primary-text': primary,
         }
       }
