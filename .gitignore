@@ -9,7 +9,6 @@
 /_site/
 /backend/src/.venv/
 /backend/src/.coverage
-.turbo
 dist
 node_modules
 public
@@ -26,3 +25,4 @@ __pycache__
 stats.html
 /backend/.venv/
 /frontend/packages/kwai-config/src/config.production.toml
+.task

@@ -1,29 +1,26 @@
 {
   "name": "kwai",
   "version": "1.0.0",
-  "devDependencies": {
-    "@vue/test-utils": "^2.4.3",
-    "eslint-config-kwai": "*",
-    "msw": "^2.0.11",
-    "rollup-plugin-visualizer": "^5.11.0",
-    "syncpack": "^12.3.2",
-    "turbo": "^1.13.2",
-    "typescript": "^5.2.2",
-    "vite": "^4.5.3"
-  },
   "engines": {
     "node": ">=18.0.0"
   },
   "private": true,
   "scripts": {
-    "build": "turbo run build --force",
-    "dev": "turbo run dev --parallel --continue"
+    "test": "vitest"
   },
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
-  "dependencies": {
+  "devDependencies": {
+    "@go-task/cli": "^3.39.0",
+    "@vue/test-utils": "^2.4.3",
+    "eslint-config-kwai": "*",
+    "msw": "^2.0.11",
+    "rollup-plugin-visualizer": "^5.11.0",
+    "syncpack": "^12.3.2",
+    "typescript": "^5.2.2",
+    "vite": "^4.5.3",
     "vitest": "^2.0.5"
   }
 }
