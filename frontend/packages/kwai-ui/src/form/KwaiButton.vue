@@ -23,6 +23,14 @@ const wrapperTag = computed(() => attrs.href ? 'a' : props.to ? 'router-link' : 
 const clickAttr = computed(() => props.method ? 'click' : null);
 
 const size = computed(() => props.small ? 'small' : undefined);
+
+const preset = {
+  root: () => ({
+    class: [
+      'focus:ring-primary-300',
+    ],
+  }),
+};
 </script>
 
 <template>
@@ -35,6 +43,8 @@ const size = computed(() => props.small ? 'small' : undefined);
     <Button
       v-bind="$attrs"
       :size="size"
+      :pt="preset"
+      :pt-options="{ mergeSections: true, mergeProps: true }"
     >
       <slot />
       <template #icon>
@@ -46,6 +56,8 @@ const size = computed(() => props.small ? 'small' : undefined);
     v-else
     v-bind="$attrs"
     :size="size"
+    :pt="preset"
+    :pt-options="{ mergeSections: true, mergeProps: true }"
     @[clickAttr]="method"
   >
     <slot />
