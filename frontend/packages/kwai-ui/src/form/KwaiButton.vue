@@ -35,16 +35,6 @@ const size = computed(() => props.small ? 'small' : undefined);
     <Button
       v-bind="$attrs"
       :size="size"
-      :pt="{
-        root: {
-          class: {
-            'bg-primary-500': primary,
-            'hover:bg-primary-600': primary,
-            'text-primary-text': primary,
-          }
-        }
-      }"
-      :pt-options="{ mergeSections: false, mergeProps: true }"
     >
       <slot />
       <template #icon>
@@ -56,16 +46,6 @@ const size = computed(() => props.small ? 'small' : undefined);
     v-else
     v-bind="$attrs"
     :size="size"
-    :pt="{
-      root: {
-        class: {
-          'bg-primary-500': primary,
-          'hover:bg-primary-600': primary,
-          'text-primary-text': primary,
-        }
-      }
-    }"
-    :pt-options="{ mergeSections: false, mergeProps: true }"
     @[clickAttr]="method"
   >
     <slot />
