@@ -21,7 +21,7 @@ const menuItems = computed(() => {
 <template>
   <Menubar
     :model="menuItems"
-    pt:root:class="bg-primary-500 text-primary-text w-full lg:px-6 lg:mx-auto lg:max-w-6xl"
+    pt:root:class="w-full lg:px-6 lg:mx-auto lg:max-w-6xl"
     :pt-options="{ mergeSections: false, mergeProps: true }"
   >
     <template #item="{ item, props, hasSubmenu }">
