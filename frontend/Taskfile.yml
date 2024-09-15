@@ -8,9 +8,9 @@ tasks:
     requires:
       vars: [PACKAGE]
     sources:
-      - packages/{{.PACKAGE}}/src/*
+      - packages/{{.PACKAGE}}/src/**/*
     generates:
-      - packages/{{.PACKAGE}}/dist/*
+      - packages/{{.PACKAGE}}/dist/**/*
     cmds:
       - npm run build -w packages/{{.PACKAGE}}
 
