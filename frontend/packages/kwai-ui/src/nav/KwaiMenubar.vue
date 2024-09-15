@@ -16,13 +16,44 @@ const menuItems = computed(() => {
     disabled: item.disabled ?? false,
   }));
 });
+
+const preset = {
+  root: () => ({
+    class: [
+      'w-full',
+      'lg:px-6',
+      'lg:mx-auto',
+      'lg:max-w-6xl',
+      'bg-primary-500',
+    ],
+  }),
+  rootList: () => ({
+    class: [
+      'bg-white',
+    ],
+  }),
+  item: () => ({
+    class: [
+      'px-1',
+    ],
+  }),
+  // @ts-ignore
+  itemContent: ({ props }) => ({
+    class: [
+      'hover:bg-primary-600',
+      { 'bg-primary-400': !props?.mobileActive },
+      { 'text-primary-text': !props?.mobileActive },
+      { 'text-black': props?.mobileActive },
+    ],
+  }),
+};
 </script>
 
 <template>
   <Menubar
     :model="menuItems"
-    pt:root:class="w-full lg:px-6 lg:mx-auto lg:max-w-6xl"
-    :pt-options="{ mergeSections: false, mergeProps: true }"
+    :pt="preset"
+    :pt-options="{ mergeSections: true, mergeProps: true }"
   >
     <template #item="{ item, props, hasSubmenu }">
       <router-link
