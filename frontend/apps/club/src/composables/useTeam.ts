@@ -134,3 +134,24 @@ export const useTeams = ({ offset = ref(0), limit = ref(0) } : { offset?: Ref<nu
     }),
   });
 };
+
+const getTeam = (id: string) : Promise<Team> => {
+  return useHttpApi()
+    .url(`/v1/teams/${id}`)
+    .get()
+    .json()
+    .then(json => {
+      const result = TeamDocumentSchema.safeParse(json);
+      if (result.success) {
+        return transform(result.data) as Team;
+      }
+      throw result.error;
+    });
+};
+
+export const useTeam = (id: Ref<string>) => {
+  return useQuery({
+    queryKey: ['club/teams', id],
+    queryFn: () => getTeam(toValue(id)),
+  });
+};
