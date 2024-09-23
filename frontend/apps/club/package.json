@@ -21,6 +21,7 @@
     "@vitejs/plugin-vue": "^4.5.0",
     "@vue/tsconfig": "^0.4.0",
     "autoprefixer": "^10.4.16",
+    "jsdom": "^25.0.0",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.4.3",
     "vue-tsc": "^1.8.27"
