@@ -53,5 +53,9 @@ export default defineConfig(({ mode }) => {
       ],
       dedupe: ['vue'],
     },
+    test: {
+      global: true,
+      environment: 'jsdom',
+    },
   };
 });
