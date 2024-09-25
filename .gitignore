@@ -26,3 +26,4 @@ stats.html
 /backend/.venv/
 /frontend/packages/kwai-config/src/config.production.toml
 .task
+/frontend/.env.test
