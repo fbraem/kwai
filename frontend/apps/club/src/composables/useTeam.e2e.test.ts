@@ -1,17 +1,14 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { useTeam } from '@root/composables/useTeam';
 import { defineComponent, toRef } from 'vue';
 import { VueQueryPlugin } from '@tanstack/vue-query';
-import { flushPromises, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 
 describe('useTeam e2e tests', () => {
   it('can get a team', async() => {
     const TestComponent = defineComponent({
       setup() {
-        const { data: team } = useTeam(toRef('1'));
-        return {
-          team,
-        };
+        return useTeam(toRef('1'));
       },
       template: '<span>Test Component</span>',
     });
@@ -20,8 +17,10 @@ describe('useTeam e2e tests', () => {
         plugins: [VueQueryPlugin],
       },
     });
-    await flushPromises();
-    const team = wrapper.vm.team;
+    await vi.waitFor(() => {
+      expect(wrapper.vm.isPending).toBeFalsy();
+    }, { timeout: 1000 });
+    const team = wrapper.vm.data;
     expect(team).toBeDefined();
     expect(team!.id).toBe('1');
   });
