@@ -17,3 +17,4 @@ export { default as KwaiButtonGroup } from './KwaiButtonGroup.vue';
 export { default as KwaiCheckbox } from './KwaiCheckbox.vue';
 export { default as KwaiInputField } from './KwaiInputField.vue';
 export { default as KwaiFileUpload } from './KwaiFileUpload.vue';
+export { default as KwaiTextarea } from './KwaiTextarea.vue';
