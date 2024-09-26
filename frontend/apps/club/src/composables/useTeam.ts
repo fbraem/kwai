@@ -8,7 +8,7 @@ import {
 } from '@kwai/api';
 import { z } from 'zod';
 import { type Ref, ref, toValue } from 'vue';
-import { useQuery } from '@tanstack/vue-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
 import { CountryResourceSchema } from '@root/composables/useCountry';
 
 const TeamMemberSchema = JsonApiData.extend({
@@ -153,5 +153,77 @@ export const useTeam = (id: Ref<string>) => {
   return useQuery({
     queryKey: ['club/teams', id],
     queryFn: () => getTeam(toValue(id)),
+  });
+};
+
+const mutateTeam = (team: Team): Promise<Team> => {
+  const payload: TeamDocument = {
+    data: {
+      id: team.id,
+      type: 'teams',
+      attributes: {
+        name: team.name,
+        active: team.active,
+        remark: team.remark,
+      },
+      relationships: {
+        team_members: {
+          data: [],
+        },
+      },
+    },
+    included: [],
+  };
+  if (team.id) { // Update
+    return useHttpApi()
+      .url(`/v1/teams/${team.id}`)
+      .patch(payload)
+      .json(json => {
+        const result = TeamDocumentSchema.safeParse(json);
+        if (result.success) {
+          return transform(result.data) as Team;
+        }
+        throw result.error;
+      })
+    ;
+  }
+  // Create
+  return useHttpApi()
+    .url('/v1/teams')
+    .post(payload)
+    .json(json => {
+      const result = TeamDocumentSchema.safeParse(json);
+      if (result.success) {
+        return transform(result.data) as Team;
+      }
+      throw result.error;
+    });
+};
+
+type OnSuccessCallback = () => void;
+type OnSuccessAsyncCallback = () => void;
+interface MutationOptions {
+  onSuccess?: OnSuccessCallback | OnSuccessAsyncCallback
+}
+
+export const useTeamMutation = ({ onSuccess }: MutationOptions = {}) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: Team) => mutateTeam(data),
+    onSuccess: async(data: Team) => {
+      queryClient.setQueryData(['club/teams', data.id], data);
+      if (onSuccess) {
+        if (onSuccess.constructor.name === 'AsyncFunction') {
+          await onSuccess();
+        } else {
+          onSuccess();
+        }
+      }
+    },
+    onSettled: () => queryClient.invalidateQueries({
+      queryKey: ['club/teams'],
+      exact: true,
+    }),
   });
 };

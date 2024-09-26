@@ -88,7 +88,10 @@ const { data: teams, isPending, isError } = useTeams({});
               {{ team.remark }}
             </td>
             <td class="px-6 py-4 flex flex-col space-y-1 sm:flex-row sm:space-y-0 sm:space-x-1 sm:justify-end">
-              <KwaiButton class="w-12">
+              <KwaiButton
+                :to="{name: 'club.teams.edit', params: { id: team.id }}"
+                class="w-12"
+              >
                 <template #icon>
                   <EditIcon class="w-4 fill-current" />
                 </template>

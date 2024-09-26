@@ -26,3 +26,31 @@ teams:
   name: Naam
   remark: Opmerking
   members: Leden
+  form:
+    sections:
+      team:
+        title: Team
+        description: De naam van het team
+        fields:
+          name:
+            label: Naam
+            placeholder: Geef een naam in
+      remark:
+        title: Opmerking
+        description: Een opmerking over het team.
+        fields:
+          remark:
+            label: Opmerking
+            placeholder: Geef een opmerking in
+      submit:
+        fields:
+          active:
+            label: Actief?
+            help: Is dit team actief?
+          button:
+            label: Bewaar
+    validations:
+      required: Dit is een verplicht veld.
+team:
+  edit:
+    title: Wijzig Team
