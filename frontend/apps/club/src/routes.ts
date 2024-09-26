@@ -7,6 +7,7 @@ import ClubToolbar from '@root/components/ClubToolbar.vue';
 import UploadMembersPage from '@root/pages/members/MembersUploadPage.vue';
 import TeamsPage from '@root/pages/teams/TeamsPage.vue';
 import TeamEditPage from '@root/pages/teams/TeamEditPage.vue';
+import TeamCreatePage from '@root/pages/teams/TeamCreatePage.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -64,7 +65,7 @@ const routes: RouteRecordRaw[] = [
       },
       {
         name: 'club.teams.edit',
-        path: '/teams/:id',
+        path: '/teams/edit/:id',
         components: {
           toolbar: ClubToolbar,
           main: TeamEditPage,
@@ -72,6 +73,14 @@ const routes: RouteRecordRaw[] = [
         props: {
           toolbar: false,
           main: true,
+        },
+      },
+      {
+        name: 'club.teams.create',
+        path: '/teams/create',
+        components: {
+          toolbar: ClubToolbar,
+          main: TeamCreatePage,
         },
       },
     ],

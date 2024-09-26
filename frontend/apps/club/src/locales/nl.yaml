@@ -54,3 +54,5 @@ teams:
 team:
   edit:
     title: Wijzig Team
+  create:
+    title: Maak Team

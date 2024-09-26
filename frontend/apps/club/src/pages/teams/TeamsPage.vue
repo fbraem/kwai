@@ -105,6 +105,11 @@ const { data: teams, isPending, isError } = useTeams({});
           </tr>
         </tbody>
       </table>
+      <div class="w-full flex flex-col items-end">
+        <KwaiButton :to="{name: 'club.teams.create'}">
+          Nieuw Team
+        </KwaiButton>
+      </div>
     </ContainerSectionContent>
   </ContainerSection>
 </template>
