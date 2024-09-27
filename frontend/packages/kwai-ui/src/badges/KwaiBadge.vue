@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Badge from 'primevue/badge';
 interface Props {
-  value: string,
+  value?: string,
   size?: 'xlarge' | 'large' | 'small',
   severity?: 'info' | 'warning' | 'success' | 'danger'
 }
