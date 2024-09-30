@@ -5,7 +5,13 @@ interface Props {
   size?: 'xlarge' | 'large' | 'small',
   severity?: 'info' | 'warning' | 'success' | 'danger'
 }
-withDefaults(defineProps<Props>(), { severity: 'info', size: 'small' });
+withDefaults(
+  defineProps<Props>(), {
+    value: undefined,
+    severity: 'info',
+    size: 'small',
+  }
+);
 </script>
 
 <template>
