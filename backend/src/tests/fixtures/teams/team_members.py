@@ -30,13 +30,13 @@ def make_team_member(make_member):
 
 
 @pytest.fixture
-def make_team_member_in_db(make_team_member, make_member_in_db, make_team_in_db):
+def make_team_member_in_db(make_team_member, make_member_in_db):
     """A factory fixture for a team member in a database."""
 
-    def _make_team_member_in_db(
+    async def _make_team_member_in_db(
         member: MemberEntity | None = None, team: TeamEntity | None = None
     ) -> TeamMember:
-        member = member or make_team_member(make_member_in_db())
+        member = member or make_team_member(await make_member_in_db())
         return member
 
     return _make_team_member_in_db
