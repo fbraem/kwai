@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 from kwai.core.domain.presenter import Presenter
 from kwai.core.domain.value_objects.unique_id import UniqueId
-from kwai.modules.teams.domain.team import TeamIdentifier
+from kwai.modules.teams.domain.team import TeamEntity, TeamIdentifier
 from kwai.modules.teams.domain.team_member import TeamMember
 from kwai.modules.teams.repositories.member_repository import MemberRepository
 from kwai.modules.teams.repositories.team_repository import TeamRepository
@@ -26,7 +26,7 @@ class CreateTeamMember:
         self,
         team_repository: TeamRepository,
         member_repository: MemberRepository,
-        presenter: Presenter[TeamMember],
+        presenter: Presenter[TeamEntity],
     ):
         """Initialize the use case.
 
@@ -45,6 +45,7 @@ class CreateTeamMember:
         Raises:
             TeamNotFoundException: If the team does not exist.
             MemberNotFoundException: If the member does not exist.
+            TeamMemberAlreadyExistException: If the member is already part of the team.
         """
         team_query = self._team_repository.create_query().filter_by_id(
             TeamIdentifier(command.team_id)
@@ -57,6 +58,8 @@ class CreateTeamMember:
         member = await self._member_repository.get(member_query)
 
         team_member = TeamMember(member=member, active=command.active)
+        team.add_member(team_member)
+
         await self._team_repository.add_team_member(team, team_member)
 
-        self._presenter.present(team_member)
+        self._presenter.present(team)
