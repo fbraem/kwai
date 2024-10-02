@@ -74,16 +74,15 @@ class TeamQueryRow(MemberPersonCountryMixin, JoinedTableRow):
     def create_entity(cls, rows: list[dict[str, Any]]) -> TeamEntity:
         """Create a team entity from a group of rows."""
         team_query_row = cls.map(rows[0])
-        team_members = []
+        team_members = {}
         for row in rows:
             mapped_row = cls.map(row)
             if mapped_row.member.id is None:
                 continue
 
-            team_members.append(
-                mapped_row.team_member.create_team_member(
-                    mapped_row.create_member_entity()
-                )
+            member = mapped_row.create_member_entity()
+            team_members[member.uuid] = mapped_row.team_member.create_team_member(
+                member
             )
         return team_query_row.team.create_entity(team_members)
 

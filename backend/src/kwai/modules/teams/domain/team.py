@@ -3,9 +3,14 @@
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
+from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.teams.domain.team_member import TeamMember
 
 TeamIdentifier = IntIdentifier
+
+
+class TeamMemberAlreadyExistException(Exception):
+    """Raised when the member is already part of the team."""
 
 
 class TeamEntity(Entity[TeamIdentifier]):
@@ -18,14 +23,14 @@ class TeamEntity(Entity[TeamIdentifier]):
         name: str,
         active: bool = True,
         remark: str = "",
-        members: list[TeamMember] = None,
+        members: dict[UniqueId, TeamMember] = None,
         traceable_time: TraceableTime | None = None,
     ):
         super().__init__(id_ or TeamIdentifier())
         self._name = name
         self._active = active
         self._remark = remark
-        self._members = [] if members is None else members.copy()
+        self._members = {} if members is None else members.copy()
         self._traceable_time = traceable_time or TraceableTime()
 
     def __str__(self):
@@ -57,9 +62,16 @@ class TeamEntity(Entity[TeamIdentifier]):
         return self._traceable_time
 
     @property
-    def members(self) -> list[TeamMember]:
+    def members(self) -> dict[UniqueId, TeamMember]:
         """Return the members.
 
         Note: the returned list is a copy.
         """
         return self._members.copy()
+
+    def add_member(self, team_member: TeamMember):
+        if team_member.member.uuid in self._members:
+            raise TeamMemberAlreadyExistException(
+                f"Team member (id={team_member.member.id}) already part of team {self._name}"
+            )
+        self._members[team_member.member.uuid] = team_member
