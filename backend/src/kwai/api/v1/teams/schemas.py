@@ -106,7 +106,7 @@ class TeamDocument(Document[TeamResource, TeamInclude]):
     def create(cls, team: TeamEntity) -> Self:
         """Create a team document from a team entity."""
         team_member_document = TeamMemberDocument(data=[], included=set())
-        for team_member in team.members:
+        for team_member in team.members.values():
             team_member_document.merge(TeamMemberDocument.create(team_member))
 
         team_resource = TeamResource(
