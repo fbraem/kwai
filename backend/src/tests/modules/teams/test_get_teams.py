@@ -10,7 +10,7 @@ from kwai.modules.teams.repositories.team_db_repository import TeamDbRepository
 pytestmark = pytest.mark.db
 
 
-class TestPresenter(AsyncPresenter[IterableResult[TeamEntity]]):
+class DummyPresenter(AsyncPresenter[IterableResult[TeamEntity]]):
     """A dummy presenter for checking the use case result."""
 
     def __init__(self):
@@ -31,7 +31,7 @@ async def test_get_teams(database: Database, make_team_in_db):
     """Test get teams."""
     await make_team_in_db()
     command = GetTeamsCommand()
-    presenter = TestPresenter()
+    presenter = DummyPresenter()
     await GetTeams(TeamDbRepository(database), presenter).execute(command)
     print(presenter.count)
     assert presenter.count > 0, "There should be at least one team."

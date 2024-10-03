@@ -11,7 +11,7 @@ from kwai.modules.club.repositories.member_db_repository import MemberDbReposito
 from kwai.modules.club.repositories.member_repository import MemberRepository
 
 
-class TestPresenter(AsyncPresenter[IterableResult[MemberEntity]]):
+class DummyPresenter(AsyncPresenter[IterableResult[MemberEntity]]):
     """A dummy presenter for checking the use case result."""
 
     def __init__(self):
@@ -37,7 +37,7 @@ async def test_get_members(member_repo: MemberRepository, make_member_in_db):
     """Test get members."""
     await make_member_in_db()
     command = GetMembersCommand()
-    presenter = TestPresenter()
+    presenter = DummyPresenter()
     await GetMembers(member_repo, presenter).execute(command)
     assert presenter.count > 0, "There should be at least one member"
 
@@ -53,7 +53,7 @@ async def test_get_members_with_license_date(
         )
     )
     command = GetMembersCommand(license_end_year=2023, license_end_month=2)
-    presenter = TestPresenter()
+    presenter = DummyPresenter()
     await GetMembers(member_repo, presenter).execute(command)
     assert presenter.count == 1, "There should only be one member"
 
@@ -69,6 +69,6 @@ async def test_get_all_members(
         )
     )
     command = GetMembersCommand(active=False)
-    presenter = TestPresenter()
+    presenter = DummyPresenter()
     await GetMembers(member_repo, presenter).execute(command)
     assert presenter.count > 0, "There should be at least one inactive member"

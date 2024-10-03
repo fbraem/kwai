@@ -13,7 +13,7 @@ from tests.fixtures.teams.team_members import *  # noqa
 from tests.fixtures.teams.teams import *  # noqa
 
 
-class TestPresenter(Presenter[TeamEntity]):
+class DummyPresenter(Presenter[TeamEntity]):
     """A dummy presenter for checking the use case result."""
 
     def __init__(self):
@@ -30,6 +30,6 @@ class TestPresenter(Presenter[TeamEntity]):
 
 
 @pytest.fixture
-def team_presenter() -> TestPresenter:
+def team_presenter() -> DummyPresenter:
     """A fixture for a team presenter."""
-    return TestPresenter()
+    return DummyPresenter()
