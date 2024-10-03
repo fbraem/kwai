@@ -4,7 +4,8 @@ import type { DateType } from '@kwai/date';
 
 export interface TeamMember {
   id: string,
-  name: string,
+  firstName: string,
+  lastName: string,
   license: License,
   gender: number,
   birthdate: DateType,
