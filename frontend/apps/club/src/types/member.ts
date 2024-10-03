@@ -3,7 +3,7 @@ import type { Person } from './person';
 
 export interface License {
   number: string,
-  end_date: DateType
+  endDate: DateType
 }
 
 export interface Member {
