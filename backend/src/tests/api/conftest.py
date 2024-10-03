@@ -3,7 +3,7 @@
 import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from kwai.api.app import create_app
+from kwai.api.app import create_api
 from kwai.core.settings import get_settings
 from kwai.modules.identity.users.user_account import UserAccountEntity
 
@@ -12,7 +12,7 @@ from kwai.modules.identity.users.user_account import UserAccountEntity
 def client() -> TestClient:
     """Get an HTTP client."""
     app = FastAPI(title="kwai API -- TEST")
-    app.mount("/api", create_app(get_settings()))
+    app.mount("/api", create_api(get_settings()))
     return TestClient(app)
 
 
