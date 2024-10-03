@@ -21,6 +21,7 @@ from kwai.modules.teams.create_team_member import (
     CreateTeamMemberCommand,
 )
 from kwai.modules.teams.delete_team import DeleteTeam, DeleteTeamCommand
+from kwai.modules.teams.domain.team import TeamMemberAlreadyExistException
 from kwai.modules.teams.get_team import GetTeam, GetTeamCommand
 from kwai.modules.teams.get_teams import GetTeams, GetTeamsCommand
 from kwai.modules.teams.repositories.member_db_repository import MemberDbRepository
@@ -157,4 +158,8 @@ async def create_team_member(
     except MemberNotFoundException as ex:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
+        ) from ex
+    except TeamMemberAlreadyExistException as ex:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ex)
         ) from ex
