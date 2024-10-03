@@ -24,6 +24,7 @@ from kwai.modules.teams.delete_team import DeleteTeam, DeleteTeamCommand
 from kwai.modules.teams.get_team import GetTeam, GetTeamCommand
 from kwai.modules.teams.get_teams import GetTeams, GetTeamsCommand
 from kwai.modules.teams.repositories.member_db_repository import MemberDbRepository
+from kwai.modules.teams.repositories.member_repository import MemberNotFoundException
 from kwai.modules.teams.repositories.team_db_repository import TeamDbRepository
 from kwai.modules.teams.update_team import UpdateTeam, UpdateTeamCommand
 from kwai.modules.training.teams.team_repository import TeamNotFoundException
@@ -143,7 +144,17 @@ async def create_team_member(
         member_id=resource.data.id,
         active=resource.data.attributes.active,
     )
-    await CreateTeamMember(
-        TeamDbRepository(database), MemberDbRepository(database), presenter
-    ).execute(command)
-    return presenter.get_document()
+    try:
+        async with UnitOfWork(database):
+            await CreateTeamMember(
+                TeamDbRepository(database), MemberDbRepository(database), presenter
+            ).execute(command)
+            return presenter.get_document()
+    except TeamNotFoundException as ex:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
+        ) from ex
+    except MemberNotFoundException as ex:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
+        ) from ex
