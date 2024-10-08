@@ -39,7 +39,7 @@ class JsonApiTeamMembersPresenter(
             meta=Meta(count=len(use_case_result.members)),
             data=[],
         )
-        for member in use_case_result.members:
+        for member in use_case_result.members.values():
             team_member_document = TeamMemberDocument.create(member)
             self._document.merge(team_member_document)
 
