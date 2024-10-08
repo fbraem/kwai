@@ -6,6 +6,7 @@ from typing import AsyncGenerator, Self
 from kwai.core.domain.repository.query import Query
 from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.unique_id import UniqueId
+from kwai.modules.teams.domain.team import TeamIdentifier
 from kwai.modules.teams.domain.team_member import MemberEntity, MemberIdentifier
 
 
@@ -31,6 +32,11 @@ class MemberQuery(Query, ABC):
         self, start_date: Date, end_date: Date | None = None
     ) -> Self:
         """Find team members by their birthdate."""
+        raise NotImplementedError
+
+    @abstractmethod
+    def filter_by_not_part_of_team(self, team_id: TeamIdentifier) -> Self:
+        """Find members that are not part of the team."""
         raise NotImplementedError
 
 

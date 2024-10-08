@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 from typing import AsyncGenerator, Self
 
-from sql_smith.functions import on
+from sql_smith.functions import express, on
 
 from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
@@ -12,11 +12,13 @@ from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.domain.value_objects import Birthdate, Gender, License
+from kwai.modules.teams.domain.team import TeamIdentifier
 from kwai.modules.teams.domain.team_member import MemberEntity, MemberIdentifier
 from kwai.modules.teams.repositories._tables import (
     CountryRow,
     MemberPersonRow,
     MemberRow,
+    TeamMemberRow,
 )
 from kwai.modules.teams.repositories.member_repository import (
     MemberNotFoundException,
@@ -88,6 +90,18 @@ class MemberDbQuery(MemberQuery, DatabaseQuery):
 
     def filter_by_uuid(self, uuid: UniqueId) -> Self:
         self._query.and_where(MemberRow.field("uuid").eq(str(uuid)))
+        return self
+
+    def filter_by_not_part_of_team(self, team_id: TeamIdentifier) -> Self:
+        inner_select = (
+            self._database.create_query_factory()
+            .select()
+            .columns(TeamMemberRow.column("member_id"))
+            .from_(TeamMemberRow.__table_name__)
+            .where(TeamMemberRow.field("team_id").eq(team_id.value))
+        )
+        condition = MemberRow.field("id").not_in(express("{}", inner_select))
+        self._query.and_where(condition)
         return self
 
 
