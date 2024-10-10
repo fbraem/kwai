@@ -26,7 +26,7 @@ class CreateTeamMember:
         self,
         team_repository: TeamRepository,
         member_repository: MemberRepository,
-        presenter: Presenter[TeamEntity],
+        presenter: Presenter[tuple[TeamMember, TeamEntity]],
     ):
         """Initialize the use case.
 
@@ -62,4 +62,4 @@ class CreateTeamMember:
 
         await self._team_repository.add_team_member(team, team_member)
 
-        self._presenter.present(team)
+        self._presenter.present((team_member, team))

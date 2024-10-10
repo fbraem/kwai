@@ -45,9 +45,11 @@ class JsonApiTeamMembersPresenter(
 
 
 class JsonApiTeamMemberPresenter(
-    JsonApiPresenter[TeamMemberDocument], Presenter[TeamMember]
+    JsonApiPresenter[TeamMemberDocument], Presenter[tuple[TeamMember, TeamEntity]]
 ):
     """A presenter that transforms a team member into a JSON:API document."""
 
-    def present(self, use_case_result: TeamMember) -> None:
-        self._document = TeamMemberDocument.create(use_case_result)
+    def present(self, use_case_result: tuple[TeamMember, TeamEntity]) -> None:
+        self._document = TeamMemberDocument.create(
+            use_case_result[0], use_case_result[1]
+        )
