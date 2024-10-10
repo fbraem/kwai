@@ -74,7 +74,7 @@ class TeamMemberDocument(Document[TeamMemberResource, TeamMemberInclude]):
                 None
                 if team is None
                 else Relationship[TeamResourceIdentifier](
-                    data=TeamResourceIdentifier(id=team.id)
+                    data=TeamResourceIdentifier(id=str(team.id))
                 )
             ),
         )
