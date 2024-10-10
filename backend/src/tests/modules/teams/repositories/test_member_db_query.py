@@ -4,6 +4,7 @@ import pytest
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.unique_id import UniqueId
+from kwai.modules.teams.domain.team import TeamIdentifier
 from kwai.modules.teams.domain.team_member import MemberIdentifier
 from kwai.modules.teams.repositories.member_db_repository import MemberDbQuery
 from kwai.modules.teams.repositories.member_repository import MemberQuery
@@ -47,6 +48,15 @@ async def test_filter_by_birthdate_without_end_date(query: MemberQuery):
 async def test_filter_by_birthdate(query: MemberQuery):
     """Test filtering by birthdate between two dates."""
     query.filter_by_birthdate(Date.create(2015, 1, 1), Date.create(2015, 1, 31))
+    try:
+        await query.fetch_one()
+    except Exception as exc:
+        pytest.fail(f"An exception occurred: {exc}")
+
+
+async def test_filter_by_not_part_of_team(query: MemberQuery):
+    """Test filtering by not part of the team."""
+    query.filter_by_not_part_of_team(TeamIdentifier(1))
     try:
         await query.fetch_one()
     except Exception as exc:
