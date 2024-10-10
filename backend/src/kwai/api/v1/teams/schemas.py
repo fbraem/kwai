@@ -29,6 +29,7 @@ class TeamMemberRelationships(BaseModel):
     """Relationships for a team member JSON:API resource."""
 
     nationality: Relationship[CountryResourceIdentifier]
+    team: Relationship[TeamResourceIdentifier] | None = None
 
 
 class TeamMemberResource(
@@ -45,7 +46,7 @@ class TeamMemberDocument(Document[TeamMemberResource, TeamMemberInclude]):
     """A JSON:API document for one or more team members."""
 
     @classmethod
-    def create(cls, team_member: TeamMember) -> Self:
+    def create(cls, team_member: TeamMember, team: TeamEntity | None = None) -> Self:
         """Create a team member document."""
         nationality_document = CountryDocument.create(team_member.member.nationality)
 
@@ -68,7 +69,14 @@ class TeamMemberDocument(Document[TeamMemberResource, TeamMemberInclude]):
         team_member_resource.relationships = TeamMemberRelationships(
             nationality=Relationship[CountryResourceIdentifier](
                 data=CountryResourceIdentifier(id=nationality_document.resource.id),
-            )
+            ),
+            team=(
+                None
+                if team is None
+                else Relationship[TeamResourceIdentifier](
+                    data=TeamResourceIdentifier(id=team.id)
+                )
+            ),
         )
 
         return cls(data=team_member_resource, included={nationality_document.resource})

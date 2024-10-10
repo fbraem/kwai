@@ -65,7 +65,8 @@ def expected_team_member_json(team_member: TeamMember) -> dict[str, Any]:
                         "id": str(team_member.member.nationality.id),
                         "type": "countries",
                     }
-                }
+                },
+                "team": None,
             },
         },
         "included": [
@@ -95,7 +96,7 @@ def team(team_member: TeamMember) -> TeamEntity:
     return TeamEntity(
         id_=TeamIdentifier(1),
         name="U11",
-        members=[team_member],
+        members={team_member.member.uuid: team_member},
     )
 
 
