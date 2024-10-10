@@ -14,4 +14,4 @@ jobs:
       - uses: astral-sh/ruff-action@v1
         with:
           src: "${{ github.workspace }}/backend/src"
-          args: --ignore D102
+          args: check --ignore D102
