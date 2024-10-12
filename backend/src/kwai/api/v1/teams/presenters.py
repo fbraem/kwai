@@ -30,16 +30,16 @@ class JsonApiTeamsPresenter(
 
 
 class JsonApiTeamMembersPresenter(
-    JsonApiPresenter[TeamMemberDocument], Presenter[TeamEntity]
+    JsonApiPresenter[TeamMemberDocument], Presenter[IterableResult[TeamMember]]
 ):
     """A presenter that transforms team members into a JSON:API document."""
 
-    def present(self, use_case_result: TeamEntity) -> None:
+    async def present(self, result: IterableResult[TeamMember]) -> None:
         self._document = TeamMemberDocument(
-            meta=Meta(count=len(use_case_result.members)),
+            meta=Meta(count=result.count, offset=result.offset, limit=result.limit),
             data=[],
         )
-        for member in use_case_result.members.values():
+        async for member in result.iterator:
             team_member_document = TeamMemberDocument.create(member)
             self._document.merge(team_member_document)
 
