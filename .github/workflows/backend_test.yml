@@ -28,7 +28,7 @@ jobs:
         run: pip install poetry
       - name: Install dependencies
         working-directory: backend/src
-        run: poetry install --with dev
+        run: poetry install --with dev,docs
       - name: Start MySQL
         run: |
           sudo systemctl enable mysql.service
