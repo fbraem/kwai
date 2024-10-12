@@ -66,6 +66,16 @@ async def test_update_team(secure_client: TestClient, make_team_in_db):
     ), "The team should be updated."
 
 
+async def test_get_members(
+    secure_client: TestClient, make_team_in_db, make_member_in_db
+):
+    """Test /api/v1/teams/members endpoint for getting members."""
+    team = await make_team_in_db()
+    await make_member_in_db()
+    response = secure_client.get(f"/api/v1/teams/members?filter[team]=noteq:{team.id}")
+    assert response.status_code == status.HTTP_200_OK
+
+
 async def test_get_team_members(
     secure_client: TestClient, make_team_in_db, make_team_member_in_db
 ):

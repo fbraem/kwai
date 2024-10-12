@@ -2,10 +2,12 @@
 
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
+from pydantic import BaseModel, Field
 
 from kwai.api.dependencies import create_database, get_current_user
 from kwai.api.v1.teams.presenters import (
+    JsonApiMembersPresenter,
     JsonApiTeamMemberPresenter,
     JsonApiTeamMembersPresenter,
     JsonApiTeamPresenter,
@@ -14,6 +16,7 @@ from kwai.api.v1.teams.presenters import (
 from kwai.api.v1.teams.schemas import TeamDocument, TeamMemberDocument
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
+from kwai.core.json_api import PaginationModel
 from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.teams.create_team import CreateTeam, CreateTeamCommand
 from kwai.modules.teams.create_team_member import (
@@ -22,6 +25,7 @@ from kwai.modules.teams.create_team_member import (
 )
 from kwai.modules.teams.delete_team import DeleteTeam, DeleteTeamCommand
 from kwai.modules.teams.domain.team import TeamMemberAlreadyExistException
+from kwai.modules.teams.get_members import GetMembers, GetMembersCommand
 from kwai.modules.teams.get_team import GetTeam, GetTeamCommand
 from kwai.modules.teams.get_teams import GetTeams, GetTeamsCommand
 from kwai.modules.teams.repositories.member_db_repository import MemberDbRepository
@@ -41,6 +45,31 @@ async def get_teams(
     presenter = JsonApiTeamsPresenter()
     command = GetTeamsCommand(offset=0, limit=0)
     await GetTeams(TeamDbRepository(database), presenter).execute(command)
+    return presenter.get_document()
+
+
+class TeamMemberFilterModel(BaseModel):
+    """Define the JSON:API filter for team members."""
+
+    team: str | None = Field(Query(default=None, alias="filter[team]"))
+
+
+@router.get("/teams/members")
+async def get_members(
+    database: Annotated[Database, Depends(create_database)],
+    pagination: Annotated[PaginationModel, Depends(PaginationModel)],
+    team_filter: Annotated[TeamMemberFilterModel, Depends(TeamMemberFilterModel)],
+) -> TeamMemberDocument:
+    """Get all members that can be part of a team."""
+    presenter = JsonApiMembersPresenter()
+    if ":" in team_filter.team:
+        _, team_id = team_filter.team.split(":")
+        command = GetMembersCommand(
+            team_id=int(team_id), offset=pagination.offset, limit=pagination.limit
+        )
+    else:
+        command = GetMembersCommand(offset=pagination.offset, limit=pagination.limit)
+    await GetMembers(MemberDbRepository(database), presenter).execute(command)
     return presenter.get_document()
 
 
@@ -125,7 +154,7 @@ async def get_team_members(
     id: int,
     database: Annotated[Database, Depends(create_database)],
 ) -> TeamMemberDocument:
-    """Get the member of the team with the given id."""
+    """Get the members of the team with the given id."""
     presenter = JsonApiTeamMembersPresenter()
     command = GetTeamCommand(id=id)
     await GetTeam(TeamDbRepository(database), presenter).execute(command)
