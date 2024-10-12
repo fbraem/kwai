@@ -82,6 +82,6 @@ class MemberEntity(Entity[MemberIdentifier]):
 class TeamMember:
     """Represent a member of a team."""
 
-    active: bool
+    active: bool = False
     member: MemberEntity
     traceable_time: TraceableTime = TraceableTime()
