@@ -70,6 +70,7 @@ class MemberDbQuery(MemberQuery, DatabaseQuery):
     def columns(self):
         return MemberQueryRow.get_aliases()
 
+    @property
     def count_column(self):
         return MemberRow.column("id")
 
