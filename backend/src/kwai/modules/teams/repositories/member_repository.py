@@ -35,8 +35,15 @@ class MemberQuery(Query, ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def filter_by_not_part_of_team(self, team_id: TeamIdentifier) -> Self:
-        """Find members that are not part of the team."""
+    def filter_by_team(self, team_id: TeamIdentifier, in_team: bool = True) -> Self:
+        """Find members that are (not) part of the team.
+
+        To get only the members that are not part of the team, set in_team to False.
+
+        Args:
+            team_id: The id of the team
+            in_team: Whether the member should be part of the team
+        """
         raise NotImplementedError
 
 

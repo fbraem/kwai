@@ -92,7 +92,7 @@ class MemberDbQuery(MemberQuery, DatabaseQuery):
         self._query.and_where(MemberRow.field("uuid").eq(str(uuid)))
         return self
 
-    def filter_by_not_part_of_team(self, team_id: TeamIdentifier) -> Self:
+    def filter_by_team(self, team_id: TeamIdentifier, in_team: bool = True) -> Self:
         inner_select = (
             self._database.create_query_factory()
             .select()
@@ -100,7 +100,10 @@ class MemberDbQuery(MemberQuery, DatabaseQuery):
             .from_(TeamMemberRow.__table_name__)
             .where(TeamMemberRow.field("team_id").eq(team_id.value))
         )
-        condition = MemberRow.field("id").not_in(express("{}", inner_select))
+        if in_team:
+            condition = MemberRow.field("id").in_(express("{}", inner_select))
+        else:
+            condition = MemberRow.field("id").not_in(express("{}", inner_select))
         self._query.and_where(condition)
         return self
 

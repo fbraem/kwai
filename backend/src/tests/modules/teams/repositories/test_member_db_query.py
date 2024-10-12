@@ -54,9 +54,18 @@ async def test_filter_by_birthdate(query: MemberQuery):
         pytest.fail(f"An exception occurred: {exc}")
 
 
-async def test_filter_by_not_part_of_team(query: MemberQuery):
+async def test_filter_by_team(query: MemberQuery):
     """Test filtering by not part of the team."""
-    query.filter_by_not_part_of_team(TeamIdentifier(1))
+    query.filter_by_team(TeamIdentifier(1))
+    try:
+        await query.fetch_one()
+    except Exception as exc:
+        pytest.fail(f"An exception occurred: {exc}")
+
+
+async def test_filter_by_not_in_team(query: MemberQuery):
+    """Test filtering by not part of the team."""
+    query.filter_by_team(TeamIdentifier(1))
     try:
         await query.fetch_one()
     except Exception as exc:
