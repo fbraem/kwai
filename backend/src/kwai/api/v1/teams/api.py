@@ -62,11 +62,24 @@ async def get_members(
 ) -> TeamMemberDocument:
     """Get all members that can be part of a team."""
     presenter = JsonApiMembersPresenter()
-    if ":" in team_filter.team:
-        _, team_id = team_filter.team.split(":")
-        command = GetMembersCommand(
-            team_id=int(team_id), offset=pagination.offset, limit=pagination.limit
-        )
+    if team_filter is not None:
+        if ":" in team_filter.team:
+            _, team_id = team_filter.team.split(":")
+            command = GetMembersCommand(
+                team_id=int(team_id), offset=pagination.offset, limit=pagination.limit
+            )
+        else:
+            if team_filter.team.isdigit():
+                command = GetMembersCommand(
+                    team_id=int(team_filter.team),
+                    offset=pagination.offset,
+                    limit=pagination.limit,
+                )
+            else:
+                raise HTTPException(
+                    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                    detail="Invalid team id",
+                )
     else:
         command = GetMembersCommand(offset=pagination.offset, limit=pagination.limit)
     await GetMembers(MemberDbRepository(database), presenter).execute(command)
