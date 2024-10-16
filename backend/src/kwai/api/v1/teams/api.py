@@ -62,7 +62,7 @@ async def get_members(
 ) -> TeamMemberDocument:
     """Get all members that can be part of a team."""
     presenter = JsonApiMembersPresenter()
-    if team_filter is not None:
+    if team_filter.team is not None:
         if ":" in team_filter.team:
             _, team_id = team_filter.team.split(":")
             command = GetMembersCommand(
