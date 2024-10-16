@@ -33,14 +33,27 @@ def team_member_presenter() -> DummyPresenter:
     return DummyPresenter()
 
 
-async def test_get_members(
+async def test_get_members_not_in_team(
     database: Database, make_team_in_db, make_member_in_db, team_member_presenter
 ):
     """Test get team members."""
     team = await make_team_in_db()
     await make_member_in_db()
-    command = GetMembersCommand(team_id=team.id.value)
+    command = GetMembersCommand(team_id=team.id.value, in_team=False)
     await GetMembers(MemberDbRepository(database), team_member_presenter).execute(
         command
     )
     assert team_member_presenter.count > 0
+
+
+async def test_get_members_in_team(
+    database: Database, make_team_in_db, make_team_member_in_db, team_member_presenter
+):
+    """Test get team members from a team."""
+    team = await make_team_in_db()
+    await make_team_member_in_db(team=team)
+    command = GetMembersCommand(team_id=team.id.value)
+    await GetMembers(MemberDbRepository(database), team_member_presenter).execute(
+        command
+    )
+    assert team_member_presenter.count == 1
