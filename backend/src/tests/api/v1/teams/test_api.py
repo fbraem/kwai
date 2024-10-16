@@ -81,7 +81,7 @@ async def test_get_team_members(
 ):
     """Test /api/v1/teams/<id>/members endpoint for getting a team's members."""
     team = await make_team_in_db()
-    make_team_member_in_db(team=team)
+    await make_team_member_in_db(team=team)
     response = secure_client.get(f"/api/v1/teams/{team.id}/members")
     assert response.status_code == status.HTTP_200_OK
 
