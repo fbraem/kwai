@@ -10,18 +10,20 @@ from kwai.modules.teams.repositories.member_repository import MemberRepository
 
 @dataclass(frozen=True, kw_only=True, slots=True)
 class GetMembersCommand:
-    """Input for the use case 'Get Members'."""
+    """Input for the use case 'Get Members'.
+
+    When in_team is False and a team_id is set, only the members that are not
+    part of that team will be returned.
+    """
 
     team_id: int | None = None
+    in_team: bool = True
     limit: int | None = None
     offset: int | None = None
 
 
 class GetMembers:
-    """Implements the use case 'Get Members'.
-
-    Use this use case for getting the members that are not part of the given team.
-    """
+    """Implements the use case 'Get Members'."""
 
     def __init__(
         self,
@@ -37,7 +39,7 @@ class GetMembers:
         member_query = self._member_repository.create_query()
         if command.team_id is not None:
             member_query = member_query.filter_by_team(
-                TeamIdentifier(command.team_id), False
+                TeamIdentifier(command.team_id), command.in_team
             )
         await self._presenter.present(
             IterableResult(
