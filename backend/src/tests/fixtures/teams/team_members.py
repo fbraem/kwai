@@ -41,7 +41,7 @@ def make_team_member_in_db(
         member: MemberEntity | None = None, team: TeamEntity | None = None
     ) -> TeamMember:
         member = member or make_team_member(await make_member_in_db())
-        team = team or make_team_in_db()
+        team = team or await make_team_in_db()
         if team is not None:
             await TeamDbRepository(database).add_team_member(team, member)
         return member
