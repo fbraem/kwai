@@ -1,7 +1,8 @@
 import type { Team, TeamMember } from '@root/types/team';
 import {
   JsonApiData,
-  JsonApiDocument, JsonResourceIdentifier,
+  JsonApiDocument,
+  JsonResourceIdentifier,
   type JsonResourceIdentifierType,
   transformResourceArrayToObject,
   useHttpApi,
@@ -10,13 +11,7 @@ import { z } from 'zod';
 import { type Ref, ref, toValue } from 'vue';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
 import { CountryResourceSchema } from '@root/composables/useCountry';
-
-const TeamMemberSchema = JsonApiData.extend({
-  type: z.literal('team_members'),
-  attributes: z.object({
-    name: z.string(),
-  }),
-});
+import { TeamMemberResourceSchema } from '@root/composables/useTeamMember';
 
 export interface Teams {
   meta: {
@@ -48,7 +43,7 @@ export const TeamDocumentSchema = JsonApiDocument.extend({
     TeamResourceSchema,
     z.array(TeamResourceSchema),
   ]),
-  included: z.array(z.union([TeamMemberSchema, CountryResourceSchema])).default([]),
+  included: z.array(z.union([TeamMemberResourceSchema, CountryResourceSchema])).default([]),
 });
 export type TeamDocument = z.infer<typeof TeamDocumentSchema>;
 
@@ -63,14 +58,17 @@ export const transform = (doc: TeamDocument) : Team | Teams => {
       teamMembers.push(
         {
           id: teamMemberIdentifier.id as string,
-          name: teamMember.attributes.name,
+          active: teamMember.attributes.active,
+          firstName: teamMember.attributes.first_name,
+          lastName: teamMember.attributes.last_name,
           license: {
             number: teamMember.attributes.license_number,
-            end_date: teamMember.attributes.license_end_date,
+            endDate: teamMember.attributes.license_end_date,
           },
           gender: teamMember.attributes.gender,
           birthdate: teamMember.attributes.birthdate,
           nationality: {
+            id: nationality.id as string,
             iso2: nationality.attributes.iso_2,
             iso3: nationality.attributes.iso_3,
             name: nationality.attributes.name,
@@ -201,7 +199,7 @@ const mutateTeam = (team: Team): Promise<Team> => {
 };
 
 type OnSuccessCallback = () => void;
-type OnSuccessAsyncCallback = () => void;
+type OnSuccessAsyncCallback = () => Promise<void>;
 interface MutationOptions {
   onSuccess?: OnSuccessCallback | OnSuccessAsyncCallback
 }
