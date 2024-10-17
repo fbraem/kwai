@@ -99,6 +99,19 @@ export const transformResourceArrayToObject = (resources: JsonApiDataType[]): Re
   }, {});
 };
 
+/**
+ * An interface that can be used for the result of a transform of a document
+ * with multiple resources.
+ */
+export interface ResourceItems<T> {
+    meta: {
+    count: number,
+    offset: number,
+    limit: number
+  },
+  items: T[]
+}
+
 export interface LocalStorage {
     loginRedirect: Ref<string|null>,
     accessToken: Ref<string|null>,
