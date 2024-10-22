@@ -64,9 +64,23 @@ async def get_members(
     presenter = JsonApiMembersPresenter()
     if team_filter.team is not None:
         if ":" in team_filter.team:
-            _, team_id = team_filter.team.split(":")
+            operand, team_id = team_filter.team.split(":")
+            if operand not in ("eq", "noteq"):
+                raise HTTPException(
+                    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                    detail="Invalid operand",
+                )
+            if not team_id.isdigit():
+                raise HTTPException(
+                    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                    detail="Invalid team id",
+                )
+
             command = GetMembersCommand(
-                team_id=int(team_id), offset=pagination.offset, limit=pagination.limit
+                team_id=int(team_id),
+                in_team=operand == "eq",
+                offset=pagination.offset,
+                limit=pagination.limit,
             )
         else:
             if team_filter.team.isdigit():
