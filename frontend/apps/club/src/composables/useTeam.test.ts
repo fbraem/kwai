@@ -28,7 +28,15 @@ const teamWithMembersJson = {
   included: [{
     type: 'team_members',
     id: '1',
-    attributes: { name: 'Jigoro Kano' },
+    attributes: {
+      active: true,
+      first_name: 'Jigoro',
+      last_name: 'Kano',
+      license_number: '1234',
+      license_end_date: '2025-01-31',
+      gender: 1,
+      birthdate: '1860-10-28',
+    },
     relationships: {
       nationality: {
         data: { type: 'countries', id: '1' },
@@ -72,7 +80,8 @@ describe('useTeam tests', () => {
     expect(document!.included).toHaveLength(2);
     expect(document).toHaveProperty('included.0.type', 'team_members');
     expect(document).toHaveProperty('included.0.id', '1');
-    expect(document).toHaveProperty('included.0.attributes.name', 'Jigoro Kano');
+    expect(document).toHaveProperty('included.0.attributes.first_name', 'Jigoro');
+    expect(document).toHaveProperty('included.0.attributes.last_name', 'Kano');
   });
 
   it('can transform a document with a team', () => {
@@ -91,7 +100,8 @@ describe('useTeam tests', () => {
     expect(team).not.toBeNull();
     expect(team).toHaveProperty('id', '1');
     expect(team).toHaveProperty('name', 'U11');
-    expect(team).toHaveProperty('members.0.name', 'Jigoro Kano');
+    expect(team).toHaveProperty('members.0.firstName', 'Jigoro');
+    expect(team).toHaveProperty('members.0.lastName', 'Kano');
     expect(team).toHaveProperty('members.0.nationality.name', 'Japan');
   });
 });
