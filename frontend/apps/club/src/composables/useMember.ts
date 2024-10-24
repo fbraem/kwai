@@ -3,8 +3,8 @@ import { JsonApiData, JsonApiDocument, JsonResourceIdentifier, useHttpApi } from
 import { type Ref, ref, toValue } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 import { z } from 'zod';
-import type { Member } from '@root/types/member';
 import { type CountryResource, CountryResourceSchema } from '@root/composables/useCountry';
+import type { Member } from '@root/types/member';
 
 export interface Members {
   meta: { count: number, offset: number, limit: number },
@@ -98,7 +98,7 @@ export const transform = (doc: MemberDocument) : Member | Members => {
       remark: data.attributes.remark,
       license: {
         number: data.attributes.license_number,
-        end_date: createDateFromString(data.attributes.license_end_date),
+        endDate: createDateFromString(data.attributes.license_end_date),
       },
       person: {
         birthdate: createDateFromString(person.attributes.birthdate),
@@ -106,6 +106,7 @@ export const transform = (doc: MemberDocument) : Member | Members => {
           address: contact.attributes.address,
           city: contact.attributes.city,
           country: {
+            id: country.id as string,
             name: country.attributes.name,
             iso2: country.attributes.iso_2,
             iso3: country.attributes.iso_3,
@@ -121,6 +122,7 @@ export const transform = (doc: MemberDocument) : Member | Members => {
         lastName: person.attributes.last_name,
         gender: person.attributes.gender,
         nationality: {
+          id: nationality.id as string,
           name: nationality.attributes.name,
           iso2: nationality.attributes.iso_2,
           iso3: nationality.attributes.iso_3,
