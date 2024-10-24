@@ -1,13 +1,13 @@
 <script setup lang="ts">
 
 import { KwaiBadge, KwaiButton, KwaiCard } from '@kwai/ui';
-import type { Member } from '@root/types/member';
+import type { TeamMember } from '@root/types/team';
 import { computed } from 'vue';
 import { now } from '@kwai/date';
 import AddMemberIcon from '@root/components/icons/AddMemberIcon.vue';
 
 interface Props {
-  member: Member
+  member: TeamMember
 }
 const props = defineProps<Props>();
 const member = computed(() => props.member);
@@ -15,7 +15,7 @@ const validLicense = computed(() => {
   return !member.value.license.endDate.isBefore(now());
 });
 const age = computed(() => {
-  return now().get('year') - member.value.person.birthdate.get('year');
+  return now().get('year') - member.value.birthdate.get('year');
 });
 const emit = defineEmits(['add']);
 </script>
@@ -23,12 +23,12 @@ const emit = defineEmits(['add']);
 <template>
   <KwaiCard>
     <template #title>
-      {{ member.person.lastName }} {{ member.person.firstName }}
+      {{ member.lastName }} {{ member.firstName }}
     </template>
     <template #content>
       <div class="grid grid-cols-2">
         <div>Geboortedatum:</div>
-        <div>{{ member.person.birthdate.format('L') }} ({{ age }})</div>
+        <div>{{ member.birthdate.format('L') }} ({{ age }})</div>
         <div>Licentie</div>
         <div>
           {{ member.license.number }} ({{ member.license.endDate.format('L') }})
@@ -38,7 +38,7 @@ const emit = defineEmits(['add']);
           />
         </div>
         <div>Nationaliteit:</div>
-        <div>{{ member.person.nationality.iso3 }}</div>
+        <div>{{ member.nationality.iso3 }}</div>
       </div>
     </template>
     <template #footer>
