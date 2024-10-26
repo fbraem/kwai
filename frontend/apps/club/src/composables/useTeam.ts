@@ -12,6 +12,7 @@ import { type Ref, ref, toValue } from 'vue';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
 import { CountryResourceSchema } from '@root/composables/useCountry';
 import { TeamMemberResourceSchema } from '@root/composables/useTeamMember';
+import { createDateFromString } from '@kwai/date';
 
 export interface Teams {
   meta: {
@@ -63,10 +64,10 @@ export const transform = (doc: TeamDocument) : Team | Teams => {
           lastName: teamMember.attributes.last_name,
           license: {
             number: teamMember.attributes.license_number,
-            endDate: teamMember.attributes.license_end_date,
+            endDate: createDateFromString(teamMember.attributes.license_end_date),
           },
           gender: teamMember.attributes.gender,
-          birthdate: teamMember.attributes.birthdate,
+          birthdate: createDateFromString(teamMember.attributes.birthdate),
           nationality: {
             id: nationality.id as string,
             iso2: nationality.attributes.iso_2,
