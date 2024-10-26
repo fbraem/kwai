@@ -56,3 +56,19 @@ team:
     title: Wijzig Team
   create:
     title: Maak Team
+  members:
+    title: Leden
+    no_members: Er zijn nog geen leden in de club.
+    no_team_members: Dit team heeft nog geen leden.
+    add: Toevoegen
+  member_add:
+    title: Leden Toevoegen
+    birthdate: Geboortedatum
+    nationality: Nationaliteit
+    filter:
+      title: Filter Leden
+      name: Naam
+      age: Leeftijd
+      age_invalid: Geen geldige waarde
+      valid_license: Geldige Licentie
+      number_of_members: Er zijn geen leden die voldoen aan de filter. | Er is 1 lid dat voldoet aan de filter. | Er zijn {count} leden die voldoen aan de filter.

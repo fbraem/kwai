@@ -12,7 +12,7 @@ import {
   CancelIcon,
   EditIcon,
 } from '@kwai/ui';
-import AddMemberIcon from '@root/components/icons/AddMemberIcon.vue';
+import MemberIcon from '@root/components/icons/MemberIcon.vue';
 
 const { t } = useI18n({ useScope: 'global' });
 const { data: teams, isPending, isError } = useTeams({});
@@ -26,7 +26,7 @@ const { data: teams, isPending, isError } = useTeams({});
     <ContainerSectionContent>
       <div v-if="isPending">
         <LoadingIcon
-          class="fill-primary-500 w-8 h-8 ml-2"
+          class="fill-primary-500 w-8 h-8"
         />
       </div>
       <ErrorAlert v-else-if="isError">
@@ -96,9 +96,12 @@ const { data: teams, isPending, isError } = useTeams({});
                   <EditIcon class="w-4 fill-current" />
                 </template>
               </KwaiButton>
-              <KwaiButton class="w-12">
+              <KwaiButton
+                :to="{name: 'club.teams.members', params: { id: team.id }}"
+                class="w-12"
+              >
                 <template #icon>
-                  <AddMemberIcon class="w-4 fill-current" />
+                  <MemberIcon class="w-4 fill-current" />
                 </template>
               </KwaiButton>
             </td>
