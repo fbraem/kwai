@@ -23,7 +23,7 @@ class TeamMemberAttributes(BaseModel):
     license_end_date: str
     gender: int
     birthdate: str
-    member_active: bool
+    active_in_club: bool
 
 
 class TeamMemberRelationships(BaseModel):
@@ -61,7 +61,7 @@ class TeamMemberDocument(Document[TeamMemberResource, TeamMemberInclude]):
                 license_end_date=str(team_member.member.license.end_date),
                 gender=team_member.member.gender,
                 birthdate=str(team_member.member.birthdate),
-                member_active=team_member.member.is_active,
+                active_in_club=team_member.member.is_active_in_club,
             ),
             meta=ResourceMeta(
                 created_at=str(team_member.traceable_time.created_at),
