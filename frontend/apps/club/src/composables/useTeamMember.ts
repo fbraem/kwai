@@ -24,6 +24,7 @@ export const TeamMemberResourceSchema = JsonApiData.extend({
     license_end_date: z.string(),
     gender: z.number(),
     birthdate: z.string(),
+    active_in_club: z.boolean(),
   }),
   relationships: z.object({
     nationality: z.object({
@@ -66,6 +67,7 @@ export const transform = (doc: TeamMemberDocument) : TeamMember | TeamMembers =>
         iso3: nationality.attributes.iso_3,
         name: nationality.attributes.name,
       },
+      activeInClub: teamMemberResource.attributes.active_in_club,
     };
   };
   if (Array.isArray(doc.data)) {

@@ -74,6 +74,7 @@ export const transform = (doc: TeamDocument) : Team | Teams => {
             iso3: nationality.attributes.iso_3,
             name: nationality.attributes.name,
           },
+          activeInClub: teamMember.attributes.active_in_club,
         }
       );
     }

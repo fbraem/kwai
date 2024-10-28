@@ -11,6 +11,7 @@ export interface TeamMember {
   gender: number,
   birthdate: DateType,
   nationality: Country,
+  activeInClub: boolean
 }
 
 export interface Team {

@@ -66,7 +66,7 @@ const year = now().year();
                 :key="team_member.id"
               >
                 <KwaiTableCell class="w-12" />
-                <KwaiTableCell>
+                <KwaiTableCell :class="{ 'line-through': !team_member.activeInClub }">
                   {{ team_member.lastName }} {{ team_member.firstName }}
                 </KwaiTableCell>
                 <KwaiTableCell>
