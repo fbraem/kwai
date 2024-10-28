@@ -60,6 +60,7 @@ class MemberPersonCountryMixin:
             nationality=self.country.create_country(),
             gender=Gender(self.member_person.gender),
             uuid=UniqueId.create_from_string(self.member.uuid),
+            active_in_club=self.member.active == 1,
         )
 
 
