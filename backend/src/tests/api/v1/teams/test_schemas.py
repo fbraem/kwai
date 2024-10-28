@@ -34,6 +34,7 @@ def team_member(country_japan) -> TeamMember:
             birthdate=Birthdate(Date.create(year=1860, month=10, day=28)),
             gender=Gender.MALE,
             nationality=country_japan,
+            active=True,
         ),
         traceable_time=TraceableTime(),
     )
@@ -58,6 +59,7 @@ def expected_team_member_json(team_member: TeamMember) -> dict[str, Any]:
                 "birthdate": str(team_member.member.birthdate),
                 "license_number": team_member.member.license.number,
                 "license_end_date": str(team_member.member.license.end_date),
+                "member_active": True,
             },
             "relationships": {
                 "nationality": {

@@ -60,6 +60,7 @@ class MemberRow(TableRow):
     license: str | None
     license_end_date: date | None
     person_id: int | None
+    active: int | None
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

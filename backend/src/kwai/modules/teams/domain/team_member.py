@@ -18,6 +18,8 @@ class MemberEntity(Entity[MemberIdentifier]):
 
     A member entity is an entity which holds specific information of a member
     that can be used for a member of a team.
+
+    When a member is not active, it means the member is not active for the club.
     """
 
     def __init__(
@@ -30,6 +32,7 @@ class MemberEntity(Entity[MemberIdentifier]):
         birthdate: Birthdate,
         nationality: CountryEntity,
         gender: Gender,
+        active: bool = True,
     ):
         super().__init__(id_)
         self._name = name
@@ -38,6 +41,7 @@ class MemberEntity(Entity[MemberIdentifier]):
         self._birthdate = birthdate
         self._nationality = nationality
         self._gender = gender
+        self._active = active
 
     def __str__(self) -> str:
         """Return a string of this entity."""
@@ -77,10 +81,19 @@ class MemberEntity(Entity[MemberIdentifier]):
         """Return the gender."""
         return self._gender
 
+    @property
+    def is_active(self) -> bool:
+        """Return if the member is active."""
+        return self._active
+
 
 @dataclass(kw_only=True, frozen=True, slots=True)
 class TeamMember:
-    """Represent a member of a team."""
+    """Represent a member of a team.
+
+    When active is False, it means the member is not active for the team it belongs
+    to.
+    """
 
     active: bool = False
     member: MemberEntity

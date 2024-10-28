@@ -48,6 +48,7 @@ class MemberQueryRow(JoinedTableRow):
             birthdate=Birthdate(Date.create_from_date(self.person.birthdate)),
             gender=Gender(self.person.gender),
             nationality=self.country.create_country(),
+            active=self.member.active == 1,
         )
 
 
