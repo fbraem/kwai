@@ -6,6 +6,7 @@ import type { MenuItem } from '@kwai/ui';
 import { KwaiButton, ToolbarLogo, ToolbarMenu } from '@kwai/ui';
 import { useRouter } from 'vue-router';
 import { computed } from 'vue';
+import { isLoggedIn, useHttpLogout } from '@kwai/api';
 
 const router = useRouter();
 const menuItems = computed(() : MenuItem[] => {
@@ -20,6 +21,12 @@ const menuItems = computed(() : MenuItem[] => {
   }
   return result;
 });
+
+const loggedIn = isLoggedIn;
+const logout = () => {
+  useHttpLogout();
+  window.location.reload();
+};
 </script>
 
 <template>
@@ -41,7 +48,12 @@ const menuItems = computed(() : MenuItem[] => {
           </p>
         </div>
         <div class="flex flex-col place-items-end md:w-1/3">
-          <div>
+          <div v-if="isLoggedIn">
+            <KwaiButton :method="logout">
+              Logout
+            </KwaiButton>
+          </div>
+          <div v-else>
             <KwaiButton :href="`${website.url}/apps/auth/login`">
               Login
             </KwaiButton>
