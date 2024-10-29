@@ -51,10 +51,7 @@ const logout = () => {
       </div>
     </div>
   </header>
-  <KwaiMenubar
-    :items="menuItems"
-    item-class="text-gray-600 hover:text-black"
-  />
+  <KwaiMenubar :items="menuItems" />
 </template>
 
 <style scoped>
