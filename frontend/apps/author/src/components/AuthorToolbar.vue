@@ -48,7 +48,7 @@ const logout = () => {
           </p>
         </div>
         <div class="flex flex-col place-items-end md:w-1/3">
-          <div v-if="isLoggedIn">
+          <div v-if="loggedIn">
             <KwaiButton :method="logout">
               Logout
             </KwaiButton>
