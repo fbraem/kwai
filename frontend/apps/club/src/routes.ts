@@ -46,6 +46,9 @@ const routes: RouteRecordRaw[] = [
           toolbar: ClubToolbar,
           main: MembersPage,
         },
+        meta: {
+          title: 'Leden',
+        },
       },
       {
         name: 'club.upload',
