@@ -94,6 +94,7 @@ const addMemberToTeam = (teamMember: TeamMember) => {
           license_end_date: teamMember.license.endDate.format(),
           gender: teamMember.gender,
           birthdate: teamMember.birthdate.format(),
+          active_in_club: teamMember.activeInClub,
         },
         relationships: {
           nationality: {
