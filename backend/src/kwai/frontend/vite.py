@@ -29,6 +29,20 @@ class Vite(ABC):
         """Generate the preload tags for the given entries."""
         raise NotImplementedError
 
+    @abstractmethod
+    def get_asset_path(self, asset_path: Path) -> Path | None:
+        """Return the path for an asset.
+
+        None is returned when the file should not be processed. This is the case
+        in the development environment, because Vite will serve the assets.
+
+        None should also be returned when the file does not exist in the dist folder.
+        This way, the url path will be handled by Vue Router.
+
+        When the path starts with public, the path without 'public' is used to search
+        the file in the dist folder.
+        """
+
 
 class DevelopmentVite(Vite):
     """Vite implementation for development."""
@@ -56,11 +70,20 @@ class DevelopmentVite(Vite):
     def generate_preloads(self) -> list[str]:
         return []
 
+    def get_asset_path(self, path: Path) -> Path | None:
+        return None
+
 
 class ProductionVite(Vite):
     """Vite implementation for production."""
 
     def __init__(self, manifest_filepath: Path, base_path: Path):
+        """Initialize the production Vite runtime.
+
+        Args:
+            manifest_filepath (Path): Path to the manifest file.
+            base_path (Path): Path to the dist folder.
+        """
         self._manifest_filepath: Path = manifest_filepath
         self._base_path: Path = base_path
         self._manifest: Manifest | None = None
@@ -76,10 +99,7 @@ class ProductionVite(Vite):
 
         for chunk in self._imported_chunks.values():
             if chunk.entry:
-                scripts.append(
-                    '<script type="module" '
-                    f'src="{self._base_path}/{chunk.file}"></script>'
-                )
+                scripts.append('<script type="module" ' f'src="{chunk.file}"></script>')
 
         return scripts
 
@@ -87,7 +107,7 @@ class ProductionVite(Vite):
         styles = []
         for chunk in self._imported_chunks.values():
             for css in chunk.css:
-                styles.append(f'<link rel="stylesheet" href="{self._base_path}/{css}">')
+                styles.append(f'<link rel="stylesheet" href="{css}">')
         return styles
 
     def generate_preloads(self) -> list[str]:
@@ -96,8 +116,7 @@ class ProductionVite(Vite):
         for chunk in self._imported_chunks.values():
             if chunk.file.endswith(".js") and not chunk.entry:
                 preloads.append(
-                    f'<link rel="modulepreload" as="script" '
-                    f'href="{self._base_path}/{chunk.file}">'
+                    f'<link rel="modulepreload" as="script" ' f'href="{chunk.file}">'
                 )
 
         return preloads
@@ -126,3 +145,13 @@ class ProductionVite(Vite):
                     imports.extend(import_chunk.imports)
 
         return chunks
+
+    def get_asset_path(self, path: Path) -> Path | None:
+        dist_path = self._base_path / "dist"
+        if len(path.parents) > 0 and str(path.parents[0]) == "public":
+            path = Path(*path.parts[1:])
+        asset_file = dist_path / path
+        if asset_file.is_relative_to(dist_path) and asset_file.is_file():
+            return asset_file
+
+        return None
