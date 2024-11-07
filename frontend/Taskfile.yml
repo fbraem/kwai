@@ -14,6 +14,13 @@ tasks:
     cmds:
       - npm run build -w packages/{{.PACKAGE}}
 
+  _npm_clean_package:
+    internal: true
+    requires:
+      vars: [PACKAGE]
+    cmds:
+      - rm -rf packages/{{.PACKAGE}}/dist
+
   # @kwai/config package is a dependency for all other packages.
   _npm_build_config_package:
     internal: true
