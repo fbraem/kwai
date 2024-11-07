@@ -9,7 +9,7 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from loguru import logger
 
 from kwai.core.settings import Settings, get_settings
-from kwai.frontend.apps import apps_router
+from kwai.frontend.apps import application_routers
 
 
 def create_frontend():
@@ -44,7 +44,8 @@ def create_frontend():
 
             return response
 
-    frontend_app.include_router(apps_router, prefix="/apps")
+    for router in application_routers:
+        frontend_app.include_router(router, prefix="/apps")
 
     @frontend_app.get("/news/{path:path}")
     def news(path: Path, settings: Annotated[Settings, Depends(get_settings)]):

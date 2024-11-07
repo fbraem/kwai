@@ -16,7 +16,6 @@ class SettingsException(Exception):
 class FrontendApplicationSettings(BaseModel):
     """Settings for a frontend application."""
 
-    base: str
     base_dev: str | None = None
     entries: list[str] | str
 
