@@ -85,6 +85,7 @@ tasks:
       vars: [APP]
     deps: [build_packages]
     cmds:
+      - rm -rf apps/{{.APP}}/dist
       - npm run build -w apps/{{.APP}}
 
   # Build all applications.
