@@ -1,7 +1,6 @@
 import { createApp } from 'vue';
 import App from '@root/App.vue';
 import '@root/index.css';
-import '@kwai/ui/index.css';
 
 import { createRouter, createWebHistory } from 'vue-router';
 import routes from '@root/routes';
