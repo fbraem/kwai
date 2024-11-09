@@ -104,6 +104,7 @@ async def test_create_team_member(
                 "license_end_date": str(member.license.end_date),
                 "gender": member.person.gender.value,
                 "birthdate": str(member.person.birthdate),
+                "active_in_club": True,
             },
             "relationships": {
                 "nationality": {
