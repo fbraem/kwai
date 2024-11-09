@@ -1,6 +1,5 @@
 """Module that implements a training query for a database."""
 
-from datetime import datetime
 from typing import AsyncIterator
 
 from sql_smith.functions import alias, criteria, express, func, group, literal, on
@@ -8,6 +7,7 @@ from sql_smith.functions import alias, criteria, express, func, group, literal, 
 from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.db.rows import OwnersTable
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.training.coaches.coach import CoachEntity
 from kwai.modules.training.teams.team import TeamEntity
 from kwai.modules.training.teams.team_tables import TeamsTable
@@ -110,8 +110,10 @@ class TrainingDbQuery(TrainingQuery, DatabaseQuery):
         self._query.and_where(group(condition))
         return self
 
-    def filter_by_dates(self, start: datetime, end: datetime) -> "TrainingQuery":
-        self._query.and_where(TrainingsTable.field("start_date").between(start, end))
+    def filter_by_dates(self, start: Timestamp, end: Timestamp) -> "TrainingQuery":
+        self._query.and_where(
+            TrainingsTable.field("start_date").between(str(start), str(end))
+        )
         return self
 
     def filter_by_coach(self, coach: CoachEntity) -> "TrainingQuery":

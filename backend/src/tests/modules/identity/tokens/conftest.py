@@ -1,9 +1,8 @@
 """Module that defines fixtures for testing identity tokens."""
-from datetime import datetime
 
 import pytest
-
 from kwai.core.db.database import Database
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.identity.tokens.access_token import (
     AccessTokenEntity,
 )
@@ -33,7 +32,7 @@ async def access_token(
     """Fixture for creating an access token."""
     token = AccessTokenEntity(
         identifier=TokenIdentifier.generate(),
-        expiration=datetime.utcnow(),
+        expiration=Timestamp.create_now(),
         user_account=user_account,
     )
 
@@ -53,7 +52,7 @@ async def refresh_token(
     """Fixture for creating a refresh token."""
     token = RefreshTokenEntity(
         identifier=TokenIdentifier.generate(),
-        expiration=datetime.utcnow(),
+        expiration=Timestamp.create_now(),
         access_token=access_token,
     )
     return await refresh_token_repo.create(token)

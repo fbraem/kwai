@@ -80,8 +80,8 @@ class PageRow:
             texts=content,
             remark=self.remark,
             traceable_time=TraceableTime(
-                created_at=Timestamp(timestamp=self.created_at),
-                updated_at=Timestamp(timestamp=self.updated_at),
+                created_at=Timestamp.create_utc(timestamp=self.created_at),
+                updated_at=Timestamp.create_utc(timestamp=self.updated_at),
             ),
         )
 

@@ -201,8 +201,8 @@ class PersonRow(TableRow):
             remark=self.remark or "",
             contact=contact,
             traceable_time=TraceableTime(
-                created_at=Timestamp(self.created_at),
-                updated_at=Timestamp(self.updated_at),
+                created_at=Timestamp.create_utc(self.created_at),
+                updated_at=Timestamp.create_utc(self.updated_at),
             ),
             nationality=nationality,
         )
@@ -256,8 +256,8 @@ class MemberRow(TableRow):
             active=self.active == 1,
             person=person,
             traceable_time=TraceableTime(
-                created_at=Timestamp(self.created_at),
-                updated_at=Timestamp(self.updated_at),
+                created_at=Timestamp.create_utc(self.created_at),
+                updated_at=Timestamp.create_utc(self.updated_at),
             ),
         )
 

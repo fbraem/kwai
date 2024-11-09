@@ -1,9 +1,6 @@
 """Module that defines tests for user recovery database."""
 
-from datetime import datetime
-
 import pytest
-
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.identity.user_recoveries.user_recovery import UserRecoveryEntity
@@ -31,7 +28,7 @@ async def user_recovery(
 ) -> UserRecoveryEntity:
     """Fixture for creating a user recovery entity."""
     user_recovery = UserRecoveryEntity(
-        expiration=Timestamp(timestamp=datetime.utcnow()),
+        expiration=Timestamp.create_now(),
         user=user,
     )
     return await repo.create(user_recovery)

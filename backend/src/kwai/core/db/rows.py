@@ -93,7 +93,7 @@ class TextRow:
             summary=self.summary,
             author=author,
             traceable_time=TraceableTime(
-                created_at=Timestamp(timestamp=self.created_at),
-                updated_at=Timestamp(timestamp=self.updated_at),
+                created_at=Timestamp.create_utc(self.created_at),
+                updated_at=Timestamp.create_utc(self.updated_at),
             ),
         )

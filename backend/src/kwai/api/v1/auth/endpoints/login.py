@@ -286,7 +286,7 @@ def _encode_token(
         access_token=jwt.encode(
             {
                 "iat": refresh_token.access_token.traceable_time.created_at.timestamp,
-                "exp": refresh_token.access_token.expiration,
+                "exp": refresh_token.access_token.expiration.timestamp,
                 "jti": str(refresh_token.access_token.identifier),
                 "sub": str(refresh_token.access_token.user_account.user.uuid),
                 "scope": [],
@@ -297,11 +297,11 @@ def _encode_token(
         refresh_token=jwt.encode(
             {
                 "iat": refresh_token.traceable_time.created_at.timestamp,
-                "exp": refresh_token.expiration,
+                "exp": refresh_token.expiration.timestamp,
                 "jti": str(refresh_token.identifier),
             },
             settings.jwt_refresh_secret,
             settings.jwt_algorithm,
         ),
-        expiration=refresh_token.access_token.expiration.isoformat(" ", "seconds"),
+        expiration=str(refresh_token.access_token.expiration),
     )

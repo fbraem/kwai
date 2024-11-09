@@ -132,3 +132,14 @@ class Timestamp:
         return Timestamp(
             datetime.strptime(date_time, date_format).replace(tzinfo=timezone.utc)
         )
+
+    @classmethod
+    def create_utc(cls, timestamp: datetime | None):
+        """Create a timestamp from a datetime and make it UTC.
+
+        When None is passed, an empty timestamp will be returned.
+        """
+        if timestamp is None:
+            return Timestamp()
+
+        return Timestamp(timestamp=timestamp.replace(tzinfo=timezone.utc))

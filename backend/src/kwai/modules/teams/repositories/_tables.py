@@ -33,6 +33,10 @@ class TeamRow(TableRow):
             active=self.active == 1,
             remark=self.remark or "",
             members=team_members,
+            traceable_time=TraceableTime(
+                created_at=Timestamp.create_utc(self.created_at),
+                updated_at=Timestamp.create_utc(self.updated_at),
+            ),
         )
 
     @classmethod
@@ -94,8 +98,8 @@ class TeamMemberRow(TableRow):
             active=True if self.active == 1 else False,
             member=member,
             traceable_time=TraceableTime(
-                created_at=Timestamp(self.created_at),
-                updated_at=Timestamp(self.updated_at),
+                created_at=Timestamp.create_utc(self.created_at),
+                updated_at=Timestamp.create_utc(self.updated_at),
             ),
         )
 

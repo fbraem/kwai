@@ -88,18 +88,18 @@ class NewsItemRow:
             enabled=self.enabled == 1,
             promotion=Promotion(
                 priority=self.promotion,
-                end_date=Timestamp(self.promotion_end_date),
+                end_date=Timestamp.create_utc(self.promotion_end_date),
             ),
             period=Period(
-                start_date=Timestamp(self.publish_date),
-                end_date=Timestamp(self.end_date),
+                start_date=Timestamp.create_utc(self.publish_date),
+                end_date=Timestamp.create_utc(self.end_date),
             ),
             application=application,
             texts=texts,
             remark=self.remark or "",
             traceable_time=TraceableTime(
-                created_at=Timestamp(timestamp=self.created_at),
-                updated_at=Timestamp(timestamp=self.updated_at),
+                created_at=Timestamp.create_utc(timestamp=self.created_at),
+                updated_at=Timestamp.create_utc(timestamp=self.updated_at),
             ),
         )
 
