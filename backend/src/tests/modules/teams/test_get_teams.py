@@ -23,6 +23,7 @@ class DummyPresenter(AsyncPresenter[IterableResult[TeamEntity]]):
         return self._count
 
     async def present(self, use_case_result: IterableResult[TeamEntity]) -> None:
+        """Count the teams."""
         async for _ in use_case_result.iterator:
             self._count += 1
 

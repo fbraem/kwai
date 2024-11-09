@@ -23,6 +23,7 @@ class DummyPresenter(AsyncPresenter[IterableResult[MemberEntity]]):
         return self._count
 
     async def present(self, use_case_result: IterableResult[MemberEntity]) -> None:
+        """Count the number of members."""
         async for _ in use_case_result.iterator:
             self._count += 1
 
