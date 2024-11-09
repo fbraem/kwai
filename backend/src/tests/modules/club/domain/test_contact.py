@@ -1,6 +1,7 @@
 """Module that defines tests for the ContactEntity."""
 
 import pytest
+
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.modules.club.domain.contact import ContactEntity
 from kwai.modules.club.domain.country import CountryEntity, CountryIdentifier

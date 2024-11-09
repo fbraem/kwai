@@ -4,9 +4,10 @@ from types import NoneType
 from typing import Literal
 
 import pytest
-from kwai.core.json_api import Document, Error, ResourceData, ResourceIdentifier
 from pydantic import BaseModel
 from rich import json
+
+from kwai.core.json_api import Document, Error, ResourceData, ResourceIdentifier
 
 
 class JudokaResourceIdentifier(ResourceIdentifier):

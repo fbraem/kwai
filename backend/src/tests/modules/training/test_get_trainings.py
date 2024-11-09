@@ -1,6 +1,7 @@
 """Module for testing the use case "Get Trainings"."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.timestamp import Timestamp

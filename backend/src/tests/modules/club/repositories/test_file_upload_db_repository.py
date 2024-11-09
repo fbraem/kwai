@@ -1,6 +1,7 @@
 """Module for testing the file upload repository."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.modules.club.domain.file_upload import FileUploadEntity

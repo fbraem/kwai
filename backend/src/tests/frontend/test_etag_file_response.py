@@ -4,6 +4,7 @@ from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
+
 from kwai.frontend.etag_file_response import EtagFileResponse
 
 

@@ -3,6 +3,7 @@
 from typing import Any
 
 import pytest
+
 from kwai.modules.club.domain.country import CountryEntity, CountryIdentifier
 
 

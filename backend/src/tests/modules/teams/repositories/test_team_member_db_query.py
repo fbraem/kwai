@@ -1,6 +1,7 @@
 """Module for testing the TeamMemberDbQuery class."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.modules.teams.domain.team import TeamIdentifier
 from kwai.modules.teams.repositories.team_member_db_query import TeamMemberDbQuery

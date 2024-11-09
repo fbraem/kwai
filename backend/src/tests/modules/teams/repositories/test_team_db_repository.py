@@ -1,6 +1,7 @@
 """Module for testing the team db repository."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.entity import Entity
 from kwai.modules.teams.repositories.team_db_repository import TeamDbRepository

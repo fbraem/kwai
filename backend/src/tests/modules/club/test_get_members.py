@@ -1,6 +1,7 @@
 """Module for testing the use case 'Get Members'."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.presenter import AsyncPresenter, IterableResult
 from kwai.core.domain.value_objects.date import Date
@@ -24,6 +25,7 @@ class DummyPresenter(AsyncPresenter[IterableResult[MemberEntity]]):
         return self._count
 
     async def present(self, use_case_result: IterableResult[MemberEntity]) -> None:
+        """Process the result of the use case."""
         self._count += 1
 
 

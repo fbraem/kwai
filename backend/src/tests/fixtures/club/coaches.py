@@ -1,6 +1,7 @@
 """Module for defining fixtures for coaches."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
 from kwai.modules.club.domain.coach import CoachEntity

@@ -1,6 +1,7 @@
 """Module that defines fixtures for testing identity tokens."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.identity.tokens.access_token import (

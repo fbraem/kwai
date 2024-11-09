@@ -4,6 +4,8 @@ import asyncio
 from typing import AsyncIterator, Iterator
 
 import pytest
+from redis.asyncio import Redis
+
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
@@ -21,7 +23,6 @@ from kwai.modules.identity.users.user_account import UserAccountEntity
 from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
 )
-from redis.asyncio import Redis
 
 
 @pytest.fixture(scope="session")

@@ -1,6 +1,7 @@
 """Module for defining fixtures for contacts."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.value_objects.email_address import EmailAddress

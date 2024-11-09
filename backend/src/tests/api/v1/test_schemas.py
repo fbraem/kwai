@@ -4,6 +4,7 @@ import json
 from typing import Any
 
 from deepdiff import DeepDiff
+
 from kwai.api.v1.schemas import CountryDocument
 from kwai.modules.club.domain.country import CountryEntity
 

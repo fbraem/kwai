@@ -1,6 +1,7 @@
 """Module for testing the country db repository."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.modules.club.domain.country import CountryEntity
 from kwai.modules.club.repositories.country_db_repository import CountryDbRepository

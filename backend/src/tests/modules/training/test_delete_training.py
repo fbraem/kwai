@@ -1,6 +1,7 @@
 """Module for testing the use case "Delete Training"."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.modules.training.delete_training import DeleteTraining, DeleteTrainingCommand
 from kwai.modules.training.trainings.training_db_repository import TrainingDbRepository

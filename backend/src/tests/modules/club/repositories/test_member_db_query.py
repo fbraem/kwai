@@ -1,6 +1,7 @@
 """Module for testing the members database query."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.domain.member import MemberIdentifier

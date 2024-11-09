@@ -27,6 +27,7 @@ class DummyPresenter[MemberImportResult](Presenter):
         return self._count
 
     def present(self, use_case_result: MemberImportResult) -> None:
+        """Process the result of the use case."""
         self._count += 1
 
 

@@ -1,6 +1,7 @@
 """Module for testing the use case 'Create Team Member."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.presenter import Presenter
 from kwai.modules.teams.create_team_member import (

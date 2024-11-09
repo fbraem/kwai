@@ -3,6 +3,7 @@
 from pathlib import Path
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.modules.club.domain.value_objects import Gender

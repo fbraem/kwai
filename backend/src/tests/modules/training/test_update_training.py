@@ -1,6 +1,7 @@
 """Module for testing the use case "Update Training"."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.use_case import TextCommand
 from kwai.core.domain.value_objects.owner import Owner

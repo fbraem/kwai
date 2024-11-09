@@ -1,6 +1,7 @@
 """Module for testing the team member repository for a database."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.date import Date
 from kwai.modules.club.domain.value_objects import Birthdate

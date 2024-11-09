@@ -1,6 +1,7 @@
 """Module for defining factory fixtures for team members."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.teams.domain.team import TeamEntity

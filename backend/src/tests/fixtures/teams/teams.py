@@ -1,6 +1,7 @@
 """Module for defining factory fixtures for teams."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
 from kwai.modules.teams.domain.team import TeamEntity

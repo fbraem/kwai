@@ -1,6 +1,7 @@
 """Module that defines tests for user recovery database."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.identity.user_recoveries.user_recovery import UserRecoveryEntity

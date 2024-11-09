@@ -3,6 +3,7 @@
 from datetime import time
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.name import Name

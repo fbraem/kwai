@@ -1,6 +1,7 @@
 """Module for defining tests for the use case 'Get Teams'."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.modules.teams.get_team import GetTeam, GetTeamCommand
 from kwai.modules.teams.repositories.team_db_repository import TeamDbRepository

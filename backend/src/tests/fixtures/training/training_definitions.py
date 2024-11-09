@@ -1,6 +1,7 @@
 """Module for defining fixture factories for training definitions."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.value_objects.owner import Owner

@@ -4,6 +4,7 @@ import json
 from typing import Any
 
 from deepdiff import DeepDiff
+
 from kwai.api.v1.club.schemas.person import PersonDocument
 from kwai.modules.club.domain.person import PersonEntity
 

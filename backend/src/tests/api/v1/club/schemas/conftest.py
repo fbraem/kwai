@@ -3,6 +3,7 @@
 from typing import Any
 
 import pytest
+
 from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name

@@ -1,6 +1,7 @@
 """Module for testing the coach database repository."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.db.exceptions import QueryException
 from kwai.modules.training.coaches.coach_db_repository import CoachDbRepository

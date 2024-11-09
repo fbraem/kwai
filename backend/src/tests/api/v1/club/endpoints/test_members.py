@@ -3,6 +3,7 @@
 import pytest
 from fastapi import status
 from fastapi.testclient import TestClient
+
 from kwai.core.domain.value_objects.unique_id import UniqueId
 
 pytestmark = pytest.mark.api

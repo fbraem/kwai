@@ -1,6 +1,7 @@
 """Module for testing the use case 'Get Member'."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.presenter import Presenter
 from kwai.modules.club.domain.member import MemberEntity
@@ -22,6 +23,7 @@ class TestPresenter(Presenter[MemberEntity]):
         return self._entity
 
     def present(self, use_case_result: MemberEntity) -> None:
+        """Process the result of the use case."""
         self._entity = use_case_result
 
 

@@ -1,6 +1,7 @@
 """Module with tests for the user recovery mailer."""
 
 import pytest
+
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.timestamp import Timestamp

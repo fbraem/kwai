@@ -1,6 +1,7 @@
 """Module for testing the Delete Team use case."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.modules.teams.delete_team import DeleteTeam, DeleteTeamCommand
 from kwai.modules.teams.repositories.team_db_repository import TeamDbRepository

@@ -5,6 +5,7 @@ from typing import Any
 
 import pytest
 from deepdiff import DeepDiff
+
 from kwai.api.v1.teams.schemas import TeamDocument, TeamMemberDocument
 from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.name import Name
@@ -17,7 +18,6 @@ from kwai.modules.teams.domain.team_member import (
     MemberIdentifier,
     TeamMember,
 )
-
 from tests.fixtures.club.countries import *  # noqa
 
 

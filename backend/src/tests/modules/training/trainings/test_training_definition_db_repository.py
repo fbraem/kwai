@@ -1,6 +1,7 @@
 """Module for testing the training definition repository."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.db.exceptions import QueryException
 from kwai.core.domain.entity import Entity

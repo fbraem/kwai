@@ -1,6 +1,7 @@
 """Module for testing the team member query for a database."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.unique_id import UniqueId

@@ -3,6 +3,7 @@
 from pathlib import Path
 
 import pytest
+
 from kwai.frontend.vite import ProductionVite, Vite
 
 

@@ -1,6 +1,7 @@
 """Module for testing the person repository for a database."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.entity import Entity

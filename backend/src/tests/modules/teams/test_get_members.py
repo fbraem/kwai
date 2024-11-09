@@ -1,6 +1,7 @@
 """Module for testing the use case 'Get Team Members'."""
 
 import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.domain.presenter import AsyncPresenter, IterableResult
 from kwai.modules.teams.domain.team_member import MemberEntity

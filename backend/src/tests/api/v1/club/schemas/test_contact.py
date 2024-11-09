@@ -4,6 +4,7 @@ import json
 from typing import Any
 
 from deepdiff import DeepDiff
+
 from kwai.api.v1.club.schemas.contact import ContactDocument
 from kwai.modules.club.domain.contact import ContactEntity
 
