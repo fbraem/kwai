@@ -1,7 +1,7 @@
 """Module that defines a value object for a local timestamp."""
 
 from dataclasses import dataclass
-from datetime import date, datetime, time, timedelta
+from datetime import date, datetime, time, timedelta, timezone
 
 
 @dataclass(frozen=True)
@@ -24,7 +24,7 @@ class Timestamp:
         if self.timestamp is None:
             raise ValueError("Empty timestamp")
 
-        return self.timestamp < datetime.utcnow()
+        return self.timestamp < Timestamp.create_now().timestamp
 
     @property
     def year(self) -> int:
@@ -112,7 +112,7 @@ class Timestamp:
     @classmethod
     def create_now(cls):
         """Create a timestamp with the current UTC time."""
-        return Timestamp(timestamp=datetime.utcnow())
+        return Timestamp(timestamp=datetime.now(timezone.utc))
 
     @classmethod
     def create_from_string(
@@ -129,4 +129,6 @@ class Timestamp:
             return Timestamp()
         if len(date_time) == 0:
             return Timestamp()
-        return Timestamp(datetime.strptime(date_time, date_format))
+        return Timestamp(
+            datetime.strptime(date_time, date_format).replace(tzinfo=timezone.utc)
+        )
