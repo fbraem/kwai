@@ -28,7 +28,7 @@ class Table[T: Callable]:
         """Shortcut for map_row."""
         return self.map_row(row, table_name)
 
-    def alias_name(self, column_name: str, table_name: str | None = None):
+    def alias_name(self, column_name: str, table_name: str | None = None) -> str:
         """Return an alias for a column.
 
         The alias will be the name of the table delimited with an
