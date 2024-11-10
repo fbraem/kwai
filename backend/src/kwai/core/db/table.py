@@ -1,15 +1,13 @@
 """Module for the table decorator."""
 
 from dataclasses import fields, is_dataclass
-from typing import Any, Callable, Generic, TypeVar
+from typing import Any, Callable
 
 from sql_smith.functions import alias
 from sql_smith.functions import field as sql_field
 
-T = TypeVar("T", bound=Callable)
 
-
-class Table(Generic[T]):
+class Table[T: Callable]:
     """Represent a table in the database.
 
     With this class a table row can be transformed into a dataclass. It can also
