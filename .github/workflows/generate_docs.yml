@@ -19,12 +19,12 @@ jobs:
     - name: Install Poetry
       run: pip install poetry
     - name: install
-      working-directory: backend/src
-      run: poetry install
+      working-directory: backend
+      run: poetry install --with docs
     - name: Build documentation
-      working-directory: backend/src
+      working-directory: backend
       run: |
-        poetry run mkdocs build -f ../../mkdocs.yml
+        poetry run mkdocs build -f ../mkdocs.yml
     - name: Copy site
       run: |
         mkdir -p gh-pages

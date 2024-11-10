@@ -27,7 +27,7 @@ jobs:
       - name: Install Poetry
         run: pip install poetry
       - name: Install dependencies
-        working-directory: backend/src
+        working-directory: backend
         run: poetry install --with dev,docs
       - name: Start MySQL
         run: |
@@ -113,18 +113,18 @@ jobs:
           DBMATE_WAIT_TIMEOUT: "30s"
         run: ./dbmate up
       - name: Test with pytest
-        working-directory: backend/src
+        working-directory: backend
         env:
           KWAI_SETTINGS_FILE: ${{github.workspace}}/.kwai.toml
         run: poetry run pytest --cov=kwai --cov-report html
       - name: Generate coverage badge
-        working-directory: backend/src
+        working-directory: backend
         run: poetry run coverage-badge -o ./htmlcov/coverage.svg
       - name: Remove .gitignore from coverage report
-        run: rm backend/src/htmlcov/.gitignore
+        run: rm backend/htmlcov/.gitignore
       - name: Deploy coverage to github pages
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: gh-pages
           target-folder: coverage
-          folder: backend/src/htmlcov
+          folder: backend/htmlcov
