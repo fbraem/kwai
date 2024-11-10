@@ -19,7 +19,7 @@ pyjwt = "^2.7.0"
 typer = {extras = ["all"], version = "^0.9.0"}
 asyncmy = "^0.2.8"
 cryptography = "^42.0.2"
-markdown = "3.5.2"
+markdown = "3.7"
 pydantic= "2.6.3"
 redis = "^5.0.1"
 inject = "^5.2.0"
@@ -47,12 +47,12 @@ deepdiff = "^6.7.1"
 optional = true
 
 [tool.poetry.group.docs.dependencies]
-mkdocs = "^1.4.3"
-mkdocstrings = "^0.24.0"
-mkdocs-material = "^9.1.19"
-mkdocs-monorepo-plugin = "^1.0.5"
-mkdocstrings-python = "^1.2.1"
-coverage-badge = "^1.1.0"
+mkdocs = "^1.6.1"
+mkdocstrings = "^0.27.0"
+mkdocs-material = "^9.5.44"
+mkdocs-monorepo-plugin = "^1.1.0"
+mkdocstrings-python = "^1.12.2"
+coverage-badge = "^1.1.2"
 
 [tool.pytest.ini_options]
 markers = [
