@@ -1,5 +1,7 @@
 """Module that implements all APIs for login."""
 
+from typing import Annotated
+
 import jwt
 from fastapi import APIRouter, Depends, Form, HTTPException, Response, status
 from fastapi.security import OAuth2PasswordRequestForm
@@ -73,9 +75,9 @@ router = APIRouter()
     summary="Create access and refresh token for a user.",
 )
 async def login(
-    settings: Settings = Depends(get_settings),
-    db: Database = Depends(create_database),
-    form_data: OAuth2PasswordRequestForm = Depends(),
+    settings: Annotated[Settings, Depends(get_settings)],
+    db: Annotated[Database, Depends(create_database)],
+    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
 ) -> TokenSchema:
     """Login a user.
 
@@ -120,10 +122,10 @@ async def login(
 
 @router.post("/logout", summary="Logout the current user")
 async def logout(
-    settings=Depends(get_settings),
-    db=Depends(create_database),
-    user: UserEntity = Depends(get_current_user),
-    refresh_token: str = Form(),
+    settings: Annotated[Settings, Depends(get_settings)],
+    db: Annotated[Database, Depends(create_database)],
+    user: Annotated[UserEntity, Depends(get_current_user)],  # noqa
+    refresh_token: Annotated[str, Form()],
 ) -> None:
     """Log out the current user.
 
@@ -162,16 +164,16 @@ async def logout(
     summary="Renew an access token using a refresh token.",
 )
 async def renew_access_token(
-    settings=Depends(get_settings),
-    db=Depends(create_database),
-    refresh_token: str = Form(),
+    settings: Annotated[Settings, Depends(get_settings)],
+    db: Annotated[Database, Depends(create_database)],
+    refresh_token: Annotated[str, Form()],
 ) -> TokenSchema:
     """Refresh the access token.
 
     Args:
-        settings(Settings): Settings dependency
-        db(Database): Database dependency
-        refresh_token(str): The active refresh token of the user
+        settings: Settings dependency
+        db: Database dependency
+        refresh_token: The active refresh token of the user
 
     Returns:
         TokenSchema: On success a new TokenSchema is returned.
@@ -212,9 +214,9 @@ async def renew_access_token(
     response_class=Response,
 )
 async def recover_user(
-    email: str = Form(),
-    db=Depends(create_database),
-    publisher: Publisher = Depends(get_publisher),
+    db: Annotated[Database, Depends(create_database)],
+    publisher: Annotated[Publisher, Depends(get_publisher)],
+    email: Annotated[str, Form()],
 ) -> None:
     """Start a recover password flow for the given email address.
 
@@ -224,9 +226,9 @@ async def recover_user(
         To avoid leaking information, this api will always respond with 200
 
     Args:
-        email(str): The email of the user that wants to reset the password.
-        db(Database): Database dependency
-        publisher(Publisher): A publisher to publish the event
+        email: The email of the user that wants to reset the password.
+        db: Database dependency
+        publisher: A publisher to publish the event
     """
     command = RecoverUserCommand(email=email)
     try:
@@ -244,17 +246,20 @@ async def recover_user(
     summary="Reset the password of a user.",
     status_code=status.HTTP_200_OK,
 )
-async def reset_password(uuid=Form(), password=Form(), db=Depends(create_database)):
+async def reset_password(
+    uuid: Annotated[str, Form()],
+    password: Annotated[str, Form()],
+    db: Annotated[Database, Depends(create_database)],
+):
     """Reset the password of the user.
 
     Args:
-        uuid(str): The unique id of the password recovery.
-        password(str): The new password
-        db(Database): Database dependency
+        uuid: The unique id of the password recovery.
+        password: The new password
+        db: Database dependency
 
-    Returns:
-        Http code 200 on success, 404 when the unique is invalid, 422 when the
-        request can't be processed, 403 when the request is forbidden.
+    Http code 200 on success, 404 when the unique is invalid, 422 when the
+    request can't be processed, 403 when the request is forbidden.
     """
     command = ResetPasswordCommand(uuid=uuid, password=password)
     try:
