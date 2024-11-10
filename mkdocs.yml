@@ -42,7 +42,8 @@ markdown_extensions:
 
 plugins:
   - monorepo
-  - autorefs
+  - autorefs:
+      resolve_closest: true
   - mkdocstrings:
       handlers:
         python:
