@@ -25,7 +25,7 @@ class ApplicationRow:
         remark: a remark about the application
         news: does this application can contain news stories?
         pages: does this application can contain pages?
-        events does this application can contain events?
+        events: does this application can contain events?
         weight: a weight that can be used to order the applications
         created_at: the timestamp of creation
         updated_at: the timestamp of the last modification

@@ -28,7 +28,7 @@ class MemberRepository(ABC):
             query: The query to use for getting the first member.
 
         Raises:
-            MemberNotFoundException
+            MemberNotFoundException: Raised when the member is not found.
         """
         raise NotImplementedError
 

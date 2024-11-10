@@ -1,4 +1,5 @@
 """Module for the use case "Delete Training Definition"."""
+
 from dataclasses import dataclass
 
 from kwai.modules.training.trainings.training_definition import (
@@ -41,8 +42,8 @@ class DeleteTrainingDefinition:
         """Execute the use case.
 
         Raises:
-            TrainingDefinitionNotFoundException when the training definition
-            does not exist.
+            TrainingDefinitionNotFoundException: when the training definition
+                does not exist.
         """
         training_definition = await self._repo.get_by_id(
             TrainingDefinitionIdentifier(command.id)

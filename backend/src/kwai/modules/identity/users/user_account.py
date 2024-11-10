@@ -54,7 +54,7 @@ class UserAccountEntity(Entity[UserAccountIdentifier]):
         When login fails, last_unsuccessful_login will be updated.
 
         Args:
-            password(str): The password.
+            password: The password.
         """
         if self._password.verify(password):
             self._last_login = Timestamp.create_now()
@@ -72,7 +72,7 @@ class UserAccountEntity(Entity[UserAccountIdentifier]):
         """Reset the password of the user account.
 
         Args:
-            password(Password): The new password.
+            password: The new password.
         """
         if self._revoked:
             raise NotAllowedException()

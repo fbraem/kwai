@@ -54,10 +54,10 @@ class UserInvitationRow:
         """Create a user invitation entity from the table row.
 
         Args:
-            user(UserEntity): The associated user entity
+            user: The associated user entity
 
         Returns:
-            (UserInvitationEntity)
+            A user invitation entity.
         """
         return UserInvitationEntity(
             id_=UserInvitationIdentifier(self.id),
@@ -81,10 +81,10 @@ class UserInvitationRow:
         """Persist a user invitation entity into a table row.
 
         Args:
-            invitation(UserInvitationEntity): The user invitation entity to persist.
+            invitation: The user invitation entity to persist.
 
         Returns:
-            (UserInvitationRow): A dataclass containing the table row data.
+            A dataclass containing the table row data.
         """
         return UserInvitationRow(
             id=invitation.id.value,
