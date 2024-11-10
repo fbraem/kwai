@@ -21,5 +21,6 @@ jobs:
         uses: cssnr/mirror-repository-action@master
         with:
           host: https://codeberg.org
+          repo: https://codeberg.org/zumuta/kwai
           username: ${{ secrets.CODEBERG_USER }}
           password:  ${{ secrets.CODEBERG_TOKEN }}
