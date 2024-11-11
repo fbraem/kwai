@@ -109,8 +109,8 @@ TEST_SCRIPT=$(cat <<EOF
 
 # Clone the git repository
 rm -rf kwai
-git clone https://codeberg.org/zumuta/kwai.git
-cd kwai/backend/src
+git clone https://github.com/fbraem/kwai.git
+cd kwai/backend
 poetry install --with dev,docs
 
 # Drop/create the database
