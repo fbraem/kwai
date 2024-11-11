@@ -129,9 +129,6 @@ if [ $? -ne 0 ]; then
   echo "One or more tests failed."
   exit 1
 fi
-poetry run coverage-badge -o ./htmlcov/coverage.svg
-rm -rf /kwai_sync/backend/docs/tests/coverage/*
-cp -R ./htmlcov/* /kwai_sync/backend/docs/tests/coverage
 EOF
 )
 echo "$TEST_SCRIPT" > "$VAGRANT_HOME/kwai_test.sh"
