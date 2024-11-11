@@ -12,6 +12,9 @@ All server side code is written with Python using [FastAPI](https://fastapi.tian
 and [Typer](https://typer.tiangolo.com/) for the CLI.
 Currently, the event bus is custom code and not in use yet.
 
+!!! note
+    The frontend is also served by FastAPI.
+
 ## Install
 
 ### Prerequisites
