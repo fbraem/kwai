@@ -1,5 +1,19 @@
 version: '3'
 
+tasks:
+  # build documentation
+  build_doc:
+    desc: Build the documentation
+    dir: backend
+    cmds:
+      - poetry run mkdocs -f ../mkdocs.yml
+
+  serve_doc:
+    desc: Build the documentation and run the webserver
+    dir: backend
+    cmds:
+      - poetry run mkdocs serve -f ../mkdocs.yml
+
 includes:
   frontend:
     taskfile: ./frontend/Taskfile.yml
