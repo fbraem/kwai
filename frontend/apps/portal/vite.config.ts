@@ -1,4 +1,4 @@
-import { defineConfig, splitVendorChunkPlugin } from 'vite';
+import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
 import { existsSync } from 'fs';
@@ -41,7 +41,8 @@ export default defineConfig(() => {
       },
     },
     plugins: [
-      vue(), splitVendorChunkPlugin(), visualizer(),
+      vue(),
+      visualizer(),
     ],
     resolve: {
       alias: [

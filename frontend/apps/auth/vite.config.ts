@@ -1,4 +1,4 @@
-import { defineConfig, splitVendorChunkPlugin } from 'vite';
+import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import toml from '@fbraem/rollup-plugin-toml';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
@@ -49,7 +49,6 @@ export default defineConfig(() => {
         include: resolve(__dirname, './src/locales/**'),
         compositionOnly: true,
       }),
-      splitVendorChunkPlugin(),
       visualizer(),
     ],
     resolve: {
