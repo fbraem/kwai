@@ -9,6 +9,7 @@ tasks:
       vars: [PACKAGE]
     sources:
       - packages/{{.PACKAGE}}/src/**/*
+      - packages/{{.PACKAGE}}/package.json
     generates:
       - packages/{{.PACKAGE}}/dist/**/*
     cmds:
