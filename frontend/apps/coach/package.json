@@ -2,6 +2,7 @@
   "name": "@kwai/coach",
   "description": "The coach application of kwai",
   "version": "1.0.0",
+  "type": "module",
   "dependencies": {
     "@intlify/unplugin-vue-i18n": "4.0.0",
     "@kwai/api": "*",

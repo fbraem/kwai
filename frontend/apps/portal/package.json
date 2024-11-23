@@ -2,6 +2,7 @@
   "name": "@kwai/portal",
   "description": "The portal for Kwai",
   "version": "1.0.0",
+  "type": "module",
   "dependencies": {
     "@kwai/api": "*",
     "@kwai/config": "*",

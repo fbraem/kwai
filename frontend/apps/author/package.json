@@ -2,6 +2,7 @@
   "name": "@kwai/author",
   "description": "The author application for Kwai",
   "version": "1.0.0",
+  "type": "module",
   "dependencies": {
     "@intlify/unplugin-vue-i18n": "4.0.0",
     "@kwai/api": "*",
