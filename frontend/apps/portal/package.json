@@ -9,7 +9,7 @@
     "@kwai/types": "*",
     "@kwai/ui": "*",
     "@tanstack/vue-query": "^5.32.0",
-    "@vueuse/core": "^10.9.0",
+    "@vueuse/core": "11.0.3",
     "@vueuse/router": "11.0.3",
     "vue": "^3.4.25",
     "vue-router": "^4.3.2"

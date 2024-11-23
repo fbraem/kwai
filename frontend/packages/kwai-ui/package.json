@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@kwai/date": "*",
-    "@vuepic/vue-datepicker": "8.4.0",
+    "@vuepic/vue-datepicker": "9.0.3",
     "primevue": "4.0.5"
   },
   "devDependencies": {
