@@ -37,6 +37,7 @@ class ViteDependency:
             / "apps"
             / self._application_name
             / "dist"
+            / ".vite"
             / "manifest.json"
         )
         if not manifest_path.exists():
