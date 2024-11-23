@@ -53,6 +53,7 @@ mkdocs-material = "^9.5.44"
 mkdocs-monorepo-plugin = "^1.1.0"
 mkdocstrings-python = "^1.12.2"
 coverage-badge = "^1.1.2"
+griffe-fastapi = "0.1.5"
 
 [tool.pytest.ini_options]
 markers = [

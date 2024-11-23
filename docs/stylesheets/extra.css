@@ -1,3 +1,38 @@
 :root {
     --md-primary-fg-color: rgb(220 38 38);
 }
+
+.doc-heading {
+  display: flex;
+  align-items: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 2px;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #49cc90;
+  text-transform: uppercase;
+  margin-left: 6px;
+}
+
+.badge-post {
+  background-color: #49cc90;
+}
+
+.badge-get {
+  background-color: #61affe;
+}
+
+.badge-delete {
+  background-color: #f93e3e;
+}
+
+.badge-patch {
+  background-color: #fb923c;
+}

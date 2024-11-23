@@ -34,6 +34,7 @@ markdown_extensions:
       toc_depth: 4
   - admonition
   - codehilite
+  - attr_list
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
@@ -53,5 +54,7 @@ plugins:
             show_source: false
             docstring_style: google
             show_root_toc_entry: true
+            extensions:
+              - griffe_fastapi
 watch:
   - backend/src
