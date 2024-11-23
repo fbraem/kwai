@@ -3,7 +3,7 @@
 from typing import Annotated
 
 import jwt
-from fastapi import APIRouter, Depends, Form, HTTPException, Response, status
+from fastapi import APIRouter, Depends, Form, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from jwt import ExpiredSignatureError
 from loguru import logger
@@ -73,6 +73,12 @@ router = APIRouter()
 @router.post(
     "/login",
     summary="Create access and refresh token for a user.",
+    responses={
+        200: {"description": "The user is logged in successfully."},
+        401: {
+            "description": "The email is invalid, authentication failed or user is unknown."
+        },
+    },
 )
 async def login(
     settings: Annotated[Settings, Depends(get_settings)],
@@ -81,15 +87,11 @@ async def login(
 ) -> TokenSchema:
     """Login a user.
 
-    The response is a TokenSchema.
+    This request expects a form (application/x-www-form-urlencoded). The form
+    must contain a `username` and `password` field. The username is
+    the email address of the user.
 
-    Note:
-        This request expects a form (application/x-www-form-urlencoded).
-
-    Args:
-        settings: Settings dependency
-        db: Database dependency
-        form_data: Form data that contains the username and password
+    The response is a [TokenSchema][kwai.api.v1.auth.endpoints.login.TokenSchema].
     """
     command = AuthenticateUserCommand(
         username=form_data.username,
@@ -120,7 +122,14 @@ async def login(
     return _encode_token(refresh_token, settings.security)
 
 
-@router.post("/logout", summary="Logout the current user")
+@router.post(
+    "/logout",
+    summary="Logout the current user",
+    responses={
+        200: {"description": "The user is logged out successfully."},
+        404: {"description": "The token is not found."},
+    },
+)
 async def logout(
     settings: Annotated[Settings, Depends(get_settings)],
     db: Annotated[Database, Depends(create_database)],
@@ -132,15 +141,8 @@ async def logout(
     A user is logged out by revoking the refresh token. The associated access token
     will also be revoked.
 
-    Args:
-        settings: Settings dependency
-        db: Database dependency
-        user: The currently logged-in user
-        refresh_token: The active refresh token of the user
-
-    Returns:
-        Http code 200 on success, 401 when the user is not logged in,
-        404 when the refresh token is not found.
+    This request expects a form (application/x-www-form-urlencoded). The form
+    must contain a **refresh_token** field.
     """
     decoded_refresh_token = jwt.decode(
         refresh_token,
@@ -162,6 +164,10 @@ async def logout(
 @router.post(
     "/access_token",
     summary="Renew an access token using a refresh token.",
+    responses={
+        200: {"description": "The access token is renewed."},
+        401: {"description": "The refresh token is expired."},
+    },
 )
 async def renew_access_token(
     settings: Annotated[Settings, Depends(get_settings)],
@@ -170,13 +176,12 @@ async def renew_access_token(
 ) -> TokenSchema:
     """Refresh the access token.
 
-    Args:
-        settings: Settings dependency
-        db: Database dependency
-        refresh_token: The active refresh token of the user
+    The response is a [TokenSchema][kwai.api.v1.auth.endpoints.login.TokenSchema].
 
-    Returns:
-        TokenSchema: On success a new TokenSchema is returned.
+    When the refresh token is expired, the user needs to log in again.
+
+    This request expects a form (application/x-www-form-urlencoded). The form
+    must contain a **refresh_token** field.
     """
     try:
         decoded_refresh_token = jwt.decode(
@@ -210,8 +215,9 @@ async def renew_access_token(
 @router.post(
     "/recover",
     summary="Initiate a password reset flow",
-    status_code=status.HTTP_200_OK,
-    response_class=Response,
+    responses={
+        200: {"description": "Ok."},
+    },
 )
 async def recover_user(
     db: Annotated[Database, Depends(create_database)],
@@ -222,13 +228,11 @@ async def recover_user(
 
     A mail with a unique id will be sent using the message bus.
 
-    Note:
-        To avoid leaking information, this api will always respond with 200
+    This request expects a form (application/x-www-form-urlencoded). The form
+    must contain an **email** field.
 
-    Args:
-        email: The email of the user that wants to reset the password.
-        db: Database dependency
-        publisher: A publisher to publish the event
+    !!! Note
+        To avoid leaking information, this api will always respond with 200
     """
     command = RecoverUserCommand(email=email)
     try:
@@ -244,7 +248,12 @@ async def recover_user(
 @router.post(
     "/reset",
     summary="Reset the password of a user.",
-    status_code=status.HTTP_200_OK,
+    responses={  # noqa B006
+        200: {"description": "The password is reset successfully."},
+        403: {"description": "This request is forbidden."},
+        404: {"description": "The uniqued id of the recovery could not be found."},
+        422: {"description": "The user could not be found."},
+    },
 )
 async def reset_password(
     uuid: Annotated[str, Form()],
@@ -253,13 +262,12 @@ async def reset_password(
 ):
     """Reset the password of the user.
 
-    Args:
-        uuid: The unique id of the password recovery.
-        password: The new password
-        db: Database dependency
-
     Http code 200 on success, 404 when the unique is invalid, 422 when the
     request can't be processed, 403 when the request is forbidden.
+
+    This request expects a form (application/x-www-form-urlencoded). The form
+    must contain an **uuid** and **password** field. The unique id must be still valid
+    and is retrieved by [/api/v1/auth/recover][post_/recover].
     """
     command = ResetPasswordCommand(uuid=uuid, password=password)
     try:
