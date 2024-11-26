@@ -2,6 +2,7 @@ import './index.css';
 import { App } from 'vue';
 import Kwai from './presets/kwai';
 import PrimeVue from 'primevue/config';
+
 export type { MenuItem } from './types';
 export * from './alerts';
 export * from './badges';
