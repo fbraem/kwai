@@ -30,7 +30,7 @@ class ViteDependency:
                     status_code=status.HTTP_400_BAD_REQUEST,
                     detail=f"Setting base_dev not set for application {self._application_name}",
                 )
-            return DevelopmentVite(Path(app_setting.base_dev))
+            return DevelopmentVite(app_setting.base_dev)
 
         manifest_path = (
             Path(settings.frontend.path)

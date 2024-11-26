@@ -47,7 +47,18 @@ class Vite(ABC):
 class DevelopmentVite(Vite):
     """Vite implementation for development."""
 
-    def __init__(self, base_path: Path):
+    def __init__(self, base_path: str):
+        """Initialize the development version of vite.
+
+        Args:
+            base_path: The base path for the development version of vite.
+
+        !!! Note
+            When vite is configured with a base then make sure that this
+            base is also part of the base_path argument. For example: when base is
+            '/apps/author' and the server is running on localhost with port 3001, then
+            base_path should be: 'http://localhost:3001/apps/author'.
+        """
         self._base_path = base_path
         self._entries: list[str] = []
 
@@ -81,8 +92,8 @@ class ProductionVite(Vite):
         """Initialize the production Vite runtime.
 
         Args:
-            manifest_filepath (Path): Path to the manifest file.
-            base_path (Path): Path to the dist folder.
+            manifest_filepath: Path to the manifest file.
+            base_path: Path to the dist folder.
         """
         self._manifest_filepath: Path = manifest_filepath
         self._base_path: Path = base_path
