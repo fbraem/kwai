@@ -6,7 +6,7 @@ import {
   FormSection,
   FormSectionFields,
   InputField,
-  RangeSlider,
+  KwaiSlider,
   SelectOption,
   TextareaField,
 } from '@kwai/ui';
@@ -197,7 +197,7 @@ const onSubmitForm = handleSubmit(async values => {
         {{ t('pages.form.sections.promotion.description') }}
       </template>
       <FormSectionFields class="bg-white">
-        <RangeSlider
+        <KwaiSlider
           name="priority"
           class="pb-6"
         >
@@ -206,7 +206,7 @@ const onSubmitForm = handleSubmit(async values => {
               {{ t('pages.form.sections.promotion.fields.priority.label') }}&nbsp;:
             </span>
           </template>
-        </RangeSlider>
+        </KwaiSlider>
       </FormSectionFields>
     </FormSection>
     <FormSection :title="t('pages.form.sections.remark.title')">

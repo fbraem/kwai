@@ -8,7 +8,7 @@ import {
   FormSection,
   FormSectionFields,
   InputField,
-  RangeSlider,
+  KwaiSlider,
   SelectOption,
   TextareaField,
 } from '@kwai/ui';
@@ -230,7 +230,7 @@ const onSubmitForm = handleSubmit(async values => {
         {{ t('news.form.sections.promotion.description') }}
       </template>
       <FormSectionFields class="bg-white">
-        <RangeSlider
+        <KwaiSlider
           name="priority"
           class="pb-6"
         >
@@ -239,7 +239,7 @@ const onSubmitForm = handleSubmit(async values => {
               {{ t('news.form.sections.promotion.fields.priority.label') }}&nbsp;:
             </span>
           </template>
-        </RangeSlider>
+        </KwaiSlider>
         <DatePicker
           name="promotion_end_timestamp"
           :placeholder="t('news.form.sections.promotion.fields.end_timestamp.placeholder')"
