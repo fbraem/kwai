@@ -15,7 +15,7 @@ withDefaults(defineProps<Props>(), {
     :severity="severity"
     :closable="closable"
   >
-    <template #messageicon>
+    <template #icon>
       <slot name="icon" />
     </template>
     <slot />
