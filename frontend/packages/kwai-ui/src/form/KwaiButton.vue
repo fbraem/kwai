@@ -2,7 +2,7 @@
 <script setup lang="ts">
 import Button from 'primevue/button';
 import { LocationAsRelativeRaw, RouteRecord } from 'vue-router';
-import { computed, useAttrs } from 'vue';
+import { computed, useAttrs, useSlots } from 'vue';
 interface Props {
   to?: RouteRecord | LocationAsRelativeRaw,
   method?: () => void,
@@ -19,49 +19,26 @@ defineOptions({
   inheritAttrs: false,
 });
 
-const wrapperTag = computed(() => attrs.href ? 'a' : props.to ? 'router-link' : null);
+const tag = computed(() => attrs.href ? 'a' : props.to ? 'router-link' : 'button');
 const clickAttr = computed(() => props.method ? 'click' : null);
+const slots = useSlots();
 
-const size = computed(() => props.small ? 'small' : undefined);
-
-const preset = {
-  root: () => ({
-    class: [
-      'focus:ring-primary-300',
-    ],
-  }),
-};
+const size = computed(() => props.small ? 'small' : 'large');
 </script>
 
 <template>
-  <component
-    :is="wrapperTag"
-    v-if="wrapperTag"
-    :to="to"
-    :href="$attrs.href"
-  >
-    <Button
-      v-bind="$attrs"
-      :size="size"
-      :pt="preset"
-      :pt-options="{ mergeSections: true, mergeProps: true }"
-    >
-      <slot />
-      <template #icon>
-        <slot name="icon" />
-      </template>
-    </Button>
-  </component>
   <Button
-    v-else
     v-bind="$attrs"
     :size="size"
-    :pt="preset"
-    :pt-options="{ mergeSections: true, mergeProps: true }"
+    :as="tag"
+    :to="to"
     @[clickAttr]="method"
   >
     <slot />
-    <template #icon>
+    <template
+      v-if="!!slots.icon"
+      #icon
+    >
       <slot name="icon" />
     </template>
   </Button>

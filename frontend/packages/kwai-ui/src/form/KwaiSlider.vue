@@ -12,19 +12,10 @@ const props = defineProps<{
 const slots = useSlots();
 
 const nameRef = toRef(props, 'name');
-const { value, errorMessage } = useField(nameRef);
+const { value, errorMessage } = useField<number>(nameRef);
 if (value.value == null) {
   value.value = 0;
 }
-
-const preset = {
-  root: () => ({
-    class: ['bg-primary-500'],
-  }),
-  handle: () => ({
-    class: ['bg-primary-500'],
-  }),
-};
 </script>
 
 <template>
@@ -43,8 +34,7 @@ const preset = {
       <Slider
         :id="id ?? name"
         v-model="value"
-        :pt="preset"
-        :pt-options="{ mergeSections: false, mergeProps: true }"
+        class="w-56"
       />
       <div>
         {{ value }}

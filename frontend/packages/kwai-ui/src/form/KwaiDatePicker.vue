@@ -2,34 +2,31 @@
 import { toRef, useSlots } from 'vue';
 import { useField } from 'vee-validate';
 import RequiredIcon from '../icons/RequiredIcon.vue';
-import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css';
-import { createFromDate } from '@kwai/date';
+import DatePicker from 'primevue/datepicker';
 
-const props = defineProps<{
+interface Props {
   name: string,
-  id?: string,
+  id?: string | null,
   placeholder?: string
   format?: string
   time?: boolean
   required?: boolean
-}>();
+}
+
+const props = withDefaults(
+  defineProps<Props>(),
+  {
+    id: null,
+    placeholder: '',
+    format: 'dd-mm-yy',
+    time: false,
+    required: false,
+  }
+);
 const slots = useSlots();
 
 const nameRef = toRef(props, 'name');
 const { value, errorMessage } = useField<Date>(nameRef);
-
-const format = (date: Date | null) : string => {
-  if (date) {
-    const formatString = props.format ?? (props.time ? 'L LTS' : 'L');
-    try {
-      return createFromDate(date).format(formatString);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-  return '';
-};
 </script>
 
 <template>
@@ -45,13 +42,13 @@ const format = (date: Date | null) : string => {
         class="ml-1 w-2 h-2 -mt-4 fill-black"
       />
     </label>
-    <VueDatePicker
+    <DatePicker
       :id="id ?? name"
       v-model="value"
-      :format="format"
+      :date-format="format"
       auto-apply
       :placeholder="placeholder ?? ''"
-      :class="{ 'mt-1': !!slots.label, 'border-red-600': errorMessage, 'focus:ring-red-600': errorMessage, 'focus:border-red-600': errorMessage }"
+      :show-time="time"
     />
     <p
       v-if="!!slots.help"

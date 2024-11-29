@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {
   KwaiButton,
-  CheckBox,
-  DatePicker,
-  DateRangePicker,
+  KwaiCheckbox,
+  KwaiDatePicker,
+  KwaiDateRangePicker,
   ErrorAlert,
   FormSection,
   FormSectionFields,
@@ -212,7 +212,7 @@ const onSubmitForm = handleSubmit(async values => {
         {{ t('news.form.sections.publication.description') }}
       </template>
       <FormSectionFields class="bg-white">
-        <DateRangePicker
+        <KwaiDateRangePicker
           name="publication_period"
           :placeholder="t('news.form.sections.publication.fields.start_date.placeholder')"
           :time="true"
@@ -222,7 +222,7 @@ const onSubmitForm = handleSubmit(async values => {
               {{ t('news.form.sections.publication.fields.start_date.label') }}&nbsp;:
             </span>
           </template>
-        </DateRangePicker>
+        </KwaiDateRangePicker>
       </FormSectionFields>
     </FormSection>
     <FormSection :title="t('news.form.sections.promotion.title')">
@@ -240,7 +240,7 @@ const onSubmitForm = handleSubmit(async values => {
             </span>
           </template>
         </KwaiSlider>
-        <DatePicker
+        <KwaiDatePicker
           name="promotion_end_timestamp"
           :placeholder="t('news.form.sections.promotion.fields.end_timestamp.placeholder')"
           :time="true"
@@ -250,7 +250,7 @@ const onSubmitForm = handleSubmit(async values => {
               {{ t('news.form.sections.promotion.fields.end_timestamp.label') }}&nbsp;:
             </span>
           </template>
-        </DatePicker>
+        </KwaiDatePicker>
       </FormSectionFields>
     </FormSection>
     <FormSection :title="t('news.form.sections.remark.title')">
@@ -273,14 +273,14 @@ const onSubmitForm = handleSubmit(async values => {
     </FormSection>
     <FormSection>
       <FormSectionFields class="bg-white">
-        <CheckBox
-          name="active"
-          :label="t('news.form.sections.submit.fields.active.label')"
-        >
+        <KwaiCheckbox name="active">
+          <template #label>
+            {{ t('news.form.sections.submit.fields.active.label') }}
+          </template>
           <template #help>
             {{ t('news.form.sections.submit.fields.active.help') }}
           </template>
-        </CheckBox>
+        </KwaiCheckbox>
         <div class="flex flex-col items-end mt-6">
           <KwaiButton
             id="submit"

@@ -13,18 +13,6 @@ defineOptions({
   inheritAttrs: false,
 });
 
-const preset = {
-  root: () => ({
-    class: [
-    ],
-  }),
-  // @ts-ignore
-  box: ({ context }) => ({
-    class: [
-      { 'bg-primary-500': context.checked },
-    ],
-  }),
-};
 const nameRef = toRef(props, 'name');
 const { value, errorMessage } = useField(nameRef);
 </script>
@@ -36,8 +24,6 @@ const { value, errorMessage } = useField(nameRef);
         v-model="value"
         v-bind="$attrs"
         binary
-        :pt="preset"
-        :pt-options="{ mergeSections: true, mergeProps: true }"
       />
       <label
         v-if="!!slots.label"
