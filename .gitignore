@@ -27,3 +27,4 @@ stats.html
 /frontend/packages/kwai-config/src/config.production.toml
 .task
 /frontend/.env.test
+/backend/db/schema.sql
