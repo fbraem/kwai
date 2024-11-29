@@ -1,7 +1,6 @@
-import './index.css';
 import { App } from 'vue';
-import Kwai from './presets/kwai';
 import PrimeVue from 'primevue/config';
+import './index.css';
 
 export type { MenuItem } from './types';
 export * from './alerts';
@@ -18,5 +17,5 @@ export * from './table';
 export * from './validations';
 
 export const init = (app: App) => {
-  app.use(PrimeVue, { unstyled: true, pt: Kwai });
+  app.use(PrimeVue, { theme: 'none' });
 };
