@@ -129,7 +129,6 @@ const closeNotification = () => {
     <div class="flex flex-col items-end mt-6">
       <KwaiButton
         id="submit"
-        class="bg-gray-700 text-white"
         :method="onSubmitForm"
       >
         {{ t('login.form.submit.label') }}

@@ -21,7 +21,7 @@ const resolveTheme = (path: string) => {
   return original;
 };
 
-export default defineConfig(() => {
+export default defineConfig(({ mode }) => {
   return {
     experimental: {
       renderBuiltUrl(filename, { type }) {
@@ -31,6 +31,9 @@ export default defineConfig(() => {
       },
     },
     base: '/apps/auth/',
+    esbuild: {
+      pure: mode === 'production' ? ['console.log'] : [],
+    },
     server: {
       origin: 'http://localhost:3002',
       host: '0.0.0.0',
@@ -57,6 +60,12 @@ export default defineConfig(() => {
           find: '@theme',
           replacement: '',
           customResolver: resolveTheme,
+        },
+        {
+          find: '@kwai/ui',
+          replacement: mode === 'production'
+            ? '@kwai/ui'
+            : resolve(__dirname, '../../packages/kwai-ui/src/'),
         },
         {
           find: /^@root\/(.*)/,

@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 // Create app
 import App from './App.vue';
 import './index.css';
+import './style.css';
 
 // Setup i18n
 import { createI18n } from 'vue-i18n';
