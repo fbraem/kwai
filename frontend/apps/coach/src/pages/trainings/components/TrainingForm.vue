@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  CheckBox,
+  KwaiCheckboxField,
   KwaiDatePicker,
   ErrorAlert,
   FormSection,
@@ -282,14 +282,14 @@ const applyDefinition = () => {
             </span>
           </template>
         </KwaiDatePicker>
-        <CheckBox
-          name="cancelled"
-          :label="t('training.form.sections.date.fields.cancelled.label')"
-        >
+        <KwaiCheckboxField name="cancelled">
+          <template #label>
+            {{ t('training.form.sections.date.fields.cancelled.label') }}
+          </template>
           <template #help>
             {{ t('training.form.sections.date.fields.cancelled.help') }}
           </template>
-        </CheckBox>
+        </KwaiCheckboxField>
       </FormSectionFields>
     </FormSection>
     <FormSection :title="t('training.form.sections.location.title')">
@@ -329,14 +329,14 @@ const applyDefinition = () => {
     </FormSection>
     <FormSection>
       <FormSectionFields class="bg-white">
-        <CheckBox
-          name="active"
-          :label="t('training.form.sections.submit.fields.active.label')"
-        >
+        <KwaiCheckboxField name="active">
+          <template #label>
+            {{ t('training.form.sections.submit.fields.active.label') }}
+          </template>
           <template #help>
             {{ t('training.form.sections.submit.fields.active.help') }}
           </template>
-        </CheckBox>
+        </KwaiCheckboxField>
         <div class="flex flex-col items-end mt-6">
           <KwaiButton
             id="submit"
