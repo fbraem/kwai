@@ -50,7 +50,7 @@ const { data: applications } = useApplications();
               </div>
               <div>
                 <KwaiButton :to="{ name: 'author.applications.edit', params: { id: application.id } }">
-                  <EditIcon class="w-4 mr-2" />Wijzig
+                  <EditIcon class="w-4 mr-2 fill-current" />Wijzig
                 </KwaiButton>
               </div>
             </div>
