@@ -1,24 +1,19 @@
 <script setup lang="ts">
-import { computed, toRef, useSlots } from 'vue';
+import { toRef, useSlots } from 'vue';
 import { useField } from 'vee-validate';
 import RequiredIcon from '../icons/RequiredIcon.vue';
-import VueDatePicker from '@vuepic/vue-datepicker';
-import type { TimeModel } from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css';
+import DatePicker from 'primevue/datepicker';
 
 const props = defineProps<{
   name: string,
   id?: string,
   placeholder?: string
-  format?: string
   required?: boolean
 }>();
 const slots = useSlots();
 
 const nameRef = toRef(props, 'name');
-const { value, errorMessage } = useField<TimeModel>(nameRef);
-
-const format = computed(() => props.format ?? 'HH:mm');
+const { value, errorMessage } = useField<Date>(nameRef);
 </script>
 
 <template>
@@ -34,14 +29,12 @@ const format = computed(() => props.format ?? 'HH:mm');
         class="ml-1 w-2 h-2 -mt-4 fill-black"
       />
     </label>
-    <VueDatePicker
+    <DatePicker
       :id="id ?? name"
       v-model="value"
-      :format="format"
-      time-picker
-      text-input
+      :hour-format="'24'"
+      time-only
       :placeholder="placeholder ?? ''"
-      :class="{ 'mt-1': !!slots.label, 'border-red-600': errorMessage, 'focus:ring-red-600': errorMessage, 'focus:border-red-600': errorMessage }"
     />
     <p
       v-if="!!slots.help"
