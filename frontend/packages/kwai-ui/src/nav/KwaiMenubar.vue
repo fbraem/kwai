@@ -21,7 +21,7 @@ const menuItems = computed(() => {
 <template>
   <Menubar
     :model="menuItems"
-    class="bg-primary w-full lg:px-6 lg:mx-auto lg:max-w-6xl"
+    class="bg-primary-400 w-full lg:px-6 lg:mx-auto lg:max-w-6xl"
   >
     <template #item="{ item, props, hasSubmenu }">
       <router-link
@@ -59,6 +59,6 @@ const menuItems = computed(() => {
 
 <style scoped>
 :deep(.p-menubar-item-link) {
-  @apply bg-primary-400 hover:bg-primary-600 rounded text-surface-0;
+  @apply bg-primary-500 hover:bg-primary-600 rounded text-surface-0;
 }
 </style>
