@@ -16,7 +16,7 @@ import type { Training } from '@root/composables/useTraining';
 import type { TrainingDefinition } from '@root/composables/useTrainingDefinition';
 import { computed, ref, watch } from 'vue';
 import { useField, useForm } from 'vee-validate';
-import { createFromDate, getLocaleFormat, weekdays } from '@kwai/date';
+import { createFromDate, weekdays } from '@kwai/date';
 import { useRouter } from 'vue-router';
 import { useTrainingMutation } from '@root/composables/useTraining';
 
@@ -45,8 +45,6 @@ function isRequired(value: string): string|boolean {
   }
   return t('training.form.validations.required');
 }
-
-const dateFormat = ref('ddd ' + getLocaleFormat('L') + ' HH:mm');
 
 interface TrainingForm {
   active: boolean,
@@ -265,7 +263,6 @@ const applyDefinition = () => {
           :time="true"
           :placeholder="t('training.form.sections.date.fields.start_date.placeholder')"
           :required="true"
-          :format="dateFormat"
         >
           <template #label>
             <span class="font-medium text-gray-900">
@@ -278,7 +275,6 @@ const applyDefinition = () => {
           :time="true"
           :placeholder="t('training.form.sections.date.fields.end_date.placeholder')"
           :required="true"
-          :format="dateFormat"
         >
           <template #label>
             <span class="font-medium text-gray-900">
