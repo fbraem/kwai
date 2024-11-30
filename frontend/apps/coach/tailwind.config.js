@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-import colors from 'tailwindcss/colors';
+import primeui from 'tailwindcss-primeui';
+
 module.exports = {
   content: [
     './index.html',
@@ -8,11 +9,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        primary: colors.orange,
-        'primary-text': colors.white,
-      },
     },
   },
-  plugins: [],
+  plugins: [primeui],
 };

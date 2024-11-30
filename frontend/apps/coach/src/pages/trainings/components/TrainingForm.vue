@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {
   CheckBox,
-  DatePicker,
+  KwaiDatePicker,
   ErrorAlert,
   FormSection,
   FormSectionFields,
@@ -260,7 +260,7 @@ const applyDefinition = () => {
         {{ t('training.form.sections.date.description') }}
       </template>
       <FormSectionFields class="bg-white">
-        <DatePicker
+        <KwaiDatePicker
           name="start_date"
           :time="true"
           :placeholder="t('training.form.sections.date.fields.start_date.placeholder')"
@@ -272,8 +272,8 @@ const applyDefinition = () => {
               {{ t('training.form.sections.date.fields.start_date.label') }}&nbsp;:
             </span>
           </template>
-        </DatePicker>
-        <DatePicker
+        </KwaiDatePicker>
+        <KwaiDatePicker
           name="end_date"
           :time="true"
           :placeholder="t('training.form.sections.date.fields.end_date.placeholder')"
@@ -285,7 +285,7 @@ const applyDefinition = () => {
               {{ t('training.form.sections.date.fields.end_date.label') }}&nbsp;:
             </span>
           </template>
-        </DatePicker>
+        </KwaiDatePicker>
         <CheckBox
           name="cancelled"
           :label="t('training.form.sections.date.fields.cancelled.label')"

@@ -6,7 +6,7 @@ import {
   ContainerSectionBanner,
   ContainerSectionContent,
   ContainerSectionTitle,
-  DateRangePicker,
+  KwaiDateRangePicker,
   DeleteIcon,
   InfoAlert,
   KwaiButton,
@@ -94,7 +94,7 @@ const saveTrainings = () => {
         </template>
         <template #right>
           <div class="flex sm:flex-col gap-4">
-            <DateRangePicker
+            <KwaiDateRangePicker
               name="period"
               :time="false"
             />

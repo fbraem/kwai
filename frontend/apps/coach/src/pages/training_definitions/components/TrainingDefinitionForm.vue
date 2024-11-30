@@ -13,7 +13,7 @@ import {
   InputField,
   SelectOption,
   TextareaField,
-  TimePicker,
+  KwaiTimePicker,
   isStringRequired,
 } from '@kwai/ui';
 import type { Option, TimeModel } from '@kwai/ui';
@@ -225,7 +225,7 @@ watch(definition, nv => {
             </span>
           </template>
         </SelectOption>
-        <TimePicker
+        <KwaiTimePicker
           name="start_time"
           :required="true"
           :placeholder="t('training_definition.form.sections.period.fields.start_time.placeholder')"
@@ -235,8 +235,8 @@ watch(definition, nv => {
               {{ t('training_definition.form.sections.period.fields.start_time.label') }}&nbsp;:
             </span>
           </template>
-        </TimePicker>
-        <TimePicker
+        </KwaiTimePicker>
+        <KwaiTimePicker
           name="end_time"
           :required="true"
           :placeholder="t('training_definition.form.sections.period.fields.end_time.placeholder')"
@@ -246,7 +246,7 @@ watch(definition, nv => {
               {{ t('training_definition.form.sections.period.fields.end_time.label') }}&nbsp;:
             </span>
           </template>
-        </TimePicker>
+        </KwaiTimePicker>
       </FormSectionFields>
     </FormSection>
     <FormSection :title="t('training.form.sections.remark.title')">
