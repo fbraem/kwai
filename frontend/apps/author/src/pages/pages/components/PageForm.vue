@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {
   KwaiButton,
-  CheckBox,
+  KwaiCheckboxField,
   ErrorAlert,
   FormSection,
   FormSectionFields,
@@ -229,14 +229,16 @@ const onSubmitForm = handleSubmit(async values => {
     </FormSection>
     <FormSection>
       <FormSectionFields class="bg-white">
-        <CheckBox
+        <KwaiCheckboxField
           name="active"
-          :label="t('pages.form.sections.submit.fields.active.label')"
         >
+          <template #label>
+            {{ t('pages.form.sections.submit.fields.active.label') }}
+          </template>
           <template #help>
             {{ t('pages.form.sections.submit.fields.active.help') }}
           </template>
-        </CheckBox>
+        </KwaiCheckboxField>
         <div class="flex flex-col items-end mt-6">
           <KwaiButton
             id="submit"
