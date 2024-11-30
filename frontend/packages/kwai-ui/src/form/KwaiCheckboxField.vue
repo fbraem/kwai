@@ -34,6 +34,12 @@ const { value, errorMessage } = useField(nameRef);
       </label>
     </div>
     <p
+      v-if="!!slots.help"
+      class="text-sm text-gray-500 py-2"
+    >
+      <slot name="help" />
+    </p>
+    <p
       v-if="errorMessage"
       class="mt-2 text-sm text-red-600"
     >
