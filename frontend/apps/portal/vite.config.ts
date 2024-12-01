@@ -19,7 +19,7 @@ const resolveTheme = (path: string) => {
   return original;
 };
 
-export default defineConfig(() => {
+export default defineConfig(({ mode }) => {
   return {
     experimental: {
       renderBuiltUrl(filename, { type }) {
@@ -46,6 +46,12 @@ export default defineConfig(() => {
     ],
     resolve: {
       alias: [
+        {
+          find: '@kwai/ui',
+          replacement: mode === 'production'
+            ? '@kwai/ui'
+            : resolve(__dirname, '../../packages/kwai-ui/src/'),
+        },
         {
           find: '@theme',
           replacement: '',
