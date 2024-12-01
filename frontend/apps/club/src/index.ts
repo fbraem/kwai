@@ -1,7 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import './index.css';
-import './style.css';
+import '@root/index.css';
 
 import { VueQueryPlugin } from '@tanstack/vue-query';
 import { createRouter, createWebHistory } from 'vue-router';
