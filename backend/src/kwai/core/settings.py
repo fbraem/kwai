@@ -34,7 +34,7 @@ class FrontendApplications(BaseModel):
 class FrontendSettings(BaseModel):
     """Settings for the frontend."""
 
-    test: bool
+    test: bool = False
     path: str
     apps: FrontendApplications
     root_app: str
