@@ -65,6 +65,11 @@ npm install
 npm run build
 ````
 
+!!! Note
+    You can also use [Task](https://taskfile.dev/) to build the frontend. Run the following
+    command from the kwai root folder:
+    `task frontend:build`
+
 This will result in a folder `dist` in all the frontend applications.
 FastAPI will be used to render the frontend. Add all applications to the `.kwai.toml` configuration file:
 
