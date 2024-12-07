@@ -24,7 +24,7 @@ Kwai needs a Python environment. [Poetry](https://python-poetry.org/) is used as
 dependency management tool. Make sure it is available.
 
 ````shell
-cd backend/src
+cd backend
 poetry install
 ````
 
