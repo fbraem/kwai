@@ -18,7 +18,7 @@ router = APIRouter(prefix=f"/{APP_NAME}")
 _portal_vite_dependency = ViteDependency(APP_NAME)
 
 
-@router.get("/{path:path}")
+@router.get("/{path:path}", name=APP_NAME)
 async def get_app(
     path: Path,
     request: Request,
@@ -32,6 +32,10 @@ async def get_app(
     return templates.TemplateResponse(
         "index.jinja2",
         {
+            "application": {
+                "name": APP_NAME,
+                "url": str(request.url_for(APP_NAME, path="")),
+            },
             "request": request,
             "vite": vite,
         },

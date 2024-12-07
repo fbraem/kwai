@@ -25,12 +25,17 @@ class ViteDependency:
 
         app_setting = getattr(settings.frontend.apps, self._application_name)
         if settings.frontend.test:
-            if app_setting.base_dev is None:
+            if app_setting.server is None:
                 raise HTTPException(
                     status_code=status.HTTP_400_BAD_REQUEST,
-                    detail=f"Setting base_dev not set for application {self._application_name}",
+                    detail=f"Setting 'server' not set for application {self._application_name}",
                 )
-            return DevelopmentVite(app_setting.base_dev)
+            if app_setting.base is None:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=f"Setting 'base' not set for application {self._application_name}",
+                )
+            return DevelopmentVite(app_setting.server, app_setting.base)
 
         manifest_path = (
             Path(settings.frontend.path)

@@ -23,13 +23,6 @@ const resolveTheme = (path: string) => {
 
 export default defineConfig(({ mode }) => {
   return {
-    experimental: {
-      renderBuiltUrl(filename, { type }) {
-        if (type === 'public') {
-          return `public/${filename}`;
-        }
-      },
-    },
     base: '/apps/auth/',
     esbuild: {
       pure: mode === 'production' ? ['console.log'] : [],

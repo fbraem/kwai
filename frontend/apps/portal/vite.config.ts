@@ -21,13 +21,6 @@ const resolveTheme = (path: string) => {
 
 export default defineConfig(({ mode }) => {
   return {
-    experimental: {
-      renderBuiltUrl(filename, { type }) {
-        if (type === 'public') {
-          return `public/${filename}`;
-        }
-      },
-    },
     base: '/apps/portal/',
     server: {
       origin: 'http://localhost:3000',

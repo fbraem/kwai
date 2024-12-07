@@ -47,7 +47,7 @@ def create_frontend():
     for router in application_routers:
         frontend_app.include_router(router, prefix="/apps")
 
-    @frontend_app.get("/news/{path:path}")
+    @frontend_app.get("/news/{path:path}", name="frontend.news")
     def news(path: Path, settings: Annotated[Settings, Depends(get_settings)]):
         """Redirect the news path to the portal application.
 
@@ -56,7 +56,7 @@ def create_frontend():
         """
         return RedirectResponse(f"/apps/{settings.frontend.root_app}/news/{path}")
 
-    @frontend_app.get("/pages/{path:path}")
+    @frontend_app.get("/pages/{path:path}", name="frontend.pages")
     def pages(path: Path, settings: Annotated[Settings, Depends(get_settings)]):
         """Redirect the pages path to the portal application.
 
@@ -65,7 +65,7 @@ def create_frontend():
         """
         return RedirectResponse(f"/apps/{settings.frontend.root_app}/pages/{path}")
 
-    @frontend_app.get("/")
+    @frontend_app.get("/", name="frontend.home")
     def root(settings: Annotated[Settings, Depends(get_settings)]):
         """Redirect index to the portal application."""
         return RedirectResponse(f"/apps/{settings.frontend.root_app}")

@@ -7,13 +7,6 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig(({ mode }) => {
   return {
-    experimental: {
-      renderBuiltUrl(filename, { type }) {
-        if (type === 'public') {
-          return `public/${filename}`;
-        }
-      },
-    },
     base: '/apps/club/',
     server: {
       origin: 'http://localhost:3004',

@@ -15,18 +15,18 @@ class Vite(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def generate_scripts(self, *entries: str) -> list[str]:
-        """Generate the script tags for the given entries."""
+    def get_scripts(self, base_url: str) -> list[str]:
+        """Get the scripts for the given entries."""
         raise NotImplementedError
 
     @abstractmethod
-    def generate_css(self, *entries: str) -> list[str]:
-        """Generate the css tags for the given entries."""
+    def get_css(self, base_url: str) -> list[str]:
+        """Get the css files for the given entries."""
         raise NotImplementedError
 
     @abstractmethod
-    def generate_preloads(self, *entries: str) -> list[str]:
-        """Generate the preload tags for the given entries."""
+    def get_preloads(self, base_url: str) -> list[str]:
+        """Get the preloads for the given entries."""
         raise NotImplementedError
 
     @abstractmethod
@@ -47,10 +47,11 @@ class Vite(ABC):
 class DevelopmentVite(Vite):
     """Vite implementation for development."""
 
-    def __init__(self, base_path: str):
+    def __init__(self, server_url: str, base_path: str):
         """Initialize the development version of vite.
 
         Args:
+            server_url: The url for the vite server
             base_path: The base path for the development version of vite.
 
         !!! Note
@@ -59,29 +60,35 @@ class DevelopmentVite(Vite):
             '/apps/author' and the server is running on localhost with port 3001, then
             base_path should be: 'http://localhost:3001/apps/author'.
         """
+        self._server_url = server_url
         self._base_path = base_path
         self._entries: list[str] = []
 
     def init(self, *entries: str):
         self._entries = entries
 
-    def generate_scripts(self) -> list[str]:
-        scripts = [
-            f'<script type="module" src="{self._base_path}/@vite/client"></script>'
-        ]
+    def get_scripts(self, base_url: str) -> list[str]:
+        scripts = [f"{self._server_url}/@vite/client"]
         for entry in self._entries:
             scripts.append(
-                f'<script type="module" src="{self._base_path}/{entry}"></script>'
+                "/".join(
+                    list(
+                        filter(
+                            lambda item: item,
+                            [self._server_url, self._base_path, entry],
+                        )
+                    )
+                )
             )
         return scripts
 
-    def generate_css(self) -> list[str]:
+    def get_css(self, base_url: str) -> list[str]:
         return []
 
-    def generate_preloads(self) -> list[str]:
+    def get_preloads(self, base_url: str) -> list[str]:
         return []
 
-    def get_asset_path(self, path: Path) -> Path | None:
+    def get_asset_path(self, asset_path: Path) -> Path | None:
         return None
 
 
@@ -105,30 +112,28 @@ class ProductionVite(Vite):
         self._manifest = Manifest.load_from_file(self._manifest_filepath)
         self._imported_chunks = self._find_imported_chunks(*entries)
 
-    def generate_scripts(self) -> list[str]:
+    def get_scripts(self, base_url: str) -> list[str]:
         scripts = []
 
         for chunk in self._imported_chunks.values():
             if chunk.entry:
-                scripts.append('<script type="module" ' f'src="{chunk.file}"></script>')
+                scripts.append(base_url + chunk.file)
 
         return scripts
 
-    def generate_css(self) -> list[str]:
+    def get_css(self, base_url: str) -> list[str]:
         styles = []
         for chunk in self._imported_chunks.values():
             for css in chunk.css:
-                styles.append(f'<link rel="stylesheet" href="{css}">')
+                styles.append(base_url + css)
         return styles
 
-    def generate_preloads(self) -> list[str]:
+    def get_preloads(self, base_url: str) -> list[str]:
         preloads = []
 
         for chunk in self._imported_chunks.values():
             if chunk.file.endswith(".js") and not chunk.entry:
-                preloads.append(
-                    f'<link rel="modulepreload" as="script" ' f'href="{chunk.file}">'
-                )
+                preloads.append(base_url + chunk.file)
 
         return preloads
 
@@ -159,8 +164,6 @@ class ProductionVite(Vite):
 
     def get_asset_path(self, path: Path) -> Path | None:
         dist_path = self._base_path / "dist"
-        if len(path.parents) > 0 and str(path.parents[0]) == "public":
-            path = Path(*path.parts[1:])
         asset_file = dist_path / path
         if asset_file.is_relative_to(dist_path) and asset_file.is_file():
             return asset_file
