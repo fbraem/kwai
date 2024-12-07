@@ -55,10 +55,13 @@ dbmate -d . -u "<database_uri>" up
 
 ## Step 4: Frontend
 
-Build the frontend :
+The frontend is also served by the FastAPI backend.
+
+To build the frontend you need [Node](https://nodejs.org/en).
 
 ````shell
 cd frontend
+npm install
 npm run build
 ````
 
@@ -85,7 +88,7 @@ build command.
 To start the backend application use the following command:
 
 ````shell
-cd backend/src
+cd backend
 poetry run python -m kwai.api
 ````
 
