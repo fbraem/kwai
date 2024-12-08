@@ -3,8 +3,7 @@
 The frontend consists of several single page applications. [Vue](https://vuejs.org) is used as JavaScript framework.
 The frontend code is written with [Typescript](https://www.typescriptlang.org/).
 
-The code is structured as a mono repository. It contains applications
-and libraries.
+The code is structured as a mono repository. It contains applications and libraries.
 
 ## Install
 
@@ -19,7 +18,7 @@ Make `frontend` the current directory and use npm to install all dependencies:
 
 `npm install`
 
-[Task](https://taskfile.dev/) is used as runner and build tool.
+[Task](https://taskfile.dev/) can be used as runner and build tool.
 
 ### Configuration
 
@@ -36,43 +35,15 @@ and build and serve the applications.
 [Vite](https://vitejs.dev/) is the local development server.
 Each application will have a vite server.
 
-The FastAPI backend can be used to serve all applications from one url.
-
-To serve all applications from one url, Nginx can be used as reverse proxy. Use the following
-configuration for Nginx:
-
-````
-server {
-  listen 80;
-  include /etc/nginx/mime.types;
-
-  proxy_http_version  1.1;
-  proxy_set_header Upgrade $http_upgrade; # allow websockets
-  proxy_set_header Connection "upgrade";
-  proxy_set_header Host $http_host;
-  proxy_set_header X-Real-IP $remote_addr;
-  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  proxy_set_header X-Forwarded-Proto $scheme;
-  proxy_set_header X-Forwarded-Host $host:$server_port;
-
-  location /apps/author {
-           proxy_pass http://localhost:3001/apps/author;
-  }
-  location /apps/coach {
-           proxy_pass http://localhost:3003/apps/coach;
-  }
-  location /apps/auth {
-           proxy_pass http://localhost:3002/apps/auth;
-  }
-  location / {
-           proxy_pass http://localhost:3000/;
-  }
-}
-````
+The FastAPI backend is used to serve all applications.
 
 ## Build
 
 To create a production version of the frontend:
+
+`npm run build`
+
+or
 
 `task build_apps`
 
