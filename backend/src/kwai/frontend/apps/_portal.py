@@ -29,12 +29,16 @@ async def get_app(
     if asset_file_path is not None:
         return EtagFileResponse(asset_file_path)
 
+    url = request.url_for(APP_NAME, path="")
+    if "x-forwarded-proto" in request.headers:
+        url = url.replace(scheme=request.headers["x-forwarded-proto"])
+
     return templates.TemplateResponse(
         "index.jinja2",
         {
             "application": {
                 "name": APP_NAME,
-                "url": str(request.url_for(APP_NAME, path="")),
+                "url": str(url),
             },
             "request": request,
             "vite": vite,
