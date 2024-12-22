@@ -15,7 +15,7 @@ Currently, the event bus is custom code and not in use yet.
 !!! note
     The frontend is also served by FastAPI.
 
-## Install
+## Develop
 
 ### Prerequisites
 
@@ -82,7 +82,7 @@ Use `kwai.dist.yaml` file to create `kwai.yaml` in each machine folder. This fil
 
 > Don't add `kwai.yaml` to version control!
 
-## Develop
+### Tools
 
 The backend is written in Python. The following tools are used to develop kwai:
 + [Poetry](https://python-poetry.org/) for managing dependencies.
@@ -106,29 +106,29 @@ There are several github actions defined:
 + mirror: will copy the repository to codeberg.
 + ruff: will check the code.
 
-## Project structure
+### Project structure
 
 The kwai API code in the repository is located in the `backend` folder.
 
-### docs
+#### docs
 
 This folder contains all files for creating this documentation site.
 
-### migrations
+#### migrations
 
 This folder contains the database migrations.
 [Dbmate](https://github.com/amacneil/dbmate) is used as migration tool.
 
-### src
+#### src
 
 This folder contains the Python code. The system is written following DDD as software development philosophy.
 Clean code should be the result of following this philosophy. The folder `kwai` contains the
 program code, `tests` contains the [pytest](https://pytest.org) code for testing the program code.
 
-### templates
+#### templates
 
 This folder contains all templates used by kwai.
 
-### vagrant
+#### vagrant
 
 This folder contains two vagrant machines: one for development and one for testing.
