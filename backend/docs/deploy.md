@@ -46,16 +46,16 @@ variable `KWAI_SETTINGS_FILE` with the full path of this configuration file.
 ## Step 4: Migration
 
 When there are database changes required, a migration must run before
-starting the backend.
+starting the backend. Copy the migrations folder to your server and use dbmate to upgrade.
 
 > [dbmate](https://github.com/amacneil/dbmate) is used for database migrations. Make sure it is available.
 
 ````shell
-cd backend/migrations
+cd <your_folder_on_the_server>/migrations
 dbmate -d . -u "<database_uri>" up
 ````
 
-## Step 4: Frontend
+## Step 5: Frontend
 
 The frontend is also served by the FastAPI backend.
 
