@@ -43,7 +43,12 @@ cp kwai.dist.toml .kwai.toml
 Use an editor to change the configuration. Set the environment
 variable `KWAI_SETTINGS_FILE` with the full path of this configuration file.
 
-## Step 4: Migration
+## Step 4: Templates
+
+kwai requires jinja2 templates. Copy the templates to a folder on the server
+and update the `path` setting in the `template` section of the configuration file.
+
+## Step 5: Migration
 
 When there are database changes required, a migration must run before
 starting the backend. Copy the migrations folder to your server and use dbmate to upgrade.
@@ -55,7 +60,7 @@ cd <your_folder_on_the_server>/migrations
 dbmate -d . -u "<database_uri>" up
 ````
 
-## Step 5: Frontend
+## Step 6: Frontend
 
 The frontend is also served by the FastAPI backend.
 
@@ -90,7 +95,7 @@ entries="/src/index.ts"
 In this example there should be a `/home/kwai/frontend/apps/portal/dist` folder that contains the result of the
 build command.
 
-## Step 5: Run
+## Step 7: Run
 
 To start the backend application use the following command:
 
