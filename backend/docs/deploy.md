@@ -2,30 +2,32 @@
 
 This page will describe how you can deploy the backend of kwai.
 
-## Step 1: Clone
+## Step 1: Build
 
 First you need to get the latest version. The repository is a monorepo.
 This means the backend code and the frontend code are in the same repository.
-We only need the backend here:
-
-````shell
-git clone --no-checkout https://codeberg.org/zumuta/kwai.git
-cd kwai
-git sparse-checkout init --cone
-git sparse-checkout set backend
-git checkout
-````
-
-> When sparse-checkout is not available, you can safely remove the frontend directory.
-
-## Step 2: Python Environment
-
-Kwai needs a Python environment. [Poetry](https://python-poetry.org/) is used as Python packaging and
-dependency management tool. Make sure it is available.
+We only need the backend. Set up the [development environment](./index.md) for kwai
+and build the wheel file.
 
 ````shell
 cd backend
-poetry install
+poetry build
+````
+
+This command creates a dist folder where you find two files: a tar.gz with the source code and a .whl file
+that can used to install kwai.
+Transfer the .whl file to your host.
+
+## Step 2: Python Environment
+
+Kwai needs a Python environment. It is recommended to create a separate environment for kwai.
+Run the following command on your host:
+
+````shell
+mkdir backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install kwai-x.x.x-py3-none-any.whl
 ````
 
 ## Step 3: Configuration
@@ -94,7 +96,9 @@ To start the backend application use the following command:
 
 ````shell
 cd backend
-poetry run python -m kwai.api
+
+source .venv/bin/activate
+python -m kwai
 ````
 
 This python script will start an uvicorn server. The host
