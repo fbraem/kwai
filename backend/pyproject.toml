@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "kwai"
-version = "0.2.0"
+version = "0.2.1"
 description = "KWAI Sport Club Management - API"
 authors = ["Franky Braem <franky.braem@gmail.com>"]
 
