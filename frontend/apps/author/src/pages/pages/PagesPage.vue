@@ -8,9 +8,9 @@ import {
   ContainerSectionTitle,
   NewIcon,
   EditIcon, CheckIcon, CancelIcon, OffsetPagination,
+  KwaiButton,
 } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
-import PrimaryButton from '@root/components/PrimaryButton.vue';
 
 const { t } = useI18n({ useScope: 'global' });
 
@@ -33,13 +33,10 @@ const { data: pages } = usePages({ offset, limit });
           </p>
         </template>
         <template #right>
-          <PrimaryButton
-            :route="{ name: 'author.pages.create' }"
-            class="flex items-center"
-          >
+          <KwaiButton :to="{ name: 'author.pages.create' }">
             <NewIcon class="w-4 mr-2 fill-current" />
             {{ t('pages.home.toolbar.button') }}
-          </PrimaryButton>
+          </KwaiButton>
         </template>
       </ContainerSectionBanner>
       <div
@@ -105,12 +102,9 @@ const { data: pages } = usePages({ offset, limit });
                   class="px-6 py-4"
                   rowspan="2"
                 >
-                  <router-link
-                    :to="{ name: 'author.pages.edit', params: { id: page.id } }"
-                    class="border-none text-base inline-flex justify-center items-center align-middle no-underline rounded-full cursor-pointer focus:outline-none hover:no-underline hover:bg-yellow-300 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed p-2"
-                  >
+                  <KwaiButton :to="{ name: 'author.pages.edit', params: { id: page.id } }">
                     <EditIcon class="w-4 fill-current" />
-                  </router-link>
+                  </KwaiButton>
                 </td>
               </tr>
               <tr class="border-b">

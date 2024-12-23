@@ -109,8 +109,8 @@ TEST_SCRIPT=$(cat <<EOF
 
 # Clone the git repository
 rm -rf kwai
-git clone https://codeberg.org/zumuta/kwai.git
-cd kwai/backend/src
+git clone https://github.com/fbraem/kwai.git
+cd kwai/backend
 poetry install --with dev,docs
 
 # Drop/create the database
@@ -129,9 +129,6 @@ if [ $? -ne 0 ]; then
   echo "One or more tests failed."
   exit 1
 fi
-poetry run coverage-badge -o ./htmlcov/coverage.svg
-rm -rf /kwai_sync/backend/docs/tests/coverage/*
-cp -R ./htmlcov/* /kwai_sync/backend/docs/tests/coverage
 EOF
 )
 echo "$TEST_SCRIPT" > "$VAGRANT_HOME/kwai_test.sh"

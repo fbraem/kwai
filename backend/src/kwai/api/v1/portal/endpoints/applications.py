@@ -1,9 +1,11 @@
 """Module that implements applications endpoints."""
+
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from kwai.api.dependencies import create_database, get_current_user
 from kwai.api.schemas.application import ApplicationDocument
 from kwai.core.json_api import Meta
+from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,
 )
@@ -16,7 +18,6 @@ from kwai.modules.portal.update_application import (
     UpdateApplication,
     UpdateApplicationCommand,
 )
-from tests.core.domain.test_entity import UserEntity
 
 router = APIRouter()
 

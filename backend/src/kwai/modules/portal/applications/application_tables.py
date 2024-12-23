@@ -25,7 +25,7 @@ class ApplicationRow:
         remark: a remark about the application
         news: does this application can contain news stories?
         pages: does this application can contain pages?
-        events does this application can contain events?
+        events: does this application can contain events?
         weight: a weight that can be used to order the applications
         created_at: the timestamp of creation
         updated_at: the timestamp of the last modification
@@ -62,8 +62,8 @@ class ApplicationRow:
             events=self.events == 1,
             weight=self.weight,
             traceable_time=TraceableTime(
-                created_at=Timestamp(self.created_at),
-                updated_at=Timestamp(self.updated_at),
+                created_at=Timestamp.create_utc(self.created_at),
+                updated_at=Timestamp.create_utc(self.updated_at),
             ),
         )
 

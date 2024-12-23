@@ -1,15 +1,13 @@
 """Module for the table decorator."""
 
 from dataclasses import fields, is_dataclass
-from typing import Any, Callable, Generic, TypeVar
+from typing import Any, Callable
 
 from sql_smith.functions import alias
 from sql_smith.functions import field as sql_field
 
-T = TypeVar("T", bound=Callable)
 
-
-class Table(Generic[T]):
+class Table[T: Callable]:
     """Represent a table in the database.
 
     With this class a table row can be transformed into a dataclass. It can also
@@ -30,7 +28,7 @@ class Table(Generic[T]):
         """Shortcut for map_row."""
         return self.map_row(row, table_name)
 
-    def alias_name(self, column_name: str, table_name: str | None = None):
+    def alias_name(self, column_name: str, table_name: str | None = None) -> str:
         """Return an alias for a column.
 
         The alias will be the name of the table delimited with an

@@ -2,22 +2,22 @@
 
 from abc import ABC
 from dataclasses import dataclass
-from typing import AsyncGenerator
 
 from kwai.core.domain.entity import Entity
+from kwai.core.domain.presenter import Presenter
 from kwai.core.domain.use_case import UseCaseResult
-from kwai.modules.club.members import member_importer
-from kwai.modules.club.members.file_upload import FileUploadEntity
-from kwai.modules.club.members.file_upload_repository import FileUploadRepository
-from kwai.modules.club.members.member import MemberEntity
-from kwai.modules.club.members.member_repository import (
+from kwai.modules.club.domain.file_upload import FileUploadEntity
+from kwai.modules.club.domain.member import MemberEntity
+from kwai.modules.club.repositories import member_importer
+from kwai.modules.club.repositories.file_upload_repository import FileUploadRepository
+from kwai.modules.club.repositories.member_repository import (
     MemberNotFoundException,
     MemberRepository,
 )
 
 
 @dataclass(kw_only=True, slots=True, frozen=True)
-class Result(UseCaseResult, ABC):
+class MemberImportResult(UseCaseResult, ABC):
     """The result of the use case ImportMembers."""
 
     file_upload: FileUploadEntity
@@ -25,7 +25,7 @@ class Result(UseCaseResult, ABC):
 
 
 @dataclass(kw_only=True, slots=True, frozen=True)
-class OkResult(Result):
+class OkMemberImportResult(MemberImportResult):
     """A successful import of a member."""
 
     member: MemberEntity
@@ -35,20 +35,20 @@ class OkResult(Result):
 
 
 @dataclass(kw_only=True, slots=True, frozen=True)
-class FailureResult(Result):
+class FailureMemberImportResult(MemberImportResult):
     """An import of a member failed."""
 
     message: str
 
     def to_message(self) -> str:
-        return f"Import failed for row {self.row}: {self.message}."
+        return self.message
 
 
 @dataclass(kw_only=True, slots=True, frozen=True)
 class ImportMembersCommand:
     """Input for the use case "ImportMembers"."""
 
-    test: bool = True
+    preview: bool = True
 
 
 class ImportMembers:
@@ -59,6 +59,7 @@ class ImportMembers:
         importer: member_importer.MemberImporter,
         file_upload_repo: FileUploadRepository,
         member_repo: MemberRepository,
+        presenter: Presenter,
     ):
         """Initialize the use case.
 
@@ -66,49 +67,57 @@ class ImportMembers:
             importer: A class that is responsible for importing members from a resource.
             file_upload_repo: A repository for storing the file upload information.
             member_repo: A repository for managing members.
+            presenter: A presenter
         """
         self._importer = importer
         self._file_upload_repo = file_upload_repo
         self._member_repo = member_repo
+        self._presenter = presenter
 
-    async def execute(
-        self, command: ImportMembersCommand
-    ) -> AsyncGenerator[Result, None]:
-        """Execute the use case.
-
-        Yields:
-            OkResult: When the row was successfully imported.
-            FailureResult: When the row was not successfully imported.
-        """
+    async def execute(self, command: ImportMembersCommand):
+        """Execute the use case."""
         file_upload_entity = await self._file_upload_repo.create(
-            self._importer.create_file_upload_entity()
+            self._importer.create_file_upload_entity(command.preview)
         )
         async for import_result in self._importer.import_():
             match import_result:
                 case member_importer.OkResult():
-                    member = await self._save_member(import_result.member, command.test)
-                    yield OkResult(
-                        file_upload=file_upload_entity,
-                        row=import_result.row,
-                        member=member,
+                    member = await self._save_member(
+                        file_upload_entity, import_result.member, command.preview
+                    )
+                    self._presenter.present(
+                        OkMemberImportResult(
+                            file_upload=file_upload_entity,
+                            row=import_result.row,
+                            member=member,
+                        )
                     )
                 case member_importer.FailureResult():
-                    yield FailureResult(
-                        file_upload=file_upload_entity,
-                        row=import_result.row,
-                        message=import_result.message,
+                    self._presenter.present(
+                        FailureMemberImportResult(
+                            file_upload=file_upload_entity,
+                            row=import_result.row,
+                            message=import_result.message,
+                        )
                     )
+        if not command.preview:
+            await self._activate_members(file_upload_entity)
 
-    async def _save_member(self, member: MemberEntity, test: bool) -> MemberEntity:
+    async def _save_member(
+        self, file_upload: FileUploadEntity, member: MemberEntity, preview: bool
+    ) -> MemberEntity:
         """Create or update the member."""
         existing_member = await self._get_member(member)
         if existing_member is not None:
             updated_member = self._update_member(existing_member, member)
-            if not test:
+            if not preview:
                 await self._member_repo.update(updated_member)
+                await self._file_upload_repo.save_member(file_upload, updated_member)
             return updated_member
-        if not test:
-            return await self._member_repo.create(member)
+
+        if not preview:
+            member = await self._member_repo.create(member)
+            await self._file_upload_repo.save_member(file_upload, member)
         return member
 
     @classmethod
@@ -154,3 +163,12 @@ class ImportMembers:
             return None
 
         return member
+
+    async def _activate_members(self, upload_entity: FileUploadEntity):
+        """Activate members.
+
+        Members that are part of the upload will be activated.
+        Members not part of the upload will be deactivated.
+        """
+        await self._member_repo.activate_members(upload_entity)
+        await self._member_repo.deactivate_members(upload_entity)

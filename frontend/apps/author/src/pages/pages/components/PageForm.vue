@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import {
-  Button,
-  CheckBox,
-  DatePicker,
-  DateRangePicker,
+  KwaiButton,
+  KwaiCheckboxField,
   ErrorAlert,
   FormSection,
   FormSectionFields,
   InputField,
-  RangeSlider,
+  KwaiSlider,
   SelectOption,
   TextareaField,
 } from '@kwai/ui';
@@ -199,7 +197,7 @@ const onSubmitForm = handleSubmit(async values => {
         {{ t('pages.form.sections.promotion.description') }}
       </template>
       <FormSectionFields class="bg-white">
-        <RangeSlider
+        <KwaiSlider
           name="priority"
           class="pb-6"
         >
@@ -208,7 +206,7 @@ const onSubmitForm = handleSubmit(async values => {
               {{ t('pages.form.sections.promotion.fields.priority.label') }}&nbsp;:
             </span>
           </template>
-        </RangeSlider>
+        </KwaiSlider>
       </FormSectionFields>
     </FormSection>
     <FormSection :title="t('pages.form.sections.remark.title')">
@@ -231,22 +229,23 @@ const onSubmitForm = handleSubmit(async values => {
     </FormSection>
     <FormSection>
       <FormSectionFields class="bg-white">
-        <CheckBox
+        <KwaiCheckboxField
           name="active"
-          :label="t('pages.form.sections.submit.fields.active.label')"
         >
+          <template #label>
+            {{ t('pages.form.sections.submit.fields.active.label') }}
+          </template>
           <template #help>
             {{ t('pages.form.sections.submit.fields.active.help') }}
           </template>
-        </CheckBox>
+        </KwaiCheckboxField>
         <div class="flex flex-col items-end mt-6">
-          <Button
+          <KwaiButton
             id="submit"
-            class="bg-yellow-300 text-gray-600 border border-yellow-300 focus:bg-white focus:ring-2 focus:ring-yellow-300 hover:bg-white hover:border hover:border-yellow-300"
-            @click="onSubmitForm"
+            :method="onSubmitForm"
           >
             {{ t('pages.form.sections.submit.fields.button.label') }}
-          </Button>
+          </KwaiButton>
         </div>
         <ErrorAlert v-if="errorMessage">
           {{ t('pages.form.error') }}

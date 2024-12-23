@@ -3,26 +3,26 @@
 from pathlib import Path
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
+from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile, status
 from pydantic import BaseModel, Field
 
 from kwai.api.dependencies import create_database, get_current_user
+from kwai.api.v1.club.presenters import JsonApiUploadMemberPresenter
 from kwai.api.v1.club.schemas.member import MemberDocument
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
 from kwai.core.functions import generate_filenames
-from kwai.core.json_api import Meta
 from kwai.core.settings import Settings, get_settings
 from kwai.modules.club.import_members import (
-    FailureResult,
     ImportMembers,
     ImportMembersCommand,
-    OkResult,
 )
-from kwai.modules.club.members.country_db_repository import CountryDbRepository
-from kwai.modules.club.members.file_upload_db_repository import FileUploadDbRepository
-from kwai.modules.club.members.flemish_member_importer import FlemishMemberImporter
-from kwai.modules.club.members.member_db_repository import MemberDbRepository
+from kwai.modules.club.repositories.country_db_repository import CountryDbRepository
+from kwai.modules.club.repositories.file_upload_db_repository import (
+    FileUploadDbRepository,
+)
+from kwai.modules.club.repositories.flemish_member_importer import FlemishMemberImporter
+from kwai.modules.club.repositories.member_db_repository import MemberDbRepository
 from kwai.modules.identity.users.user import UserEntity
 
 router = APIRouter()
@@ -54,6 +54,7 @@ async def upload(
     settings: Annotated[Settings, Depends(get_settings)],
     database: Annotated[Database, Depends(create_database)],
     user: Annotated[UserEntity, Depends(get_current_user)],
+    preview: Annotated[bool, Query(description="Whether or not to preview")] = True,
 ) -> MemberDocument:
     """Upload a members csv file."""
     if member_file.filename is None:
@@ -70,8 +71,9 @@ async def upload(
             detail=f"Failed to upload members file: {ex}",
         ) from ex
 
+    presenter = JsonApiUploadMemberPresenter()
     async with UnitOfWork(database):
-        imported_member_generator = ImportMembers(
+        await ImportMembers(
             FlemishMemberImporter(
                 str(member_filename),
                 user.create_owner(),
@@ -79,43 +81,9 @@ async def upload(
             ),
             FileUploadDbRepository(database),
             MemberDbRepository(database),
-        ).execute(ImportMembersCommand())
-
-    meta = Meta(count=0, offset=0, limit=0, errors=[])
-    response = MemberDocument(meta=meta, data=[])
-    upload_entity = None
-    async for result in imported_member_generator:
-        if upload_entity is None:
-            upload_entity = result.file_upload
-
-        match result:
-            case OkResult():
-                member_document = MemberDocument.create(result.member)
-                member_document.resource.meta.row = result.row
-                member_document.resource.meta.new = not result.member.has_id()
-                # A new member has related resources that are not saved yet,
-                # so give them temporarily the same id as the member.
-                if member_document.resource.meta.new:
-                    member_document.resource.relationships.person.data.id = (
-                        member_document.resource.id
-                    )
-                    for included in member_document.included:
-                        if included.type == "persons":
-                            included.relationships.contact.data.id = (
-                                member_document.resource.id
-                            )
-                        if included.id == "0":
-                            included.id = member_document.resource.id
-                meta.count += 1
-                response.merge(member_document)
-            case FailureResult():
-                meta.errors.append({"row": result.row, "message": result.to_message()})
-            case _:
-                raise HTTPException(
-                    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                    detail="Unexpected result returned",
-                )
-    return response
+            presenter,
+        ).execute(ImportMembersCommand(preview=preview))
+    return presenter.get_document()
 
 
 async def upload_file(uploaded_file, path: str):

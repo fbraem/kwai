@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { ContainerSection, ContainerSectionTitle, ContainerSectionContent, Card, CardTitle, ListIcon } from '@kwai/ui';
+import { ContainerSection, ContainerSectionTitle, ContainerSectionContent, Card, CardTitle, KwaiButton, ListIcon } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
-import PrimaryButton from '@root/components/PrimaryButton.vue';
 import TrainingDefinitionsCard from '@root/pages/home/components/TrainingDefinitionsCard.vue';
 const { t } = useI18n({ useScope: 'global' });
 </script>
@@ -24,12 +23,12 @@ const { t } = useI18n({ useScope: 'global' });
         </p>
         <template #footer>
           <div class="flex justify-between items-center p-3">
-            <PrimaryButton :route="{ name: 'coach.trainings' }">
+            <KwaiButton :to="{ name: 'coach.trainings' }">
               <ListIcon
                 class="w-4 mr-2 fill-current"
               />
               {{ t('home.trainings.list') }}
-            </primarybutton>
+            </KwaiButton>
           </div>
         </template>
       </Card>

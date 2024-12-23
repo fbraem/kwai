@@ -34,13 +34,13 @@ class UserRecoveryRow:
             id_=UserRecoveryIdentifier(self.id),
             uuid=UniqueId.create_from_string(self.uuid),
             user=user,
-            expiration=Timestamp(self.expired_at),
+            expiration=Timestamp.create_utc(self.expired_at),
             remark=self.remark,
-            confirmation=Timestamp(self.confirmed_at),
-            mailed_at=Timestamp(self.mailed_at),
+            confirmation=Timestamp.create_utc(self.confirmed_at),
+            mailed_at=Timestamp.create_utc(self.mailed_at),
             traceable_time=TraceableTime(
-                created_at=Timestamp(timestamp=self.created_at),
-                updated_at=Timestamp(timestamp=self.updated_at),
+                created_at=Timestamp.create_utc(timestamp=self.created_at),
+                updated_at=Timestamp.create_utc(timestamp=self.updated_at),
             ),
         )
 

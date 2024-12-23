@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Card, CardTitle, ListIcon, ContainerSection, ContainerSectionContent, ContainerSectionTitle } from '@kwai/ui';
-import PrimaryButton from '@root/components/PrimaryButton.vue';
+import { Card, CardTitle, KwaiButton, ListIcon, ContainerSection, ContainerSectionContent, ContainerSectionTitle } from '@kwai/ui';
 </script>
 
 <template>
@@ -20,12 +19,12 @@ import PrimaryButton from '@root/components/PrimaryButton.vue';
         </p>
         <template #footer>
           <div class="flex justify-between items-center p-3">
-            <PrimaryButton :route="{ name: 'author.applications' }">
+            <KwaiButton :to="{ name: 'author.applications' }">
               <ListIcon
                 class="w-4 mr-2 fill-current"
               />
               Overzicht
-            </primarybutton>
+            </KwaiButton>
           </div>
         </template>
       </Card>
@@ -40,12 +39,12 @@ import PrimaryButton from '@root/components/PrimaryButton.vue';
         </p>
         <template #footer>
           <div class="flex justify-between items-center p-3">
-            <PrimaryButton :route="{ name: 'author.news' }">
+            <KwaiButton :to="{ name: 'author.news' }">
               <ListIcon
                 class="w-4 mr-2 fill-current"
               />
               Overzicht
-            </primarybutton>
+            </KwaiButton>
           </div>
         </template>
       </Card>
@@ -60,12 +59,12 @@ import PrimaryButton from '@root/components/PrimaryButton.vue';
         </p>
         <template #footer>
           <div class="flex justify-between items-center p-3">
-            <PrimaryButton :route="{ name: 'author.pages' }">
+            <KwaiButton :to="{ name: 'author.pages' }">
               <ListIcon
                 class="w-4 mr-2 fill-current"
               />
               Overzicht
-            </primarybutton>
+            </KwaiButton>
           </div>
         </template>
       </Card>

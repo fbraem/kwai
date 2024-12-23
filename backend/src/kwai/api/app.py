@@ -1,4 +1,5 @@
 """Module that implements a factory method for a FastAPI application."""
+
 import os
 import sys
 import uuid
@@ -14,16 +15,19 @@ from kwai.api.v1.club.api import api_router as club_api_router
 from kwai.api.v1.news.api import api_router as news_api_router
 from kwai.api.v1.pages.api import api_router as pages_api_router
 from kwai.api.v1.portal.api import api_router as portal_api_router
+from kwai.api.v1.teams.api import router as teams_api_router
 from kwai.api.v1.trainings.api import api_router as training_api_router
 from kwai.core.settings import LoggerSettings, Settings, get_settings
+
+APP_NAME = "kwai API"
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Log the start/stop of the application."""
-    logger.info("kwai is starting")
+    logger.info(f"{APP_NAME} is starting")
     yield
-    logger.warning("kwai has ended!")
+    logger.warning(f"{APP_NAME} has ended!")
 
 
 def configure_logger(settings: LoggerSettings):
@@ -57,13 +61,13 @@ def configure_logger(settings: LoggerSettings):
     )
 
 
-def create_app(settings: Settings | None = None) -> FastAPI:
+def create_api(settings: Settings | None = None) -> FastAPI:
     """Create the FastAPI application.
 
     Args:
         settings: Settings to use in this application.
     """
-    app = FastAPI(title="kwai", lifespan=lifespan, separate_input_output_schemas=False)
+    app = FastAPI(lifespan=lifespan, separate_input_output_schemas=False)
 
     if settings is None:
         settings = get_settings()
@@ -110,11 +114,12 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     if settings.logger:
         configure_logger(settings.logger)
 
-    app.include_router(auth_api_router, prefix="/api/v1")
-    app.include_router(portal_api_router, prefix="/api/v1")
-    app.include_router(pages_api_router, prefix="/api/v1")
-    app.include_router(news_api_router, prefix="/api/v1")
-    app.include_router(training_api_router, prefix="/api/v1")
-    app.include_router(club_api_router, prefix="/api/v1")
+    app.include_router(auth_api_router, prefix="/v1")
+    app.include_router(portal_api_router, prefix="/v1")
+    app.include_router(pages_api_router, prefix="/v1")
+    app.include_router(news_api_router, prefix="/v1")
+    app.include_router(teams_api_router, prefix="/v1")
+    app.include_router(training_api_router, prefix="/v1")
+    app.include_router(club_api_router, prefix="/v1")
 
     return app

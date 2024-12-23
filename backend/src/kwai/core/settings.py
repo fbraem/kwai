@@ -1,4 +1,5 @@
 """Module for the settings of this application."""
+
 import os
 from functools import lru_cache
 
@@ -10,6 +11,33 @@ ENV_SETTINGS_FILE = "KWAI_SETTINGS_FILE"
 
 class SettingsException(Exception):
     """Raised when a problem occurred while loading the settings."""
+
+
+class FrontendApplicationSettings(BaseModel):
+    """Settings for a frontend application."""
+
+    server: str | None = None
+    base: str | None = None
+    entries: list[str] | str
+
+
+class FrontendApplications(BaseModel):
+    """All applications."""
+
+    auth: FrontendApplicationSettings
+    author: FrontendApplicationSettings
+    club: FrontendApplicationSettings
+    coach: FrontendApplicationSettings
+    portal: FrontendApplicationSettings
+
+
+class FrontendSettings(BaseModel):
+    """Settings for the frontend."""
+
+    test: bool = False
+    path: str
+    apps: FrontendApplications
+    root_app: str
 
 
 class FilesSettings(BaseModel):
@@ -91,6 +119,8 @@ class TemplateSettings(BaseModel):
 
 class Settings(BaseModel):
     """Class with settings."""
+
+    frontend: FrontendSettings
 
     files: FilesSettings
 

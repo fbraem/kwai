@@ -54,7 +54,7 @@ class UpdateTrainingDefinition:
             command: The input for this use case.
 
         Raises:
-            TrainingDefinitionNotFoundException when the training definition does not
+            TrainingDefinitionNotFoundException: when the training definition does not
                 exist.
         """
         if command.team_id is not None:

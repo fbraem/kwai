@@ -1,6 +1,6 @@
 """Module that defines some JSON:API related models."""
 
-from typing import Any, Generic, TypeVar, cast
+from typing import Any, cast
 
 from fastapi import Query
 from pydantic import (
@@ -25,13 +25,10 @@ class ResourceIdentifier(BaseModel):
         return hash(str(self.id) + self.type)
 
 
-T_RELATION_SHIP = TypeVar("T_RELATION_SHIP")
-
-
-class Relationship(BaseModel, Generic[T_RELATION_SHIP]):
+class Relationship[R](BaseModel):
     """A JSON:API relationship."""
 
-    data: T_RELATION_SHIP | list[T_RELATION_SHIP] | None
+    data: R | list[R] | None
 
 
 class ResourceMeta(BaseModel):
@@ -43,16 +40,12 @@ class ResourceMeta(BaseModel):
     updated_at: str | None = None
 
 
-T_ATTRS = TypeVar("T_ATTRS")
-T_RELATIONSHIPS = TypeVar("T_RELATIONSHIPS")
-
-
-class ResourceData(BaseModel, Generic[T_ATTRS, T_RELATIONSHIPS]):
+class ResourceData[A, R](BaseModel):
     """A JSON:API resource."""
 
     meta: ResourceMeta | SkipJsonSchema[None] = None
-    attributes: T_ATTRS
-    relationships: T_RELATIONSHIPS | SkipJsonSchema[None] = None
+    attributes: A
+    relationships: R | SkipJsonSchema[None] = None
 
     @model_serializer(mode="wrap")
     def serialize(self, handler) -> dict[str, Any]:
@@ -63,10 +56,6 @@ class ResourceData(BaseModel, Generic[T_ATTRS, T_RELATIONSHIPS]):
         if self.meta is None:
             del result["meta"]
         return result
-
-
-T_RESOURCE = TypeVar("T_RESOURCE")
-T_INCLUDE = TypeVar("T_INCLUDE")
 
 
 class Meta(BaseModel):
@@ -87,15 +76,31 @@ class Meta(BaseModel):
     limit: int | None = None
 
 
-class Document(BaseModel, Generic[T_RESOURCE, T_INCLUDE]):
+class ErrorSource(BaseModel):
+    """Defines the model for an error source."""
+
+    pointer: str
+
+
+class Error(BaseModel):
+    """Defines the model for a JSON:API error."""
+
+    status: str = ""
+    source: ErrorSource | None = None
+    title: str = ""
+    detail: str = ""
+
+
+class Document[R, I](BaseModel):
     """A JSON:API document."""
 
     meta: Meta | SkipJsonSchema[None] = None
-    data: T_RESOURCE | list[T_RESOURCE]
-    included: set[T_INCLUDE] | SkipJsonSchema[None] = None
+    data: R | list[R]
+    included: set[I] | SkipJsonSchema[None] = None
+    errors: list[Error] | SkipJsonSchema[None] = None
 
     @property
-    def resource(self) -> T_RESOURCE:
+    def resource(self) -> R:
         """Return the resource of this document.
 
         An assert will occur, when the resource is a list.
@@ -104,13 +109,23 @@ class Document(BaseModel, Generic[T_RESOURCE, T_INCLUDE]):
         return self.data
 
     @property
-    def resources(self) -> list[T_RESOURCE]:
+    def resources(self) -> list[R]:
         """Return the list of resources of this document.
 
         An assert will occur, when the resource is not a list.
         """
         assert isinstance(self.data, list)
         return self.data
+
+    def __repr__(self):
+        """Return representation of a document."""
+        if isinstance(self.data, list):
+            if len(self.data) > 0:
+                return f"<{self.__class__.__name__} type={self.data[0].type}[]>"
+            else:
+                return f"<{self.__class__.__name__} type=[]>"
+        else:
+            return f"<{self.__class__.__name__} type={self.data.type}>"
 
     @classmethod
     def __get_pydantic_json_schema__(
@@ -135,6 +150,8 @@ class Document(BaseModel, Generic[T_RESOURCE, T_INCLUDE]):
             del result["included"]
         if self.meta is None:
             del result["meta"]
+        if not self.errors:
+            del result["errors"]
         return result
 
     def merge(self, other: "Document"):
@@ -167,3 +184,14 @@ class PaginationModel(BaseModel):
 
     offset: int | None = Field(Query(default=None, alias="page[offset]"))
     limit: int | None = Field(Query(default=None, alias="page[limit]"))
+
+
+class JsonApiPresenter[Document]:
+    """An interface for a presenter that generates a JSON:API document."""
+
+    def __init__(self):
+        self._document: Document = None
+
+    def get_document(self) -> Document:
+        """Return the JSON:API document."""
+        return self._document

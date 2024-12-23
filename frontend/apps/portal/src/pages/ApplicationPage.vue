@@ -2,25 +2,35 @@
 import { useRoute, useRouter } from 'vue-router';
 import IntroSection from '@root/components/IntroSection.vue';
 import { useApplications } from '@root/composables/useApplication';
-import { computed, ref, toRef } from 'vue';
+import { computed, ref, toRef, watch } from 'vue';
 import { usePages } from '@root/composables/usePage';
 import FullArticle from '@root/components/FullArticle.vue';
 
 const route = useRoute();
-const applicationName = route.meta.application as string;
-const heroImageUrl = route.meta.heroImageUrl as string;
+
+const applicationName = toRef(route.meta.application as string);
+const heroImageUrl = toRef(route.meta.heroImageUrl as string);
+
+watch(route, (nv) => {
+  if (nv.meta.application) {
+    applicationName.value = nv.meta.application as string;
+  }
+  if (nv.meta.heroImageUrl) {
+    heroImageUrl.value = nv.meta.heroImageUrl as string;
+  }
+});
 
 // Application
 const { data: applications } = useApplications();
 const application = computed(() => {
   if (applications.value) {
-    return applications.value.find(application => application.name === applicationName);
+    return applications.value.find(application => application.name === applicationName.value);
   }
   return null;
 });
 
 // Pages
-const { data: pages } = usePages(toRef(applicationName));
+const { data: pages } = usePages(applicationName);
 const sortedPages = computed(() => {
   return [...pages.value || []].sort((a, b) => b.priority - a.priority);
 });
@@ -41,7 +51,10 @@ const currentPage = computed(() => {
     if (articleSection.value) articleSection.value.scrollIntoView(true);
     return sortedPages.value.find(page => page.id === route.query.page);
   }
-  return sortedPages.value[0];
+  if (sortedPages.value.length > 0) {
+    return sortedPages.value[0];
+  }
+  return null;
 });
 const router = useRouter();
 

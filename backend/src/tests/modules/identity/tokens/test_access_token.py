@@ -1,9 +1,9 @@
 """Module for testing the access token entity."""
-from datetime import datetime
 
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.password import Password
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
@@ -23,7 +23,7 @@ def test_create():
     )
     token = AccessTokenEntity(
         identifier=TokenIdentifier.generate(),
-        expiration=datetime.utcnow(),
+        expiration=Timestamp.create_now(),
         user_account=account,
     )
 

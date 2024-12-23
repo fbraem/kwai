@@ -3,29 +3,13 @@
 import { website } from '@kwai/config';
 // eslint-disable-next-line import/no-absolute-path
 import logoUrl from '/logo.png';
-import type { MenuItem } from '@kwai/ui';
-import { ToolbarLogo, ToolbarMenu } from '@kwai/ui';
-import { useRouter } from 'vue-router';
-import { computed } from 'vue';
+import { useMenu, ToolbarLogo, KwaiMenubar, KwaiButton } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
-import PrimaryButton from '@root/components/PrimaryButton.vue';
 import { isLoggedIn, useHttpLogout } from '@kwai/api';
 
 const { t } = useI18n({ useScope: 'global' });
 
-const router = useRouter();
-const menuItems = computed(() : MenuItem[] => {
-  const result: MenuItem[] = [];
-  for (const route of router.getRoutes()) {
-    if (route.meta.title) {
-      result.push({
-        title: route.meta.title as string,
-        route,
-      });
-    }
-  }
-  return result;
-});
+const menuItems = useMenu();
 
 const loggedIn = isLoggedIn;
 const logout = () => {
@@ -54,23 +38,20 @@ const logout = () => {
         </div>
         <div class="flex flex-col place-items-end md:w-1/3">
           <div v-if="loggedIn">
-            <PrimaryButton :method="logout">
+            <KwaiButton :method="logout">
               Logout
-            </PrimaryButton>
+            </KwaiButton>
           </div>
           <div v-else>
-            <PrimaryButton :url="`${website.url}/apps/auth/login`">
+            <KwaiButton :href="`${website.url}/apps/auth/login`">
               Login
-            </PrimaryButton>
+            </KwaiButton>
           </div>
         </div>
       </div>
     </div>
   </header>
-  <ToolbarMenu
-    :menu-items="menuItems"
-    item-class="text-gray-600 hover:text-black"
-  />
+  <KwaiMenubar :items="menuItems" />
 </template>
 
 <style scoped>

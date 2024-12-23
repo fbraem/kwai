@@ -1,35 +1,16 @@
 """Module for fixtures related to countries."""
 
-from typing import (
-    AsyncGenerator,
-    Callable,
-    NotRequired,
-    TypedDict,
-    Unpack,
-)
-
 import pytest
 
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
-from kwai.modules.club.members.country import CountryEntity
-from kwai.modules.club.members.country_db_repository import CountryDbRepository
-from kwai.modules.club.members.country_repository import CountryNotFoundException
-
-
-class CountryType(TypedDict):
-    """Keyword arguments for the Country fixture factory method."""
-
-    iso_2: NotRequired[str]
-    iso_3: NotRequired[str]
-    name: NotRequired[str]
-
-
-type CountryFixtureFactory = Callable[[Unpack[CountryType]], CountryEntity]
+from kwai.modules.club.domain.country import CountryEntity
+from kwai.modules.club.repositories.country_db_repository import CountryDbRepository
+from kwai.modules.club.repositories.country_repository import CountryNotFoundException
 
 
 @pytest.fixture
-def make_country() -> CountryFixtureFactory:
+def make_country():
     """A factory fixture for a country."""
 
     def _make_country(iso_2="XX", iso_3="XXX", name="Test Country"):
@@ -39,18 +20,13 @@ def make_country() -> CountryFixtureFactory:
 
 
 @pytest.fixture
-def country_japan() -> CountryEntity:
+def country_japan():
     """A factory fixture for the country Japan."""
     return CountryEntity(iso_2="JP", iso_3="JPN", name="Japan")
 
 
-type CountryDbFixtureFactory = Callable[[], AsyncGenerator[CountryEntity, None]]
-
-
 @pytest.fixture
-async def make_country_in_db(
-    request, event_loop, database: Database, make_country: CountryFixtureFactory
-) -> CountryDbFixtureFactory:
+async def make_country_in_db(request, event_loop, database: Database, make_country):
     """A fixture for a country in the database.
 
     When the country is already in the database, it will be returned.

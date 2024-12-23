@@ -4,5 +4,6 @@ export interface MenuItem {
   title: string,
   route?: RouteRecord | LocationAsRelativeRaw,
   url?: string,
-  method?: () => void
+  method?: () => void,
+  disabled?: boolean,
 }

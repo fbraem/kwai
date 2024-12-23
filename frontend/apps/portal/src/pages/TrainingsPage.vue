@@ -7,12 +7,12 @@ import { useRoute, useRouter } from 'vue-router';
 import { useApplications } from '@root/composables/useApplication';
 import { usePages } from '@root/composables/usePage';
 import { createDate, now } from '@kwai/date';
+import { KwaiButton } from '@kwai/ui';
 import { useTrainingDays, useTrainings } from '@root/composables/useTraining';
 import TrainingTimeline from '@root/pages/trainings/components/TrainingTimeline.vue';
 import SectionTitle from '@root/components/SectionTitle.vue';
 import LeftArrowIcon from '@root/components/icons/LeftArrowIcon.vue';
 import RightArrowIcon from '@root/components/icons/RightArrowIcon.vue';
-import PrimaryButton from '@root/components/PrimaryButton.vue';
 import FullArticle from '@root/components/FullArticle.vue';
 import CoachList from '@root/pages/trainings/components/CoachList.vue';
 
@@ -176,24 +176,15 @@ const showNextMonth = () => {
           Trainingsrooster
         </SectionTitle>
         <div class="flex gap-4 py-3">
-          <PrimaryButton
-            :method="showPrevMonth"
-            class="flex items-center"
-          >
+          <KwaiButton :method="showPrevMonth">
             <LeftArrowIcon class="w-4 h-4 mr-2 fill-current" /> Vorige Maand
-          </PrimaryButton>
-          <PrimaryButton
-            :method="showCurrentMonth"
-            class="flex items-center"
-          >
+          </KwaiButton>
+          <KwaiButton :method="showCurrentMonth">
             Deze Maand
-          </PrimaryButton>
-          <PrimaryButton
-            :method="showNextMonth"
-            class="flex items-center"
-          >
+          </KwaiButton>
+          <KwaiButton :method="showNextMonth">
             <RightArrowIcon class="w-4 h-4 mr-2 fill-current" /> Volgende Maand
-          </PrimaryButton>
+          </KwaiButton>
         </div>
         <h3 class="text-2xl pb-4">
           {{ start.format("MMMM") }} {{ start.format("YYYY") }}

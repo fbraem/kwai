@@ -1,4 +1,4 @@
-import { defineConfig, splitVendorChunkPlugin } from 'vite';
+import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
 import { existsSync } from 'fs';
@@ -19,18 +19,32 @@ const resolveTheme = (path: string) => {
   return original;
 };
 
-export default defineConfig(() => {
+export default defineConfig(({ mode }) => {
   return {
-    base: '/',
+    base: '/apps/portal/',
     server: {
+      origin: 'http://localhost:3000',
       host: '0.0.0.0',
       port: 3000,
     },
+    build: {
+      manifest: true,
+      rollupOptions: {
+        input: 'src/index.ts',
+      },
+    },
     plugins: [
-      vue(), splitVendorChunkPlugin(), visualizer(),
+      vue(),
+      visualizer(),
     ],
     resolve: {
       alias: [
+        {
+          find: '@kwai/ui',
+          replacement: mode === 'production'
+            ? '@kwai/ui'
+            : resolve(__dirname, '../../packages/kwai-ui/src/'),
+        },
         {
           find: '@theme',
           replacement: '',

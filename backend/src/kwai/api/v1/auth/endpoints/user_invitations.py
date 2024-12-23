@@ -1,6 +1,6 @@
 """Module that implements invitations endpoints."""
 
-from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from loguru import logger
 
 from kwai.api.dependencies import create_database, get_current_user, get_publisher
@@ -30,14 +30,27 @@ from kwai.modules.identity.users.user_db_repository import UserDbRepository
 router = APIRouter()
 
 
-@router.post("/invitations")
+@router.post(
+    "/invitations",
+    summary="Create a user invitation",
+    status_code=status.HTTP_201_CREATED,
+    responses={
+        201: {"description": "User invitation is created"},
+        401: {"description": "Not authorized."},
+        422: {"description": "User invitation could not be created"},
+    },
+)
 async def create_user_invitation(
     user_invitation_document: UserInvitationDocument,
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
     publisher=Depends(get_publisher),
 ) -> UserInvitationDocument:
-    """Create a user invitation."""
+    """Create a user invitation.
+
+    A wrong email address or a still pending user invitation will result in a 422
+    status code.
+    """
     command = InviteUserCommand(
         first_name=user_invitation_document.resource.attributes.first_name,
         last_name=user_invitation_document.resource.attributes.last_name,
@@ -67,13 +80,18 @@ async def create_user_invitation(
     "/invitations/{uuid}",
     summary="Delete a user invitation",
     status_code=status.HTTP_200_OK,
-    response_class=Response,
+    responses={
+        200: {"description": "User invitation is deleted."},
+        401: {"description": "Not authorized."},
+        404: {"description": "User invitation does not exist."},
+        422: {"description": "Invalid unique id passed for the user invitation."},
+    },
 )
 async def delete_user_invitation(
     uuid: str,
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
-):
+) -> None:
     """Delete the user invitation with the given unique id."""
     command = DeleteUserInvitationCommand(uuid=uuid)
     try:
@@ -88,13 +106,23 @@ async def delete_user_invitation(
         ) from ex
 
 
-@router.get("/invitations")
+@router.get(
+    "/invitations",
+    summary="Get a list of user invitations",
+    responses={
+        200: {"description": "Ok."},
+        401: {"description": "Not authorized."},
+    },
+)
 async def get_user_invitations(
     pagination: PaginationModel = Depends(PaginationModel),
     db=Depends(create_database),
     user: UserEntity = Depends(get_current_user),
 ) -> UserInvitationDocument:
-    """Get all user invitations."""
+    """Get all user invitations.
+
+    Use the page[offset] and page[limit] query parameters to get a paginated result.
+    """
     command = GetInvitationsCommand(offset=pagination.offset, limit=pagination.limit)
     count, invitation_iterator = await GetInvitations(
         UserInvitationDbRepository(db)
@@ -111,7 +139,11 @@ async def get_user_invitations(
     return result
 
 
-@router.get("/invitations/{uuid}")
+@router.get(
+    "/invitations/{uuid}",
+    summary="Get a user invitation",
+    responses={200: {"description": "Ok."}, 401: {"description": "Not authorized."}},
+)
 async def get_user_invitation(
     uuid: str,
     db=Depends(create_database),

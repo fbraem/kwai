@@ -1,6 +1,5 @@
 """Module that implements a training query for a database."""
 
-from datetime import datetime
 from typing import AsyncIterator
 
 from sql_smith.functions import alias, criteria, express, func, group, literal, on
@@ -8,6 +7,7 @@ from sql_smith.functions import alias, criteria, express, func, group, literal, 
 from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.db.rows import OwnersTable
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.training.coaches.coach import CoachEntity
 from kwai.modules.training.teams.team import TeamEntity
 from kwai.modules.training.teams.team_tables import TeamsTable
@@ -15,7 +15,7 @@ from kwai.modules.training.trainings.training import TrainingIdentifier
 from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
 from kwai.modules.training.trainings.training_query import TrainingQuery
 from kwai.modules.training.trainings.training_tables import (
-    TrainingCoachesTable,
+    TrainingCoachRow,
     TrainingContentsTable,
     TrainingDefinitionsTable,
     TrainingsTable,
@@ -110,17 +110,19 @@ class TrainingDbQuery(TrainingQuery, DatabaseQuery):
         self._query.and_where(group(condition))
         return self
 
-    def filter_by_dates(self, start: datetime, end: datetime) -> "TrainingQuery":
-        self._query.and_where(TrainingsTable.field("start_date").between(start, end))
+    def filter_by_dates(self, start: Timestamp, end: Timestamp) -> "TrainingQuery":
+        self._query.and_where(
+            TrainingsTable.field("start_date").between(str(start), str(end))
+        )
         return self
 
     def filter_by_coach(self, coach: CoachEntity) -> "TrainingQuery":
         inner_select = (
             self._database.create_query_factory()
             .select()
-            .columns(TrainingCoachesTable.column("training_id"))
-            .from_(TrainingCoachesTable.table_name)
-            .where(TrainingCoachesTable.field("coach_id").eq(coach.id.value))
+            .columns(TrainingCoachRow.column("training_id"))
+            .from_(TrainingCoachRow.__table_name__)
+            .where(TrainingCoachRow.field("coach_id").eq(coach.id.value))
         )
         condition = TrainingsTable.field("id").in_(express("{}", inner_select))
         self._query.and_where(group(condition))

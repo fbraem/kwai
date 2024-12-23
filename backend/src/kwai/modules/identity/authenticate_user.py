@@ -1,8 +1,9 @@
 """Module that implements the use case: authenticate user."""
+
 from dataclasses import dataclass
-from datetime import datetime, timedelta
 
 from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.identity.exceptions import AuthenticationException
 from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.access_token_repository import AccessTokenRepository
@@ -87,8 +88,9 @@ class AuthenticateUser:
         access_token = await self._access_token_repo.create(
             AccessTokenEntity(
                 identifier=TokenIdentifier.generate(),
-                expiration=datetime.utcnow()
-                + timedelta(minutes=command.access_token_expiry_minutes),
+                expiration=Timestamp.create_with_delta(
+                    minutes=command.access_token_expiry_minutes
+                ),
                 user_account=user_account,
             )
         )
@@ -96,8 +98,9 @@ class AuthenticateUser:
         return await self._refresh_token_repo.create(
             RefreshTokenEntity(
                 identifier=TokenIdentifier.generate(),
-                expiration=datetime.utcnow()
-                + timedelta(minutes=command.refresh_token_expiry_minutes),
+                expiration=Timestamp.create_with_delta(
+                    minutes=command.refresh_token_expiry_minutes
+                ),
                 access_token=access_token,
             )
         )

@@ -34,10 +34,17 @@ markdown_extensions:
       toc_depth: 4
   - admonition
   - codehilite
+  - attr_list
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 
 plugins:
   - monorepo
-  - autorefs
+  - autorefs:
+      resolve_closest: true
   - mkdocstrings:
       handlers:
         python:
@@ -47,5 +54,7 @@ plugins:
             show_source: false
             docstring_style: google
             show_root_toc_entry: true
+            extensions:
+              - griffe_fastapi
 watch:
   - backend/src

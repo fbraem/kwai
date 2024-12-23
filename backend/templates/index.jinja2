@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% do vite.init("src/index.ts") %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Portal</title>
+        {% for preload in vite.get_preloads(application.url) %}
+            <link rel="modulepreload" as="script" href="{{ preload | safe }}" >
+        {% endfor %}
+        {% for css in vite.get_css(application.url) %}
+            <link rel="stylesheet" href="{{ css | safe }}" />
+        {% endfor %}
+    </head>
+    <body>
+        <div id="app">
+        </div>
+        {% for js in vite.get_scripts(application.url) %}
+            <script type="module" src="{{ js | safe }}"></script>
+        {%  endfor %}
+    </body>
+</html>

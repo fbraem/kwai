@@ -1,4 +1,5 @@
 """Module for implementing a training repository for a database."""
+
 from typing import AsyncIterator
 
 from sql_smith.functions import alias, express, field
@@ -18,7 +19,6 @@ from kwai.modules.training.trainings.training_repository import (
     TrainingRepository,
 )
 from kwai.modules.training.trainings.training_tables import (
-    TrainingCoachesTable,
     TrainingCoachRow,
     TrainingContentsTable,
     TrainingDefinitionsTable,
@@ -117,17 +117,17 @@ class TrainingDbRepository(TrainingRepository):
         training_query = TrainingCoachDbQuery(self._database).filter_by_trainings(
             *trainings.keys()
         )
-        coaches: dict[
-            TrainingIdentifier, list[TrainingCoach]
-        ] = await training_query.fetch_coaches()
+        coaches: dict[TrainingIdentifier, list[TrainingCoach]] = (
+            await training_query.fetch_coaches()
+        )
 
         # Get the teams of all trainings
         team_query = TrainingTeamDbQuery(self._database).filter_by_trainings(
             *trainings.keys()
         )
-        teams: dict[
-            TrainingIdentifier, list[TeamEntity]
-        ] = await team_query.fetch_teams()
+        teams: dict[TrainingIdentifier, list[TeamEntity]] = (
+            await team_query.fetch_teams()
+        )
 
         for training in trainings.values():
             training_coaches = coaches.get(training.id, [])
@@ -190,7 +190,7 @@ class TrainingDbRepository(TrainingRepository):
         ]
         if training_coach_rows:
             await self._database.insert(
-                TrainingCoachesTable.table_name, *training_coach_rows
+                TrainingCoachRow.__table_name__, *training_coach_rows
             )
 
     async def _insert_teams(self, training: TrainingEntity):
@@ -207,7 +207,7 @@ class TrainingDbRepository(TrainingRepository):
         """Delete coaches of the training."""
         delete_coaches_query = (
             self._database.create_query_factory()
-            .delete(TrainingCoachesTable.table_name)
+            .delete(TrainingCoachRow.__table_name__)
             .where(field("training_id").eq(training.id.value))
         )
         await self._database.execute(delete_coaches_query)
@@ -258,10 +258,8 @@ class TrainingDbRepository(TrainingRepository):
 
             delete_coaches = (
                 self._database.create_query_factory()
-                .delete(TrainingCoachesTable.table_name)
-                .and_where(
-                    TrainingCoachesTable.field("training_id").in_(trainings_query)
-                )
+                .delete(TrainingCoachRow.__table_name__)
+                .and_where(TrainingCoachRow.field("training_id").in_(trainings_query))
             )
             await self._database.execute(delete_coaches)
 

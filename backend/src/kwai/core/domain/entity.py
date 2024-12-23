@@ -1,6 +1,7 @@
 """Module that defines a generic entity."""
+
 import inspect
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic, Self, TypeVar
 
 from kwai.core.domain.value_objects.identifier import Identifier
 
@@ -27,11 +28,11 @@ class Entity(Generic[T]):
         return not self._id.is_empty()
 
     @classmethod
-    def replace(cls, entity: "Entity[T]", **changes) -> Any:
+    def replace(cls, entity: Self, **changes: Any) -> Any:
         """Return a new entity from the existing entity.
 
         Args:
-            entity(Entity[T]): The entity to copy the values from
+            entity: The entity to copy the values from
             changes: the values to override when creating the new entity.
 
         Use the same keyword arguments as used on the class constructor (__init__) to

@@ -35,12 +35,12 @@ class AccessTokenRow:
         return AccessTokenEntity(
             id_=AccessTokenIdentifier(self.id),
             identifier=TokenIdentifier(hex_string=self.identifier),
-            expiration=self.expiration,
+            expiration=Timestamp.create_utc(self.expiration),
             user_account=user_account,
             revoked=self.revoked,
             traceable_time=TraceableTime(
-                created_at=Timestamp(timestamp=self.created_at),
-                updated_at=Timestamp(timestamp=self.updated_at),
+                created_at=Timestamp.create_utc(self.created_at),
+                updated_at=Timestamp.create_utc(self.updated_at),
             ),
         )
 
@@ -50,7 +50,7 @@ class AccessTokenRow:
         return AccessTokenRow(
             id=access_token.id.value,
             identifier=str(access_token.identifier),
-            expiration=access_token.expiration,
+            expiration=access_token.expiration.timestamp,
             user_id=access_token.user_account.id.value,
             revoked=access_token.revoked,
             created_at=access_token.traceable_time.created_at.timestamp,
@@ -79,11 +79,11 @@ class RefreshTokenRow:
             id_=RefreshTokenIdentifier(self.id),
             identifier=TokenIdentifier(hex_string=self.identifier),
             access_token=access_token,
-            expiration=self.expiration,
+            expiration=Timestamp.create_utc(self.expiration),
             revoked=self.revoked,
             traceable_time=TraceableTime(
-                created_at=Timestamp(timestamp=self.created_at),
-                updated_at=Timestamp(timestamp=self.updated_at),
+                created_at=Timestamp.create_utc(self.created_at),
+                updated_at=Timestamp.create_utc(self.updated_at),
             ),
         )
 
@@ -94,7 +94,7 @@ class RefreshTokenRow:
             id=refresh_token.id.value,
             identifier=str(refresh_token.identifier),
             access_token_id=refresh_token.access_token.id.value,
-            expiration=refresh_token.expiration,
+            expiration=refresh_token.expiration.timestamp,
             revoked=refresh_token.revoked,
             created_at=refresh_token.traceable_time.created_at.timestamp,
             updated_at=refresh_token.traceable_time.updated_at.timestamp,

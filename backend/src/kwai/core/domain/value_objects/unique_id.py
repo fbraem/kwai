@@ -1,4 +1,5 @@
 """Module that defines a value object for a unique id."""
+
 import uuid
 from dataclasses import dataclass
 
@@ -26,3 +27,7 @@ class UniqueId:
     def __str__(self):
         """Return a string representation."""
         return str(self.id)
+
+    def __hash__(self):
+        """Return a hash value for the unique id."""
+        return hash(self.id)

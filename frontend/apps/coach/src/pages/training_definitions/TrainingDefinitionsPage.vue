@@ -4,11 +4,12 @@ import {
   ContainerSection,
   ContainerSectionBanner,
   ContainerSectionContent,
-  ContainerSectionTitle, EditIcon,
+  ContainerSectionTitle,
+  EditIcon,
+  KwaiButton,
   NewIcon,
 } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
-import PrimaryButton from '@root/components/PrimaryButton.vue';
 import TrainingDefinitionCard from '@root/pages/training_definitions/components/TrainingDefinitionCard.vue';
 import AddCalendarIcon from '@root/components/icons/AddCalendarIcon.vue';
 
@@ -33,13 +34,10 @@ const { data: trainingDefinitions } = useTrainingDefinitions();
           </p>
         </template>
         <template #right>
-          <PrimaryButton
-            :route="{ name: 'coach.training_definitions.create' }"
-            class="flex items-center"
-          >
+          <KwaiButton :to="{ name: 'coach.training_definitions.create' }">
             <NewIcon class="w-4 mr-2 fill-current" />
             {{ t('training_definitions.banner.button') }}
-          </PrimaryButton>
+          </KwaiButton>
         </template>
       </containersectionbanner>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -50,9 +48,8 @@ const { data: trainingDefinitions } = useTrainingDefinitions();
           <TrainingDefinitionCard :training-definition="trainingDefinition">
             <template #footer>
               <div class="p-3 flex place-content-between">
-                <PrimaryButton
-                  class="inline-flex items-center"
-                  :route="{
+                <KwaiButton
+                  :to="{
                     name: 'coach.training_definitions.generate_trainings',
                     params: {
                       id: trainingDefinition.id
@@ -61,10 +58,9 @@ const { data: trainingDefinitions } = useTrainingDefinitions();
                 >
                   <AddCalendarIcon class="w-4 mr-2 fill-current" />
                   {{ t('training_definitions.card.buttons.generate') }}
-                </PrimaryButton>
-                <PrimaryButton
-                  class="inline-flex items-center"
-                  :route="{
+                </KwaiButton>
+                <KwaiButton
+                  :to="{
                     name: 'coach.training_definitions.edit',
                     params: {
                       id: trainingDefinition.id
@@ -73,7 +69,7 @@ const { data: trainingDefinitions } = useTrainingDefinitions();
                 >
                   <EditIcon class="w-4 mr-2 fill-current " />
                   {{ t('training_definitions.card.buttons.edit') }}
-                </PrimaryButton>
+                </KwaiButton>
               </div>
             </template>
           </TrainingDefinitionCard>

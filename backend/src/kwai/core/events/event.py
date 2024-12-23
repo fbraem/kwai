@@ -1,8 +1,10 @@
 """Module that defines the base class Event."""
+
 import dataclasses
 from dataclasses import dataclass
-from datetime import datetime
 from typing import ClassVar
+
+from kwai.core.domain.value_objects.timestamp import Timestamp
 
 
 @dataclass(kw_only=True, frozen=True)
@@ -26,7 +28,7 @@ class Event:
         return {
             "meta": {
                 **dataclasses.asdict(self.__class__.meta),
-                "date": datetime.utcnow().isoformat(sep=" ", timespec="milliseconds"),
+                "date": str(Timestamp.create_now()),
             },
             "data": {**dataclasses.asdict(self)},
         }

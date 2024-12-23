@@ -1,40 +1,18 @@
 """Module for defining fixtures for contacts."""
 
-from typing import (
-    Awaitable,
-    Callable,
-    NotRequired,
-    TypeAlias,
-    TypedDict,
-    Unpack,
-)
-
 import pytest
 
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.modules.club.members.contact import ContactEntity
-from kwai.modules.club.members.contact_db_repository import ContactDbRepository
-from kwai.modules.club.members.country import CountryEntity
-from kwai.modules.club.members.value_objects import Address
-
-
-class AddressType(TypedDict):
-    """Keyword arguments for the Address fixture factory method."""
-
-    address: NotRequired[str]
-    postal_code: NotRequired[str]
-    city: NotRequired[str]
-    county: NotRequired[str]
-    country: NotRequired[CountryEntity]
-
-
-AddressFixtureFactory: TypeAlias = Callable[[Unpack[AddressType]], Address]
+from kwai.modules.club.domain.contact import ContactEntity
+from kwai.modules.club.domain.country import CountryEntity
+from kwai.modules.club.domain.value_objects import Address
+from kwai.modules.club.repositories.contact_db_repository import ContactDbRepository
 
 
 @pytest.fixture
-def make_address(country_japan) -> AddressFixtureFactory:
+def make_address(country_japan):
     """A factory fixture for an address."""
 
     def _make_address(
@@ -56,18 +34,8 @@ def make_address(country_japan) -> AddressFixtureFactory:
     return _make_address
 
 
-class ContactType(TypedDict):
-    """Keyword arguments for the Contact fixture factory method."""
-
-    emails: NotRequired[list[EmailAddress]]
-    address: NotRequired[Address]
-
-
-ContactFixtureFactory: TypeAlias = Callable[[Unpack[ContactType]], ContactEntity]
-
-
 @pytest.fixture
-def make_emails() -> Callable[[str | None], list[EmailAddress]]:
+def make_emails():
     """A factory fixture for a contact email."""
 
     def _make_emails(email: str | None = None) -> list[EmailAddress]:
@@ -79,7 +47,7 @@ def make_emails() -> Callable[[str | None], list[EmailAddress]]:
 
 
 @pytest.fixture
-def make_contact(make_emails, make_address) -> ContactFixtureFactory:
+def make_contact(make_emails, make_address):
     """A factory fixture for a contact."""
 
     def _make_contact(
@@ -93,11 +61,6 @@ def make_contact(make_emails, make_address) -> ContactFixtureFactory:
     return _make_contact
 
 
-ContactDbFixtureFactory: TypeAlias = Callable[
-    [ContactEntity | None], Awaitable[ContactEntity]
-]
-
-
 @pytest.fixture
 def make_contact_in_db(
     request,
@@ -106,7 +69,7 @@ def make_contact_in_db(
     make_contact,
     make_address,
     make_country_in_db,
-) -> ContactDbFixtureFactory:
+):
     """A fixture for a contact in the database."""
 
     async def _make_contact_in_db(

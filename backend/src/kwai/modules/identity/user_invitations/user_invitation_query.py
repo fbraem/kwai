@@ -18,10 +18,10 @@ class UserInvitationQuery(Query, ABC):
         """Add a filter on the user invitation for id.
 
         Args:
-            id_(UserInvitationIdentifier): An id of a user invitation.
+            id_: An id of a user invitation.
 
         Returns:
-            (UserInvitationQuery): The active query
+            The active query
         """
         raise NotImplementedError
 
@@ -29,10 +29,10 @@ class UserInvitationQuery(Query, ABC):
         """Add a filter on the user invitation for the unique id.
 
         Args:
-            uuid(UniqueId): A unique id of a user invitation.
+            uuid: A unique id of a user invitation.
 
         Returns:
-            (UserInvitationQuery): The active query
+            The active query
         """
         raise NotImplementedError
 

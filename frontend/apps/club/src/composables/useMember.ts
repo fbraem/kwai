@@ -1,50 +1,10 @@
-import type { DateType } from '@kwai/date';
+import { createDateFromString } from '@kwai/date';
 import { JsonApiData, JsonApiDocument, JsonResourceIdentifier, useHttpApi } from '@kwai/api';
 import { type Ref, ref, toValue } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 import { z } from 'zod';
-import { createDateFromString } from '@kwai/date';
-
-interface Country {
-  iso2: string,
-  iso3: string,
-  name: string
-}
-interface Contact {
-  emails: string[],
-  tel: string,
-  mobile: string,
-  address: string,
-  postalCode: string,
-  city: string,
-  county: string,
-  country: Country
-}
-
-interface Person {
-  firstName: string,
-  lastName: string,
-  gender: number,
-  birthdate: DateType,
-  remark: string,
-  contact: Contact,
-  nationality: Country
-}
-
-interface License {
-  number: string,
-  end_date: DateType
-}
-
-export interface Member {
-  id?: string,
-  license: License,
-  remark: string,
-  active: boolean,
-  competition: boolean,
-  person: Person,
-  new: boolean
-}
+import { type CountryResource, CountryResourceSchema } from '@root/composables/useCountry';
+import type { Member } from '@root/types/member';
 
 export interface Members {
   meta: { count: number, offset: number, limit: number },
@@ -108,16 +68,6 @@ const ContactResourceSchema = JsonApiData.extend({
 });
 type ContactResource = z.infer<typeof ContactResourceSchema>;
 
-const CountryResourceSchema = JsonApiData.extend({
-  type: z.literal('countries'),
-  attributes: z.object({
-    iso_2: z.string(),
-    iso_3: z.string(),
-    name: z.string(),
-  }),
-});
-type CountryResource = z.infer<typeof CountryResourceSchema>;
-
 export const MemberDocumentSchema = JsonApiDocument.extend({
   data: z.union([
     MemberResourceSchema,
@@ -130,7 +80,10 @@ export const MemberDocumentSchema = JsonApiDocument.extend({
       CountryResourceSchema,
     ])
   ).default([]),
-}).transform(doc => {
+});
+type MemberDocument = z.infer<typeof MemberDocumentSchema>;
+
+export const transform = (doc: MemberDocument) : Member | Members => {
   const mapModel = (data: MemberResource): Member => {
     const person = doc.included.find(included => included.type === PersonResourceSchema.shape.type.value && included.id === data.relationships.person.data.id) as PersonResource;
     const nationality = doc.included.find(included => included.type === CountryResourceSchema.shape.type.value && included.id === person.relationships.nationality.data.id) as CountryResource;
@@ -145,7 +98,7 @@ export const MemberDocumentSchema = JsonApiDocument.extend({
       remark: data.attributes.remark,
       license: {
         number: data.attributes.license_number,
-        end_date: createDateFromString(data.attributes.license_end_date),
+        endDate: createDateFromString(data.attributes.license_end_date),
       },
       person: {
         birthdate: createDateFromString(person.attributes.birthdate),
@@ -153,6 +106,7 @@ export const MemberDocumentSchema = JsonApiDocument.extend({
           address: contact.attributes.address,
           city: contact.attributes.city,
           country: {
+            id: country.id as string,
             name: country.attributes.name,
             iso2: country.attributes.iso_2,
             iso3: country.attributes.iso_3,
@@ -168,6 +122,7 @@ export const MemberDocumentSchema = JsonApiDocument.extend({
         lastName: person.attributes.last_name,
         gender: person.attributes.gender,
         nationality: {
+          id: nationality.id as string,
           name: nationality.attributes.name,
           iso2: nationality.attributes.iso_2,
           iso3: nationality.attributes.iso_3,
@@ -186,8 +141,7 @@ export const MemberDocumentSchema = JsonApiDocument.extend({
     };
   }
   return mapModel(doc.data);
-});
-type MemberDocument = z.input<typeof MemberDocumentSchema>;
+};
 
 const getMembers = async({
   offset = null,
@@ -208,7 +162,7 @@ const getMembers = async({
   return api.get().json().then(json => {
     const result = MemberDocumentSchema.safeParse(json);
     if (result.success) {
-      return result.data as Members;
+      return transform(result.data) as Members;
     }
     console.log(result.error);
     throw result.error;

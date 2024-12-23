@@ -54,25 +54,25 @@ class UserInvitationRow:
         """Create a user invitation entity from the table row.
 
         Args:
-            user(UserEntity): The associated user entity
+            user: The associated user entity
 
         Returns:
-            (UserInvitationEntity)
+            A user invitation entity.
         """
         return UserInvitationEntity(
             id_=UserInvitationIdentifier(self.id),
             email=EmailAddress(self.email),
             name=Name(last_name=self.last_name, first_name=self.first_name),
             uuid=UniqueId.create_from_string(self.uuid),
-            expired_at=Timestamp(self.expired_at),
+            expired_at=Timestamp.create_utc(self.expired_at),
             user=user,
             remark=self.remark or "",
-            mailed_at=Timestamp(self.mailed_at),
-            confirmed_at=Timestamp(self.confirmed_at),
+            mailed_at=Timestamp.create_utc(self.mailed_at),
+            confirmed_at=Timestamp.create_utc(self.confirmed_at),
             revoked=self.revoked == 1,
             traceable_time=TraceableTime(
-                created_at=Timestamp(self.created_at),
-                updated_at=Timestamp(self.updated_at),
+                created_at=Timestamp.create_utc(self.created_at),
+                updated_at=Timestamp.create_utc(self.updated_at),
             ),
         )
 
@@ -81,10 +81,10 @@ class UserInvitationRow:
         """Persist a user invitation entity into a table row.
 
         Args:
-            invitation(UserInvitationEntity): The user invitation entity to persist.
+            invitation: The user invitation entity to persist.
 
         Returns:
-            (UserInvitationRow): A dataclass containing the table row data.
+            A dataclass containing the table row data.
         """
         return UserInvitationRow(
             id=invitation.id.value,

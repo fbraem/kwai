@@ -2,6 +2,7 @@
   "name": "@kwai/portal",
   "description": "The portal for Kwai",
   "version": "1.0.0",
+  "type": "module",
   "dependencies": {
     "@kwai/api": "*",
     "@kwai/config": "*",
@@ -9,18 +10,19 @@
     "@kwai/types": "*",
     "@kwai/ui": "*",
     "@tanstack/vue-query": "^5.32.0",
-    "@vueuse/core": "^10.9.0",
-    "@vueuse/router": "^10.6.1",
+    "@vueuse/core": "11.0.3",
+    "@vueuse/router": "11.0.3",
+    "tailwindcss-primeui": "^0.3.4",
     "vue": "^3.4.25",
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.5.0",
+    "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.4.0",
     "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.31",
-    "tailwindcss": "^3.4.3",
-    "vue-tsc": "^1.8.24"
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "vue-tsc": "^1.8.27"
   },
   "private": true,
   "scripts": {

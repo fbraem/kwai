@@ -1,7 +1,8 @@
 """Module that defines the use case for refreshing an access token."""
-from dataclasses import dataclass
-from datetime import datetime, timedelta
 
+from dataclasses import dataclass
+
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.identity.authenticate_user import AuthenticationException
 from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.access_token_repository import AccessTokenRepository
@@ -82,8 +83,9 @@ class RefreshAccessToken:
         access_token = await self._access_token_repo.create(
             AccessTokenEntity(
                 identifier=TokenIdentifier.generate(),
-                expiration=datetime.utcnow()
-                + timedelta(minutes=command.access_token_expiry_minutes),
+                expiration=Timestamp.create_with_delta(
+                    minutes=command.access_token_expiry_minutes
+                ),
                 user_account=refresh_token.access_token.user_account,
             )
         )
@@ -91,8 +93,9 @@ class RefreshAccessToken:
         return await self._refresh_token_repo.create(
             RefreshTokenEntity(
                 identifier=TokenIdentifier.generate(),
-                expiration=datetime.utcnow()
-                + timedelta(minutes=command.refresh_token_expiry_minutes),
+                expiration=Timestamp.create_with_delta(
+                    minutes=command.refresh_token_expiry_minutes
+                ),
                 access_token=access_token,
             )
         )

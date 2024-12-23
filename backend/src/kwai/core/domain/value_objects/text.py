@@ -1,6 +1,8 @@
 """Module that defines a value object for text content."""
+
 from dataclasses import dataclass, field
 from enum import Enum
+from typing import Self
 
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
@@ -79,7 +81,7 @@ class Text:
             The content, when available.
 
         Raises:
-            KeyError when the locale is not available.
+            KeyError: when the locale is not available.
         """
         if locale in self._content:
             return self._content[locale]
@@ -121,7 +123,7 @@ class Text:
         new_dict.pop(content.locale)
         return Text(new_dict)
 
-    def replace_translation(self, content: LocaleText):
+    def replace_translation(self, content: LocaleText) -> Self:
         """Replace a translation.
 
         Args:
