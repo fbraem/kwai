@@ -3,7 +3,6 @@ import { toRef, useSlots } from 'vue';
 import { useField } from 'vee-validate';
 import RequiredIcon from '../icons/RequiredIcon.vue';
 import DatePicker from 'primevue/datepicker';
-import Slider from 'primevue/slider';
 
 interface Props {
   name: string,
