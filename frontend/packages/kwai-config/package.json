@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "devDependencies": {
     "@fbraem/rollup-plugin-toml": "^0.0.4",
-    "vite-plugin-dts": "^3.6.3"
+    "vite-plugin-dts": "^4.4.0"
   },
   "exports": {
     ".": {

@@ -7,7 +7,6 @@
     "@vue/eslint-config-typescript": "latest",
     "eslint": "latest",
     "eslint-config-prettier": "latest",
-    "eslint-config-standard": "latest",
     "eslint-plugin-prettier": "latest",
     "eslint-plugin-vue": "latest",
     "vue-eslint-parser": "latest"

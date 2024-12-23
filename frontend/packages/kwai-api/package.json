@@ -4,12 +4,12 @@
   "version": "0.0.1",
   "dependencies": {
     "@kwai/config": "*",
-    "@vueuse/core": "11.0.3",
+    "@vueuse/core": "12.2.0",
     "wretch": "^2.7.0",
     "zod": "^3.23.4"
   },
   "devDependencies": {
-    "vite-plugin-dts": "^3.6.3",
+    "vite-plugin-dts": "^4.4.0",
     "vitest": "^2.0.5"
   },
   "exports": {
