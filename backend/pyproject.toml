@@ -18,7 +18,7 @@ tomli = "^2.0.1"
 pyjwt = "^2.7.0"
 typer = {extras = ["all"], version = "^0.15.1"}
 asyncmy = "^0.2.8"
-cryptography = "^42.0.2"
+cryptography = "^44.0.0"
 markdown = "3.7"
 pydantic= "2.10.4"
 redis = "^5.0.1"
