@@ -7,7 +7,68 @@ not_allowed:
     Om deze applicatie te kunnen gebruiken moet je ingelogd zijn.
 members:
   title: Alle Actieve Leden
+  count: Er zijn {count} leden.
 members_upload:
   title: Opladen Leden
   description: |
     Via deze pagina kan u een bestand opladen met nieuwe of gewijzigde leden.
+  preview_description: |
+    Met preview kan je eerst controleren of het bestand correct verwerkt kan worden.
+  preview: Preview
+  error:
+    message: |
+      Opgelet er zijn fouten gevonden in het opgeladen bestand!
+    row: Rij
+    description: Omschrijving
+teams:
+  title: Teams
+  error: Er is een fout gebeurd tijdens het ophalen van de teams.
+  name: Naam
+  remark: Opmerking
+  members: Leden
+  form:
+    sections:
+      team:
+        title: Team
+        description: De naam van het team
+        fields:
+          name:
+            label: Naam
+            placeholder: Geef een naam in
+      remark:
+        title: Opmerking
+        description: Een opmerking over het team.
+        fields:
+          remark:
+            label: Opmerking
+            placeholder: Geef een opmerking in
+      submit:
+        fields:
+          active:
+            label: Actief?
+            help: Is dit team actief?
+          button:
+            label: Bewaar
+    validations:
+      required: Dit is een verplicht veld.
+team:
+  edit:
+    title: Wijzig Team
+  create:
+    title: Maak Team
+  members:
+    title: Leden
+    no_members: Er zijn nog geen leden in de club.
+    no_team_members: Dit team heeft nog geen leden.
+    add: Toevoegen
+  member_add:
+    title: Leden Toevoegen
+    birthdate: Geboortedatum
+    nationality: Nationaliteit
+    filter:
+      title: Filter Leden
+      name: Naam
+      age: Leeftijd
+      age_invalid: Geen geldige waarde
+      valid_license: Geldige Licentie
+      number_of_members: Er zijn geen leden die voldoen aan de filter. | Er is 1 lid dat voldoet aan de filter. | Er zijn {count} leden die voldoen aan de filter.

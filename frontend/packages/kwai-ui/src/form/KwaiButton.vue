@@ -2,46 +2,45 @@
 <script setup lang="ts">
 import Button from 'primevue/button';
 import { LocationAsRelativeRaw, RouteRecord } from 'vue-router';
-import { computed, useAttrs } from 'vue';
+import { computed, useAttrs, useSlots } from 'vue';
 interface Props {
   to?: RouteRecord | LocationAsRelativeRaw,
   method?: () => void,
   small?: boolean,
+  primary?: boolean
 }
-const props = defineProps<Props>();
+const props = withDefaults(
+  defineProps<Props>(),
+  { to: undefined, method: undefined, small: false, primary: true }
+);
 
 const attrs = useAttrs();
 defineOptions({
   inheritAttrs: false,
 });
 
-const wrapperTag = computed(() => attrs.href ? 'a' : props.to ? 'router-link' : null);
+const tag = computed(() => attrs.href ? 'a' : props.to ? 'router-link' : 'button');
 const clickAttr = computed(() => props.method ? 'click' : null);
+const slots = useSlots();
 
-const size = computed(() => props.small ? 'small' : undefined);
+const size = computed(() => props.small ? 'small' : 'large');
 </script>
 
 <template>
-  <component
-    :is="wrapperTag"
-    v-if="wrapperTag"
-    :to="to"
-    :href="$attrs.href"
-  >
-    <Button
-      v-bind="$attrs"
-      :size="size"
-    >
-      <slot />
-    </Button>
-  </component>
   <Button
-    v-else
     v-bind="$attrs"
     :size="size"
+    :as="tag"
+    :to="to"
     @[clickAttr]="method"
   >
     <slot />
+    <template
+      v-if="!!slots.icon"
+      #icon
+    >
+      <slot name="icon" />
+    </template>
   </Button>
 </template>
 

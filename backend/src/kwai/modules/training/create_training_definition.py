@@ -43,7 +43,7 @@ class CreateTrainingDefinition:
             command: The input for this use case.
         """
         if command.team_id is not None:
-            team = self._team_repo.get_by_id(TeamIdentifier(command.team_id))
+            team = await self._team_repo.get_by_id(TeamIdentifier(command.team_id))
         else:
             team = None
 

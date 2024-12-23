@@ -1,4 +1,5 @@
 """Define a Redis stream."""
+
 import json
 from dataclasses import dataclass, field
 from json import JSONDecodeError
@@ -131,7 +132,11 @@ class RedisStream:
         return RedisMessage(id=message_id.decode("utf-8"), data=message.data)
 
     async def consume(
-        self, group_name: str, consumer_name: str, id_=">", block: int | None = None
+        self,
+        group_name: str,
+        consumer_name: str,
+        id_: str = ">",
+        block: int | None = None,
     ) -> RedisMessage | None:
         """Consume a message from a stream.
 
@@ -156,7 +161,7 @@ class RedisStream:
 
         return RedisMessage.create_from_redis(messages)
 
-    async def create_group(self, group_name: str, id_="$") -> bool:
+    async def create_group(self, group_name: str, id_: str = "$") -> bool:
         """Create a group (if it doesn't exist yet).
 
         Args:

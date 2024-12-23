@@ -2,9 +2,10 @@
 
 from dataclasses import dataclass
 
-from kwai.core.domain.use_case import UseCaseBrowseResult
+from kwai.core.domain.presenter import AsyncPresenter, IterableResult
 from kwai.core.domain.value_objects.date import Date
-from kwai.modules.club.members.member_repository import MemberRepository
+from kwai.modules.club.domain.member import MemberEntity
+from kwai.modules.club.repositories.member_repository import MemberRepository
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -29,15 +30,21 @@ class GetMembersCommand:
 class GetMembers:
     """Use case get members."""
 
-    def __init__(self, repo: MemberRepository):
+    def __init__(
+        self,
+        repo: MemberRepository,
+        presenter: AsyncPresenter[IterableResult[MemberEntity]],
+    ):
         """Initialize use case.
 
         Args:
             repo: The repository for members.
+            presenter: The presenter for members.
         """
         self._repo = repo
+        self._presenter = presenter
 
-    async def execute(self, command: GetMembersCommand) -> UseCaseBrowseResult:
+    async def execute(self, command: GetMembersCommand):
         """Execute the use case.
 
         Args:
@@ -53,7 +60,11 @@ class GetMembers:
                 command.license_end_month, command.license_end_year or Date.today().year
             )
 
-        return UseCaseBrowseResult(
-            count=await query.count(),
-            iterator=self._repo.get_all(query, command.limit, command.offset),
+        await self._presenter.present(
+            IterableResult(
+                count=await query.count(),
+                limit=command.limit,
+                offset=command.offset,
+                iterator=self._repo.get_all(query, command.limit, command.offset),
+            )
         )

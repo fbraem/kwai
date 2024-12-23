@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, ContainerSection, ContainerSectionContent, ContainerSectionTitle, InputField, TextareaField } from '@kwai/ui';
+import { KwaiButton, ContainerSection, ContainerSectionContent, ContainerSectionTitle, InputField, TextareaField } from '@kwai/ui';
 import { useApplication, useApplicationMutation } from '@root/composables/useApplication';
 import type { ApplicationForAuthor } from '@root/composables/useApplication';
 import { useForm } from 'vee-validate';
@@ -117,13 +117,12 @@ const onSubmitForm = handleSubmit(async values => {
           </template>
         </TextareaField>
         <div class="flex flex-col items-end mt-6">
-          <Button
+          <KwaiButton
             id="submit"
-            class="bg-yellow-300 text-gray-600 border border-yellow-300 focus:bg-white focus:ring-2 focus:ring-yellow-300 hover:bg-white hover:border hover:border-yellow-300"
-            @click="onSubmitForm"
+            :method="onSubmitForm"
           >
             {{ t('applications.edit.form.submit.label') }}
-          </Button>
+          </KwaiButton>
         </div>
       </form>
     </ContainerSectionContent>

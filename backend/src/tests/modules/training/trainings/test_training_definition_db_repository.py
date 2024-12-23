@@ -3,78 +3,69 @@
 import pytest
 
 from kwai.core.db.database import Database
+from kwai.core.db.exceptions import QueryException
 from kwai.core.domain.entity import Entity
-from kwai.modules.training.trainings.training_definition import (
-    TrainingDefinitionEntity,
-)
 from kwai.modules.training.trainings.training_definition_db_repository import (
     TrainingDefinitionDbRepository,
 )
 from kwai.modules.training.trainings.training_definition_repository import (
     TrainingDefinitionNotFoundException,
-    TrainingDefinitionRepository,
 )
 
 pytestmark = pytest.mark.db
 
 
-@pytest.fixture(scope="module")
-def repo(database: Database) -> TrainingDefinitionRepository:
-    """Fixture for a training definition repository."""
-    return TrainingDefinitionDbRepository(database)
-
-
-@pytest.fixture
-async def saved_training_definition(
-    repo: TrainingDefinitionRepository,
-    training_definition: TrainingDefinitionEntity,
-) -> TrainingDefinitionEntity:
-    """A fixture for a training definition in the database."""
-    return await repo.create(training_definition)
-
-
-def test_create(saved_training_definition: TrainingDefinitionEntity):
+async def test_create(make_training_definition_in_db):
     """Test if the training definition was created."""
-    assert (
-        not saved_training_definition.id.is_empty()
-    ), "There should be a training definition created"
+    definition = await make_training_definition_in_db()
+    assert definition is not None, "There should be a training definition created"
 
 
 async def test_get_by_id(
-    repo: TrainingDefinitionRepository,
-    saved_training_definition: TrainingDefinitionEntity,
+    database: Database,
+    make_training_definition_in_db,
 ):
     """Test if the training definition can be found with the id."""
-    entity = await repo.get_by_id(saved_training_definition.id)
+    repo = TrainingDefinitionDbRepository(database)
+    definition = await make_training_definition_in_db()
+    entity = await repo.get_by_id(definition.id)
 
-    assert (
-        entity.id == saved_training_definition.id
-    ), "The training definition should be found"
+    assert entity.id == definition.id, "The training definition should be found"
 
 
-async def test_get_all(repo: TrainingDefinitionRepository):
+async def test_get_all(
+    database: Database,
+    make_training_definition_in_db,
+):
     """Test if all training definitions can be loaded."""
+    repo = TrainingDefinitionDbRepository(database)
+    definition = await make_training_definition_in_db()
     entities = {entity.id: entity async for entity in repo.get_all()}
-    assert entities is not None, "There should be a result"
+    assert definition.id in entities, "Definition should be in the list."
 
 
 async def test_update(
-    repo: TrainingDefinitionRepository,
-    saved_training_definition: TrainingDefinitionEntity,
+    database: Database,
+    make_training_definition_in_db,
 ):
     """Test update of training definition."""
-    training_definition = Entity.replace(
-        saved_training_definition, remark="Training definition updated"
-    )
-    await repo.update(training_definition)
+    repo = TrainingDefinitionDbRepository(database)
+    definition = await make_training_definition_in_db()
+    definition = Entity.replace(definition, remark="Training definition updated")
+    try:
+        await repo.update(definition)
+    except QueryException as qe:
+        pytest.fail(str(qe))
 
 
 async def test_delete(
-    repo: TrainingDefinitionRepository,
-    saved_training_definition: TrainingDefinitionEntity,
+    database: Database,
+    make_training_definition_in_db,
 ):
     """Test if the training definition can be deleted."""
-    await repo.delete(saved_training_definition)
+    repo = TrainingDefinitionDbRepository(database)
+    definition = await make_training_definition_in_db()
+    await repo.delete(definition)
 
     with pytest.raises(TrainingDefinitionNotFoundException):
-        await repo.get_by_id(saved_training_definition.id)
+        await repo.get_by_id(definition.id)

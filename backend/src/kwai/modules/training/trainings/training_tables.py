@@ -5,6 +5,7 @@ from datetime import datetime, time
 
 from kwai.core.db.rows import TextRow
 from kwai.core.db.table import Table
+from kwai.core.db.table_row import TableRow
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.period import Period
 from kwai.core.domain.value_objects.text import LocaleText
@@ -232,8 +233,10 @@ TrainingDefinitionsTable = Table("training_definitions", TrainingDefinitionRow)
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class TrainingCoachRow:
+class TrainingCoachRow(TableRow):
     """Represent a row of the training_coaches table."""
+
+    __table_name__ = "training_coaches"
 
     training_id: int
     coach_id: int
@@ -270,9 +273,6 @@ class TrainingCoachRow:
             created_at=training_coach.traceable_time.created_at.timestamp,
             updated_at=training_coach.traceable_time.updated_at.timestamp,
         )
-
-
-TrainingCoachesTable = Table("training_coaches", TrainingCoachRow)
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

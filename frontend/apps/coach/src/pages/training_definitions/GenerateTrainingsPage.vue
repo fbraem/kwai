@@ -6,14 +6,14 @@ import {
   ContainerSectionBanner,
   ContainerSectionContent,
   ContainerSectionTitle,
-  DateRangePicker,
+  KwaiDateRangePicker,
   DeleteIcon,
   InfoAlert,
+  KwaiButton,
   LinkTag,
   NewIcon,
 } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
-import PrimaryButton from '@root/components/PrimaryButton.vue';
 import TrainingDefinitionCard from '@root/pages/training_definitions/components/TrainingDefinitionCard.vue';
 import { ref, toRef } from 'vue';
 import { useForm } from 'vee-validate';
@@ -94,17 +94,14 @@ const saveTrainings = () => {
         </template>
         <template #right>
           <div class="flex sm:flex-col gap-4">
-            <DateRangePicker
+            <KwaiDateRangePicker
               name="period"
               :time="false"
             />
-            <PrimaryButton
-              class="flex items-center"
-              @click="onSubmitForm"
-            >
+            <KwaiButton :method="onSubmitForm">
               <NewIcon class="w-4 mr-2 fill-current" />
               {{ t('generate_trainings.banner.button') }}
-            </PrimaryButton>
+            </KwaiButton>
           </div>
         </template>
       </ContainerSectionBanner>
@@ -171,13 +168,10 @@ const saveTrainings = () => {
         v-if="trainings.length > 0"
         class="w-full flex flex-col"
       >
-        <PrimaryButton
-          class="flex items-center self-end"
-          @click="saveTrainings"
-        >
+        <KwaiButton :method="saveTrainings">
           <NewIcon class="w-4 mr-2 fill-current" />
           {{ t('generate_trainings.save') }}
-        </PrimaryButton>
+        </KwaiButton>
       </div>
       <div v-else>
         <InfoAlert>

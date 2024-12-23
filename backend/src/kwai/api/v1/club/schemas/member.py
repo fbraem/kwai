@@ -5,7 +5,6 @@ from typing import Annotated, Self
 from pydantic import BaseModel, Field
 
 from kwai.api.v1.club.schemas.contact import ContactResource
-from kwai.api.v1.club.schemas.country import CountryResource
 from kwai.api.v1.club.schemas.person import (
     PersonDocument,
     PersonResource,
@@ -14,8 +13,9 @@ from kwai.api.v1.club.schemas.resources import (
     MemberResourceIdentifier,
     PersonResourceIdentifier,
 )
+from kwai.api.v1.schemas import CountryResource
 from kwai.core.json_api import Document, Relationship, ResourceData, ResourceMeta
-from kwai.modules.club.members.member import MemberEntity
+from kwai.modules.club.domain.member import MemberEntity
 
 
 class MemberAttributes(BaseModel):

@@ -7,30 +7,10 @@ import pytest
 from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
-from kwai.modules.club.members.contact import ContactEntity, ContactIdentifier
-from kwai.modules.club.members.country import CountryEntity, CountryIdentifier
-from kwai.modules.club.members.person import PersonEntity, PersonIdentifier
-from kwai.modules.club.members.value_objects import Address, Birthdate, Gender
-
-
-@pytest.fixture
-def country() -> CountryEntity:
-    """A fixture for a country."""
-    return CountryEntity(
-        id_=CountryIdentifier(1), iso_2="JP", iso_3="JPN", name="Japan"
-    )
-
-
-@pytest.fixture
-def expected_country_json() -> dict[str, Any]:
-    """A fixture for a JSON:API resource of a country."""
-    return {
-        "data": {
-            "id": "1",
-            "type": "countries",
-            "attributes": {"iso_2": "JP", "iso_3": "JPN", "name": "Japan"},
-        }
-    }
+from kwai.modules.club.domain.contact import ContactEntity, ContactIdentifier
+from kwai.modules.club.domain.country import CountryEntity
+from kwai.modules.club.domain.person import PersonEntity, PersonIdentifier
+from kwai.modules.club.domain.value_objects import Address, Birthdate, Gender
 
 
 @pytest.fixture

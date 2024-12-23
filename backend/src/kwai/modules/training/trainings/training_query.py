@@ -1,8 +1,9 @@
 """Module that defines an interface for a training query."""
+
 from abc import ABC, abstractmethod
-from datetime import datetime
 
 from kwai.core.domain.repository.query import Query
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.training.coaches.coach import CoachEntity
 from kwai.modules.training.teams.team import TeamEntity
 from kwai.modules.training.trainings.training import TrainingIdentifier
@@ -34,7 +35,7 @@ class TrainingQuery(Query, ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def filter_by_dates(self, start: datetime, end: datetime) -> "TrainingQuery":
+    def filter_by_dates(self, start: Timestamp, end: Timestamp) -> "TrainingQuery":
         """Add filter to get only trainings between two dates.
 
         Args:

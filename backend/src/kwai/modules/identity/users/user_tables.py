@@ -43,8 +43,8 @@ class UserRow:
             remark=self.remark,
             email=EmailAddress(self.email),
             traceable_time=TraceableTime(
-                created_at=Timestamp(timestamp=self.created_at),
-                updated_at=Timestamp(timestamp=self.updated_at),
+                created_at=Timestamp.create_utc(timestamp=self.created_at),
+                updated_at=Timestamp.create_utc(timestamp=self.updated_at),
             ),
         )
 
@@ -104,8 +104,8 @@ class UserAccountRow:
                 ),
                 email=EmailAddress(self.email),
                 traceable_time=TraceableTime(
-                    created_at=Timestamp(self.created_at),
-                    updated_at=Timestamp(self.updated_at),
+                    created_at=Timestamp.create_utc(self.created_at),
+                    updated_at=Timestamp.create_utc(self.updated_at),
                 ),
             ),
         )

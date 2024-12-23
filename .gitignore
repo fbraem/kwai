@@ -9,7 +9,6 @@
 /_site/
 /backend/src/.venv/
 /backend/src/.coverage
-.turbo
 dist
 node_modules
 public
@@ -24,3 +23,8 @@ __pycache__
 /frontend/apps/portal/images/*.jpg
 *.tsbuildinfo
 stats.html
+/backend/.venv/
+/frontend/packages/kwai-config/src/config.production.toml
+.task
+/frontend/.env.test
+/backend/db/schema.sql

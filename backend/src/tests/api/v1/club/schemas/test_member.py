@@ -8,9 +8,9 @@ from deepdiff import DeepDiff
 
 from kwai.api.v1.club.schemas.member import MemberDocument
 from kwai.core.domain.value_objects.date import Date
-from kwai.modules.club.members.member import MemberEntity, MemberIdentifier
-from kwai.modules.club.members.person import PersonEntity
-from kwai.modules.club.members.value_objects import License
+from kwai.modules.club.domain.member import MemberEntity, MemberIdentifier
+from kwai.modules.club.domain.person import PersonEntity
+from kwai.modules.club.domain.value_objects import License
 
 
 @pytest.fixture

@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import {
-  Button,
-  CheckBox,
-  DatePicker,
-  DateRangePicker,
+  KwaiButton,
+  KwaiCheckboxField,
+  KwaiDatePicker,
+  KwaiDateRangePicker,
   ErrorAlert,
   FormSection,
   FormSectionFields,
   InputField,
-  RangeSlider,
+  KwaiSlider,
   SelectOption,
   TextareaField,
 } from '@kwai/ui';
@@ -212,7 +212,7 @@ const onSubmitForm = handleSubmit(async values => {
         {{ t('news.form.sections.publication.description') }}
       </template>
       <FormSectionFields class="bg-white">
-        <DateRangePicker
+        <KwaiDateRangePicker
           name="publication_period"
           :placeholder="t('news.form.sections.publication.fields.start_date.placeholder')"
           :time="true"
@@ -222,7 +222,7 @@ const onSubmitForm = handleSubmit(async values => {
               {{ t('news.form.sections.publication.fields.start_date.label') }}&nbsp;:
             </span>
           </template>
-        </DateRangePicker>
+        </KwaiDateRangePicker>
       </FormSectionFields>
     </FormSection>
     <FormSection :title="t('news.form.sections.promotion.title')">
@@ -230,7 +230,7 @@ const onSubmitForm = handleSubmit(async values => {
         {{ t('news.form.sections.promotion.description') }}
       </template>
       <FormSectionFields class="bg-white">
-        <RangeSlider
+        <KwaiSlider
           name="priority"
           class="pb-6"
         >
@@ -239,8 +239,8 @@ const onSubmitForm = handleSubmit(async values => {
               {{ t('news.form.sections.promotion.fields.priority.label') }}&nbsp;:
             </span>
           </template>
-        </RangeSlider>
-        <DatePicker
+        </KwaiSlider>
+        <KwaiDatePicker
           name="promotion_end_timestamp"
           :placeholder="t('news.form.sections.promotion.fields.end_timestamp.placeholder')"
           :time="true"
@@ -250,7 +250,7 @@ const onSubmitForm = handleSubmit(async values => {
               {{ t('news.form.sections.promotion.fields.end_timestamp.label') }}&nbsp;:
             </span>
           </template>
-        </DatePicker>
+        </KwaiDatePicker>
       </FormSectionFields>
     </FormSection>
     <FormSection :title="t('news.form.sections.remark.title')">
@@ -273,22 +273,21 @@ const onSubmitForm = handleSubmit(async values => {
     </FormSection>
     <FormSection>
       <FormSectionFields class="bg-white">
-        <CheckBox
-          name="active"
-          :label="t('news.form.sections.submit.fields.active.label')"
-        >
+        <KwaiCheckboxField name="active">
+          <template #label>
+            {{ t('news.form.sections.submit.fields.active.label') }}
+          </template>
           <template #help>
             {{ t('news.form.sections.submit.fields.active.help') }}
           </template>
-        </CheckBox>
+        </KwaiCheckboxField>
         <div class="flex flex-col items-end mt-6">
-          <Button
+          <KwaiButton
             id="submit"
-            class="bg-yellow-300 text-gray-600 border border-yellow-300 focus:bg-white focus:ring-2 focus:ring-yellow-300 hover:bg-white hover:border hover:border-yellow-300"
-            @click="onSubmitForm"
+            :method="onSubmitForm"
           >
             {{ t('news.form.sections.submit.fields.button.label') }}
-          </Button>
+          </KwaiButton>
         </div>
         <ErrorAlert v-if="errorMessage">
           {{ t('news.form.error') }}

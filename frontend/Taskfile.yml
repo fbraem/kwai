@@ -1,0 +1,109 @@
+version: '3'
+
+tasks:
+  # Internal task to clean the dist folder of a package.
+  _npm_clean_package:
+    internal: true
+    requires:
+      vars: [PACKAGE]
+    cmds:
+      - rm -rf packages/{{.PACKAGE}}/dist
+
+  # Internal task to run npm build for a package.
+  _npm_build_package:
+    internal: true
+    label: build_package_{{.PACKAGE}}
+    requires:
+      vars: [PACKAGE]
+    sources:
+      - packages/{{.PACKAGE}}/src/**/*
+      - packages/{{.PACKAGE}}/package.json
+      - packages/{{.PACKAGE}}/tailwind.config.js
+    generates:
+      - packages/{{.PACKAGE}}/dist/**/*
+    cmds:
+      - task: _npm_clean_package
+        vars: { PACKAGE: '{{.PACKAGE}}' }
+      - npm run build -w packages/{{.PACKAGE}}
+
+  # @kwai/config package is a dependency for all other packages.
+  _npm_build_config_package:
+    internal: true
+    run: once
+    cmds:
+      - task: _npm_build_package
+        vars: { PACKAGE: 'kwai-config' }
+
+  # Build a package.
+  build_package:
+    desc: Build a package
+    requires:
+      vars: [PACKAGE]
+    deps: [_npm_build_config_package]
+    cmds:
+      - task: _npm_build_package
+        vars: { PACKAGE: '{{.PACKAGE}}' }
+
+  # Build all packages.
+  build_packages:
+    desc: Build all packages
+    run: once # When used as a dependency, one run is enough.
+    deps:
+      - task: build_package
+        vars: { PACKAGE: 'kwai-types' }
+      - task: build_package
+        vars: { PACKAGE: 'kwai-date' }
+      - task: build_package
+        vars: { PACKAGE: 'kwai-api' }
+      - task: build_package
+        vars: { PACKAGE: 'kwai-ui' }
+
+  # Build and start a development server for an application.
+  # All packages will be built before starting the application.
+  dev_app:
+    desc: Build and start a development server for this application
+    requires:
+      vars: [APP]
+    deps: [build_packages]
+    cmds:
+      - npm run dev -w apps/{{.APP}}
+
+  # Build and start a development server for all applications.
+  dev_apps:
+    desc: Build and start a development server for all applications
+    deps:
+      - task: dev_app
+        vars: { APP: 'auth' }
+      - task: dev_app
+        vars: { APP: 'author' }
+      - task: dev_app
+        vars: { APP: 'club' }
+      - task: dev_app
+        vars: { APP: 'coach' }
+      - task: dev_app
+        vars: { APP: 'portal' }
+
+  # Build an application.
+  build_app:
+    desc: Build an application
+    requires:
+      vars: [APP]
+    deps: [build_packages]
+    cmds:
+      - rm -rf apps/{{.APP}}/dist
+      - npm run build -w apps/{{.APP}}
+
+  # Build all applications.
+  build:
+    desc: Build all applications of the frontend
+    deps:
+      - task: build_app
+        vars: { APP: 'auth' }
+      - task: build_app
+        vars: { APP: 'author' }
+      - task: build_app
+        vars: { APP: 'club' }
+      - task: build_app
+        vars: { APP: 'coach' }
+      - task: build_app
+        vars: { APP: 'portal' }

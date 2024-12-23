@@ -11,6 +11,7 @@ export const JsonResourceIdentifier = z.object({
   id: z.optional(z.string()),
   type: z.string(),
 });
+export type JsonResourceIdentifierType = z.infer<typeof JsonResourceIdentifier>;
 
 export const JsonApiRelationship = z.object({
   data: z.union([JsonResourceIdentifier, z.array(JsonResourceIdentifier)]),
@@ -29,6 +30,16 @@ export const JsonApiData = JsonResourceIdentifier.extend({
 });
 export type JsonApiDataType = z.infer<typeof JsonApiData>;
 
+export const JsonApiError = z.object({
+  status: z.string().default(''),
+  source: z.object({
+    pointer: z.string(),
+  }).optional(),
+  title: z.string().default(''),
+  detail: z.string().default(''),
+});
+export type JsonApiErrorType = z.infer<typeof JsonApiError>;
+
 export const JsonApiDocument = z.object({
   meta: z.object({
     count: z.number().optional(),
@@ -37,8 +48,69 @@ export const JsonApiDocument = z.object({
   }).optional(),
   data: z.union([JsonApiData, z.array(JsonApiData)]),
   included: z.array(JsonApiData).optional(),
+  errors: z.array(JsonApiError).optional(),
 });
 export type JsonApiDocumentType = z.infer<typeof JsonApiDocument>;
+
+/**
+ * Transforms an array of resources in a nested object.
+ *
+ * This object makes it easier to lookup included resources. When, for example, a team resource
+ * has team members, the included array will contain resources for the team members but also
+ * country resources for the nationality of these team members. In this example, the returned
+ * object will have two properties: team_members and countries. The value of these properties will
+ * be another object with all the resources. The property for each resource will be the id of the resource.
+ *
+ * {
+ *   team_members: {
+ *     '1': {
+ *       type: 'team_members',
+ *       id: '1',
+ *       attributes: {
+ *        name: 'Jigoro Kano',
+ *       },
+ *       relationships: {
+ *         nationality: {
+ *           data: { type: 'countries', 'id': '1' }
+ *         }
+ *       }
+ *     }
+ *   },
+ *   countries: {
+ *     '1': {
+ *       type: 'countries',
+ *       id: '1',
+ *       attributes: {
+ *         name: 'Japan'
+ *       }
+ *     }
+ *   }
+ * }
+ *
+ * @param resources
+ */
+export const transformResourceArrayToObject = (resources: JsonApiDataType[]): Record<string, Record<string, JsonApiDataType>> => {
+  return resources.reduce((acc: Record<string, Record<string, JsonApiDataType>>, current) => {
+    if (!acc[current.type]) {
+      acc[current.type] = {};
+    }
+    acc[current.type][current.id as string] = current;
+    return acc;
+  }, {});
+};
+
+/**
+ * An interface that can be used for the result of a transform of a document
+ * with multiple resources.
+ */
+export interface ResourceItems<T> {
+    meta: {
+    count: number,
+    offset: number,
+    limit: number
+  },
+  items: T[]
+}
 
 export interface LocalStorage {
     loginRedirect: Ref<string|null>,

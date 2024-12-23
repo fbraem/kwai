@@ -1,7 +1,8 @@
 """Module for defining common classes, functions, ... for use cases."""
+
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import AsyncIterator, Generic, NamedTuple, TypeVar
+from typing import AsyncIterator, NamedTuple
 
 
 class UseCaseResult(ABC):
@@ -13,11 +14,8 @@ class UseCaseResult(ABC):
         raise NotImplementedError
 
 
-T = TypeVar("T")
-
-
 @dataclass(kw_only=True, frozen=True, slots=True)
-class NotFoundResult(UseCaseResult, Generic[T]):
+class NotFoundResult[T](UseCaseResult):
     """A result that indicates that an entity was not found."""
 
     entity_name: str
@@ -28,7 +26,7 @@ class NotFoundResult(UseCaseResult, Generic[T]):
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class EntitiesResult(UseCaseResult, Generic[T]):
+class EntitiesResult[T](UseCaseResult):
     """A result that returns an iterator for entities and the number of entities."""
 
     count: int
@@ -39,7 +37,7 @@ class EntitiesResult(UseCaseResult, Generic[T]):
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class EntityResult(UseCaseResult, Generic[T]):
+class EntityResult[T](UseCaseResult):
     """A result that returns an entity."""
 
     entity: T

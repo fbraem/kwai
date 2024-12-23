@@ -1,3 +1,6 @@
+@import '@root/style.css';
+@import '@kwai/ui/index.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { Card, CardTitle, ContainerSection, ContainerSectionContent, ContainerSectionTitle, EditIcon } from '@kwai/ui';
+import { Card, CardTitle, ContainerSection, ContainerSectionContent, ContainerSectionTitle, EditIcon, KwaiButton } from '@kwai/ui';
 import { useApplications } from '@root/composables/useApplication';
 import PrimaryBadge from '@root/components/PrimaryBadge.vue';
-import PrimaryButton from '@root/components/PrimaryButton.vue';
 
 const { data: applications } = useApplications();
 </script>
@@ -50,9 +49,9 @@ const { data: applications } = useApplications();
                 </PrimaryBadge>
               </div>
               <div>
-                <PrimaryButton :route="{ name: 'author.applications.edit', params: { id: application.id } }">
-                  <EditIcon class="w-4 mr-2" />Wijzig
-                </PrimaryButton>
+                <KwaiButton :to="{ name: 'author.applications.edit', params: { id: application.id } }">
+                  <EditIcon class="w-4 mr-2 fill-current" />Wijzig
+                </KwaiButton>
               </div>
             </div>
           </template>

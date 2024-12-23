@@ -10,21 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
-    - uses: actions/setup-python@v3
+    - uses: actions/setup-python@v5
       with:
-        python-version: "3.10"
+        python-version: "3.12"
     - name: Install Poetry
       run: pip install poetry
     - name: install
-      working-directory: backend/src
-      run: poetry install
+      working-directory: backend
+      run: poetry install --with docs
     - name: Build documentation
-      working-directory: backend/src
+      working-directory: backend
       run: |
-        poetry run mkdocs build -f ../../mkdocs.yml
+        poetry run mkdocs build -f ../mkdocs.yml
     - name: Copy site
       run: |
         mkdir -p gh-pages

@@ -5,11 +5,17 @@
 
 [![coverage](./tests/coverage/coverage.svg)](./tests/coverage/index.html)
 
-kwai API is the backend for the kwai sports club management system.
+This is the backend for the KWAI sports club management system. This system
+contains a [JSON:API](https://jsonapi.org/) REST API, a CLI and an event bus.
 
-All server side code is written with Python using [FastAPI](https://fastapi.tiangolo.com/) as web framework.
+All server side code is written with Python using [FastAPI](https://fastapi.tiangolo.com/) for the REST API
+and [Typer](https://typer.tiangolo.com/) for the CLI.
+Currently, the event bus is custom code and not in use yet.
 
-## Install
+!!! note
+    The frontend is also served by FastAPI.
+
+## Develop
 
 ### Prerequisites
 
@@ -18,12 +24,12 @@ Clone the repository to your system.
 [Poetry](https://python-poetry.org/) is used as Python packaging and
 dependency management tool. Make sure it is available.
 
-Use Poetry to install all the dependencies: Make `backend/src` the current directory
+Use Poetry to install all the dependencies: Make `backend` the current directory
 and run:
 
 `poetry install`
 
-This will only install the modules required to run kwai, for developing add `dev` and `docs` dependencies:
+This will only install the modules required to run KWAI, for developing add `dev` and `docs` dependencies:
 
 `poetry install --with dev,docs`
 
@@ -40,7 +46,7 @@ available from the internet.
 
 ### Database
 
-kwai needs a database. Migration files are available in the folder migrations.
+KWAI needs a database. Migration files are available in the folder migrations.
 [Dbmate](https://github.com/amacneil/dbmate) is used as migration tool.
 
 ```console
@@ -76,7 +82,7 @@ Use `kwai.dist.yaml` file to create `kwai.yaml` in each machine folder. This fil
 
 > Don't add `kwai.yaml` to version control!
 
-## Develop
+### Tools
 
 The backend is written in Python. The following tools are used to develop kwai:
 + [Poetry](https://python-poetry.org/) for managing dependencies.
@@ -87,39 +93,42 @@ The backend is written in Python. The following tools are used to develop kwai:
 There are pre-commit hooks defined for formatting and linting the code. Use
 Poetry to create the pre-commit hooks:
 
+> Use the backend folder as working directory for the poetry commands.
+
 ````
-poetry -C ./backend/src/pyproject.toml pre-commit install
+poetry run pre-commit install
 ````
 
-### Testing
-Use the development vagrant machine to run kwai while developing. Use the test machine to test all code before pushing
-code to the remote repository. In a development environment, poetry and pytest can be used to run the tests. On the
-test machine, a script `kwai_test.sh` is provided to run the tests. This script will also update the coverage
-documentation.
+There are several github actions defined:
 
-## Project structure
++ backend_test: will run all pytest test when code is pushed in backend/src.
++ generate_docs: will generate this documentation.
++ mirror: will copy the repository to codeberg.
++ ruff: will check the code.
+
+### Project structure
 
 The kwai API code in the repository is located in the `backend` folder.
 
-### docs
+#### docs
 
 This folder contains all files for creating this documentation site.
 
-### migrations
+#### migrations
 
 This folder contains the database migrations.
 [Dbmate](https://github.com/amacneil/dbmate) is used as migration tool.
 
-### src
+#### src
 
 This folder contains the Python code. The system is written following DDD as software development philosophy.
 Clean code should be the result of following this philosophy. The folder `kwai` contains the
 program code, `tests` contains the [pytest](https://pytest.org) code for testing the program code.
 
-### templates
+#### templates
 
 This folder contains all templates used by kwai.
 
-### vagrant
+#### vagrant
 
 This folder contains two vagrant machines: one for development and one for testing.

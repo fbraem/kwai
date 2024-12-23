@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { ToolbarLogo, ToolbarMenu, useMenu } from '@kwai/ui';
+import { KwaiButton, KwaiMenubar, ToolbarLogo, useMenu } from '@kwai/ui';
 import { website } from '@kwai/config';
 // eslint-disable-next-line import/no-absolute-path
 import logoUrl from '/logo.png';
-import PrimaryButton from '@root/components/PrimaryButton.vue';
+import { isLoggedIn, useHttpLogout } from '@kwai/api';
 
 const menuItems = useMenu();
+
+const loggedIn = isLoggedIn;
+const logout = () => {
+  useHttpLogout();
+  window.location.reload();
+};
 </script>
 
 <template>
@@ -27,20 +33,21 @@ const menuItems = useMenu();
           </p>
         </div>
         <div class="flex flex-col place-items-end md:w-1/3">
-          <div>
-            <PrimaryButton :url="`${website.url}/apps/auth/login`">
+          <div v-if="loggedIn">
+            <KwaiButton :method="logout">
+              Logout
+            </KwaiButton>
+          </div>
+          <div v-else>
+            <KwaiButton :href="`${website.url}/apps/auth/login`">
               Login
-            </PrimaryButton>
+            </KwaiButton>
           </div>
         </div>
       </div>
     </div>
   </header>
-  <ToolbarMenu
-    :menu-items="menuItems"
-    class="text-white bg-orange-500"
-    item-class="hover:text-black"
-  />
+  <KwaiMenubar :items="menuItems" />
 </template>
 
 <style scoped>

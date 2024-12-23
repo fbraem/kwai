@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CheckIcon, InputField, Button, ErrorAlert } from '@kwai/ui';
+import { CheckIcon, InputField, KwaiButton, ErrorAlert } from '@kwai/ui';
 import { useForm } from 'vee-validate';
 import { localStorage, useHttpLogin } from '@kwai/api';
 import { website } from '@kwai/config';
@@ -127,14 +127,12 @@ const closeNotification = () => {
       </div>
     </ErrorAlert>
     <div class="flex flex-col items-end mt-6">
-      <Button
+      <KwaiButton
         id="submit"
-        class="bg-gray-700 text-white focus:bg-gray-900 z-20"
-        :button="true"
-        @click="onSubmitForm"
+        :method="onSubmitForm"
       >
         {{ t('login.form.submit.label') }}
-      </Button>
+      </KwaiButton>
     </div>
   </form>
 </template>

@@ -1,4 +1,4 @@
-import { defineConfig, splitVendorChunkPlugin } from 'vite';
+import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import toml from '@fbraem/rollup-plugin-toml';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
@@ -21,12 +21,22 @@ const resolveTheme = (path: string) => {
   return original;
 };
 
-export default defineConfig(() => {
+export default defineConfig(({ mode }) => {
   return {
     base: '/apps/auth/',
+    esbuild: {
+      pure: mode === 'production' ? ['console.log'] : [],
+    },
     server: {
+      origin: 'http://localhost:3002',
       host: '0.0.0.0',
       port: 3002,
+    },
+    build: {
+      manifest: true,
+      rollupOptions: {
+        input: 'src/index.ts',
+      },
     },
     plugins: [
       vue(),
@@ -35,7 +45,6 @@ export default defineConfig(() => {
         include: resolve(__dirname, './src/locales/**'),
         compositionOnly: true,
       }),
-      splitVendorChunkPlugin(),
       visualizer(),
     ],
     resolve: {
@@ -44,6 +53,12 @@ export default defineConfig(() => {
           find: '@theme',
           replacement: '',
           customResolver: resolveTheme,
+        },
+        {
+          find: '@kwai/ui',
+          replacement: mode === 'production'
+            ? '@kwai/ui'
+            : resolve(__dirname, '../../packages/kwai-ui/src/'),
         },
         {
           find: /^@root\/(.*)/,

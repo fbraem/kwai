@@ -1,4 +1,5 @@
 """Module that defines an interface for an invitation repository."""
+
 from abc import ABC, abstractmethod
 from typing import AsyncIterator
 
@@ -54,7 +55,7 @@ class UserInvitationRepository(ABC):
         """Get an invitation using the id.
 
         Args:
-            id_(UserInvitationIdentifier): The id of the invitation to search for.
+            id_: The id of the invitation to search for.
         """
         raise NotImplementedError
 
@@ -63,7 +64,7 @@ class UserInvitationRepository(ABC):
         """Get an invitation using the unique id.
 
         Args:
-            uuid(UniqueId): The unique id to use for searching the invitation.
+            uuid: The unique id to use for searching the invitation.
         """
         raise NotImplementedError
 
@@ -72,7 +73,7 @@ class UserInvitationRepository(ABC):
         """Create a new invitation.
 
         Args:
-            invitation(UserInvitationEntity): The invitation to create.
+            invitation: The invitation to create.
         """
         raise NotImplementedError
 
@@ -81,7 +82,7 @@ class UserInvitationRepository(ABC):
         """Update an existing invitation.
 
         Args:
-            invitation(UserInvitationEntity): The invitation to update.
+            invitation: The invitation to update.
         """
         raise NotImplementedError
 
@@ -90,6 +91,6 @@ class UserInvitationRepository(ABC):
         """Delete the invitation.
 
         Args:
-            invitation(UserInvitationEntity): The invitation to delete.
+            invitation: The invitation to delete.
         """
         raise NotImplementedError

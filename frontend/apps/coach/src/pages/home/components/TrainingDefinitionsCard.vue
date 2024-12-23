@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Card, CardTitle, ListIcon } from '@kwai/ui';
-import PrimaryButton from '@root/components/PrimaryButton.vue';
+import { Card, CardTitle, ListIcon, KwaiButton } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n({ useScope: 'global' });
 </script>
@@ -17,12 +16,12 @@ const { t } = useI18n({ useScope: 'global' });
     </p>
     <template #footer>
       <div class="flex justify-between items-center p-3">
-        <PrimaryButton :route="{ name: 'coach.training_definitions' }">
+        <KwaiButton :to="{ name: 'coach.training_definitions' }">
           <ListIcon
             class="w-4 mr-2 fill-current"
           />
           {{ t('home.training_definitions.list') }}
-        </primarybutton>
+        </KwaiButton>
       </div>
     </template>
   </Card>

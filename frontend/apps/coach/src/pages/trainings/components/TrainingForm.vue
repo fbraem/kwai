@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import {
-  Button,
-  CheckBox,
-  DatePicker,
+  KwaiCheckboxField,
+  KwaiDatePicker,
   ErrorAlert,
   FormSection,
   FormSectionFields,
   InputField,
+  KwaiButton,
   SelectOption,
   TextareaField,
 } from '@kwai/ui';
@@ -16,8 +16,7 @@ import type { Training } from '@root/composables/useTraining';
 import type { TrainingDefinition } from '@root/composables/useTrainingDefinition';
 import { computed, ref, watch } from 'vue';
 import { useField, useForm } from 'vee-validate';
-import { createFromDate, getLocaleFormat, weekdays } from '@kwai/date';
-import PrimaryButton from '@root/components/PrimaryButton.vue';
+import { createFromDate, weekdays } from '@kwai/date';
 import { useRouter } from 'vue-router';
 import { useTrainingMutation } from '@root/composables/useTraining';
 
@@ -46,8 +45,6 @@ function isRequired(value: string): string|boolean {
   }
   return t('training.form.validations.required');
 }
-
-const dateFormat = ref('ddd ' + getLocaleFormat('L') + ' HH:mm');
 
 interface TrainingForm {
   active: boolean,
@@ -205,12 +202,12 @@ const applyDefinition = () => {
             </SelectOption>
           </div>
           <div class="self-end">
-            <PrimaryButton
+            <KwaiButton
               :method="applyDefinition"
               :disabled="!enableApplyDefinition"
             >
               {{ t('training.form.sections.definition.fields.definition.apply') }}
-            </PrimaryButton>
+            </KwaiButton>
           </div>
         </div>
       </FormSectionFields>
@@ -261,40 +258,38 @@ const applyDefinition = () => {
         {{ t('training.form.sections.date.description') }}
       </template>
       <FormSectionFields class="bg-white">
-        <DatePicker
+        <KwaiDatePicker
           name="start_date"
           :time="true"
           :placeholder="t('training.form.sections.date.fields.start_date.placeholder')"
           :required="true"
-          :format="dateFormat"
         >
           <template #label>
             <span class="font-medium text-gray-900">
               {{ t('training.form.sections.date.fields.start_date.label') }}&nbsp;:
             </span>
           </template>
-        </DatePicker>
-        <DatePicker
+        </KwaiDatePicker>
+        <KwaiDatePicker
           name="end_date"
           :time="true"
           :placeholder="t('training.form.sections.date.fields.end_date.placeholder')"
           :required="true"
-          :format="dateFormat"
         >
           <template #label>
             <span class="font-medium text-gray-900">
               {{ t('training.form.sections.date.fields.end_date.label') }}&nbsp;:
             </span>
           </template>
-        </DatePicker>
-        <CheckBox
-          name="cancelled"
-          :label="t('training.form.sections.date.fields.cancelled.label')"
-        >
+        </KwaiDatePicker>
+        <KwaiCheckboxField name="cancelled">
+          <template #label>
+            {{ t('training.form.sections.date.fields.cancelled.label') }}
+          </template>
           <template #help>
             {{ t('training.form.sections.date.fields.cancelled.help') }}
           </template>
-        </CheckBox>
+        </KwaiCheckboxField>
       </FormSectionFields>
     </FormSection>
     <FormSection :title="t('training.form.sections.location.title')">
@@ -334,22 +329,21 @@ const applyDefinition = () => {
     </FormSection>
     <FormSection>
       <FormSectionFields class="bg-white">
-        <CheckBox
-          name="active"
-          :label="t('training.form.sections.submit.fields.active.label')"
-        >
+        <KwaiCheckboxField name="active">
+          <template #label>
+            {{ t('training.form.sections.submit.fields.active.label') }}
+          </template>
           <template #help>
             {{ t('training.form.sections.submit.fields.active.help') }}
           </template>
-        </CheckBox>
+        </KwaiCheckboxField>
         <div class="flex flex-col items-end mt-6">
-          <Button
+          <KwaiButton
             id="submit"
-            class="bg-yellow-300 text-gray-600 border border-yellow-300 focus:bg-white focus:ring-2 focus:ring-yellow-300 hover:bg-white hover:border hover:border-yellow-300"
-            @click="onSubmitForm"
+            :method="onSubmitForm"
           >
             {{ t('training.form.sections.submit.fields.button.label') }}
-          </Button>
+          </KwaiButton>
         </div>
         <ErrorAlert v-if="errorMessage">
           {{ t('training.form.error') }}
@@ -358,7 +352,3 @@ const applyDefinition = () => {
     </FormSection>
   </form>
 </template>
-
-<style scoped>
-
-</style>

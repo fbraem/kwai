@@ -17,18 +17,18 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10"]
+        python-version: ["3.12"]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install Poetry
         run: pip install poetry
       - name: Install dependencies
-        working-directory: backend/src
-        run: poetry install
+        working-directory: backend
+        run: poetry install --with dev,docs
       - name: Start MySQL
         run: |
           sudo systemctl enable mysql.service
@@ -48,6 +48,32 @@ jobs:
           KWAI_EMAIL_PASSWORD: ${{ secrets.KWAI_EMAIL_PASSWORD }}
         run: |
           cat <<EOF > .kwai.toml
+          [frontend]
+          test = true
+          path = ""
+          root_app = "portal"
+          [frontend.apps.portal]
+          base="/apps/portal"
+          base_dev="http://localhost:3000"
+          entries="/src/index.ts"
+          [frontend.apps.author]
+          base="/apps/author"
+          base_dev="http://localhost:3001"
+          entries="/src/index.ts"
+          [frontend.apps.auth]
+          base="/apps/auth"
+          base_dev="http://localhost:3002"
+          entries="/src/index.ts"
+          [frontend.apps.coach]
+          base="/apps/coach"
+          base_dev="http://localhost:3003"
+          entries="/src/index.ts"
+          [frontend.apps.club]
+          base="/apps/club"
+          base_dev="http://localhost:3004"
+          entries="/src/index.ts"
+          [files]
+          path = "/var/tmp/kwai"
           [security]
           jwt_secret="$KWAI_JWT_SECRET"
           jwt_refresh_secret="$KWAI_JWT_SECRET"
@@ -87,18 +113,18 @@ jobs:
           DBMATE_WAIT_TIMEOUT: "30s"
         run: ./dbmate up
       - name: Test with pytest
-        working-directory: backend/src
+        working-directory: backend
         env:
           KWAI_SETTINGS_FILE: ${{github.workspace}}/.kwai.toml
         run: poetry run pytest --cov=kwai --cov-report html
       - name: Generate coverage badge
-        working-directory: backend/src
+        working-directory: backend
         run: poetry run coverage-badge -o ./htmlcov/coverage.svg
       - name: Remove .gitignore from coverage report
-        run: rm backend/src/htmlcov/.gitignore
+        run: rm backend/htmlcov/.gitignore
       - name: Deploy coverage to github pages
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: gh-pages
           target-folder: coverage
-          folder: backend/src/htmlcov
+          folder: backend/htmlcov

@@ -1,50 +1,5 @@
-<template>
-  <div class="mb-6">
-    <div class="mb-3">
-      <h6 class="text-gray-900 text-2xl font-bold">
-        {{ t('recover_password.title') }}
-      </h6>
-      <p class="text-sm text-gray-500">
-        {{ t('recover_password.problem') }} <a
-          class="text-blue-400 font-medium"
-          href="#"
-        >{{ t('recover_password.contact_us') }}</a>
-      </p>
-    </div>
-  </div>
-  <form class="flex-auto">
-    <InputField
-      name="email"
-      :placeholder="t('recover_password.form.email.placeholder')"
-      class="mb-6"
-      :required="true"
-    >
-      <template #label>
-        {{ t('recover_password.form.email.label') }}
-      </template>
-    </InputField>
-    <p class="text-xs text-gray-500">
-      {{ t('recover_password.form.email.help') }}
-    </p>
-    <ErrorAlert v-if="errorMessage">
-      <div class="text-sm">
-        {{ errorMessage }}
-      </div>
-    </ErrorAlert>
-    <div class="flex flex-col items-end mt-6">
-      <Button
-        id="submit"
-        class="bg-gray-700 text-white focus:bg-gray-900 z-20"
-        @click="onSubmitForm"
-      >
-        {{ t('recover_password.form.submit.label') }}
-      </Button>
-    </div>
-  </form>
-</template>
-
 <script setup lang="ts">
-import { Button, ErrorAlert, InputField } from '@kwai/ui';
+import { KwaiButton, ErrorAlert, InputField } from '@kwai/ui';
 import { useForm } from 'vee-validate';
 import { useHttp } from '@kwai/api';
 import type { Ref } from 'vue';
@@ -96,3 +51,48 @@ const onSubmitForm = handleSubmit(async values => {
     });
 });
 </script>
+
+<template>
+  <div class="mb-6">
+    <div class="mb-3">
+      <h6 class="text-gray-900 text-2xl font-bold">
+        {{ t('recover_password.title') }}
+      </h6>
+      <p class="text-sm text-gray-500">
+        {{ t('recover_password.problem') }} <a
+          class="text-blue-400 font-medium"
+          href="#"
+        >{{ t('recover_password.contact_us') }}</a>
+      </p>
+    </div>
+  </div>
+  <form class="flex-auto">
+    <InputField
+      name="email"
+      :placeholder="t('recover_password.form.email.placeholder')"
+      class="mb-6"
+      :required="true"
+    >
+      <template #label>
+        {{ t('recover_password.form.email.label') }}
+      </template>
+    </InputField>
+    <p class="text-xs text-gray-500">
+      {{ t('recover_password.form.email.help') }}
+    </p>
+    <ErrorAlert v-if="errorMessage">
+      <div class="text-sm">
+        {{ errorMessage }}
+      </div>
+    </ErrorAlert>
+    <div class="flex flex-col items-end mt-6">
+      <KwaiButton
+        id="submit"
+        class="bg-gray-700 text-white"
+        :method="onSubmitForm"
+      >
+        {{ t('recover_password.form.submit.label') }}
+      </KwaiButton>
+    </div>
+  </form>
+</template>

@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 // Create app
 import App from './App.vue';
-import './index.css';
+import '@root/index.css';
 
 // Setup i18n
 import { createI18n } from 'vue-i18n';
@@ -9,6 +9,8 @@ import messages from '@intlify/unplugin-vue-i18n/messages';
 
 // Setup pinia store
 import { createPinia } from 'pinia';
+
+import { init } from '@kwai/ui';
 
 // Setup router
 import { createRouter, createWebHistory } from 'vue-router';
@@ -30,5 +32,6 @@ const router = createRouter({
   routes,
 });
 app.use(router);
+init(app);
 
 app.mount('#app');

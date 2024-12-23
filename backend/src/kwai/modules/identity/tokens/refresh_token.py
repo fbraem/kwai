@@ -1,8 +1,8 @@
 """Module for a refresh token entity."""
-from datetime import datetime
 
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
@@ -19,14 +19,14 @@ class RefreshTokenEntity(Entity[RefreshTokenIdentifier]):
         id_: RefreshTokenIdentifier | None = None,
         access_token: AccessTokenEntity,
         identifier: TokenIdentifier | None = None,
-        expiration: datetime | None,
+        expiration: Timestamp | None,
         revoked: bool = False,
         traceable_time: TraceableTime | None = None,
     ):
         super().__init__(id_ or RefreshTokenIdentifier())
         self._access_token = access_token
         self._identifier = identifier or TokenIdentifier.generate()
-        self._expiration = expiration or datetime.utcnow()
+        self._expiration = expiration or Timestamp.create_now()
         self._revoked = revoked
         self._traceable_time = traceable_time or TraceableTime()
 
@@ -36,14 +36,14 @@ class RefreshTokenEntity(Entity[RefreshTokenIdentifier]):
         return self._access_token
 
     @property
-    def expiration(self) -> datetime:
+    def expiration(self) -> Timestamp:
         """Return the expiration timestamp of the refresh token."""
         return self._expiration
 
     @property
     def expired(self) -> bool:
         """Return True when the token is expired."""
-        return self._expiration < datetime.utcnow()
+        return self._expiration.is_past
 
     @property
     def identifier(self) -> TokenIdentifier:

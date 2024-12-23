@@ -23,8 +23,8 @@ theme:
       icon: material/lightbulb-outline
       name: Switch to dark mode
 
-repo_name: zumuta/kwai
-repo_url: https://codeberg.org/zumuta/kwai
+repo_name: fbraem/kwai
+repo_url: https://github.com/fbraem/kwai
 
 extra_css:
   - stylesheets/extra.css
@@ -34,10 +34,17 @@ markdown_extensions:
       toc_depth: 4
   - admonition
   - codehilite
+  - attr_list
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 
 plugins:
   - monorepo
-  - autorefs
+  - autorefs:
+      resolve_closest: true
   - mkdocstrings:
       handlers:
         python:
@@ -47,5 +54,7 @@ plugins:
             show_source: false
             docstring_style: google
             show_root_toc_entry: true
+            extensions:
+              - griffe_fastapi
 watch:
   - backend/src

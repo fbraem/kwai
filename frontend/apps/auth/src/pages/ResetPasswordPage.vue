@@ -1,101 +1,6 @@
-<template>
-  <div class="mb-6">
-    <div class="mb-3">
-      <h6 class="text-gray-900 text-2xl font-bold">
-        {{ t('reset_password.title') }}
-      </h6>
-      <p class="text-sm text-gray-500">
-        {{ t('reset_password.problem') }} <a
-          class="text-blue-400 font-medium"
-          href="#"
-        >{{ t('reset_password.contact_us') }}</a>
-      </p>
-    </div>
-  </div>
-  <form class="flex-auto">
-    <div
-      v-if="uuid === undefined"
-      class="mb-6"
-    >
-      <InputField
-        name="uuid"
-        type="text"
-        :placeholder="t('reset_password.form.uuid.placeholder')"
-        :required="true"
-      >
-        <template #label>
-          {{ t('reset_password.form.uuid.label') }}
-        </template>
-      </InputField>
-      <p class="text-xs text-gray-500 mt-2">
-        {{ t('reset_password.form.uuid.help') }}
-        <router-link
-          :to="{ name: 'recover' }"
-          class="text-blue-400 font-medium"
-        >
-          Genereer nieuwe code
-        </router-link>
-      </p>
-    </div>
-    <InputField
-      name="password"
-      type="password"
-      :placeholder="t('reset_password.form.password.placeholder')"
-      :required="true"
-    >
-      <template #label>
-        {{ t('reset_password.form.password.label') }}
-      </template>
-    </InputField>
-    <p class="text-xs text-gray-500 mt-2 mb-6">
-      {{ t('reset_password.form.password.help') }}
-    </p>
-    <InputField
-      name="repeat_password"
-      type="password"
-      :placeholder="t('reset_password.form.repeat_password.placeholder')"
-      class="mb-6"
-      :required="true"
-    >
-      <template #label>
-        {{ t('reset_password.form.repeat_password.label') }}
-      </template>
-    </InputField>
-    <div
-      v-if="errorMessage"
-      class="flex items-center gap-3"
-    >
-      <ErrorAlert
-        v-if="errorMessage"
-      >
-        <div class="text-sm">
-          {{ errorMessage }}
-        </div>
-      </ErrorAlert>
-      <div v-if="expired">
-        <router-link
-          :to="{ name: 'recover' }"
-          class="text-blue-400 text-sm font-medium"
-        >
-          {{ t('reset_password.generate_code') }}
-        </router-link>
-      </div>
-    </div>
-    <div class="flex flex-col items-end mt-6">
-      <Button
-        id="submit"
-        class="bg-gray-700 text-white focus:bg-gray-900 z-20"
-        @click="onSubmitForm"
-      >
-        {{ t('recover_password.form.submit.label') }}
-      </Button>
-    </div>
-  </form>
-</template>
-
 <script setup lang="ts">
 import { useHttp } from '@kwai/api';
-import { Button, ErrorAlert, InputField } from '@kwai/ui';
+import { KwaiButton, ErrorAlert, InputField } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
 import { useTitle } from '@vueuse/core';
 import { useForm } from 'vee-validate';
@@ -180,3 +85,98 @@ const onSubmitForm = handleSubmit(async values => {
     });
 });
 </script>
+
+<template>
+  <div class="mb-6">
+    <div class="mb-3">
+      <h6 class="text-gray-900 text-2xl font-bold">
+        {{ t('reset_password.title') }}
+      </h6>
+      <p class="text-sm text-gray-500">
+        {{ t('reset_password.problem') }} <a
+          class="text-blue-400 font-medium"
+          href="#"
+        >{{ t('reset_password.contact_us') }}</a>
+      </p>
+    </div>
+  </div>
+  <form class="flex-auto">
+    <div
+      v-if="uuid === undefined"
+      class="mb-6"
+    >
+      <InputField
+        name="uuid"
+        type="text"
+        :placeholder="t('reset_password.form.uuid.placeholder')"
+        :required="true"
+      >
+        <template #label>
+          {{ t('reset_password.form.uuid.label') }}
+        </template>
+      </InputField>
+      <p class="text-xs text-gray-500 mt-2">
+        {{ t('reset_password.form.uuid.help') }}
+        <router-link
+          :to="{ name: 'recover' }"
+          class="text-blue-400 font-medium"
+        >
+          Genereer nieuwe code
+        </router-link>
+      </p>
+    </div>
+    <InputField
+      name="password"
+      type="password"
+      :placeholder="t('reset_password.form.password.placeholder')"
+      :required="true"
+    >
+      <template #label>
+        {{ t('reset_password.form.password.label') }}
+      </template>
+    </InputField>
+    <p class="text-xs text-gray-500 mt-2 mb-6">
+      {{ t('reset_password.form.password.help') }}
+    </p>
+    <InputField
+      name="repeat_password"
+      type="password"
+      :placeholder="t('reset_password.form.repeat_password.placeholder')"
+      class="mb-6"
+      :required="true"
+    >
+      <template #label>
+        {{ t('reset_password.form.repeat_password.label') }}
+      </template>
+    </InputField>
+    <div
+      v-if="errorMessage"
+      class="flex items-center gap-3"
+    >
+      <ErrorAlert
+        v-if="errorMessage"
+      >
+        <div class="text-sm">
+          {{ errorMessage }}
+        </div>
+      </ErrorAlert>
+      <div v-if="expired">
+        <router-link
+          :to="{ name: 'recover' }"
+          class="text-blue-400 text-sm font-medium"
+        >
+          {{ t('reset_password.generate_code') }}
+        </router-link>
+      </div>
+    </div>
+    <div class="flex flex-col items-end mt-6">
+      <KwaiButton
+        id="submit"
+        class="bg-gray-700 text-white"
+        :method="onSubmitForm"
+      >
+        {{ t('recover_password.form.submit.label') }}
+      </KwaiButton>
+    </div>
+  </form>
+</template>

@@ -1,11 +1,9 @@
 """Module that defines identifiers."""
+
 from abc import ABC, abstractmethod
-from typing import Generic, TypeVar
-
-T = TypeVar("T")
 
 
-class Identifier(ABC, Generic[T]):
+class Identifier[T](ABC):
     """Abstract and generic class for an identifier."""
 
     def __init__(self, id_: T):

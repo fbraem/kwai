@@ -1,4 +1,36 @@
 # Rename this file to kwai.toml and set the env KWAI_SETTINGS_FILE to the path of this file.
+[frontend]
+test = false
+path = ""  # Where are the frontend applications deployed?
+root_app = "portal"  # Which app should be used as default?
+
+[frontend.apps]
+
+[frontend.apps.portal]
+server="http://localhost:3000"  # Only necessary in test mode
+base="/apps/portal"  # Only necessary in test mode
+entries="src/index.ts"
+
+[frontend.apps.author]
+server="http://localhost:3001"  # Only necessary in test mode
+base="/apps/author"  # Only necessary in test mode
+entries="src/index.ts"
+
+[frontend.apps.auth]
+server="http://localhost:3002"  # Only necessary in test mode
+base="/apps/auth"  # Only necessary in test mode
+entries="src/index.ts"
+
+[frontend.apps.coach]
+server="http://localhost:3003"  # Only necessary in test mode
+base="/apps/coach"  # Only necessary in test mode
+entries="src/index.ts"
+
+[frontend.apps.club]
+server="http://localhost:3004"  # Only necessary in test mode
+base="/apps/club"  # Only necessary in test mode
+entries="src/index.ts"
+
 [files]
 path="/var/tmp/kwai"
 

@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import Alert from './Alert.vue';
-import WarningIcon from '../icons/WarningIcon.vue';
+import { WarningIcon } from '../icons';
 </script>
 
 <template>
-  <Alert class="bg-orange-100 border-orange-500 mt-6">
+  <Alert severity="warn">
     <template #icon>
-      <WarningIcon class="fill-orange-500 w-8 h-8" />
+      <WarningIcon class="fill-orange-500 w-8 h-8 mr-2" />
     </template>
-    <div class="text-sm text-orange-500">
-      <slot />
-    </div>
+    <slot />
   </Alert>
 </template>

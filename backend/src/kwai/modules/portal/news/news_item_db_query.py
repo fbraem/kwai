@@ -1,5 +1,5 @@
 """Module that implements a NewsItemQuery for a database."""
-from datetime import datetime
+
 from typing import AsyncIterator
 
 from sql_smith.functions import criteria, express, func, group, literal, on
@@ -7,6 +7,7 @@ from sql_smith.functions import criteria, express, func, group, literal, on
 from kwai.core.db.database import Database
 from kwai.core.db.database_query import DatabaseQuery
 from kwai.core.db.rows import OwnersTable
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.portal.applications.application_tables import ApplicationsTable
 from kwai.modules.portal.news.news_item import NewsItemIdentifier
@@ -93,7 +94,7 @@ class NewsItemDbQuery(NewsItemQuery, DatabaseQuery):
         return self
 
     def filter_by_promoted(self) -> "NewsItemQuery":
-        now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+        now = str(Timestamp.create_now())
         condition = (
             NewsItemsTable.field("promotion")
             .gt(0)
@@ -118,7 +119,7 @@ class NewsItemDbQuery(NewsItemQuery, DatabaseQuery):
         return self
 
     def filter_by_active(self) -> "NewsItemQuery":
-        now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+        now = str(Timestamp.create_now())
         self._query.and_where(
             group(
                 NewsItemsTable.field("enabled")

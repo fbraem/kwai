@@ -1,15 +1,12 @@
 """Module that defines some common functions."""
 
 from itertools import count
-from typing import Any, AsyncIterator, Callable, Generator, TypeVar
-
-T = TypeVar("T")
-R = TypeVar("R")
+from typing import Any, AsyncIterator, Callable, Generator
 
 
-async def async_groupby(
-    it: AsyncIterator[T], key: Callable[[T], R]
-) -> AsyncIterator[tuple[Any, list[T]]]:
+async def async_groupby[
+    T, R
+](it: AsyncIterator[T], key: Callable[[T], R]) -> AsyncIterator[tuple[Any, list[T]]]:
     """An async groupby."""
     try:
         row = await anext(it)
