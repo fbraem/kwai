@@ -5,11 +5,14 @@
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "@vue/eslint-config-typescript": "latest",
-    "eslint": "latest",
     "eslint-config-prettier": "latest",
     "eslint-plugin-prettier": "latest",
     "eslint-plugin-vue": "latest",
     "vue-eslint-parser": "latest"
+  },
+  "peerDependencies": {
+    "eslint": "latest",
+    "prettier": "latest"
   },
   "license": "MIT",
   "main": "index.js",
