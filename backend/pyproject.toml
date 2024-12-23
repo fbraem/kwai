@@ -8,7 +8,7 @@ authors = ["Franky Braem <franky.braem@gmail.com>"]
 python = "^3.12"
 fastapi = "^0.110.0"
 uvicorn = {extras = ["standard"], version = "^0.27.1"}
-mysql-connector-python = "^8.3.0"
+mysql-connector-python = "^9.1.0"
 sql-smith = "^1.1.1"
 pyisemail = "^2.0.1"
 python-multipart = "^0.0.20"
