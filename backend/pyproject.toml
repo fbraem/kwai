@@ -11,7 +11,7 @@ uvicorn = {extras = ["standard"], version = "^0.27.1"}
 mysql-connector-python = "^8.3.0"
 sql-smith = "^1.1.1"
 pyisemail = "^2.0.1"
-python-multipart = "^0.0.9"
+python-multipart = "^0.0.20"
 loguru = "^0.7.0"
 jinja2 = "^3.1.2"
 tomli = "^2.0.1"
