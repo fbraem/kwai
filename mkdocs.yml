@@ -23,8 +23,8 @@ theme:
       icon: material/lightbulb-outline
       name: Switch to dark mode
 
-repo_name: zumuta/kwai
-repo_url: https://codeberg.org/zumuta/kwai
+repo_name: fbraem/kwai
+repo_url: https://github.com/fbraem/kwai
 
 extra_css:
   - stylesheets/extra.css
