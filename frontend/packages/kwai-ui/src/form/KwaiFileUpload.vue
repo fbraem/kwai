@@ -10,7 +10,7 @@ interface Props {
   uploader: (files: File[]) => void,
 }
 const props = defineProps<Props>();
-const fileUpload = ref<FileUpload|null>(null);
+const fileUpload = ref<typeof FileUpload|null>(null);
 const upload = (event: FileUploadUploaderEvent) => {
   // Forward the actual upload to the uploader property.
   if (event.files instanceof File) {
@@ -18,7 +18,9 @@ const upload = (event: FileUploadUploaderEvent) => {
   } else {
     props.uploader(event.files);
   }
+  // @ts-ignore
   fileUpload.value!.clear();
+  // @ts-ignore
   fileUpload.value!.uploadedFileCount = 0;
 };
 </script>
