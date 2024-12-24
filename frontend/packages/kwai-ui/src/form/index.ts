@@ -9,7 +9,6 @@ export { default as TextareaField } from './TextareaField.vue';
 export { default as InputField } from './InputField.vue';
 export { default as KwaiDateRangePicker } from './KwaiDateRangePicker.vue';
 export { default as KwaiDatePicker } from './KwaiDatePicker.vue';
-export type { TimeModel } from '@vuepic/vue-datepicker';
 export { default as KwaiTimePicker } from './KwaiTimePicker.vue';
 export { default as CheckBox } from './CheckBox.vue';
 export { default as KwaiButton } from './KwaiButton.vue';
