@@ -1,9 +1,9 @@
 """Module for the settings of this application."""
 
 import os
+import tomllib
 from functools import lru_cache
 
-import tomli
 from pydantic import BaseModel, Field
 
 ENV_SETTINGS_FILE = "KWAI_SETTINGS_FILE"
@@ -156,7 +156,7 @@ def get_settings() -> Settings:
         settings_file = os.environ.get(ENV_SETTINGS_FILE, "")
         try:
             with open(settings_file, mode="rb") as file_handle:
-                return Settings.model_validate(tomli.load(file_handle))
+                return Settings.model_validate(tomllib.load(file_handle))
         except OSError as exc:
             raise SettingsException(f"Could not load {settings_file}") from exc
     raise SettingsException(
