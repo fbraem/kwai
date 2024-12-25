@@ -23,7 +23,7 @@
       "import": "./dist/kwai-ui.js",
       "require": "./dist/kwai-ui.umd.cjs"
     },
-    "./index.css": "./dist/style.css"
+    "./index.css": "./dist/kwai-ui.css"
   },
   "files": [
     "dist/**"
