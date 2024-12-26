@@ -101,7 +101,7 @@ def recipients() -> Recipients:
 def template_engine() -> TemplateEngine:
     """Fixture for getting a template engine."""
     settings = get_settings()
-    return Jinja2Engine(settings.template.path, website=settings.website)
+    return Jinja2Engine(website=settings.website)
 
 
 @pytest.fixture(scope="module")

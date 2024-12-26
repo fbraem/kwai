@@ -1,4 +1,5 @@
 """Module that defines the dependencies for events."""
+
 import contextlib
 from typing import AsyncGenerator
 
@@ -27,7 +28,7 @@ async def create_database(settings: Settings) -> AsyncGenerator[Database, None]:
 @inject.autoparams()
 def create_template_engine(settings: Settings) -> TemplateEngine:
     """Create the template engine dependency."""
-    return Jinja2Engine(settings.template.path, website=settings.website)
+    return Jinja2Engine(website=settings.website)
 
 
 @inject.autoparams()
