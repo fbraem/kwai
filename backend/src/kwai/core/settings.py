@@ -66,9 +66,9 @@ class DatabaseSettings(BaseModel):
 class CORSSettings(BaseModel):
     """Settings for configuring CORS."""
 
-    origins: list[str] = []
-    methods: list[str] = ["*"]
-    headers: list[str] = ["*"]
+    origins: list[str] = Field(default_factory=list)
+    methods: list[str] = Field(default_factory=lambda: ["*"])
+    headers: list[str] = Field(default_factory=lambda: ["*"])
 
 
 class LoggerSettings(BaseModel):
