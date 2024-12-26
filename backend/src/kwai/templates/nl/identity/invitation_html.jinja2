@@ -1,0 +1,36 @@
+{%  extends "../layout.jinja2" %}
+{%  block title %} {{ website.name }} {% endblock %}
+{%  block content %}
+<h2>Uitnodiging</h2>
+<p>
+    Beste <strong>{{ name }},</strong>
+</p>
+<p>
+    U bent uitgenodigd om lid te worden van onze website.
+</p>
+<p style="text-align: center">
+    <a href="{{ website.url }}/auth/invite?uuid={{ uuid }}"
+       class="button"
+    >
+        Aanvaard Uitnodiging
+    </a>
+</p>
+<p>
+    Wanneer de knop niet werkt, of u wilt deze uitnodiging accepteren via onze
+    <a href="{{ website.url }}/auth">website</a>, gebruik dan volgende code:
+</p>
+<p class="center">
+    <strong>{{ uuid }}</strong>
+</p>
+<p>
+    Wanneer u hulp nodig heeft, gelieve dan onze webmaster
+    <a href="mailto:{{ website.email }}">{{ website.email }}</a> te contacteren.
+</p>
+<p>
+    Opgelet: Deze uitnodiging blijft maar {{ expires }} uren geldig.
+</p>
+<p>
+    Met vriendelijke groeten,<br />
+    {{ website.name }}
+</p>
+{% endblock %}

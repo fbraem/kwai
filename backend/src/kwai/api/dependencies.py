@@ -13,6 +13,7 @@ from kwai.core.db.database import Database
 from kwai.core.events.publisher import Publisher
 from kwai.core.events.redis_bus import RedisBus
 from kwai.core.settings import SecuritySettings, get_settings
+from kwai.core.template.jinja2_engine import Jinja2Engine
 from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
 )
@@ -38,9 +39,7 @@ async def create_database(
 
 async def create_templates(settings=Depends(get_settings)) -> Jinja2Templates:
     """Create the template engine dependency."""
-    templates = Jinja2Templates(directory=settings.template.path)
-    templates.env.add_extension("jinja2.ext.do")
-    return templates
+    return Jinja2Engine().web_templates
 
 
 async def get_current_user(

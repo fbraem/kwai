@@ -34,13 +34,13 @@ async def get_app(
         url = url.replace(scheme=request.headers["x-forwarded-proto"])
 
     return templates.TemplateResponse(
-        "index.jinja2",
-        {
+        request,
+        name="index.jinja2",
+        context={
             "application": {
                 "name": APP_NAME,
                 "url": str(url),
             },
-            "request": request,
             "vite": vite,
         },
     )

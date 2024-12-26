@@ -111,12 +111,6 @@ class SecuritySettings(BaseModel):
     jwt_refresh_secret: str
 
 
-class TemplateSettings(BaseModel):
-    """Settings for template."""
-
-    path: str
-
-
 class Settings(BaseModel):
     """Class with settings."""
 
@@ -125,8 +119,6 @@ class Settings(BaseModel):
     files: FilesSettings
 
     security: SecuritySettings
-
-    template: TemplateSettings
 
     logger: LoggerSettings | None = None
 

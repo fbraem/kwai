@@ -1,23 +1,22 @@
-{%  extends "layout.jinja2" %}
+{%  extends "../layout.jinja2" %}
 {%  block title %} {{ website.name }} {% endblock %}
 {%  block content %}
-<h2>Password Reset Request</h2>
+<h2>User Invitation</h2>
 <p>
     Dear <strong>{{ name }},</strong>
 </p>
 <p>
-    Did you forget your password? No problem. With a click on the button below, you can
-    reset your password.
+    You are invited to become a member of our website.
 </p>
 <p style="text-align: center">
-    <a href="{{ website.url }}/auth/reset?uuid={{ uuid }}"
+    <a href="{{ website.url }}/auth/invite?uuid={{ uuid }}"
        class="button"
     >
-        Reset My Password
+        Accept Invitation
     </a>
 </p>
 <p>
-    When the button is not working, or you would like to reset your password on
+    When the button is not working, or you would like to accept this invitation on
     our <a href="{{ website.url }}/auth">website</a> without using the button, use the
     following code:
 </p>
@@ -29,7 +28,7 @@
     <a href="mailto:{{ website.email }}">{{ website.email }}</a>.
 </p>
 <p>
-    Note: This code will expire within {{ expires }} hours.
+    Note: This invitation will expire within {{ expires }} hours.
 </p>
 <p>
     Best regards,<br />
