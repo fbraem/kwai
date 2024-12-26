@@ -7,7 +7,7 @@ from kwai.frontend.vite import DevelopmentVite
 def test_render():
     """Test render."""
     engine = Jinja2Engine(website={"name": "Kwai Test"})
-    template = engine.create("index.jinja2")
+    template = engine.create("index")
     result = template.render(
         vite=DevelopmentVite("", ""), application={"name": "test", "url": "test"}
     )
