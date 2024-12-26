@@ -1,5 +1,8 @@
 """Modules that implements the template engine interface for jinja2."""
 
+from typing import Any
+
+from fastapi import Request
 from fastapi.templating import Jinja2Templates
 from jinja2 import (
     ChoiceLoader,
@@ -51,7 +54,11 @@ class Jinja2Engine(TemplateEngine):
     @property
     def web_templates(self) -> Jinja2Templates:
         """Return templates that can be used with a TemplateResponse."""
-        return Jinja2Templates(env=self._env)
+
+        def app_context(request: Request) -> dict[str, Any]:
+            return self._variables
+
+        return Jinja2Templates(env=self._env, context_processors=[app_context])
 
     def create(self, template_file_path: str) -> Template:
         """Create a jinja2 template."""
