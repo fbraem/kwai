@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Annotated
 
 from fastapi import Depends, FastAPI, Request, status
-from fastapi.responses import JSONResponse, RedirectResponse
+from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from loguru import logger
 
 from kwai.core.settings import Settings, get_settings
@@ -46,6 +46,14 @@ def create_frontend():
 
     for router in application_routers:
         frontend_app.include_router(router, prefix="/apps")
+
+    @frontend_app.get("/favicon.ico", include_in_schema=False)
+    def favicon() -> FileResponse:
+        """Return the favicon."""
+        favicon_path = Path(__file__).parent.parent / "static" / "favicon.ico"
+        if favicon_path.is_file():
+            return FileResponse(favicon_path)
+        raise status.HTTP_404_NOT_FOUND
 
     @frontend_app.get("/news/{path:path}", name="frontend.news")
     def news(path: Path, settings: Annotated[Settings, Depends(get_settings)]):
