@@ -35,6 +35,7 @@ class Jinja2Engine(TemplateEngine):
                             "en": PackageLoader("kwai", "templates"),
                         }
                     ),
+                    PackageLoader("kwai", "templates/nl"),
                     PackageLoader("kwai", "templates"),
                 ],
             ),
@@ -55,7 +56,7 @@ class Jinja2Engine(TemplateEngine):
     def create(self, template_file_path: str) -> Template:
         """Create a jinja2 template."""
         try:
-            template = self._env.get_template(template_file_path)
+            template = self._env.get_template(template_file_path + ".jinja2")
         except TemplatesNotFound as exc:
             raise TemplateNotFoundException(
                 f"Could not find a template with name '{template_file_path}'"
