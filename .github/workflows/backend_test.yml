@@ -51,27 +51,9 @@ jobs:
           [frontend]
           test = true
           path = ""
-          root_app = "portal"
-          [frontend.apps.portal]
-          base="/apps/portal"
-          base_dev="http://localhost:3000"
-          entries="/src/index.ts"
-          [frontend.apps.author]
-          base="/apps/author"
-          base_dev="http://localhost:3001"
-          entries="/src/index.ts"
-          [frontend.apps.auth]
-          base="/apps/auth"
-          base_dev="http://localhost:3002"
-          entries="/src/index.ts"
-          [frontend.apps.coach]
-          base="/apps/coach"
-          base_dev="http://localhost:3003"
-          entries="/src/index.ts"
-          [frontend.apps.club]
-          base="/apps/club"
-          base_dev="http://localhost:3004"
-          entries="/src/index.ts"
+          [[frontend.apps.portal]]
+          name = "portal"
+          vite_server = "http://localhost:3000/apps/portal"
           [files]
           path = "/var/tmp/kwai"
           [security]
