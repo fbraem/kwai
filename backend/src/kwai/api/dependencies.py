@@ -39,7 +39,7 @@ async def create_database(
 
 async def create_templates(settings=Depends(get_settings)) -> Jinja2Templates:
     """Create the template engine dependency."""
-    return Jinja2Engine().web_templates
+    return Jinja2Engine(website=settings.website).web_templates
 
 
 async def get_current_user(
