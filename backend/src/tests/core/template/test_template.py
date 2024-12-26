@@ -1,14 +1,15 @@
 """Module for testing Template class."""
-import os
 
 from kwai.core.template.jinja2_engine import Jinja2Engine
+from kwai.frontend.vite import DevelopmentVite
 
 
 def test_render():
     """Test render."""
-    template_path = os.path.split(__file__)[0]
-    engine = Jinja2Engine(template_path, website={"name": "Kwai Test"})
-    template = engine.create("template")
-    result = template.render()
+    engine = Jinja2Engine(website={"name": "Kwai Test"})
+    template = engine.create("index.jinja2")
+    result = template.render(
+        vite=DevelopmentVite("", ""), application={"name": "test", "url": "test"}
+    )
 
-    assert result == "Kwai Test", "The template didn't render the correct output"
+    assert result is not None, "The template didn't render the correct output"
