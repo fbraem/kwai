@@ -47,30 +47,28 @@ class Vite(ABC):
 class DevelopmentVite(Vite):
     """Vite implementation for development."""
 
-    def __init__(self, server_url: str, base_path: str):
+    def __init__(self, server_url: str):
         """Initialize the development version of vite.
 
         Args:
             server_url: The url for the vite server
-            base_path: The base path for the development version of vite.
 
         !!! Note
-            When vite is configured with a base then make sure that this
-            base is also part of the base_path argument. For example: when base is
+            When vite is configured (see vite.config.ts) with a base then make sure that
+            this base is also part of the server_url. For example: when base is
             '/apps/author' and the server is running on localhost with port 3001, then
-            base_path should be: 'http://localhost:3001/apps/author'.
+            server_url should be: 'http://localhost:3001/apps/author'.
         """
         self._server_url = server_url
-        self._base_path = base_path
         self._entries: list[str] = []
 
     def init(self, *entries: str):
         self._entries = entries
 
     def get_scripts(self, base_url: str) -> list[str]:
-        scripts = [f"{self._server_url}{self._base_path}/@vite/client"]
+        scripts = [f"{self._server_url}/@vite/client"]
         for entry in self._entries:
-            scripts.append(f"{self._server_url}{self._base_path}/{entry}")
+            scripts.append(f"{self._server_url}/{entry}")
         return scripts
 
     def get_css(self, base_url: str) -> list[str]:
@@ -92,6 +90,10 @@ class ProductionVite(Vite):
         Args:
             manifest_filepath: Path to the manifest file.
             base_path: Path to the dist folder.
+
+        !!! Note
+            base_path is the path where the dist folder of an application is installed
+            For example '/website/frontend/apps/portal' must contain a dist folder.
         """
         self._manifest_filepath: Path = manifest_filepath
         self._base_path: Path = base_path

@@ -17,25 +17,27 @@ class ViteDependency:
 
     def __call__(self, settings: Annotated[Settings, Depends(get_settings)]) -> Vite:
         """Create a Vite environment for this application."""
-        if not hasattr(settings.frontend.apps, self._application_name):
+        app_setting = next(
+            (
+                setting
+                for setting in settings.frontend.apps
+                if setting.name == self._application_name
+            ),
+            None,
+        )
+        if app_setting is None:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"Application {self._application_name} does not exist.",
+                detail=f"Application {self._application_name} is not configured.",
             )
 
-        app_setting = getattr(settings.frontend.apps, self._application_name)
         if settings.frontend.test:
-            if app_setting.server is None:
+            if app_setting.vite_server is None:
                 raise HTTPException(
                     status_code=status.HTTP_400_BAD_REQUEST,
-                    detail=f"Setting 'server' not set for application {self._application_name}",
+                    detail=f"Setting 'vite_server' not set for application {self._application_name}",
                 )
-            if app_setting.base is None:
-                raise HTTPException(
-                    status_code=status.HTTP_400_BAD_REQUEST,
-                    detail=f"Setting 'base' not set for application {self._application_name}",
-                )
-            return DevelopmentVite(app_setting.server, app_setting.base)
+            return DevelopmentVite(app_setting.vite_server)
 
         manifest_path = (
             Path(settings.frontend.path)

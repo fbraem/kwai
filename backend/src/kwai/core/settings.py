@@ -3,6 +3,7 @@
 import os
 import tomllib
 from functools import lru_cache
+from typing import Annotated, Any, Literal, Union
 
 from pydantic import BaseModel, Field
 
@@ -13,22 +14,54 @@ class SettingsException(Exception):
     """Raised when a problem occurred while loading the settings."""
 
 
-class FrontendApplicationSettings(BaseModel):
-    """Settings for a frontend application."""
+class ApplicationSettingsModel(BaseModel):
+    """Settings that apply to all applications."""
 
-    server: str | None = None
-    base: str | None = None
-    entries: list[str] | str
+    default: bool = False  # Set to true for selecting the default application
+    vite_server: str | None = None  # Only required in development.
+    variables: dict[str, Any] | None = None
 
 
-class FrontendApplications(BaseModel):
-    """All applications."""
+class AuthenticationApplicationSettings(ApplicationSettingsModel):
+    """Settings for the auth application."""
 
-    auth: FrontendApplicationSettings
-    author: FrontendApplicationSettings
-    club: FrontendApplicationSettings
-    coach: FrontendApplicationSettings
-    portal: FrontendApplicationSettings
+    name: Literal["auth"]
+
+
+class AuthorApplicationSettings(ApplicationSettingsModel):
+    """Settings for the author application."""
+
+    name: Literal["author"]
+
+
+class ClubApplicationSettings(ApplicationSettingsModel):
+    """Settings for the club application."""
+
+    name: Literal["club"]
+
+
+class CoachApplicationSettings(ApplicationSettingsModel):
+    """Settings for the portal application."""
+
+    name: Literal["coach"]
+
+
+class PortalApplicationSettings(ApplicationSettingsModel):
+    """Settings for the portal application."""
+
+    name: Literal["portal"]
+
+
+Application = Annotated[
+    Union[
+        AuthenticationApplicationSettings,
+        AuthorApplicationSettings,
+        ClubApplicationSettings,
+        CoachApplicationSettings,
+        PortalApplicationSettings,
+    ],
+    Field(discriminator="name"),
+]
 
 
 class FrontendSettings(BaseModel):
@@ -36,8 +69,7 @@ class FrontendSettings(BaseModel):
 
     test: bool = False
     path: str
-    apps: FrontendApplications
-    root_app: str
+    apps: list[Application]
 
 
 class FilesSettings(BaseModel):

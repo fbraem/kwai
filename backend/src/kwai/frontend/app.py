@@ -12,6 +12,14 @@ from kwai.core.settings import Settings, get_settings
 from kwai.frontend.apps import application_routers
 
 
+def get_default_app(settings: Annotated[Settings, Depends(get_settings)]) -> str:
+    """Search for the default application in the settings."""
+    for app in settings.frontend.apps:
+        if app.default:
+            return app.name
+    raise ValueError("No default app defined in settings.")
+
+
 def create_frontend():
     """Create the frontend."""
     frontend_app = FastAPI()
@@ -56,26 +64,26 @@ def create_frontend():
         raise status.HTTP_404_NOT_FOUND
 
     @frontend_app.get("/news/{path:path}", name="frontend.news")
-    def news(path: Path, settings: Annotated[Settings, Depends(get_settings)]):
+    def news(path: Path, default_app: Annotated[str, Depends(get_default_app)]):
         """Redirect the news path to the portal application.
 
         When FastAPI serves the frontend, the root path can't be used for the portal.
         So redirect this url to the root application.
         """
-        return RedirectResponse(f"/apps/{settings.frontend.root_app}/news/{path}")
+        return RedirectResponse(f"/apps/{default_app}/news/{path}")
 
     @frontend_app.get("/pages/{path:path}", name="frontend.pages")
-    def pages(path: Path, settings: Annotated[Settings, Depends(get_settings)]):
+    def pages(path: Path, default_app: Annotated[str, Depends(get_default_app)]):
         """Redirect the pages path to the portal application.
 
         When FastAPI serves the frontend, the root path can't be used for the portal.
         So redirect this url to the root application.
         """
-        return RedirectResponse(f"/apps/{settings.frontend.root_app}/pages/{path}")
+        return RedirectResponse(f"/apps/{default_app}/pages/{path}")
 
     @frontend_app.get("/", name="frontend.home")
-    def root(settings: Annotated[Settings, Depends(get_settings)]):
+    def root(default_app: Annotated[str, Depends(get_default_app)]):
         """Redirect index to the portal application."""
-        return RedirectResponse(f"/apps/{settings.frontend.root_app}")
+        return RedirectResponse(f"/apps/{default_app}")
 
     return frontend_app

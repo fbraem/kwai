@@ -9,7 +9,8 @@ def test_render():
     engine = Jinja2Engine(website={"name": "Kwai Test"})
     template = engine.create("index")
     result = template.render(
-        vite=DevelopmentVite("", ""), application={"name": "test", "url": "test"}
+        vite=DevelopmentVite("https://localhost:3000/apps/portal"),
+        application={"name": "test", "url": "test"},
     )
 
     assert result is not None, "The template didn't render the correct output"
