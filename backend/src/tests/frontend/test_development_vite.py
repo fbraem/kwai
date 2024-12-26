@@ -8,7 +8,7 @@ from kwai.frontend.vite import DevelopmentVite, Vite
 @pytest.fixture
 def vite() -> Vite:
     """A fixture for vite development."""
-    vite = DevelopmentVite("http://localhost:5173", "")
+    vite = DevelopmentVite("http://localhost:5173")
     vite.init("src/index.ts")
     return vite
 
