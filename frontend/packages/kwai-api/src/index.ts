@@ -4,7 +4,6 @@ import { computed } from 'vue';
 import { useLocalStorage } from '@vueuse/core';
 import FormDataAddon from 'wretch/addons/formData';
 import QueryStringAddon from 'wretch/addons/queryString';
-import { api } from '@kwai/config';
 import * as z from 'zod';
 
 export const JsonResourceIdentifier = z.object({
@@ -132,7 +131,7 @@ interface Options {
 }
 
 export const useHttp = (options: Options = {}) => wretch(
-  options.baseUrl ?? api.base_url,
+  '/api',
   {
     credentials: 'include',
     mode: 'cors',

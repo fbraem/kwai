@@ -3,7 +3,6 @@
   "description": "HTTP library for kwai",
   "version": "0.0.1",
   "dependencies": {
-    "@kwai/config": "*",
     "@vueuse/core": "12.2.0",
     "wretch": "^2.7.0",
     "zod": "^3.23.4"
