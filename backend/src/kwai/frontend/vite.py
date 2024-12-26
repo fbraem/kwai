@@ -68,18 +68,9 @@ class DevelopmentVite(Vite):
         self._entries = entries
 
     def get_scripts(self, base_url: str) -> list[str]:
-        scripts = [f"{self._server_url}/@vite/client"]
+        scripts = [f"{self._server_url}{self._base_path}/@vite/client"]
         for entry in self._entries:
-            scripts.append(
-                "/".join(
-                    list(
-                        filter(
-                            lambda item: item,
-                            [self._server_url, self._base_path, entry],
-                        )
-                    )
-                )
-            )
+            scripts.append(f"{self._server_url}{self._base_path}/{entry}")
         return scripts
 
     def get_css(self, base_url: str) -> list[str]:
