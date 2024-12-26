@@ -21687,50 +21687,6 @@ and page[limit] query parameters.</p>
 
 
 
-<h5 id="kwai.core.settings.TemplateSettings" class="doc doc-heading">
-            <code>TemplateSettings</code>
-
-
-<a href="#kwai.core.settings.TemplateSettings" class="headerlink" title="Permanent link">&para;</a></h5>
-
-
-    <div class="doc doc-contents ">
-            <p class="doc doc-class-bases">
-              Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
-
-
-        <p>Settings for template.</p>
-
-
-
-
-
-
-
-
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
 <h5 id="kwai.core.settings.WebsiteSettings" class="doc doc-heading">
             <code>WebsiteSettings</code>
 
@@ -21958,13 +21914,34 @@ and page[limit] query parameters.</p>
 
 
 
+<div class="doc doc-object doc-attribute">
+
+
+
+<h7 id="kwai.core.template.jinja2_engine.Jinja2Engine.web_templates" class="doc doc-heading">
+            <code class=" language-python"><span class="n">web_templates</span><span class="p">:</span> <span class="n">Jinja2Templates</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.core.template.jinja2_engine.Jinja2Engine.web_templates" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return templates that can be used with a TemplateResponse.</p>
+    </div>
+
+</div>
+
 
 
 <div class="doc doc-object doc-function">
 
 
 <h7 id="kwai.core.template.jinja2_engine.Jinja2Engine.__init__" class="doc doc-heading">
-            <code class=" language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">template_path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 <a href="#kwai.core.template.jinja2_engine.Jinja2Engine.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
 
@@ -21983,7 +21960,7 @@ Use it for variables that are used in all templates.</p>
 
 
 <h7 id="kwai.core.template.jinja2_engine.Jinja2Engine.create" class="doc doc-heading">
-            <code class=" language-python"><span class="n">create</span><span class="p">(</span><span class="n">template_file_path</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s1">&#39;nl&#39;</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">create</span><span class="p">(</span><span class="n">template_file_path</span><span class="p">)</span></code>
 
 <a href="#kwai.core.template.jinja2_engine.Jinja2Engine.create" class="headerlink" title="Permanent link">&para;</a></h7>
 
@@ -22433,7 +22410,7 @@ Use it for variables that are used in all templates.</p>
 
 
 <h7 id="kwai.core.template.template_engine.TemplateEngine.create" class="doc doc-heading">
-            <code class=" language-python"><span class="n">create</span><span class="p">(</span><span class="n">template_file_path</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s1">&#39;nl&#39;</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">create</span><span class="p">(</span><span class="n">template_file_path</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
