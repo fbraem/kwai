@@ -51,7 +51,7 @@ jobs:
           [frontend]
           test = true
           path = ""
-          [[frontend.apps.portal]]
+          [[frontend.apps]]
           name = "portal"
           vite_server = "http://localhost:3000/apps/portal"
           [files]
