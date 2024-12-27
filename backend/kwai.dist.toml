@@ -2,34 +2,27 @@
 [frontend]
 test = false
 path = ""  # Where are the frontend applications deployed?
-root_app = "portal"  # Which app should be used as default?
 
-[frontend.apps]
+[[frontend.apps]]
+name = "portal"
+default = true
+vite_server = "http://localhost:3000/apps/portal"  # Only necessary in test mode
 
-[frontend.apps.portal]
-server="http://localhost:3000"  # Only necessary in test mode
-base="/apps/portal"  # Only necessary in test mode
-entries="src/index.ts"
+[[frontend.apps]]
+name = "author"
+vite_server = "http://localhost:3001/apps/author"  # Only necessary in test mode
 
-[frontend.apps.author]
-server="http://localhost:3001"  # Only necessary in test mode
-base="/apps/author"  # Only necessary in test mode
-entries="src/index.ts"
+[[frontend.apps]]
+name = "auth"
+vite_server="http://localhost:3002/apps/auth"  # Only necessary in test mode
 
-[frontend.apps.auth]
-server="http://localhost:3002"  # Only necessary in test mode
-base="/apps/auth"  # Only necessary in test mode
-entries="src/index.ts"
+[[frontend.apps]]
+name = "coach"
+vite_server="http://localhost:3003/apps/coach"  # Only necessary in test mode
 
-[frontend.apps.coach]
-server="http://localhost:3003"  # Only necessary in test mode
-base="/apps/coach"  # Only necessary in test mode
-entries="src/index.ts"
-
-[frontend.apps.club]
-server="http://localhost:3004"  # Only necessary in test mode
-base="/apps/club"  # Only necessary in test mode
-entries="src/index.ts"
+[[frontend.apps]]
+name = "club"
+vite_server="http://localhost:3004/apps/club"  # Only necessary in test mode
 
 [files]
 path="/var/tmp/kwai"
