@@ -3,7 +3,7 @@
     <div class="container lg:max-w-5xl relative mx-auto h-full flex items-center">
       <div class="max-w-md flex flex-col space-y-5 p-4">
         <h1 class="text-4xl font-semibold text-white">
-          {{ website.title }}
+          {{ title }}
         </h1>
         <template
           v-for="(text, index) in portal.promotion"
@@ -25,7 +25,6 @@
 <script setup lang="ts">
 import type { ShallowReactive } from 'vue';
 import { shallowReactive } from 'vue';
-import { useTitle } from '@vueuse/core';
 
 import ClubIcon from '@theme/icons/ClubIcon.vue';
 import NewsIcon from '@theme/icons/NewsIcon.vue';
@@ -38,13 +37,13 @@ import HomeSectionNews from '@root/components/home/HomeSectionNews.vue';
 import HomeSectionTrainings from '@root/components/home/HomeSectionTrainings.vue';
 import HomeSectionClub from '@root/components/home/HomeSectionClub.vue';
 import { heroImage } from '@root/composables/useHeroImage';
+import { useTitle } from '@vueuse/core';
 
 interface ListedApplications {
   [key: string]: ShallowReactive<any>
 }
 
 const title = useTitle();
-title.value = website.title;
 
 const listedApplications: ListedApplications = shallowReactive({
   club: ClubIcon,

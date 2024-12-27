@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Portal</title>
+        <title>{{ website.name }}</title>
         {% for preload in vite.get_preloads(application.url) %}
             <link rel="modulepreload" as="script" href="{{ preload | safe }}" >
         {% endfor %}
