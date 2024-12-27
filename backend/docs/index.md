@@ -125,10 +125,6 @@ This folder contains the Python code. The system is written following DDD as sof
 Clean code should be the result of following this philosophy. The folder `kwai` contains the
 program code, `tests` contains the [pytest](https://pytest.org) code for testing the program code.
 
-#### templates
-
-This folder contains all templates used by kwai.
-
 #### vagrant
 
 This folder contains two vagrant machines: one for development and one for testing.
