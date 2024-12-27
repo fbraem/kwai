@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TrainingDays } from '@root/composables/useTraining';
 import BetweenIcon from '@root/components/icons/BetweenIcon.vue';
-import PrimaryBadge from '@root/components/PrimaryBadge.vue';
+import { KwaiTag } from '@kwai/ui';
 
 interface Props {
   trainingDays: TrainingDays
@@ -35,9 +35,9 @@ defineProps<Props>();
             {{ training.title }}
           </div>
           <div v-if="training.cancelled">
-            <PrimaryBadge>
+            <KwaiTag>
               Geannuleerd
-            </PrimaryBadge>
+            </KwaiTag>
           </div>
         </div>
       </div>
