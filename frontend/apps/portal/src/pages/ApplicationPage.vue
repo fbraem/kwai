@@ -5,6 +5,7 @@ import { useApplications } from '@root/composables/useApplication';
 import { computed, ref, toRef, watch } from 'vue';
 import { usePages } from '@root/composables/usePage';
 import FullArticle from '@root/components/FullArticle.vue';
+import LinkDownIcon from '@root/components/icons/LinkDownIcon.vue';
 
 const route = useRoute();
 
@@ -37,10 +38,10 @@ const sortedPages = computed(() => {
 const backgroundClassPages = computed(() => {
   return sortedPages.value.map((page, index) => {
     return {
-      'bg-black': index % 2,
-      'hover:bg-gray-900': index % 2,
-      'bg-red-600': !(index % 2),
-      'hover:bg-red-500': !(index % 2),
+      'bg-gray-900': index % 2,
+      'hover:bg-black': index % 2,
+      'bg-primary': !(index % 2),
+      'hover:bg-primary-700': !(index % 2),
     };
   });
 });
@@ -94,7 +95,7 @@ const gotoPage = (id: string) => {
         @click="gotoPage(page.id)"
       >
         <div
-          class="text-center text-white p-8 h-full"
+          class="flex flex-col text-center text-white p-8 h-full"
           :class="backgroundClassPages[index]"
         >
           <h2 class="text-2xl mb-2 font-medium">
@@ -104,6 +105,9 @@ const gotoPage = (id: string) => {
             class="text-gray-200"
             v-html="page.texts[0].summary"
           />
+          <div class="flex-grow flex flex-col text-center items-center place-content-end">
+            <LinkDownIcon class="w-4 h-4 fill-current" />
+          </div>
         </div>
       </a>
     </template>
