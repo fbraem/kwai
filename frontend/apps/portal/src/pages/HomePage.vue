@@ -30,7 +30,7 @@ import ClubIcon from '@theme/icons/ClubIcon.vue';
 import NewsIcon from '@theme/icons/NewsIcon.vue';
 import TrainingIcon from '@theme/icons/TrainingIcon.vue';
 
-import { portal, website } from '@kwai/config';
+import { portal } from '@kwai/config';
 import IntroSection from '@root/components/IntroSection.vue';
 import HomeSectionApplications from '@root/components/home/HomeSectionApplications.vue';
 import HomeSectionNews from '@root/components/home/HomeSectionNews.vue';
