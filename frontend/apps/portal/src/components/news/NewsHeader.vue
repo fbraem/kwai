@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import NewsDate from '@root/components/news/NewsDate.vue';
+import type { NewsItem } from '@root/composables/useNewsItem.ts';
+import { KwaiTag } from '@kwai/ui';
+
+interface Props {
+  newsItem: NewsItem
+}
+
+defineProps<Props>();
+</script>
+
 <template>
   <router-link
     class="flex items-end bg-cover"
@@ -12,26 +24,14 @@
         :to="`/news/application/${newsItem.application.name}`"
       >
         <div>
-          <ApplicationBadge class="font-bold text-xs bg-gray-200">
+          <KwaiTag severity="secondary">
             {{ newsItem.application.title }}
-          </ApplicationBadge>
+          </KwaiTag>
         </div>
       </router-link>
     </div>
   </router-link>
 </template>
-
-<script setup lang="ts">
-import NewsDate from '@root/components/news/NewsDate.vue';
-import type { NewsItem } from '@root/composables/useNewsItem.ts';
-import ApplicationBadge from '@root/components/ApplicationBadge.vue';
-
-interface Props {
-  newsItem: NewsItem
-}
-
-defineProps<Props>();
-</script>
 
 <style scoped>
 
