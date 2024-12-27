@@ -11,7 +11,12 @@
         >
           <div
             class="flex flex-col text-center text-white p-8 h-full"
-            :class="{ 'bg-black' : index % 2, 'bg-red-600': !(index % 2) }"
+            :class="{
+              'bg-gray-900' : index % 2,
+              'hover:bg-black' : index % 2,
+              'bg-primary': !(index % 2),
+              'hover:bg-primary-700': !(index % 2)
+            }"
           >
             <div class="mb-3">
               <component
