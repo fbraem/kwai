@@ -3,8 +3,6 @@
 The packages folder contains code that can be reused in several applications.
 Those packages can be typescript modules, configuration settings, ...
 
-## eslint-config-kwai
-
 ## kwai-api
 
 ## kwai-config

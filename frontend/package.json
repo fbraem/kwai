@@ -1,6 +1,7 @@
 {
   "name": "kwai",
   "version": "1.0.0",
+  "type": "module",
   "engines": {
     "node": ">=18.0.0"
   },
@@ -15,14 +16,24 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@eslint/js": "^9.17.0",
     "@go-task/cli": "^3.39.0",
+    "@vue/eslint-config-typescript": "latest",
     "@vue/test-utils": "^2.4.3",
-    "eslint-config-kwai": "*",
+    "eslint-config-prettier": "latest",
+    "eslint-plugin-prettier": "latest",
+    "eslint-plugin-vue": "latest",
     "msw": "^2.0.11",
     "rollup-plugin-visualizer": "^5.11.0",
     "syncpack": "^13.0.0",
     "typescript": "^5.2.2",
+    "typescript-eslint": "latest",
     "vite": "^6.0.5",
-    "vitest": "^2.1.8"
+    "vitest": "^2.1.8",
+    "vue-eslint-parser": "latest"
+  },
+  "peerDependencies": {
+    "eslint": "latest",
+    "prettier": "latest"
   }
 }
