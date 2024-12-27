@@ -3,7 +3,7 @@
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[![coverage](./tests/coverage/coverage.svg)](./tests/coverage/index.html)
+[![coverage](./coverage/coverage.svg)](./coverage/index.html)
 
 This is the backend for the KWAI sports club management system. This system
 contains a [JSON:API](https://jsonapi.org/) REST API, a CLI and an event bus.
