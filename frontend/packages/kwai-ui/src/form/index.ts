@@ -1,7 +1,6 @@
 export { default as FormSectionHeader } from './FormSectionHeader.vue';
 export { default as FormSectionFields } from './FormSectionFields.vue';
 export { default as FormSection } from './FormSection.vue';
-export { default as ButtonGroup } from './ButtonGroup.vue';
 export { default as KwaiSlider } from './KwaiSlider.vue';
 export type { Option } from './SelectOption.vue';
 export { default as SelectOption } from './SelectOption.vue';
