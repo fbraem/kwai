@@ -10,10 +10,10 @@
           :to="{ name: `portal.${application.name}` }"
         >
           <div
-            class="text-center text-white p-8 h-full"
+            class="flex flex-col text-center text-white p-8 h-full"
             :class="{ 'bg-black' : index % 2, 'bg-red-600': !(index % 2) }"
           >
-            <div class="rounded-full inline-flex items-center justify-center mb-3">
+            <div class="mb-3">
               <component
                 :is="applications[application.name]"
                 class="w-8 h-8 fill-white"
@@ -25,6 +25,9 @@
             <p class="text-gray-200">
               {{ application.short_description }}
             </p>
+            <div class="flex-grow flex flex-col text-center items-center place-content-end">
+              <LinkDownIcon class="w-4 h-4 fill-current" />
+            </div>
           </div>
         </router-link>
       </template>
@@ -36,6 +39,7 @@
 import ApplicationList from '@root/components/ApplicationList.vue';
 import type { ShallowReactive } from 'vue';
 import { computed } from 'vue';
+import LinkDownIcon from '@root/components/icons/LinkDownIcon.vue';
 
 interface ListedApplications {
   [key: string]: ShallowReactive<any>
