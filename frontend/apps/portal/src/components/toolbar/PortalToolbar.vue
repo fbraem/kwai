@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// eslint-disable-next-line import/no-absolute-path
 import logoUrl from '/logo.png';
 
 import { ToolbarLogo, BarsIcon } from '@kwai/ui';
@@ -14,6 +13,7 @@ const toggleMenu = () => {
   open.value = !open.value;
 };
 </script>
+
 <template>
   <header class="container mx-auto p-8 lg:px-6 lg:max-w-6xl">
     <div class="grid grid-flow-row lg:grid-flow-col space-y-4 items-center">
