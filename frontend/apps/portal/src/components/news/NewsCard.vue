@@ -1,3 +1,14 @@
+<script setup lang="ts">
+import type { NewsItem } from '@root/composables/useNewsItem.ts';
+import NewsHeader from '@root/components/news/NewsHeader.vue';
+import { KwaiButton } from '@kwai/ui';
+
+interface Props {
+  newsItem: NewsItem
+}
+
+defineProps<Props>();
+</script>
 <template>
   <div class="mb-7 bg-white flex flex-col">
     <NewsHeader :news-item="newsItem" />
@@ -7,24 +18,18 @@
         v-html="newsItem.texts[0].summary"
       />
       <div class="mt-6 self-end">
-        <router-link
-          class="border border-red-600 bg-red-600 hover:bg-white hover:text-red-600 rounded text-sm text-white py-1 px-3"
-          :to="`/news/${newsItem.id}`"
+        <KwaiButton
+          small
+          :to="{
+            name: 'portal.news.item',
+            params: {
+              id: newsItem.id
+            }
+          }"
         >
-          Lees meer ...
-        </router-link>
+          Lees meer...
+        </KwaiButton>
       </div>
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import type { NewsItem } from '@root/composables/useNewsItem.ts';
-import NewsHeader from '@root/components/news/NewsHeader.vue';
-
-interface Props {
-  newsItem: NewsItem
-}
-
-defineProps<Props>();
-</script>
