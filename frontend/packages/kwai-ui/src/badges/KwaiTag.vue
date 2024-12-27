@@ -4,9 +4,9 @@ import Tag from 'primevue/tag';
 interface Props {
   value?: string | null,
   rounded?: boolean,
-  severity?: 'info' | 'warning' | 'success' | 'danger',
+  severity?: 'info' | 'warning' | 'success' | 'danger' | 'secondary',
 }
-withDefaults(defineProps<Props>(), { value: null, rounded: false });
+withDefaults(defineProps<Props>(), { value: null, rounded: false, severity: undefined });
 </script>
 
 <template>
