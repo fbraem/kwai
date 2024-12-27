@@ -1,3 +1,19 @@
+<script setup lang="ts">
+// eslint-disable-next-line import/no-absolute-path
+import logoUrl from '/logo.png';
+
+import { ToolbarLogo, BarsIcon } from '@kwai/ui';
+import { website } from '@kwai/config';
+import ApplicationList from '../ApplicationList.vue';
+import { ref } from 'vue';
+import ToolbarSocialMedia from './ToolbarSocialMedia.vue';
+import ToolbarUser from './ToolbarUser.vue';
+
+const open = ref(false);
+const toggleMenu = () => {
+  open.value = !open.value;
+};
+</script>
 <template>
   <header class="container mx-auto p-8 lg:px-6 lg:max-w-6xl">
     <div class="grid grid-flow-row lg:grid-flow-col space-y-4 items-center">
@@ -46,20 +62,3 @@
     </div>
   </nav>
 </template>
-
-<script setup lang="ts">
-// eslint-disable-next-line import/no-absolute-path
-import logoUrl from '/logo.png';
-
-import { ToolbarLogo, BarsIcon } from '@kwai/ui';
-import { website } from '@kwai/config';
-import ApplicationList from '../ApplicationList.vue';
-import { ref } from 'vue';
-import ToolbarSocialMedia from './ToolbarSocialMedia.vue';
-import ToolbarUser from './ToolbarUser.vue';
-
-const open = ref(false);
-const toggleMenu = () => {
-  open.value = !open.value;
-};
-</script>
