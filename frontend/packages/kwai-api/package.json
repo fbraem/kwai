@@ -5,7 +5,7 @@
   "dependencies": {
     "@vueuse/core": "12.2.0",
     "wretch": "^2.7.0",
-    "zod": "^3.23.4"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "vite-plugin-dts": "^4.4.0",

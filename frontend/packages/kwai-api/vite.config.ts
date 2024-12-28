@@ -5,7 +5,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
   plugins: [
-    dts(), visualizer(),
+    dts({ rollupTypes: true }), visualizer(),
   ],
   build: {
     lib: {

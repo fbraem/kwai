@@ -23,7 +23,7 @@
   "module": "dist/kwai-date.js",
   "private": true,
   "scripts": {
-    "build": "vite build --config vite.config.js",
+    "build": "vite build",
     "test": "vitest"
   },
   "type": "module",
