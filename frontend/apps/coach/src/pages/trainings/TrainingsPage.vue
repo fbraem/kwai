@@ -88,7 +88,7 @@ const setToCurrent = () => {
         </template>
         <template #right>
           <form
-            class="relative flex flex-row space-x-4"
+            class="relative flex flex-row space-x-4 items-center"
             novalidate
           >
             <KwaiMonthPicker
