@@ -95,10 +95,14 @@ const setToCurrent = () => {
               name="month"
             />
             <KwaiButton :method="setToCurrent">
-              <NowIcon class="w-4 fill-current" />
+              <template #icon>
+                <NowIcon class="w-4 fill-current" />
+              </template>
             </KwaiButton>
             <KwaiButton :to="{ name: 'coach.trainings.create' }">
-              <NewIcon class="w-4 mr-2 fill-current" />
+              <template #icon>
+                <NewIcon class="w-4 mr-2 fill-current" />
+              </template>
               {{ t('trainings.banner.button') }}
             </KwaiButton>
           </form>
