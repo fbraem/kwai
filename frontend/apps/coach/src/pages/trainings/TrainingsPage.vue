@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css';
 import { useTrainings } from '@root/composables/useTraining';
 import {
   ContainerSection,
@@ -13,6 +11,7 @@ import {
   CheckIcon,
   EditIcon,
   KwaiButton,
+  KwaiMonthPicker,
   TextBadge,
 } from '@kwai/ui';
 import { createDate, createFromDate, now } from '@kwai/date';
@@ -20,6 +19,7 @@ import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import NowIcon from '@root/components/icons/NowIcon.vue';
+import { useForm } from 'vee-validate';
 
 const { t } = useI18n({ useScope: 'global' });
 
@@ -48,33 +48,26 @@ const { data: trainings } = useTrainings({ start, end });
 
 const title = computed(() => start.value.format('MMMM'));
 
-const selectedMonth = ref({
-  month: month.value,
-  year,
-});
+const { defineField } = useForm();
+const [ selectedMonth ] = defineField('month');
+selectedMonth.value = createDate(year.value, month.value).toDate();
+
 const router = useRouter();
 watch(selectedMonth, (nv) => {
   if (nv) {
+    const date = createFromDate(nv);
     router.replace({
       query: {
         ...route.query,
-        month: nv.month + 1,
-        year: nv.year,
+        month: date.month() + 1,
+        year: date.year(),
       },
     });
   }
 });
 
-const format = (date: Date) : string => {
-  const formattedDate = createFromDate(date).format('MMMM YYYY');
-  return formattedDate.charAt(0).toLocaleUpperCase() + formattedDate.slice(1);
-};
-
 const setToCurrent = () => {
-  selectedMonth.value = {
-    month: currentMonth.value,
-    year: currentYear.value,
-  };
+  selectedMonth.value = now().toDate();
 };
 </script>
 
@@ -94,14 +87,12 @@ const setToCurrent = () => {
           </p>
         </template>
         <template #right>
-          <div class="relative flex flex-row space-x-4">
-            <VueDatePicker
-              v-model="selectedMonth"
-              month-picker
-              :teleport="true"
-              locale="nl"
-              :format="format"
-              auto-apply
+          <form
+            class="relative flex flex-row space-x-4"
+            novalidate
+          >
+            <KwaiMonthPicker
+              name="month"
             />
             <KwaiButton :method="setToCurrent">
               <NowIcon class="w-4 fill-current" />
@@ -110,7 +101,7 @@ const setToCurrent = () => {
               <NewIcon class="w-4 mr-2 fill-current" />
               {{ t('trainings.banner.button') }}
             </KwaiButton>
-          </div>
+          </form>
         </template>
       </ContainerSectionBanner>
       <WarningAlert v-if="trainings && trainings.meta.count === 0">

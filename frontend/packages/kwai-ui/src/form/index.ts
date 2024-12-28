@@ -16,4 +16,5 @@ export { default as KwaiCheckbox } from './KwaiCheckbox.vue';
 export { default as KwaiCheckboxField } from './KwaiCheckboxField.vue';
 export { default as KwaiInputField } from './KwaiInputField.vue';
 export { default as KwaiFileUpload } from './KwaiFileUpload.vue';
+export { default as KwaiMonthPicker } from './KwaiMonthPicker.vue';
 export { default as KwaiTextarea } from './KwaiTextarea.vue';
