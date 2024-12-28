@@ -2,7 +2,7 @@
 <script setup lang="ts">
 import Button from 'primevue/button';
 import { LocationAsRelativeRaw, RouteRecord } from 'vue-router';
-import { computed, useAttrs, useSlots } from 'vue';
+import { computed, useAttrs } from 'vue';
 interface Props {
   to?: RouteRecord | LocationAsRelativeRaw,
   method?: () => void,
@@ -21,8 +21,6 @@ defineOptions({
 
 const tag = computed(() => attrs.href ? 'a' : props.to ? 'router-link' : 'button');
 const clickAttr = computed(() => props.method ? 'click' : null);
-const slots = useSlots();
-
 const size = computed(() => props.small ? 'small' : 'large');
 </script>
 
@@ -34,13 +32,8 @@ const size = computed(() => props.small ? 'small' : 'large');
     :to="to"
     @[clickAttr]="method"
   >
+    <slot name="icon" />
     <slot />
-    <template
-      v-if="!!slots.icon"
-      #icon
-    >
-      <slot name="icon" />
-    </template>
   </Button>
 </template>
 
