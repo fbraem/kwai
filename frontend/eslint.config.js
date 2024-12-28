@@ -20,7 +20,7 @@ export default [
   },
   js.configs.recommended,
   ...ts.configs.recommended,
-  ...pluginVue.configs['flat/recommended'],
+  ...pluginVue.configs['flat/strongly-recommended'],
   {
     languageOptions: {
       ecmaVersion: 'latest',
