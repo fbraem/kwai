@@ -50,11 +50,11 @@ tasks:
     run: once # When used as a dependency, one run is enough.
     deps:
       - task: build_package
-        vars: { PACKAGE: 'kwai-types' }
-      - task: build_package
         vars: { PACKAGE: 'kwai-date' }
       - task: build_package
         vars: { PACKAGE: 'kwai-api' }
+      - task: build_package
+        vars: { PACKAGE: 'kwai-types' }
       - task: build_package
         vars: { PACKAGE: 'kwai-ui' }
 
