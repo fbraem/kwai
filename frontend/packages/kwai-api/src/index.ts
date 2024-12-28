@@ -181,7 +181,6 @@ const renewToken = async(options: Options = {}) => {
 let activeRenewTokenRequest: Promise<void>|null = null;
 
 export const useHttpWithAuthCatcher = (options: Options = {}) => useHttpAuth(options)
-  // eslint-disable-next-line n/handle-callback-err
   .catcher(401, async(err, request) => {
     if (activeRenewTokenRequest == null) {
       activeRenewTokenRequest = renewToken(options);
