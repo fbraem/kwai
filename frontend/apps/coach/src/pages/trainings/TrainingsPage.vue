@@ -12,7 +12,7 @@ import {
   EditIcon,
   KwaiButton,
   KwaiMonthPicker,
-  TextBadge,
+  KwaiTag,
 } from '@kwai/ui';
 import { createDate, createFromDate, now } from '@kwai/date';
 import { computed, ref, watch } from 'vue';
@@ -162,12 +162,12 @@ const setToCurrent = () => {
                 </td>
                 <td class="px-6 py-4">
                   {{ training.texts[0].title }}
-                  <TextBadge
+                  <KwaiTag
                     v-if="training.cancelled"
-                    class="bg-orange-600 text-white"
+                    severity="danger"
                   >
                     {{ t('trainings.table.cancelled') }}
-                  </TextBadge>
+                  </KwaiTag>
                 </td>
                 <td class="px-6 py-4">
                   <CheckIcon
