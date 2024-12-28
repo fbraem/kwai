@@ -32,6 +32,9 @@
       "path": "../../packages/kwai-ui"
     },
     {
+      "path": "../../packages/kwai-date"
+    },
+    {
       "path": "../../packages/kwai-api"
     }
   ]
