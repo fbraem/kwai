@@ -45,6 +45,7 @@ export default [
       'vue/block-order': ['error', {
         'order': [ 'script', 'template', 'style' ],
       }],
+      'vue/one-component-per-file': 'off',
     }
   },
   eslintConfigPrettier
