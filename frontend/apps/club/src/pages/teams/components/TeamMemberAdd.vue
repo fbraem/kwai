@@ -4,7 +4,7 @@ import {
   ContainerSection,
   ContainerSectionTitle,
   ContainerSectionContent,
-  ErrorAlert,
+  KwaiErrorAlert,
   KwaiCheckboxField,
   KwaiInputField,
   KwaiPanel,
@@ -118,9 +118,9 @@ const addMemberToTeam = (teamMember: TeamMember) => {
       <div v-if="isPending">
         <LoadingIcon class="fill-primary-500 w-8 h-8" />
       </div>
-      <ErrorAlert v-else-if="isError">
+      <KwaiErrorAlert v-else-if="isError">
         {{ t('teams.error') }}
-      </ErrorAlert>
+      </KwaiErrorAlert>
       <template v-else>
         <div v-if="members!.meta.count === 0">
           {{ t('team.members.no_members') }}

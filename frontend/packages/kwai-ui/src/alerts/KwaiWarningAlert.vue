@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import Alert from './Alert.vue';
+import KwaiAlert from './KwaiAlert.vue';
 import { WarningIcon } from '../icons';
 </script>
 
 <template>
-  <Alert severity="warn">
+  <KwaiAlert severity="warn">
     <template #icon>
       <WarningIcon class="fill-orange-500 w-8 h-8 mr-2" />
     </template>
     <slot />
-  </Alert>
+  </KwaiAlert>
 </template>

@@ -3,7 +3,7 @@ import {
   ContainerSection,
   ContainerSectionContent,
   ContainerSectionTitle,
-  ErrorAlert,
+  KwaiErrorAlert,
   LoadingIcon,
   KwaiTable,
   KwaiTableColumn,
@@ -36,9 +36,9 @@ const year = now().year();
       <div v-if="isPending">
         <LoadingIcon class="fill-primary-500 w-8 h-8 ml-2" />
       </div>
-      <ErrorAlert v-else-if="isError">
+      <KwaiErrorAlert v-else-if="isError">
         {{ t('teams.error') }}
-      </ErrorAlert>
+      </KwaiErrorAlert>
       <template v-else>
         <div v-if="team!.members.length === 0">
           {{ t('team.members.no_team_members') }}

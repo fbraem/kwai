@@ -7,7 +7,7 @@ import {
   KwaiFileUpload,
   KwaiCheckbox,
   KwaiTag,
-  ErrorAlert,
+  KwaiErrorAlert,
 } from '@kwai/ui';
 import { type Ref, ref } from 'vue';
 import { useHttpApi, type JsonApiErrorType } from '@kwai/api';
@@ -81,9 +81,9 @@ const upload = (files: File[]) => {
       </div>
     </ContainerSectionContent>
     <ContainerSectionContent v-if="errors.length > 0">
-      <ErrorAlert>
+      <KwaiErrorAlert>
         {{ t('members_upload.error.message') }}
-      </ErrorAlert>
+      </KwaiErrorAlert>
       <table class="divide-y divide-gray-400 w-full rounded-lg">
         <thead>
           <tr>

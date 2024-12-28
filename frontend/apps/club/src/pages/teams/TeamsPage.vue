@@ -5,7 +5,7 @@ import {
   ContainerSection,
   ContainerSectionTitle,
   ContainerSectionContent,
-  ErrorAlert,
+  KwaiErrorAlert,
   KwaiButton,
   LoadingIcon,
   CheckIcon,
@@ -29,9 +29,9 @@ const { data: teams, isPending, isError } = useTeams({});
           class="fill-primary-500 w-8 h-8"
         />
       </div>
-      <ErrorAlert v-else-if="isError">
+      <KwaiErrorAlert v-else-if="isError">
         {{ t('teams.error') }}
-      </ErrorAlert>
+      </KwaiErrorAlert>
       <table
         v-else-if="teams"
         class="w-full text-sm text-left"

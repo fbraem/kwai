@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Team } from '@root/types/team';
 import {
-  ErrorAlert,
+  KwaiErrorAlert,
   FormSection,
   FormSectionFields,
   KwaiCheckbox,
@@ -139,9 +139,9 @@ const onSubmitForm = handleSubmit(async values => {
             {{ t('teams.form.sections.submit.fields.button.label') }}
           </KwaiButton>
         </div>
-        <ErrorAlert v-if="errorMessage">
+        <KwaiErrorAlert v-if="errorMessage">
           {{ t('teams.form.error') }}
-        </ErrorAlert>
+        </KwaiErrorAlert>
       </FormSectionFields>
     </FormSection>
   </form>

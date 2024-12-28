@@ -1,52 +1,6 @@
-<template>
-  <div
-    v-if="newsItem"
-    class="container mx-auto py-20 px-2"
-  >
-    <NewsHeader :news-item="newsItem" />
-    <LoadingAlert v-if="isLoading">
-      Even geduld, we laden momenteel het nieuwsbericht...
-    </LoadingAlert>
-    <ErrorAlert
-      v-else-if="isError"
-      class="max-w-lg mx-auto"
-    >
-      Oeps, er is iets fout gelopen...
-      <a
-        class="underline cursor-pointer"
-        @click="retry"
-      >
-        Probeer opnieuw.
-      </a>
-    </ErrorAlert>
-    <div
-      v-else-if="newsItem"
-      class="pt-5"
-    >
-      <IntroductionText>
-        <div v-html="newsItem.texts[0].summary" />
-      </IntroductionText>
-      <div
-        v-if="newsItem.texts[0].content"
-      >
-        <hr>
-        <div
-          class="py-5 news-content"
-          v-html="newsItem.texts[0].content"
-        />
-        <hr>
-        <div class="text-xs text-gray-600 pt-5 flex place-content-between">
-          <div>Gepubliceerd op {{ publishDate }}</div>
-          <div>{{ newsItem.application.title }}</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { useNewsItem } from '@root/composables/useNewsItem';
-import { LoadingAlert, ErrorAlert } from '@kwai/ui';
+import { KwaiLoadingAlert, KwaiErrorAlert } from '@kwai/ui';
 import { useQueryClient } from '@tanstack/vue-query';
 import IntroductionText from '@root/components/IntroductionText.vue';
 import NewsHeader from '@root/components/news/NewsHeader.vue';
@@ -71,6 +25,52 @@ const publishDate = computed(() => {
   return '';
 });
 </script>
+
+<template>
+  <div
+    v-if="newsItem"
+    class="container mx-auto py-20 px-2"
+  >
+    <NewsHeader :news-item="newsItem" />
+    <KwaiLoadingAlert v-if="isLoading">
+      Even geduld, we laden momenteel het nieuwsbericht...
+    </KwaiLoadingAlert>
+    <KwaiErrorAlert
+      v-else-if="isError"
+      class="max-w-lg mx-auto"
+    >
+      Oeps, er is iets fout gelopen...
+      <a
+        class="underline cursor-pointer"
+        @click="retry"
+      >
+        Probeer opnieuw.
+      </a>
+    </KwaiErrorAlert>
+    <div
+      v-else-if="newsItem"
+      class="pt-5"
+    >
+      <IntroductionText>
+        <div v-html="newsItem.texts[0].summary" />
+      </IntroductionText>
+      <div
+        v-if="newsItem.texts[0].content"
+      >
+        <hr>
+        <div
+          class="py-5 news-content"
+          v-html="newsItem.texts[0].content"
+        />
+        <hr>
+        <div class="text-xs text-gray-600 pt-5 flex place-content-between">
+          <div>Gepubliceerd op {{ publishDate }}</div>
+          <div>{{ newsItem.application.title }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style>
 .news-content p, .news-content ul {

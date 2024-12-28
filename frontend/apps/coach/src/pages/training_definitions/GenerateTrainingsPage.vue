@@ -8,7 +8,7 @@ import {
   ContainerSectionTitle,
   KwaiDateRangePicker,
   DeleteIcon,
-  InfoAlert,
+  KwaiInfoAlert,
   KwaiButton,
   LinkTag,
   NewIcon,
@@ -174,9 +174,9 @@ const saveTrainings = () => {
         </KwaiButton>
       </div>
       <div v-else>
-        <InfoAlert>
+        <KwaiInfoAlert>
           {{ t('generate_trainings.no_trainings') }}
-        </InfoAlert>
+        </KwaiInfoAlert>
       </div>
     </ContainerSectionContent>
   </ContainerSection>

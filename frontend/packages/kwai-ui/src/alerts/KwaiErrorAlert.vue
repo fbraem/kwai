@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Alert from './Alert.vue';
+import Alert from './KwaiAlert.vue';
 import { ErrorIcon } from '../icons';
 </script>
 

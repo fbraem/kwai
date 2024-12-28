@@ -2,7 +2,7 @@
 import {
   KwaiButton,
   KwaiCheckboxField,
-  ErrorAlert,
+  KwaiErrorAlert,
   FormSection,
   FormSectionFields,
   InputField,
@@ -247,9 +247,9 @@ const onSubmitForm = handleSubmit(async values => {
             {{ t('pages.form.sections.submit.fields.button.label') }}
           </KwaiButton>
         </div>
-        <ErrorAlert v-if="errorMessage">
+        <KwaiErrorAlert v-if="errorMessage">
           {{ t('pages.form.error') }}
-        </ErrorAlert>
+        </KwaiErrorAlert>
       </FormSectionFields>
     </FormSection>
   </form>

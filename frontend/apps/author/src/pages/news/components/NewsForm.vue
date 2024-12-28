@@ -4,7 +4,7 @@ import {
   KwaiCheckboxField,
   KwaiDatePicker,
   KwaiDateRangePicker,
-  ErrorAlert,
+  KwaiErrorAlert,
   FormSection,
   FormSectionFields,
   InputField,
@@ -289,9 +289,9 @@ const onSubmitForm = handleSubmit(async values => {
             {{ t('news.form.sections.submit.fields.button.label') }}
           </KwaiButton>
         </div>
-        <ErrorAlert v-if="errorMessage">
+        <KwaiErrorAlert v-if="errorMessage">
           {{ t('news.form.error') }}
-        </ErrorAlert>
+        </KwaiErrorAlert>
       </FormSectionFields>
     </FormSection>
   </form>

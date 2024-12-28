@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useHttpWithAuthCatcher } from '@kwai/api';
-import { KwaiButton, CheckIcon, ErrorAlert, InputField } from '@kwai/ui';
+import { KwaiButton, CheckIcon, KwaiErrorAlert, InputField } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
 import { useTitle } from '@vueuse/core';
 import { useForm } from 'vee-validate';
@@ -142,13 +142,13 @@ const closeNotification = () => {
       v-if="errorMessage"
       class="flex items-center gap-3"
     >
-      <ErrorAlert
+      <KwaiErrorAlert
         v-if="errorMessage"
       >
         <div class="text-sm">
           {{ errorMessage }}
         </div>
-      </ErrorAlert>
+      </KwaiErrorAlert>
     </div>
     <div class="flex flex-col items-end mt-6">
       <KwaiButton

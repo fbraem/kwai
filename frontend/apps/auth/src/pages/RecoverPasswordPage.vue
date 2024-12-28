@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { KwaiButton, ErrorAlert, InputField } from '@kwai/ui';
+import { KwaiButton, KwaiErrorAlert, InputField } from '@kwai/ui';
 import { useForm } from 'vee-validate';
 import { useHttp } from '@kwai/api';
 import type { Ref } from 'vue';
@@ -80,11 +80,11 @@ const onSubmitForm = handleSubmit(async values => {
     <p class="text-xs text-gray-500">
       {{ t('recover_password.form.email.help') }}
     </p>
-    <ErrorAlert v-if="errorMessage">
+    <KwaiErrorAlert v-if="errorMessage">
       <div class="text-sm">
         {{ errorMessage }}
       </div>
-    </ErrorAlert>
+    </KwaiErrorAlert>
     <div class="flex flex-col items-end mt-6">
       <KwaiButton
         id="submit"

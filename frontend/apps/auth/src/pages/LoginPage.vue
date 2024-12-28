@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CheckIcon, InputField, KwaiButton, ErrorAlert } from '@kwai/ui';
+import { CheckIcon, InputField, KwaiButton, KwaiErrorAlert } from '@kwai/ui';
 import { useForm } from 'vee-validate';
 import { localStorage, useHttpLogin } from '@kwai/api';
 import { website } from '@kwai/config';
@@ -121,11 +121,11 @@ const closeNotification = () => {
         {{ t('login.forgotten') }}
       </router-link>
     </p>
-    <ErrorAlert v-if="errorMessage">
+    <KwaiErrorAlert v-if="errorMessage">
       <div class="text-sm">
         {{ errorMessage }}
       </div>
-    </ErrorAlert>
+    </KwaiErrorAlert>
     <div class="flex flex-col items-end mt-6">
       <KwaiButton
         id="submit"

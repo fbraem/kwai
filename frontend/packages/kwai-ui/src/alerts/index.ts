@@ -1,5 +1,5 @@
-export { default as Alert } from './Alert.vue';
-export { default as ErrorAlert } from './ErrorAlert.vue';
-export { default as InfoAlert } from './InfoAlert.vue';
-export { default as LoadingAlert } from './LoadingAlert.vue';
-export { default as WarningAlert } from './WarningAlert.vue';
+export { default as KwaiAlert } from './KwaiAlert.vue';
+export { default as KwaiErrorAlert } from './KwaiErrorAlert.vue';
+export { default as KwaiInfoAlert } from './KwaiInfoAlert.vue';
+export { default as KwaiLoadingAlert } from './KwaiLoadingAlert.vue';
+export { default as KwaiWarningAlert } from './KwaiWarningAlert.vue';

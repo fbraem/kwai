@@ -7,7 +7,7 @@ import { useForm } from 'vee-validate';
 import {
   KwaiButton,
   CheckBox,
-  ErrorAlert,
+  KwaiErrorAlert,
   FormSection,
   FormSectionFields,
   InputField,
@@ -285,9 +285,9 @@ watch(definition, nv => {
             {{ t('training_definition.form.sections.submit.fields.button.label') }}
           </KwaiButton>
         </div>
-        <ErrorAlert v-if="errorMessage">
+        <KwaiErrorAlert v-if="errorMessage">
           {{ t('training_definition.form.error') }}
-        </ErrorAlert>
+        </KwaiErrorAlert>
       </FormSectionFields>
     </FormSection>
   </form>

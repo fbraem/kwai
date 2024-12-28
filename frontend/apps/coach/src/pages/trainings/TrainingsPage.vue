@@ -6,7 +6,7 @@ import {
   ContainerSectionBanner,
   ContainerSectionContent,
   NewIcon,
-  WarningAlert,
+  KwaiWarningAlert,
   CancelIcon,
   CheckIcon,
   EditIcon,
@@ -108,9 +108,9 @@ const setToCurrent = () => {
           </form>
         </template>
       </ContainerSectionBanner>
-      <WarningAlert v-if="trainings && trainings.meta.count === 0">
+      <KwaiWarningAlert v-if="trainings && trainings.meta.count === 0">
         Er zijn geen trainingen voor deze maand.
-      </WarningAlert>
+      </KwaiWarningAlert>
       <div
         v-if="trainings && trainings.meta.count > 0"
         class="relative w-full overflow-x-auto"

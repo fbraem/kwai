@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useHttp } from '@kwai/api';
-import { KwaiButton, ErrorAlert, InputField } from '@kwai/ui';
+import { KwaiButton, KwaiErrorAlert, InputField } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
 import { useTitle } from '@vueuse/core';
 import { useForm } from 'vee-validate';
@@ -153,13 +153,13 @@ const onSubmitForm = handleSubmit(async values => {
       v-if="errorMessage"
       class="flex items-center gap-3"
     >
-      <ErrorAlert
+      <KwaiErrorAlert
         v-if="errorMessage"
       >
         <div class="text-sm">
           {{ errorMessage }}
         </div>
-      </ErrorAlert>
+      </KwaiErrorAlert>
       <div v-if="expired">
         <router-link
           :to="{ name: 'recover' }"

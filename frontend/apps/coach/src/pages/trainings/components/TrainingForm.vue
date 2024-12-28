@@ -2,7 +2,7 @@
 import {
   KwaiCheckboxField,
   KwaiDatePicker,
-  ErrorAlert,
+  KwaiErrorAlert,
   FormSection,
   FormSectionFields,
   InputField,
@@ -345,9 +345,9 @@ const applyDefinition = () => {
             {{ t('training.form.sections.submit.fields.button.label') }}
           </KwaiButton>
         </div>
-        <ErrorAlert v-if="errorMessage">
+        <KwaiErrorAlert v-if="errorMessage">
           {{ t('training.form.error') }}
-        </ErrorAlert>
+        </KwaiErrorAlert>
       </FormSectionFields>
     </FormSection>
   </form>
