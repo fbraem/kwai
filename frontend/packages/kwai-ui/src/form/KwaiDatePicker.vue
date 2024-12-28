@@ -46,7 +46,6 @@ const { value, errorMessage } = useField<Date>(nameRef);
       :id="id ?? name"
       v-model="value"
       :date-format="format"
-      auto-apply
       :placeholder="placeholder ?? ''"
       :show-time="time"
     />
