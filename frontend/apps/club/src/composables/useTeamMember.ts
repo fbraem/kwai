@@ -10,7 +10,7 @@ import {
 } from '@kwai/api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
 import { z } from 'zod';
-import { CountryResourceSchema } from '@root/composables/useCountry';
+import { type CountryResource, CountryResourceSchema } from '@root/composables/useCountry';
 import { type Ref, ref, toValue } from 'vue';
 import { createDateFromString } from '@kwai/date';
 
@@ -32,7 +32,7 @@ export const TeamMemberResourceSchema = JsonApiData.extend({
     }),
   }),
 });
-type TeamMemberResource = z.infer<typeof TeamMemberResourceSchema>;
+export type TeamMemberResource = z.infer<typeof TeamMemberResourceSchema>;
 
 export const TeamMemberDocumentSchema = JsonApiDocument.extend({
   data: z.union([
@@ -49,7 +49,7 @@ export const transform = (doc: TeamMemberDocument) : TeamMember | TeamMembers =>
   const included = transformResourceArrayToObject(doc.included);
   const mapModel = (teamMemberResource: TeamMemberResource): TeamMember => {
     const countryResourceId = teamMemberResource.relationships!.nationality.data as JsonResourceIdentifierType;
-    const nationality = included[countryResourceId.type][countryResourceId.id as string];
+    const nationality = included[countryResourceId.type as string][countryResourceId.id as string] as CountryResource;
     return {
       id: teamMemberResource.id as string,
       active: teamMemberResource.attributes.active,

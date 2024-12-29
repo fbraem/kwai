@@ -10,8 +10,8 @@ import {
 import { z } from 'zod';
 import { type Ref, ref, toValue } from 'vue';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
-import { CountryResourceSchema } from '@root/composables/useCountry';
-import { TeamMemberResourceSchema } from '@root/composables/useTeamMember';
+import { CountryResourceSchema, type CountryResource } from '@root/composables/useCountry';
+import { type TeamMemberResource, TeamMemberResourceSchema } from '@root/composables/useTeamMember';
 import { createDateFromString } from '@kwai/date';
 
 export interface Teams {
@@ -53,9 +53,9 @@ export const transform = (doc: TeamDocument) : Team | Teams => {
   const mapModel = (teamResource: TeamResource): Team => {
     const teamMembers: TeamMember[] = [];
     for (const teamMemberIdentifier of teamResource.relationships.team_members.data) {
-      const teamMember = included[teamMemberIdentifier.type][teamMemberIdentifier.id as string];
+      const teamMember = included[teamMemberIdentifier.type as string][teamMemberIdentifier.id as string] as TeamMemberResource;
       const countryResourceId = teamMember.relationships!.nationality.data as JsonResourceIdentifierType;
-      const nationality = included[countryResourceId.type][countryResourceId.id as string];
+      const nationality = included[countryResourceId.type as string][countryResourceId.id as string] as CountryResource;
       teamMembers.push(
         {
           id: teamMemberIdentifier.id as string,
