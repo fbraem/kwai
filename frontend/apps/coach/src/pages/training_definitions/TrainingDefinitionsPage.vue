@@ -40,14 +40,14 @@ const { data: trainingDefinitions } = useTrainingDefinitions();
           </KwaiButton>
         </template>
       </containersectionbanner>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
         <div
           v-for="trainingDefinition in trainingDefinitions"
           :key="trainingDefinition.id"
         >
           <TrainingDefinitionCard :training-definition="trainingDefinition">
             <template #footer>
-              <div class="p-3 flex place-content-between">
+              <div class="flex place-content-between">
                 <KwaiButton
                   :to="{
                     name: 'coach.training_definitions.generate_trainings',
@@ -55,6 +55,7 @@ const { data: trainingDefinitions } = useTrainingDefinitions();
                       id: trainingDefinition.id
                     }
                   }"
+                  small
                 >
                   <AddCalendarIcon class="w-4 mr-2 fill-current" />
                   {{ t('training_definitions.card.buttons.generate') }}
@@ -66,6 +67,7 @@ const { data: trainingDefinitions } = useTrainingDefinitions();
                       id: trainingDefinition.id
                     }
                   }"
+                  small
                 >
                   <EditIcon class="w-4 mr-2 fill-current " />
                   {{ t('training_definitions.card.buttons.edit') }}
