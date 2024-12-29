@@ -1,22 +1,21 @@
 <script setup lang="ts">
-import { Card, CardTitle, ListIcon, KwaiButton } from '@kwai/ui';
+import { KwaiCard, ListIcon, KwaiButton } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n({ useScope: 'global' });
 </script>
 
 <template>
-  <Card class="w-full">
-    <template #header>
-      <CardTitle class="p-3 font-bold text-lg text-gray-900">
-        {{ t('home.training_definitions.title') }}
-      </CardTitle>
+  <KwaiCard class="w-full">
+    <template #title>
+      {{ t('home.training_definitions.title') }}
     </template>
-    <p class="p-3">
-      {{ t('home.training_definitions.description') }}
-    </p>
+    {{ t('home.training_definitions.description') }}
     <template #footer>
-      <div class="flex justify-between items-center p-3">
-        <KwaiButton :to="{ name: 'coach.training_definitions' }">
+      <div class="flex justify-between items-center">
+        <KwaiButton
+          :to="{ name: 'coach.training_definitions' }"
+          small
+        >
           <ListIcon
             class="w-4 mr-2 fill-current"
           />
@@ -24,7 +23,7 @@ const { t } = useI18n({ useScope: 'global' });
         </KwaiButton>
       </div>
     </template>
-  </Card>
+  </KwaiCard>
 </template>
 
 <style scoped>
