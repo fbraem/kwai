@@ -14,6 +14,12 @@ const slots = useSlots();
       <slot name="title" />
     </template>
     <template
+      v-if="!!slots.subtitle"
+      #subtitle
+    >
+      <slot name="title" />
+    </template>
+    <template
       v-if="!!slots.content"
       #content
     >
