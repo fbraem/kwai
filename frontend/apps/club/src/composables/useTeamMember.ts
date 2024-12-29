@@ -179,8 +179,8 @@ export const useAddTeamMemberMutation = ({ onSuccess }: MutationOptions = {}) =>
         return onSuccess(data, variables);
       }
     },
-    onSettled: (data, error, variables) => {
-      queryClient.invalidateQueries({
+    onSettled: async (data, error, variables) => {
+      await queryClient.invalidateQueries({
         queryKey: ['club/teams', variables.team_id],
         exact: true,
       });
