@@ -17,13 +17,17 @@ const slots = useSlots();
       v-if="!!slots.subtitle"
       #subtitle
     >
-      <slot name="subtitle" />
+      <div class="text-sm">
+        <slot name="subtitle" />
+      </div>
     </template>
     <template
-      v-if="!!slots.content"
+      v-if="!!slots.default"
       #content
     >
-      <slot name="content" />
+      <div class="p-5">
+        <slot />
+      </div>
     </template>
     <template
       v-if="!!slots.footer"
@@ -35,5 +39,4 @@ const slots = useSlots();
 </template>
 
 <style scoped>
-
 </style>
