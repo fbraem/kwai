@@ -8,6 +8,11 @@
     "zod": "^3.22.4"
   },
   "main": "src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts"
+    }
+  },
   "private": true,
   "scripts": {
     "build": "tsc --emitDeclarationOnly"
