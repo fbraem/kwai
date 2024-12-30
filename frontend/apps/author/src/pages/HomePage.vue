@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import {
-  KwaiCard, KwaiButton, ListIcon, ContainerSection, ContainerSectionContent, ContainerSectionTitle } from '@kwai/ui';
+  KwaiCard,
+  KwaiButton,
+  ListIcon,
+  ContainerSection,
+  ContainerSectionContent,
+  ContainerSectionTitle,
+} from '@kwai/ui';
 </script>
 
 <template>
