@@ -6,7 +6,15 @@ const slots = useSlots();
 </script>
 
 <template>
-  <Card>
+  <Card
+    :pt="{
+      caption: 'py-5 border-b border-gray-200',
+      body: 'p-0',
+      title: 'px-5',
+      subtitle: 'px-5 text-sm',
+      footer: 'p-5'
+    }"
+  >
     <template
       v-if="!!slots.title"
       #title
@@ -17,9 +25,7 @@ const slots = useSlots();
       v-if="!!slots.subtitle"
       #subtitle
     >
-      <div class="text-sm">
-        <slot name="subtitle" />
-      </div>
+      <slot name="subtitle" />
     </template>
     <template
       v-if="!!slots.default"
