@@ -6,21 +6,17 @@
 }
 
 .p-card-caption {
-    @apply py-5 flex flex-col gap-2 border-b border-gray-200
-}
-
-.p-card-body {
     @apply flex flex-col gap-2
 }
 
+.p-card-body {
+    @apply p-5 flex flex-col gap-2
+}
+
 .p-card-title {
-    @apply px-5 font-medium text-xl
+    @apply font-medium text-xl
 }
 
 .p-card-subtitle {
-    @apply px-5 text-surface-500 dark:text-surface-400
-}
-
-.p-card-footer {
-    @apply p-5
+    @apply text-surface-500 dark:text-surface-400
 }
