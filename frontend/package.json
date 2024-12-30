@@ -9,31 +9,28 @@
   "scripts": {
     "test": "vitest",
     "prebuild": "npm run build -w packages/kwai-config && npm run build -w packages/kwai-date && npm run build -w packages/kwai-api && npm run build -w packages/kwai-types && npm run build -w packages/kwai-ui",
-    "build": "npm run build --workspaces --if-present"
+    "build": "npm run build --workspaces --if-present",
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
   "devDependencies": {
-    "@eslint/js": "^9.17.0",
     "@go-task/cli": "^3.39.0",
+    "@stylistic/eslint-plugin": "^2.12.1",
     "@vue/eslint-config-typescript": "latest",
     "@vue/test-utils": "^2.4.3",
-    "eslint-config-prettier": "latest",
-    "eslint-plugin-prettier": "latest",
+    "eslint": "latest",
     "eslint-plugin-vue": "latest",
     "msw": "^2.0.11",
+    "prettier": "latest",
     "rollup-plugin-visualizer": "^5.11.0",
     "syncpack": "^13.0.0",
     "typescript": "5.4.2",
-    "typescript-eslint": "latest",
     "vite": "^6.0.5",
     "vitest": "^2.1.8",
     "vue-eslint-parser": "latest"
-  },
-  "peerDependencies": {
-    "eslint": "latest",
-    "prettier": "latest"
   }
 }

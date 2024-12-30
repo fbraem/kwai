@@ -1,52 +1,50 @@
-import js from '@eslint/js';
-import ts from 'typescript-eslint';
+import stylistic from '@stylistic/eslint-plugin';
 import pluginVue from 'eslint-plugin-vue';
-import eslintConfigPrettier from 'eslint-config-prettier';
+import vueTsEslintConfig from '@vue/eslint-config-typescript';
 
 export default [
   {
     files: [
-      'apps/**/*.{js,jsx,ts,tsx}',
-      'packages/**/*.{js,jsx,ts,tsx}',
+      'apps/**/*.{js,jsx,ts,tsx,vue}',
+      'packages/**/*.{js,jsx,ts,tsx,vue}',
     ],
+  },
+  {
     ignores: [
       '**/dist',
       'node_modules/**',
     ],
-    languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: "module",
-    }
   },
-  js.configs.recommended,
-  ...ts.configs.recommended,
+  stylistic.configs['recommended-flat'],
   ...pluginVue.configs['flat/strongly-recommended'],
-  {
-    languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-      parserOptions: {
-        parser: ts.parser,
-        extraFileExtensions: ['.vue'],
-      }
-    }
-  },
+  ...vueTsEslintConfig(),
   {
     rules: {
-      semi: [2, 'always'],
-      'comma-dangle': ['error', {
+      '@stylistic/comma-dangle': ['error', {
         arrays: 'always-multiline',
         objects: 'always-multiline',
         imports: 'always-multiline',
         exports: 'always-multiline',
         functions: 'never',
       }],
-      'space-before-function-paren': [2, 'never'],
+      '@stylistic/indent': ['error', 2],
+      '@stylistic/object-property-newline': ['error', { allowAllPropertiesOnSameLine: true }],
+      '@stylistic/quotes': ['error', 'single'],
+      '@stylistic/quote-props': ['error', 'as-needed'],
+      '@stylistic/semi': ['error', 'always'],
+      '@stylistic/space-before-function-paren': ['error', 'never'],
       'vue/block-order': ['error', {
-        'order': [ 'script', 'template', 'style' ],
+        order: ['script', 'template', 'style'],
+      }],
+      'vue/max-attributes-per-line': ['error', {
+        singleline: {
+          max: 1,
+        },
+        multiline: {
+          max: 1,
+        },
       }],
       'vue/one-component-per-file': 'off',
-    }
+    },
   },
-  eslintConfigPrettier
 ];
