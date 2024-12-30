@@ -8,11 +8,11 @@ const slots = useSlots();
 <template>
   <Card
     :pt="{
-      caption: 'py-5 border-b border-gray-200',
+      caption: 'py-3 border-b border-gray-200',
       body: 'p-0',
-      title: 'px-5',
-      subtitle: 'px-5 text-sm',
-      footer: 'p-5'
+      title: 'px-3',
+      subtitle: 'px-3 text-sm',
+      footer: 'p-3'
     }"
   >
     <template
@@ -31,7 +31,7 @@ const slots = useSlots();
       v-if="!!slots.default"
       #content
     >
-      <div class="p-5">
+      <div class="p-3">
         <slot />
       </div>
     </template>
