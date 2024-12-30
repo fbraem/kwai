@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {
-  Card,
-  CardTitle,
+  KwaiCard,
   ContainerSection,
   ContainerSectionTitle,
   ContainerSectionContent,
@@ -18,32 +17,30 @@ const { t } = useI18n({ useScope: 'global' });
       {{ t('home.description') }}
     </ContainerSectionTitle>
     <ContainerSectionContent>
-      <Card class="w-full">
-        <template #header>
-          <CardTitle class="p-3 font-bold text-lg text-gray-900">
-            Leden
-          </CardTitle>
+      <KwaiCard class="w-full">
+        <template #title>
+          Leden
         </template>
-        <p class="p-3">
-          Beheer de leden van jouw club.
-        </p>
+        Beheer de leden van jouw club.
         <template #footer>
-          <div class="flex justify-between items-center p-3">
-            <KwaiButton :to="{ name: 'club.members' }">
-              <ListIcon
-                class="w-4 mr-2 fill-current"
-              />
+          <div class="flex justify-between items-center">
+            <KwaiButton
+              :to="{ name: 'club.members' }"
+              small
+            >
+              <ListIcon class="w-4 mr-2 fill-current" />
               Overzicht
             </KwaiButton>
-            <KwaiButton :to="{ name: 'club.upload' }">
-              <ListIcon
-                class="w-4 mr-2 fill-current"
-              />
+            <KwaiButton
+              :to="{ name: 'club.upload' }"
+              small
+            >
+              <ListIcon class="w-4 mr-2 fill-current" />
               Upload
             </KwaiButton>
           </div>
         </template>
-      </Card>
+      </KwaiCard>
     </ContainerSectionContent>
   </ContainerSection>
 </template>
