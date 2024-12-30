@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Card, CardTitle, KwaiButton, ListIcon, ContainerSection, ContainerSectionContent, ContainerSectionTitle } from '@kwai/ui';
+import {
+  KwaiCard, KwaiButton, ListIcon, ContainerSection, ContainerSectionContent, ContainerSectionTitle } from '@kwai/ui';
 </script>
 
 <template>
@@ -8,66 +9,51 @@ import { Card, CardTitle, KwaiButton, ListIcon, ContainerSection, ContainerSecti
       Beheer applicaties, nieuwsberichten en pagina's.
     </ContainerSectionTitle>
     <ContainerSectionContent>
-      <Card class="w-full">
-        <template #header>
-          <CardTitle class="p-3 font-bold text-lg text-gray-900">
-            Applicaties
-          </CardTitle>
+      <KwaiCard class="w-full">
+        <template #title>
+          Applicaties
         </template>
-        <p class="p-3">
-          Applicaties zijn de bouwstenen van de website. Wijzig de titel, samenvatting en omschrijving.
-        </p>
+        Applicaties zijn de bouwstenen van de website. Wijzig de titel, samenvatting en omschrijving.
         <template #footer>
-          <div class="flex justify-between items-center p-3">
-            <KwaiButton :to="{ name: 'author.applications' }">
-              <ListIcon
-                class="w-4 mr-2 fill-current"
-              />
-              Overzicht
-            </KwaiButton>
-          </div>
+          <KwaiButton
+            :to="{ name: 'author.applications' }"
+            small
+          >
+            <ListIcon class="w-4 mr-2 fill-current" />
+            Overzicht
+          </KwaiButton>
         </template>
-      </Card>
-      <Card class="w-full">
-        <template #header>
-          <CardTitle class="p-3 font-bold text-lg text-gray-900">
-            Nieuws
-          </CardTitle>
+      </KwaiCard>
+      <KwaiCard class="w-full">
+        <template #title>
+          Nieuws
         </template>
-        <p class="p-3">
-          Beheer de nieuwsberichten op de website.
-        </p>
+        Beheer de nieuwsberichten op de website.
         <template #footer>
-          <div class="flex justify-between items-center p-3">
-            <KwaiButton :to="{ name: 'author.news' }">
-              <ListIcon
-                class="w-4 mr-2 fill-current"
-              />
-              Overzicht
-            </KwaiButton>
-          </div>
+          <KwaiButton
+            :to="{ name: 'author.news' }"
+            small
+          >
+            <ListIcon class="w-4 mr-2 fill-current" />
+            Overzicht
+          </KwaiButton>
         </template>
-      </Card>
-      <Card class="w-full">
-        <template #header>
-          <CardTitle class="p-3 font-bold text-lg text-gray-900">
-            Pagina's
-          </CardTitle>
+      </KwaiCard>
+      <KwaiCard class="w-full">
+        <template #title>
+          Pagina's
         </template>
-        <p class="p-3">
-          Beheer de pagina's van de website.
-        </p>
+        Beheer de pagina's van de website.
         <template #footer>
-          <div class="flex justify-between items-center p-3">
-            <KwaiButton :to="{ name: 'author.pages' }">
-              <ListIcon
-                class="w-4 mr-2 fill-current"
-              />
-              Overzicht
-            </KwaiButton>
-          </div>
+          <KwaiButton
+            :to="{ name: 'author.pages' }"
+            small
+          >
+            <ListIcon class="w-4 mr-2 fill-current" />
+            Overzicht
+          </KwaiButton>
         </template>
-      </Card>
+      </KwaiCard>
     </ContainerSectionContent>
   </ContainerSection>
 </template>
