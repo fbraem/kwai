@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { Card, CardTitle, ContainerSection, ContainerSectionContent, ContainerSectionTitle, EditIcon, KwaiButton } from '@kwai/ui';
+import {
+  ContainerSection,
+  ContainerSectionContent,
+  ContainerSectionTitle,
+  EditIcon,
+  KwaiButton,
+  KwaiCard,
+} from '@kwai/ui';
 import { useApplications } from '@root/composables/useApplication';
 import PrimaryBadge from '@root/components/PrimaryBadge.vue';
 
@@ -11,23 +18,19 @@ const { data: applications } = useApplications();
     <ContainerSectionTitle>Applicaties</ContainerSectionTitle>
     <ContainerSectionContent>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <Card
+        <KwaiCard
           v-for="application in applications"
           :key="application.id as string"
         >
-          <template #header>
-            <CardTitle class="p-3 font-bold text-lg text-gray-900">
-              {{ application.title }}
-            </CardTitle>
-            <p class="px-3 pb-3 text-sm text-gray-600">
-              {{ application.short_description }}
-            </p>
+          <template #title>
+            {{ application.title }}
           </template>
-          <div class="p-3">
-            {{ application.description }}
-          </div>
+          <template #subtitle>
+            {{ application.short_description }}
+          </template>
+          {{ application.description }}
           <template #footer>
-            <div class="flex justify-between items-center p-3">
+            <div class="flex justify-between items-center">
               <div class="flex space-x-2">
                 <PrimaryBadge
                   v-if="application.news"
@@ -49,13 +52,16 @@ const { data: applications } = useApplications();
                 </PrimaryBadge>
               </div>
               <div>
-                <KwaiButton :to="{ name: 'author.applications.edit', params: { id: application.id } }">
+                <KwaiButton
+                  :to="{ name: 'author.applications.edit', params: { id: application.id } }"
+                  small
+                >
                   <EditIcon class="w-4 mr-2 fill-current" />Wijzig
                 </KwaiButton>
               </div>
             </div>
           </template>
-        </Card>
+        </KwaiCard>
       </div>
     </ContainerSectionContent>
   </ContainerSection>
