@@ -1,19 +1,30 @@
-import { JsonApiDocument, JsonResourceIdentifier, useHttpApi } from '@kwai/api';
+import {
+  JsonApiDocument,
+  JsonResourceIdentifier,
+  useHttpApi,
+} from '@kwai/api';
 import { z } from 'zod';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/vue-query';
 import type { Ref } from 'vue';
 import type { LocationAsRelativeRaw } from 'vue-router';
 import { useRouter } from 'vue-router';
 import type { Application } from '@kwai/types';
 
 export interface ApplicationForAuthor extends Application {
-  short_description: string,
+  id: string
+  name: string
+  title: string
+  short_description: string
   description: string
-  events: boolean,
-  news: boolean,
-  pages: boolean,
-  remark: string,
-  weight: number,
+  events: boolean
+  news: boolean
+  pages: boolean
+  remark: string
+  weight: number
 }
 
 const ApplicationSchema = JsonResourceIdentifier.extend({
@@ -32,12 +43,10 @@ const ApplicationSchema = JsonResourceIdentifier.extend({
 });
 type ApplicationResource = z.infer<typeof ApplicationSchema>;
 
-const ApplicationDocumentSchema = JsonApiDocument.extend({
-  data: z.union([ApplicationSchema, z.array(ApplicationSchema).default([])]),
-}).transform(doc => {
+const ApplicationDocumentSchema = JsonApiDocument.extend({ data: z.union([ApplicationSchema, z.array(ApplicationSchema).default([])]) }).transform((doc) => {
   const mapModel = (applicationResource: ApplicationResource): ApplicationForAuthor => {
     return {
-      id: applicationResource.id,
+      id: applicationResource.id as string,
       title: applicationResource.attributes.title,
       name: applicationResource.attributes.name,
       short_description: applicationResource.attributes.short_description,
@@ -56,10 +65,10 @@ const ApplicationDocumentSchema = JsonApiDocument.extend({
 });
 type ApplicationDocument = z.input<typeof ApplicationDocumentSchema>;
 
-const getApplications = () : Promise<ApplicationForAuthor[]> => {
+const getApplications = (): Promise<ApplicationForAuthor[]> => {
   const url = '/v1/portal/applications';
   const api = useHttpApi().url(url);
-  return api.get().json().then(json => {
+  return api.get().json().then((json) => {
     const result = ApplicationDocumentSchema.safeParse(json);
     if (result.success) {
       return result.data as ApplicationForAuthor[];
@@ -75,10 +84,10 @@ export const useApplications = () => {
   });
 };
 
-const getApplication = (id: string) : Promise<ApplicationForAuthor> => {
+const getApplication = (id: string): Promise<ApplicationForAuthor> => {
   const url = `/v1/portal/applications/${id}`;
   const api = useHttpApi().url(url);
-  return api.get().json().then(json => {
+  return api.get().json().then((json) => {
     const result = ApplicationDocumentSchema.safeParse(json);
     if (result.success) {
       return result.data as ApplicationForAuthor;
@@ -115,7 +124,7 @@ const updateApplication = (application: ApplicationForAuthor): Promise<Applicati
   return useHttpApi()
     .url(`/v1/portal/applications/${application.id}`)
     .patch(payload)
-    .json(json => {
+    .json((json) => {
       const result = ApplicationDocumentSchema.safeParse(json);
       if (result.success) {
         return result.data as ApplicationForAuthor;
