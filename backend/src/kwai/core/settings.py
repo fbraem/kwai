@@ -3,7 +3,7 @@
 import os
 import tomllib
 from functools import lru_cache
-from typing import Annotated, Any, Literal, Union
+from typing import Annotated, Any, Literal, Optional, Union
 
 from pydantic import BaseModel, Field
 
@@ -78,12 +78,21 @@ class FilesSettings(BaseModel):
     path: str
 
 
+class AdminSettings(BaseModel):
+    """Settings for the administrator of the website."""
+
+    name: str
+    email: str
+
+
 class WebsiteSettings(BaseModel):
     """Settings about the website."""
 
     url: str
     email: str
     name: str
+    copyright: Optional[str] = None
+    admin: Optional[AdminSettings] = None
 
 
 class DatabaseSettings(BaseModel):

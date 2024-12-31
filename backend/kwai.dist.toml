@@ -55,6 +55,9 @@ path=""
 url=""
 email=""
 name=""
+copyright=""
+admin.name=""
+admin.email=""
 
 [email]
 host=""
