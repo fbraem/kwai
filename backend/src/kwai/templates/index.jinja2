@@ -12,15 +12,25 @@
             <link rel="stylesheet" href="{{ css | safe }}" />
         {% endfor %}
         <script type="application/javascript">
-            const __KWAI__ = {
+            window.__KWAI__ = {
+              website: {
+                name: '{{ website.name }}'
+              },
               {% if website.copyright %}
-                  copyright: '{{ website.copyright }}',
+                copyright: '{{ website.copyright }}',
               {% endif %}
               {% if website.admin %}
-                  admin : {
-                    name: '{{ website.admin.name }}',
-                    email: '{{ website.admin.email }}',
-                  }
+                admin : {
+                  name: '{{ website.admin.name }}',
+                  email: '{{ website.admin.email }}',
+                },
+              {% endif %}
+              {% if website.contact %}
+                contact : {
+                  street: '{{ website.contact.street }}',
+                  city: '{{ website.contact.city }}',
+                  email: '{{ website.contact.email }}',
+                },
               {% endif %}
             };
         </script>

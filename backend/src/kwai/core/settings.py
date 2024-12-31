@@ -85,6 +85,14 @@ class AdminSettings(BaseModel):
     email: str
 
 
+class ContactSettings(BaseModel):
+    """Settings for the contact of the club."""
+
+    street: str
+    city: str
+    email: str
+
+
 class WebsiteSettings(BaseModel):
     """Settings about the website."""
 
@@ -93,6 +101,7 @@ class WebsiteSettings(BaseModel):
     name: str
     copyright: Optional[str] = None
     admin: Optional[AdminSettings] = None
+    contact: Optional[ContactSettings] = None
 
 
 class DatabaseSettings(BaseModel):

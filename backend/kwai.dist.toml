@@ -58,6 +58,9 @@ name=""
 copyright=""
 admin.name=""
 admin.email=""
+contact.street=""
+contact.city=""
+contact.email=""
 
 [email]
 host=""
