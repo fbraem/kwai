@@ -5,8 +5,8 @@ withDefaults(
     bgInformation?: string
   }>(),
   {
-    bgDialog: 'bg-white',
-    bgInformation: 'bg-red-700',
+    bgDialog: 'bg-surface-0',
+    bgInformation: 'bg-primary-700',
   });
 </script>
 
