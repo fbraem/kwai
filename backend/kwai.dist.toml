@@ -48,9 +48,6 @@ name=""
 user=""
 password=""
 
-[template]
-path=""
-
 [website]
 url=""
 email=""
