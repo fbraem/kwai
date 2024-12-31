@@ -1,3 +1,12 @@
+<script setup lang="ts">
+import logoUrl from '/logo.png';
+import { InformationDialog } from '@kwai/ui';
+import config from '@kwai/config';
+
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n({ useScope: 'global' });
+</script>
+
 <template>
   <InformationDialog>
     <template #information>
@@ -25,13 +34,3 @@
     </p>
   </InformationDialog>
 </template>
-
-<script setup lang="ts">
-// eslint-disable-next-line import/no-absolute-path
-import logoUrl from '/logo.png';
-import { InformationDialog } from '@kwai/ui';
-import config from '@kwai/config';
-
-import { useI18n } from 'vue-i18n';
-const { t } = useI18n({ useScope: 'global' });
-</script>
