@@ -1,23 +1,28 @@
 <!-- A wrapper around PrimeVue Button -->
 <script setup lang="ts">
 import Button from 'primevue/button';
-import { LocationAsRelativeRaw, RouteRecord } from 'vue-router';
-import { computed, useAttrs } from 'vue';
+import {
+  LocationAsRelativeRaw, RouteRecord,
+} from 'vue-router';
+import {
+  computed, useAttrs,
+} from 'vue';
+
 interface Props {
-  to?: RouteRecord | LocationAsRelativeRaw,
-  method?: () => void,
-  small?: boolean,
+  to?: RouteRecord | LocationAsRelativeRaw
+  method?: () => void
+  small?: boolean
   primary?: boolean
 }
 const props = withDefaults(
   defineProps<Props>(),
-  { to: undefined, method: undefined, small: false, primary: true }
+  {
+    to: undefined, method: undefined, small: false, primary: true,
+  }
 );
 
 const attrs = useAttrs();
-defineOptions({
-  inheritAttrs: false,
-});
+defineOptions({ inheritAttrs: false });
 
 const tag = computed(() => attrs.href ? 'a' : props.to ? 'router-link' : 'button');
 const clickAttr = computed(() => props.method ? 'click' : null);
