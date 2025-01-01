@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { KwaiButton, KwaiMenubar, ToolbarLogo, useMenu } from '@kwai/ui';
+import {
+  KwaiAuthenticateButton, KwaiMenubar, ToolbarLogo, useMenu,
+} from '@kwai/ui';
 import { website } from '@kwai/config';
-// eslint-disable-next-line import/no-absolute-path
+
 import logoUrl from '/logo.png';
-import { isLoggedIn, useHttpLogout } from '@kwai/api';
+import {
+  isLoggedIn, useHttpLogout,
+} from '@kwai/api';
 
 const menuItems = useMenu();
 
-const loggedIn = isLoggedIn;
 const logout = () => {
   useHttpLogout();
   window.location.reload();
@@ -33,16 +36,10 @@ const logout = () => {
           </p>
         </div>
         <div class="flex flex-col place-items-end md:w-1/3">
-          <div v-if="loggedIn">
-            <KwaiButton :method="logout">
-              Logout
-            </KwaiButton>
-          </div>
-          <div v-else>
-            <KwaiButton :href="`${website.url}/apps/auth/login`">
-              Login
-            </KwaiButton>
-          </div>
+          <KwaiAuthenticateButton
+            :logged-in="isLoggedIn"
+            :logout="logout"
+          />
         </div>
       </div>
     </div>
