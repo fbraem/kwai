@@ -2,11 +2,11 @@
 import { useTrainingDefinitions } from '@root/composables/useTrainingDefinition';
 import {
   ContainerSection,
-  ContainerSectionBanner,
   ContainerSectionContent,
   ContainerSectionTitle,
   EditIcon,
   KwaiButton,
+  KwaiToolbar,
   NewIcon,
 } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
@@ -24,22 +24,24 @@ const { data: trainingDefinitions } = useTrainingDefinitions();
       {{ t('training_definitions.title') }}
     </ContainerSectionTitle>
     <ContainerSectionContent>
-      <ContainerSectionBanner>
-        <template #left>
-          <h5 class="mr-3 font-semibold">
-            {{ t('training_definitions.banner.title') }}
-          </h5>
-          <p class="text-gray-500">
-            {{ t('training_definitions.banner.description') }}
-          </p>
+      <KwaiToolbar class="w-full">
+        <template #start>
+          <div class="flex flex-col">
+            <h5 class="mr-3 font-semibold">
+              {{ t('training_definitions.banner.title') }}
+            </h5>
+            <p class="text-gray-500">
+              {{ t('training_definitions.banner.description') }}
+            </p>
+          </div>
         </template>
-        <template #right>
+        <template #end>
           <KwaiButton :to="{ name: 'coach.training_definitions.create' }">
             <NewIcon class="w-4 mr-2 fill-current" />
             {{ t('training_definitions.banner.button') }}
           </KwaiButton>
         </template>
-      </containersectionbanner>
+      </KwaiToolbar>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
         <div
           v-for="trainingDefinition in trainingDefinitions"
