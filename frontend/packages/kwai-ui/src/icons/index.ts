@@ -14,3 +14,5 @@ export { default as WarningIcon } from './WarningIcon.vue';
 export { default as InfoIcon } from './InfoIcon.vue';
 export { default as DeleteIcon } from './DeleteIcon.vue';
 export { default as SaveIcon } from './SaveIcon.vue';
+export { default as LoginIcon } from './LoginIcon.vue';
+export { default as LogoutIcon } from './LogoutIcon.vue';
