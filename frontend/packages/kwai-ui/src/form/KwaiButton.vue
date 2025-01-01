@@ -12,12 +12,20 @@ interface Props {
   to?: RouteRecord | LocationAsRelativeRaw
   method?: () => void
   small?: boolean
-  primary?: boolean
+  severity?: string
+  variant?: 'text' | 'link'
+  rounded?: boolean
 }
 const props = withDefaults(
   defineProps<Props>(),
   {
-    to: undefined, method: undefined, small: false, primary: true,
+    to: undefined,
+    method: undefined,
+    small: false,
+    primary: true,
+    severity: undefined,
+    variant: undefined,
+    rounded: false,
   }
 );
 
@@ -36,6 +44,9 @@ const size = computed(() => props.small ? 'small' : 'large');
     :as="tag"
     :to="to"
     @[clickAttr]="method"
+    :rounded="rounded"
+    :severity="severity"
+    :variant="variant"
   >
     <slot name="icon" />
     <slot />

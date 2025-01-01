@@ -10,14 +10,17 @@ import {
   DeleteIcon,
   KwaiInfoAlert,
   KwaiButton,
-  LinkTag,
   NewIcon,
 } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
 import TrainingDefinitionCard from '@root/pages/training_definitions/components/TrainingDefinitionCard.vue';
-import { ref, toRef } from 'vue';
+import {
+  ref, toRef,
+} from 'vue';
 import { useForm } from 'vee-validate';
-import { createFromDate, now } from '@kwai/date';
+import {
+  createFromDate, now,
+} from '@kwai/date';
 import type { Training } from '@root/composables/useTraining';
 import { generateTrainings } from '@root/composables/useTrainingGenerator';
 import { useTrainingMutation } from '@root/composables/useTraining';
@@ -46,7 +49,7 @@ const { handleSubmit } = useForm<GenerateForm>({
 
 const trainings = ref<Training[]>([]);
 
-const onSubmitForm = handleSubmit(values => {
+const onSubmitForm = handleSubmit((values) => {
   trainings.value = generateTrainings(
     trainingDefinition.value!,
     createFromDate(values.period[0]),
@@ -66,7 +69,9 @@ const { mutate } = useTrainingMutation({
 const saveTrainings = () => {
   trainings.value.forEach((training, index) => {
     if (!training.id) {
-      mutate({ training, context: { index } });
+      mutate({
+        training, context: { index },
+      });
     }
   });
 };
@@ -154,13 +159,14 @@ const saveTrainings = () => {
               v-if="training.id"
               class="w-4 fill-green-600 font-bold"
             />
-            <LinkTag
+            <KwaiButton
               v-else
               :method="() => remove(index)"
-              class="border-none text-base inline-flex justify-center items-center align-middle no-underline rounded-full cursor-pointer focus:outline-none hover:no-underline hover:bg-red-200 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed p-2"
+              severity="danger"
+              variant="text"
             >
-              <DeleteIcon class="w-4 fill-red-500" />
-            </LinkTag>
+              <DeleteIcon class="w-4 fill-current" />
+            </KwaiButton>
           </td>
         </tr>
       </table>
