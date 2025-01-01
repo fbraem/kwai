@@ -6,9 +6,9 @@ import {
   EditIcon,
   KwaiButton,
   KwaiCard,
+  KwaiTag,
 } from '@kwai/ui';
 import { useApplications } from '@root/composables/useApplication';
-import PrimaryBadge from '@root/components/PrimaryBadge.vue';
 
 const { data: applications } = useApplications();
 </script>
@@ -32,24 +32,24 @@ const { data: applications } = useApplications();
           <template #footer>
             <div class="flex justify-between items-center">
               <div class="flex space-x-2">
-                <PrimaryBadge
+                <KwaiTag
                   v-if="application.news"
-                  class="bg-gray-200 text-gray-700"
+                  severity="secondary"
                 >
                   # News
-                </PrimaryBadge>
-                <PrimaryBadge
+                </KwaiTag>
+                <KwaiTag
                   v-if="application.pages"
-                  class="bg-gray-200 text-gray-700"
+                  severity="secondary"
                 >
                   # Pages
-                </PrimaryBadge>
-                <PrimaryBadge
+                </KwaiTag>
+                <KwaiTag
                   v-if="application.events"
-                  class="bg-gray-200 text-gray-700"
+                  severity="secondary"
                 >
                   # Events
-                </PrimaryBadge>
+                </KwaiTag>
               </div>
               <div>
                 <KwaiButton
