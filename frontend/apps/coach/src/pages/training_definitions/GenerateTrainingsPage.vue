@@ -3,13 +3,13 @@ import { useTrainingDefinition } from '@root/composables/useTrainingDefinition';
 import {
   CheckIcon,
   ContainerSection,
-  ContainerSectionBanner,
   ContainerSectionContent,
   ContainerSectionTitle,
   KwaiDateRangePicker,
   DeleteIcon,
   KwaiInfoAlert,
   KwaiButton,
+  KwaiToolbar,
   NewIcon,
 } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
@@ -88,17 +88,22 @@ const saveTrainings = () => {
         v-if="trainingDefinition"
         :training-definition="trainingDefinition"
       />
-      <ContainerSectionBanner>
-        <template #left>
-          <h5 class="mr-3 font-semibold">
-            {{ t('generate_trainings.banner.title') }}
-          </h5>
-          <p class="text-gray-500 text-sm">
-            {{ t('generate_trainings.banner.description') }}
-          </p>
+      <KwaiToolbar
+        start-class="w-full md:w-1/2"
+        end-class="w-full md:w-1/3"
+      >
+        <template #start>
+          <div class="flex flex-col">
+            <h5 class="font-semibold">
+              {{ t('generate_trainings.banner.title') }}
+            </h5>
+            <p class="text-gray-500 text-sm">
+              {{ t('generate_trainings.banner.description') }}
+            </p>
+          </div>
         </template>
-        <template #right>
-          <div class="flex sm:flex-col gap-4">
+        <template #end>
+          <div class="flex flex-row place-content-center items-center gap-2 flex-wrap">
             <KwaiDateRangePicker
               name="period"
               :time="false"
@@ -109,7 +114,7 @@ const saveTrainings = () => {
             </KwaiButton>
           </div>
         </template>
-      </ContainerSectionBanner>
+      </KwaiToolbar>
       <table
         v-if="trainings.length > 0"
         class="w-full text-sm text-left rtl:text-right"

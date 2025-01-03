@@ -24,10 +24,10 @@ const { data: trainingDefinitions } = useTrainingDefinitions();
       {{ t('training_definitions.title') }}
     </ContainerSectionTitle>
     <ContainerSectionContent>
-      <KwaiToolbar class="w-full">
+      <KwaiToolbar>
         <template #start>
           <div class="flex flex-col">
-            <h5 class="mr-3 font-semibold">
+            <h5 class="font-semibold">
               {{ t('training_definitions.banner.title') }}
             </h5>
             <p class="text-gray-500">
@@ -36,7 +36,9 @@ const { data: trainingDefinitions } = useTrainingDefinitions();
           </div>
         </template>
         <template #end>
-          <KwaiButton :to="{ name: 'coach.training_definitions.create' }">
+          <KwaiButton
+            :to="{ name: 'coach.training_definitions.create' }"
+          >
             <NewIcon class="w-4 mr-2 fill-current" />
             {{ t('training_definitions.banner.button') }}
           </KwaiButton>
