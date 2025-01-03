@@ -3,7 +3,6 @@ import { useTrainings } from '@root/composables/useTraining';
 import {
   ContainerSection,
   ContainerSectionTitle,
-  ContainerSectionBanner,
   ContainerSectionContent,
   NewIcon,
   KwaiWarningAlert,
@@ -13,10 +12,17 @@ import {
   KwaiButton,
   KwaiMonthPicker,
   KwaiTag,
+  KwaiToolbar,
 } from '@kwai/ui';
-import { createDate, createFromDate, now } from '@kwai/date';
-import { computed, ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import {
+  createDate, createFromDate, now,
+} from '@kwai/date';
+import {
+  computed, ref, watch,
+} from 'vue';
+import {
+  useRoute, useRouter,
+} from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import NowIcon from '@root/components/icons/NowIcon.vue';
 import { useForm } from 'vee-validate';
@@ -44,12 +50,14 @@ const month = computed(() => {
 
 const start = computed(() => createDate(year.value, month.value).startOf('month'));
 const end = computed(() => createDate(year.value, month.value).endOf('month'));
-const { data: trainings } = useTrainings({ start, end });
+const { data: trainings } = useTrainings({
+  start, end,
+});
 
 const title = computed(() => start.value.format('MMMM'));
 
 const { defineField } = useForm();
-const [ selectedMonth ] = defineField('month');
+const [selectedMonth] = defineField('month');
 selectedMonth.value = createDate(year.value, month.value).toDate();
 
 const router = useRouter();
@@ -77,16 +85,18 @@ const setToCurrent = () => {
       {{ t('trainings.title') }} <span class="capitalize">{{ title }}</span> {{ start.format("YYYY") }}
     </ContainerSectionTitle>
     <ContainerSectionContent>
-      <ContainerSectionBanner>
-        <template #left>
-          <h5 class="mr-3 font-semibold">
-            {{ t('trainings.banner.title') }}
-          </h5>
-          <p class="text-gray-500">
-            {{ t('trainings.banner.description') }}
-          </p>
+      <KwaiToolbar>
+        <template #start>
+          <div class="flex flex-col">
+            <h5 class="mr-3 font-semibold">
+              {{ t('trainings.banner.title') }}
+            </h5>
+            <p class="text-gray-500">
+              {{ t('trainings.banner.description') }}
+            </p>
+          </div>
         </template>
-        <template #right>
+        <template #center>
           <form
             class="relative flex flex-row space-x-4 items-center"
             novalidate
@@ -99,15 +109,17 @@ const setToCurrent = () => {
                 <NowIcon class="w-4 fill-current" />
               </template>
             </KwaiButton>
-            <KwaiButton :to="{ name: 'coach.trainings.create' }">
-              <template #icon>
-                <NewIcon class="w-4 mr-2 fill-current" />
-              </template>
-              {{ t('trainings.banner.button') }}
-            </KwaiButton>
           </form>
         </template>
-      </ContainerSectionBanner>
+        <template #end>
+          <KwaiButton :to="{ name: 'coach.trainings.create' }">
+            <template #icon>
+              <NewIcon class="w-4 mr-2 fill-current" />
+            </template>
+            {{ t('trainings.banner.button') }}
+          </KwaiButton>
+        </template>
+      </KwaiToolbar>
       <KwaiWarningAlert v-if="trainings && trainings.meta.count === 0">
         Er zijn geen trainingen voor deze maand.
       </KwaiWarningAlert>

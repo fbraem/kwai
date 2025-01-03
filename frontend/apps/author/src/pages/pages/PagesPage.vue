@@ -3,12 +3,15 @@ import { usePages } from '@root/composables/usePage';
 import {
   usePagination,
   ContainerSection,
-  ContainerSectionBanner,
   ContainerSectionContent,
   ContainerSectionTitle,
   NewIcon,
-  EditIcon, CheckIcon, CancelIcon, OffsetPagination,
+  EditIcon,
+  CheckIcon,
+  CancelIcon,
+  OffsetPagination,
   KwaiButton,
+  KwaiToolbar,
 } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
 
@@ -16,29 +19,36 @@ const { t } = useI18n({ useScope: 'global' });
 
 const { offset, limit, currentPage, changePage } = usePagination({ limit: 10 });
 
-const { data: pages } = usePages({ offset, limit });
+const { data: pages } = usePages({
+  offset, limit,
+});
 </script>
 
 <template>
   <ContainerSection>
     <ContainerSectionTitle>{{ t('pages.home.title') }}</ContainerSectionTitle>
     <ContainerSectionContent>
-      <ContainerSectionBanner>
-        <template #left>
-          <h5 class="mr-3 font-semibold">
-            {{ t('pages.home.toolbar.title') }}
-          </h5>
-          <p class="text-gray-500">
-            {{ t('pages.home.toolbar.description') }}
-          </p>
+      <KwaiToolbar
+        start-class="w-full sm:w-1/2"
+        end-class="w-full sm:w-1/3 sm:place-content-end"
+      >
+        <template #start>
+          <div class="flex flex-col">
+            <h5 class="font-semibold">
+              {{ t('pages.home.toolbar.title') }}
+            </h5>
+            <p class="text-gray-500">
+              {{ t('pages.home.toolbar.description') }}
+            </p>
+          </div>
         </template>
-        <template #right>
+        <template #end>
           <KwaiButton :to="{ name: 'author.pages.create' }">
             <NewIcon class="w-4 mr-2 fill-current" />
             {{ t('pages.home.toolbar.button') }}
           </KwaiButton>
         </template>
-      </ContainerSectionBanner>
+      </KwaiToolbar>
       <div
         v-if="pages"
         class="relative w-full overflow-x-auto"

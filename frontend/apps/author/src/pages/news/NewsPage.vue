@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {
   ContainerSection,
-  ContainerSectionBanner,
   ContainerSectionContent,
   ContainerSectionTitle,
   NewIcon,
@@ -9,6 +8,7 @@ import {
   CheckIcon,
   EditIcon,
   KwaiButton,
+  KwaiToolbar,
   OffsetPagination,
   usePagination,
 } from '@kwai/ui';
@@ -20,29 +20,36 @@ import PromotedIcon from '@root/components/icons/PromotedIcon.vue';
 const { t } = useI18n({ useScope: 'global' });
 
 const { offset, limit, currentPage, changePage } = usePagination({ limit: 10 });
-const { data: newsItems } = useNewsItems({ offset, limit });
+const { data: newsItems } = useNewsItems({
+  offset, limit,
+});
 </script>
 
 <template>
   <ContainerSection>
     <ContainerSectionTitle>{{ t('news.home.title') }}</ContainerSectionTitle>
     <ContainerSectionContent>
-      <ContainerSectionBanner>
-        <template #left>
-          <h5 class="mr-3 font-semibold">
-            {{ t('news.home.toolbar.title') }}
-          </h5>
-          <p class="text-gray-500">
-            {{ t('news.home.toolbar.description') }}
-          </p>
+      <KwaiToolbar
+        start-class="w-full sm:w-1/2"
+        end-class="w-full sm:w-1/3 sm:place-content-end"
+      >
+        <template #start>
+          <div class="flex flex-col">
+            <h5 class="mr-3 font-semibold">
+              {{ t('news.home.toolbar.title') }}
+            </h5>
+            <p class="text-gray-500">
+              {{ t('news.home.toolbar.description') }}
+            </p>
+          </div>
         </template>
-        <template #right>
+        <template #end>
           <KwaiButton :to="{ name: 'author.news.create' }">
             <NewIcon class="w-4 mr-2 fill-current" />
             {{ t('news.home.toolbar.button') }}
           </KwaiButton>
         </template>
-      </ContainerSectionBanner>
+      </KwaiToolbar>
       <div
         v-if="newsItems"
         class="relative w-full overflow-x-auto"
