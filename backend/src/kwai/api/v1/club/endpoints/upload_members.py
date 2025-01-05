@@ -21,6 +21,12 @@ from kwai.modules.club.repositories.country_db_repository import CountryDbReposi
 from kwai.modules.club.repositories.file_upload_db_repository import (
     FileUploadDbRepository,
 )
+from kwai.modules.club.repositories.file_upload_preview_repository import (
+    FileUploadPreviewRepository,
+)
+from kwai.modules.club.repositories.file_upload_repository import (
+    DuplicateMemberUploadedException,
+)
 from kwai.modules.club.repositories.flemish_member_importer import FlemishMemberImporter
 from kwai.modules.club.repositories.member_db_repository import MemberDbRepository
 from kwai.modules.identity.users.user import UserEntity
@@ -73,16 +79,27 @@ async def upload(
 
     presenter = JsonApiUploadMemberPresenter()
     async with UnitOfWork(database):
-        await ImportMembers(
-            FlemishMemberImporter(
-                str(member_filename),
-                user.create_owner(),
-                CountryDbRepository(database),
-            ),
-            FileUploadDbRepository(database),
-            MemberDbRepository(database),
-            presenter,
-        ).execute(ImportMembersCommand(preview=preview))
+        try:
+            await ImportMembers(
+                FlemishMemberImporter(
+                    str(member_filename),
+                    user.create_owner(),
+                    CountryDbRepository(database),
+                ),
+                (
+                    FileUploadPreviewRepository()
+                    if preview
+                    else FileUploadDbRepository(database)
+                ),
+                MemberDbRepository(database),
+                presenter,
+            ).execute(ImportMembersCommand(preview=preview))
+        except DuplicateMemberUploadedException as ex:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Failed to upload members file: {ex}",
+            ) from ex
+
     return presenter.get_document()
 
 

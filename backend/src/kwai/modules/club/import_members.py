@@ -110,14 +110,15 @@ class ImportMembers:
         existing_member = await self._get_member(member)
         if existing_member is not None:
             updated_member = self._update_member(existing_member, member)
+            await self._file_upload_repo.save_member(file_upload, updated_member)
             if not preview:
                 await self._member_repo.update(updated_member)
-                await self._file_upload_repo.save_member(file_upload, updated_member)
             return updated_member
 
         if not preview:
             member = await self._member_repo.create(member)
-            await self._file_upload_repo.save_member(file_upload, member)
+        await self._file_upload_repo.save_member(file_upload, member)
+
         return member
 
     @classmethod
