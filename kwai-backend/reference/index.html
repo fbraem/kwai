@@ -28596,6 +28596,90 @@ the file in the dist folder.</p>
 
 
 
+<h6 id="kwai.modules.club.repositories.file_upload_preview_repository" class="doc doc-heading">
+            <code>file_upload_preview_repository</code>
+
+
+<a href="#kwai.modules.club.repositories.file_upload_preview_repository" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that defines a file upload repository that can be used for preview.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.club.repositories.file_upload_preview_repository.FileUploadPreviewRepository" class="doc doc-heading">
+            <code>FileUploadPreviewRepository</code>
+
+
+<a href="#kwai.modules.club.repositories.file_upload_preview_repository.FileUploadPreviewRepository" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.modules.club.repositories.file_upload_repository.FileUploadRepository" href="#kwai.modules.club.repositories.file_upload_repository.FileUploadRepository">FileUploadRepository</a></code></p>
+
+
+        <p>A file upload repository that can be used for preview.</p>
+<p>This implementation doesn't save anything to the database.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h6 id="kwai.modules.club.repositories.file_upload_repository" class="doc doc-heading">
             <code>file_upload_repository</code>
 
@@ -28621,6 +28705,34 @@ the file in the dist folder.</p>
 
 
 
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.club.repositories.file_upload_repository.DuplicateMemberUploadedException" class="doc doc-heading">
+            <code>DuplicateMemberUploadedException</code>
+
+
+<a href="#kwai.modules.club.repositories.file_upload_repository.DuplicateMemberUploadedException" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code>Exception</code></p>
+
+
+        <p>Raised when the member in current upload is loaded more than once.</p>
+
+
+
+
+
+
+
+    </div>
+
+</div>
 
 <div class="doc doc-object doc-class">
 
@@ -28715,6 +28827,27 @@ the file in the dist folder.</p>
 <div class="doc doc-object doc-function">
 
 
+<h8 id="kwai.modules.club.repositories.file_upload_repository.FileUploadRepository.is_duplicate" class="doc doc-heading">
+            <code class=" language-python"><span class="n">is_duplicate</span><span class="p">(</span><span class="n">member</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.club.repositories.file_upload_repository.FileUploadRepository.is_duplicate" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Check if the member was already uploaded with this file upload.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
 <h8 id="kwai.modules.club.repositories.file_upload_repository.FileUploadRepository.save_member" class="doc doc-heading">
             <code class=" language-python"><span class="n">save_member</span><span class="p">(</span><span class="n">file_upload</span><span class="p">,</span> <span class="n">member</span><span class="p">)</span></code>
 
@@ -28772,6 +28905,30 @@ the file in the dist folder.</p>
             </td>
             <td>
                 <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.club.repositories.file_upload_repository.DuplicateMemberUploadedException" href="#kwai.modules.club.repositories.file_upload_repository.DuplicateMemberUploadedException">DuplicateMemberUploadedException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>if the member in the file upload is
+already uploaded.</p>
+              </div>
             </td>
           </tr>
       </tbody>
