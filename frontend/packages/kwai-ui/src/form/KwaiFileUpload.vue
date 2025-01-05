@@ -5,12 +5,12 @@ import KwaiButton from './KwaiButton.vue';
 import { ref } from 'vue';
 
 interface Props {
-  name: string,
-  maxNumberOfFiles?: number,
-  uploader: (files: File[]) => void,
+  name: string
+  maxNumberOfFiles?: number
+  uploader: (files: File[]) => void
 }
 const props = defineProps<Props>();
-const fileUpload = ref<typeof FileUpload|null>(null);
+const fileUpload = ref<typeof FileUpload | null>(null);
 const upload = (event: FileUploadUploaderEvent) => {
   // Forward the actual upload to the uploader property.
   if (event.files instanceof File) {
@@ -18,9 +18,9 @@ const upload = (event: FileUploadUploaderEvent) => {
   } else {
     props.uploader(event.files);
   }
-  // @ts-ignore
+  // @ts-expect-error: primevue
   fileUpload.value!.clear();
-  // @ts-ignore
+  // @ts-expect-error: primevue
   fileUpload.value!.uploadedFileCount = 0;
 };
 </script>
