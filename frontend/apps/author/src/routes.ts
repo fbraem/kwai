@@ -10,6 +10,7 @@ import ApplicationsPage from '@root/pages/applications/ApplicationsPage.vue';
 import ApplicationEditPage from '@root/pages/applications/ApplicationEditPage.vue';
 import PageCreatePage from '@root/pages/pages/PageCreatePage.vue';
 import PageEditPage from '@root/pages/pages/PageEditPage.vue';
+import NotAllowedPage from '@root/pages/not_allowed/NotAllowedPage.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -23,9 +24,16 @@ const routes: RouteRecordRaw[] = [
           toolbar: AuthorToolbar,
           main: HomePage,
         },
-        meta: {
-          title: 'Home',
+        meta: { title: 'Home' },
+      },
+      {
+        name: 'author.now_allowed',
+        path: '/not_allowed',
+        components: {
+          toolbar: AuthorToolbar,
+          main: NotAllowedPage,
         },
+        meta: { requiresAuth: false },
       },
       {
         name: 'author.news',
@@ -34,9 +42,7 @@ const routes: RouteRecordRaw[] = [
           toolbar: AuthorToolbar,
           main: NewsPage,
         },
-        meta: {
-          title: 'Nieuws',
-        },
+        meta: { title: 'Nieuws' },
       },
       {
         name: 'author.news.create',
@@ -69,9 +75,7 @@ const routes: RouteRecordRaw[] = [
           toolbar: AuthorToolbar,
           main: PagesPage,
         },
-        meta: {
-          title: "Pagina's",
-        },
+        meta: { title: 'Pagina\'s' },
       },
       {
         name: 'author.pages.create',
@@ -100,9 +104,7 @@ const routes: RouteRecordRaw[] = [
           toolbar: AuthorToolbar,
           main: ApplicationsPage,
         },
-        meta: {
-          title: 'Applicaties',
-        },
+        meta: { title: 'Applicaties' },
       },
       {
         name: 'author.applications.edit',

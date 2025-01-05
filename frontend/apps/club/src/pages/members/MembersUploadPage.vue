@@ -9,13 +9,24 @@ import {
   KwaiTag,
   KwaiErrorAlert,
 } from '@kwai/ui';
-import { type Ref, ref } from 'vue';
-import { useHttpApi, type JsonApiErrorType } from '@kwai/api';
-import { MemberDocumentSchema, type Members, transform } from '@root/composables/useMember';
+import {
+  type Ref,
+  ref,
+} from 'vue';
+import {
+  useHttpApi,
+  type JsonApiErrorType,
+} from '@kwai/api';
+import {
+  MemberDocumentSchema,
+  type Members,
+  transform,
+} from '@root/composables/useMember';
 
 const { t } = useI18n({ useScope: 'global' });
 
 const useMemberUpload = (files: File[]) => {
+  httpError.value = null;
   (async() => {
     const formData = new FormData();
     formData.append('member_file', files[0]);
@@ -25,16 +36,17 @@ const useMemberUpload = (files: File[]) => {
       .body(formData)
       .post()
       .json()
-      .then(json => {
+      .then((json) => {
         const result = MemberDocumentSchema.safeParse(json);
         if (result.success) {
           errors.value = result.data.errors ?? [];
           count.value = result.data.meta?.count ?? 0;
           members.value = transform(result.data) as Members;
         } else {
-          console.log(result.error);
           throw result.error;
         }
+      }).catch((error) => {
+        httpError.value = error;
       })
     ;
   })();
@@ -45,6 +57,7 @@ const members = ref();
 const preview: Ref<boolean> = ref(true);
 const errors: Ref<JsonApiErrorType[]> = ref([]);
 const count = ref(0);
+const httpError: Ref<Error | null> = ref(null);
 
 const upload = (files: File[]) => {
   members.value = useMemberUpload(files);
@@ -79,6 +92,11 @@ const upload = (files: File[]) => {
           </KwaiCheckbox>
         </div>
       </div>
+    </ContainerSectionContent>
+    <ContainerSectionContent v-if="httpError">
+      <KwaiErrorAlert>
+        {{ JSON.parse(httpError.message).detail }}
+      </KwaiErrorAlert>
     </ContainerSectionContent>
     <ContainerSectionContent v-if="errors.length > 0">
       <KwaiErrorAlert>

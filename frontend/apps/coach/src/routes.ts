@@ -9,6 +9,7 @@ import TrainingDefinitionsPage from '@root/pages/training_definitions/TrainingDe
 import GenerateTrainingsPage from '@root/pages/training_definitions/GenerateTrainingsPage.vue';
 import TrainingDefinitionEditPage from '@root/pages/training_definitions/TrainingDefinitionEditPage.vue';
 import TrainingDefinitionCreatePage from '@root/pages/training_definitions/TrainingDefinitionCreatePage.vue';
+import NotAllowedPage from '@root/pages/not_allowed/NotAllowedPage.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -22,9 +23,16 @@ const routes: RouteRecordRaw[] = [
           toolbar: CoachToolbar,
           main: HomePage,
         },
-        meta: {
-          title: 'Home',
+        meta: { title: 'Home' },
+      },
+      {
+        name: 'club.not_allowed',
+        path: '/not_allowed',
+        components: {
+          toolbar: CoachToolbar,
+          main: NotAllowedPage,
         },
+        meta: { requiresAuth: false },
       },
       {
         name: 'coach.trainings',
@@ -33,9 +41,7 @@ const routes: RouteRecordRaw[] = [
           toolbar: CoachToolbar,
           main: TrainingsPage,
         },
-        meta: {
-          title: 'Trainingen',
-        },
+        meta: { title: 'Trainingen' },
       },
       {
         name: 'coach.trainings.create',
@@ -48,9 +54,7 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'coach.trainings.edit',
         path: '/trainings/edit/:id(\\d+)',
-        props: {
-          main: true,
-        },
+        props: { main: true },
         components: {
           toolbar: CoachToolbar,
           main: TrainingEditPage,
@@ -63,16 +67,12 @@ const routes: RouteRecordRaw[] = [
           toolbar: CoachToolbar,
           main: TrainingDefinitionsPage,
         },
-        meta: {
-          title: 'Trainingsmomenten',
-        },
+        meta: { title: 'Trainingsmomenten' },
       },
       {
         name: 'coach.training_definitions.edit',
         path: '/training_definitions/edit/:id(\\d+)',
-        props: {
-          main: true,
-        },
+        props: { main: true },
         components: {
           toolbar: CoachToolbar,
           main: TrainingDefinitionEditPage,
@@ -89,9 +89,7 @@ const routes: RouteRecordRaw[] = [
       {
         name: 'coach.training_definitions.generate_trainings',
         path: '/training_definitions/generate_trainings/:id(\\d+)',
-        props: {
-          main: true,
-        },
+        props: { main: true },
         components: {
           toolbar: CoachToolbar,
           main: GenerateTrainingsPage,

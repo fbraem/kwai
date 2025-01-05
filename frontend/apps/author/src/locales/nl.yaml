@@ -150,3 +150,7 @@ pages:
     validations:
       required: Dit is een verplicht veld.
     error: Er ging iets fout tijdens het bewaren van de gegevens.
+not_allowed:
+  title: Niet toegelaten!
+  description: |
+    Om deze applicatie te kunnen gebruiken moet je ingelogd zijn.

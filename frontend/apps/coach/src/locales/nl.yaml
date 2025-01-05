@@ -170,3 +170,7 @@ training_definition:
       required: Dit is een verplicht veld.
       end_time_before: De eindtijd kan niet voor de starttijd liggen.
     error: Er ging iets fout tijdens het bewaren van de gegevens.
+not_allowed:
+  title: Niet toegelaten!
+  description: |
+    Om deze applicatie te kunnen gebruiken moet je ingelogd zijn.
