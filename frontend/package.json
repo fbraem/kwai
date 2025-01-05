@@ -26,6 +26,7 @@
     "eslint-plugin-vue": "latest",
     "msw": "^2.0.11",
     "prettier": "latest",
+    "prettier-plugin-brace-style": "^0.7.1",
     "rollup-plugin-visualizer": "^5.11.0",
     "syncpack": "^13.0.0",
     "typescript": "5.4.2",

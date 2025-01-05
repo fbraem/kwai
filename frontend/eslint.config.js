@@ -14,6 +14,7 @@ export default [
       '@stylistic/array-element-newline': ['error', {
         ArrayExpression: 'consistent', ArrayPattern: { minItems: 3 },
       }],
+      '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }],
       '@stylistic/comma-dangle': ['error', {
         arrays: 'always-multiline',
         objects: 'always-multiline',
