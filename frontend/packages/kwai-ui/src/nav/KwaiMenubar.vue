@@ -21,6 +21,7 @@ const menuItems = computed(() => {
 <template>
   <Menubar
     :model="menuItems"
+    :pt="{button: 'text-surface-0'}"
     class="bg-primary-400 w-full lg:px-6 lg:mx-auto lg:max-w-6xl"
   >
     <template #item="{ item, props, hasSubmenu }">
