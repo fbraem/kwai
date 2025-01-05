@@ -49,7 +49,7 @@ async def test_import_members(database: Database, owner: Owner):
         str(filename), owner, CountryDbRepository(database)
     )
 
-    command = ImportMembersCommand()
+    command = ImportMembersCommand(preview=False)
     presenter = DummyPresenter()
     await ImportMembers(
         importer,
