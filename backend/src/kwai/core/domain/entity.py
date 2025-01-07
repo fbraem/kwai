@@ -1,14 +1,65 @@
 """Module that defines a generic entity."""
 
 import inspect
-from typing import Any, Generic, Self, TypeVar
+from dataclasses import dataclass, replace
+from typing import (
+    Any,
+    ClassVar,
+    Self,
+)
 
-from kwai.core.domain.value_objects.identifier import Identifier
-
-T = TypeVar("T", bound=Identifier)
+from kwai.core.domain.value_objects.identifier import Identifier, IntIdentifier
 
 
-class Entity(Generic[T]):
+@dataclass(frozen=True, slots=True, eq=False)
+class DataclassEntity:
+    """A base class for an entity.
+
+    An entity is immutable, so it cannot be modified. A method of an entity that
+    changes the entity must allways return a new entity instance with the changed
+    data. The method replace of dataclasses can be used for this.
+
+    Currently, this is a separate class to make it possible to migrate to this
+    new class. In the future, the Entity class will be removed and this class
+    will be renamed to Entity.
+
+    By default, id is of type IntIdentifier. Overwrite ID in an entity class if
+    another identifier should be used.
+    """
+
+    ID: ClassVar = IntIdentifier
+
+    id: ID | None = None
+
+    def __post_init__(self):
+        """When is id is not set, a default id is created."""
+        if self.id is None:
+            object.__setattr__(self, "id", self.ID())
+
+    def set_id(self, id_: ID) -> Self:
+        """Set the id for this entity.
+
+        This will raise a ValueError if the id was already set.
+        If you need an entity with the same data but with another id, you should create
+        a new entity with dataclasses.replace and replace the id.
+        """
+        if not self.id.is_empty():
+            raise ValueError(f"{self.__class__.__name__} has already an ID: {self.id}")
+        return replace(self, id=id_)
+
+    def __eq__(self, other: Any) -> bool:
+        """Check if two entities are equal.
+
+        An entity equals another entity when the id is the same.
+        """
+        return isinstance(other, type(self)) and other.id == self.id
+
+    def __hash__(self) -> int:
+        """Generate a hash for this entity."""
+        return hash(self.id)
+
+
+class Entity[T: Identifier]:
     """A base class for an entity."""
 
     def __init__(self, id_: T):
