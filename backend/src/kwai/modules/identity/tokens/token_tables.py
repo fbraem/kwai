@@ -33,7 +33,7 @@ class AccessTokenRow:
     def create_entity(self, user_account: UserAccountEntity) -> AccessTokenEntity:
         """Create an entity from the table row."""
         return AccessTokenEntity(
-            id_=AccessTokenIdentifier(self.id),
+            id=AccessTokenIdentifier(self.id),
             identifier=TokenIdentifier(hex_string=self.identifier),
             expiration=Timestamp.create_utc(self.expiration),
             user_account=user_account,

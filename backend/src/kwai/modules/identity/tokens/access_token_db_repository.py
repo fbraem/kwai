@@ -1,8 +1,8 @@
 """Module that implements an access token repository for a database."""
+
 from typing import Any, AsyncIterator
 
 from kwai.core.db.database import Database
-from kwai.core.domain.entity import Entity
 from kwai.modules.identity.tokens.access_token import (
     AccessTokenEntity,
     AccessTokenIdentifier,
@@ -70,7 +70,7 @@ class AccessTokenDbRepository(AccessTokenRepository):
             AccessTokensTable.table_name, AccessTokenRow.persist(access_token)
         )
         await self._database.commit()
-        return Entity.replace(access_token, id_=AccessTokenIdentifier(new_id))
+        return access_token.set_id(AccessTokenIdentifier(new_id))
 
     async def update(self, access_token: AccessTokenEntity):
         await self._database.update(
