@@ -76,7 +76,7 @@ class RefreshTokenRow:
     def create_entity(self, access_token: AccessTokenEntity) -> RefreshTokenEntity:
         """Create a refresh token entity from the table row."""
         return RefreshTokenEntity(
-            id_=RefreshTokenIdentifier(self.id),
+            id=RefreshTokenIdentifier(self.id),
             identifier=TokenIdentifier(hex_string=self.identifier),
             access_token=access_token,
             expiration=Timestamp.create_utc(self.expiration),

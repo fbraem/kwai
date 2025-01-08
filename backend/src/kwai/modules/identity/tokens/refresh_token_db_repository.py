@@ -1,8 +1,8 @@
 """Module that implements a refresh token repository for a database."""
+
 from typing import AsyncIterator
 
 from kwai.core.db.database import Database
-from kwai.core.domain.entity import Entity
 from kwai.modules.identity.tokens.refresh_token import (
     RefreshTokenEntity,
     RefreshTokenIdentifier,
@@ -76,7 +76,7 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
             RefreshTokensTable.table_name, RefreshTokenRow.persist(refresh_token)
         )
         await self._database.commit()
-        return Entity.replace(refresh_token, id_=RefreshTokenIdentifier(new_id))
+        return refresh_token.set_id(RefreshTokenIdentifier(new_id))
 
     async def update(self, refresh_token: RefreshTokenEntity):
         await self._database.update(
