@@ -1,7 +1,7 @@
 """Module that defines a generic entity."""
 
 import inspect
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
 from typing import (
     Any,
     ClassVar,
@@ -9,6 +9,7 @@ from typing import (
 )
 
 from kwai.core.domain.value_objects.identifier import Identifier, IntIdentifier
+from kwai.core.domain.value_objects.traceable_time import TraceableTime
 
 
 @dataclass(frozen=True, slots=True, eq=False)
@@ -25,11 +26,16 @@ class DataclassEntity:
 
     By default, id is of type IntIdentifier. Overwrite ID in an entity class if
     another identifier should be used.
+
+    Attributes:
+        id: The id of the entity.
+        traceable_time: Keeps track of the creation and update timestamp of the entity.
     """
 
     ID: ClassVar = IntIdentifier
 
     id: ID | None = None
+    traceable_time: TraceableTime = field(default_factory=TraceableTime)
 
     def __post_init__(self):
         """When is id is not set, a default id is created."""
