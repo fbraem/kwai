@@ -6,7 +6,6 @@ from typing import ClassVar, Self, Type, TypeAlias
 from kwai.core.domain.entity import DataclassEntity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.timestamp import Timestamp
-from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.users.user_account import UserAccountEntity
 
@@ -15,7 +14,14 @@ AccessTokenIdentifier: TypeAlias = IntIdentifier
 
 @dataclass(kw_only=True, eq=False, slots=True, frozen=True)
 class AccessTokenEntity(DataclassEntity):
-    """An access token entity."""
+    """An access token entity.
+
+    Attributes:
+        user_account: The user account associated with this token.
+        identifier: The actual token.
+        expiration: The expiration timestamp of the token.
+        revoked: Whether the token has been revoked.
+    """
 
     ID: ClassVar[Type] = AccessTokenIdentifier
 
@@ -23,7 +29,6 @@ class AccessTokenEntity(DataclassEntity):
     identifier: TokenIdentifier = field(default_factory=TokenIdentifier.generate)
     expiration: Timestamp = field(default_factory=Timestamp.create_now)
     revoked: bool = field(default=False)
-    traceable_time: TraceableTime = field(default_factory=TraceableTime)
 
     @property
     def expired(self) -> bool:
