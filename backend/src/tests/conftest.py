@@ -23,7 +23,6 @@ from kwai.modules.identity.users.user_account import UserAccountEntity
 from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
 )
-from tests.fixtures.identity.users import *  # noqa
 
 
 @pytest.fixture(scope="session")
