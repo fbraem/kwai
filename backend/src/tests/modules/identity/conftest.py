@@ -12,6 +12,7 @@ from kwai.modules.identity.user_invitations.user_invitation_db_repository import
     UserInvitationDbRepository,
 )
 from kwai.modules.identity.users.user import UserEntity
+from tests.fixtures.identity.tokens import *  # noqa
 
 
 @pytest.fixture(scope="module")
@@ -32,7 +33,7 @@ def user_invitation_mail_template(template_engine: TemplateEngine) -> MailTempla
     )
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture
 async def user_invitation(database: Database, user: UserEntity) -> UserInvitationEntity:
     """Fixture for a user invitation."""
     repo = UserInvitationDbRepository(database)
