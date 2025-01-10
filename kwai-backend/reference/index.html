@@ -12575,6 +12575,42 @@ will be renamed to Entity.</p>
 another identifier should be used.</p>
 
 
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.core.domain.entity.DataclassEntity.id">id</span></code></td>
+            <td>
+                  <code><span title="kwai.core.domain.entity.DataclassEntity.ID">ID</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The id of the entity.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.core.domain.entity.DataclassEntity.traceable_time">traceable_time</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.traceable_time.TraceableTime" href="#kwai.core.domain.value_objects.traceable_time.TraceableTime">TraceableTime</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Keeps track of the creation and update timestamp of the entity.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
 
 
 
@@ -38499,6 +38535,64 @@ that belongs to the user recovery, does not exist.</p>
         <p>An access token entity.</p>
 
 
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.tokens.access_token.AccessTokenEntity.user_account">user_account</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account.UserAccountEntity" href="#kwai.modules.identity.users.user_account.UserAccountEntity">UserAccountEntity</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The user account associated with this token.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.tokens.access_token.AccessTokenEntity.identifier">identifier</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.tokens.token_identifier.TokenIdentifier" href="#kwai.modules.identity.tokens.token_identifier.TokenIdentifier">TokenIdentifier</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The actual token.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.tokens.access_token.AccessTokenEntity.expiration">expiration</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.timestamp.Timestamp" href="#kwai.core.domain.value_objects.timestamp.Timestamp">Timestamp</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The expiration timestamp of the token.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.tokens.access_token.AccessTokenEntity.revoked">revoked</span></code></td>
+            <td>
+                  <code>bool</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Whether the token has been revoked.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
 
 
 
@@ -39235,15 +39329,77 @@ that belongs to the user recovery, does not exist.</p>
             <code>RefreshTokenEntity</code>
 
 
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
 <a href="#kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity" class="headerlink" title="Permanent link">&para;</a></h7>
 
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.entity.Entity" href="#kwai.core.domain.entity.Entity">Entity</a>[<span title="kwai.modules.identity.tokens.refresh_token.RefreshTokenIdentifier">RefreshTokenIdentifier</span>]</code></p>
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.entity.DataclassEntity" href="#kwai.core.domain.entity.DataclassEntity">DataclassEntity</a></code></p>
 
 
         <p>A refresh token entity.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity.access_token">access_token</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.tokens.access_token.AccessTokenEntity" href="#kwai.modules.identity.tokens.access_token.AccessTokenEntity">AccessTokenEntity</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The access token associated with this refresh token.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity.identifier">identifier</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.tokens.token_identifier.TokenIdentifier" href="#kwai.modules.identity.tokens.token_identifier.TokenIdentifier">TokenIdentifier</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The actual token.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity.expiration">expiration</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.timestamp.Timestamp" href="#kwai.core.domain.value_objects.timestamp.Timestamp">Timestamp</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The expiration timestamp of the token.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity.revoked">revoked</span></code></td>
+            <td>
+                  <code>bool</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Whether the token has been revoked.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
 
@@ -39260,48 +39416,6 @@ that belongs to the user recovery, does not exist.</p>
 
 
 
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity.access_token" class="doc doc-heading">
-            <code class=" language-python"><span class="n">access_token</span><span class="p">:</span> <span class="n">AccessTokenEntity</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity.access_token" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the associated access token.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity.expiration" class="doc doc-heading">
-            <code class=" language-python"><span class="n">expiration</span><span class="p">:</span> <span class="n">Timestamp</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity.expiration" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the expiration timestamp of the refresh token.</p>
-    </div>
-
-</div>
 
 <div class="doc doc-object doc-attribute">
 
@@ -39324,69 +39438,6 @@ that belongs to the user recovery, does not exist.</p>
 
 </div>
 
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity.identifier" class="doc doc-heading">
-            <code class=" language-python"><span class="n">identifier</span><span class="p">:</span> <span class="n">TokenIdentifier</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity.identifier" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the identifier of the refresh token.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity.revoked" class="doc doc-heading">
-            <code class=" language-python"><span class="n">revoked</span><span class="p">:</span> <span class="nb">bool</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity.revoked" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return True when the refresh token is revoked.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity.traceable_time" class="doc doc-heading">
-            <code class=" language-python"><span class="n">traceable_time</span><span class="p">:</span> <span class="n">TraceableTime</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity.traceable_time" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the creation/modification timestamps.</p>
-    </div>
-
-</div>
-
 
 
 <div class="doc doc-object doc-function">
@@ -39401,6 +39452,29 @@ that belongs to the user recovery, does not exist.</p>
     <div class="doc doc-contents ">
 
         <p>Revoke the refresh token.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.Self">Self</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A revoked refresh token.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
     </div>
 
@@ -40361,16 +40435,133 @@ that belongs to the user recovery, does not exist.</p>
             <code>UserInvitationEntity</code>
 
 
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
 <a href="#kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity" class="headerlink" title="Permanent link">&para;</a></h7>
 
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.entity.Entity" href="#kwai.core.domain.entity.Entity">Entity</a>[<span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationIdentifier">UserInvitationIdentifier</span>]</code></p>
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.entity.DataclassEntity" href="#kwai.core.domain.entity.DataclassEntity">DataclassEntity</a></code></p>
 
 
         <p>A user invitation entity.</p>
 <p>A user invitation is a request to someone to become a member of the site.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.email">email</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.email_address.EmailAddress" href="#kwai.core.domain.value_objects.email_address.EmailAddress">EmailAddress</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The email address that receives the invitation.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.name">name</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.name.Name" href="#kwai.core.domain.value_objects.name.Name">Name</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the invited</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.uuid">uuid</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.unique_id.UniqueId" href="#kwai.core.domain.value_objects.unique_id.UniqueId">UniqueId</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The unique id to use to validate this invitation.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.expired_at">expired_at</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.timestamp.Timestamp" href="#kwai.core.domain.value_objects.timestamp.Timestamp">Timestamp</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The timestamp when the invitation expires.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.remark">remark</span></code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A remark about the invitation.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.mailed_at">mailed_at</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.timestamp.Timestamp" href="#kwai.core.domain.value_objects.timestamp.Timestamp">Timestamp</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The timestamp of sending out the email.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.user">user</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user.UserEntity" href="#kwai.modules.identity.users.user.UserEntity">UserEntity</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The user that created the invitation.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.confirmed_at">confirmed_at</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.timestamp.Timestamp" href="#kwai.core.domain.value_objects.timestamp.Timestamp">Timestamp</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The timestamp when the invitation was used.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.revoked">revoked</span></code></td>
+            <td>
+                  <code>bool</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Is this invitation revoked?</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
 
@@ -40405,69 +40596,6 @@ that belongs to the user recovery, does not exist.</p>
     <div class="doc doc-contents ">
 
         <p>Return True when the invitation was confirmed.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.confirmed_at" class="doc doc-heading">
-            <code class=" language-python"><span class="n">confirmed_at</span><span class="p">:</span> <span class="n">Timestamp</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.confirmed_at" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return when this invitation was used.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.email" class="doc doc-heading">
-            <code class=" language-python"><span class="n">email</span><span class="p">:</span> <span class="n">EmailAddress</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.email" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the email address that receives this invitation.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.expired_at" class="doc doc-heading">
-            <code class=" language-python"><span class="n">expired_at</span><span class="p">:</span> <span class="n">Timestamp</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.expired_at" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return when the invitation will expire.</p>
     </div>
 
 </div>
@@ -40514,362 +40642,7 @@ that belongs to the user recovery, does not exist.</p>
 
 </div>
 
-<div class="doc doc-object doc-attribute">
 
-
-
-<h8 id="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.mailed_at" class="doc doc-heading">
-            <code class=" language-python"><span class="n">mailed_at</span><span class="p">:</span> <span class="n">Timestamp</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.mailed_at" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the timestamp of sending the email.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.name" class="doc doc-heading">
-            <code class=" language-python"><span class="n">name</span><span class="p">:</span> <span class="n">Name</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.name" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the name of the person that receives this invitation.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.remark" class="doc doc-heading">
-            <code class=" language-python"><span class="n">remark</span><span class="p">:</span> <span class="nb">str</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.remark" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the remark about the invitation.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.revoked" class="doc doc-heading">
-            <code class=" language-python"><span class="n">revoked</span><span class="p">:</span> <span class="nb">bool</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.revoked" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Is this invitation revoked?.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.traceable_time" class="doc doc-heading">
-            <code class=" language-python"><span class="n">traceable_time</span><span class="p">:</span> <span class="n">TraceableTime</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.traceable_time" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the creation/modification timestamp of this invitation.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.user" class="doc doc-heading">
-            <code class=" language-python"><span class="n">user</span><span class="p">:</span> <span class="n">UserEntity</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.user" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the user that created this invitation.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.uuid" class="doc doc-heading">
-            <code class=" language-python"><span class="n">uuid</span><span class="p">:</span> <span class="n">UniqueId</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.uuid" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the unique id of this invitation.</p>
-    </div>
-
-</div>
-
-
-
-<div class="doc doc-object doc-function">
-
-
-<h8 id="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.__init__" class="doc doc-heading">
-            <code class=" language-python"><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">id_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">expired_at</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remark</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">mailed_at</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">confirmed_at</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">revoked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">traceable_time</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
-<a href="#kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.__init__" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Construct a user invitation.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>id_</code>
-            </td>
-            <td>
-                  <code><span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationIdentifier">UserInvitationIdentifier</span> | None</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The id of the user invitation.</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>email</code>
-            </td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.email_address.EmailAddress" href="#kwai.core.domain.value_objects.email_address.EmailAddress">EmailAddress</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The email address that receives the invitation.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>name</code>
-            </td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.name.Name" href="#kwai.core.domain.value_objects.name.Name">Name</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The name of the invited</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>uuid</code>
-            </td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.unique_id.UniqueId" href="#kwai.core.domain.value_objects.unique_id.UniqueId">UniqueId</a> | None</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The unique id to use to validate this invitation.</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>expired_at</code>
-            </td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.timestamp.Timestamp" href="#kwai.core.domain.value_objects.timestamp.Timestamp">Timestamp</a> | None</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The timestamp when the invitation expires.</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>remark</code>
-            </td>
-            <td>
-                  <code>str</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>A remark about the invitation.</p>
-              </div>
-            </td>
-            <td>
-                  <code>&#39;&#39;</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>mailed_at</code>
-            </td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.timestamp.Timestamp" href="#kwai.core.domain.value_objects.timestamp.Timestamp">Timestamp</a> | None</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The timestamp of sending out the email.</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>user</code>
-            </td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user.UserEntity" href="#kwai.modules.identity.users.user.UserEntity">UserEntity</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The user that created the invitation.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>confirmed_at</code>
-            </td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.timestamp.Timestamp" href="#kwai.core.domain.value_objects.timestamp.Timestamp">Timestamp</a> | None</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The timestamp when the invitation was used.</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>revoked</code>
-            </td>
-            <td>
-                  <code>bool</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Is this invitation revoked?</p>
-              </div>
-            </td>
-            <td>
-                  <code>False</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>traceable_time</code>
-            </td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.traceable_time.TraceableTime" href="#kwai.core.domain.value_objects.traceable_time.TraceableTime">TraceableTime</a> | None</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The creation/modification timestamp of the invitation.</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
 
 <div class="doc doc-object doc-function">
 
@@ -40883,6 +40656,29 @@ that belongs to the user recovery, does not exist.</p>
     <div class="doc doc-contents ">
 
         <p>Confirm the invitation, the invitation was used to create a new user.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.Self">Self</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A confirmed user invitation.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
     </div>
 
@@ -40900,6 +40696,29 @@ that belongs to the user recovery, does not exist.</p>
     <div class="doc doc-contents ">
 
         <p>Set the timestamp when the mail has been sent.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.Self">Self</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A user invitation with a mail sent timestamp.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
     </div>
 
