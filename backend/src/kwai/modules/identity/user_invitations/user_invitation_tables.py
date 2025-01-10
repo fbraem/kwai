@@ -60,7 +60,7 @@ class UserInvitationRow:
             A user invitation entity.
         """
         return UserInvitationEntity(
-            id_=UserInvitationIdentifier(self.id),
+            id=UserInvitationIdentifier(self.id),
             email=EmailAddress(self.email),
             name=Name(last_name=self.last_name, first_name=self.first_name),
             uuid=UniqueId.create_from_string(self.uuid),

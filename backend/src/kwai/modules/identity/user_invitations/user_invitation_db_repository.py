@@ -1,8 +1,8 @@
 """Module that implements a user invitation repository for a database."""
+
 from typing import AsyncIterator
 
 from kwai.core.db.database import Database
-from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_invitations.user_invitation import (
     UserInvitationEntity,
@@ -80,8 +80,7 @@ class UserInvitationDbRepository(UserInvitationRepository):
         new_id = await self._database.insert(
             UserInvitationsTable.table_name, UserInvitationRow.persist(invitation)
         )
-        await self._database.commit()
-        return Entity.replace(invitation, id_=UserInvitationIdentifier(new_id))
+        return invitation.set_id(UserInvitationIdentifier(new_id))
 
     async def update(self, invitation: UserInvitationEntity) -> None:
         await self._database.update(
@@ -89,10 +88,8 @@ class UserInvitationDbRepository(UserInvitationRepository):
             UserInvitationsTable.table_name,
             UserInvitationRow.persist(invitation),
         )
-        await self._database.commit()
 
     async def delete(self, invitation: UserInvitationEntity) -> None:
         await self._database.delete(
             invitation.id.value, UserInvitationsTable.table_name
         )
-        await self._database.commit()
