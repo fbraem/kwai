@@ -75,7 +75,6 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
         new_id = await self._database.insert(
             RefreshTokensTable.table_name, RefreshTokenRow.persist(refresh_token)
         )
-        await self._database.commit()
         return refresh_token.set_id(RefreshTokenIdentifier(new_id))
 
     async def update(self, refresh_token: RefreshTokenEntity):
@@ -84,4 +83,3 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
             RefreshTokensTable.table_name,
             RefreshTokenRow.persist(refresh_token),
         )
-        await self._database.commit()

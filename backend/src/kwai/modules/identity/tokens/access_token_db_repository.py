@@ -69,7 +69,6 @@ class AccessTokenDbRepository(AccessTokenRepository):
         new_id = await self._database.insert(
             AccessTokensTable.table_name, AccessTokenRow.persist(access_token)
         )
-        await self._database.commit()
         return access_token.set_id(AccessTokenIdentifier(new_id))
 
     async def update(self, access_token: AccessTokenEntity):
@@ -78,4 +77,3 @@ class AccessTokenDbRepository(AccessTokenRepository):
             AccessTokensTable.table_name,
             AccessTokenRow.persist(access_token),
         )
-        await self._database.commit()

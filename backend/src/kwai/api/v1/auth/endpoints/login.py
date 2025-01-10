@@ -11,6 +11,7 @@ from pydantic import BaseModel
 
 from kwai.api.dependencies import create_database, get_current_user, get_publisher
 from kwai.core.db.database import Database
+from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import InvalidEmailException
 from kwai.core.events.publisher import Publisher
@@ -101,11 +102,12 @@ async def login(
     )
 
     try:
-        refresh_token = await AuthenticateUser(
-            UserAccountDbRepository(db),
-            AccessTokenDbRepository(db),
-            RefreshTokenDbRepository(db),
-        ).execute(command)
+        with UnitOfWork(db):
+            refresh_token = await AuthenticateUser(
+                UserAccountDbRepository(db),
+                AccessTokenDbRepository(db),
+                RefreshTokenDbRepository(db),
+            ).execute(command)
     except InvalidEmailException as exc:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid email address"
@@ -151,10 +153,11 @@ async def logout(
     )
     command = LogoutCommand(identifier=decoded_refresh_token["jti"])
     try:
-        await Logout(
-            refresh_token_repository=RefreshTokenDbRepository(db),
-            access_token_repository=AccessTokenDbRepository(db),
-        ).execute(command)
+        with UnitOfWork(db):
+            await Logout(
+                refresh_token_repository=RefreshTokenDbRepository(db),
+                access_token_repository=AccessTokenDbRepository(db),
+            ).execute(command)
     except RefreshTokenNotFoundException as ex:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
@@ -201,9 +204,10 @@ async def renew_access_token(
     )
 
     try:
-        new_refresh_token = await RefreshAccessToken(
-            RefreshTokenDbRepository(db), AccessTokenDbRepository(db)
-        ).execute(command)
+        with UnitOfWork(db):
+            new_refresh_token = await RefreshAccessToken(
+                RefreshTokenDbRepository(db), AccessTokenDbRepository(db)
+            ).execute(command)
     except AuthenticationException as exc:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc)
@@ -236,9 +240,10 @@ async def recover_user(
     """
     command = RecoverUserCommand(email=email)
     try:
-        await RecoverUser(
-            UserAccountDbRepository(db), UserRecoveryDbRepository(db), publisher
-        ).execute(command)
+        with UnitOfWork(db):
+            await RecoverUser(
+                UserAccountDbRepository(db), UserRecoveryDbRepository(db), publisher
+            ).execute(command)
     except UserAccountNotFoundException:
         logger.warning(f"Unknown email address used for a password recovery: {email}")
     except UnprocessableException as ex:
@@ -271,10 +276,11 @@ async def reset_password(
     """
     command = ResetPasswordCommand(uuid=uuid, password=password)
     try:
-        await ResetPassword(
-            user_account_repo=UserAccountDbRepository(db),
-            user_recovery_repo=UserRecoveryDbRepository(db),
-        ).execute(command)
+        with UnitOfWork(db):
+            await ResetPassword(
+                user_account_repo=UserAccountDbRepository(db),
+                user_recovery_repo=UserRecoveryDbRepository(db),
+            ).execute(command)
     except UserRecoveryNotFoundException as exc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND) from exc
     except UserAccountNotFoundException as exc:
