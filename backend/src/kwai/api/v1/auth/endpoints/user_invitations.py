@@ -5,6 +5,7 @@ from loguru import logger
 
 from kwai.api.dependencies import create_database, get_current_user, get_publisher
 from kwai.api.v1.auth.schemas.user_invitation import UserInvitationDocument
+from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import InvalidEmailException
 from kwai.core.json_api import Meta, PaginationModel
@@ -59,9 +60,10 @@ async def create_user_invitation(
     )
 
     try:
-        invitation = await InviteUser(
-            user, UserDbRepository(db), UserInvitationDbRepository(db), publisher
-        ).execute(command)
+        async with UnitOfWork(db):
+            invitation = await InviteUser(
+                user, UserDbRepository(db), UserInvitationDbRepository(db), publisher
+            ).execute(command)
     except InvalidEmailException as exc:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
@@ -95,7 +97,8 @@ async def delete_user_invitation(
     """Delete the user invitation with the given unique id."""
     command = DeleteUserInvitationCommand(uuid=uuid)
     try:
-        await DeleteUserInvitation(UserInvitationDbRepository(db)).execute(command)
+        async with UnitOfWork(db):
+            await DeleteUserInvitation(UserInvitationDbRepository(db)).execute(command)
     except UserInvitationNotFoundException as ex:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
