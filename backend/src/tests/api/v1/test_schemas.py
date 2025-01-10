@@ -14,7 +14,7 @@ def test_create_country_document(
 ):
     """Test the creation of a document with a Country resource."""
     country_document = CountryDocument.create(country)
-    json_resource = json.loads(country_document.json())
+    json_resource = json.loads(country_document.model_dump_json())
 
     diff = DeepDiff(json_resource, expected_country_json, ignore_order=True)
     assert not diff, f"JSON structure is not as expected: {diff}"

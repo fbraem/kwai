@@ -39,7 +39,7 @@ def user_invitation(user: UserEntity):
 def test_create_user_invitation_document(user_invitation: UserInvitationEntity):
     """Test creation of a user invitation JSON:API document."""
     user_invitation_document = UserInvitationDocument.create(user_invitation)
-    json_resource = json.loads(user_invitation_document.json())
+    json_resource = json.loads(user_invitation_document.model_dump_json())
 
     expected_user_invitation_json = {
         "data": {

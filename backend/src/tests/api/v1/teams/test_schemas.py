@@ -86,7 +86,7 @@ def test_create_team_member_document(
 ):
     """Test the creation of a JSON:API document for a team member resource."""
     team_member_document = TeamMemberDocument.create(team_member)
-    json_resource = json.loads(team_member_document.json())
+    json_resource = json.loads(team_member_document.model_dump_json())
 
     diff = DeepDiff(json_resource, expected_team_member_json, ignore_order=True)
     assert not diff, f"JSON structure is not expected:{diff}"
@@ -131,7 +131,7 @@ def expected_team_json(team: TeamEntity, expected_team_member_json) -> dict[str,
 def test_create_team_document(team: TeamEntity, expected_team_json: dict[str, Any]):
     """Test the creation of a JSON:API document for a team entity."""
     team_document = TeamDocument.create(team)
-    json_resource = json.loads(team_document.json())
+    json_resource = json.loads(team_document.model_dump_json())
 
     diff = DeepDiff(json_resource, expected_team_json, ignore_order=True)
     assert not diff, f"JSON structure is not expected:{diff}"
