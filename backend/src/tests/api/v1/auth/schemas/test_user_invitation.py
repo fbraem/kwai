@@ -29,7 +29,7 @@ def user() -> UserEntity:
 def user_invitation(user: UserEntity):
     """A fixture for a user invitation entity."""
     return UserInvitationEntity(
-        id_=UserInvitationIdentifier(1),
+        id=UserInvitationIdentifier(1),
         email=EmailAddress("ichiro.abe@kwai.com"),
         name=Name(first_name="Ichiro", last_name="Abe"),
         user=user,
