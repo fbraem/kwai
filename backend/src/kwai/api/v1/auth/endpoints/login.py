@@ -102,7 +102,7 @@ async def login(
     )
 
     try:
-        with UnitOfWork(db):
+        async with UnitOfWork(db):
             refresh_token = await AuthenticateUser(
                 UserAccountDbRepository(db),
                 AccessTokenDbRepository(db),
@@ -153,7 +153,7 @@ async def logout(
     )
     command = LogoutCommand(identifier=decoded_refresh_token["jti"])
     try:
-        with UnitOfWork(db):
+        async with UnitOfWork(db):
             await Logout(
                 refresh_token_repository=RefreshTokenDbRepository(db),
                 access_token_repository=AccessTokenDbRepository(db),
@@ -204,7 +204,7 @@ async def renew_access_token(
     )
 
     try:
-        with UnitOfWork(db):
+        async with UnitOfWork(db):
             new_refresh_token = await RefreshAccessToken(
                 RefreshTokenDbRepository(db), AccessTokenDbRepository(db)
             ).execute(command)
@@ -240,7 +240,7 @@ async def recover_user(
     """
     command = RecoverUserCommand(email=email)
     try:
-        with UnitOfWork(db):
+        async with UnitOfWork(db):
             await RecoverUser(
                 UserAccountDbRepository(db), UserRecoveryDbRepository(db), publisher
             ).execute(command)
@@ -276,7 +276,7 @@ async def reset_password(
     """
     command = ResetPasswordCommand(uuid=uuid, password=password)
     try:
-        with UnitOfWork(db):
+        async with UnitOfWork(db):
             await ResetPassword(
                 user_account_repo=UserAccountDbRepository(db),
                 user_recovery_repo=UserRecoveryDbRepository(db),
