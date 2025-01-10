@@ -1,4 +1,5 @@
 """Tests for the user get invitations."""
+
 from types import AsyncGeneratorType
 
 import pytest
@@ -21,8 +22,12 @@ def repo(database: Database) -> UserInvitationRepository:
     return UserInvitationDbRepository(database)
 
 
-async def test_get_invitations(repo: UserInvitationRepository):
+async def test_get_invitations(
+    repo: UserInvitationRepository, make_user_invitation_in_db
+):
     """Test the use case: get invitations."""
+    await make_user_invitation_in_db()
+
     command = GetInvitationsCommand()
     count, invitations = await GetInvitations(repo).execute(command)
 

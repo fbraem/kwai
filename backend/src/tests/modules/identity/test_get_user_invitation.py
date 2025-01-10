@@ -23,8 +23,11 @@ def repo(database: Database) -> UserInvitationRepository:
     return UserInvitationDbRepository(database)
 
 
-async def test_get_invitation(repo: UserInvitationRepository, user_invitation):
+async def test_get_invitation(
+    repo: UserInvitationRepository, make_user_invitation_in_db
+):
     """Test the use case: get user invitation."""
+    user_invitation = await make_user_invitation_in_db()
     command = GetUserInvitationCommand(uuid=str(user_invitation.uuid))
     result = await GetUserInvitation(repo).execute(command)
 

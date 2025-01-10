@@ -1,4 +1,5 @@
 """Module for testing the use case: invite a user."""
+
 import pytest
 
 from kwai.core.db.database import Database
@@ -47,13 +48,14 @@ async def test_invite_user(
 async def test_user_already_exists(
     database: Database,
     repo: UserInvitationRepository,
-    user: UserEntity,
+    make_user_account_in_db,
     publisher: Publisher,
 ):
     """Test if an exception is raised when a user with the email already exists."""
+    user_account = await make_user_account_in_db()
     user_repo = UserDbRepository(database)
     command = InviteUserCommand(
-        email=str(user.email),
+        email=str(user_account.user.email),
         first_name="Jigoro",
         last_name="Kano",
         remark="Created with pytest test_user_already_exists",
@@ -61,7 +63,7 @@ async def test_user_already_exists(
 
     with pytest.raises(UnprocessableException):
         await InviteUser(
-            user=user,
+            user=user_account.user,
             user_repo=user_repo,
             user_invitation_repo=repo,
             publisher=publisher,
@@ -71,21 +73,27 @@ async def test_user_already_exists(
 async def test_already_invited_user(
     database: Database,
     repo: UserInvitationRepository,
-    user: UserEntity,
+    make_user_account_in_db,
+    make_user_invitation_in_db,
     publisher: Publisher,
 ):
     """Test if an exception is raised when there is an invitation pending."""
+    user_account = await make_user_account_in_db()
+    # Make already a user invitation
+    user_invitation = await make_user_invitation_in_db()
+
+    # Try to make the same user invitation
     user_repo = UserDbRepository(database)
     command = InviteUserCommand(
-        email="ichiro.abe@kwai.com",
-        first_name="Ichiro",
-        last_name="Abe",
+        email=str(user_invitation.email),
+        first_name=user_account.user.name.first_name,
+        last_name=user_account.user.name.last_name,
         remark="Created with pytest test_already_invited_user",
     )
 
     with pytest.raises(UnprocessableException):
         await InviteUser(
-            user=user,
+            user=user_account.user,
             user_repo=user_repo,
             user_invitation_repo=repo,
             publisher=publisher,

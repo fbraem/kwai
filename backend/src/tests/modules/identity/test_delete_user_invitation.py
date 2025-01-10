@@ -30,9 +30,10 @@ def repo(database: Database) -> UserInvitationRepository:
 
 async def test_delete_invitation(
     repo: UserInvitationRepository,
-    user_invitation,
+    make_user_invitation_in_db,
 ):
     """Test the use case: delete user invitation."""
+    user_invitation = await make_user_invitation_in_db()
     command = DeleteUserInvitationCommand(uuid=str(user_invitation.uuid))
     await DeleteUserInvitation(repo).execute(command)
 

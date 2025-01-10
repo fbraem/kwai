@@ -1,4 +1,5 @@
 """Module for testing the use case mail a user invitation."""
+
 import pytest
 
 from kwai.core.db.database import Database
@@ -28,12 +29,13 @@ def repo(database: Database) -> UserInvitationRepository:
 
 async def test_mail_user_invitation(
     repo: UserInvitationRepository,
-    user_invitation,
+    make_user_invitation_in_db,
     mailer: Mailer,
     recipients: Recipients,
     user_invitation_mail_template: MailTemplate,
 ):
     """Test use case mail user invitation."""
+    user_invitation = await make_user_invitation_in_db()
     command = MailUserInvitationCommand(uuid=str(user_invitation.uuid))
     updated_user_invitation = await MailUserInvitation(
         repo, mailer, recipients, user_invitation_mail_template
@@ -44,13 +46,14 @@ async def test_mail_user_invitation(
 
 async def test_mail_user_invitation_already_mailed(
     repo: UserInvitationRepository,
-    user_invitation,
+    make_user_invitation_in_db,
     mailer: Mailer,
     recipients: Recipients,
     user_invitation_mail_template: MailTemplate,
 ):
     """Test when a user invitation is already sent."""
-    user_invitation.mail_sent()
+    user_invitation = await make_user_invitation_in_db()
+    user_invitation = user_invitation.mail_sent()
     await repo.update(user_invitation)
 
     command = MailUserInvitationCommand(uuid=str(user_invitation.uuid))
