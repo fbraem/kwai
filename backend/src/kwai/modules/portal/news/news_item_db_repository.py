@@ -1,4 +1,5 @@
 """Module that implements a news item repository for a database."""
+
 from typing import Any, AsyncIterator
 
 from sql_smith.functions import field
@@ -96,7 +97,7 @@ class NewsItemDbRepository(NewsItemRepository):
 
         entity = await anext(self.get_all(query, 1), None)
         if entity is None:
-            raise NewsItemNotFoundException(f"News item with {id} does not exist.")
+            raise NewsItemNotFoundException(f"News item with {id_} does not exist.")
 
         return entity
 

@@ -1,4 +1,5 @@
 """Module that implements a page repository for a database."""
+
 from typing import Any, AsyncIterator
 
 from sql_smith.functions import field
@@ -87,7 +88,7 @@ class PageDbRepository(PageRepository):
 
         entity = await anext(self.get_all(query, 1), None)
         if entity is None:
-            raise PageNotFoundException(f"Page with {id} does not exist.")
+            raise PageNotFoundException(f"Page with {id_} does not exist.")
 
         return entity
 
