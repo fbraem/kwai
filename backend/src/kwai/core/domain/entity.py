@@ -39,7 +39,7 @@ class DataclassEntity:
 
     def __post_init__(self):
         """When is id is not set, a default id is created."""
-        if id is None:
+        if self.id is None:
             object.__setattr__(self, "id", self.ID())
 
     def set_id(self, id_: ID) -> Self:
