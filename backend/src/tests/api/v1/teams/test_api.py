@@ -1,8 +1,10 @@
 """Module for testing the teams API."""
 
 import pytest
+
 from fastapi import status
 from fastapi.testclient import TestClient
+
 
 pytestmark = pytest.mark.api
 
@@ -61,9 +63,9 @@ async def test_update_team(secure_client: TestClient, make_team_in_db):
     }
     response = secure_client.patch(f"/api/v1/teams/{team.id}", json=payload)
     assert response.status_code == status.HTTP_200_OK
-    assert (
-        response.json()["data"]["attributes"]["remark"] == "This is a test"
-    ), "The team should be updated."
+    assert response.json()["data"]["attributes"]["remark"] == "This is a test", (
+        "The team should be updated."
+    )
 
 
 async def test_get_members(

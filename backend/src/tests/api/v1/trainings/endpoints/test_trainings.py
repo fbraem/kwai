@@ -1,12 +1,15 @@
 """Module for testing the trainings endpoints."""
+
 from typing import Any
 
 import pytest
+
 from fastapi import status
 from fastapi.testclient import TestClient
 
 from kwai.modules.training.trainings.training import TrainingEntity
 from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
+
 
 pytestmark = pytest.mark.api
 
@@ -30,9 +33,9 @@ def test_get_trainings(client: TestClient, training_entity: TrainingEntity):
     assert len(json["data"]) > 0, "There should be at least one training"
 
     training_resource = _find(json["data"], str(training_entity.id))
-    assert (
-        training_resource is not None
-    ), f"Training with id {training_entity.id} should exist"
+    assert training_resource is not None, (
+        f"Training with id {training_entity.id} should exist"
+    )
 
 
 def test_get_trainings_filter_year_month(
@@ -50,9 +53,9 @@ def test_get_trainings_filter_year_month(
     assert len(json["data"]) > 0, "There should be at least one training"
 
     training_resource = _find(json["data"], str(training_entity.id))
-    assert (
-        training_resource is not None
-    ), f"Training with id {training_entity.id} should exist"
+    assert training_resource is not None, (
+        f"Training with id {training_entity.id} should exist"
+    )
 
 
 def test_get_trainings_filter_start_end(
@@ -74,9 +77,9 @@ def test_get_trainings_filter_start_end(
     assert len(json["data"]) > 0, "There should be at least one training"
 
     training_resource = _find(json["data"], str(training_entity.id))
-    assert (
-        training_resource is not None
-    ), f"Training with id {training_entity.id} should exist"
+    assert training_resource is not None, (
+        f"Training with id {training_entity.id} should exist"
+    )
 
 
 def test_get_trainings_filter_coach(client: TestClient):
@@ -111,9 +114,9 @@ def test_get_trainings_filter_active(
     assert len(json["data"]) > 0, "There should be at least one training"
 
     training_resource = _find(json["data"], str(training_entity.id))
-    assert (
-        training_resource is not None
-    ), f"Training with id {training_entity.id} should exist"
+    assert training_resource is not None, (
+        f"Training with id {training_entity.id} should exist"
+    )
 
 
 def test_get_trainings_filter_definition(client: TestClient):
@@ -141,9 +144,9 @@ def test_get_training(client: TestClient, training_entity: TrainingEntity):
     assert "data" in json, "There should be data in the response"
 
     training_resource = json["data"]
-    assert (
-        training_resource is not None
-    ), f"Training with id {training_entity.id} should exist"
+    assert training_resource is not None, (
+        f"Training with id {training_entity.id} should exist"
+    )
 
 
 def test_create_training(secure_client: TestClient):

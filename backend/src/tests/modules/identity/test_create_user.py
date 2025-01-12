@@ -1,4 +1,5 @@
 """Test the use case 'create user'."""
+
 import pytest
 
 from kwai.core.db.database import Database
@@ -6,6 +7,7 @@ from kwai.modules.identity.create_user import CreateUser, CreateUserCommand
 from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
 )
+
 
 pytestmark = pytest.mark.db
 

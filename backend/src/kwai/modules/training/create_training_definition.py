@@ -11,6 +11,7 @@ from kwai.modules.training.trainings.training_definition_repository import (
     TrainingDefinitionRepository,
 )
 
+
 CreateTrainingDefinitionCommand = TrainingDefinitionCommand
 
 

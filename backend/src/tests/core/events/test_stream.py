@@ -4,6 +4,7 @@ import pytest
 
 from kwai.core.events.stream import RedisMessage, RedisStream
 
+
 pytestmark = pytest.mark.bus
 
 
@@ -18,9 +19,9 @@ async def test_read(stream: RedisStream):
     message = await stream.read(last_id="0")
     assert message is not None, "There should be a message"
     assert "text" in message.data, "There should be a text key in the message data"
-    assert (
-        message.data["text"] == "Hello World!"
-    ), "There should be 'Hello World!' in the message content"
+    assert message.data["text"] == "Hello World!", (
+        "There should be 'Hello World!' in the message content"
+    )
 
 
 async def test_info(stream: RedisStream):

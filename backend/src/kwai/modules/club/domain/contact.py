@@ -6,6 +6,7 @@ from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.club.domain.value_objects import Address
 
+
 ContactIdentifier = IntIdentifier
 
 

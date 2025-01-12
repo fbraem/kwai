@@ -9,6 +9,7 @@ import uvicorn
 from kwai.api.app import APP_NAME
 from kwai.core.args import create_args
 
+
 args = create_args(APP_NAME)
 uvicorn.run(
     "kwai.api.app.create_api",

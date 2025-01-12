@@ -7,6 +7,7 @@ from kwai.core.domain.entity import Entity
 from kwai.modules.teams.repositories.team_db_repository import TeamDbRepository
 from kwai.modules.teams.repositories.team_repository import TeamNotFoundException
 
+
 pytestmark = pytest.mark.db
 
 
@@ -28,9 +29,9 @@ async def test_get_all_teams(database: Database):
     """Test getting all teams in the database."""
     teams_iterator = TeamDbRepository(database).get_all()
     assert teams_iterator is not None, "There should be a team in the database."
-    assert (
-        await anext(teams_iterator) is not None
-    ), "There should be a team in the database."
+    assert await anext(teams_iterator) is not None, (
+        "There should be a team in the database."
+    )
 
 
 async def test_delete_team(database: Database, make_team_in_db):

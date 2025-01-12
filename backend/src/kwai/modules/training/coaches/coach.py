@@ -1,7 +1,9 @@
 """Module that defines a coach entity."""
+
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.name import Name
+
 
 CoachIdentifier = IntIdentifier
 

@@ -1,4 +1,5 @@
 """Module for endpoints for trainings."""
+
 from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
@@ -32,6 +33,7 @@ from kwai.modules.training.trainings.training_repository import (
     TrainingNotFoundException,
 )
 from kwai.modules.training.update_training import UpdateTraining, UpdateTrainingCommand
+
 
 router = APIRouter()
 

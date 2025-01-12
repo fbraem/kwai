@@ -19,6 +19,7 @@ from kwai.modules.training.trainings.training_definition_repository import (
 from kwai.modules.training.trainings.training_repository import TrainingRepository
 from kwai.modules.training.trainings.value_objects import TrainingCoach
 
+
 CreateTrainingCommand = TrainingCommand
 
 

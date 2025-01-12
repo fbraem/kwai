@@ -1,7 +1,9 @@
 """Module that defines entry points for tasks for user invitations."""
+
 from typing import Any
 
 import inject
+
 from loguru import logger
 
 from kwai.core.db.database import Database

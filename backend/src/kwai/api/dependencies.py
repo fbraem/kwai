@@ -3,6 +3,7 @@
 from typing import AsyncGenerator
 
 import jwt
+
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.templating import Jinja2Templates
@@ -22,6 +23,7 @@ from kwai.modules.identity.tokens.access_token_repository import (
 )
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.users.user import UserEntity
+
 
 oauth = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 

@@ -1,11 +1,13 @@
 """Module for testing the news endpoints."""
 
 import pytest
+
 from fastapi import status
 from fastapi.testclient import TestClient
 
 from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.news.news_item import NewsItemEntity
+
 
 pytestmark = pytest.mark.api
 
@@ -32,9 +34,9 @@ def test_get_news_item(client: TestClient, news_item_entity: NewsItemEntity):
     assert "data" in json, "There should be data in the response"
 
     training_resource = json["data"]
-    assert (
-        training_resource is not None
-    ), f"News item with id {news_item_entity.id} should exist"
+    assert training_resource is not None, (
+        f"News item with id {news_item_entity.id} should exist"
+    )
 
 
 def test_create_news_item(secure_client: TestClient, application: ApplicationEntity):

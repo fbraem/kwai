@@ -1,4 +1,5 @@
 """Module for defining a training definition entity."""
+
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.owner import Owner
@@ -6,6 +7,7 @@ from kwai.core.domain.value_objects.time_period import TimePeriod
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.weekday import Weekday
 from kwai.modules.training.teams.team import TeamEntity
+
 
 TrainingDefinitionIdentifier = IntIdentifier
 

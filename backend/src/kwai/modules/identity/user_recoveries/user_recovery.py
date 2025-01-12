@@ -7,6 +7,7 @@ from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.users.user import UserEntity
 
+
 UserRecoveryIdentifier = IntIdentifier
 
 

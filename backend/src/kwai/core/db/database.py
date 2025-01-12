@@ -1,9 +1,11 @@
 """Module for database classes/functions."""
 
 import dataclasses
+
 from typing import Any, AsyncIterator, TypeAlias
 
 import asyncmy
+
 from loguru import logger
 from sql_smith import QueryFactory
 from sql_smith.engine import MysqlEngine
@@ -12,6 +14,7 @@ from sql_smith.query import AbstractQuery, SelectQuery
 
 from kwai.core.db.exceptions import DatabaseException, QueryException
 from kwai.core.settings import DatabaseSettings
+
 
 Record: TypeAlias = dict[str, Any]
 
@@ -177,9 +180,9 @@ class Database:
         Raises:
             (QueryException): Raised when the query contains an error.
         """
-        assert dataclasses.is_dataclass(
-            table_data[0]
-        ), "table_data should be a dataclass"
+        assert dataclasses.is_dataclass(table_data[0]), (
+            "table_data should be a dataclass"
+        )
 
         record = dataclasses.asdict(table_data[0])
         if "id" in record:

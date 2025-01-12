@@ -1,4 +1,5 @@
 """Tests for the use case: get application."""
+
 import pytest
 
 from kwai.modules.portal.applications.application import ApplicationEntity
@@ -6,6 +7,7 @@ from kwai.modules.portal.applications.application_repository import (
     ApplicationRepository,
 )
 from kwai.modules.portal.get_application import GetApplication, GetApplicationCommand
+
 
 pytestmark = pytest.mark.db
 

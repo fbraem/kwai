@@ -11,6 +11,7 @@ from kwai.frontend.dependencies import ViteDependency
 from kwai.frontend.etag_file_response import EtagFileResponse
 from kwai.frontend.vite import Vite
 
+
 APP_NAME = "club"
 
 router = APIRouter(prefix=f"/{APP_NAME}")

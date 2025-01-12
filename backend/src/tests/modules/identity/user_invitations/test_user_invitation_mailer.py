@@ -1,4 +1,5 @@
 """Module for testing the user invitation mailer."""
+
 import pytest
 
 from kwai.core.domain.value_objects.email_address import EmailAddress
@@ -11,6 +12,7 @@ from kwai.modules.identity.user_invitations.user_invitation_mailer import (
     UserInvitationMailer,
 )
 from kwai.modules.identity.users.user import UserEntity
+
 
 pytestmark = pytest.mark.mail
 

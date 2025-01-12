@@ -13,6 +13,7 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationRepository,
 )
 
+
 pytestmark = pytest.mark.db
 
 
@@ -32,6 +33,6 @@ async def test_get_invitations(
     count, invitations = await GetInvitations(repo).execute(command)
 
     assert count >= 0, "Count must be 0 or greater"
-    assert isinstance(
-        invitations, AsyncGeneratorType
-    ), "A list of entities should be yielded"
+    assert isinstance(invitations, AsyncGeneratorType), (
+        "A list of entities should be yielded"
+    )

@@ -1,6 +1,8 @@
 """Module that implements a consumer for a redis stream."""
+
 import asyncio
 import inspect
+
 from asyncio import Event
 from typing import Awaitable, Callable
 

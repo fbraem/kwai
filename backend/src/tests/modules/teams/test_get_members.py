@@ -8,6 +8,7 @@ from kwai.modules.teams.domain.team_member import MemberEntity
 from kwai.modules.teams.get_members import GetMembers, GetMembersCommand
 from kwai.modules.teams.repositories.member_db_repository import MemberDbRepository
 
+
 pytestmark = pytest.mark.db
 
 

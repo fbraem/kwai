@@ -6,6 +6,7 @@ from kwai.core.domain.value_objects.text import LocaleText
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.portal.applications.application import ApplicationEntity
 
+
 PageIdentifier = IntIdentifier
 
 

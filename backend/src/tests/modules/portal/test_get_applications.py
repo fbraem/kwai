@@ -1,4 +1,5 @@
 """Tests for the use case: get applications."""
+
 from types import AsyncGeneratorType
 
 import pytest
@@ -11,6 +12,7 @@ from kwai.modules.portal.applications.application_repository import (
     ApplicationRepository,
 )
 from kwai.modules.portal.get_applications import GetApplications, GetApplicationsCommand
+
 
 pytestmark = pytest.mark.db
 
@@ -27,6 +29,6 @@ async def test_get_applications(repo: ApplicationRepository):
     count, applications = await GetApplications(repo).execute(command)
 
     assert count >= 0, "Count must be 0 or greater"
-    assert isinstance(
-        applications, AsyncGeneratorType
-    ), "A list of entities should be yielded"
+    assert isinstance(applications, AsyncGeneratorType), (
+        "A list of entities should be yielded"
+    )

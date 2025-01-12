@@ -14,6 +14,7 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationRepository,
 )
 
+
 pytestmark = pytest.mark.db
 
 
@@ -31,6 +32,6 @@ async def test_get_invitation(
     command = GetUserInvitationCommand(uuid=str(user_invitation.uuid))
     result = await GetUserInvitation(repo).execute(command)
 
-    assert (
-        result.uuid == user_invitation.uuid
-    ), "The invitation must have the same uuid."
+    assert result.uuid == user_invitation.uuid, (
+        "The invitation must have the same uuid."
+    )

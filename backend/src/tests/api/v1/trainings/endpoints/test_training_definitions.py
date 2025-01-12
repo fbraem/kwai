@@ -3,10 +3,12 @@
 from typing import Any
 
 import pytest
+
 from fastapi import status
 from fastapi.testclient import TestClient
 
 from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
+
 
 pytestmark = pytest.mark.api
 
@@ -34,12 +36,12 @@ def test_get_training_definitions(
     training_definition_resource = _find(
         json["data"], str(training_definition_entity.id)
     )
-    assert (
-        training_definition_resource["type"] == "training_definitions"
-    ), "The resource should have the type 'training_definitions'."
-    assert (
-        training_definition_resource is not None
-    ), f"Training with id {training_definition_entity.id} should exist"
+    assert training_definition_resource["type"] == "training_definitions", (
+        "The resource should have the type 'training_definitions'."
+    )
+    assert training_definition_resource is not None, (
+        f"Training with id {training_definition_entity.id} should exist"
+    )
 
 
 def test_get_training_definition(

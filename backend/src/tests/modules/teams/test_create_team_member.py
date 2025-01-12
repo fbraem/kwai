@@ -13,6 +13,7 @@ from kwai.modules.teams.domain.team_member import TeamMember
 from kwai.modules.teams.repositories.member_db_repository import MemberDbRepository
 from kwai.modules.teams.repositories.team_db_repository import TeamDbRepository
 
+
 pytestmark = pytest.mark.db
 
 

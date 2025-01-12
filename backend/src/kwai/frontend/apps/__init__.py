@@ -6,6 +6,7 @@ from kwai.frontend.apps._club import router as club_router
 from kwai.frontend.apps._coach import router as coach_router
 from kwai.frontend.apps._portal import router as portal_router
 
+
 application_routers = [
     auth_router,
     author_router,

@@ -12,6 +12,7 @@ from kwai.modules.club.repositories.file_upload_repository import (
     DuplicateMemberUploadedException,
 )
 
+
 pytestmark = pytest.mark.db
 
 

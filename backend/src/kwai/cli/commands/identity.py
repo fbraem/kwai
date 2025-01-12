@@ -4,11 +4,14 @@ Note:
     Make sure the environment variable KWAI_SETTINGS_FILE is set!
 
 """
+
 import os
+
 from asyncio import run
 
 import inject
 import typer
+
 from rich import print
 from typer import Typer
 

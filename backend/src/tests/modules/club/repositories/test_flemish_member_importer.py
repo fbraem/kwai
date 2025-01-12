@@ -11,6 +11,7 @@ from kwai.modules.club.repositories.country_db_repository import CountryDbReposi
 from kwai.modules.club.repositories.flemish_member_importer import FlemishMemberImporter
 from kwai.modules.club.repositories.member_importer import Result
 
+
 pytestmark = pytest.mark.db
 
 

@@ -1,4 +1,5 @@
 """Module for defining a training entity."""
+
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.period import Period
@@ -9,6 +10,7 @@ from kwai.modules.training.trainings.training_definition import (
     TrainingDefinitionEntity,
 )
 from kwai.modules.training.trainings.value_objects import TrainingCoach
+
 
 TrainingIdentifier = IntIdentifier
 

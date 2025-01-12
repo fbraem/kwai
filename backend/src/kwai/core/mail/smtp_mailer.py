@@ -1,6 +1,8 @@
 """Module that defines a mailer service with SMTP."""
+
 import smtplib
 import ssl
+
 from email.headerregistry import Address
 from email.message import EmailMessage
 

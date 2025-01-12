@@ -4,6 +4,7 @@ from types import NoneType
 from typing import Literal
 
 import pytest
+
 from pydantic import BaseModel
 from rich import json
 
@@ -46,9 +47,9 @@ def judoka_resource() -> JudokaResource:
 def test_resource_attributes(judoka_resource: JudokaResource):
     """Test the attributes of a JSON:API resource."""
     assert judoka_resource.id == "1", "The id of the judoka should be '1'."
-    assert (
-        judoka_resource.attributes.name == "Jigoro Kano"
-    ), "The judoka should have a name."
+    assert judoka_resource.attributes.name == "Jigoro Kano", (
+        "The judoka should have a name."
+    )
 
 
 class JudokaDocument(Document[JudokaResource, NoneType]):
@@ -64,15 +65,15 @@ def test_dump_json(judoka_resource: JudokaResource):
     assert json_doc["data"]["id"] == "1", "The id should be '1'."
     assert "type" in json_doc["data"], "There should be a 'type' in the document."
     assert json_doc["data"]["type"] == "judokas", "The type should be 'judoka'."
-    assert (
-        "attributes" in json_doc["data"]
-    ), "There should be a 'attributes' in the document."
-    assert (
-        "name" in json_doc["data"]["attributes"]
-    ), "There should be a 'name' in the attributes."
-    assert (
-        json_doc["data"]["attributes"]["name"] == "Jigoro Kano"
-    ), "The judoka should have a name."
+    assert "attributes" in json_doc["data"], (
+        "There should be a 'attributes' in the document."
+    )
+    assert "name" in json_doc["data"]["attributes"], (
+        "There should be a 'name' in the attributes."
+    )
+    assert json_doc["data"]["attributes"]["name"] == "Jigoro Kano", (
+        "The judoka should have a name."
+    )
 
 
 def test_error():

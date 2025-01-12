@@ -1,4 +1,5 @@
 """Module that implements the endpoints for news."""
+
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, Field
 
@@ -18,6 +19,7 @@ from kwai.modules.portal.get_news_items import GetNewsItems, GetNewsItemsCommand
 from kwai.modules.portal.news.news_item_db_repository import NewsItemDbRepository
 from kwai.modules.portal.news.news_item_repository import NewsItemNotFoundException
 from kwai.modules.portal.update_news_item import UpdateNewsItem, UpdateNewsItemCommand
+
 
 router = APIRouter()
 

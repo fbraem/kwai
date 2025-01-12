@@ -1,6 +1,8 @@
 """Tests for the entity class."""
+
 from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
+
 
 UserIdentifier = IntIdentifier
 

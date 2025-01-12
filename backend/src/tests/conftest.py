@@ -1,9 +1,11 @@
 """Module for sharing fixtures in this module."""
 
 import asyncio
+
 from typing import AsyncIterator, Iterator
 
 import pytest
+
 from redis.asyncio import Redis
 
 from kwai.core.db.database import Database

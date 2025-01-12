@@ -1,4 +1,5 @@
 """Module for defining the trainings/teams API."""
+
 from fastapi import APIRouter, Depends
 
 from kwai.api.dependencies import create_database
@@ -6,6 +7,7 @@ from kwai.api.v1.trainings.schemas.team import TeamDocument
 from kwai.core.json_api import Meta
 from kwai.modules.training.get_teams import GetTeams
 from kwai.modules.training.teams.team_db_repository import TeamDbRepository
+
 
 router = APIRouter()
 

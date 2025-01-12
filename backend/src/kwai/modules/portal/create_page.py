@@ -1,4 +1,5 @@
 """Module for defining the use case "Create Page"."""
+
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.text import DocumentFormat, Locale, LocaleText
 from kwai.modules.portal.applications.application import ApplicationIdentifier
@@ -8,6 +9,7 @@ from kwai.modules.portal.applications.application_repository import (
 from kwai.modules.portal.page_command import PageCommand
 from kwai.modules.portal.pages.page import PageEntity
 from kwai.modules.portal.pages.page_repository import PageRepository
+
 
 CreatePageCommand = PageCommand
 

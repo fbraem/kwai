@@ -1,4 +1,5 @@
 """Module with tests for the user database repository."""
+
 from random import randint
 
 import pytest
@@ -18,6 +19,7 @@ from kwai.modules.identity.users.user_repository import (
     UserNotFoundException,
     UserRepository,
 )
+
 
 pytestmark = pytest.mark.db
 

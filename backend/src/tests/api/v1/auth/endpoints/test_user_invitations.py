@@ -3,6 +3,7 @@
 import json
 
 import pytest
+
 from fastapi import status
 from fastapi.testclient import TestClient
 
@@ -13,6 +14,7 @@ from kwai.modules.identity.user_invitations.user_invitation_db_repository import
 from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationRepository,
 )
+
 
 pytestmark = [pytest.mark.api, pytest.mark.db]
 

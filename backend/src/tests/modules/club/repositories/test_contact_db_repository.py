@@ -11,6 +11,7 @@ from kwai.modules.club.repositories.contact_repository import (
     ContactRepository,
 )
 
+
 pytestmark = pytest.mark.db
 
 

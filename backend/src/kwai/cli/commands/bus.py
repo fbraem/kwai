@@ -1,10 +1,13 @@
 """bus contains subcommands for the event bus."""
+
 import os
+
 from asyncio import run
 from typing import Optional
 
 import inject
 import typer
+
 from redis import RedisError
 from redis.asyncio import Redis
 from rich import print
@@ -132,7 +135,7 @@ def groups_command(
                     f"messages pending![/bold]"
                 )
             if not typer.confirm(
-                f"Are you sure to delete the group {group} " f"from stream {stream}?"
+                f"Are you sure to delete the group {group} from stream {stream}?"
             ):
                 return
 
@@ -193,9 +196,7 @@ def stream_command(  # noqa
             if "meta" in message.data:
                 if "name" in message.data["meta"]:
                     text = (
-                        "[green]"
-                        f"[bold]{message.data['meta']['name']}[/bold]"
-                        "[/green]:"
+                        f"[green][bold]{message.data['meta']['name']}[/bold][/green]:"
                     )
                 else:
                     text = ""

@@ -21,6 +21,7 @@ from kwai.modules.identity.user_recoveries.user_recovery_repository import (
 )
 from kwai.modules.identity.users.user import UserEntity
 
+
 pytestmark = [pytest.mark.db, pytest.mark.mail]
 
 

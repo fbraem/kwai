@@ -1,10 +1,12 @@
 """Tests for the Redis Consumer."""
+
 import asyncio
 
 import pytest
 
 from kwai.core.events.consumer import RedisConsumer
 from kwai.core.events.stream import RedisMessage, RedisStream
+
 
 pytestmark = pytest.mark.bus
 

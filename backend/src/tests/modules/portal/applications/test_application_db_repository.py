@@ -1,4 +1,5 @@
 """Module that defines tests for application database repository."""
+
 import pytest
 
 from kwai.core.db.database import Database
@@ -11,6 +12,7 @@ from kwai.modules.portal.applications.application_repository import (
     ApplicationNotFoundException,
     ApplicationRepository,
 )
+
 
 pytestmark = pytest.mark.db
 
