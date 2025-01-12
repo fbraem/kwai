@@ -34,12 +34,12 @@ class DataclassEntity:
 
     ID: ClassVar = IntIdentifier
 
-    id: ID | None = None
+    id: ID = None
     traceable_time: TraceableTime = field(default_factory=TraceableTime)
 
     def __post_init__(self):
         """When is id is not set, a default id is created."""
-        if self.id is None:
+        if id is None:
             object.__setattr__(self, "id", self.ID())
 
     def set_id(self, id_: ID) -> Self:
