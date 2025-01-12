@@ -66,10 +66,10 @@ async def test_get_year_month_trainings(
     training = await make_training_in_db(
         make_training(period=Period.create_from_delta(start_date, hours=2))
     )
-    command = GetTrainingsCommand(limit=10, year=2024, month=1)
+    command = GetTrainingsCommand(year=2024, month=1)
     count, iterator = await GetTrainings(
         training_repo, coach_repo, definition_repo
     ).execute(command)
-    assert count > 0, "There should be at least one training in 01/2023."
+    assert count > 0, "There should be at least one training in 01/2024."
     entities = {entity.id: entity async for entity in iterator}
     assert training.id in entities, "The training should be returned in the result."
