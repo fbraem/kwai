@@ -22,6 +22,7 @@ repos:
         types: [python]
         args: [--ignore=D102, --fix]
     -   id: ruff-format
+        types: [python]
 -   repo: https://github.com/gitleaks/gitleaks
     rev: v8.18.2
     hooks:
