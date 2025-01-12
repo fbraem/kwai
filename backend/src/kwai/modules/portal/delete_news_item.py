@@ -1,4 +1,5 @@
 """Module for defining the use case "Delete News Item"."""
+
 from dataclasses import dataclass
 
 from kwai.modules.portal.news.news_item import NewsItemIdentifier

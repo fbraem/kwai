@@ -1,4 +1,5 @@
 """Module for testing the EmailAddress value object."""
+
 import pytest
 
 from kwai.core.domain.value_objects.email_address import (

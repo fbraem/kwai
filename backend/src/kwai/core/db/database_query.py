@@ -1,4 +1,5 @@
 """Module that implements a query for a database."""
+
 from abc import abstractmethod
 from typing import Any, AsyncIterator
 

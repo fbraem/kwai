@@ -1,4 +1,5 @@
 """Module that defines the use case: get application for a portal."""
+
 from dataclasses import dataclass
 
 from kwai.core.domain.value_objects.identifier import IntIdentifier

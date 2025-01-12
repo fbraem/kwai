@@ -77,9 +77,7 @@ class PersonDbRepository(PersonRepository):
         ).inner_join(
             alias(CountryRow.__table_name__, "nationality"),
             on("nationality.id", PersonRow.column("nationality_id")),
-        ).where(
-            PersonRow.field("id").eq(id_.value)
-        )
+        ).where(PersonRow.field("id").eq(id_.value))
 
         row = await self._database.fetch_one(query)
         if row:

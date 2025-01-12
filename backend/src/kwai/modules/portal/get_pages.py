@@ -1,4 +1,5 @@
 """Module for the use case "Get Pages"."""
+
 from dataclasses import dataclass
 
 from kwai.core.domain.use_case import UseCaseBrowseResult

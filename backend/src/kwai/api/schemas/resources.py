@@ -1,4 +1,5 @@
 """Module that defines all JSON:API resource identifiers."""
+
 from typing import Literal
 
 from kwai.core.json_api import ResourceIdentifier

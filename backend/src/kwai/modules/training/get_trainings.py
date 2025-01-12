@@ -1,4 +1,5 @@
 """Module for the use case get trainings."""
+
 from dataclasses import dataclass
 from datetime import datetime
 

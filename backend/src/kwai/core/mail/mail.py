@@ -1,4 +1,5 @@
 """Module that implements the Message interface for a mail."""
+
 from .message import Message
 from .recipient import Recipients
 

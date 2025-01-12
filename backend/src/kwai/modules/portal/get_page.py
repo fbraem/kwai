@@ -1,4 +1,5 @@
 """Module for the use case "Get Page"."""
+
 from dataclasses import dataclass
 
 from kwai.modules.portal.pages.page import PageEntity, PageIdentifier

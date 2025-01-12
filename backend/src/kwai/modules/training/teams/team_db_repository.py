@@ -1,4 +1,5 @@
 """Module that defines a team repository for a database."""
+
 from typing import AsyncIterator
 
 from kwai.core.db.database import Database

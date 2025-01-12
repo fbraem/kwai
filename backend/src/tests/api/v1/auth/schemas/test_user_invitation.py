@@ -3,7 +3,6 @@
 import json
 
 import pytest
-
 from deepdiff import DeepDiff
 
 from kwai.api.v1.auth.schemas.user_invitation import UserInvitationDocument
@@ -13,17 +12,7 @@ from kwai.modules.identity.user_invitations.user_invitation import (
     UserInvitationEntity,
     UserInvitationIdentifier,
 )
-from kwai.modules.identity.users.user import UserEntity, UserIdentifier
-
-
-@pytest.fixture
-def user() -> UserEntity:
-    """A fixture for a user entity."""
-    return UserEntity(
-        id_=UserIdentifier(1),
-        email=EmailAddress("jigoro.kano@kwai.com"),
-        name=Name(first_name="Jigoro", last_name="Kano"),
-    )
+from kwai.modules.identity.users.user import UserEntity
 
 
 @pytest.fixture

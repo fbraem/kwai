@@ -1,4 +1,5 @@
 """Module that defines an interface for a coach query."""
+
 from abc import ABC, abstractmethod
 
 from kwai.core.domain.repository.query import Query

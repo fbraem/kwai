@@ -1,4 +1,5 @@
 """Module for testing the use case "Create News Item"."""
+
 import pytest
 
 from kwai.core.domain.use_case import TextCommand

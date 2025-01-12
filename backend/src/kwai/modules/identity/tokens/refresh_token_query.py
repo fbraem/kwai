@@ -1,4 +1,5 @@
 """Module that defines an interface for querying a refresh token."""
+
 from abc import abstractmethod
 
 from kwai.core.domain.repository.query import Query

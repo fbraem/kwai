@@ -1,4 +1,5 @@
 """Module that defines a database query to get teams of training(s)."""
+
 from collections import defaultdict
 
 from sql_smith.functions import on

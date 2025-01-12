@@ -1,4 +1,5 @@
 """Module for testing the use case "Get Page"."""
+
 from kwai.modules.portal.get_page import GetPage, GetPageCommand
 from kwai.modules.portal.pages.page import PageEntity
 from kwai.modules.portal.pages.page_repository import PageRepository

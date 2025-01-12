@@ -1,4 +1,5 @@
 """Implement the use case: get news items."""
+
 from dataclasses import dataclass
 
 from kwai.core.domain.use_case import UseCaseBrowseResult

@@ -1,4 +1,5 @@
 """Schemas for a news item."""
+
 from types import NoneType
 
 from pydantic import BaseModel

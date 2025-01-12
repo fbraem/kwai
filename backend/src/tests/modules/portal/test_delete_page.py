@@ -1,4 +1,5 @@
 """Module for testing the use case "Delete Page"."""
+
 import pytest
 
 from kwai.modules.portal.delete_page import DeletePage, DeletePageCommand

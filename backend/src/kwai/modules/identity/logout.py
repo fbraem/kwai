@@ -1,4 +1,5 @@
 """Module that implements the logout use case."""
+
 from dataclasses import dataclass
 
 from kwai.modules.identity.tokens.access_token_repository import AccessTokenRepository

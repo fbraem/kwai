@@ -1,4 +1,5 @@
 """Use case: create a user."""
+
 from dataclasses import dataclass
 
 from kwai.core.domain.exceptions import UnprocessableException

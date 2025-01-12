@@ -1,4 +1,5 @@
 """Module for testing the use case "Get News Item"."""
+
 from kwai.modules.portal.get_news_item import GetNewsItem, GetNewsItemCommand
 from kwai.modules.portal.news.news_item import NewsItemEntity
 from kwai.modules.portal.news.news_item_repository import NewsItemRepository

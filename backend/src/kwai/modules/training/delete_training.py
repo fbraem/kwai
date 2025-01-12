@@ -1,4 +1,5 @@
 """Module that defines the use case "Delete Training"."""
+
 from dataclasses import dataclass
 
 from kwai.modules.training.trainings.training import TrainingIdentifier

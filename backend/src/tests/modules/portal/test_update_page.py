@@ -1,4 +1,5 @@
 """Module for testing the "Update Page" use case."""
+
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.modules.portal.applications.application_repository import (
     ApplicationRepository,
@@ -35,6 +36,6 @@ async def test_update_page(
     )
     updated_page = await UpdatePage(page_repo, application_repo, owner).execute(command)
     assert updated_page is not None, "There should be an updated page."
-    assert (
-        updated_page.remark == "Updated with test_update_page"
-    ), "The page should be updated."
+    assert updated_page.remark == "Updated with test_update_page", (
+        "The page should be updated."
+    )

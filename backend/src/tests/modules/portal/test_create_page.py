@@ -1,4 +1,5 @@
 """Module for testing the "Create Page" use case."""
+
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.applications.application_repository import (

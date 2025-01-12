@@ -24,9 +24,9 @@ def test_initialize_period():
         start_date=Timestamp(timestamp=datetime.datetime(1, 1, 1, 20, 0)),
         end_date=Timestamp(timestamp=datetime.datetime(1, 1, 1, 21, 0)),
     )
-    assert (
-        period.delta.total_seconds() / (60 * 60) == 1
-    ), "The period should be one hour"
+    assert period.delta.total_seconds() / (60 * 60) == 1, (
+        "The period should be one hour"
+    )
 
 
 def test_wrong_period():
@@ -42,6 +42,6 @@ def test_create_with_delta():
     """Test the create_with_delta factory method."""
     period = Period.create_from_delta(hours=1)
 
-    assert (
-        period.delta.total_seconds() / (60 * 60) == 1
-    ), "The period should be one hour"
+    assert period.delta.total_seconds() / (60 * 60) == 1, (
+        "The period should be one hour"
+    )

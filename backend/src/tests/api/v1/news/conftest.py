@@ -1,4 +1,5 @@
 """Module for defining fixtures for the news API."""
+
 import pytest
 
 from kwai.core.db.database import Database

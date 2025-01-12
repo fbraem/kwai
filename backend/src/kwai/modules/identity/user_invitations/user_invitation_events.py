@@ -1,4 +1,5 @@
 """Module that defines all user invitation events."""
+
 from dataclasses import dataclass
 from typing import ClassVar
 

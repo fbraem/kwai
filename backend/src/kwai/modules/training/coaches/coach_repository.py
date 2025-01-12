@@ -1,4 +1,5 @@
 """Module that defines an interface for a coach repository."""
+
 from abc import ABC, abstractmethod
 from typing import AsyncIterator
 

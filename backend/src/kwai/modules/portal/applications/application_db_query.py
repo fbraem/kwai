@@ -1,4 +1,5 @@
 """Module that implements an ApplicationQuery for a database."""
+
 from kwai.core.db.database_query import DatabaseQuery
 from kwai.modules.portal.applications.application import ApplicationIdentifier
 from kwai.modules.portal.applications.application_query import ApplicationQuery

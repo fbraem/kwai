@@ -1,4 +1,5 @@
 """Module that tests the Text value object."""
+
 import dataclasses
 
 import pytest
@@ -32,9 +33,9 @@ def test_add_translation(locale, request):
     """Test the add_translation method."""
     content = request.getfixturevalue("content")
     text = Text().add_translation(content)
-    assert text.contains_translation(
-        locale
-    ), f"There should be a translation available for {locale}"
+    assert text.contains_translation(locale), (
+        f"There should be a translation available for {locale}"
+    )
 
 
 @pytest.mark.parametrize("locale", [Locale.NL])
@@ -42,9 +43,9 @@ def test_remove_translation(locale, request):
     """Test the remove_translation method."""
     content = request.getfixturevalue("content")
     text = Text().add_translation(content).remove_translation(content)
-    assert not text.contains_translation(
-        locale
-    ), f"There should be no translation available for {locale}"
+    assert not text.contains_translation(locale), (
+        f"There should be no translation available for {locale}"
+    )
 
 
 @pytest.mark.parametrize("locale", [Locale.NL])
@@ -53,9 +54,9 @@ def test_replace_translation(locale, request):
     content = request.getfixturevalue("content")
     new_content = dataclasses.replace(content, content="Updated")
     text = Text().add_translation(content).replace_translation(new_content)
-    assert text.contains_translation(
-        locale
-    ), f"There should be a translation available for {locale}"
-    assert (
-        text.get_translation(locale).content == "Updated"
-    ), "The text should be updated"
+    assert text.contains_translation(locale), (
+        f"There should be a translation available for {locale}"
+    )
+    assert text.get_translation(locale).content == "Updated", (
+        "The text should be updated"
+    )

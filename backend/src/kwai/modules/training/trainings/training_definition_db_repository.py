@@ -1,6 +1,5 @@
 """Module that implements a training definition repository for a database."""
 
-
 from typing import Any, AsyncIterator
 
 from kwai.core.db.database import Database

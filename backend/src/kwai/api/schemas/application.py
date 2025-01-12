@@ -1,4 +1,5 @@
 """Schemas for an application resource."""
+
 from types import NoneType
 
 from pydantic import BaseModel

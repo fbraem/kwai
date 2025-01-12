@@ -1,4 +1,5 @@
 """Module for defining the use case 'get coaches'."""
+
 from dataclasses import dataclass
 
 from kwai.core.domain.use_case import UseCaseBrowseResult

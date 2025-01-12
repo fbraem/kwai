@@ -1,4 +1,5 @@
 """Module for testing the user invitation tasks."""
+
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.core.events.publisher import Publisher
 from kwai.modules.identity.user_invitations.user_invitation_events import (

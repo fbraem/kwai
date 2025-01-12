@@ -1,4 +1,5 @@
 """Module for testing the user domain."""
+
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.modules.identity.users.user import UserEntity

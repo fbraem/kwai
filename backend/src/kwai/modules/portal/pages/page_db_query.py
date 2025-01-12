@@ -1,4 +1,5 @@
 """Module that implements a PageQuery for a database."""
+
 from typing import AsyncIterator
 
 from sql_smith.functions import express, group, on

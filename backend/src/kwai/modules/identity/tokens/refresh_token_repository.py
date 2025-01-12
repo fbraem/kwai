@@ -1,4 +1,5 @@
 """Module that defines an interface for a refresh token repository."""
+
 from abc import abstractmethod
 from typing import AsyncIterator
 

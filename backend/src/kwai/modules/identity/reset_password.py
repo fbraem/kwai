@@ -1,4 +1,5 @@
 """Module that implements the reset password use case."""
+
 from dataclasses import dataclass
 
 from kwai.core.domain.value_objects.password import Password

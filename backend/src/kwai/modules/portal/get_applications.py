@@ -1,4 +1,5 @@
 """Module that defines the use case: get all applications for a portal."""
+
 from dataclasses import dataclass
 
 from kwai.modules.portal.applications.application_repository import (

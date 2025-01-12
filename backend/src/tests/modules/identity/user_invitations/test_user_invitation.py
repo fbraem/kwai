@@ -4,12 +4,12 @@
 def test_create(make_user_invitation) -> None:
     """Test creation of a user invitation."""
     user_invitation = make_user_invitation()
-    assert (
-        user_invitation.is_expired is False
-    ), "The user invitation should not be expired"
-    assert (
-        user_invitation.confirmed is False
-    ), "The user invitation should not be confirmed"
+    assert user_invitation.is_expired is False, (
+        "The user invitation should not be expired"
+    )
+    assert user_invitation.confirmed is False, (
+        "The user invitation should not be confirmed"
+    )
     assert user_invitation.mailed is False, "The user invitation should not be sent"
 
 

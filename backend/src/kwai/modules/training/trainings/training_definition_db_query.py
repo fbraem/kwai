@@ -1,4 +1,5 @@
 """Module that implements a TrainingDefinitionQuery for a database."""
+
 from sql_smith.functions import on
 
 from kwai.core.db.database_query import DatabaseQuery

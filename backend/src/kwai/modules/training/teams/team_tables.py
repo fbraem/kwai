@@ -1,4 +1,5 @@
 """Module that defines all dataclasses for the team tables."""
+
 from dataclasses import dataclass
 
 from kwai.core.db.table import Table

@@ -1,4 +1,5 @@
 """Module for testing the use case "Delete News Item"."""
+
 import pytest
 
 from kwai.modules.portal.delete_news_item import DeleteNewsItem, DeleteNewsItemCommand

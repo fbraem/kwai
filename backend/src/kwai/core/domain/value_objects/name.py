@@ -1,4 +1,5 @@
 """Module that defines a value object for a name."""
+
 from dataclasses import dataclass
 
 

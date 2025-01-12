@@ -1,4 +1,5 @@
 """Implement the use case: get a user invitation."""
+
 from dataclasses import dataclass
 
 from kwai.core.domain.value_objects.unique_id import UniqueId

@@ -1,4 +1,5 @@
 """Module that defines the use case "Get Training Definitions"."""
+
 from dataclasses import dataclass
 
 from kwai.core.domain.use_case import UseCaseBrowseResult

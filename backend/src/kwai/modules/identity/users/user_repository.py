@@ -1,4 +1,5 @@
 """Module that defines the interface for a user repository."""
+
 from abc import ABC, abstractmethod
 
 from kwai.core.domain.value_objects.email_address import EmailAddress

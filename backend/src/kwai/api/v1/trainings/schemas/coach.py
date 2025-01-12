@@ -1,4 +1,5 @@
 """Module that defines the JSON:API schemas for coaches."""
+
 from types import NoneType
 
 from pydantic import BaseModel

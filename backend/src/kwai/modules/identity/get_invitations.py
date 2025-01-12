@@ -1,4 +1,5 @@
 """Implement the use case: get user invitations."""
+
 from dataclasses import dataclass
 from typing import AsyncIterator
 

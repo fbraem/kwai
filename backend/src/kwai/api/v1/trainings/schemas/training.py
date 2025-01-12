@@ -1,4 +1,5 @@
 """Schemas for training(s)."""
+
 from types import NoneType
 from typing import Annotated
 

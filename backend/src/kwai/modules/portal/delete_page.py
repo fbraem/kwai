@@ -1,4 +1,5 @@
 """Module for defining the use case "Delete Page"."""
+
 from dataclasses import dataclass
 
 from kwai.modules.portal.pages.page import PageIdentifier

@@ -1,4 +1,5 @@
 """Module for testing TokenIdentifier."""
+
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 
 

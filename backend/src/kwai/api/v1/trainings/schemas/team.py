@@ -1,4 +1,5 @@
 """Module that defines the team schema."""
+
 from types import NoneType
 
 from pydantic import BaseModel

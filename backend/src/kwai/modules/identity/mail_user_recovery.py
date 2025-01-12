@@ -1,4 +1,5 @@
 """Module that defines the use case for sending a recovery email."""
+
 from dataclasses import dataclass
 
 from kwai.core.domain.exceptions import UnprocessableException

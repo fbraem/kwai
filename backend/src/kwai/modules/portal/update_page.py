@@ -1,4 +1,5 @@
 """Module for the use case "Update Page"."""
+
 from dataclasses import dataclass
 
 from kwai.core.domain.entity import Entity

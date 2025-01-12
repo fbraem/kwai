@@ -1,4 +1,5 @@
 """Module for testing the Weekday value object."""
+
 from datetime import datetime, timedelta
 
 import pytest

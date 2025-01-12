@@ -1,4 +1,5 @@
 """Module for defining a publisher using Redis."""
+
 import asyncio
 
 from loguru import logger

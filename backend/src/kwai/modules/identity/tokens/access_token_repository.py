@@ -1,4 +1,5 @@
 """Module that defines an interface for an access token repository."""
+
 from abc import abstractmethod
 from typing import Iterator
 

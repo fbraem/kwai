@@ -1,4 +1,5 @@
 """Module for testing the "Update News" use case."""
+
 from kwai.core.domain.use_case import TextCommand
 from kwai.core.domain.value_objects.owner import Owner
 from kwai.modules.portal.applications.application_repository import (

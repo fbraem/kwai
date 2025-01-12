@@ -1,4 +1,5 @@
 """Module that defines an interface for a user recovery repository."""
+
 from abc import abstractmethod
 
 from kwai.core.domain.value_objects.unique_id import UniqueId

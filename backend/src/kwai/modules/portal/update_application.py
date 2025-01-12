@@ -1,4 +1,5 @@
 """Module that defines the use case: update an application."""
+
 from dataclasses import dataclass
 
 from kwai.core.domain.entity import Entity

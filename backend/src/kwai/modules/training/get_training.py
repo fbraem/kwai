@@ -1,4 +1,5 @@
 """Module for the use case get training."""
+
 from dataclasses import dataclass
 
 from kwai.modules.training.trainings.training import TrainingEntity, TrainingIdentifier

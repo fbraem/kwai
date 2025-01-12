@@ -1,4 +1,5 @@
 """Module that defines an interface for a document converter."""
+
 from abc import ABC, abstractmethod
 
 import markdown

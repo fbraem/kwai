@@ -1,4 +1,5 @@
 """Module for defining the page JSON:API resource."""
+
 from types import NoneType
 
 from pydantic import BaseModel

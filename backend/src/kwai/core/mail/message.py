@@ -1,4 +1,5 @@
 """Module that defines an interface for a mail message."""
+
 from abc import abstractmethod
 
 from .recipient import Recipients

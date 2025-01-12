@@ -117,17 +117,17 @@ class TrainingDbRepository(TrainingRepository):
         training_query = TrainingCoachDbQuery(self._database).filter_by_trainings(
             *trainings.keys()
         )
-        coaches: dict[TrainingIdentifier, list[TrainingCoach]] = (
-            await training_query.fetch_coaches()
-        )
+        coaches: dict[
+            TrainingIdentifier, list[TrainingCoach]
+        ] = await training_query.fetch_coaches()
 
         # Get the teams of all trainings
         team_query = TrainingTeamDbQuery(self._database).filter_by_trainings(
             *trainings.keys()
         )
-        teams: dict[TrainingIdentifier, list[TeamEntity]] = (
-            await team_query.fetch_teams()
-        )
+        teams: dict[
+            TrainingIdentifier, list[TeamEntity]
+        ] = await team_query.fetch_teams()
 
         for training in trainings.values():
             training_coaches = coaches.get(training.id, [])
@@ -233,9 +233,9 @@ class TrainingDbRepository(TrainingRepository):
     async def delete(self, training: TrainingEntity) -> None:
         await self._database.delete(training.id.value, TrainingsTable.table_name)
 
-        await self._delete_contents(training),
-        await self._delete_coaches(training),
-        await self._delete_teams(training),
+        (await self._delete_contents(training),)
+        (await self._delete_coaches(training),)
+        (await self._delete_teams(training),)
 
         await self._database.commit()
 

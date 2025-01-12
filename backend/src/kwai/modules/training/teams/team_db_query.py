@@ -1,4 +1,5 @@
 """Module that defines a database query for teams."""
+
 from kwai.core.db.database_query import DatabaseQuery
 from kwai.modules.training.teams.team import TeamIdentifier
 from kwai.modules.training.teams.team_query import TeamQuery

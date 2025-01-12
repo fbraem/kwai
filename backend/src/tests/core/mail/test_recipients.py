@@ -1,4 +1,5 @@
 """Module for testing Recipients class."""
+
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.mail.recipient import Recipient, Recipients
 

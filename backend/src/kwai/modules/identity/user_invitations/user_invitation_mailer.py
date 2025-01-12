@@ -1,4 +1,5 @@
 """Module that defines a mailer for a user invitation."""
+
 from kwai.core.domain.mailer_service import MailerService
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.message import Message

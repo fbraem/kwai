@@ -1,4 +1,5 @@
 """Module for defining fixtures used for testing the page module."""
+
 import pytest
 
 from kwai.core.db.database import Database

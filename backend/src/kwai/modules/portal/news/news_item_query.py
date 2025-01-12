@@ -1,4 +1,5 @@
 """Module for defining an interface for a news item query."""
+
 from abc import abstractmethod
 
 from kwai.core.domain.repository.query import Query

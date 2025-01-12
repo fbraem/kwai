@@ -1,4 +1,5 @@
 """Module that defines a value object for a token identifier."""
+
 from dataclasses import dataclass
 from secrets import token_hex
 

@@ -1,4 +1,5 @@
 """Module for the use case "Get News Item"."""
+
 from dataclasses import dataclass
 
 from kwai.modules.portal.news.news_item import NewsItemEntity, NewsItemIdentifier

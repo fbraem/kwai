@@ -54,9 +54,7 @@ class ContactDbRepository(ContactRepository):
         ).inner_join(
             CountryRow.__table_name__,
             on(CountryRow.column("id"), ContactRow.column("country_id")),
-        ).where(
-            ContactRow.field("id").eq(id_.value)
-        )
+        ).where(ContactRow.field("id").eq(id_.value))
         row = await self._database.fetch_one(query)
         if row:
             return ContactQueryRow.map(row).create_entity()

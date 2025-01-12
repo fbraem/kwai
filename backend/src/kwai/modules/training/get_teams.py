@@ -1,4 +1,5 @@
 """Module that defines a use case for getting teams."""
+
 from kwai.core.domain.use_case import UseCaseBrowseResult
 from kwai.modules.training.teams.team_repository import TeamRepository
 

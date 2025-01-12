@@ -1,4 +1,5 @@
 """Module for testing the Date value object."""
+
 import datetime
 
 from kwai.core.domain.value_objects.date import Date

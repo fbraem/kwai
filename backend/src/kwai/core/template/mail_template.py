@@ -1,4 +1,5 @@
 """Module that defines a template for creating HTML/Text mails."""
+
 from typing import Any
 
 from kwai.core.mail.mail import Mail

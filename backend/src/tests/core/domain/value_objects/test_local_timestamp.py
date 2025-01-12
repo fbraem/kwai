@@ -15,9 +15,9 @@ def test_add_delta():
     timestamp = Timestamp.create_now()
     new_timestamp = timestamp.add_delta(hours=1)
 
-    assert (
-        timestamp.timestamp.hour + 1 == new_timestamp.timestamp.hour
-    ), "The difference in hour should be 1."
+    assert timestamp.timestamp.hour + 1 == new_timestamp.timestamp.hour, (
+        "The difference in hour should be 1."
+    )
 
 
 def test_create_with_delta():
