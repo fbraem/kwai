@@ -1,6 +1,7 @@
 """Module for testing the dataclass Entity."""
 
 from dataclasses import dataclass
+from typing import ClassVar, Type
 
 import pytest
 
@@ -9,15 +10,28 @@ from kwai.core.domain.value_objects.date import Date
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.modules.club.domain.value_objects import Birthdate
 
-UserIdentifier = IntIdentifier
+
+class UserIdentifier(IntIdentifier):
+    """An identifier for a user entity."""
 
 
 @dataclass(frozen=True, eq=False, kw_only=True, slots=True)
 class UserEntity(DataclassEntity):
     """A sample entity class."""
 
+    ID: ClassVar[Type] = UserIdentifier
+
     name: str
     birthdate: Birthdate
+
+
+def test_new_entity() -> None:
+    """Test creating a new entity."""
+    entity = UserEntity(
+        name="Franky",
+        birthdate=Birthdate(date=Date.create(1969, 3, 9)),
+    )
+    assert entity.id.is_empty(), "The identifier should be empty."
 
 
 @pytest.fixture
