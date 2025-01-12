@@ -1,7 +1,10 @@
 """Module that implements a user account repository for a database."""
 
+from dataclasses import replace
+
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.modules.identity.users.user import UserIdentifier
 from kwai.modules.identity.users.user_account import (
     UserAccountEntity,
     UserAccountIdentifier,
@@ -47,7 +50,8 @@ class UserAccountDbRepository(UserAccountRepository):
         new_id = await self._database.insert(
             UserAccountRow.__table_name__, UserAccountRow.persist(user_account)
         )
-        return user_account.set_id(UserAccountIdentifier(new_id))
+        user = user_account.user.set_id(UserIdentifier(new_id))
+        return replace(user_account, user=user).set_id(UserAccountIdentifier(new_id))
 
     async def update(self, user_account: UserAccountEntity):
         await self._database.update(
