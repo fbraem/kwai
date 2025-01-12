@@ -7,7 +7,6 @@ import pytest
 from kwai.modules.portal.get_news_items import GetNewsItems, GetNewsItemsCommand
 from kwai.modules.portal.news.news_item_repository import NewsItemRepository
 
-
 pytestmark = pytest.mark.db
 
 

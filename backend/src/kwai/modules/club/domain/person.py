@@ -8,7 +8,6 @@ from kwai.modules.club.domain.contact import ContactEntity
 from kwai.modules.club.domain.country import CountryEntity
 from kwai.modules.club.domain.value_objects import Birthdate, Gender
 
-
 PersonIdentifier = IntIdentifier
 
 

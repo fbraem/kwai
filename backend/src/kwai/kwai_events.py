@@ -5,7 +5,6 @@ import os
 import sys
 
 import inject
-
 from loguru import logger
 from redis.asyncio import Redis
 

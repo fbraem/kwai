@@ -13,7 +13,6 @@ from kwai.modules.portal.applications.application_repository import (
     ApplicationRepository,
 )
 
-
 pytestmark = pytest.mark.db
 
 

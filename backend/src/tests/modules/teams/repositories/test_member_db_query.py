@@ -10,7 +10,6 @@ from kwai.modules.teams.domain.team_member import MemberIdentifier
 from kwai.modules.teams.repositories.member_db_repository import MemberDbQuery
 from kwai.modules.teams.repositories.member_repository import MemberQuery
 
-
 pytestmark = pytest.mark.db
 
 

@@ -3,7 +3,6 @@
 from dataclasses import dataclass
 
 import pytest
-
 from sql_smith.engine import CommonEngine
 
 from kwai.core.db.table_row import JoinedTableRow, TableRow

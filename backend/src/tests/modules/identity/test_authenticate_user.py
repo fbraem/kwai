@@ -18,7 +18,6 @@ from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
 )
 
-
 pytestmark = pytest.mark.db
 
 

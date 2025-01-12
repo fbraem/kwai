@@ -10,7 +10,6 @@ from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.domain.country import CountryEntity
 from kwai.modules.club.domain.value_objects import Birthdate, Gender, License
 
-
 MemberIdentifier = IntIdentifier
 
 

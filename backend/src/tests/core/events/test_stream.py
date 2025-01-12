@@ -4,7 +4,6 @@ import pytest
 
 from kwai.core.events.stream import RedisMessage, RedisStream
 
-
 pytestmark = pytest.mark.bus
 
 

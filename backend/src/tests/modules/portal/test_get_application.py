@@ -8,7 +8,6 @@ from kwai.modules.portal.applications.application_repository import (
 )
 from kwai.modules.portal.get_application import GetApplication, GetApplicationCommand
 
-
 pytestmark = pytest.mark.db
 
 

@@ -1,10 +1,8 @@
 """Module for testing the trainings/team API."""
 
 import pytest
-
 from fastapi import status
 from fastapi.testclient import TestClient
-
 
 pytestmark = pytest.mark.api
 

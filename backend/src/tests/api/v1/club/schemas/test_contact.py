@@ -1,7 +1,6 @@
 """Module for testing the contact JSON:API resource."""
 
 import json
-
 from typing import Any
 
 from deepdiff import DeepDiff

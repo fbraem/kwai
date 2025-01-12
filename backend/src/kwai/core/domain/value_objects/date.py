@@ -1,7 +1,6 @@
 """Module for defining a date value object."""
 
 import datetime
-
 from dataclasses import dataclass
 from typing import Self
 

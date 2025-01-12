@@ -5,7 +5,6 @@ from fastapi import APIRouter, Depends
 from kwai.api.dependencies import get_current_user
 from kwai.modules.identity.users.user import UserEntity
 
-
 router = APIRouter()
 
 

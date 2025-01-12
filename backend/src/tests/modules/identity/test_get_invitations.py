@@ -13,7 +13,6 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
     UserInvitationRepository,
 )
 
-
 pytestmark = pytest.mark.db
 
 

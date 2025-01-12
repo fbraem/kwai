@@ -8,7 +8,6 @@ from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.club.domain.person import PersonEntity
 from kwai.modules.club.domain.value_objects import License
 
-
 MemberIdentifier = IntIdentifier
 
 

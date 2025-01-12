@@ -9,7 +9,6 @@ from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.users.user_account import UserAccountEntity
 
-
 AccessTokenIdentifier: TypeAlias = IntIdentifier
 
 

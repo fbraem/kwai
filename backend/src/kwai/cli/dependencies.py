@@ -1,11 +1,9 @@
 """Module that defines dependencies for the CLI program."""
 
 import contextlib
-
 from typing import AsyncGenerator
 
 import inject
-
 from inject import Binder
 from redis.asyncio import Redis
 

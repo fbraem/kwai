@@ -1,7 +1,6 @@
 """Module for testing the portal applications endpoints."""
 
 import pytest
-
 from fastapi import status
 from fastapi.testclient import TestClient
 
@@ -10,7 +9,6 @@ from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.applications.application_db_repository import (
     ApplicationDbRepository,
 )
-
 
 pytestmark = pytest.mark.api
 

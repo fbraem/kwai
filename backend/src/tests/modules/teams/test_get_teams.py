@@ -8,7 +8,6 @@ from kwai.modules.teams.domain.team import TeamEntity
 from kwai.modules.teams.get_teams import GetTeams, GetTeamsCommand
 from kwai.modules.teams.repositories.team_db_repository import TeamDbRepository
 
-
 pytestmark = pytest.mark.db
 
 

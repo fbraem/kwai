@@ -9,7 +9,6 @@ from kwai.api.v1.trainings.endpoints import (
     trainings,
 )
 
-
 # Remark: Order of include_router is important!
 api_router = APIRouter()
 api_router.include_router(coaches.router, tags=["training coaches"])

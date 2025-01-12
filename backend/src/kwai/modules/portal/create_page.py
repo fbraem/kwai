@@ -10,7 +10,6 @@ from kwai.modules.portal.page_command import PageCommand
 from kwai.modules.portal.pages.page import PageEntity
 from kwai.modules.portal.pages.page_repository import PageRepository
 
-
 CreatePageCommand = PageCommand
 
 

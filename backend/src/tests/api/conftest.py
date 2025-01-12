@@ -1,7 +1,6 @@
 """Module that defines fixtures for the api tests."""
 
 import pytest
-
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 

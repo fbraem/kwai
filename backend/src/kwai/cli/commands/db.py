@@ -1,12 +1,10 @@
 """db contains subcommands for the database."""
 
 import os
-
 from asyncio import run
 
 import inject
 import typer
-
 from rich import print
 from typer import Typer
 

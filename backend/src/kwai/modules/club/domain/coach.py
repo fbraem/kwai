@@ -7,7 +7,6 @@ from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.club.domain.member import MemberEntity
 
-
 CoachIdentifier = IntIdentifier
 
 

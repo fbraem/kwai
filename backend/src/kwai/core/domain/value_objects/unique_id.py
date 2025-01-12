@@ -1,7 +1,6 @@
 """Module that defines a value object for a unique id."""
 
 import uuid
-
 from dataclasses import dataclass
 
 

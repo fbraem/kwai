@@ -2,12 +2,10 @@
 
 import os
 import tomllib
-
 from functools import lru_cache
 from typing import Annotated, Any, Literal, Optional, Union
 
 from pydantic import BaseModel, Field
-
 
 ENV_SETTINGS_FILE = "KWAI_SETTINGS_FILE"
 

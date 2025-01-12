@@ -1,7 +1,6 @@
 """Module for defining an importer for members of the Flemish Judo Federation."""
 
 import csv
-
 from typing import Any, AsyncGenerator
 
 from kwai.core.domain.value_objects.date import Date

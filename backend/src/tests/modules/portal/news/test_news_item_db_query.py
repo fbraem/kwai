@@ -5,7 +5,6 @@ import pytest
 from kwai.core.db.database import Database
 from kwai.modules.portal.news.news_item_db_query import NewsItemDbQuery
 
-
 pytestmark = pytest.mark.db
 
 

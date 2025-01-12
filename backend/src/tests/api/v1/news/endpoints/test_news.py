@@ -1,13 +1,11 @@
 """Module for testing the news endpoints."""
 
 import pytest
-
 from fastapi import status
 from fastapi.testclient import TestClient
 
 from kwai.modules.portal.applications.application import ApplicationEntity
 from kwai.modules.portal.news.news_item import NewsItemEntity
-
 
 pytestmark = pytest.mark.api
 

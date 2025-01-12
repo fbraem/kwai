@@ -1,7 +1,6 @@
 """Module that defines a generic entity."""
 
 import inspect
-
 from dataclasses import dataclass, field, replace
 from typing import (
     Any,

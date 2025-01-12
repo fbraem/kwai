@@ -11,7 +11,6 @@ from kwai.core.json_api import Meta
 from kwai.modules.training.coaches.coach_db_repository import CoachDbRepository
 from kwai.modules.training.get_coaches import GetCoaches, GetCoachesCommand
 
-
 router = APIRouter()
 
 

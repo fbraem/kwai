@@ -16,7 +16,6 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
 )
 from kwai.modules.identity.users.user import UserEntity
 
-
 pytestmark = pytest.mark.db
 
 

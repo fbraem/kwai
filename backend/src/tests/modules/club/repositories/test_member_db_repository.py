@@ -13,7 +13,6 @@ from kwai.modules.club.repositories.member_repository import (
     MemberRepository,
 )
 
-
 pytestmark = pytest.mark.db
 
 

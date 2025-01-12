@@ -11,7 +11,6 @@ from kwai.modules.club.repositories.person_repository import (
     PersonRepository,
 )
 
-
 pytestmark = pytest.mark.db
 
 

@@ -1,7 +1,6 @@
 """Module that defines the base class Event."""
 
 import dataclasses
-
 from dataclasses import dataclass
 from typing import ClassVar
 

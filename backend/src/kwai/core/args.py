@@ -1,7 +1,6 @@
 """Module for handling arguments for starting a uvicorn application."""
 
 import argparse
-
 from argparse import Namespace
 
 

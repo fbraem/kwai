@@ -4,7 +4,6 @@ from types import NoneType
 from typing import Literal
 
 import pytest
-
 from pydantic import BaseModel
 from rich import json
 

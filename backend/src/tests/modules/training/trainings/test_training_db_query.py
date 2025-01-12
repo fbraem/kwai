@@ -21,7 +21,6 @@ from kwai.modules.training.trainings.training_definition import (
     TrainingDefinitionIdentifier,
 )
 
-
 pytestmark = pytest.mark.db
 
 

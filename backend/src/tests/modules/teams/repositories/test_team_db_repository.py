@@ -7,7 +7,6 @@ from kwai.core.domain.entity import Entity
 from kwai.modules.teams.repositories.team_db_repository import TeamDbRepository
 from kwai.modules.teams.repositories.team_repository import TeamNotFoundException
 
-
 pytestmark = pytest.mark.db
 
 

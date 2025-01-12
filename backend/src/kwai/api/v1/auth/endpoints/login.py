@@ -3,7 +3,6 @@
 from typing import Annotated
 
 import jwt
-
 from fastapi import APIRouter, Depends, Form, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from jwt import ExpiredSignatureError

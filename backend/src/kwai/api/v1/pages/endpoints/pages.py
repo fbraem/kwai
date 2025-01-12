@@ -23,7 +23,6 @@ from kwai.modules.portal.pages.page_db_repository import PageDbRepository
 from kwai.modules.portal.pages.page_repository import PageNotFoundException
 from kwai.modules.portal.update_page import UpdatePage, UpdatePageCommand
 
-
 router = APIRouter()
 
 

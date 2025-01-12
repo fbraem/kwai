@@ -9,7 +9,6 @@ from kwai.modules.teams.repositories.member_db_repository import (
     MemberDbRepository,
 )
 
-
 pytestmark = pytest.mark.db
 
 

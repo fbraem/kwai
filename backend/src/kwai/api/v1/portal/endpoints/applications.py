@@ -19,7 +19,6 @@ from kwai.modules.portal.update_application import (
     UpdateApplicationCommand,
 )
 
-
 router = APIRouter()
 
 

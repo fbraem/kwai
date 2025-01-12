@@ -1,7 +1,6 @@
 """Module for testing the auth endpoints login."""
 
 import pytest
-
 from fastapi import status
 from fastapi.testclient import TestClient
 
@@ -12,7 +11,6 @@ from kwai.modules.identity.user_recoveries.user_recovery_db_repository import (
     UserRecoveryDbRepository,
 )
 from kwai.modules.identity.users.user_account import UserAccountEntity
-
 
 pytestmark = [pytest.mark.api, pytest.mark.db]
 

@@ -1,14 +1,12 @@
 """Module for defining an event router."""
 
 import inspect
-
 from dataclasses import dataclass
 from typing import Any, Callable, Type
 
 from loguru import logger
 
 from kwai.core.events.event import Event
-
 
 EventCallbackType = Callable[[dict[str, Any]], Any]
 

@@ -8,7 +8,6 @@ from kwai.modules.training.trainings.training_definition_db_query import (
     TrainingDefinitionDbQuery,
 )
 
-
 pytestmark = pytest.mark.db
 
 

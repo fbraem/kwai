@@ -1,11 +1,9 @@
 """Module for testing the member JSON:API resource."""
 
 import json
-
 from typing import Any
 
 import pytest
-
 from deepdiff import DeepDiff
 
 from kwai.api.v1.club.schemas.member import MemberDocument

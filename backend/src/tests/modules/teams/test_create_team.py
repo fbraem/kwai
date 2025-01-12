@@ -6,7 +6,6 @@ from kwai.core.db.database import Database
 from kwai.modules.teams.create_team import CreateTeam, CreateTeamCommand
 from kwai.modules.teams.repositories.team_db_repository import TeamDbRepository
 
-
 pytestmark = pytest.mark.db
 
 

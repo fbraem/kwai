@@ -13,7 +13,6 @@ from kwai.modules.club.repositories.member_db_repository import MemberDbReposito
 from kwai.modules.club.repositories.member_repository import MemberNotFoundException
 from kwai.modules.identity.users.user import UserEntity
 
-
 router = APIRouter()
 
 

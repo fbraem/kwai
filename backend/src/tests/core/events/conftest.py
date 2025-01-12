@@ -1,7 +1,6 @@
 """Define common fixtures for Redis."""
 
 import pytest
-
 from redis.asyncio import Redis
 
 from kwai.core.events.stream import RedisStream

@@ -5,7 +5,6 @@ import pytest
 from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.access_token_repository import AccessTokenRepository
 
-
 pytestmark = pytest.mark.db
 
 

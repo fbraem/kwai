@@ -10,7 +10,6 @@ from kwai.modules.club.repositories.country_repository import (
     CountryRepository,
 )
 
-
 pytestmark = pytest.mark.db
 
 

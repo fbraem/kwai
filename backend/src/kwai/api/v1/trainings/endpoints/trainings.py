@@ -34,7 +34,6 @@ from kwai.modules.training.trainings.training_repository import (
 )
 from kwai.modules.training.update_training import UpdateTraining, UpdateTrainingCommand
 
-
 router = APIRouter()
 
 

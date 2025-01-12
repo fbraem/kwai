@@ -12,7 +12,6 @@ from kwai.modules.portal.news.news_item import NewsItemEntity, Promotion
 from kwai.modules.portal.news.news_item_repository import NewsItemRepository
 from kwai.modules.portal.news_item_command import NewsItemCommand
 
-
 CreateNewsItemCommand = NewsItemCommand
 
 

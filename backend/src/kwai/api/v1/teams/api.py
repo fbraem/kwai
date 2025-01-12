@@ -34,7 +34,6 @@ from kwai.modules.teams.repositories.team_db_repository import TeamDbRepository
 from kwai.modules.teams.update_team import UpdateTeam, UpdateTeamCommand
 from kwai.modules.training.teams.team_repository import TeamNotFoundException
 
-
 router = APIRouter(tags=["teams"])
 
 
