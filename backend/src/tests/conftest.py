@@ -7,6 +7,7 @@ import pytest
 from redis.asyncio import Redis
 
 from kwai.core.db.database import Database
+from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.owner import Owner
@@ -118,9 +119,14 @@ async def user_account(database: Database) -> AsyncIterator[UserAccountEntity]:
         password=Password.create_from_string("Nage-waza/1882"),
     )
     repo = UserAccountDbRepository(database)
-    user_account = await repo.create(user_account)
+
+    async with UnitOfWork(database):
+        user_account = await repo.create(user_account)
+
     yield user_account
-    await repo.delete(user_account)
+
+    async with UnitOfWork(database):
+        await repo.delete(user_account)
 
 
 @pytest.fixture(scope="module")
