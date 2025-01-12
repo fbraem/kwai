@@ -1,4 +1,5 @@
 """Module that implements a refresh token query for a database."""
+
 from sql_smith.functions import on
 
 from kwai.core.db.database_query import DatabaseQuery
@@ -8,7 +9,7 @@ from kwai.modules.identity.tokens.token_tables import (
     AccessTokensTable,
     RefreshTokensTable,
 )
-from kwai.modules.identity.users.user_tables import UserAccountsTable
+from kwai.modules.identity.users.user_tables import UserAccountRow
 
 
 class RefreshTokenDbQuery(RefreshTokenQuery, DatabaseQuery):
@@ -22,8 +23,8 @@ class RefreshTokenDbQuery(RefreshTokenQuery, DatabaseQuery):
                 AccessTokensTable.column("id"),
             ),
         ).join(
-            UserAccountsTable.table_name,
-            on(AccessTokensTable.column("user_id"), UserAccountsTable.column("id")),
+            UserAccountRow.__table_name__,
+            on(AccessTokensTable.column("user_id"), UserAccountRow.column("id")),
         )
 
     @property
@@ -31,7 +32,7 @@ class RefreshTokenDbQuery(RefreshTokenQuery, DatabaseQuery):
         return (
             RefreshTokensTable.aliases()
             + AccessTokensTable.aliases()
-            + UserAccountsTable.aliases()
+            + UserAccountRow.get_aliases()
         )
 
     def filter_by_id(self, id_: int) -> "RefreshTokenQuery":

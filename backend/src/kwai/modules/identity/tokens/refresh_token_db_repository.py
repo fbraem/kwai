@@ -19,15 +19,13 @@ from kwai.modules.identity.tokens.token_tables import (
     RefreshTokenRow,
     RefreshTokensTable,
 )
-from kwai.modules.identity.users.user_tables import (
-    UserAccountsTable,
-)
+from kwai.modules.identity.users.user_tables import UserAccountRow
 
 
 def _create_entity(row) -> RefreshTokenEntity:
     """Create a refresh token entity from a row."""
     return RefreshTokensTable(row).create_entity(
-        AccessTokensTable(row).create_entity(UserAccountsTable(row).create_entity())
+        AccessTokensTable(row).create_entity(UserAccountRow.map(row).create_entity())
     )
 
 

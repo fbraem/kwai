@@ -1,9 +1,10 @@
 """Module that implements an access token query for a database."""
+
 from sql_smith.functions import on
 
 from kwai.core.db.database_query import DatabaseQuery
-from kwai.modules.identity.users.user_tables import UserAccountsTable
 
+from ..users.user_tables import UserAccountRow
 from .access_token_query import AccessTokenQuery
 from .token_identifier import TokenIdentifier
 from .token_tables import AccessTokensTable
@@ -15,14 +16,14 @@ class AccessTokenDbQuery(AccessTokenQuery, DatabaseQuery):
     def init(self):
         """Initialize the query."""
         self._query.from_(AccessTokensTable.table_name).join(
-            UserAccountsTable.table_name,
-            on(AccessTokensTable.column("user_id"), UserAccountsTable.column("id")),
+            UserAccountRow.__table_name__,
+            on(AccessTokensTable.column("user_id"), UserAccountRow.column("id")),
         )
 
     @property
     def columns(self):
         """Return the columns for the query."""
-        return AccessTokensTable.aliases() + UserAccountsTable.aliases()
+        return AccessTokensTable.aliases() + UserAccountRow.get_aliases()
 
     def filter_by_id(self, id_: int) -> "AccessTokenQuery":
         """Add a filter for id."""

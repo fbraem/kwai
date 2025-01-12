@@ -18,12 +18,12 @@ from kwai.modules.identity.tokens.token_tables import (
     AccessTokenRow,
     AccessTokensTable,
 )
-from kwai.modules.identity.users.user_tables import UserAccountsTable
+from kwai.modules.identity.users.user_tables import UserAccountRow
 
 
 def _create_entity(row: dict[str, Any]) -> AccessTokenEntity:
     """Create an access token entity from a row."""
-    return AccessTokensTable(row).create_entity(UserAccountsTable(row).create_entity())
+    return AccessTokensTable(row).create_entity(UserAccountRow.map(row).create_entity())
 
 
 class AccessTokenDbRepository(AccessTokenRepository):
