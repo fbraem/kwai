@@ -87,7 +87,7 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "W", "F", "C", "B", "D", "I", "N"]
-fixable = ["I"]
+fixable = ["I", "F"]
 ignore = ["D107", "D203", "D213", "D406", "D407", "E501", "N818", "B008"]
 
 [tool.ruff.lint.pydocstyle]
