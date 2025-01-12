@@ -1,4 +1,5 @@
 """Module that implements a user recovery repository interface for a database."""
+
 from typing import Any
 
 from sql_smith.functions import on
@@ -18,12 +19,12 @@ from kwai.modules.identity.user_recoveries.user_recovery_tables import (
     UserRecoveriesTable,
     UserRecoveryRow,
 )
-from kwai.modules.identity.users.user_tables import UsersTable
+from kwai.modules.identity.users.user_tables import UserRow
 
 
 def _create_entity(row: dict[str, Any]) -> UserRecoveryEntity:
     """Map the user recovery record to an entity."""
-    return UserRecoveriesTable(row).create_entity(UsersTable(row).create_entity())
+    return UserRecoveriesTable(row).create_entity(UserRow.map(row).create_entity())
 
 
 class UserRecoveryDbRepository(UserRecoveryRepository):
@@ -51,11 +52,11 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
         query = (
             self._database.create_query_factory()
             .select()
-            .columns(*(UserRecoveriesTable.aliases() + UsersTable.aliases()))
+            .columns(*(UserRecoveriesTable.aliases() + UserRow.get_aliases()))
             .from_(UserRecoveriesTable.table_name)
             .join(
-                UsersTable.table_name,
-                on(UserRecoveriesTable.column("user_id"), UsersTable.column("id")),
+                UserRow.__table_name__,
+                on(UserRecoveriesTable.column("user_id"), UserRow.column("id")),
             )
             .and_where(UserRecoveriesTable.field("uuid").eq(str(uuid)))
         )
