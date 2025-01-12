@@ -1,7 +1,7 @@
 """Module that defines a generic entity."""
 
 import inspect
-from dataclasses import dataclass, field, replace
+from dataclasses import dataclass, field, fields, replace
 from typing import (
     Any,
     ClassVar,
@@ -52,6 +52,15 @@ class DataclassEntity:
         if not self.id.is_empty():
             raise ValueError(f"{self.__class__.__name__} has already an ID: {self.id}")
         return replace(self, id=id_)
+
+    def shallow_dict(self) -> dict[str, Any]:
+        """Return a dictionary representation of the entity.
+
+        !!! Note
+            This method is not recursive. Use asdict from dataclasses when also
+            nested fields must be returned as a dict.
+        """
+        return {f.name: getattr(self, f.name) for f in fields(self)}
 
     def __eq__(self, other: Any) -> bool:
         """Check if two entities are equal.

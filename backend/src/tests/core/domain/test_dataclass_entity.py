@@ -55,3 +55,14 @@ def test_change_id_not_allowed(user_entity: UserEntity):
     """Test that changing the id is not allowed."""
     with pytest.raises(ValueError):
         user_entity.set_id(UserIdentifier(2))
+
+
+def test_shallow_dict(user_entity: UserEntity) -> None:
+    """Test creating a shallow dictionary."""
+    d = user_entity.shallow_dict()
+    assert d == {
+        "id": UserIdentifier(1),
+        "name": "Franky",
+        "birthdate": user_entity.birthdate,
+        "traceable_time": user_entity.traceable_time,
+    }
