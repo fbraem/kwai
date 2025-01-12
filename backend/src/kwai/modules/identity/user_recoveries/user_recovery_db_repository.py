@@ -16,7 +16,6 @@ from kwai.modules.identity.user_recoveries.user_recovery_repository import (
     UserRecoveryRepository,
 )
 from kwai.modules.identity.user_recoveries.user_recovery_tables import (
-    UserRecoveriesTable,
     UserRecoveryRow,
 )
 from kwai.modules.identity.users.user_tables import UserRow
@@ -24,7 +23,7 @@ from kwai.modules.identity.users.user_tables import UserRow
 
 def _create_entity(row: dict[str, Any]) -> UserRecoveryEntity:
     """Map the user recovery record to an entity."""
-    return UserRecoveriesTable(row).create_entity(UserRow.map(row).create_entity())
+    return UserRecoveryRow.map(row).create_entity(UserRow.map(row).create_entity())
 
 
 class UserRecoveryDbRepository(UserRecoveryRepository):
@@ -35,7 +34,7 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
 
     async def create(self, user_recovery: UserRecoveryEntity) -> UserRecoveryEntity:
         new_id = await self._database.insert(
-            UserRecoveriesTable.table_name, UserRecoveryRow.persist(user_recovery)
+            UserRecoveryRow.__table_name__, UserRecoveryRow.persist(user_recovery)
         )
         await self._database.commit()
         return Entity.replace(user_recovery, id_=UserRecoveryIdentifier(new_id))
@@ -43,7 +42,7 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
     async def update(self, user_recovery: UserRecoveryEntity):
         await self._database.update(
             user_recovery.id.value,
-            UserRecoveriesTable.table_name,
+            UserRecoveryRow.__table_name__,
             UserRecoveryRow.persist(user_recovery),
         )
         await self._database.commit()
@@ -52,13 +51,13 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
         query = (
             self._database.create_query_factory()
             .select()
-            .columns(*(UserRecoveriesTable.aliases() + UserRow.get_aliases()))
-            .from_(UserRecoveriesTable.table_name)
+            .columns(*(UserRecoveryRow.get_aliases() + UserRow.get_aliases()))
+            .from_(UserRecoveryRow.__table_name__)
             .join(
                 UserRow.__table_name__,
-                on(UserRecoveriesTable.column("user_id"), UserRow.column("id")),
+                on(UserRecoveryRow.column("user_id"), UserRow.column("id")),
             )
-            .and_where(UserRecoveriesTable.field("uuid").eq(str(uuid)))
+            .and_where(UserRecoveryRow.field("uuid").eq(str(uuid)))
         )
         if row := await self._database.fetch_one(query):
             return _create_entity(row)
@@ -67,6 +66,6 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
 
     async def delete(self, user_recovery: UserRecoveryEntity):
         await self._database.delete(
-            user_recovery.id.value, UserRecoveriesTable.table_name
+            user_recovery.id.value, UserRecoveryRow.__table_name__
         )
         await self._database.commit()

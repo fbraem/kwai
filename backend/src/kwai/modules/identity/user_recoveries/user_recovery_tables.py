@@ -2,8 +2,9 @@
 
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Self
 
-from kwai.core.db.table import Table
+from kwai.core.db.table_row import TableRow
 from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
@@ -14,9 +15,11 @@ from kwai.modules.identity.user_recoveries.user_recovery import (
 from kwai.modules.identity.users.user import UserEntity
 
 
-@dataclass
-class UserRecoveryRow:
+@dataclass(kw_only=True, frozen=True, slots=True)
+class UserRecoveryRow(TableRow):
     """Represent a row in the user recovery table."""
+
+    __table_name__ = "user_recoveries"
 
     id: int | None
     user_id: int
@@ -45,7 +48,7 @@ class UserRecoveryRow:
         )
 
     @classmethod
-    def persist(cls, user_recovery: UserRecoveryEntity) -> "UserRecoveryRow":
+    def persist(cls, user_recovery: UserRecoveryEntity) -> Self:
         """Map a user recovery entity to a table record."""
         return UserRecoveryRow(
             id=user_recovery.id.value,
@@ -58,6 +61,3 @@ class UserRecoveryRow:
             created_at=user_recovery.traceable_time.created_at.timestamp,
             updated_at=user_recovery.traceable_time.updated_at.timestamp,
         )
-
-
-UserRecoveriesTable = Table("user_recoveries", UserRecoveryRow)
