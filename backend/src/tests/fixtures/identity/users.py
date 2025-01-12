@@ -24,7 +24,7 @@ def make_user():
         email: EmailAddress | None = None,
     ) -> UserEntity:
         return UserEntity(
-            uuid=uuid,
+            uuid=uuid or UniqueId.generate(),
             name=name or Name(first_name="Jigoro", last_name="Kano"),
             email=email or EmailAddress("jigoro.kano@kwai.com"),
         )
