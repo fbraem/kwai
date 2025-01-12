@@ -75,15 +75,14 @@ class AuthenticateUser:
         if user_account.revoked:
             raise AuthenticationException("User account is revoked")
 
-        if not user_account.login(command.password):
-            await self._user_account_repo.update(
-                user_account
-            )  # save the last unsuccessful login
+        user_account = user_account.login(command.password)
+        if not user_account.logged_in:
+            # save the last unsuccessful login
+            await self._user_account_repo.update(user_account)
             raise AuthenticationException("Invalid password")
 
-        await self._user_account_repo.update(
-            user_account
-        )  # save the last successful login
+        # save the last successful login
+        await self._user_account_repo.update(user_account)
 
         access_token = await self._access_token_repo.create(
             AccessTokenEntity(

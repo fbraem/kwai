@@ -22,12 +22,12 @@ from kwai.modules.identity.user_invitations.user_invitation_tables import (
     UserInvitationRow,
     UserInvitationsTable,
 )
-from kwai.modules.identity.users.user_tables import UsersTable
+from kwai.modules.identity.users.user_tables import UserRow
 
 
 def _create_entity(row) -> UserInvitationEntity:
     """Create a user invitation from a row."""
-    return UserInvitationsTable(row).create_entity(UsersTable(row).create_entity())
+    return UserInvitationsTable(row).create_entity(UserRow.map(row).create_entity())
 
 
 class UserInvitationDbRepository(UserInvitationRepository):

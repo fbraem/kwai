@@ -1,53 +1,45 @@
 """Module that implements a user account entity."""
 
-from kwai.core.domain.entity import Entity
+from dataclasses import dataclass, field, replace
+from typing import ClassVar, Self, Type
+
+from kwai.core.domain.entity import DataclassEntity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
 from kwai.core.domain.value_objects.password import Password
 from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.identity.exceptions import NotAllowedException
 from kwai.modules.identity.users.user import UserEntity
 
-UserAccountIdentifier = IntIdentifier
+
+class UserAccountIdentifier(IntIdentifier):
+    """Identifier for a user account."""
 
 
-class UserAccountEntity(Entity[UserAccountIdentifier]):
-    """A user account entity."""
+@dataclass(kw_only=True, eq=False, slots=True, frozen=True)
+class UserAccountEntity(DataclassEntity):
+    """A user account entity.
 
-    def __init__(
-        self,
-        *,
-        user: UserEntity,
-        password: Password,
-        id_: UserAccountIdentifier | None = None,
-        last_login: Timestamp | None = None,
-        last_unsuccessful_login: Timestamp | None = None,
-        revoked: bool = False,
-        admin: bool = False,
-    ):
-        super().__init__(id_ or UserAccountIdentifier())
-        self._user = user
-        self._password = password
-        self._last_login = last_login or Timestamp()
-        self._last_unsuccessful_login = last_unsuccessful_login or Timestamp()
-        self._revoked = revoked
-        self._admin = admin
+    Attributes:
+        user: The associated user entity.
+        password: The password of the user.
+        logged_in: Whether the user is logged in.
+        last_login: Timestamp of the last login.
+        last_unsuccessful_login: Timestamp of the last unsuccessful login.
+        revoked: Whether the user is revoked.
+        admin: Whether the user is an administrator.
+    """
 
-    @property
-    def admin(self) -> bool:
-        """Check if this user an administrator."""
-        return self._admin
+    ID: ClassVar[Type] = UserAccountIdentifier
 
-    @property
-    def last_login(self) -> Timestamp:
-        """Return the timestamp of the last successful login."""
-        return self._last_login
+    user: UserEntity
+    password: Password
+    logged_in: bool = False
+    last_login: Timestamp = field(default_factory=Timestamp)
+    last_unsuccessful_login: Timestamp = field(default_factory=Timestamp)
+    revoked: bool = False
+    admin: bool = False
 
-    @property
-    def last_unsuccessful_login(self) -> Timestamp:
-        """Return the timestamp of the last unsuccessful login."""
-        return self._last_unsuccessful_login
-
-    def login(self, password: str) -> bool:
+    def login(self, password: str) -> Self:
         """Check if the given password is correct.
 
         When login succeeds, last_login will be updated.
@@ -56,41 +48,30 @@ class UserAccountEntity(Entity[UserAccountIdentifier]):
         Args:
             password: The password.
         """
-        if self._password.verify(password):
-            self._last_login = Timestamp.create_now()
-            return True
+        if self.password.verify(password):
+            return replace(self, last_login=Timestamp.create_now(), logged_in=True)
 
-        self._last_unsuccessful_login = Timestamp.create_now()
-        return False
+        return replace(
+            self, last_unsuccessful_login=Timestamp.create_now(), logged_in=False
+        )
 
-    @property
-    def password(self) -> Password:
-        """Return the password of the user."""
-        return self._password
-
-    def reset_password(self, password: Password):
+    def reset_password(self, password: Password) -> Self:
         """Reset the password of the user account.
 
         Args:
             password: The new password.
         """
-        if self._revoked:
+        if self.revoked:
             raise NotAllowedException()
 
-        self._password = password
-        self._user.mark_for_update()
+        return replace(
+            self,
+            password=password,
+            traceable_time=self.traceable_time.mark_for_update(),
+        )
 
-    def revoke(self):
+    def revoke(self) -> Self:
         """Revoke a user account."""
-        self._revoked = True
-        self._user.mark_for_update()
-
-    @property
-    def revoked(self) -> bool:
-        """Check if this user is revoked."""
-        return self._revoked
-
-    @property
-    def user(self) -> UserEntity:
-        """Return the associated user entity."""
-        return self._user
+        return replace(
+            self, revoked=True, traceable_time=self.traceable_time.mark_for_update()
+        )

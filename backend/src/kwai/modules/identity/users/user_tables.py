@@ -2,8 +2,9 @@
 
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Self
 
-from kwai.core.db.table import Table
+from kwai.core.db.table_row import TableRow
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.password import Password
@@ -18,8 +19,10 @@ from kwai.modules.identity.users.user_account import (
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class UserRow:
+class UserRow(TableRow):
     """Represent a row in the users table."""
+
+    __table_name__ = "users"
 
     id: int | None
     email: str
@@ -34,7 +37,7 @@ class UserRow:
     def create_entity(self) -> UserEntity:
         """Create a user entity from a table row."""
         return UserEntity(
-            id_=UserIdentifier(self.id),
+            id=UserIdentifier(self.id),
             uuid=UniqueId.create_from_string(self.uuid),
             name=Name(
                 first_name=self.first_name,
@@ -49,9 +52,9 @@ class UserRow:
         )
 
     @classmethod
-    def persist(cls, user: UserEntity) -> "UserRow":
+    def persist(cls, user: UserEntity) -> Self:
         """Transform a user entity into a table record."""
-        return UserRow(
+        return cls(
             id=user.id.value,
             email=str(user.email),
             first_name=user.name.first_name,
@@ -64,12 +67,11 @@ class UserRow:
         )
 
 
-UsersTable = Table("users", UserRow)
-
-
-@dataclass(kw_only=True, frozen=True)
-class UserAccountRow:
+@dataclass(kw_only=True, frozen=True, slots=True)
+class UserAccountRow(TableRow):
     """Represent a row in the user table with user account information."""
+
+    __table_name__ = "users"
 
     id: int | None
     email: str
@@ -89,14 +91,14 @@ class UserAccountRow:
     def create_entity(self) -> UserAccountEntity:
         """Create a user account entity from the table row."""
         return UserAccountEntity(
-            id_=UserAccountIdentifier(self.id),
+            id=UserAccountIdentifier(self.id),
             password=Password(self.password.encode()),
             last_login=Timestamp(self.last_login),
             last_unsuccessful_login=Timestamp(self.last_unsuccessful_login),
             revoked=self.revoked == 1,
             admin=self.admin == 1,
             user=UserEntity(
-                id_=UserIdentifier(self.id),
+                id=UserIdentifier(self.id),
                 uuid=UniqueId.create_from_string(self.uuid),
                 name=Name(
                     first_name=self.first_name,
@@ -111,7 +113,7 @@ class UserAccountRow:
         )
 
     @classmethod
-    def persist(cls, user_account: UserAccountEntity) -> "UserAccountRow":
+    def persist(cls, user_account: UserAccountEntity) -> Self:
         """Transform a user account entity into a table record."""
         return UserAccountRow(
             id=user_account.id.value,
@@ -129,6 +131,3 @@ class UserAccountRow:
             revoked=1 if user_account.revoked else 0,
             admin=1 if user_account.admin else 0,
         )
-
-
-UserAccountsTable = Table("users", UserAccountRow)

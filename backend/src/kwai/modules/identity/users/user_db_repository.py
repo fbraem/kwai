@@ -9,7 +9,7 @@ from kwai.modules.identity.users.user_repository import (
     UserNotFoundException,
     UserRepository,
 )
-from kwai.modules.identity.users.user_tables import UserRow, UsersTable
+from kwai.modules.identity.users.user_tables import UserRow
 
 
 class UserDbRepository(UserRepository):
@@ -20,9 +20,8 @@ class UserDbRepository(UserRepository):
 
     async def update(self, user: UserEntity) -> None:
         await self._database.update(
-            user.id.value, UsersTable.table_name, UserRow.persist(user)
+            user.id.value, UserRow.__table_name__, UserRow.persist(user)
         )
-        await self._database.commit()
 
     def create_query(self) -> UserDbQuery:
         """Create a user database query."""
@@ -38,7 +37,7 @@ class UserDbRepository(UserRepository):
 
         row = await query.fetch_one()
         if row:
-            return UsersTable(row).create_entity()
+            return UserRow.map(row).create_entity()
 
         raise UserNotFoundException()
 
@@ -52,7 +51,7 @@ class UserDbRepository(UserRepository):
 
         row = await query.fetch_one()
         if row:
-            return UsersTable(row).create_entity()
+            return UserRow.map(row).create_entity()
 
         raise UserNotFoundException()
 
@@ -66,6 +65,6 @@ class UserDbRepository(UserRepository):
 
         row = await query.fetch_one()
         if row:
-            return UsersTable(row).create_entity()
+            return UserRow.map(row).create_entity()
 
         raise UserNotFoundException()

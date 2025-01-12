@@ -15,7 +15,7 @@ from kwai.modules.identity.user_invitations.user_invitation_query import (
 from kwai.modules.identity.user_invitations.user_invitation_tables import (
     UserInvitationsTable,
 )
-from kwai.modules.identity.users.user_tables import UsersTable
+from kwai.modules.identity.users.user_tables import UserRow
 
 
 class UserInvitationDbQuery(UserInvitationQuery, DatabaseQuery):
@@ -23,13 +23,13 @@ class UserInvitationDbQuery(UserInvitationQuery, DatabaseQuery):
 
     def init(self):
         return self._query.from_(UserInvitationsTable.table_name).join(
-            UsersTable.table_name,
-            on(UserInvitationsTable.column("user_id"), UsersTable.column("id")),
+            UserRow.__table_name__,
+            on(UserInvitationsTable.column("user_id"), UserRow.column("id")),
         )
 
     @property
     def columns(self):
-        return UserInvitationsTable.aliases() + UsersTable.aliases()
+        return UserInvitationsTable.aliases() + UserRow.get_aliases()
 
     @property
     def count_column(self) -> str:
