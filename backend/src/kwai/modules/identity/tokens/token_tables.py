@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-from kwai.core.db.table import Table
+from kwai.core.db.table_row import TableRow
 from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.identity.tokens.access_token import (
@@ -19,8 +19,10 @@ from kwai.modules.identity.users.user_account import UserAccountEntity
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class AccessTokenRow:
+class AccessTokenRow(TableRow):
     """Represent a table row in the access tokens table."""
+
+    __table_name__ = "oauth_access_tokens"
 
     id: int | None
     identifier: str
@@ -58,12 +60,11 @@ class AccessTokenRow:
         )
 
 
-AccessTokensTable = Table("oauth_access_tokens", AccessTokenRow)
-
-
 @dataclass(kw_only=True, frozen=True, slots=True)
-class RefreshTokenRow:
+class RefreshTokenRow(TableRow):
     """Represent a table row in the refresh token table."""
+
+    __table_name__ = "oauth_refresh_tokens"
 
     id: int | None
     identifier: str
@@ -99,6 +100,3 @@ class RefreshTokenRow:
             created_at=refresh_token.traceable_time.created_at.timestamp,
             updated_at=refresh_token.traceable_time.updated_at.timestamp,
         )
-
-
-RefreshTokensTable = Table("oauth_refresh_tokens", RefreshTokenRow)

@@ -15,17 +15,16 @@ from kwai.modules.identity.tokens.refresh_token_repository import (
 )
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.tokens.token_tables import (
-    AccessTokensTable,
+    AccessTokenRow,
     RefreshTokenRow,
-    RefreshTokensTable,
 )
 from kwai.modules.identity.users.user_tables import UserAccountRow
 
 
 def _create_entity(row) -> RefreshTokenEntity:
     """Create a refresh token entity from a row."""
-    return RefreshTokensTable(row).create_entity(
-        AccessTokensTable(row).create_entity(UserAccountRow.map(row).create_entity())
+    return RefreshTokenRow.map(row).create_entity(
+        AccessTokenRow.map(row).create_entity(UserAccountRow.map(row).create_entity())
     )
 
 
@@ -71,13 +70,13 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
 
     async def create(self, refresh_token: RefreshTokenEntity) -> RefreshTokenEntity:
         new_id = await self._database.insert(
-            RefreshTokensTable.table_name, RefreshTokenRow.persist(refresh_token)
+            RefreshTokenRow.__table_name__, RefreshTokenRow.persist(refresh_token)
         )
         return refresh_token.set_id(RefreshTokenIdentifier(new_id))
 
     async def update(self, refresh_token: RefreshTokenEntity):
         await self._database.update(
             refresh_token.id.value,
-            RefreshTokensTable.table_name,
+            RefreshTokenRow.__table_name__,
             RefreshTokenRow.persist(refresh_token),
         )
