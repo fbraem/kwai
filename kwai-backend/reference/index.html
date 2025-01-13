@@ -38701,6 +38701,50 @@ that belongs to the user recovery, does not exist.</p>
 
 </div>
 
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.identity.tokens.access_token.AccessTokenIdentifier" class="doc doc-heading">
+            <code>AccessTokenIdentifier</code>
+
+
+<a href="#kwai.modules.identity.tokens.access_token.AccessTokenIdentifier" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.identifier.IntIdentifier" href="#kwai.core.domain.value_objects.identifier.IntIdentifier">IntIdentifier</a></code></p>
+
+
+        <p>Identifier for an access token.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
 
 
 
@@ -39501,6 +39545,50 @@ that belongs to the user recovery, does not exist.</p>
     </div>
 
 </div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.identity.tokens.refresh_token.RefreshTokenIdentifier" class="doc doc-heading">
+            <code>RefreshTokenIdentifier</code>
+
+
+<a href="#kwai.modules.identity.tokens.refresh_token.RefreshTokenIdentifier" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.identifier.IntIdentifier" href="#kwai.core.domain.value_objects.identifier.IntIdentifier">IntIdentifier</a></code></p>
+
+
+        <p>Identifier for a refresh token.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
 
 
 
@@ -40758,6 +40846,50 @@ that belongs to the user recovery, does not exist.</p>
 
 </div>
 
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.identity.user_invitations.user_invitation.UserInvitationIdentifier" class="doc doc-heading">
+            <code>UserInvitationIdentifier</code>
+
+
+<a href="#kwai.modules.identity.user_invitations.user_invitation.UserInvitationIdentifier" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.identifier.IntIdentifier" href="#kwai.core.domain.value_objects.identifier.IntIdentifier">IntIdentifier</a></code></p>
+
+
+        <p>Identifier for a user invitation.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
 
 
 
@@ -41334,7 +41466,7 @@ that belongs to the user recovery, does not exist.</p>
                 <code>id_</code>
             </td>
             <td>
-                  <code><span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationIdentifier">UserInvitationIdentifier</span></code>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationIdentifier" href="#kwai.modules.identity.user_invitations.user_invitation.UserInvitationIdentifier">UserInvitationIdentifier</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -41850,7 +41982,7 @@ that belongs to the user recovery, does not exist.</p>
                 <code>id_</code>
             </td>
             <td>
-                  <code><span title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationIdentifier">UserInvitationIdentifier</span></code>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationIdentifier" href="#kwai.modules.identity.user_invitations.user_invitation.UserInvitationIdentifier">UserInvitationIdentifier</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -42445,15 +42577,19 @@ that belongs to the user recovery, does not exist.</p>
             <code>UserRecoveryEntity</code>
 
 
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
 <a href="#kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryEntity" class="headerlink" title="Permanent link">&para;</a></h7>
 
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.entity.Entity" href="#kwai.core.domain.entity.Entity">Entity</a>[<span title="kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryIdentifier">UserRecoveryIdentifier</span>]</code></p>
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.entity.DataclassEntity" href="#kwai.core.domain.entity.DataclassEntity">DataclassEntity</a></code></p>
 
 
-        <p>A user recovery domain.</p>
+        <p>A user recovery entity.</p>
 
 
 
@@ -42488,48 +42624,6 @@ that belongs to the user recovery, does not exist.</p>
     <div class="doc doc-contents ">
 
         <p>Return True when this user recovery was confirmed.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryEntity.confirmed_at" class="doc doc-heading">
-            <code class=" language-python"><span class="n">confirmed_at</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryEntity.confirmed_at" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the timestamp of the confirmation.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryEntity.expiration" class="doc doc-heading">
-            <code class=" language-python"><span class="n">expiration</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryEntity.expiration" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the expiration timestamp.</p>
     </div>
 
 </div>
@@ -42576,111 +42670,6 @@ that belongs to the user recovery, does not exist.</p>
 
 </div>
 
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryEntity.mailed_at" class="doc doc-heading">
-            <code class=" language-python"><span class="n">mailed_at</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryEntity.mailed_at" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the timestamp of mail.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryEntity.remark" class="doc doc-heading">
-            <code class=" language-python"><span class="n">remark</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryEntity.remark" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the remark.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryEntity.traceable_time" class="doc doc-heading">
-            <code class=" language-python"><span class="n">traceable_time</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryEntity.traceable_time" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the creation/modification timestamps.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryEntity.user" class="doc doc-heading">
-            <code class=" language-python"><span class="n">user</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryEntity.user" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the user.</p>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h8 id="kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryEntity.uuid" class="doc doc-heading">
-            <code class=" language-python"><span class="n">uuid</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryEntity.uuid" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the unique id of the user recovery.</p>
-    </div>
-
-</div>
-
 
 
 <div class="doc doc-object doc-function">
@@ -42716,6 +42705,50 @@ that belongs to the user recovery, does not exist.</p>
     </div>
 
 </div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryIdentifier" class="doc doc-heading">
+            <code>UserRecoveryIdentifier</code>
+
+
+<a href="#kwai.modules.identity.user_recoveries.user_recovery.UserRecoveryIdentifier" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.identifier.IntIdentifier" href="#kwai.core.domain.value_objects.identifier.IntIdentifier">IntIdentifier</a></code></p>
+
+
+        <p>Identifier for a user recovery entity.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
 
 
 
