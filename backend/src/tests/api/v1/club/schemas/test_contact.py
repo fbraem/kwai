@@ -15,7 +15,7 @@ def test_create_contact_document(
 ):
     """Test the creation of a contact document."""
     contact_document = ContactDocument.create(contact)
-    json_resource = json.loads(contact_document.json())
+    json_resource = json.loads(contact_document.model_dump_json())
 
     diff = DeepDiff(json_resource, expected_contact_json, ignore_order=True)
     assert not diff, f"JSON structure is not as expected: {diff}"

@@ -63,7 +63,7 @@ def test_create_member_document(
 ):
     """Test the creation of a JSON:API document for a Member resource."""
     member_document = MemberDocument.create(member)
-    json_resource = json.loads(member_document.json())
+    json_resource = json.loads(member_document.model_dump_json())
 
     diff = DeepDiff(json_resource, expected_member_json, ignore_order=True)
     assert not diff, f"JSON structure is not expected: {diff}"

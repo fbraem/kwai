@@ -15,7 +15,7 @@ def test_create_person_document(
 ):
     """Test the creation of a person document."""
     person_document = PersonDocument.create(person)
-    json_resource = json.loads(person_document.json())
+    json_resource = json.loads(person_document.model_dump_json())
 
     diff = DeepDiff(json_resource, expected_person_json, ignore_order=True)
     assert not diff, f"JSON structure is not as expected: {diff}"
