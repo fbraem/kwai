@@ -18,3 +18,16 @@ def test_expired_user_recovery():
     )
 
     assert user_recovery.is_expired
+
+
+def test_confirm_user_recovery():
+    """Test confirming a user recovery."""
+    user_recovery = UserRecoveryEntity(
+        user=UserEntity(
+            email=EmailAddress("jigoro.kano@kwai.com"),
+            name=Name(first_name="Jigoro", last_name="Kano"),
+        )
+    )
+    user_recovery = user_recovery.confirm()
+
+    assert user_recovery.confirmed is True, "The user recovery should be confirmed."
