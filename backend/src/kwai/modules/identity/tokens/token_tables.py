@@ -28,9 +28,9 @@ class AccessTokenRow(TableRow):
     identifier: str
     expiration: datetime
     user_id: int
-    revoked: bool
+    revoked: int
     created_at: datetime
-    updated_at: datetime
+    updated_at: datetime | None
 
     def create_entity(self, user_account: UserAccountEntity) -> AccessTokenEntity:
         """Create an entity from the table row."""
@@ -39,7 +39,7 @@ class AccessTokenRow(TableRow):
             identifier=TokenIdentifier(hex_string=self.identifier),
             expiration=Timestamp.create_utc(self.expiration),
             user_account=user_account,
-            revoked=self.revoked,
+            revoked=self.revoked == 1,
             traceable_time=TraceableTime(
                 created_at=Timestamp.create_utc(self.created_at),
                 updated_at=Timestamp.create_utc(self.updated_at),
@@ -70,9 +70,9 @@ class RefreshTokenRow(TableRow):
     identifier: str
     access_token_id: int
     expiration: datetime
-    revoked: bool
+    revoked: int
     created_at: datetime
-    updated_at: datetime
+    updated_at: datetime | None
 
     def create_entity(self, access_token: AccessTokenEntity) -> RefreshTokenEntity:
         """Create a refresh token entity from the table row."""
@@ -81,7 +81,7 @@ class RefreshTokenRow(TableRow):
             identifier=TokenIdentifier(hex_string=self.identifier),
             access_token=access_token,
             expiration=Timestamp.create_utc(self.expiration),
-            revoked=self.revoked,
+            revoked=self.revoked == 1,
             traceable_time=TraceableTime(
                 created_at=Timestamp.create_utc(self.created_at),
                 updated_at=Timestamp.create_utc(self.updated_at),
