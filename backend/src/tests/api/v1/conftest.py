@@ -2,9 +2,10 @@
 
 from typing import Any
 
-import pytest
+import pytest  # noqa
 
 from kwai.modules.club.domain.country import CountryEntity, CountryIdentifier
+from tests.fixtures.identity.users import *  # noqa
 
 
 @pytest.fixture
