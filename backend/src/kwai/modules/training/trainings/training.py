@@ -11,6 +11,7 @@ from kwai.modules.training.trainings.training_definition import (
 )
 from kwai.modules.training.trainings.value_objects import TrainingCoach
 
+
 TrainingIdentifier = IntIdentifier
 
 

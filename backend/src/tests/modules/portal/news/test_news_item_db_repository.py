@@ -6,6 +6,7 @@ from kwai.modules.portal.news.news_item_repository import (
     NewsItemNotFoundException,
 )
 
+
 pytestmark = pytest.mark.db
 
 

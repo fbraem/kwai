@@ -10,6 +10,7 @@ from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.modules.portal.applications.application import ApplicationEntity
 
+
 NewsItemIdentifier = IntIdentifier
 
 

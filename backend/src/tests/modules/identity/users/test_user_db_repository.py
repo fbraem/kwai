@@ -20,6 +20,7 @@ from kwai.modules.identity.users.user_repository import (
     UserRepository,
 )
 
+
 pytestmark = pytest.mark.db
 
 

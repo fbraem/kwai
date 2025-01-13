@@ -10,6 +10,7 @@ from kwai.modules.training.trainings.training_repository import (
     TrainingRepository,
 )
 
+
 pytestmark = pytest.mark.db
 
 

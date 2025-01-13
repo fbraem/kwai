@@ -1,9 +1,11 @@
 """Module for database classes/functions."""
 
 import dataclasses
+
 from typing import Any, AsyncIterator, TypeAlias
 
 import asyncmy
+
 from loguru import logger
 from sql_smith import QueryFactory
 from sql_smith.engine import MysqlEngine
@@ -12,6 +14,7 @@ from sql_smith.query import AbstractQuery, SelectQuery
 
 from kwai.core.db.exceptions import DatabaseException, QueryException
 from kwai.core.settings import DatabaseSettings
+
 
 Record: TypeAlias = dict[str, Any]
 

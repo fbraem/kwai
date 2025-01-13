@@ -1,9 +1,11 @@
 """Module for testing teams schemas."""
 
 import json
+
 from typing import Any
 
 import pytest
+
 from deepdiff import DeepDiff
 
 from kwai.api.v1.teams.schemas import TeamDocument, TeamMemberDocument

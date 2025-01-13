@@ -3,6 +3,7 @@
 import os
 import sys
 import uuid
+
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request, status
@@ -18,6 +19,7 @@ from kwai.api.v1.portal.api import api_router as portal_api_router
 from kwai.api.v1.teams.api import router as teams_api_router
 from kwai.api.v1.trainings.api import api_router as training_api_router
 from kwai.core.settings import LoggerSettings, Settings, get_settings
+
 
 APP_NAME = "kwai API"
 

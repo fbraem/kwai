@@ -1,6 +1,7 @@
 """Module that defines a class for handling the manifest file of Vite."""
 
 import json
+
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Self

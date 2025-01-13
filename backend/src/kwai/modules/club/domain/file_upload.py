@@ -6,6 +6,7 @@ from kwai.core.domain.value_objects.owner import Owner
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.unique_id import UniqueId
 
+
 FileUploadIdentifier = IntIdentifier
 
 

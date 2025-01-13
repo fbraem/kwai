@@ -8,6 +8,7 @@ from loguru import logger
 from kwai.api.app import create_api
 from kwai.frontend.app import create_frontend
 
+
 APP_NAME = "kwai"
 
 

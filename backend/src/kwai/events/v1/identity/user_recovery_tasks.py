@@ -3,6 +3,7 @@
 from typing import Any
 
 import inject
+
 from loguru import logger
 
 from kwai.core.db.database import Database

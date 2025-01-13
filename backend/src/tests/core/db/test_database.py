@@ -1,10 +1,12 @@
 """Module for testing Database class."""
 
 import pytest
+
 from sql_smith.functions import alias, func
 from sql_smith.query import SelectQuery
 
 from kwai.core.db.database import Database
+
 
 pytestmark = pytest.mark.db
 

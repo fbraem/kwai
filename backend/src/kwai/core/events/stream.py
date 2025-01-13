@@ -1,11 +1,13 @@
 """Define a Redis stream."""
 
 import json
+
 from dataclasses import dataclass, field
 from json import JSONDecodeError
 from typing import Any
 
 import redis.exceptions
+
 from redis.asyncio import Redis
 
 

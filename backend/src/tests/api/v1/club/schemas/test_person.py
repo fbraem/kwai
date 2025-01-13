@@ -1,6 +1,7 @@
 """Module for testing the person JSON:API schema."""
 
 import json
+
 from typing import Any
 
 from deepdiff import DeepDiff

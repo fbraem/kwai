@@ -6,5 +6,6 @@ changes, a new version should be created when there are still old events to proc
 
 from kwai.events.v1.identity import router as identity_router
 
+
 router = ()
 router += identity_router

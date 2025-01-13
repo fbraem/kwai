@@ -17,6 +17,7 @@ from .jinja2_template import Jinja2Template
 from .template import Template
 from .template_engine import TemplateEngine, TemplateNotFoundException
 
+
 JINJA2_FILE_EXTENSION = ".jinja2"
 
 

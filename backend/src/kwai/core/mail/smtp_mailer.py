@@ -2,6 +2,7 @@
 
 import smtplib
 import ssl
+
 from email.headerregistry import Address
 from email.message import EmailMessage
 

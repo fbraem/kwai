@@ -9,6 +9,7 @@ from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.portal.get_news_items import GetNewsItems, GetNewsItemsCommand
 from kwai.modules.portal.news.news_item_db_repository import NewsItemDbRepository
 
+
 router = APIRouter()
 
 

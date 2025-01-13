@@ -1,11 +1,13 @@
 """bus contains subcommands for the event bus."""
 
 import os
+
 from asyncio import run
 from typing import Optional
 
 import inject
 import typer
+
 from redis import RedisError
 from redis.asyncio import Redis
 from rich import print

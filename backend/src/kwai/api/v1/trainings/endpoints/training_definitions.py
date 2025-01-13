@@ -43,6 +43,7 @@ from kwai.modules.training.update_training_definition import (
     UpdateTrainingDefinitionCommand,
 )
 
+
 router = APIRouter()
 
 

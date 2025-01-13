@@ -1,9 +1,11 @@
 """Module that defines the dependencies for events."""
 
 import contextlib
+
 from typing import AsyncGenerator
 
 import inject
+
 from inject import Binder
 
 from kwai.core.db.database import Database

@@ -3,6 +3,7 @@
 import json
 
 import pytest
+
 from deepdiff import DeepDiff
 
 from kwai.api.v1.auth.schemas.user_invitation import UserInvitationDocument

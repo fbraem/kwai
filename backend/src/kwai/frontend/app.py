@@ -1,6 +1,7 @@
 """Module that defines a sub application for handling the frontend."""
 
 import uuid
+
 from pathlib import Path
 from typing import Annotated
 

@@ -6,6 +6,7 @@ from kwai.core.db.database import Database
 from kwai.modules.training.trainings.training import TrainingIdentifier
 from kwai.modules.training.trainings.training_coach_db_query import TrainingCoachDbQuery
 
+
 pytestmark = pytest.mark.db
 
 

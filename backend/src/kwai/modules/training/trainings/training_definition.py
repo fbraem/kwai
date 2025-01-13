@@ -8,6 +8,7 @@ from kwai.core.domain.value_objects.traceable_time import TraceableTime
 from kwai.core.domain.value_objects.weekday import Weekday
 from kwai.modules.training.teams.team import TeamEntity
 
+
 TrainingDefinitionIdentifier = IntIdentifier
 
 

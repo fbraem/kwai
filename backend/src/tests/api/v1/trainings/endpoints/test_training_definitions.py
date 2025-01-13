@@ -3,10 +3,12 @@
 from typing import Any
 
 import pytest
+
 from fastapi import status
 from fastapi.testclient import TestClient
 
 from kwai.modules.training.trainings.training_definition import TrainingDefinitionEntity
+
 
 pytestmark = pytest.mark.api
 

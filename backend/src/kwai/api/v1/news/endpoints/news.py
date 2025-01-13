@@ -20,6 +20,7 @@ from kwai.modules.portal.news.news_item_db_repository import NewsItemDbRepositor
 from kwai.modules.portal.news.news_item_repository import NewsItemNotFoundException
 from kwai.modules.portal.update_news_item import UpdateNewsItem, UpdateNewsItemCommand
 
+
 router = APIRouter()
 
 

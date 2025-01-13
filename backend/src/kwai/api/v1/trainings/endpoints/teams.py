@@ -8,6 +8,7 @@ from kwai.core.json_api import Meta
 from kwai.modules.training.get_teams import GetTeams
 from kwai.modules.training.teams.team_db_repository import TeamDbRepository
 
+
 router = APIRouter()
 
 
