@@ -54,7 +54,7 @@ class AccessTokenRow(TableRow):
             identifier=str(access_token.identifier),
             expiration=access_token.expiration.timestamp,
             user_id=access_token.user_account.id.value,
-            revoked=access_token.revoked,
+            revoked=1 if access_token.revoked else 0,
             created_at=access_token.traceable_time.created_at.timestamp,
             updated_at=access_token.traceable_time.updated_at.timestamp,
         )
@@ -96,7 +96,7 @@ class RefreshTokenRow(TableRow):
             identifier=str(refresh_token.identifier),
             access_token_id=refresh_token.access_token.id.value,
             expiration=refresh_token.expiration.timestamp,
-            revoked=refresh_token.revoked,
+            revoked=1 if refresh_token.revoked else 0,
             created_at=refresh_token.traceable_time.created_at.timestamp,
             updated_at=refresh_token.traceable_time.updated_at.timestamp,
         )
