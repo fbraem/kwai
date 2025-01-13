@@ -77,7 +77,7 @@ class MailUserRecovery:
             self._mailer, self._recipients, self._mail_template, user_recovery
         ).send()
 
-        user_recovery.mail_sent()
+        user_recovery = user_recovery.mail_sent()
 
         await self._user_recovery_repo.update(user_recovery)
 
