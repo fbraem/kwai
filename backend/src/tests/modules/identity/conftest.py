@@ -14,6 +14,7 @@ from kwai.modules.identity.user_invitations.user_invitation_db_repository import
 from kwai.modules.identity.users.user import UserEntity
 from tests.fixtures.identity.tokens import *  # noqa
 from tests.fixtures.identity.user_invitations import *  # noqa
+from tests.fixtures.identity.user_recoveries import *  # noqa
 from tests.fixtures.identity.users import *  # noqa
 
 

@@ -5,7 +5,6 @@ from typing import Any
 from sql_smith.functions import on
 
 from kwai.core.db.database import Database
-from kwai.core.domain.entity import Entity
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.user_recoveries.user_recovery import (
     UserRecoveryEntity,
@@ -36,7 +35,7 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
         new_id = await self._database.insert(
             UserRecoveryRow.__table_name__, UserRecoveryRow.persist(user_recovery)
         )
-        return Entity.replace(user_recovery, id_=UserRecoveryIdentifier(new_id))
+        return user_recovery.set_id(UserRecoveryIdentifier(new_id))
 
     async def update(self, user_recovery: UserRecoveryEntity):
         await self._database.update(
