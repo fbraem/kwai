@@ -9,7 +9,9 @@ from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 
-RefreshTokenIdentifier = IntIdentifier
+
+class RefreshTokenIdentifier(IntIdentifier):
+    """Identifier for a refresh token."""
 
 
 @dataclass(kw_only=True, eq=False, slots=True, frozen=True)

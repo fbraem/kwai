@@ -11,7 +11,9 @@ from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.users.user import UserEntity
 
-UserInvitationIdentifier = IntIdentifier
+
+class UserInvitationIdentifier(IntIdentifier):
+    """Identifier for a user invitation."""
 
 
 @dataclass(kw_only=True, eq=False, slots=True, frozen=True)

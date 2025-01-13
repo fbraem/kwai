@@ -1,7 +1,7 @@
 """Module that defines an access token entity."""
 
 from dataclasses import dataclass, field, replace
-from typing import ClassVar, Self, Type, TypeAlias
+from typing import ClassVar, Self, Type
 
 from kwai.core.domain.entity import DataclassEntity
 from kwai.core.domain.value_objects.identifier import IntIdentifier
@@ -9,7 +9,9 @@ from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.users.user_account import UserAccountEntity
 
-AccessTokenIdentifier: TypeAlias = IntIdentifier
+
+class AccessTokenIdentifier(IntIdentifier):
+    """Identifier for an access token."""
 
 
 @dataclass(kw_only=True, eq=False, slots=True, frozen=True)
