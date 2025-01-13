@@ -36,7 +36,6 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
         new_id = await self._database.insert(
             UserRecoveryRow.__table_name__, UserRecoveryRow.persist(user_recovery)
         )
-        await self._database.commit()
         return Entity.replace(user_recovery, id_=UserRecoveryIdentifier(new_id))
 
     async def update(self, user_recovery: UserRecoveryEntity):
@@ -45,7 +44,6 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
             UserRecoveryRow.__table_name__,
             UserRecoveryRow.persist(user_recovery),
         )
-        await self._database.commit()
 
     async def get_by_uuid(self, uuid: UniqueId) -> UserRecoveryEntity:
         query = (
@@ -68,4 +66,3 @@ class UserRecoveryDbRepository(UserRecoveryRepository):
         await self._database.delete(
             user_recovery.id.value, UserRecoveryRow.__table_name__
         )
-        await self._database.commit()
