@@ -2,8 +2,9 @@
 
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Self
 
-from kwai.core.db.table import Table
+from kwai.core.db.table_row import TableRow
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.timestamp import Timestamp
@@ -17,7 +18,7 @@ from kwai.modules.identity.users.user import UserEntity
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class UserInvitationRow:
+class UserInvitationRow(TableRow):
     """Represent a table row in the invitations table.
 
     Attributes:
@@ -35,6 +36,8 @@ class UserInvitationRow:
         updated_at(datetime|None): the timestamp of the last modification
         mailed_at(datetime|None): the timestamp of sending the email
     """
+
+    __table_name__ = "user_invitations"
 
     id: int
     email: str
@@ -77,7 +80,7 @@ class UserInvitationRow:
         )
 
     @classmethod
-    def persist(cls, invitation: UserInvitationEntity) -> "UserInvitationRow":
+    def persist(cls, invitation: UserInvitationEntity) -> Self:
         """Persist a user invitation entity into a table row.
 
         Args:
@@ -101,6 +104,3 @@ class UserInvitationRow:
             created_at=invitation.traceable_time.created_at.timestamp,
             updated_at=invitation.traceable_time.updated_at.timestamp,
         )
-
-
-UserInvitationsTable = Table("user_invitations", UserInvitationRow)

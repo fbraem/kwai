@@ -20,14 +20,13 @@ from kwai.modules.identity.user_invitations.user_invitation_repository import (
 )
 from kwai.modules.identity.user_invitations.user_invitation_tables import (
     UserInvitationRow,
-    UserInvitationsTable,
 )
 from kwai.modules.identity.users.user_tables import UserRow
 
 
 def _create_entity(row) -> UserInvitationEntity:
     """Create a user invitation from a row."""
-    return UserInvitationsTable(row).create_entity(UserRow.map(row).create_entity())
+    return UserInvitationRow.map(row).create_entity(UserRow.map(row).create_entity())
 
 
 class UserInvitationDbRepository(UserInvitationRepository):
@@ -78,18 +77,18 @@ class UserInvitationDbRepository(UserInvitationRepository):
 
     async def create(self, invitation: UserInvitationEntity) -> UserInvitationEntity:
         new_id = await self._database.insert(
-            UserInvitationsTable.table_name, UserInvitationRow.persist(invitation)
+            UserInvitationRow.__table_name__, UserInvitationRow.persist(invitation)
         )
         return invitation.set_id(UserInvitationIdentifier(new_id))
 
     async def update(self, invitation: UserInvitationEntity) -> None:
         await self._database.update(
             invitation.id.value,
-            UserInvitationsTable.table_name,
+            UserInvitationRow.__table_name__,
             UserInvitationRow.persist(invitation),
         )
 
     async def delete(self, invitation: UserInvitationEntity) -> None:
         await self._database.delete(
-            invitation.id.value, UserInvitationsTable.table_name
+            invitation.id.value, UserInvitationRow.__table_name__
         )

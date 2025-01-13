@@ -13,7 +13,7 @@ from kwai.modules.identity.user_invitations.user_invitation_query import (
     UserInvitationQuery,
 )
 from kwai.modules.identity.user_invitations.user_invitation_tables import (
-    UserInvitationsTable,
+    UserInvitationRow,
 )
 from kwai.modules.identity.users.user_tables import UserRow
 
@@ -22,39 +22,39 @@ class UserInvitationDbQuery(UserInvitationQuery, DatabaseQuery):
     """A database query for a user invitation."""
 
     def init(self):
-        return self._query.from_(UserInvitationsTable.table_name).join(
+        return self._query.from_(UserInvitationRow.__table_name__).join(
             UserRow.__table_name__,
-            on(UserInvitationsTable.column("user_id"), UserRow.column("id")),
+            on(UserInvitationRow.column("user_id"), UserRow.column("id")),
         )
 
     @property
     def columns(self):
-        return UserInvitationsTable.aliases() + UserRow.get_aliases()
+        return UserInvitationRow.get_aliases() + UserRow.get_aliases()
 
     @property
     def count_column(self) -> str:
-        return UserInvitationsTable.column("id")
+        return UserInvitationRow.column("id")
 
     def filter_by_id(self, id_: UserInvitationIdentifier) -> "UserInvitationQuery":
-        self._query.and_where(UserInvitationsTable.field("id").eq(id_.value))
+        self._query.and_where(UserInvitationRow.field("id").eq(id_.value))
         return self
 
     def filter_by_uuid(self, uuid: UniqueId) -> "UserInvitationQuery":
-        self._query.and_where(UserInvitationsTable.field("uuid").eq(str(uuid)))
+        self._query.and_where(UserInvitationRow.field("uuid").eq(str(uuid)))
         return self
 
     def filter_by_email(self, email: EmailAddress) -> "UserInvitationQuery":
-        self._query.and_where(UserInvitationsTable.field("email").eq(str(email)))
+        self._query.and_where(UserInvitationRow.field("email").eq(str(email)))
         return self
 
     def filter_active(self, timestamp: Timestamp) -> "UserInvitationQuery":
         self._query.and_where(
-            UserInvitationsTable.field("expired_at")
+            UserInvitationRow.field("expired_at")
             .gt(str(timestamp))
             .and_(
-                UserInvitationsTable.field("confirmed_at")
+                UserInvitationRow.field("confirmed_at")
                 .is_null()
-                .and_(UserInvitationsTable.field("revoked").not_eq(1))
+                .and_(UserInvitationRow.field("revoked").not_eq(1))
             )
         )
         return self
