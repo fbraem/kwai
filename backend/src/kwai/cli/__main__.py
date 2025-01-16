@@ -1,4 +1,4 @@
-"""Module that starts the CLI for kwai."""
+"""Module for starting the cli."""
 
 import typer
 
