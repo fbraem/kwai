@@ -10,6 +10,8 @@ or database related code. The code for the API is on the outside because it's th
 Presenters are used to transform domain objects into JSON:API documents. The repository pattern keeps the
 database code on the outside. And interfaces are used to protect the inside from the outside.
 
+![Clean Architecture](/images/clean_architecture.jpg)
+
 The [pendulum](https://pendulum.eustace.io/) library is used for processing dates and timestamps. Because kwai doesn't
 own this code, the pendulum code is wrapped into value objects (Timestamp, Date, ...). If the pendulum package is
 outdated, we only need to change these value objects.
