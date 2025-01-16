@@ -567,6 +567,7 @@ outside of your design or wrap it. This means for example, that the domain code 
 or database related code. The code for the API is on the outside because it's the entry point of a call to the system.
 Presenters are used to transform domain objects into JSON:API documents. The repository pattern keeps the
 database code on the outside. And interfaces are used to protect the inside from the outside.</p>
+<p><img alt="Clean Architecture" src="/images/clean_architecture.jpg" /></p>
 <p>The <a href="https://pendulum.eustace.io/">pendulum</a> library is used for processing dates and timestamps. Because kwai doesn't
 own this code, the pendulum code is wrapped into value objects (Timestamp, Date, ...). If the pendulum package is
 outdated, we only need to change these value objects.</p>
