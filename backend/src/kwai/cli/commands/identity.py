@@ -16,6 +16,7 @@ from rich import print
 from typer import Typer
 
 from kwai.core.db.database import Database
+from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.settings import ENV_SETTINGS_FILE
 from kwai.modules.identity.create_user import CreateUser, CreateUserCommand
@@ -73,15 +74,16 @@ def create(
             password=password,
             remark="This user was created using the CLI",
         )
-        try:
-            await CreateUser(UserAccountDbRepository(database)).execute(command)
-            print(
-                f"[bold green]Success![/bold green] "
-                f"User created with email address {email}"
-            )
-        except UnprocessableException as ex:
-            print("[bold red]Failed![/bold red] User could not created:")
-            print(ex)
-            raise typer.Exit(code=1) from None
+        async with UnitOfWork(database):
+            try:
+                await CreateUser(UserAccountDbRepository(database)).execute(command)
+                print(
+                    f"[bold green]Success![/bold green] "
+                    f"User created with email address {email}"
+                )
+            except UnprocessableException as ex:
+                print("[bold red]Failed![/bold red] User could not created:")
+                print(ex)
+                raise typer.Exit(code=1) from None
 
     run(_main())
