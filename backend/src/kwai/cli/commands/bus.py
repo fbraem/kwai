@@ -221,7 +221,7 @@ def stream_command(  # noqa
         print(f"First entry: [bold]{info.first_entry}[/bold]")
         print(f"Last entry: [bold]{info.last_entry}[/bold]")
 
-        print(_create_groups_tree(stream))
+        print(await _create_groups_tree(stream))
 
         if not messages:
             return
