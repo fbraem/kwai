@@ -25,6 +25,7 @@ inject = "^5.2.0"
 pendulum = "^3.0.0"
 async-lru = "^2.0.4"
 bcrypt = "^4.1.2"
+faststream = {extras = ["redis"], version = "^0.5.34"}
 
 [tool.poetry.group.dev]
 optional = true
