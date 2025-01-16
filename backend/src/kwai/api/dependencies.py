@@ -7,12 +7,13 @@ import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.templating import Jinja2Templates
+from faststream.redis import RedisBroker
+from faststream.security import SASLPlaintext
 from jwt import ExpiredSignatureError
-from redis.asyncio import Redis
 
 from kwai.core.db.database import Database
+from kwai.core.events.fast_stream_publisher import FastStreamPublisher
 from kwai.core.events.publisher import Publisher
-from kwai.core.events.redis_bus import RedisBus
 from kwai.core.settings import SecuritySettings, get_settings
 from kwai.core.template.jinja2_engine import Jinja2Engine
 from kwai.modules.identity.tokens.access_token_db_repository import (
@@ -60,21 +61,20 @@ async def get_current_user(
 optional_oauth = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login", auto_error=False)
 
 
-async def get_redis(settings=Depends(get_settings)) -> AsyncGenerator[Redis, None]:
-    """Get the Redis dependency."""
-    redis = Redis(
-        host=settings.redis.host,
-        port=settings.redis.port,
-        password=settings.redis.password,
-    )
-    yield redis
-
-
 async def get_publisher(
-    redis=Depends(get_redis),
+    settings=Depends(get_settings),
 ) -> AsyncGenerator[Publisher, None]:
     """Get the publisher dependency."""
-    yield RedisBus(redis)
+    broker = RedisBroker(
+        url=f"redis://{settings.redis.host}:{settings.redis.port}",
+        # middlewares=[LoggerMiddleware],
+        security=SASLPlaintext(
+            username="",
+            password=settings.redis.password,
+        ),
+    )
+    await broker.start()
+    yield FastStreamPublisher(broker)
 
 
 async def get_optional_user(
