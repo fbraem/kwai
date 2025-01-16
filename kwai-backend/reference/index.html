@@ -1197,7 +1197,7 @@ or when the user is revoked.</p>
 
 
 <h5 id="kwai.api.dependencies.get_publisher" class="doc doc-heading">
-            <code class=" language-python"><span class="n">get_publisher</span><span class="p">(</span><span class="n">redis</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_redis</span><span class="p">))</span></code>
+            <code class=" language-python"><span class="n">get_publisher</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_settings</span><span class="p">))</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -1209,27 +1209,6 @@ or when the user is revoked.</p>
     <div class="doc doc-contents ">
 
         <p>Get the publisher dependency.</p>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h5 id="kwai.api.dependencies.get_redis" class="doc doc-heading">
-            <code class=" language-python"><span class="n">get_redis</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_settings</span><span class="p">))</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-<a href="#kwai.api.dependencies.get_redis" class="headerlink" title="Permanent link">&para;</a></h5>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Get the Redis dependency.</p>
 
     </div>
 
@@ -9215,6 +9194,45 @@ not imported, the message will contain a description about the problem.</p>
 
 
 
+
+<div class="doc doc-object doc-module">
+
+
+
+<h4 id="kwai.cli.__main__" class="doc doc-heading">
+            <code>__main__</code>
+
+
+<a href="#kwai.cli.__main__" class="headerlink" title="Permanent link">&para;</a></h4>
+
+    <div class="doc doc-contents ">
+
+        <p>Module for starting the cli.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
 
 <div class="doc doc-object doc-module">
 
@@ -17489,29 +17507,8 @@ will result in an "empty" local timestamp.</p>
 <div class="doc doc-object doc-function">
 
 
-<h6 id="kwai.core.events.dependencies.configure" class="doc doc-heading">
-            <code class=" language-python"><span class="n">configure</span><span class="p">()</span></code>
-
-<a href="#kwai.core.events.dependencies.configure" class="headerlink" title="Permanent link">&para;</a></h6>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Configure the dependency injection system.</p>
-<p>Note: only use dependency injection for injecting dependencies into tasks. A task
-method is used as entry from outside. DI makes it possible to pass dependencies to
-this method. Regular constructors should be used for injecting dependencies into
-domain classes.</p>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
 <h6 id="kwai.core.events.dependencies.create_database" class="doc doc-heading">
-            <code class=" language-python"><span class="n">create_database</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">create_database</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_settings</span><span class="p">))</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -17532,7 +17529,7 @@ domain classes.</p>
 
 
 <h6 id="kwai.core.events.dependencies.create_mailer" class="doc doc-heading">
-            <code class=" language-python"><span class="n">create_mailer</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">create_mailer</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_settings</span><span class="p">))</span></code>
 
 <a href="#kwai.core.events.dependencies.create_mailer" class="headerlink" title="Permanent link">&para;</a></h6>
 
@@ -17549,7 +17546,7 @@ domain classes.</p>
 
 
 <h6 id="kwai.core.events.dependencies.create_template_engine" class="doc doc-heading">
-            <code class=" language-python"><span class="n">create_template_engine</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">create_template_engine</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_settings</span><span class="p">))</span></code>
 
 <a href="#kwai.core.events.dependencies.create_template_engine" class="headerlink" title="Permanent link">&para;</a></h6>
 
@@ -17686,6 +17683,55 @@ domain classes.</p>
 
 
         <p>Metadata for the event.</p>
+<p>The combination of version, module and name should result in a unique
+full name in kwai and will be used as name for a Redis stream.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.core.events.event.EventMeta.version">version</span></code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The version of the event.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.core.events.event.EventMeta.module">module</span></code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The module that the event belongs to (e.g. identity)</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.core.events.event.EventMeta.name">name</span></code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the event.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
 
@@ -17702,6 +17748,27 @@ domain classes.</p>
 
 
 
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h7 id="kwai.core.events.event.EventMeta.full_name" class="doc doc-heading">
+            <code class=" language-python"><span class="n">full_name</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.core.events.event.EventMeta.full_name" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the full name of the event.</p>
+    </div>
+
+</div>
 
 
 
@@ -17810,6 +17877,89 @@ domain classes.</p>
     </div>
 
 </div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h5 id="kwai.core.events.fast_stream_publisher" class="doc doc-heading">
+            <code>fast_stream_publisher</code>
+
+
+<a href="#kwai.core.events.fast_stream_publisher" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
+        <p>Module for defining a publisher using FastStream.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.core.events.fast_stream_publisher.FastStreamPublisher" class="doc doc-heading">
+            <code>FastStreamPublisher</code>
+
+
+<a href="#kwai.core.events.fast_stream_publisher.FastStreamPublisher" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.events.publisher.Publisher" href="#kwai.core.events.publisher.Publisher">Publisher</a></code></p>
+
+
+        <p>A publisher using FastStream.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
 
 
 
@@ -22918,6 +23068,148 @@ triggered by the FastStream application.</p>
 
 
 
+<h4 id="kwai.events.__main__" class="doc doc-heading">
+            <code>__main__</code>
+
+
+<a href="#kwai.events.__main__" class="headerlink" title="Permanent link">&para;</a></h4>
+
+    <div class="doc doc-contents ">
+
+        <p>Module for starting the event bus.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h5 id="kwai.events.__main__.LoggerMiddleware" class="doc doc-heading">
+            <code>LoggerMiddleware</code>
+
+
+<a href="#kwai.events.__main__.LoggerMiddleware" class="headerlink" title="Permanent link">&para;</a></h5>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="faststream.BaseMiddleware">BaseMiddleware</span></code></p>
+
+
+        <p>Middleware that adds logging to the event bus.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h6 id="kwai.events.__main__.LoggerMiddleware.on_consume" class="doc doc-heading">
+            <code class=" language-python"><span class="n">on_consume</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.events.__main__.LoggerMiddleware.on_consume" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Set up a context for the logger.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="kwai.events.__main__.configure_logger" class="doc doc-heading">
+            <code class=" language-python"><span class="n">configure_logger</span><span class="p">(</span><span class="n">logger_settings</span><span class="p">)</span></code>
+
+<a href="#kwai.events.__main__.configure_logger" class="headerlink" title="Permanent link">&para;</a></h5>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Configure the logger.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h5 id="kwai.events.__main__.main" class="doc doc-heading">
+            <code class=" language-python"><span class="n">main</span><span class="p">()</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.events.__main__.main" class="headerlink" title="Permanent link">&para;</a></h5>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Start the event bus.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h4 id="kwai.events.v1" class="doc doc-heading">
             <code>v1</code>
 
@@ -23015,7 +23307,7 @@ changes, a new version should be created when there are still old events to proc
 
 
 <h7 id="kwai.events.v1.identity.user_invitation_tasks.email_user_invitation_task" class="doc doc-heading">
-            <code class=" language-python"><span class="n">email_user_invitation_task</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">database</span><span class="p">,</span> <span class="n">mailer</span><span class="p">,</span> <span class="n">template_engine</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">email_user_invitation_task</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_settings</span><span class="p">),</span> <span class="n">database</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">create_database</span><span class="p">),</span> <span class="n">mailer</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">create_mailer</span><span class="p">),</span> <span class="n">template_engine</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">create_template_engine</span><span class="p">))</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -23075,7 +23367,7 @@ changes, a new version should be created when there are still old events to proc
 
 
 <h7 id="kwai.events.v1.identity.user_recovery_tasks.email_user_recovery_task" class="doc doc-heading">
-            <code class=" language-python"><span class="n">email_user_recovery_task</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">database</span><span class="p">,</span> <span class="n">mailer</span><span class="p">,</span> <span class="n">template_engine</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">email_user_recovery_task</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_settings</span><span class="p">),</span> <span class="n">database</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">create_database</span><span class="p">),</span> <span class="n">mailer</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">create_mailer</span><span class="p">),</span> <span class="n">template_engine</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">create_template_engine</span><span class="p">))</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -24130,122 +24422,6 @@ the file in the dist folder.</p>
     </div>
 
 </div>
-
-
-  </div>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-module">
-
-
-
-<h3 id="kwai.kwai_cli" class="doc doc-heading">
-            <code>kwai_cli</code>
-
-
-<a href="#kwai.kwai_cli" class="headerlink" title="Permanent link">&para;</a></h3>
-
-    <div class="doc doc-contents ">
-
-        <p>Module that starts the CLI for kwai.</p>
-
-
-
-
-
-
-
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-module">
-
-
-
-<h3 id="kwai.kwai_events" class="doc doc-heading">
-            <code>kwai_events</code>
-
-
-<a href="#kwai.kwai_events" class="headerlink" title="Permanent link">&para;</a></h3>
-
-    <div class="doc doc-contents ">
-
-        <p>Module for defining the event application.</p>
-
-
-
-
-
-
-
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-<h4 id="kwai.kwai_events.configure_logger" class="doc doc-heading">
-            <code class=" language-python"><span class="n">configure_logger</span><span class="p">(</span><span class="n">logger_settings</span><span class="p">)</span></code>
-
-<a href="#kwai.kwai_events.configure_logger" class="headerlink" title="Permanent link">&para;</a></h4>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Configure the logger.</p>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h4 id="kwai.kwai_events.main" class="doc doc-heading">
-            <code class=" language-python"><span class="n">main</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-<a href="#kwai.kwai_events.main" class="headerlink" title="Permanent link">&para;</a></h4>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Main program.</p>
-
-    </div>
-
-</div>
-
 
 
   </div>
