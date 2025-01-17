@@ -76,6 +76,13 @@ class Timestamp:
         return self.timestamp.date()
 
     @property
+    def posix(self) -> int:
+        """Return the POSIX timestamp."""
+        if self.timestamp is None:
+            return 0
+        return round(self.timestamp.timestamp())
+
+    @property
     def time(self) -> time:
         """Return the date."""
         if self.timestamp is None:
