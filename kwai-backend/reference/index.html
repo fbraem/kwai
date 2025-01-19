@@ -1150,7 +1150,7 @@ by FastAPI or if the api server is running on another server.</p>
 
 
 <h5 id="kwai.api.dependencies.get_current_user" class="doc doc-heading">
-            <code class=" language-python"><span class="n">get_current_user</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_settings</span><span class="p">),</span> <span class="n">db</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">create_database</span><span class="p">),</span> <span class="n">token</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">oauth</span><span class="p">))</span></code>
+            <code class=" language-python"><span class="n">get_current_user</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">access_token</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -1173,7 +1173,7 @@ or when the user is revoked.</p>
 
 
 <h5 id="kwai.api.dependencies.get_optional_user" class="doc doc-heading">
-            <code class=" language-python"><span class="n">get_optional_user</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_settings</span><span class="p">),</span> <span class="n">db</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">create_database</span><span class="p">),</span> <span class="n">token</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">optional_oauth</span><span class="p">))</span></code>
+            <code class=" language-python"><span class="n">get_optional_user</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">access_token</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -2720,53 +2720,6 @@ or when the user is revoked.</p>
         <p>The response schema for an access/refresh token.</p>
 
 
-<p><span class="doc-section-title">Attributes:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td><code><span title="kwai.api.v1.auth.endpoints.login.TokenSchema.access_token">access_token</span></code></td>
-            <td>
-                  <code>str</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td><code><span title="kwai.api.v1.auth.endpoints.login.TokenSchema.refresh_token">refresh_token</span></code></td>
-            <td>
-                  <code>str</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td><code><span title="kwai.api.v1.auth.endpoints.login.TokenSchema.expiration">expiration</span></code></td>
-            <td>
-                  <code>str</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Timestamp in format YYYY-MM-DD HH:MM:SS</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
 
 
 
@@ -2804,7 +2757,7 @@ or when the user is revoked.</p>
 <p>This request expects a form (application/x-www-form-urlencoded). The form
 must contain a <code>username</code> and <code>password</code> field. The username is
 the email address of the user.</p>
-<p>The response is a <a class="autorefs autorefs-internal" href="#kwai.api.v1.auth.endpoints.login.TokenSchema">TokenSchema</a>.</p>
+<p>On success, a cookie for the access token and the refresh token will be returned.</p>
         <p>This api can return the following HTTP codes:</p>
 <table>
 <thead>
@@ -2908,10 +2861,8 @@ must contain an <strong>email</strong> field.</p>
     <div class="doc doc-contents">
 
         <p>Refresh the access token.</p>
-<p>The response is a <a class="autorefs autorefs-internal" href="#kwai.api.v1.auth.endpoints.login.TokenSchema">TokenSchema</a>.</p>
+<p>On success, a new access token / refresh token cookie will be sent.</p>
 <p>When the refresh token is expired, the user needs to log in again.</p>
-<p>This request expects a form (application/x-www-form-urlencoded). The form
-must contain a <strong>refresh_token</strong> field.</p>
         <p>This api can return the following HTTP codes:</p>
 <table>
 <thead>
@@ -2944,10 +2895,10 @@ must contain a <strong>refresh_token</strong> field.</p>
     <div class="doc doc-contents">
 
         <p>Reset the password of the user.</p>
-<p>Http code 200 on success, 404 when the unique is invalid, 422 when the
+<p>Http code 200 on success, 404 when the unique id is invalid, 422 when the
 request can't be processed, 403 when the request is forbidden.</p>
 <p>This request expects a form (application/x-www-form-urlencoded). The form
-must contain an <strong>uuid</strong> and <strong>password</strong> field. The unique id must be still valid
+must contain an <strong>uuid</strong> and <strong>password</strong> field. The unique id must be valid
 and is retrieved by <a class="autorefs autorefs-internal" href="#post_/recover">/api/v1/auth/recover</a>.</p>
         <p>This api can return the following HTTP codes:</p>
 <table>
@@ -16462,6 +16413,27 @@ content is added, changed or removed.</p>
     <div class="doc doc-contents ">
 
         <p>Return the month.</p>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h8 id="kwai.core.domain.value_objects.timestamp.Timestamp.posix" class="doc doc-heading">
+            <code class=" language-python"><span class="n">posix</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.core.domain.value_objects.timestamp.Timestamp.posix" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the POSIX timestamp.</p>
     </div>
 
 </div>
