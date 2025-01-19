@@ -4,7 +4,6 @@ import pytest
 
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
-from kwai.modules.identity.users.user_account import UserAccountEntity
 from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
 )
@@ -23,31 +22,31 @@ def repo(database: Database) -> UserAccountRepository:
     return UserAccountDbRepository(database)
 
 
-def test_create(user_account: UserAccountEntity):
+async def test_create(make_user_account_in_db):
     """Test if the user account is created."""
+    user_account = await make_user_account_in_db()
     assert user_account.id, "There should be a user account entity"
 
 
-async def test_get_by_email(
-    repo: UserAccountRepository, user_account: UserAccountEntity
-):
+async def test_get_by_email(repo: UserAccountRepository, make_user_account_in_db):
     """Test if the user account can be fetched with email address."""
+    user_account = await make_user_account_in_db()
     result = await repo.get_user_by_email(user_account.user.email)
     assert result, "There should be a user account with the given email"
 
 
-async def test_exists_with_email(
-    repo: UserAccountRepository, user_account: UserAccountEntity
-):
+async def test_exists_with_email(repo: UserAccountRepository, make_user_account_in_db):
     """Test if the user account exists with the given email address."""
+    user_account = await make_user_account_in_db()
     exists = await repo.exists_with_email(user_account.user.email)
     assert exists, "There should be a user account with the given email"
 
 
 async def test_update(
-    database: Database, repo: UserAccountRepository, user_account: UserAccountEntity
+    database: Database, repo: UserAccountRepository, make_user_account_in_db
 ):
     """Test if the user account can be updated."""
+    user_account = await make_user_account_in_db()
     user_account = user_account.revoke()
     async with UnitOfWork(database):
         await repo.update(user_account)
@@ -56,9 +55,10 @@ async def test_update(
 
 
 async def test_delete(
-    database: Database, repo: UserAccountRepository, user_account: UserAccountEntity
+    database: Database, repo: UserAccountRepository, make_user_account_in_db
 ):
     """Test if the user account can be deleted."""
+    user_account = await make_user_account_in_db()
     async with UnitOfWork(database):
         await repo.delete(user_account)
 
