@@ -3,14 +3,13 @@ import {
   CheckIcon, InputField, KwaiButton, KwaiErrorAlert,
 } from '@kwai/ui';
 import { useForm } from 'vee-validate';
-import {
-  localStorage, useHttpLogin,
-} from '@kwai/api';
+import { useHttpLogin } from '@kwai/api';
 import { website } from '@kwai/config';
-import { ref } from 'vue';
 import type { Ref } from 'vue';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import NotificationMessage from '@root/components/NotificationMessage.vue';
+import { useLocalStorage } from '@vueuse/core';
 
 const { t } = useI18n({ useScope: 'global' });
 
@@ -51,9 +50,10 @@ const onSubmitForm = handleSubmit(async(values) => {
   showNotification.value = true;
   setTimeout(() => {
     showNotification.value = false;
-    if (localStorage.loginRedirect.value) {
-      const redirectUrl = localStorage.loginRedirect.value;
-      localStorage.loginRedirect.value = '';
+    const redirect = useLocalStorage('login_redict', null);
+    if (redirect.value) {
+      const redirectUrl = redirect.value;
+      redirect.value = null;
       console.log(`${website.url}${redirectUrl}`);
       window.location.replace(`${website.url}${redirectUrl}`);
     } else {

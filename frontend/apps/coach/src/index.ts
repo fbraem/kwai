@@ -13,7 +13,8 @@ import messages from '@intlify/unplugin-vue-i18n/messages';
 import { VueQueryPlugin } from '@tanstack/vue-query';
 
 import { init } from '@kwai/ui';
-import { localStorage } from '@kwai/api';
+import { isLoggedIn } from '@kwai/api';
+import { useLocalStorage } from '@vueuse/core';
 
 const app = createApp(App);
 app.use(VueQueryPlugin);
@@ -37,11 +38,11 @@ declare module 'vue-router' {
 router.beforeEach((to, from, next) => {
   const requiresAuth: boolean = to.meta.requiresAuth ?? true; // By default, all routes need authentication
   if (requiresAuth) {
-    if (localStorage.refreshToken.value == null) {
-      localStorage.loginRedirect.value = `/apps/coach${to.path}`;
-      next('/not_allowed');
+    if (isLoggedIn()) {
+      next();
     } else {
-      next(); // Already logged in
+      useLocalStorage('login_redirect', `/apps/coach${to.path}`);
+      next('/not_allowed');
     }
   } else {
     next(); // Login not needed

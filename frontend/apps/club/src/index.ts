@@ -3,16 +3,19 @@ import App from './App.vue';
 import '@root/index.css';
 
 import { VueQueryPlugin } from '@tanstack/vue-query';
-import { createRouter, createWebHistory } from 'vue-router';
+import {
+  createRouter, createWebHistory,
+} from 'vue-router';
 
 // Setup i18n
 import { createI18n } from 'vue-i18n';
 import messages from '@intlify/unplugin-vue-i18n/messages';
 
 import routes from './routes';
-import { localStorage } from '@kwai/api';
+import { isLoggedIn } from '@kwai/api';
 
 import { init } from '@kwai/ui';
+import { useLocalStorage } from '@vueuse/core';
 
 const app = createApp(App);
 app.use(VueQueryPlugin);
@@ -33,16 +36,16 @@ declare module 'vue-router' {
   interface RouteMeta {
     requiresAuth?: boolean
   }
- }
+}
 
 router.beforeEach((to, from, next) => {
   const requiresAuth: boolean = to.meta.requiresAuth ?? true; // By default, all routes need authentication
   if (requiresAuth) {
-    if (localStorage.refreshToken.value == null) {
-      localStorage.loginRedirect.value = `/apps/club${to.path}`;
-      next('/not_allowed');
+    if (isLoggedIn()) {
+      next();
     } else {
-      next(); // Already logged in
+      useLocalStorage('login_redict', `/apps/club${to.path}`);
+      next('/not_allowed');
     }
   } else {
     next(); // Login not needed
