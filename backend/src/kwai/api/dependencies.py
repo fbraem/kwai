@@ -48,13 +48,17 @@ async def create_templates(settings=Depends(get_settings)) -> Jinja2Templates:
 async def get_current_user(
     settings: Annotated[Settings, Depends(get_settings)],
     db: Annotated[Database, Depends(create_database)],
-    access_token: Annotated[str, Cookie()],
+    access_token: Annotated[str | None, Cookie()] = None,
 ) -> UserEntity:
     """Try to get the current user from the access token.
 
     Not authorized will be raised when the access token is not found, expired, revoked
     or when the user is revoked.
     """
+    if not access_token:
+        raise HTTPException(
+            status.HTTP_401_UNAUTHORIZED, detail="Access token cookie missing"
+        )
     return await _get_user_from_token(access_token, settings.security, db)
 
 
