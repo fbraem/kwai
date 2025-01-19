@@ -4,7 +4,8 @@ from typing import Annotated
 
 import jwt
 
-from fastapi import APIRouter, Depends, Form, HTTPException, status
+from fastapi import APIRouter, Cookie, Depends, Form, HTTPException, status
+from fastapi.responses import Response
 from fastapi.security import OAuth2PasswordRequestForm
 from jwt import ExpiredSignatureError
 from loguru import logger
@@ -55,18 +56,20 @@ from kwai.modules.identity.users.user_account_repository import (
 )
 
 
+COOKIE_ACCESS_TOKEN = "access_token"
+COOKIE_REFRESH_TOKEN = "refresh_token"
+
+
 class TokenSchema(BaseModel):
     """The response schema for an access/refresh token.
 
     Attributes:
-        access_token:
-        refresh_token:
-        expiration: Timestamp in format YYYY-MM-DD HH:MM:SS
+        access_token
+        refresh_token
     """
 
     access_token: str
     refresh_token: str
-    expiration: str
 
 
 router = APIRouter()
@@ -86,14 +89,15 @@ async def login(
     settings: Annotated[Settings, Depends(get_settings)],
     db: Annotated[Database, Depends(create_database)],
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
-) -> TokenSchema:
+    response: Response,
+):
     """Login a user.
 
     This request expects a form (application/x-www-form-urlencoded). The form
     must contain a `username` and `password` field. The username is
     the email address of the user.
 
-    The response is a [TokenSchema][kwai.api.v1.auth.endpoints.login.TokenSchema].
+    On success, a cookie for the access token and the refresh token will be returned.
     """
     command = AuthenticateUserCommand(
         username=form_data.username,
@@ -122,7 +126,11 @@ async def login(
             status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc)
         ) from exc
 
-    return _encode_token(refresh_token, settings.security)
+    token_schema = _encode_token(refresh_token, settings.security)
+    _create_cookie(response, token_schema, refresh_token)
+    response.status_code = status.HTTP_200_OK
+
+    return response
 
 
 @router.post(
@@ -137,7 +145,8 @@ async def logout(
     settings: Annotated[Settings, Depends(get_settings)],
     db: Annotated[Database, Depends(create_database)],
     user: Annotated[UserEntity, Depends(get_current_user)],  # noqa
-    refresh_token: Annotated[str, Form()],
+    refresh_token: Annotated[str, Cookie()],
+    response: Response,
 ) -> None:
     """Log out the current user.
 
@@ -164,6 +173,10 @@ async def logout(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
         ) from ex
 
+    response.delete_cookie(key=COOKIE_ACCESS_TOKEN)
+    response.delete_cookie(key=COOKIE_REFRESH_TOKEN)
+    response.status_code = status.HTTP_200_OK
+
 
 @router.post(
     "/access_token",
@@ -176,16 +189,14 @@ async def logout(
 async def renew_access_token(
     settings: Annotated[Settings, Depends(get_settings)],
     db: Annotated[Database, Depends(create_database)],
-    refresh_token: Annotated[str, Form()],
-) -> TokenSchema:
+    refresh_token: Annotated[str, Cookie()],
+    response: Response,
+):
     """Refresh the access token.
 
-    The response is a [TokenSchema][kwai.api.v1.auth.endpoints.login.TokenSchema].
+    On success, a new access token / refresh token cookie will be sent.
 
     When the refresh token is expired, the user needs to log in again.
-
-    This request expects a form (application/x-www-form-urlencoded). The form
-    must contain a **refresh_token** field.
     """
     try:
         decoded_refresh_token = jwt.decode(
@@ -214,7 +225,9 @@ async def renew_access_token(
             status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc)
         ) from exc
 
-    return _encode_token(new_refresh_token, settings.security)
+    token_schema = _encode_token(new_refresh_token, settings.security)
+    _create_cookie(response, token_schema, new_refresh_token)
+    response.status_code = status.HTTP_200_OK
 
 
 @router.post(
@@ -268,11 +281,11 @@ async def reset_password(
 ):
     """Reset the password of the user.
 
-    Http code 200 on success, 404 when the unique is invalid, 422 when the
+    Http code 200 on success, 404 when the unique id is invalid, 422 when the
     request can't be processed, 403 when the request is forbidden.
 
     This request expects a form (application/x-www-form-urlencoded). The form
-    must contain an **uuid** and **password** field. The unique id must be still valid
+    must contain an **uuid** and **password** field. The unique id must be valid
     and is retrieved by [/api/v1/auth/recover][post_/recover].
     """
     command = ResetPasswordCommand(uuid=uuid, password=password)
@@ -323,5 +336,22 @@ def _encode_token(
             settings.jwt_refresh_secret,
             settings.jwt_algorithm,
         ),
-        expiration=str(refresh_token.access_token.expiration),
+    )
+
+
+def _create_cookie(
+    response: Response, tokens: TokenSchema, refresh_token: RefreshTokenEntity
+) -> None:
+    response.set_cookie(
+        key=COOKIE_ACCESS_TOKEN,
+        value=tokens.access_token,
+        expires=refresh_token.access_token.expiration.timestamp,
+        secure=True,
+    )
+    response.set_cookie(
+        key=COOKIE_REFRESH_TOKEN,
+        value=tokens.refresh_token,
+        expires=refresh_token.expiration.timestamp,
+        httponly=True,
+        secure=True,
     )

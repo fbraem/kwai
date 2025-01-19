@@ -1,10 +1,10 @@
 """Module that integrates the dependencies in FastAPI."""
 
-from typing import AsyncGenerator
+from typing import Annotated, AsyncGenerator
 
 import jwt
 
-from fastapi import Depends, HTTPException, status
+from fastapi import Cookie, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.templating import Jinja2Templates
 from faststream.redis import RedisBroker
@@ -14,7 +14,7 @@ from jwt import ExpiredSignatureError
 from kwai.core.db.database import Database
 from kwai.core.events.fast_stream_publisher import FastStreamPublisher
 from kwai.core.events.publisher import Publisher
-from kwai.core.settings import SecuritySettings, get_settings
+from kwai.core.settings import SecuritySettings, Settings, get_settings
 from kwai.core.template.jinja2_engine import Jinja2Engine
 from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
@@ -46,16 +46,16 @@ async def create_templates(settings=Depends(get_settings)) -> Jinja2Templates:
 
 
 async def get_current_user(
-    settings=Depends(get_settings),
-    db=Depends(create_database),
-    token: str = Depends(oauth),
+    settings: Annotated[Settings, Depends(get_settings)],
+    db: Annotated[Database, Depends(create_database)],
+    access_token: Annotated[str, Cookie()],
 ) -> UserEntity:
     """Try to get the current user from the access token.
 
     Not authorized will be raised when the access token is not found, expired, revoked
     or when the user is revoked.
     """
-    return await _get_user_from_token(token, settings.security, db)
+    return await _get_user_from_token(access_token, settings.security, db)
 
 
 optional_oauth = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login", auto_error=False)
@@ -78,9 +78,9 @@ async def get_publisher(
 
 
 async def get_optional_user(
-    settings=Depends(get_settings),
-    db=Depends(create_database),
-    token: str = Depends(optional_oauth),
+    settings: Annotated[Settings, Depends(get_settings)],
+    db: Annotated[Database, Depends(create_database)],
+    access_token: Annotated[str | None, Cookie()] = None,
 ) -> UserEntity | None:
     """Try to get the current user from an access token.
 
@@ -89,10 +89,10 @@ async def get_optional_user(
     Not authorized will be raised when the access token is expired, revoked
     or when the user is revoked.
     """
-    if token is None:
+    if access_token is None:
         return None
 
-    return await _get_user_from_token(token, settings.security, db)
+    return await _get_user_from_token(access_token, settings.security, db)
 
 
 async def _get_user_from_token(

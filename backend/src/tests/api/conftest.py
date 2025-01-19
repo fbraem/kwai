@@ -25,7 +25,7 @@ def secure_client(client: TestClient, user_account: UserAccountEntity) -> TestCl
         "/api/v1/auth/login",
         data={"username": str(user_account.user.email), "password": "Nage-waza/1882"},
     )
-    access_token = response.json()["access_token"]
-    client.headers["Authorization"] = f"Bearer {access_token}"
+    client.cookies.set("access_token", response.cookies["access_token"])
+    client.cookies.set("refresh_token", response.cookies["refresh_token"])
 
     return client

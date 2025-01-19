@@ -25,10 +25,6 @@ def test_login(client: TestClient, user_account: UserAccountEntity):
         data={"username": str(user_account.user.email), "password": "Nage-waza/1882"},
     )
     assert response.status_code == status.HTTP_200_OK
-    json = response.json()
-    assert "access_token" in json
-    assert "refresh_token" in json
-    assert "expiration" in json
 
 
 def test_login_with_unknown_user(client: TestClient):
@@ -49,24 +45,11 @@ def test_login_with_wrong_password(client: TestClient, user_account: UserAccount
     assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
 
-def test_renew_access_token(client: TestClient, user_account: UserAccountEntity):
+def test_renew_access_token(secure_client: TestClient, user_account: UserAccountEntity):
     """Test the renewal of an access token."""
-    # First login to get an access and refresh token.
-    response = client.post(
-        "/api/v1/auth/login",
-        data={"username": str(user_account.user.email), "password": "Nage-waza/1882"},
-    )
-
-    refresh_token = response.json()["refresh_token"]
-    response = client.post(
-        "/api/v1/auth/access_token", data={"refresh_token": refresh_token}
-    )
+    response = secure_client.post("/api/v1/auth/access_token")
 
     assert response.status_code == status.HTTP_200_OK
-    json = response.json()
-    assert "access_token" in json
-    assert "refresh_token" in json
-    assert "expiration" in json
 
 
 @pytest.mark.mail
@@ -104,19 +87,7 @@ async def test_reset_password(
     assert response.status_code == status.HTTP_200_OK
 
 
-def test_logout(client: TestClient, user_account: UserAccountEntity):
+def test_logout(secure_client: TestClient, user_account: UserAccountEntity):
     """Test the logout api."""
-    response = client.post(
-        "/api/v1/auth/login",
-        data={"username": str(user_account.user.email), "password": "Nage-waza/1882"},
-    )
-    json = response.json()
-    access_token = json["access_token"]
-    response = client.post(
-        "/api/v1/auth/logout",
-        headers={"Authorization": f"Bearer {access_token}"},
-        data={
-            "refresh_token": json["refresh_token"],
-        },
-    )
-    assert response.status_code == status.HTTP_200_OK
+    response = secure_client.post("/api/v1/auth/logout")
+    assert response.status_code == status.HTTP_200_OK, response.text
