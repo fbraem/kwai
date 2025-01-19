@@ -10,7 +10,7 @@
     "@kwai/types": "*",
     "@kwai/ui": "*",
     "@tanstack/vue-query": "^5.32.0",
-    "@vueuse/core": "12.2.0",
+    "@vueuse/core": "^12.2.0",
     "@vueuse/router": "12.2.0",
     "tailwindcss-primeui": "^0.3.4",
     "vue": "^3.5.13",
