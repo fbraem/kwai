@@ -5,14 +5,15 @@ import {
 } from '../icons';
 
 interface Props {
-  loggedIn: boolean
-  logout: () => void
+  loggedIn: () => boolean
+  logout: () => void | Promise<void>
 }
+
 defineProps<Props>();
 </script>
 
 <template>
-  <div v-if="loggedIn">
+  <div v-if="loggedIn()">
     <KwaiButton
       :method="logout"
       small
@@ -34,5 +35,4 @@ defineProps<Props>();
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

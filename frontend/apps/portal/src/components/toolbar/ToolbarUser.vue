@@ -4,8 +4,8 @@ import {
   isLoggedIn, useHttpLogout,
 } from '@kwai/api';
 
-const logout = () => {
-  useHttpLogout();
+const logout = async() => {
+  await useHttpLogout();
   window.location.reload();
 };
 </script>
