@@ -7,13 +7,12 @@ import '@root/index.css';
 import { createI18n } from 'vue-i18n';
 import messages from '@intlify/unplugin-vue-i18n/messages';
 
-// Setup pinia store
-import { createPinia } from 'pinia';
-
 import { init } from '@kwai/ui';
 
 // Setup router
-import { createRouter, createWebHistory } from 'vue-router';
+import {
+  createRouter, createWebHistory,
+} from 'vue-router';
 import { routes } from './routes';
 
 const app = createApp(App);
@@ -23,9 +22,6 @@ const i18n = createI18n({
   messages,
 });
 app.use(i18n);
-
-const pinia = createPinia();
-app.use(pinia);
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
