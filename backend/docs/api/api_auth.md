@@ -30,12 +30,6 @@ All API's used for authentication, authorization, users, ...
     options:
         heading_level: 4
 
-### Responses
-
-#### ::: kwai.api.v1.auth.endpoints.login.TokenSchema
-    options:
-      show_root_toc_entry: false
-
 ## /api/v1/auth/users
 
 ### Requests
