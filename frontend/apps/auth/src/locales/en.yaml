@@ -36,6 +36,7 @@ login:
   required: This is a required field.
   invalid_email: This is not a valid email address.
   failed: Login failed. Please check your email and/or password.
+  error: Login failed. Try again.
   notifications:
     logged_in: You are successfully logged in.
 recover_password:

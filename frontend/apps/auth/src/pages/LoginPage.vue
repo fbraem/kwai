@@ -42,24 +42,29 @@ const onSubmitForm = handleSubmit(async(values) => {
     username: values.email,
     password: values.password,
   };
-  await useHttpLogin(formData).catch((error) => {
-    if (error.response.status === 401) {
-      errorMessage.value = t('login.failed');
-    }
-  });
-  showNotification.value = true;
-  setTimeout(() => {
-    showNotification.value = false;
-    const redirect = useLocalStorage('login_redict', null);
-    if (redirect.value) {
-      const redirectUrl = redirect.value;
-      redirect.value = null;
-      console.log(`${website.url}${redirectUrl}`);
-      window.location.replace(`${website.url}${redirectUrl}`);
-    } else {
-      window.location.replace(website.url);
-    }
-  }, 3000);
+  await useHttpLogin(formData)
+    .then(() => {
+      showNotification.value = true;
+      setTimeout(() => {
+        showNotification.value = false;
+        const redirect = useLocalStorage('login_redirect', null);
+        if (redirect.value) {
+          const redirectUrl = redirect.value;
+          redirect.value = null;
+          console.log(`${website.url}${redirectUrl}`);
+          window.location.replace(`${website.url}${redirectUrl}`);
+        } else {
+          window.location.replace(website.url);
+        }
+      }, 3000);
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        errorMessage.value = t('login.failed');
+      } else {
+        errorMessage.value = t('login.error');
+      }
+    });
 });
 
 const showNotification = ref(false);
@@ -125,7 +130,10 @@ const closeNotification = () => {
         {{ t('login.forgotten') }}
       </router-link>
     </p>
-    <KwaiErrorAlert v-if="errorMessage">
+    <KwaiErrorAlert
+      v-if="errorMessage"
+      class="mt-2"
+    >
       <div class="text-sm">
         {{ errorMessage }}
       </div>
