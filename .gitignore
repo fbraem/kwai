@@ -13,7 +13,7 @@ dist
 node_modules
 public
 .idea
-/frontend/packages/kwai-config/src/config.toml
+/frontend/apps/portal/src/config.toml
 *.pyc
 *.code-workspace
 __pycache__

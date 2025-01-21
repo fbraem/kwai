@@ -5,6 +5,7 @@ import { existsSync } from 'fs';
 import { resolve } from 'path';
 
 import { visualizer } from 'rollup-plugin-visualizer';
+import { ViteToml } from 'vite-plugin-toml';
 
 const resolveTheme = (path: string) => {
   const themeFile = resolve(__dirname, `./src/theme/kwai${path}`);
@@ -29,21 +30,17 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       manifest: true,
-      rollupOptions: {
-        input: 'src/index.ts',
-      },
+      rollupOptions: { input: 'src/index.ts' },
     },
-    plugins: [
-      vue(),
-      visualizer(),
-    ],
+    plugins: [ViteToml(), vue(), visualizer()],
     resolve: {
       alias: [
         {
           find: '@kwai/ui',
-          replacement: mode === 'production'
-            ? '@kwai/ui'
-            : resolve(__dirname, '../../packages/kwai-ui/src/'),
+          replacement:
+            mode === 'production'
+              ? '@kwai/ui'
+              : resolve(__dirname, '../../packages/kwai-ui/src/'),
         },
         {
           find: '@theme',

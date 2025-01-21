@@ -5,7 +5,7 @@ tasks:
   _npm_clean_package:
     internal: true
     requires:
-      vars: [PACKAGE]
+      vars: [ PACKAGE ]
     cmds:
       - rm -rf packages/{{.PACKAGE}}/dist
 
@@ -14,7 +14,7 @@ tasks:
     internal: true
     label: build_package_{{.PACKAGE}}
     requires:
-      vars: [PACKAGE]
+      vars: [ PACKAGE ]
     sources:
       - packages/{{.PACKAGE}}/src/**/*
       - packages/{{.PACKAGE}}/package.json
@@ -26,20 +26,11 @@ tasks:
         vars: { PACKAGE: '{{.PACKAGE}}' }
       - npm run build -w packages/{{.PACKAGE}}
 
-  # @kwai/config package is a dependency for all other packages.
-  _npm_build_config_package:
-    internal: true
-    run: once
-    cmds:
-      - task: _npm_build_package
-        vars: { PACKAGE: 'kwai-config' }
-
   # Build a package.
   build_package:
     desc: Build a package
     requires:
-      vars: [PACKAGE]
-    deps: [_npm_build_config_package]
+      vars: [ PACKAGE ]
     cmds:
       - task: _npm_build_package
         vars: { PACKAGE: '{{.PACKAGE}}' }
@@ -63,8 +54,8 @@ tasks:
   dev_app:
     desc: Build and start a development server for this application
     requires:
-      vars: [APP]
-    deps: [build_packages]
+      vars: [ APP ]
+    deps: [ build_packages ]
     cmds:
       - npm run dev -w apps/{{.APP}}
 
@@ -72,6 +63,8 @@ tasks:
   dev_apps:
     desc: Build and start a development server for all applications
     deps:
+      - task: dev_app
+        vars: { APP: 'admin' }
       - task: dev_app
         vars: { APP: 'auth' }
       - task: dev_app
@@ -87,8 +80,8 @@ tasks:
   build_app:
     desc: Build an application
     requires:
-      vars: [APP]
-    deps: [build_packages]
+      vars: [ APP ]
+    deps: [ build_packages ]
     cmds:
       - rm -rf apps/{{.APP}}/dist
       - npm run build -w apps/{{.APP}}
@@ -97,6 +90,8 @@ tasks:
   build:
     desc: Build all applications of the frontend
     deps:
+      - task: build_app
+        vars: { APP: 'admin' }
       - task: build_app
         vars: { APP: 'auth' }
       - task: build_app

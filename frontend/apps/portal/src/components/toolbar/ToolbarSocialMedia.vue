@@ -1,7 +1,18 @@
+<script setup lang="ts">
+import { defineAsyncComponent } from 'vue';
+import config from '@root/config.toml';
+
+const loadIcon = (name: string) => {
+  return defineAsyncComponent(
+    () => import(`@root/components/icons/${name}.vue`)
+  );
+};
+</script>
+
 <template>
   <div class="flex flex-col md:flex-row place-content-between">
     <template
-      v-for="socialMedia in portal.social_media"
+      v-for="socialMedia in config.portal.social_media"
       :key="socialMedia.title"
     >
       <a :href="socialMedia.url">
@@ -25,12 +36,3 @@
     </template>
   </div>
 </template>
-
-<script setup lang="ts">
-import { portal } from '@kwai/config';
-import { defineAsyncComponent } from 'vue';
-
-const loadIcon = (name: string) => {
-  return defineAsyncComponent(() => import(`@root/components/icons/${name}.vue`));
-};
-</script>

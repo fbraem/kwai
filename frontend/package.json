@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "test": "vitest",
-    "prebuild": "npm run build -w packages/kwai-config && npm run build -w packages/kwai-date && npm run build -w packages/kwai-api && npm run build -w packages/kwai-types && npm run build -w packages/kwai-ui",
+    "prebuild": "npm run build -w packages/kwai-date && npm run build -w packages/kwai-api && npm run build -w packages/kwai-types && npm run build -w packages/kwai-ui",
     "build": "npm run build --workspaces --if-present",
     "lint": "eslint .",
     "format": "prettier --write ."

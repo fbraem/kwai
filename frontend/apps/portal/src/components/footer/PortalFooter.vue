@@ -2,18 +2,22 @@
 import HouseIcon from '@root/components/icons/HouseIcon.vue';
 import MailIcon from '@root/components/icons/MailIcon.vue';
 
-import config from '@kwai/config';
+import config from '@root/config.toml';
 import { defineAsyncComponent } from 'vue';
 
 const loadIcon = (name: string) => {
-  return defineAsyncComponent(() => import(`@root/components/icons/${name}.vue`));
+  return defineAsyncComponent(
+    () => import(`@root/components/icons/${name}.vue`)
+  );
 };
 </script>
 
 <template>
   <section class="bg-gray-800 text-white pt-12">
     <div class="container mx-auto flex flex-col">
-      <div class="relative flex flex-col self-center max-w-3xl sm:rounded-lg sm:shadow-lg sm:shadow-gray-600 bg-red-600 text-white -mt-20 px-2">
+      <div
+        class="relative flex flex-col self-center max-w-3xl sm:rounded-lg sm:shadow-lg sm:shadow-gray-600 bg-red-600 text-white -mt-20 px-2"
+      >
         <p
           v-for="(text, index) in config.portal.promotion_footer"
           :key="`promotion_footer_${index}`"
@@ -35,7 +39,8 @@ const loadIcon = (name: string) => {
               v-if="$kwai.contact"
               class="flex items-center"
             >
-              <HouseIcon class="w-4 h-4 fill-current mr-2" />{{ $kwai.contact.street }}
+              <HouseIcon class="w-4 h-4 fill-current mr-2" />
+              {{ $kwai.contact.street }}
             </li>
             <li v-if="$kwai.contact">
               {{ $kwai.contact.city }}
@@ -66,7 +71,9 @@ const loadIcon = (name: string) => {
               :href="link.url"
               target="_blank"
               class="text-blue-400"
-            >{{ link.title }}</a>
+            >{{
+              link.title
+            }}</a>
           </div>
         </div>
         <div>
@@ -117,6 +124,4 @@ const loadIcon = (name: string) => {
   </section>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

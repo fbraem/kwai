@@ -1,17 +1,3 @@
-[api]
-base_url = ""
-
-[website]
-title = ""
-copyright = ""
-email = ""
-url = ""
-
-[contact]
-street = ""
-city = ""
-email = ""
-
 [portal]
 promotion = [
     ""

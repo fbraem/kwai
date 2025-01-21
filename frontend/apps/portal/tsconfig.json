@@ -3,15 +3,24 @@
   "compilerOptions": {
     "baseUrl": ".",
     "allowJs": true,
-    "types": ["vite/client"],
+    "types": [
+      "vite/client"
+    ],
     "paths": {
       "@theme/*": [
         "theme/kwai/*",
         "*"
       ],
-      "@root/*": ["src/*"]
+      "@root/*": [
+        "src/*"
+      ]
     },
-    "ignoreDeprecations": "5.0"
+    "ignoreDeprecations": "5.0",
+    "plugins": [
+      {
+        "name": "typescript-plugin-toml"
+      }
+    ]
   },
   "include": [
     "src/**/*.ts",
@@ -19,10 +28,7 @@
   ],
   "references": [
     {
-      "path": "./tsconfig.node.json",
-    },
-    {
-      "path": "../../packages/kwai-config"
+      "path": "./tsconfig.node.json"
     },
     {
       "path": "../../packages/kwai-types"
@@ -33,5 +39,5 @@
     {
       "path": "../../packages/kwai-api"
     }
-  ],
+  ]
 }

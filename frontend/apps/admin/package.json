@@ -1,35 +1,30 @@
 {
-  "name": "@kwai/portal",
-  "description": "The portal for Kwai",
+  "name": "@kwai/admin",
+  "description": "The administration application for kwai",
   "version": "1.0.0",
   "type": "module",
   "dependencies": {
     "@kwai/api": "*",
-    "@kwai/date": "*",
-    "@kwai/types": "*",
     "@kwai/ui": "*",
-    "@tanstack/vue-query": "^5.32.0",
-    "@vueuse/core": "^12.2.0",
-    "@vueuse/router": "12.2.0",
     "tailwindcss-primeui": "^0.3.4",
+    "vee-validate": "^4.12.6",
     "vue": "^3.5.13",
+    "vue-i18n": "^10.0.5",
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
+    "@intlify/unplugin-vue-i18n": "^6.0.2",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.7.0",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
-    "typescript-plugin-toml": "^0.5.0",
-    "vite-plugin-toml": "^0.7.0",
     "vue-tsc": "^2.1.10"
   },
   "private": true,
   "scripts": {
-    "build": "vite build --config ./vite.config.ts",
+    "build": "vue-tsc --noEmit && vite build --config ./vite.config.ts",
     "dev": "vite --config ./vite.config.ts",
-    "preview": "vite preview --config ./vite.config.ts",
-    "test": "vitest"
+    "preview": "vite preview --config ./vite.config.ts"
   }
 }
