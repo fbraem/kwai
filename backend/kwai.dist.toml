@@ -14,62 +14,66 @@ vite_server = "http://localhost:3001/apps/author"  # Only necessary in test mode
 
 [[frontend.apps]]
 name = "auth"
-vite_server="http://localhost:3002/apps/auth"  # Only necessary in test mode
+vite_server = "http://localhost:3002/apps/auth"  # Only necessary in test mode
 
 [[frontend.apps]]
 name = "coach"
-vite_server="http://localhost:3003/apps/coach"  # Only necessary in test mode
+vite_server = "http://localhost:3003/apps/coach"  # Only necessary in test mode
 
 [[frontend.apps]]
 name = "club"
-vite_server="http://localhost:3004/apps/club"  # Only necessary in test mode
+vite_server = "http://localhost:3004/apps/club"  # Only necessary in test mode
+
+[[frontend.apps]]
+name = "admin"
+vite_server = "http://localhost:3005/apps/admin"  # Only necessary in test mode
 
 [files]
-path="/var/tmp/kwai"
+path = "/var/tmp/kwai"
 
 [security]
-access_token_expires_in=60  # 60 minutes
-refresh_token_expires_in=43200  # 30 days
-jwt_algorithm="HS256"
-jwt_secret=""
-jwt_refresh_secret=""
+access_token_expires_in = 60  # 60 minutes
+refresh_token_expires_in = 43200  # 30 days
+jwt_algorithm = "HS256"
+jwt_secret = ""
+jwt_refresh_secret = ""
 
 [cors]
-origins=[]
-headers=["*"] # All
-methods=["*"] # All
+origins = []
+headers = ["*"] # All
+methods = ["*"] # All
 
 [logger]
-file="kwai.log"
+file = "kwai.log"
 
 [db]
-host=""
-name=""
-user=""
-password=""
+host = ""
+name = ""
+user = ""
+password = ""
 
 [website]
-url=""
-email=""
-name=""
-copyright=""
-admin.name=""
-admin.email=""
-contact.street=""
-contact.city=""
-contact.email=""
+url = ""
+email = ""
+name = ""
+copyright = ""
+admin.name = ""
+admin.email = ""
+contact.street = ""
+contact.city = ""
+contact.email = ""
 
 [email]
-host=""
-port=2525
-password=""
-user=""
-from=""
+host = ""
+port = 2525
+password = ""
+user = ""
+from = ""
 
 [redis]
-host=""
-port=6379
-password=""
+host = ""
+port = 6379
+password = ""
 
 [redis.logger]
-file="kwai.redis.log"
+file = "kwai.redis.log"

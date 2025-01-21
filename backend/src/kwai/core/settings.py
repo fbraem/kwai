@@ -24,6 +24,12 @@ class ApplicationSettingsModel(BaseModel):
     variables: dict[str, Any] | None = None
 
 
+class AdminApplicationSettings(ApplicationSettingsModel):
+    """Settings for the admin application."""
+
+    name: Literal["admin"]
+
+
 class AuthenticationApplicationSettings(ApplicationSettingsModel):
     """Settings for the auth application."""
 
@@ -56,6 +62,7 @@ class PortalApplicationSettings(ApplicationSettingsModel):
 
 Application = Annotated[
     Union[
+        AdminApplicationSettings,
         AuthenticationApplicationSettings,
         AuthorApplicationSettings,
         ClubApplicationSettings,
