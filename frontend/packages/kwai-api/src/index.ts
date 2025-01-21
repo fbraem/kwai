@@ -108,7 +108,7 @@ export interface ResourceItems<T> {
 
 export const isLoggedIn = (): boolean => {
   const cookies = new Cookies(null, { path: '/' });
-  return cookies.get('access_token');
+  return cookies.get('kwai') !== undefined;
 };
 
 export const useHttp = () =>
@@ -151,12 +151,8 @@ interface LoginFormData {
   password: string
 }
 
-export const useHttpForm = (formData: FormData) => {
-  return useHttp().formData(formData);
-};
-
-export const useHttpLogin = (formData: LoginFormData) => {
-  return useHttpForm(formData).url('/v1/auth/login').post().res();
+export const useHttpLogin = (loginFormData: LoginFormData) => {
+  return useHttp().formData(loginFormData).url('/v1/auth/login').post().res();
 };
 
 export const useHttpApi = () =>
