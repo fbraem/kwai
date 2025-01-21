@@ -1,9 +1,8 @@
 <script setup lang="ts">
-
 import { website } from '@kwai/config';
 import logoUrl from '/logo.png';
 import {
-  useMenu, ToolbarLogo, KwaiMenubar, KwaiAuthenticateButton,
+  KwaiAuthenticateButton, KwaiMenubar, ToolbarLogo, useMenu,
 } from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
 import {
@@ -14,8 +13,8 @@ const { t } = useI18n({ useScope: 'global' });
 
 const menuItems = useMenu();
 
-const logout = () => {
-  useHttpLogout();
+const logout = async() => {
+  await useHttpLogout();
   window.location.reload();
 };
 </script>
@@ -50,6 +49,4 @@ const logout = () => {
   <KwaiMenubar :items="menuItems" />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

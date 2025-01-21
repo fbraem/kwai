@@ -11,8 +11,8 @@ import {
 
 const menuItems = useMenu();
 
-const logout = () => {
-  useHttpLogout();
+const logout = async() => {
+  await useHttpLogout();
   window.location.reload();
 };
 </script>
@@ -47,6 +47,4 @@ const logout = () => {
   <KwaiMenubar :items="menuItems" />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

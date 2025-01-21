@@ -2,7 +2,7 @@
 import logoUrl from '/logo.png';
 import { website } from '@kwai/config';
 import {
-  useMenu, KwaiMenubar, KwaiAuthenticateButton, ToolbarLogo,
+  KwaiAuthenticateButton, KwaiMenubar, ToolbarLogo, useMenu,
 } from '@kwai/ui';
 import {
   isLoggedIn, useHttpLogout,
@@ -10,8 +10,8 @@ import {
 
 const menuItems = useMenu();
 
-const logout = () => {
-  useHttpLogout();
+const logout = async() => {
+  await useHttpLogout();
   window.location.reload();
 };
 </script>
@@ -49,6 +49,4 @@ const logout = () => {
   />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
