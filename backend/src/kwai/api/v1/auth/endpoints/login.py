@@ -57,6 +57,7 @@ from kwai.modules.identity.users.user_account_repository import (
 
 COOKIE_ACCESS_TOKEN = "access_token"
 COOKIE_REFRESH_TOKEN = "refresh_token"
+COOKIE_KWAI = "kwai"
 
 
 router = APIRouter()
@@ -159,6 +160,7 @@ async def logout(
             status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
         ) from ex
 
+    response.delete_cookie(key=COOKIE_KWAI)
     response.delete_cookie(key=COOKIE_ACCESS_TOKEN)
     response.delete_cookie(key=COOKIE_REFRESH_TOKEN)
     response.status_code = status.HTTP_200_OK
@@ -312,11 +314,17 @@ def _create_cookie(
         settings.security.jwt_refresh_secret,
         settings.security.jwt_algorithm,
     )
-
+    response.set_cookie(
+        key=COOKIE_KWAI,
+        value="Y",
+        expires=refresh_token.access_token.expiration.timestamp,
+        secure=settings.frontend.test,
+    )
     response.set_cookie(
         key=COOKIE_ACCESS_TOKEN,
         value=encoded_access_token,
         expires=refresh_token.access_token.expiration.timestamp,
+        httponly=True,
         secure=not settings.frontend.test,
     )
     response.set_cookie(
