@@ -132,8 +132,8 @@ async def logout(
     settings: Annotated[Settings, Depends(get_settings)],
     db: Annotated[Database, Depends(create_database)],
     user: Annotated[UserEntity, Depends(get_current_user)],  # noqa
-    refresh_token: Annotated[str, Cookie()],
     response: Response,
+    refresh_token: Annotated[str | None, Cookie()] = None,
 ) -> None:
     """Log out the current user.
 
@@ -143,22 +143,23 @@ async def logout(
     This request expects a form (application/x-www-form-urlencoded). The form
     must contain a **refresh_token** field.
     """
-    decoded_refresh_token = jwt.decode(
-        refresh_token,
-        key=settings.security.jwt_refresh_secret,
-        algorithms=[settings.security.jwt_algorithm],
-    )
-    command = LogoutCommand(identifier=decoded_refresh_token["jti"])
-    try:
-        async with UnitOfWork(db):
-            await Logout(
-                refresh_token_repository=RefreshTokenDbRepository(db),
-                access_token_repository=AccessTokenDbRepository(db),
-            ).execute(command)
-    except RefreshTokenNotFoundException as ex:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
-        ) from ex
+    if refresh_token:
+        decoded_refresh_token = jwt.decode(
+            refresh_token,
+            key=settings.security.jwt_refresh_secret,
+            algorithms=[settings.security.jwt_algorithm],
+        )
+        command = LogoutCommand(identifier=decoded_refresh_token["jti"])
+        try:
+            async with UnitOfWork(db):
+                await Logout(
+                    refresh_token_repository=RefreshTokenDbRepository(db),
+                    access_token_repository=AccessTokenDbRepository(db),
+                ).execute(command)
+        except RefreshTokenNotFoundException as ex:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
+            ) from ex
 
     response.delete_cookie(key=COOKIE_KWAI)
     response.delete_cookie(key=COOKIE_ACCESS_TOKEN)
@@ -317,7 +318,7 @@ def _create_cookie(
     response.set_cookie(
         key=COOKIE_KWAI,
         value="Y",
-        expires=refresh_token.access_token.expiration.timestamp,
+        expires=refresh_token.expiration.timestamp,
         secure=settings.frontend.test,
     )
     response.set_cookie(
