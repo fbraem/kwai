@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { website } from '@kwai/config';
 import logoUrl from '/logo.png';
 import {
   KwaiAuthenticateButton, KwaiMenubar, ToolbarLogo, useMenu,
@@ -23,10 +22,10 @@ const logout = async() => {
   <header class="container mx-auto p-8 lg:px-6 lg:max-w-6xl">
     <div class="grid grid-flow-row lg:grid-flow-col space-y-4 items-center">
       <ToolbarLogo
-        :url="website.url"
+        url="/"
         :logo="logoUrl"
       >
-        {{ website.title }}
+        {{ $kwai.website.name }}
       </ToolbarLogo>
       <div class="flex flex-col md:flex-row md:items-center">
         <div class="md:w-2/3">

@@ -52,4 +52,7 @@ router.beforeEach((to, from, next) => {
 app.use(router);
 
 init(app);
+
+app.config.globalProperties.$kwai = window.__KWAI__;
+
 app.mount('#app');

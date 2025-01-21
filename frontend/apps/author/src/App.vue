@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { useTitle } from '@vueuse/core';
-import { website } from '@kwai/config';
+import { getCurrentInstance } from 'vue';
 
 const title = useTitle();
-title.value = `${website.title} | Author`;
+const $kwai = getCurrentInstance()?.appContext.config.globalProperties.$kwai;
+if ($kwai) {
+  title.value = `${$kwai.website.name} | Author`;
+} else {
+  title.value = 'Author';
+}
 </script>
 
 <template>

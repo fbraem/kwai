@@ -44,7 +44,7 @@ router.beforeEach((to, from, next) => {
     if (isLoggedIn()) {
       next();
     } else {
-      useLocalStorage('login_redict', `/apps/club${to.path}`);
+      useLocalStorage('login_redirect', `/apps/club${to.path}`);
       next('/not_allowed');
     }
   } else {
@@ -53,5 +53,7 @@ router.beforeEach((to, from, next) => {
 });
 app.use(router);
 init(app);
+
+app.config.globalProperties.$kwai = window.__KWAI__;
 
 app.mount('#app');

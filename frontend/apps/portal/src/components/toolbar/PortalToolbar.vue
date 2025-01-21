@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import logoUrl from '/logo.png';
 
-import { ToolbarLogo, BarsIcon } from '@kwai/ui';
-import { website } from '@kwai/config';
+import {
+  BarsIcon, ToolbarLogo,
+} from '@kwai/ui';
 import ApplicationList from '../ApplicationList.vue';
 import { ref } from 'vue';
 import ToolbarSocialMedia from './ToolbarSocialMedia.vue';
@@ -18,10 +19,10 @@ const toggleMenu = () => {
   <header class="container mx-auto p-8 lg:px-6 lg:max-w-6xl">
     <div class="grid grid-flow-row lg:grid-flow-col space-y-4 items-center">
       <ToolbarLogo
-        :url="website.url"
+        url="/"
         :logo="logoUrl"
       >
-        {{ website.title }}
+        {{ $kwai.website.name }}
       </ToolbarLogo>
       <div class="flex flex-col md:flex-row md:items-center">
         <ToolbarSocialMedia class="md:w-2/3" />
@@ -35,15 +36,18 @@ const toggleMenu = () => {
         class="lg:hidden text-gray-300 uppercase inline-flex items-center hover:cursor-pointer"
         @click="toggleMenu"
       >
-        <BarsIcon class="w-4 fill-gray-300 mr-2" /> Menu
+        <BarsIcon class="w-4 fill-gray-300 mr-2" />
+        Menu
       </div>
       <div
-        :class="{ 'hidden': !open }"
+        :class="{ hidden: !open }"
         class="w-full lg:block lg:w-auto"
       >
-        <ul class="text-gray-200 flex flex-col lg:flex-row lg:space-x-8 lg:mt-0">
+        <ul
+          class="text-gray-200 flex flex-col lg:flex-row lg:space-x-8 lg:mt-0"
+        >
           <li class="py-3 hover:text-white">
-            <a :href="website.url">Home</a>
+            <a href="/">Home</a>
           </li>
           <ApplicationList>
             <template #default="{ application }">

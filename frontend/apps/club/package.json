@@ -6,7 +6,6 @@
   "dependencies": {
     "@intlify/unplugin-vue-i18n": "6.0.2",
     "@kwai/api": "*",
-    "@kwai/config": "*",
     "@kwai/date": "*",
     "@kwai/types": "*",
     "@kwai/ui": "*",
