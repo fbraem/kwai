@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import logoUrl from '/logo.png';
 import { InformationDialog } from '@kwai/ui';
-import config from '@kwai/config';
 
 import { useI18n } from 'vue-i18n';
+
 const { t } = useI18n({ useScope: 'global' });
 </script>
 
@@ -18,7 +18,7 @@ const { t } = useI18n({ useScope: 'global' });
           >
         </div>
         <h1 class="text-white text-2xl sm:text-center font-bold uppercase">
-          {{ config.website.title }}
+          {{ $kwai.website.name }}
         </h1>
       </div>
       <p class="text-gray-300 my-6">
@@ -29,8 +29,11 @@ const { t } = useI18n({ useScope: 'global' });
       </p>
     </template>
     <router-view />
-    <p class="mt-12 mb-3 text-center text-xs text-gray-500 justify-self-end">
-      &copy; {{ config.website.copyright }}
+    <p
+      v-if="$kwai.copyright"
+      class="mt-12 mb-3 text-center text-xs text-gray-500 justify-self-end"
+    >
+      &copy; {{ $kwai.copyright }}
     </p>
   </InformationDialog>
 </template>

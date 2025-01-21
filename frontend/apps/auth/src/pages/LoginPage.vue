@@ -4,7 +4,6 @@ import {
 } from '@kwai/ui';
 import { useForm } from 'vee-validate';
 import { useHttpLogin } from '@kwai/api';
-import { website } from '@kwai/config';
 import type { Ref } from 'vue';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -51,10 +50,9 @@ const onSubmitForm = handleSubmit(async(values) => {
         if (redirect.value) {
           const redirectUrl = redirect.value;
           redirect.value = null;
-          console.log(`${website.url}${redirectUrl}`);
-          window.location.replace(`${website.url}${redirectUrl}`);
+          window.location.replace(redirectUrl);
         } else {
-          window.location.replace(website.url);
+          window.location.replace('/');
         }
       }, 3000);
     })

@@ -30,4 +30,6 @@ const router = createRouter({
 app.use(router);
 init(app);
 
+app.config.globalProperties.$kwai = window.__KWAI__;
+
 app.mount('#app');
