@@ -49,7 +49,7 @@ KWAI needs a database. Migration files are available in the folder migrations.
 [Dbmate](https://github.com/amacneil/dbmate) is used as migration tool.
 
 ```console
-dbmate -d "./migrations" --url protocol://user:password@host:port/database migrate
+dbmate -d "./migrations" --url protocol://user:password@host:port/database up
 ```
 
 !!! note
@@ -59,8 +59,7 @@ dbmate -d "./migrations" --url protocol://user:password@host:port/database migra
 
 ### Redis
 kwai uses [Redis](https://redis.io) for handling events. When an event is published, it will be put on a stream.
-Each module will have its own stream (for example: identity will have a stream `kwai.identity`).
-Make sure the settings for redis are set in the configuration file.
+Each event will have its own stream. Make sure the settings for redis are set in the configuration file.
 
 A separate process is used to handle the events: `kwai_bus`.
 
