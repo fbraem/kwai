@@ -1,5 +1,6 @@
 """Module that implements a user account repository for a database."""
 
+from collections.abc import AsyncGenerator
 from dataclasses import replace
 
 from kwai.core.db.database import Database
@@ -23,6 +24,20 @@ class UserAccountDbRepository(UserAccountRepository):
 
     def __init__(self, database: Database):
         self._database = database
+
+    async def get_all(
+        self, limit: int | None = None, offset: int | None = None
+    ) -> AsyncGenerator[UserAccountEntity]:
+        query = (
+            self._database.create_query_factory()
+            .select()
+            .from_(UserAccountRow.__table_name__)
+            .columns(*UserAccountRow.get_aliases())
+            .offset(offset)
+            .limit(limit)
+        )
+        async for row in self._database.fetch(query):
+            yield UserAccountRow.map(row).create_entity()
 
     async def get_user_by_email(self, email: EmailAddress) -> UserAccountEntity:
         query = (

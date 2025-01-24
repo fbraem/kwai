@@ -28,6 +28,13 @@ async def test_create(make_user_account_in_db):
     assert user_account.id, "There should be a user account entity"
 
 
+async def test_get_all(repo: UserAccountRepository, make_user_account_in_db):
+    """Test if user accounts are retrieved."""
+    await make_user_account_in_db()
+    user_account = await anext(repo.get_all())
+    assert user_account is not None, "There should be a user account entity"
+
+
 async def test_get_by_email(repo: UserAccountRepository, make_user_account_in_db):
     """Test if the user account can be fetched with email address."""
     user_account = await make_user_account_in_db()

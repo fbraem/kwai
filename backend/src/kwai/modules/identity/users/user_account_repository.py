@@ -1,6 +1,7 @@
 """Module that defines a repository for a user account."""
 
 from abc import abstractmethod
+from collections.abc import AsyncGenerator
 
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.modules.identity.users.user_account import UserAccountEntity
@@ -8,6 +9,21 @@ from kwai.modules.identity.users.user_account import UserAccountEntity
 
 class UserAccountRepository:
     """Interface for a user account repository."""
+
+    @abstractmethod
+    async def get_all(
+        self, limit: int | None = None, offset: int | None = None
+    ) -> AsyncGenerator[UserAccountEntity]:
+        """Return all user accounts.
+
+        Args:
+            limit: The maximum number of entities to return.
+            offset: Skip the offset rows before beginning to return entities.
+
+        Yields:
+            A list of user account entities.
+        """
+        raise NotImplementedError
 
     @abstractmethod
     async def get_user_by_email(self, email: EmailAddress) -> UserAccountEntity:
