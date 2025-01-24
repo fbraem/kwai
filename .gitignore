@@ -17,7 +17,8 @@ public
 *.pyc
 *.code-workspace
 __pycache__
-/.env
+.env
+.env.*
 /backend/.vscode/
 *.coverage
 /frontend/apps/portal/images/*.jpg
