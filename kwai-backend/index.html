@@ -383,9 +383,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#vagrant" class="md-nav__link">
+  <a href="#docker" class="md-nav__link">
     <span class="md-ellipsis">
-      Vagrant
+      Docker
     </span>
   </a>
   
@@ -432,15 +432,6 @@
   <a href="#src" class="md-nav__link">
     <span class="md-ellipsis">
       src
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vagrant_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      vagrant
     </span>
   </a>
   
@@ -764,9 +755,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#vagrant" class="md-nav__link">
+  <a href="#docker" class="md-nav__link">
     <span class="md-ellipsis">
-      Vagrant
+      Docker
     </span>
   </a>
   
@@ -813,15 +804,6 @@
   <a href="#src" class="md-nav__link">
     <span class="md-ellipsis">
       src
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vagrant_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      vagrant
     </span>
   </a>
   
@@ -887,8 +869,13 @@ available from the internet.</p>
 <h3 id="database">Database<a class="headerlink" href="#database" title="Permanent link">&para;</a></h3>
 <p>KWAI needs a database. Migration files are available in the folder migrations.
 <a href="https://github.com/amacneil/dbmate">Dbmate</a> is used as migration tool.</p>
-<div class="highlight"><pre><span></span><code><span class="go">dbmate -d &quot;./migrations&quot; --url protocol://user:password@host:port/database migrate</span>
+<div class="highlight"><pre><span></span><code><span class="go">dbmate -d &quot;./migrations&quot; --url protocol://user:password@host:port/database up</span>
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Create a .env file to avoid entering the dbmate arguments over and over again.
+See <a href="https://github.com/amacneil/dbmate?tab=readme-ov-file#command-line-options">Command line options</a>.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>only "up" migrations are provided. Create a backup of the database before
@@ -897,23 +884,21 @@ used because these are hard to test and can generate more problems than they sol
 </div>
 <h3 id="redis">Redis<a class="headerlink" href="#redis" title="Permanent link">&para;</a></h3>
 <p>kwai uses <a href="https://redis.io">Redis</a> for handling events. When an event is published, it will be put on a stream.
-Each module will have its own stream (for example: identity will have a stream <code>kwai.identity</code>).
-Make sure the settings for redis are set in the configuration file.</p>
+Each event will have its own stream. Make sure the settings for redis are set in the configuration file.</p>
 <p>A separate process is used to handle the events: <code>kwai_bus</code>.</p>
 <h3 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h3>
 <p>A CLI program can be used to test and interrogate the system. See <a href="cli/">CLI</a> for more information.</p>
-<h3 id="vagrant">Vagrant<a class="headerlink" href="#vagrant" title="Permanent link">&para;</a></h3>
-<p>A vagrant environment can be used to set up a development and test environment.
-This environment will install and create:</p>
+<h3 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h3>
+<p>To make testing easier, a docker compose file is provided to set up a container with the required
+infrastructure. This will install and create the following containers:</p>
 <ul>
 <li>A MySQL database.</li>
-<li>dbmate for running migrations.</li>
 <li>redis for events.</li>
 <li>Mailcatcher for testing emails.</li>
 </ul>
-<p>Use <code>kwai.dist.yaml</code> file to create <code>kwai.yaml</code> in each machine folder. This file must contain the settings.</p>
+<p>Use a .env file for setting the password for mysql (KWAI_DB_PASSWORD) and redis (KWAI_REDIS_PASSWORD).</p>
 <blockquote>
-<p>Don't add <code>kwai.yaml</code> to version control!</p>
+<p>Don't add <code>.env</code> to version control!</p>
 </blockquote>
 <h3 id="tools">Tools<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h3>
 <p>The backend is written in Python. The following tools are used to develop kwai:
@@ -946,8 +931,6 @@ Poetry to create the pre-commit hooks:</p>
 <p>This folder contains the Python code. The system is written following DDD as software development philosophy.
 Clean code should be the result of following this philosophy. The folder <code>kwai</code> contains the
 program code, <code>tests</code> contains the <a href="https://pytest.org">pytest</a> code for testing the program code.</p>
-<h4 id="vagrant_1">vagrant<a class="headerlink" href="#vagrant_1" title="Permanent link">&para;</a></h4>
-<p>This folder contains two vagrant machines: one for development and one for testing.</p>
 
 
 
