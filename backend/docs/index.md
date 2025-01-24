@@ -53,6 +53,10 @@ dbmate -d "./migrations" --url protocol://user:password@host:port/database up
 ```
 
 !!! note
+    Create a .env file to avoid entering the dbmate arguments over and over again.
+    See [Command line options](https://github.com/amacneil/dbmate?tab=readme-ov-file#command-line-options).
+
+!!! note
     only "up" migrations are provided. Create a backup of the database before
     running the migrations. Although dbmate can run "down" migrations, they are not
     used because these are hard to test and can generate more problems than they solve.
@@ -66,19 +70,18 @@ A separate process is used to handle the events: `kwai_bus`.
 ### CLI
 A CLI program can be used to test and interrogate the system. See [CLI](cli.md) for more information.
 
-### Vagrant
+### Docker
 
-A vagrant environment can be used to set up a development and test environment.
-This environment will install and create:
+To make testing easier, a docker compose file is provided to set up a container with the required
+infrastructure. This will install and create the following containers:
 
 + A MySQL database.
-+ dbmate for running migrations.
 + redis for events.
 + Mailcatcher for testing emails.
 
-Use `kwai.dist.yaml` file to create `kwai.yaml` in each machine folder. This file must contain the settings.
+Use a .env file for setting the password for mysql (KWAI_DB_PASSWORD) and redis (KWAI_REDIS_PASSWORD).
 
-> Don't add `kwai.yaml` to version control!
+> Don't add `.env` to version control!
 
 ### Tools
 
@@ -122,7 +125,3 @@ This folder contains the database migrations.
 This folder contains the Python code. The system is written following DDD as software development philosophy.
 Clean code should be the result of following this philosophy. The folder `kwai` contains the
 program code, `tests` contains the [pytest](https://pytest.org) code for testing the program code.
-
-#### vagrant
-
-This folder contains two vagrant machines: one for development and one for testing.

@@ -1,0 +1,32 @@
+services:
+  mysql:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${KWAI_DB_PASSWORD}
+      MYSQL_DATABASE: kwai
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass ${KWAI_REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
+
+  mailcatcher:
+    image: dockage/mailcatcher
+    restart: always
+    hostname: api.kwai.com
+    ports:
+      - "1025:1025"
+      - "1080:1080"
+
+volumes:
+  mysql_data:
+  redis_data:
