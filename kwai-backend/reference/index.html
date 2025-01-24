@@ -44018,6 +44018,89 @@ When login fails, last_unsuccessful_login will be updated.</p>
 
 
 
+<h6 id="kwai.modules.identity.users.user_account_db_query" class="doc doc-heading">
+            <code>user_account_db_query</code>
+
+
+<a href="#kwai.modules.identity.users.user_account_db_query" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that implements the UserAccountQuery interface for a database.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.identity.users.user_account_db_query.UserAccountDbQuery" class="doc doc-heading">
+            <code>UserAccountDbQuery</code>
+
+
+<a href="#kwai.modules.identity.users.user_account_db_query.UserAccountDbQuery" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account_query.UserAccountQuery" href="#kwai.modules.identity.users.user_account_query.UserAccountQuery">UserAccountQuery</a></code>, <code><a class="autorefs autorefs-internal" title="kwai.core.db.database_query.DatabaseQuery" href="#kwai.core.db.database_query.DatabaseQuery">DatabaseQuery</a></code></p>
+
+
+        <p>A user account query for a database.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h6 id="kwai.modules.identity.users.user_account_db_repository" class="doc doc-heading">
             <code>user_account_db_repository</code>
 
@@ -44079,6 +44162,131 @@ When login fails, last_unsuccessful_login will be updated.</p>
 
 
 
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.identity.users.user_account_query" class="doc doc-heading">
+            <code>user_account_query</code>
+
+
+<a href="#kwai.modules.identity.users.user_account_query" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that defines the interface for a user account query.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.identity.users.user_account_query.UserAccountQuery" class="doc doc-heading">
+            <code>UserAccountQuery</code>
+
+
+<a href="#kwai.modules.identity.users.user_account_query.UserAccountQuery" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.repository.query.Query" href="#kwai.core.domain.repository.query.Query">Query</a></code></p>
+
+
+        <p>Interface for a user account query.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.users.user_account_query.UserAccountQuery.filter_by_email" class="doc doc-heading">
+            <code class=" language-python"><span class="n">filter_by_email</span><span class="p">(</span><span class="n">email</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.users.user_account_query.UserAccountQuery.filter_by_email" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Add a filter to the query with the email of the user.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.users.user_account_query.UserAccountQuery.filter_by_id" class="doc doc-heading">
+            <code class=" language-python"><span class="n">filter_by_id</span><span class="p">(</span><span class="n">id_</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.users.user_account_query.UserAccountQuery.filter_by_id" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Add a filter to the query with the id of the user.</p>
+
+    </div>
+
+</div>
 
 
 
@@ -44214,6 +44422,50 @@ When login fails, last_unsuccessful_login will be updated.</p>
 <div class="doc doc-object doc-function">
 
 
+<h8 id="kwai.modules.identity.users.user_account_repository.UserAccountRepository.create_query" class="doc doc-heading">
+            <code class=" language-python"><span class="n">create_query</span><span class="p">()</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.users.user_account_repository.UserAccountRepository.create_query" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return a new user account query.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account_query.UserAccountQuery" href="#kwai.modules.identity.users.user_account_query.UserAccountQuery">UserAccountQuery</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A query for user accounts.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
 <h8 id="kwai.modules.identity.users.user_account_repository.UserAccountRepository.delete" class="doc doc-heading">
             <code class=" language-python"><span class="n">delete</span><span class="p">(</span><span class="n">user_account</span><span class="p">)</span></code>
 
@@ -44298,6 +44550,98 @@ When login fails, last_unsuccessful_login will be updated.</p>
             <td>
               <div class="doc-md-description">
                 <p>True when a user with the given email address exists.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.users.user_account_repository.UserAccountRepository.get_all" class="doc doc-heading">
+            <code class=" language-python"><span class="n">get_all</span><span class="p">(</span><span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.users.user_account_repository.UserAccountRepository.get_all" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return all user accounts.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>limit</code>
+            </td>
+            <td>
+                  <code>int | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The maximum number of entities to return.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code>int | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Skip the offset rows before beginning to return entities.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Yields:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="collections.abc.AsyncGenerator">AsyncGenerator</span>[<a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account.UserAccountEntity" href="#kwai.modules.identity.users.user_account.UserAccountEntity">UserAccountEntity</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of user account entities.</p>
               </div>
             </td>
           </tr>
