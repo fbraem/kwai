@@ -5,6 +5,7 @@ from collections.abc import AsyncGenerator
 
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.modules.identity.users.user_account import UserAccountEntity
+from kwai.modules.identity.users.user_account_query import UserAccountQuery
 
 
 class UserAccountRepository:
@@ -22,6 +23,15 @@ class UserAccountRepository:
 
         Yields:
             A list of user account entities.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def create_query(self) -> UserAccountQuery:
+        """Return a new user account query.
+
+        Returns:
+            A query for user accounts.
         """
         raise NotImplementedError
 
