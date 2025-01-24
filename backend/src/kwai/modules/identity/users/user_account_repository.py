@@ -14,7 +14,7 @@ class UserAccountRepository:
     @abstractmethod
     async def get_all(
         self, limit: int | None = None, offset: int | None = None
-    ) -> AsyncGenerator[UserAccountEntity]:
+    ) -> AsyncGenerator[UserAccountEntity, None]:
         """Return all user accounts.
 
         Args:

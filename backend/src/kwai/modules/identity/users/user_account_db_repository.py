@@ -35,7 +35,7 @@ class UserAccountDbRepository(UserAccountRepository):
         query: UserAccountQuery | None = None,
         limit: int | None = None,
         offset: int | None = None,
-    ) -> AsyncGenerator[UserAccountEntity]:
+    ) -> AsyncGenerator[UserAccountEntity, None]:
         query = query or self.create_query()
         async for row in query.fetch(limit, offset):
             yield UserAccountRow.map(row).create_entity()
