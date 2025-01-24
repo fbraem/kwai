@@ -3149,6 +3149,160 @@ status code.</p>
 
 </div>
 
+<div class="doc doc-object doc-module">
+
+
+
+<h7 id="kwai.api.v1.auth.endpoints.users" class="doc doc-heading">
+            <code>users</code>
+
+
+<a href="#kwai.api.v1.auth.endpoints.users" class="headerlink" title="Permanent link">&para;</a></h7>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that implement all users endpoints.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+<h8 id="get_" class="doc doc-heading">        <span class="doc doc-object-name doc-function-name"></span>
+        <span class="badge badge-get">get</span>
+<a href="#get_" class="headerlink" title="Permanent link">&para;</a></h8>
+    <div class="doc doc-contents">
+
+        <p>Get all user accounts.</p>
+        <p>This api can return the following HTTP codes:</p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>Ok.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Not Authorized.</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.api.v1.auth.presenters" class="doc doc-heading">
+            <code>presenters</code>
+
+
+<a href="#kwai.api.v1.auth.presenters" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that defines presenters for the auth api.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.api.v1.auth.presenters.JsonApiUserAccountPresenter" class="doc doc-heading">
+            <code>JsonApiUserAccountPresenter</code>
+
+
+<a href="#kwai.api.v1.auth.presenters.JsonApiUserAccountPresenter" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.json_api.JsonApiPresenter" href="#kwai.core.json_api.JsonApiPresenter">JsonApiPresenter</a>[<a class="autorefs autorefs-internal" title="kwai.api.v1.auth.schemas.user_account.UserAccountDocument" href="#kwai.api.v1.auth.schemas.user_account.UserAccountDocument">UserAccountDocument</a>]</code>, <code><a class="autorefs autorefs-internal" title="kwai.core.domain.presenter.AsyncPresenter" href="#kwai.core.domain.presenter.AsyncPresenter">AsyncPresenter</a>[<a class="autorefs autorefs-internal" title="kwai.core.domain.presenter.IterableResult" href="#kwai.core.domain.presenter.IterableResult">IterableResult</a>[<a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account.UserAccountEntity" href="#kwai.modules.identity.users.user_account.UserAccountEntity">UserAccountEntity</a>]]</code></p>
+
+
+        <p>A presenter that transform a user account entity into a JSON:API document.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
 
   </div>
 
@@ -3187,6 +3341,281 @@ status code.</p>
 
 
 
+
+<div class="doc doc-object doc-module">
+
+
+
+<h7 id="kwai.api.v1.auth.schemas.resources" class="doc doc-heading">
+            <code>resources</code>
+
+
+<a href="#kwai.api.v1.auth.schemas.resources" class="headerlink" title="Permanent link">&para;</a></h7>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that defines all JSON:API resource identifiers for the auth API.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.auth.schemas.resources.UserAccountResourceIdentifier" class="doc doc-heading">
+            <code>UserAccountResourceIdentifier</code>
+
+
+<a href="#kwai.api.v1.auth.schemas.resources.UserAccountResourceIdentifier" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.json_api.ResourceIdentifier" href="#kwai.core.json_api.ResourceIdentifier">ResourceIdentifier</a></code></p>
+
+
+        <p>A JSON:API resource identifier for a user account.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h7 id="kwai.api.v1.auth.schemas.user_account" class="doc doc-heading">
+            <code>user_account</code>
+
+
+<a href="#kwai.api.v1.auth.schemas.user_account" class="headerlink" title="Permanent link">&para;</a></h7>
+
+    <div class="doc doc-contents ">
+
+        <p>Schemas for a user account resource.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.auth.schemas.user_account.UserAccountAttributes" class="doc doc-heading">
+            <code>UserAccountAttributes</code>
+
+
+<a href="#kwai.api.v1.auth.schemas.user_account.UserAccountAttributes" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+
+        <p>Attributes of a user account JSON:API resource.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.auth.schemas.user_account.UserAccountDocument" class="doc doc-heading">
+            <code>UserAccountDocument</code>
+
+
+<a href="#kwai.api.v1.auth.schemas.user_account.UserAccountDocument" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.json_api.Document" href="#kwai.core.json_api.Document">Document</a>[<a class="autorefs autorefs-internal" title="kwai.api.v1.auth.schemas.user_account.UserAccountResource" href="#kwai.api.v1.auth.schemas.user_account.UserAccountResource">UserAccountResource</a>, None]</code></p>
+
+
+        <p>A JSON:API document for a user account.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h9 id="kwai.api.v1.auth.schemas.user_account.UserAccountDocument.create" class="doc doc-heading">
+            <code class=" language-python"><span class="n">create</span><span class="p">(</span><span class="n">user_account</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#kwai.api.v1.auth.schemas.user_account.UserAccountDocument.create" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Create a document for a user account.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.auth.schemas.user_account.UserAccountResource" class="doc doc-heading">
+            <code>UserAccountResource</code>
+
+
+<a href="#kwai.api.v1.auth.schemas.user_account.UserAccountResource" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.api.v1.auth.schemas.resources.UserAccountResourceIdentifier" href="#kwai.api.v1.auth.schemas.resources.UserAccountResourceIdentifier">UserAccountResourceIdentifier</a></code>, <code><a class="autorefs autorefs-internal" title="kwai.core.json_api.ResourceData" href="#kwai.core.json_api.ResourceData">ResourceData</a>[<a class="autorefs autorefs-internal" title="kwai.api.v1.auth.schemas.user_account.UserAccountAttributes" href="#kwai.api.v1.auth.schemas.user_account.UserAccountAttributes">UserAccountAttributes</a>, None]</code></p>
+
+
+        <p>A JSON:API resource for a user account.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
 
 <div class="doc doc-object doc-module">
 
@@ -36214,6 +36643,238 @@ user.</p>
 
 
 
+<h5 id="kwai.modules.identity.get_user_accounts" class="doc doc-heading">
+            <code>get_user_accounts</code>
+
+
+<a href="#kwai.modules.identity.get_user_accounts" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
+        <p>Module for the get user accounts use case.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.identity.get_user_accounts.GetUserAccounts" class="doc doc-heading">
+            <code>GetUserAccounts</code>
+
+
+<a href="#kwai.modules.identity.get_user_accounts.GetUserAccounts" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Implementation of the get user accounts use case.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.modules.identity.get_user_accounts.GetUserAccounts.__init__" class="doc doc-heading">
+            <code class=" language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">user_account_repo</span><span class="p">,</span> <span class="n">presenter</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.identity.get_user_accounts.GetUserAccounts.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the get users use case.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.modules.identity.get_user_accounts.GetUserAccounts.execute" class="doc doc-heading">
+            <code class=" language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.get_user_accounts.GetUserAccounts.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Execute the get users use case.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>command</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.get_user_accounts.GetUserAccountsCommand" href="#kwai.modules.identity.get_user_accounts.GetUserAccountsCommand">GetUserAccountsCommand</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Input for the use case.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.identity.get_user_accounts.GetUserAccountsCommand" class="doc doc-heading">
+            <code>GetUserAccountsCommand</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.get_user_accounts.GetUserAccountsCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Input for the use case.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.get_user_accounts.GetUserAccountsCommand.offset">offset</span></code></td>
+            <td>
+                  <code>int | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Offset from where to start the query of user accounts.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.get_user_accounts.GetUserAccountsCommand.limit">limit</span></code></td>
+            <td>
+                  <code>int | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The maximum number of users to return.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h5 id="kwai.modules.identity.get_user_invitation" class="doc doc-heading">
             <code>get_user_invitation</code>
 
@@ -44637,7 +45298,7 @@ When login fails, last_unsuccessful_login will be updated.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="collections.abc.AsyncGenerator">AsyncGenerator</span>[<a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account.UserAccountEntity" href="#kwai.modules.identity.users.user_account.UserAccountEntity">UserAccountEntity</a>]</code>
+                  <code><span title="collections.abc.AsyncGenerator">AsyncGenerator</span>[<a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account.UserAccountEntity" href="#kwai.modules.identity.users.user_account.UserAccountEntity">UserAccountEntity</a>, None]</code>
             </td>
             <td>
               <div class="doc-md-description">
