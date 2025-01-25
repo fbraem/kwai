@@ -4,6 +4,8 @@ import FormDataAddon from 'wretch/addons/formData';
 import QueryStringAddon from 'wretch/addons/queryString';
 import * as z from 'zod';
 
+export * from './jsonapi';
+
 export const JsonResourceIdentifier = z.object({
   id: z.optional(z.string()),
   type: z.string(),
