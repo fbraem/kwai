@@ -21,9 +21,7 @@
     "composite": true
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.ts"
   ],
   "exclude": [
     "src/**/*.test.ts"
