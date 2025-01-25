@@ -10,7 +10,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"],
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
     "skipLibCheck": true,
     "declaration": true,
     "rootDir": "./src",
@@ -22,13 +25,12 @@
     "src/**/*.tsx",
     "src/**/*.vue"
   ],
-  "exclude": ["src/**/*.test.ts"],
+  "exclude": [
+    "src/**/*.test.ts"
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"
-    },
-    {
-      "path": "../kwai-config"
     }
   ]
 }
