@@ -43,7 +43,7 @@ class UserRow(TableRow):
                 first_name=self.first_name,
                 last_name=self.last_name,
             ),
-            remark=self.remark,
+            remark=self.remark or "",
             email=EmailAddress(self.email),
             traceable_time=TraceableTime(
                 created_at=Timestamp.create_utc(timestamp=self.created_at),
@@ -109,6 +109,7 @@ class UserAccountRow(TableRow):
                     created_at=Timestamp.create_utc(self.created_at),
                     updated_at=Timestamp.create_utc(self.updated_at),
                 ),
+                remark=self.remark or "",
             ),
         )
 
@@ -120,7 +121,7 @@ class UserAccountRow(TableRow):
             email=str(user_account.user.email),
             first_name=user_account.user.name.first_name,
             last_name=user_account.user.name.last_name,
-            remark=None,
+            remark=user_account.user.remark,
             uuid=str(user_account.user.uuid),
             created_at=user_account.user.traceable_time.created_at.timestamp,
             updated_at=user_account.user.traceable_time.updated_at.timestamp,
