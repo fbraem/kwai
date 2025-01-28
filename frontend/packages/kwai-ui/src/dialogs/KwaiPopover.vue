@@ -4,15 +4,12 @@ import { ref } from 'vue';
 
 const op = ref();
 const toggle = (event: Event) => {
-  console.log('toggle', event);
   op.value.toggle(event);
 };
 const show = (event: Event) => {
-  console.log('show', event);
   op.value.show();
 };
 const hide = (event: Event) => {
-  console.log('hide', event);
   op.value.hide();
 };
 defineExpose({
@@ -20,6 +17,7 @@ defineExpose({
   show,
   hide,
 });
+defineOptions({ inheritAttrs: false });
 </script>
 
 <template>
@@ -27,8 +25,24 @@ defineExpose({
     <Popover
       ref="op"
       :pt="{ content: () => 'p-0' }"
+      v-bind="$attrs"
     >
-      <slot />
+      <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div class="sm:flex sm:items-start">
+          <div
+            class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full sm:mx-0 sm:size-10"
+          >
+            <slot name="icon" />
+          </div>
+          <div class="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
+            <slot name="title" />
+            <div class="mt-2">
+              <slot />
+            </div>
+          </div>
+        </div>
+      </div>
+      <slot name="footer" />
     </Popover>
   </div>
 </template>
