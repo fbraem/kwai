@@ -34,7 +34,7 @@ defineOptions({ inheritAttrs: false });
           >
             <slot name="icon" />
           </div>
-          <div class="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
+          <div class="text-center sm:text-left mt-3 sm:mt-0 sm:ml-4">
             <slot name="title" />
             <div class="mt-2">
               <slot />
