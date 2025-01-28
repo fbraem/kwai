@@ -6,10 +6,10 @@ const op = ref();
 const toggle = (event: Event) => {
   op.value.toggle(event);
 };
-const show = (event: Event) => {
+const show = () => {
   op.value.show();
 };
-const hide = (event: Event) => {
+const hide = () => {
   op.value.hide();
 };
 defineExpose({
