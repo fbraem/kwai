@@ -10,31 +10,31 @@ import {
 
 interface Props {
   to?: RouteRecord | LocationAsRelativeRaw
-  method?: () => void
+  method?: (event: Event | undefined) => void
   small?: boolean
   severity?: string
   variant?: 'text' | 'link'
   rounded?: boolean
 }
-const props = withDefaults(
-  defineProps<Props>(),
-  {
-    to: undefined,
-    method: undefined,
-    small: false,
-    primary: true,
-    severity: undefined,
-    variant: undefined,
-    rounded: false,
-  }
-);
+
+const props = withDefaults(defineProps<Props>(), {
+  to: undefined,
+  method: undefined,
+  small: false,
+  primary: true,
+  severity: undefined,
+  variant: undefined,
+  rounded: false,
+});
 
 const attrs = useAttrs();
 defineOptions({ inheritAttrs: false });
 
-const tag = computed(() => attrs.href ? 'a' : props.to ? 'router-link' : 'button');
-const clickAttr = computed(() => props.method ? 'click' : null);
-const size = computed(() => props.small ? 'small' : 'large');
+const tag = computed(() =>
+  attrs.href ? 'a' : props.to ? 'router-link' : 'button'
+);
+const clickAttr = computed(() => (props.method ? 'click' : null));
+const size = computed(() => (props.small ? 'small' : 'large'));
 </script>
 
 <template>
@@ -43,7 +43,7 @@ const size = computed(() => props.small ? 'small' : 'large');
     :size="size"
     :as="tag"
     :to="to"
-    @[clickAttr]="method"
+    @[clickAttr]="(event: Event) => method(event)"
     :rounded="rounded"
     :severity="severity"
     :variant="variant"
@@ -53,5 +53,4 @@ const size = computed(() => props.small ? 'small' : 'large');
   </Button>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
