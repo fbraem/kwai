@@ -51,7 +51,7 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
 
     async def get(self, id_: RefreshTokenIdentifier) -> RefreshTokenEntity:
         query = self.create_query()
-        query.filter_by_id(id_.value)
+        query.filter_by_id(id_)
         row = await query.fetch_one()
         if row:
             return _create_entity(row)
