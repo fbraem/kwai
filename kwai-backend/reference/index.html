@@ -39627,79 +39627,7 @@ that belongs to the user recovery, does not exist.</p>
 
 
 
-<div class="doc doc-object doc-attribute">
 
-
-
-<h8 id="kwai.modules.identity.tokens.access_token_db_query.AccessTokenDbQuery.columns" class="doc doc-heading">
-            <code class=" language-python"><span class="n">columns</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#kwai.modules.identity.tokens.access_token_db_query.AccessTokenDbQuery.columns" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Return the columns for the query.</p>
-    </div>
-
-</div>
-
-
-
-<div class="doc doc-object doc-function">
-
-
-<h8 id="kwai.modules.identity.tokens.access_token_db_query.AccessTokenDbQuery.filter_by_id" class="doc doc-heading">
-            <code class=" language-python"><span class="n">filter_by_id</span><span class="p">(</span><span class="n">id_</span><span class="p">)</span></code>
-
-<a href="#kwai.modules.identity.tokens.access_token_db_query.AccessTokenDbQuery.filter_by_id" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Add a filter for id.</p>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h8 id="kwai.modules.identity.tokens.access_token_db_query.AccessTokenDbQuery.filter_by_token_identifier" class="doc doc-heading">
-            <code class=" language-python"><span class="n">filter_by_token_identifier</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span></code>
-
-<a href="#kwai.modules.identity.tokens.access_token_db_query.AccessTokenDbQuery.filter_by_token_identifier" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Add a filter for a token identifier.</p>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h8 id="kwai.modules.identity.tokens.access_token_db_query.AccessTokenDbQuery.init" class="doc doc-heading">
-            <code class=" language-python"><span class="n">init</span><span class="p">()</span></code>
-
-<a href="#kwai.modules.identity.tokens.access_token_db_query.AccessTokenDbQuery.init" class="headerlink" title="Permanent link">&para;</a></h8>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Initialize the query.</p>
-
-    </div>
-
-</div>
 
 
 
@@ -39904,6 +39832,27 @@ that belongs to the user recovery, does not exist.</p>
     <div class="doc doc-contents ">
 
         <p>Filter for the given token identifier.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.tokens.access_token_query.AccessTokenQuery.filter_by_user_account" class="doc doc-heading">
+            <code class=" language-python"><span class="n">filter_by_user_account</span><span class="p">(</span><span class="n">user_account</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.tokens.access_token_query.AccessTokenQuery.filter_by_user_account" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Filter for the given user account.</p>
 
     </div>
 
@@ -40685,6 +40634,27 @@ that belongs to the user recovery, does not exist.</p>
     <div class="doc doc-contents ">
 
         <p>Filter for the given token identifier.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.tokens.refresh_token_query.RefreshTokenQuery.filter_by_user_account" class="doc doc-heading">
+            <code class=" language-python"><span class="n">filter_by_user_account</span><span class="p">(</span><span class="n">user_account</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.tokens.refresh_token_query.RefreshTokenQuery.filter_by_user_account" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Filter for the given user account.</p>
 
     </div>
 
@@ -44949,6 +44919,27 @@ When login fails, last_unsuccessful_login will be updated.</p>
 
 </div>
 
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.users.user_account_query.UserAccountQuery.filter_by_uuid" class="doc doc-heading">
+            <code class=" language-python"><span class="n">filter_by_uuid</span><span class="p">(</span><span class="n">uuid</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.users.user_account_query.UserAccountQuery.filter_by_uuid" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Add a filter to the query with the uuid of the user.</p>
+
+    </div>
+
+</div>
+
 
 
   </div>
@@ -45225,7 +45216,7 @@ When login fails, last_unsuccessful_login will be updated.</p>
 
 
 <h8 id="kwai.modules.identity.users.user_account_repository.UserAccountRepository.get_all" class="doc doc-heading">
-            <code class=" language-python"><span class="n">get_all</span><span class="p">(</span><span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">get_all</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
@@ -45251,6 +45242,22 @@ When login fails, last_unsuccessful_login will be updated.</p>
         </tr>
       </thead>
       <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>query</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account_query.UserAccountQuery" href="#kwai.modules.identity.users.user_account_query.UserAccountQuery">UserAccountQuery</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Query to filter user accounts.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
           <tr class="doc-section-item">
             <td>
                 <code>limit</code>
@@ -45330,6 +45337,74 @@ When login fails, last_unsuccessful_login will be updated.</p>
     <div class="doc doc-contents ">
 
         <p>Get a user account with the given email address.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account_repository.UserAccountNotFoundException" href="#kwai.modules.identity.users.user_account_repository.UserAccountNotFoundException">UserAccountNotFoundException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If no user account with the given email address exists.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.users.user_account_repository.UserAccountRepository.get_user_by_uuid" class="doc doc-heading">
+            <code class=" language-python"><span class="n">get_user_by_uuid</span><span class="p">(</span><span class="n">uuid</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.users.user_account_repository.UserAccountRepository.get_user_by_uuid" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get a user account using the unique id.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account_repository.UserAccountNotFoundException" href="#kwai.modules.identity.users.user_account_repository.UserAccountNotFoundException">UserAccountNotFoundException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If no user account with the given uuid exists.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
     </div>
 
