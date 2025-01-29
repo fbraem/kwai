@@ -3,6 +3,7 @@
 import pytest
 
 from kwai.core.db.database import Database
+from kwai.modules.identity.tokens.access_token import AccessTokenIdentifier
 from kwai.modules.identity.tokens.access_token_db_query import AccessTokenDbQuery
 from kwai.modules.identity.tokens.access_token_query import AccessTokenQuery
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
@@ -16,7 +17,7 @@ def query(database: Database) -> AccessTokenQuery:
 
 async def test_filter_by_id(query: AccessTokenQuery):
     """Test filtering by id."""
-    query.filter_by_id(1)
+    query.filter_by_id(AccessTokenIdentifier(1))
 
     try:
         await query.fetch_one()

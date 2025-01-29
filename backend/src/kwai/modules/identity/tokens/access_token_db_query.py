@@ -8,6 +8,7 @@ from kwai.core.db.database_query import DatabaseQuery
 from kwai.modules.identity.users.user_account import UserAccountEntity
 from kwai.modules.identity.users.user_tables import UserAccountRow
 
+from .access_token import AccessTokenIdentifier
 from .access_token_query import AccessTokenQuery
 from .token_identifier import TokenIdentifier
 from .token_tables import AccessTokenRow
@@ -26,8 +27,8 @@ class AccessTokenDbQuery(AccessTokenQuery, DatabaseQuery):
     def columns(self):
         return AccessTokenRow.get_aliases() + UserAccountRow.get_aliases()
 
-    def filter_by_id(self, id_: int) -> "AccessTokenQuery":
-        self._query.and_where(AccessTokenRow.field("id").eq(id_))
+    def filter_by_id(self, id_: AccessTokenIdentifier) -> "AccessTokenQuery":
+        self._query.and_where(AccessTokenRow.field("id").eq(id_.value))
         return self
 
     def filter_by_token_identifier(
