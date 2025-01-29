@@ -49,6 +49,13 @@ async def test_exists_with_email(repo: UserAccountRepository, make_user_account_
     assert exists, "There should be a user account with the given email"
 
 
+async def test_get_by_uuid(repo: UserAccountRepository, make_user_account_in_db):
+    """Test if the user account can be fetched with a unique id."""
+    user_account = await make_user_account_in_db()
+    result = await repo.get_user_by_uuid(user_account.user.uuid)
+    assert result, "There should be a user account with the given uuid"
+
+
 async def test_update(
     database: Database, repo: UserAccountRepository, make_user_account_in_db
 ):

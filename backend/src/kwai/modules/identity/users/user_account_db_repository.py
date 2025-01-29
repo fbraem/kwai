@@ -5,6 +5,7 @@ from dataclasses import replace
 
 from kwai.core.db.database import Database
 from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.users.user import UserIdentifier
 from kwai.modules.identity.users.user_account import (
     UserAccountEntity,
@@ -54,6 +55,16 @@ class UserAccountDbRepository(UserAccountRepository):
             return False
 
         return True
+
+    async def get_user_by_uuid(self, uuid: UniqueId) -> UserAccountEntity:
+        query = self.create_query()
+        query.filter_by_uuid(uuid)
+
+        row = await query.fetch_one()
+        if row:
+            return UserAccountRow.map(row).create_entity()
+
+        raise UserAccountNotFoundException()
 
     async def create(self, user_account: UserAccountEntity) -> UserAccountEntity:
         new_id = await self._database.insert(

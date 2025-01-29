@@ -4,6 +4,7 @@ from abc import abstractmethod
 from collections.abc import AsyncGenerator
 
 from kwai.core.domain.value_objects.email_address import EmailAddress
+from kwai.core.domain.value_objects.unique_id import UniqueId
 from kwai.modules.identity.users.user_account import UserAccountEntity
 from kwai.modules.identity.users.user_account_query import UserAccountQuery
 
@@ -13,11 +14,15 @@ class UserAccountRepository:
 
     @abstractmethod
     async def get_all(
-        self, limit: int | None = None, offset: int | None = None
+        self,
+        query: UserAccountQuery | None = None,
+        limit: int | None = None,
+        offset: int | None = None,
     ) -> AsyncGenerator[UserAccountEntity, None]:
         """Return all user accounts.
 
         Args:
+            query: Query to filter user accounts.
             limit: The maximum number of entities to return.
             offset: Skip the offset rows before beginning to return entities.
 
@@ -37,7 +42,11 @@ class UserAccountRepository:
 
     @abstractmethod
     async def get_user_by_email(self, email: EmailAddress) -> UserAccountEntity:
-        """Get a user account with the given email address."""
+        """Get a user account with the given email address.
+
+        Raises:
+            UserAccountNotFoundException: If no user account with the given email address exists.
+        """
         raise NotImplementedError
 
     async def exists_with_email(self, email: EmailAddress) -> bool:
@@ -48,6 +57,15 @@ class UserAccountRepository:
 
         Returns:
             True when a user with the given email address exists.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    async def get_user_by_uuid(self, uuid: UniqueId) -> UserAccountEntity:
+        """Get a user account using the unique id.
+
+        Raises:
+            UserAccountNotFoundException: If no user account with the given uuid exists.
         """
         raise NotImplementedError
 
