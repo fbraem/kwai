@@ -274,7 +274,7 @@ class Database:
         This property is immutable: the returned value is a copy of the current
         settings.
         """
-        return self._settings.copy()
+        return self._settings.model_copy()
 
     async def begin(self):
         """Start a transaction."""
