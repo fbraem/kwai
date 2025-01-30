@@ -37,6 +37,7 @@ class DataclassEntity:
 
     id: ID = None
     traceable_time: TraceableTime = field(default_factory=TraceableTime)
+    version = 0
 
     def __post_init__(self):
         """When is id is not set, a default id is created."""
