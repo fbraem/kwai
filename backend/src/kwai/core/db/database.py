@@ -93,12 +93,15 @@ class Database:
             (QueryException): Raised when the query contains an error.
         """
         compiled_query = query.compile()
-        self.log_query(compiled_query.sql)
 
         await self.check_connection()
         async with self._connection.cursor() as cursor:
             try:
-                await cursor.execute(compiled_query.sql, compiled_query.params)
+                generated_sql = cursor.mogrify(
+                    compiled_query.sql, compiled_query.params
+                )
+                self.log_query(generated_sql)
+                await cursor.execute(generated_sql)
                 if cursor.rowcount != -1:
                     self.log_affected_rows(cursor.rowcount)
                 return cursor.lastrowid
@@ -120,12 +123,15 @@ class Database:
             (QueryException): Raised when the query contains an error.
         """
         compiled_query = query.compile()
-        self.log_query(compiled_query.sql)
 
         await self.check_connection()
         try:
             async with self._connection.cursor() as cursor:
-                await cursor.execute(compiled_query.sql, compiled_query.params)
+                generated_sql = cursor.mogrify(
+                    compiled_query.sql, compiled_query.params
+                )
+                self.log_query(generated_sql)
+                await cursor.execute(generated_sql)
                 column_names = [column[0] for column in cursor.description]
                 if row := await cursor.fetchone():
                     return {
