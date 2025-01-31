@@ -39308,6 +39308,282 @@ that belongs to the user recovery, does not exist.</p>
 
 
 
+<h5 id="kwai.modules.identity.revoke_user" class="doc doc-heading">
+            <code>revoke_user</code>
+
+
+<a href="#kwai.modules.identity.revoke_user" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that defines the use case for revoking a user.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.identity.revoke_user.RevokeUser" class="doc doc-heading">
+            <code>RevokeUser</code>
+
+
+<a href="#kwai.modules.identity.revoke_user.RevokeUser" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Use case for revoking a user.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.modules.identity.revoke_user.RevokeUser.__init__" class="doc doc-heading">
+            <code class=" language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">user_token_repo</span><span class="p">,</span> <span class="n">presenter</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.identity.revoke_user.RevokeUser.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the use case.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>repo</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account_repository.UserAccountRepository" href="#kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The user account repository to use.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>user_token_repo</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.tokens.user_token_repository.UserTokenRepository" href="#kwai.modules.identity.tokens.user_token_repository.UserTokenRepository">UserTokenRepository</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The user token repository to use.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>presenter</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.presenter.Presenter" href="#kwai.core.domain.presenter.Presenter">Presenter</a>[<a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account.UserAccountEntity" href="#kwai.modules.identity.users.user_account.UserAccountEntity">UserAccountEntity</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The presenter that will be used to return the user.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.modules.identity.revoke_user.RevokeUser.execute" class="doc doc-heading">
+            <code class=" language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.revoke_user.RevokeUser.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Execute the use case.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>UserAccountNotFoundException</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the user does not exist.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.identity.revoke_user.RevokeUserCommand" class="doc doc-heading">
+            <code>RevokeUserCommand</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.revoke_user.RevokeUserCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Input for the RevokeUser use case.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.revoke_user.RevokeUserCommand.uuid">uuid</span></code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The UUID of the user to revoke.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h5 id="kwai.modules.identity.tokens" class="doc doc-heading">
             <code>tokens</code>
 
