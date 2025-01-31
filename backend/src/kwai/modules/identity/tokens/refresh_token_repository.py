@@ -1,6 +1,6 @@
 """Module that defines an interface for a refresh token repository."""
 
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from typing import AsyncIterator
 
 from kwai.modules.identity.tokens.refresh_token import (
@@ -15,7 +15,7 @@ class RefreshTokenNotFoundException(Exception):
     """Raised when the refresh token can't be found."""
 
 
-class RefreshTokenRepository:
+class RefreshTokenRepository(ABC):
     """Interface for a refresh token repository."""
 
     @abstractmethod

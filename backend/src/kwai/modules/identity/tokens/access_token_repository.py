@@ -1,6 +1,6 @@
 """Module that defines an interface for an access token repository."""
 
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from typing import Iterator
 
 from kwai.modules.identity.tokens.access_token import (
@@ -15,7 +15,7 @@ class AccessTokenNotFoundException(Exception):
     """Raised when the access token could not be found."""
 
 
-class AccessTokenRepository:
+class AccessTokenRepository(ABC):
     """Interface for an access token repository."""
 
     @abstractmethod
