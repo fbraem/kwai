@@ -39968,6 +39968,8 @@ that belongs to the user recovery, does not exist.</p>
 
 
     <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="abc.ABC">ABC</span></code></p>
 
 
         <p>Interface for an access token repository.</p>
@@ -40770,6 +40772,8 @@ that belongs to the user recovery, does not exist.</p>
 
 
     <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="abc.ABC">ABC</span></code></p>
 
 
         <p>Interface for a refresh token repository.</p>
@@ -41252,6 +41256,195 @@ that belongs to the user recovery, does not exist.</p>
     <div class="doc doc-contents ">
 
         <p>Transform a refresh token entity into a table record.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.identity.tokens.user_token_db_repository" class="doc doc-heading">
+            <code>user_token_db_repository</code>
+
+
+<a href="#kwai.modules.identity.tokens.user_token_db_repository" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that implements a user token repository for a database.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.identity.tokens.user_token_db_repository.UserTokenDbRepository" class="doc doc-heading">
+            <code>UserTokenDbRepository</code>
+
+
+<a href="#kwai.modules.identity.tokens.user_token_db_repository.UserTokenDbRepository" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.tokens.user_token_repository.UserTokenRepository" href="#kwai.modules.identity.tokens.user_token_repository.UserTokenRepository">UserTokenRepository</a></code></p>
+
+
+        <p>Implements a user token repository for a database.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.identity.tokens.user_token_repository" class="doc doc-heading">
+            <code>user_token_repository</code>
+
+
+<a href="#kwai.modules.identity.tokens.user_token_repository" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module for defining an interface for a user token repository.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.identity.tokens.user_token_repository.UserTokenRepository" class="doc doc-heading">
+            <code>UserTokenRepository</code>
+
+
+<a href="#kwai.modules.identity.tokens.user_token_repository.UserTokenRepository" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="abc.ABC">ABC</span></code></p>
+
+
+        <p>An interface for a user token repository.</p>
+<p>This repository is responsible for processing tokens of a specific user.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.tokens.user_token_repository.UserTokenRepository.revoke" class="doc doc-heading">
+            <code class=" language-python"><span class="n">revoke</span><span class="p">(</span><span class="n">user_account</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.tokens.user_token_repository.UserTokenRepository.revoke" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Revoke all access and refresh tokens for the user.</p>
 
     </div>
 
