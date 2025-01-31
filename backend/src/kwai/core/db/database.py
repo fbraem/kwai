@@ -2,6 +2,7 @@
 
 import dataclasses
 
+from collections import namedtuple
 from typing import Any, AsyncIterator, TypeAlias
 
 import asyncmy
@@ -17,6 +18,7 @@ from kwai.core.settings import DatabaseSettings
 
 
 Record: TypeAlias = dict[str, Any]
+ExecuteResult = namedtuple("ExecuteResult", ("rowcount", "last_insert_id"))
 
 
 class Database:
@@ -76,7 +78,7 @@ class Database:
         await self.check_connection()
         await self._connection.commit()
 
-    async def execute(self, query: AbstractQuery) -> int | None:
+    async def execute(self, query: AbstractQuery) -> ExecuteResult:
         """Execute a query.
 
         The last rowid from the cursor is returned when the query executed
@@ -102,9 +104,7 @@ class Database:
                 )
                 self.log_query(generated_sql)
                 await cursor.execute(generated_sql)
-                if cursor.rowcount != -1:
-                    self.log_affected_rows(cursor.rowcount)
-                return cursor.lastrowid
+                return ExecuteResult(cursor.rowcount, cursor.lastrowid)
             except Exception as exc:
                 raise QueryException(compiled_query.sql) from exc
 
@@ -202,10 +202,10 @@ class Database:
                 del record["id"]
             query = query.values(*record.values())
 
-        last_insert_id = await self.execute(query)
-        return last_insert_id
+        execute_result = await self.execute(query)
+        return execute_result.last_insert_id
 
-    async def update(self, id_: Any, table_name: str, table_data: Any):
+    async def update(self, id_: Any, table_name: str, table_data: Any) -> int:
         """Update a dataclass in the given table.
 
         Args:
@@ -215,6 +215,9 @@ class Database:
 
         Raises:
             (QueryException): Raised when the query contains an error.
+
+        Returns:
+            The number of rows affected.
         """
         assert dataclasses.is_dataclass(table_data), "table_data should be a dataclass"
 
@@ -226,7 +229,8 @@ class Database:
             .set(record)
             .where(field("id").eq(id_))
         )
-        await self.execute(query)
+        execute_result = await self.execute(query)
+        return execute_result.rowcount
 
     async def delete(self, id_: Any, table_name: str):
         """Delete a row from the table using the id field.
