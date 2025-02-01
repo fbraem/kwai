@@ -3376,6 +3376,50 @@ status code.</p>
 
 
 
+<h8 id="kwai.api.v1.auth.schemas.resources.RevokedUserResourceIdentifier" class="doc doc-heading">
+            <code>RevokedUserResourceIdentifier</code>
+
+
+<a href="#kwai.api.v1.auth.schemas.resources.RevokedUserResourceIdentifier" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.json_api.ResourceIdentifier" href="#kwai.core.json_api.ResourceIdentifier">ResourceIdentifier</a></code></p>
+
+
+        <p>A JSON:API resource identifier for a revoked user account.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
 <h8 id="kwai.api.v1.auth.schemas.resources.UserAccountResourceIdentifier" class="doc doc-heading">
             <code>UserAccountResourceIdentifier</code>
 
@@ -3389,6 +3433,198 @@ status code.</p>
 
 
         <p>A JSON:API resource identifier for a user account.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h7 id="kwai.api.v1.auth.schemas.revoked_user" class="doc doc-heading">
+            <code>revoked_user</code>
+
+
+<a href="#kwai.api.v1.auth.schemas.revoked_user" class="headerlink" title="Permanent link">&para;</a></h7>
+
+    <div class="doc doc-contents ">
+
+        <p>Schemas for a revoked user.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.auth.schemas.revoked_user.RevokedUserAttributes" class="doc doc-heading">
+            <code>RevokedUserAttributes</code>
+
+
+<a href="#kwai.api.v1.auth.schemas.revoked_user.RevokedUserAttributes" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+
+        <p>Attributes for a revoked user.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.auth.schemas.revoked_user.RevokedUserDocument" class="doc doc-heading">
+            <code>RevokedUserDocument</code>
+
+
+<a href="#kwai.api.v1.auth.schemas.revoked_user.RevokedUserDocument" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.json_api.Document" href="#kwai.core.json_api.Document">Document</a>[<a class="autorefs autorefs-internal" title="kwai.api.v1.auth.schemas.revoked_user.RevokedUserResource" href="#kwai.api.v1.auth.schemas.revoked_user.RevokedUserResource">RevokedUserResource</a>, None]</code></p>
+
+
+        <p>A JSON:API document for a revoked user.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h9 id="kwai.api.v1.auth.schemas.revoked_user.RevokedUserDocument.create" class="doc doc-heading">
+            <code class=" language-python"><span class="n">create</span><span class="p">(</span><span class="n">user_account</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#kwai.api.v1.auth.schemas.revoked_user.RevokedUserDocument.create" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Create a revoked user document.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.auth.schemas.revoked_user.RevokedUserResource" class="doc doc-heading">
+            <code>RevokedUserResource</code>
+
+
+<a href="#kwai.api.v1.auth.schemas.revoked_user.RevokedUserResource" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.api.v1.auth.schemas.resources.RevokedUserResourceIdentifier" href="#kwai.api.v1.auth.schemas.resources.RevokedUserResourceIdentifier">RevokedUserResourceIdentifier</a></code>, <code><a class="autorefs autorefs-internal" title="kwai.core.json_api.ResourceData" href="#kwai.core.json_api.ResourceData">ResourceData</a>[<a class="autorefs autorefs-internal" title="kwai.api.v1.auth.schemas.revoked_user.RevokedUserAttributes" href="#kwai.api.v1.auth.schemas.revoked_user.RevokedUserAttributes">RevokedUserAttributes</a>, None]</code></p>
+
+
+        <p>A JSON:API resource for a revoked user.</p>
 
 
 
