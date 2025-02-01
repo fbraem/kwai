@@ -6,7 +6,7 @@ from kwai.core.json_api import JsonApiPresenter, Meta
 from kwai.modules.identity.users.user_account import UserAccountEntity
 
 
-class JsonApiUserAccountPresenter(
+class JsonApiUserAccountsPresenter(
     JsonApiPresenter[UserAccountDocument],
     AsyncPresenter[IterableResult[UserAccountEntity]],
 ):

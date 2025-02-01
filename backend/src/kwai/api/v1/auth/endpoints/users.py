@@ -5,7 +5,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 
 from kwai.api.dependencies import create_database, get_current_user
-from kwai.api.v1.auth.presenters import JsonApiUserAccountPresenter
+from kwai.api.v1.auth.presenters import JsonApiUserAccountsPresenter
 from kwai.core.db.database import Database
 from kwai.core.json_api import PaginationModel
 from kwai.modules.identity.get_user_accounts import (
@@ -38,6 +38,6 @@ async def get(
     command = GetUserAccountsCommand(
         offset=pagination.offset or 0, limit=pagination.limit or 0
     )
-    presenter = JsonApiUserAccountPresenter()
+    presenter = JsonApiUserAccountsPresenter()
     await GetUserAccounts(UserAccountDbRepository(database), presenter).execute(command)
     return presenter.get_document()
