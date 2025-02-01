@@ -9,3 +9,9 @@ class UserAccountResourceIdentifier(ResourceIdentifier):
     """A JSON:API resource identifier for a user account."""
 
     type: Literal["user_accounts"] = "user_accounts"
+
+
+class RevokedUserResourceIdentifier(ResourceIdentifier):
+    """A JSON:API resource identifier for a revoked user account."""
+
+    type: Literal["revoked_users"] = "revoked_users"
