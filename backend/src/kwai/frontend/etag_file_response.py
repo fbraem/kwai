@@ -21,7 +21,7 @@ class EtagFileResponse(FileResponse):
     def _generate_etag(self) -> str:
         file_stat = self._path.stat()
         etag_base = str(file_stat.st_mtime) + "-" + str(file_stat.st_size)
-        return f'"{md5(etag_base.encode(), usedforsecurity=False)}"'
+        return f'"{md5(etag_base.encode(), usedforsecurity=False).hexdigest()}"'
 
     async def __call__(self, scope, receive, send) -> None:
         """Check the etag, and return 304 when the file is not modified."""
