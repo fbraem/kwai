@@ -1,4 +1,6 @@
-from starlette._compat import md5_hexdigest  # noqa
+"""Module that implements an etag response for a file."""
+
+from hashlib import md5
 from pathlib import Path
 
 from fastapi import Request
@@ -19,7 +21,7 @@ class EtagFileResponse(FileResponse):
     def _generate_etag(self) -> str:
         file_stat = self._path.stat()
         etag_base = str(file_stat.st_mtime) + "-" + str(file_stat.st_size)
-        return f'"{md5_hexdigest(etag_base.encode(), usedforsecurity=False)}"'
+        return f'"{md5(etag_base.encode(), usedforsecurity=False)}"'
 
     async def __call__(self, scope, receive, send) -> None:
         """Check the etag, and return 304 when the file is not modified."""
