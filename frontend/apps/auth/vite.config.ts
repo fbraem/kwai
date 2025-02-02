@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import toml from '@fbraem/rollup-plugin-toml';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 
 import { existsSync } from 'fs';
@@ -40,7 +39,6 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       vue(),
-      toml(),
       VueI18nPlugin({
         include: resolve(__dirname, './src/locales/**'),
         compositionOnly: true,
