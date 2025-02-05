@@ -2,7 +2,6 @@
 
 from typing import Annotated
 
-from core.domain.test_entity import UserEntity
 from fastapi import APIRouter, Depends, status
 
 from kwai.api.dependencies import create_database, get_current_user
@@ -13,6 +12,7 @@ from kwai.core.db.uow import UnitOfWork
 from kwai.modules.identity.enact_user import EnactUser, EnactUserCommand
 from kwai.modules.identity.revoke_user import RevokeUser, RevokeUserCommand
 from kwai.modules.identity.tokens.user_token_db_repository import UserTokenDbRepository
+from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
 )
