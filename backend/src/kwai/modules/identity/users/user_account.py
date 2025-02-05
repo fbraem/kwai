@@ -75,3 +75,9 @@ class UserAccountEntity(DataclassEntity):
         return replace(
             self, revoked=True, traceable_time=self.traceable_time.mark_for_update()
         )
+
+    def enact(self) -> Self:
+        """Reactivate a user account."""
+        return replace(
+            self, revoked=False, traceable_time=self.traceable_time.mark_for_update()
+        )
