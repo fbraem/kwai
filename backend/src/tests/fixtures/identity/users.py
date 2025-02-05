@@ -37,11 +37,14 @@ def make_user_account(make_user):
     """Factory fixture for creating a user account for testing."""
 
     def _make_user_account(
-        password: Password | None = None, user: UserEntity | None = None
+        password: Password | None = None,
+        user: UserEntity | None = None,
+        revoked: bool = False,
     ) -> UserAccountEntity:
         return UserAccountEntity(
             password=password or Password.create_from_string("Test1234"),
             user=user or make_user(),
+            revoked=revoked,
         )
 
     return _make_user_account
