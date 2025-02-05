@@ -2914,6 +2914,109 @@ and is retrieved by <a class="autorefs autorefs-internal" href="#post_/recover">
 
 
 
+<h7 id="kwai.api.v1.auth.endpoints.revoked_users" class="doc doc-heading">
+            <code>revoked_users</code>
+
+
+<a href="#kwai.api.v1.auth.endpoints.revoked_users" class="headerlink" title="Permanent link">&para;</a></h7>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that implements endpoints for revoke users.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+<h8 id="delete_/revoked_users/{id}" class="doc doc-heading">        <span class="doc doc-object-name doc-function-name">/revoked_users/{id}</span>
+        <span class="badge badge-delete">delete</span>
+<a href="#delete_/revoked_users/{id}" class="headerlink" title="Permanent link">&para;</a></h8>
+    <div class="doc doc-contents">
+
+        <p>Cancel the revocation of the user with the given id.</p>
+        <p>This api can return the following HTTP codes:</p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>The revocation was successfully cancelled</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Not authorized</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+<h8 id="post_/revoked_users" class="doc doc-heading">        <span class="doc doc-object-name doc-function-name">/revoked_users</span>
+        <span class="badge badge-post">post</span>
+<a href="#post_/revoked_users" class="headerlink" title="Permanent link">&para;</a></h8>
+    <div class="doc doc-contents">
+
+        <p>(Un)revoke a user.</p>
+        <p>This api can return the following HTTP codes:</p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td>User was successfully revoked</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Not authorized</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h7 id="kwai.api.v1.auth.endpoints.user" class="doc doc-heading">
             <code>user</code>
 
@@ -3270,6 +3373,51 @@ status code.</p>
 
 
 
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.api.v1.auth.presenters.JsonApiRevokedUserPresenter" class="doc doc-heading">
+            <code>JsonApiRevokedUserPresenter</code>
+
+
+<a href="#kwai.api.v1.auth.presenters.JsonApiRevokedUserPresenter" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.json_api.JsonApiPresenter" href="#kwai.core.json_api.JsonApiPresenter">JsonApiPresenter</a>[<a class="autorefs autorefs-internal" title="kwai.api.v1.auth.schemas.revoked_user.RevokedUserDocument" href="#kwai.api.v1.auth.schemas.revoked_user.RevokedUserDocument">RevokedUserDocument</a>]</code>, <code><a class="autorefs autorefs-internal" title="kwai.core.domain.presenter.Presenter" href="#kwai.core.domain.presenter.Presenter">Presenter</a>[<a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account.UserAccountEntity" href="#kwai.modules.identity.users.user_account.UserAccountEntity">UserAccountEntity</a>]</code></p>
+
+
+        <p>A presenter that transform a user account entity into a JSON:API document.</p>
+<p>The document will be a [RevokedUserDocument].</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
 
 <div class="doc doc-object doc-class">
 
@@ -36535,6 +36683,266 @@ user.</p>
 
 
 
+<h5 id="kwai.modules.identity.enact_user" class="doc doc-heading">
+            <code>enact_user</code>
+
+
+<a href="#kwai.modules.identity.enact_user" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that defines the use case for enacting a user.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.identity.enact_user.EnactUser" class="doc doc-heading">
+            <code>EnactUser</code>
+
+
+<a href="#kwai.modules.identity.enact_user.EnactUser" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Use case for enacting a user.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.modules.identity.enact_user.EnactUser.__init__" class="doc doc-heading">
+            <code class=" language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">presenter</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.identity.enact_user.EnactUser.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the use case.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>repo</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account_repository.UserAccountRepository" href="#kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The user account repository to use.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>presenter</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.presenter.Presenter" href="#kwai.core.domain.presenter.Presenter">Presenter</a>[<a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account.UserAccountEntity" href="#kwai.modules.identity.users.user_account.UserAccountEntity">UserAccountEntity</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The presenter that will be used to return the user.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.modules.identity.enact_user.EnactUser.execute" class="doc doc-heading">
+            <code class=" language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.enact_user.EnactUser.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Execute the use case.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>UserAccountNotFoundException</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the user does not exist.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.identity.enact_user.EnactUserCommand" class="doc doc-heading">
+            <code>EnactUserCommand</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.enact_user.EnactUserCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Input for the EnactUser use case.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.enact_user.EnactUserCommand.uuid">uuid</span></code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The UUID of the user to enact.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h5 id="kwai.modules.identity.exceptions" class="doc doc-heading">
             <code>exceptions</code>
 
@@ -45212,6 +45620,23 @@ that belongs to the user recovery, does not exist.</p>
 
 
 
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.users.user_account.UserAccountEntity.enact" class="doc doc-heading">
+            <code class=" language-python"><span class="n">enact</span><span class="p">()</span></code>
+
+<a href="#kwai.modules.identity.users.user_account.UserAccountEntity.enact" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Reactivate a user account.</p>
+
+    </div>
+
+</div>
 
 <div class="doc doc-object doc-function">
 
