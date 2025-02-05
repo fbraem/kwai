@@ -1,0 +1,24 @@
+not_allowed:
+  title: Niet toegelaten!
+  description: |
+    Om deze applicatie te kunnen gebruiken moet je ingelogd zijn.
+home:
+  description: Beheersomgeving
+  users:
+    title: Gebruikers
+    description: Beheer de gebruikers van de website.
+    list: Overzicht
+users:
+  title: Gebruikers
+  first_name: Voornaam
+  last_name: Familienaam
+  last_login: Recentste login
+  last_unsuccessful_login: Laatste onsuccesvolle login
+  revoke_message_title: Toelating Intrekken
+  revoke_message: |
+    Ben je zeker om de toelating van gebruiker {name} in te trekken?
+    Hierdoor zal de gebruiker niet meer kunnen aanloggen op de website.
+  revoke_not_remove_message: De gebruiker zal niet verwijderd worden.
+  revoke: Deactiveren
+  enact: Activeren
+  cancel: Annuleren

@@ -1,8 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import '@root/index.css';
-
-import { VueQueryPlugin } from '@tanstack/vue-query';
 import {
   createRouter, createWebHistory,
 } from 'vue-router';
@@ -16,8 +14,10 @@ import { isLoggedIn } from '@kwai/api';
 
 import { init } from '@kwai/ui';
 import { useLocalStorage } from '@vueuse/core';
+import { VueQueryPlugin } from '@tanstack/vue-query';
 
 const app = createApp(App);
+
 app.use(VueQueryPlugin);
 
 const i18n = createI18n({

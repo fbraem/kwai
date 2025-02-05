@@ -1,0 +1,16 @@
+<script setup lang="ts">
+import { useTitle } from '@vueuse/core';
+import { getCurrentInstance } from 'vue';
+
+const title = useTitle();
+const $kwai = getCurrentInstance()?.appContext.config.globalProperties.$kwai;
+if ($kwai) {
+  title.value = `${$kwai.website.name} | Admin`;
+} else {
+  title.value = 'Admin';
+}
+</script>
+
+<template>
+  <router-view />
+</template>

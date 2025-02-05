@@ -1,0 +1,37 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "allowJs": true,
+    "strict": true,
+    "types": [
+      "vite/client",
+      "vitest/globals"
+    ],
+    "paths": {
+      "@theme/*": [
+        "theme/kwai/*",
+        "*"
+      ],
+      "@root/*": [
+        "src/*"
+      ]
+    },
+    "ignoreDeprecations": "5.0"
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "../../packages/kwai-ui"
+    },
+    {
+      "path": "../../packages/kwai-api"
+    }
+  ]
+}
