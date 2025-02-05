@@ -2,7 +2,13 @@
 
 from fastapi import APIRouter
 
-from kwai.api.v1.auth.endpoints import login, user, user_invitations, users
+from kwai.api.v1.auth.endpoints import (
+    login,
+    revoked_users,
+    user,
+    user_invitations,
+    users,
+)
 
 
 api_router = APIRouter(prefix="/auth")
@@ -12,3 +18,4 @@ api_router.include_router(
     user_invitations.router, prefix="/users", tags=["auth/users/invitations"]
 )
 api_router.include_router(users.router, prefix="/users", tags=["auth/users"])
+api_router.include_router(revoked_users.router, tags=["auth/users"])
