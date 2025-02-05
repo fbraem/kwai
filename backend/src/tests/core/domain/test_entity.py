@@ -7,7 +7,7 @@ from kwai.core.domain.value_objects.identifier import IntIdentifier
 UserIdentifier = IntIdentifier
 
 
-class UserEntity(Entity[UserIdentifier]):
+class TestUserEntity(Entity[UserIdentifier]):
     """A sample entity class."""
 
     def __init__(
@@ -30,7 +30,7 @@ class UserEntity(Entity[UserIdentifier]):
 
 def test_replace():
     """Test the replace classmethod."""
-    user = UserEntity(name="Franky", year_of_birth=1969)
+    user = TestUserEntity(name="Franky", year_of_birth=1969)
     new_user = Entity.replace(user, id_=UserIdentifier(2), name="Bart")
 
     assert new_user.id.value == 2, "The id should be 2"
