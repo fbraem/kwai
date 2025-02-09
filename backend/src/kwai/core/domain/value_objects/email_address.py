@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 
-from pyisemail import is_email
+from email_validator import validate_email
 
 
 class InvalidEmailException(Exception):
@@ -17,8 +17,14 @@ class EmailAddress:
 
     def __post_init__(self):
         """Check if the email address is valid."""
-        if not is_email(self.email):
-            raise InvalidEmailException(f"{self.email} is not a valid email address.")
+        from email_validator import EmailNotValidError
+
+        try:
+            validate_email(self.email, check_deliverability=False)
+        except EmailNotValidError as exc:
+            raise InvalidEmailException(
+                f"{self.email} is not a valid email address: {exc}"
+            ) from exc
 
     def __str__(self):
         """Return the string representation of an email address."""
