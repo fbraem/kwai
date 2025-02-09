@@ -1,7 +1,8 @@
 import type { UserAccount } from '@root/composables/useUser.ts';
-import { useMutation } from '@tanstack/vue-query';
+import {
+  useMutation, useQueryClient,
+} from '@tanstack/vue-query';
 import { useHttpApi } from '@kwai/api';
-
 
 type OnSuccessCallback = () => void;
 type OnSuccessAsyncCallback = () => Promise<void>;
@@ -25,6 +26,8 @@ const mutateRevokedUser = (user: UserAccount): Promise<void> => {
 };
 
 export const useRevokedUserMutation = ({ onSuccess }: MutationOptions = {}) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (data: UserAccount) => mutateRevokedUser(data),
     onSuccess: async() => {
@@ -36,6 +39,7 @@ export const useRevokedUserMutation = ({ onSuccess }: MutationOptions = {}) => {
         }
       }
     },
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ['admin', 'users'] }),
   });
 };
 
@@ -55,6 +59,8 @@ const mutateEnactUser = (user: UserAccount): Promise<void> => {
 };
 
 export const useEnactUserMutation = ({ onSuccess }: MutationOptions = {}) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (data: UserAccount) => mutateEnactUser(data),
     onSuccess: async() => {
@@ -66,5 +72,6 @@ export const useEnactUserMutation = ({ onSuccess }: MutationOptions = {}) => {
         }
       }
     },
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ['admin', 'users'] }),
   });
 };

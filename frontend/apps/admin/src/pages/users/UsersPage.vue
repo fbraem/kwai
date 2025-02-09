@@ -10,13 +10,16 @@ import {
   ContainerSectionContent,
   ContainerSectionTitle,
   KwaiButton,
+  KwaiNotificationMessage,
   KwaiPanel,
   KwaiPopover,
   WarningIcon,
 } from '@kwai/ui';
 import RevokedIcon from '@root/components/icons/RevokedIcon.vue';
 import { ref } from 'vue';
-import { useEnactUserMutation, useRevokedUserMutation } from '@root/composables/useRevokedUser.ts';
+import {
+  useEnactUserMutation, useRevokedUserMutation,
+} from '@root/composables/useRevokedUser.ts';
 import EnactIcon from '@root/components/icons/EnactIcon.vue';
 
 const { t } = useI18n({ useScope: 'global' });
@@ -32,7 +35,10 @@ const selectedUser = ref<UserAccount | null>(null);
 
 const { mutate: mutateRevokeUser } = useRevokedUserMutation({
   onSuccess: () => {
-    console.log(selectedUser.value);
+    showNotification.value = true;
+    setTimeout(() => {
+      showNotification.value = false;
+    }, 3000);
   },
 });
 const revoke = () => {
@@ -44,9 +50,22 @@ const { mutate: mutateEnactUser } = useEnactUserMutation();
 const enact = (user: UserAccount) => {
   mutateEnactUser(user);
 };
+const showNotification = ref(false);
+const closeNotification = () => {
+  showNotification.value = false;
+};
 </script>
 
 <template>
+  <KwaiNotificationMessage
+    v-if="showNotification"
+    can-be-closed
+    @close="closeNotification"
+    class="bg-surface-100 text-center p-10"
+  >
+    The user <span class="font-bold">{{ selectedUser?.firstName }} {{ selectedUser?.lastName }}</span> has
+    been revoked.
+  </KwaiNotificationMessage>
   <KwaiPopover
     class="sm:max-w-sm"
     ref="revokePopover"
