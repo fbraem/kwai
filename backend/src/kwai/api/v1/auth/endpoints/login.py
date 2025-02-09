@@ -10,7 +10,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from jwt import ExpiredSignatureError
 from loguru import logger
 
-from kwai.api.dependencies import create_database, get_current_user, get_publisher
+from kwai.api.dependencies import create_database, get_publisher
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.exceptions import UnprocessableException
@@ -46,7 +46,6 @@ from kwai.modules.identity.user_recoveries.user_recovery_db_repository import (
 from kwai.modules.identity.user_recoveries.user_recovery_repository import (
     UserRecoveryNotFoundException,
 )
-from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.identity.users.user_account_db_repository import (
     UserAccountDbRepository,
 )
@@ -131,7 +130,6 @@ async def login(
 async def logout(
     settings: Annotated[Settings, Depends(get_settings)],
     db: Annotated[Database, Depends(create_database)],
-    user: Annotated[UserEntity, Depends(get_current_user)],  # noqa
     response: Response,
     refresh_token: Annotated[str | None, Cookie()] = None,
 ) -> None:
