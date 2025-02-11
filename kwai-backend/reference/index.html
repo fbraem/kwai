@@ -40424,6 +40424,23 @@ that belongs to the user recovery, does not exist.</p>
 <div class="doc doc-object doc-function">
 
 
+<h8 id="kwai.modules.identity.tokens.access_token.AccessTokenEntity.renew" class="doc doc-heading">
+            <code class=" language-python"><span class="n">renew</span><span class="p">(</span><span class="n">expiry_minutes</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.identity.tokens.access_token.AccessTokenEntity.renew" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Renew the access token.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
 <h8 id="kwai.modules.identity.tokens.access_token.AccessTokenEntity.revoke" class="doc doc-heading">
             <code class=" language-python"><span class="n">revoke</span><span class="p">()</span></code>
 
@@ -41224,6 +41241,71 @@ that belongs to the user recovery, does not exist.</p>
 </div>
 
 
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity.renew" class="doc doc-heading">
+            <code class=" language-python"><span class="n">renew</span><span class="p">(</span><span class="n">expiry_minutes</span><span class="p">,</span> <span class="n">access_token_expiry_minutes</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity.renew" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Renew the refresh token.</p>
+<p>The access token will also be renewed.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>expiry_minutes</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The number of minutes until the refresh token expires.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>access_token_expiry_minutes</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The number of minutes until the access token expires.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
 
 <div class="doc doc-object doc-function">
 
