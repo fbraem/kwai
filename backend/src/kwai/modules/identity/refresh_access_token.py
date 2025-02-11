@@ -2,9 +2,7 @@
 
 from dataclasses import dataclass
 
-from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.identity.authenticate_user import AuthenticationException
-from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.access_token_repository import AccessTokenRepository
 from kwai.modules.identity.tokens.refresh_token import RefreshTokenEntity
 from kwai.modules.identity.tokens.refresh_token_repository import RefreshTokenRepository
@@ -70,32 +68,21 @@ class RefreshAccessToken:
         if refresh_token.revoked:
             raise AuthenticationException("Refresh token is revoked")
 
-        # Revoke the old refresh token and access token
-        refresh_token.revoke()
-        await self._refresh_token_repo.update(refresh_token)
-        # The access token is also revoked, so update it
-        await self._access_token_repo.update(refresh_token.access_token)
-
+        # When the user is revoked, revoke the access and refresh tokens.
         if refresh_token.access_token.user_account.revoked:
+            refresh_token.revoke()
+            await self._refresh_token_repo.update(refresh_token)
+            # The access token is also revoked, so update it
+            await self._access_token_repo.update(refresh_token.access_token)
+
             raise AuthenticationException("User is revoked")
 
-        # Create a new access and refresh token
-        access_token = await self._access_token_repo.create(
-            AccessTokenEntity(
-                identifier=TokenIdentifier.generate(),
-                expiration=Timestamp.create_with_delta(
-                    minutes=command.access_token_expiry_minutes
-                ),
-                user_account=refresh_token.access_token.user_account,
-            )
+        # Renew the refresh token
+        refresh_token = refresh_token.renew(
+            command.refresh_token_expiry_minutes, command.access_token_expiry_minutes
         )
 
-        return await self._refresh_token_repo.create(
-            RefreshTokenEntity(
-                identifier=TokenIdentifier.generate(),
-                expiration=Timestamp.create_with_delta(
-                    minutes=command.refresh_token_expiry_minutes
-                ),
-                access_token=access_token,
-            )
-        )
+        await self._refresh_token_repo.update(refresh_token)
+        await self._access_token_repo.update(refresh_token.access_token)
+
+        return refresh_token

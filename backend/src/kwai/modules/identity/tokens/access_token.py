@@ -46,3 +46,11 @@ class AccessTokenEntity(DataclassEntity):
         return replace(
             self, revoked=True, traceable_time=self.traceable_time.mark_for_update()
         )
+
+    def renew(self, expiry_minutes: int) -> Self:
+        """Renew the access token."""
+        return replace(
+            self,
+            identifier=TokenIdentifier.generate(),
+            expiration=Timestamp.create_with_delta(minutes=expiry_minutes),
+        )
