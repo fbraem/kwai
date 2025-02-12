@@ -2,25 +2,27 @@
 
 import pytest
 
-from kwai.modules.identity.tokens.access_token import AccessTokenEntity
-from kwai.modules.identity.tokens.access_token_repository import AccessTokenRepository
+from kwai.modules.identity.tokens.access_token_repository import (
+    AccessTokenNotFoundException,
+    AccessTokenRepository,
+)
 
 
 pytestmark = pytest.mark.db
 
 
-def test_create(
-    access_token: AccessTokenEntity,
-):
+async def test_create(make_access_token_in_db):
     """Test the creation of an access_token."""
-    assert access_token.id, "There should be an access token entity"
+    access_token = await make_access_token_in_db()
+    assert access_token is not None, "There should be an access token entity"
 
 
 async def test_get_by_token_identifier(
     access_token_repo: AccessTokenRepository,
-    access_token: AccessTokenEntity,
+    make_access_token_in_db,
 ):
     """Test get_by_token_identifier."""
+    access_token = await make_access_token_in_db()
     token = await access_token_repo.get_by_identifier(access_token.identifier)
     assert token, "There should be a refresh token"
 
@@ -31,3 +33,14 @@ async def test_query(
     """Test query."""
     tokens = [token async for token in access_token_repo.get_all(limit=10)]
     assert len(tokens) > 0, "There should be at least 1 token"
+
+
+async def test_delete(
+    access_token_repo: AccessTokenRepository, make_access_token_in_db
+):
+    """Test delete."""
+    access_token = await make_access_token_in_db()
+    await access_token_repo.delete(access_token)
+
+    with pytest.raises(AccessTokenNotFoundException):
+        await access_token_repo.get_by_identifier(access_token.identifier)
