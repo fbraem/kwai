@@ -36,7 +36,7 @@ class RefreshTokenRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def get_all(
+    def get_all(
         self,
         query: RefreshTokenQuery | None = None,
         limit: int | None = None,
@@ -53,4 +53,9 @@ class RefreshTokenRepository(ABC):
     @abstractmethod
     async def update(self, refresh_token: RefreshTokenEntity):
         """Update the refresh token."""
+        raise NotImplementedError
+
+    @abstractmethod
+    async def delete(self, refresh_token: RefreshTokenEntity):
+        """Delete the refresh token."""
         raise NotImplementedError

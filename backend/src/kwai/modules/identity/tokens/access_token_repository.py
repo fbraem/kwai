@@ -1,7 +1,7 @@
 """Module that defines an interface for an access token repository."""
 
 from abc import ABC, abstractmethod
-from typing import Iterator
+from typing import AsyncIterator
 
 from kwai.modules.identity.tokens.access_token import (
     AccessTokenEntity,
@@ -34,6 +34,11 @@ class AccessTokenRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    async def delete(self, access_token: AccessTokenEntity):
+        """Delete the access token."""
+        raise NotImplementedError
+
+    @abstractmethod
     async def get(self, id_: AccessTokenIdentifier) -> AccessTokenEntity:
         """Get the access token with the given id."""
         raise NotImplementedError
@@ -44,11 +49,11 @@ class AccessTokenRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def get_all(
+    def get_all(
         self,
         query: AccessTokenQuery | None = None,
         limit: int | None = None,
         offset: int | None = None,
-    ) -> Iterator[AccessTokenEntity]:
+    ) -> AsyncIterator[AccessTokenEntity]:
         """Get all access token."""
         raise NotImplementedError
