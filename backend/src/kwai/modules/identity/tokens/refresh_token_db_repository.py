@@ -47,7 +47,9 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
         if row:
             return _create_entity(row)
 
-        raise RefreshTokenNotFoundException()
+        raise RefreshTokenNotFoundException(
+            f"Token with identifier {identifier} not found"
+        )
 
     async def get(self, id_: RefreshTokenIdentifier) -> RefreshTokenEntity:
         query = self.create_query()
@@ -56,7 +58,7 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
         if row:
             return _create_entity(row)
 
-        raise RefreshTokenNotFoundException()
+        raise RefreshTokenNotFoundException(f"Token with id {id_} not found")
 
     async def get_all(
         self,
