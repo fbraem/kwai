@@ -80,3 +80,8 @@ class RefreshTokenDbRepository(RefreshTokenRepository):
             RefreshTokenRow.__table_name__,
             RefreshTokenRow.persist(refresh_token),
         )
+
+    async def delete(self, refresh_token: RefreshTokenEntity):
+        await self._database.delete(
+            refresh_token.id.value, RefreshTokenRow.__table_name__
+        )

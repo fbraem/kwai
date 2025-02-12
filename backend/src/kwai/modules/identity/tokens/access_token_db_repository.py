@@ -76,3 +76,8 @@ class AccessTokenDbRepository(AccessTokenRepository):
             AccessTokenRow.__table_name__,
             AccessTokenRow.persist(access_token),
         )
+
+    async def delete(self, access_token: AccessTokenEntity):
+        await self._database.delete(
+            access_token.id.value, AccessTokenRow.__table_name__
+        )
