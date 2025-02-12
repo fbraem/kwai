@@ -29,8 +29,10 @@ async def test_get_by_token_identifier(
 
 async def test_query(
     access_token_repo: AccessTokenRepository,
+    make_access_token_in_db,
 ):
     """Test query."""
+    await make_access_token_in_db()
     tokens = [token async for token in access_token_repo.get_all(limit=10)]
     assert len(tokens) > 0, "There should be at least 1 token"
 
