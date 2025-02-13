@@ -52,7 +52,7 @@ class Logout:
         refresh_token = await self._refresh_token_repository.get_by_token_identifier(
             TokenIdentifier(hex_string=command.identifier)
         )
-        refresh_token.revoke()
+        refresh_token = refresh_token.revoke()
 
         await self._refresh_token_repository.update(refresh_token)
         await self._access_token_repository.update(refresh_token.access_token)
