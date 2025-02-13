@@ -10,7 +10,7 @@ from kwai.modules.club.repositories.member_db_repository import MemberDbReposito
 from kwai.modules.club.repositories.member_repository import MemberRepository
 
 
-class TestPresenter(Presenter[MemberEntity]):
+class DummyPresenter(Presenter[MemberEntity]):
     """A dummy presenter for checking the use case result."""
 
     def __init__(self):
@@ -36,7 +36,7 @@ def member_repo(database: Database) -> MemberRepository:
 async def test_get_member(member_repo: MemberRepository, make_member_in_db):
     """Test the get member use case."""
     member = await make_member_in_db()
-    presenter = TestPresenter()
+    presenter = DummyPresenter()
     command = GetMemberCommand(uuid=str(member.uuid))
     await GetMember(member_repo, presenter).execute(command)
     assert presenter.entity is not None, "The member should exist"
