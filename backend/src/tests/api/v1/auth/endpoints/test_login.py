@@ -48,6 +48,8 @@ def test_login_with_wrong_password(client: TestClient, user_account: UserAccount
 def test_renew_access_token(secure_client: TestClient, user_account: UserAccountEntity):
     """Test the renewal of an access token."""
     response = secure_client.post("/api/v1/auth/access_token")
+    secure_client.cookies.set("access_token", response.cookies["access_token"])
+    secure_client.cookies.set("refresh_token", response.cookies["refresh_token"])
 
     assert response.status_code == status.HTTP_200_OK
 
