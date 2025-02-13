@@ -9,7 +9,6 @@ from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.access_token_repository import AccessTokenRepository
 from kwai.modules.identity.tokens.refresh_token import RefreshTokenEntity
 from kwai.modules.identity.tokens.refresh_token_repository import RefreshTokenRepository
-from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
 from kwai.modules.identity.users.user_account_repository import UserAccountRepository
 
 
@@ -86,7 +85,6 @@ class AuthenticateUser:
 
         access_token = await self._access_token_repo.create(
             AccessTokenEntity(
-                identifier=TokenIdentifier.generate(),
                 expiration=Timestamp.create_with_delta(
                     minutes=command.access_token_expiry_minutes
                 ),
@@ -94,12 +92,13 @@ class AuthenticateUser:
             )
         )
 
-        return await self._refresh_token_repo.create(
+        refresh_token = await self._refresh_token_repo.create(
             RefreshTokenEntity(
-                identifier=TokenIdentifier.generate(),
                 expiration=Timestamp.create_with_delta(
                     minutes=command.refresh_token_expiry_minutes
                 ),
                 access_token=access_token,
             )
         )
+
+        return refresh_token
