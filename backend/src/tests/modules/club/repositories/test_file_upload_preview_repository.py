@@ -12,12 +12,12 @@ from kwai.modules.club.repositories.file_upload_repository import (
 )
 
 
-def test_upload(owner: Owner, make_member):
+async def test_upload(owner: Owner, make_member):
     """Test upload."""
     repo = FileUploadPreviewRepository()
     file_upload = FileUploadEntity(filename="test.csv", owner=owner)
     try:
-        repo.save_member(file_upload, make_member())
+        await repo.save_member(file_upload, make_member())
     except Exception as error:
         pytest.fail(error)
 
