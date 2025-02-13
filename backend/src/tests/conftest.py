@@ -2,7 +2,7 @@
 
 import asyncio
 
-from typing import AsyncIterator, Iterator
+from typing import AsyncGenerator, AsyncIterator, Iterator
 
 import pytest
 
@@ -49,7 +49,7 @@ async def database():
 
 
 @pytest.fixture(scope="session")
-async def redis() -> Redis:
+async def redis() -> AsyncGenerator[Redis, None]:
     """Fixture for a redis instance."""
     settings = get_settings()
     redis = Redis(
@@ -58,7 +58,7 @@ async def redis() -> Redis:
         password=settings.redis.password,
     )
     yield redis
-    await redis.close()
+    await redis.aclose()
 
 
 @pytest.fixture(scope="session")
