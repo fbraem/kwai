@@ -7,6 +7,6 @@ from kwai.modules.identity.user_invitations.user_invitation_events import (
 )
 
 
-def test_user_invitation_created(publisher: Publisher):
+async def test_user_invitation_created(publisher: Publisher):
     """Test user invitation created event."""
-    publisher.publish(UserInvitationCreatedEvent(uuid=str(UniqueId.generate())))
+    await publisher.publish(UserInvitationCreatedEvent(uuid=str(UniqueId.generate())))
