@@ -53,4 +53,5 @@ class AccessTokenEntity(DataclassEntity):
             self,
             identifier=TokenIdentifier.generate(),
             expiration=Timestamp.create_with_delta(minutes=expiry_minutes),
+            traceable_time=self.traceable_time.mark_for_update(),
         )

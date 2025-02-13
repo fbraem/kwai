@@ -62,4 +62,5 @@ class RefreshTokenEntity(DataclassEntity):
             identifier=TokenIdentifier.generate(),
             expiration=Timestamp.create_with_delta(minutes=expiry_minutes),
             access_token=self.access_token.renew(access_token_expiry_minutes),
+            traceable_time=self.traceable_time.mark_for_update(),
         )
