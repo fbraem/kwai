@@ -7,10 +7,10 @@ import jwt
 from fastapi import APIRouter, Cookie, Depends, Form, HTTPException, status
 from fastapi.responses import Response
 from fastapi.security import OAuth2PasswordRequestForm
-from jwt import ExpiredSignatureError
 from loguru import logger
 
 from kwai.api.dependencies import create_database, get_publisher
+from kwai.api.v1.auth.cookies import create_cookies, delete_cookies
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.exceptions import UnprocessableException
@@ -33,7 +33,6 @@ from kwai.modules.identity.reset_password import ResetPassword, ResetPasswordCom
 from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
 )
-from kwai.modules.identity.tokens.refresh_token import RefreshTokenEntity
 from kwai.modules.identity.tokens.refresh_token_db_repository import (
     RefreshTokenDbRepository,
 )
@@ -52,11 +51,6 @@ from kwai.modules.identity.users.user_account_db_repository import (
 from kwai.modules.identity.users.user_account_repository import (
     UserAccountNotFoundException,
 )
-
-
-COOKIE_ACCESS_TOKEN = "access_token"
-COOKIE_REFRESH_TOKEN = "refresh_token"
-COOKIE_KWAI = "kwai"
 
 
 router = APIRouter()
@@ -113,7 +107,7 @@ async def login(
             status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc)
         ) from exc
 
-    _create_cookie(response, refresh_token, settings)
+    create_cookies(response, refresh_token, settings)
     response.status_code = status.HTTP_200_OK
 
     return response
@@ -159,9 +153,7 @@ async def logout(
                 status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
             ) from ex
 
-    response.delete_cookie(key=COOKIE_KWAI)
-    response.delete_cookie(key=COOKIE_ACCESS_TOKEN)
-    response.delete_cookie(key=COOKIE_REFRESH_TOKEN)
+    delete_cookies(response)
     response.status_code = status.HTTP_200_OK
 
 
@@ -191,7 +183,7 @@ async def renew_access_token(
             key=settings.security.jwt_refresh_secret,
             algorithms=[settings.security.jwt_algorithm],
         )
-    except ExpiredSignatureError as exc:
+    except jwt.ExpiredSignatureError as exc:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc)
         ) from exc
@@ -212,7 +204,7 @@ async def renew_access_token(
             status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc)
         ) from exc
 
-    _create_cookie(response, new_refresh_token, settings)
+    create_cookies(response, new_refresh_token, settings)
     response.status_code = status.HTTP_200_OK
 
 
@@ -287,49 +279,3 @@ async def reset_password(
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY) from exc
     except NotAllowedException as exc:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN) from exc
-
-
-def _create_cookie(
-    response: Response, refresh_token: RefreshTokenEntity, settings: Settings
-) -> None:
-    """Create cookies for access en refresh token."""
-    encoded_access_token = jwt.encode(
-        {
-            "iat": refresh_token.access_token.traceable_time.created_at.timestamp,
-            "exp": refresh_token.access_token.expiration.timestamp,
-            "jti": str(refresh_token.access_token.identifier),
-            "sub": str(refresh_token.access_token.user_account.user.uuid),
-            "scope": [],
-        },
-        settings.security.jwt_secret,
-        settings.security.jwt_algorithm,
-    )
-    encoded_refresh_token = jwt.encode(
-        {
-            "iat": refresh_token.traceable_time.created_at.timestamp,
-            "exp": refresh_token.expiration.timestamp,
-            "jti": str(refresh_token.identifier),
-        },
-        settings.security.jwt_refresh_secret,
-        settings.security.jwt_algorithm,
-    )
-    response.set_cookie(
-        key=COOKIE_KWAI,
-        value="Y",
-        expires=refresh_token.expiration.timestamp,
-        secure=settings.frontend.test,
-    )
-    response.set_cookie(
-        key=COOKIE_ACCESS_TOKEN,
-        value=encoded_access_token,
-        expires=refresh_token.access_token.expiration.timestamp,
-        httponly=True,
-        secure=not settings.frontend.test,
-    )
-    response.set_cookie(
-        key=COOKIE_REFRESH_TOKEN,
-        value=encoded_refresh_token,
-        expires=refresh_token.expiration.timestamp,
-        httponly=True,
-        secure=not settings.frontend.test,
-    )
