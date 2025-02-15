@@ -116,10 +116,7 @@ async def login(
 @router.post(
     "/logout",
     summary="Logout the current user",
-    responses={
-        200: {"description": "The user is logged out successfully."},
-        404: {"description": "The token is not found."},
-    },
+    responses={200: {"description": "The user is logged out successfully."}},
 )
 async def logout(
     settings: Annotated[Settings, Depends(get_settings)],
@@ -134,6 +131,8 @@ async def logout(
 
     This request expects a form (application/x-www-form-urlencoded). The form
     must contain a **refresh_token** field.
+
+    Even when a token could not be found, the cookies will be deleted.
     """
     if refresh_token:
         decoded_refresh_token = jwt.decode(
@@ -148,10 +147,8 @@ async def logout(
                     refresh_token_repository=RefreshTokenDbRepository(db),
                     access_token_repository=AccessTokenDbRepository(db),
                 ).execute(command)
-        except RefreshTokenNotFoundException as ex:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND, detail=str(ex)
-            ) from ex
+        except RefreshTokenNotFoundException:
+            pass
 
     delete_cookies(response)
     response.status_code = status.HTTP_200_OK
