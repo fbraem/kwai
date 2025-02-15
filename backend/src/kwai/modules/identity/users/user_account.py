@@ -39,21 +39,22 @@ class UserAccountEntity(DataclassEntity):
     revoked: bool = False
     admin: bool = False
 
-    def login(self, password: str) -> Self:
+    def login(self, password: str | None = None) -> Self:
         """Check if the given password is correct.
 
         When login succeeds, last_login will be updated.
         When login fails, last_unsuccessful_login will be updated.
+        Use None for password, when the user logs in using OIDC.
 
         Args:
             password: The password.
         """
-        if self.password.verify(password):
-            return replace(self, last_login=Timestamp.create_now(), logged_in=True)
+        if password and not self.password.verify(password):
+            return replace(
+                self, last_unsuccessful_login=Timestamp.create_now(), logged_in=False
+            )
 
-        return replace(
-            self, last_unsuccessful_login=Timestamp.create_now(), logged_in=False
-        )
+        return replace(self, last_login=Timestamp.create_now(), logged_in=True)
 
     def reset_password(self, password: Password) -> Self:
         """Reset the password of the user account.

@@ -26,22 +26,13 @@ class AuthenticateUserCommand:
     """
 
     username: str
-    password: str
+    password: str | None = None
     access_token_expiry_minutes: int = 60 * 2  # 2 hours
     refresh_token_expiry_minutes: int = 60 * 24 * 60  # 2 months
 
 
 class AuthenticateUser:
-    """Use case to authenticate a user.
-
-    Attributes:
-        _user_account_repo (UserAccountRepository): The repository for getting the
-            user account.
-        _access_token_repo (UserAccountRepository): The repository for creating the
-            access token.
-        _refresh_token_repo (UserAccountRepository): The repository for creating the
-            refresh token.
-    """
+    """Use case to authenticate a user."""
 
     def __init__(
         self,
