@@ -611,56 +611,6 @@
         <p>Use case to authenticate a user.</p>
 
 
-<p><span class="doc-section-title">Attributes:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td><code><span title="kwai.modules.identity.authenticate_user.AuthenticateUser._user_account_repo">_user_account_repo</span></code></td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account_repository.UserAccountRepository" href="../../reference/#kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The repository for getting the
-user account.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td><code><span title="kwai.modules.identity.authenticate_user.AuthenticateUser._access_token_repo">_access_token_repo</span></code></td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account_repository.UserAccountRepository" href="../../reference/#kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The repository for creating the
-access token.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td><code><span title="kwai.modules.identity.authenticate_user.AuthenticateUser._refresh_token_repo">_refresh_token_repo</span></code></td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account_repository.UserAccountRepository" href="../../reference/#kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The repository for creating the
-refresh token.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
 
 
 
@@ -841,7 +791,7 @@ address doesn't exist.</p>
           <tr class="doc-section-item">
             <td><code><span title="kwai.modules.identity.authenticate_user.AuthenticateUserCommand.password">password</span></code></td>
             <td>
-                  <code>str</code>
+                  <code>str | None</code>
             </td>
             <td>
               <div class="doc-md-description">

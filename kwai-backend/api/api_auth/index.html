@@ -802,6 +802,7 @@ the email address of the user.</p>
 will also be revoked.</p>
 <p>This request expects a form (application/x-www-form-urlencoded). The form
 must contain a <strong>refresh_token</strong> field.</p>
+<p>Even when a token could not be found, the cookies will be deleted.</p>
         <p>This api can return the following HTTP codes:</p>
 <table>
 <thead>
@@ -814,10 +815,6 @@ must contain a <strong>refresh_token</strong> field.</p>
 <tr>
 <td>200</td>
 <td>The user is logged out successfully.</td>
-</tr>
-<tr>
-<td>404</td>
-<td>The token is not found.</td>
 </tr>
 </tbody>
 </table>

@@ -2657,6 +2657,79 @@ or when the user is revoked.</p>
 
 
 
+<h6 id="kwai.api.v1.auth.cookies" class="doc doc-heading">
+            <code>cookies</code>
+
+
+<a href="#kwai.api.v1.auth.cookies" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that defines methods for handling cookies.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.api.v1.auth.cookies.create_cookies" class="doc doc-heading">
+            <code class=" language-python"><span class="n">create_cookies</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">refresh_token</span><span class="p">,</span> <span class="n">settings</span><span class="p">)</span></code>
+
+<a href="#kwai.api.v1.auth.cookies.create_cookies" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Create cookies for access en refresh token.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.api.v1.auth.cookies.delete_cookies" class="doc doc-heading">
+            <code class=" language-python"><span class="n">delete_cookies</span><span class="p">(</span><span class="n">response</span><span class="p">)</span></code>
+
+<a href="#kwai.api.v1.auth.cookies.delete_cookies" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Delete all cookies.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h6 id="kwai.api.v1.auth.endpoints" class="doc doc-heading">
             <code>endpoints</code>
 
@@ -2764,6 +2837,7 @@ the email address of the user.</p>
 will also be revoked.</p>
 <p>This request expects a form (application/x-www-form-urlencoded). The form
 must contain a <strong>refresh_token</strong> field.</p>
+<p>Even when a token could not be found, the cookies will be deleted.</p>
         <p>This api can return the following HTTP codes:</p>
 <table>
 <thead>
@@ -2776,10 +2850,6 @@ must contain a <strong>refresh_token</strong> field.</p>
 <tr>
 <td>200</td>
 <td>The user is logged out successfully.</td>
-</tr>
-<tr>
-<td>404</td>
-<td>The token is not found.</td>
 </tr>
 </tbody>
 </table>
@@ -32076,56 +32146,6 @@ already uploaded.</p>
         <p>Use case to authenticate a user.</p>
 
 
-<p><span class="doc-section-title">Attributes:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td><code><span title="kwai.modules.identity.authenticate_user.AuthenticateUser._user_account_repo">_user_account_repo</span></code></td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account_repository.UserAccountRepository" href="#kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The repository for getting the
-user account.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td><code><span title="kwai.modules.identity.authenticate_user.AuthenticateUser._access_token_repo">_access_token_repo</span></code></td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account_repository.UserAccountRepository" href="#kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The repository for creating the
-access token.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td><code><span title="kwai.modules.identity.authenticate_user.AuthenticateUser._refresh_token_repo">_refresh_token_repo</span></code></td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account_repository.UserAccountRepository" href="#kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The repository for creating the
-refresh token.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
 
 
 
@@ -32306,7 +32326,7 @@ address doesn't exist.</p>
           <tr class="doc-section-item">
             <td><code><span title="kwai.modules.identity.authenticate_user.AuthenticateUserCommand.password">password</span></code></td>
             <td>
-                  <code>str</code>
+                  <code>str | None</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -35759,56 +35779,6 @@ that belongs to the user recovery, does not exist.</p>
         <p>Use case to authenticate a user.</p>
 
 
-<p><span class="doc-section-title">Attributes:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td><code><span title="kwai.modules.identity.authenticate_user.AuthenticateUser._user_account_repo">_user_account_repo</span></code></td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account_repository.UserAccountRepository" href="#kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The repository for getting the
-user account.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td><code><span title="kwai.modules.identity.authenticate_user.AuthenticateUser._access_token_repo">_access_token_repo</span></code></td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account_repository.UserAccountRepository" href="#kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The repository for creating the
-access token.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td><code><span title="kwai.modules.identity.authenticate_user.AuthenticateUser._refresh_token_repo">_refresh_token_repo</span></code></td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account_repository.UserAccountRepository" href="#kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The repository for creating the
-refresh token.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
 
 
 
@@ -35989,7 +35959,7 @@ address doesn't exist.</p>
           <tr class="doc-section-item">
             <td><code><span title="kwai.modules.identity.authenticate_user.AuthenticateUserCommand.password">password</span></code></td>
             <td>
-                  <code>str</code>
+                  <code>str | None</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -45766,7 +45736,7 @@ that belongs to the user recovery, does not exist.</p>
 
 
 <h8 id="kwai.modules.identity.users.user_account.UserAccountEntity.login" class="doc doc-heading">
-            <code class=" language-python"><span class="n">login</span><span class="p">(</span><span class="n">password</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">login</span><span class="p">(</span><span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#kwai.modules.identity.users.user_account.UserAccountEntity.login" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -45775,7 +45745,8 @@ that belongs to the user recovery, does not exist.</p>
 
         <p>Check if the given password is correct.</p>
 <p>When login succeeds, last_login will be updated.
-When login fails, last_unsuccessful_login will be updated.</p>
+When login fails, last_unsuccessful_login will be updated.
+Use None for password, when the user logs in using OIDC.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -45794,7 +45765,7 @@ When login fails, last_unsuccessful_login will be updated.</p>
                 <code>password</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code>str | None</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -45802,7 +45773,7 @@ When login fails, last_unsuccessful_login will be updated.</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code>None</code>
             </td>
           </tr>
       </tbody>
