@@ -117,3 +117,9 @@ class JoinedTableRow:
         for table_field in fields(cls):
             tables[table_field.name] = table_field.type.map(row, table_field.name)
         return cls(**tables)  # noqa
+
+
+def unwrap[T](val: T | None) -> T:
+    """Assert when the value is None."""
+    assert val is not None
+    return val
