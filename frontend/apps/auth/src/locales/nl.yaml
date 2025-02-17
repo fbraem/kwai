@@ -37,6 +37,7 @@ login:
   invalid_email: Dit is geen geldig email adres
   failed: Log in mislukt. Controleer uw email en/of paswoord.
   error: Inloggen mislukt. Probeer later opnieuw.
+  google: Google
   notifications:
     logged_in: Je bent ingelogd.
 recover_password:

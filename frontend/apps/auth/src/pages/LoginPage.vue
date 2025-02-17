@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import {
-  CheckIcon, InputField, KwaiButton, KwaiErrorAlert,
+  CheckIcon, InputField, KwaiButton, KwaiCard, KwaiErrorAlert,
 } from '@kwai/ui';
 import { useForm } from 'vee-validate';
 import { useHttpLogin } from '@kwai/api';
-import type { Ref } from 'vue';
+import {
+  computed, type Ref,
+} from 'vue';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import NotificationMessage from '@root/components/NotificationMessage.vue';
 import { useLocalStorage } from '@vueuse/core';
+import GoogleIcon from '@root/components/icons/GoogleIcon.vue';
 
 const { t } = useI18n({ useScope: 'global' });
 
@@ -34,6 +37,16 @@ const { handleSubmit } = useForm({
   },
 });
 
+const redirect = useLocalStorage('login_redirect', null);
+const googleUrl = computed(() => {
+  const url = '/api/v1/auth/sso/google/login?return_url=';
+  console.log(redirect.value);
+  if (redirect.value) {
+    return `${url}${redirect.value}`;
+  }
+  return `${url}/`;
+});
+
 const errorMessage: Ref<string | null> = ref(null);
 const onSubmitForm = handleSubmit(async(values) => {
   errorMessage.value = null;
@@ -46,7 +59,6 @@ const onSubmitForm = handleSubmit(async(values) => {
       showNotification.value = true;
       setTimeout(() => {
         showNotification.value = false;
-        const redirect = useLocalStorage('login_redirect', null);
         if (redirect.value) {
           const redirectUrl = redirect.value;
           redirect.value = null;
@@ -145,5 +157,22 @@ const closeNotification = () => {
         {{ t('login.form.submit.label') }}
       </KwaiButton>
     </div>
+    <KwaiCard class="mt-10">
+      <div class="flex flex-col sm:flex-row gap-2 items-center">
+        <div class="text-sm">
+          Wanneer jouw email adres bij ons gekend is, dan kan je ook
+          via uw Google account inloggen.
+        </div>
+        <KwaiButton
+          :href="googleUrl"
+          small
+        >
+          <template #icon>
+            <GoogleIcon class="w-4 fill-current" />
+          </template>
+          {{ t('login.google') }}
+        </KwaiButton>
+      </div>
+    </KwaiCard>
   </form>
 </template>
