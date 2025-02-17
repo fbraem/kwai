@@ -3087,6 +3087,92 @@ and is retrieved by <a class="autorefs autorefs-internal" href="#post_/recover">
 
 
 
+<h7 id="kwai.api.v1.auth.endpoints.sso" class="doc doc-heading">
+            <code>sso</code>
+
+
+<a href="#kwai.api.v1.auth.endpoints.sso" class="headerlink" title="Permanent link">&para;</a></h7>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that defines endpoints for SSO logins.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.api.v1.auth.endpoints.sso.get_google_sso" class="doc doc-heading">
+            <code class=" language-python"><span class="n">get_google_sso</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.api.v1.auth.endpoints.sso.get_google_sso" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Google SSO dependency.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+<h8 id="get_/google/callback" class="doc doc-heading">        <span class="doc doc-object-name doc-function-name">/google/callback</span>
+        <span class="badge badge-get">get</span>
+<a href="#get_/google/callback" class="headerlink" title="Permanent link">&para;</a></h8>
+    <div class="doc doc-contents">
+
+        <p>Implement the Google login callback.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+<h8 id="get_/google/login" class="doc doc-heading">        <span class="doc doc-object-name doc-function-name">/google/login</span>
+        <span class="badge badge-get">get</span>
+<a href="#get_/google/login" class="headerlink" title="Permanent link">&para;</a></h8>
+    <div class="doc doc-contents">
+
+        <p>Initiate the Google login process.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h7 id="kwai.api.v1.auth.endpoints.user" class="doc doc-heading">
             <code>user</code>
 
@@ -13190,6 +13276,23 @@ table.</p>
 </div>
 
 
+<div class="doc doc-object doc-function">
+
+
+<h6 id="kwai.core.db.table_row.unwrap" class="doc doc-heading">
+            <code class=" language-python"><span class="n">unwrap</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></code>
+
+<a href="#kwai.core.db.table_row.unwrap" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Assert when the value is None.</p>
+
+    </div>
+
+</div>
+
 
 
   </div>
@@ -22896,6 +22999,50 @@ and page[limit] query parameters.</p>
 
 
         <p>Settings for the frontend.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h5 id="kwai.core.settings.GoogleSSOSettings" class="doc doc-heading">
+            <code>GoogleSSOSettings</code>
+
+
+<a href="#kwai.core.settings.GoogleSSOSettings" class="headerlink" title="Permanent link">&para;</a></h5>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+
+        <p>Settings for Google SSO.</p>
 
 
 
