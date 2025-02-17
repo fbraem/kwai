@@ -160,6 +160,13 @@ class RedisSettings(BaseModel):
     logger: LoggerSettings | None = None
 
 
+class GoogleSSOSettings(BaseModel):
+    """Settings for Google SSO."""
+
+    client_id: str
+    client_secret: str
+
+
 class SecuritySettings(BaseModel):
     """Setting or security."""
 
@@ -168,6 +175,8 @@ class SecuritySettings(BaseModel):
     jwt_algorithm: str = "HS256"
     jwt_secret: str
     jwt_refresh_secret: str
+
+    google: GoogleSSOSettings | None = None
 
 
 class Settings(BaseModel):
