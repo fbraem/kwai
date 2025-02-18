@@ -1,5 +1,7 @@
 """Module that defines fixtures for user recovery testing."""
 
+from typing import AsyncGenerator
+
 import pytest
 
 from kwai.core.db.database import Database
@@ -37,7 +39,9 @@ def user_invitation_mail_template(template_engine: TemplateEngine) -> MailTempla
 
 
 @pytest.fixture
-async def user_invitation(database: Database, user: UserEntity) -> UserInvitationEntity:
+async def user_invitation(
+    database: Database, user: UserEntity
+) -> AsyncGenerator[UserInvitationEntity]:
     """Fixture for a user invitation."""
     repo = UserInvitationDbRepository(database)
     invitation = await repo.create(
