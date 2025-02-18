@@ -22,8 +22,8 @@ from tests.fixtures.identity.users import *  # noqa
 def recovery_mail_template(template_engine: TemplateEngine) -> MailTemplate:
     """Returns a template for the user recovery mail."""
     return MailTemplate(
-        template_engine.create("identity/recover_html"),
-        template_engine.create("identity/recover_txt"),
+        template_engine.create("mail/identity/recover_html"),
+        template_engine.create("mail/identity/recover_txt"),
     )
 
 
@@ -31,8 +31,8 @@ def recovery_mail_template(template_engine: TemplateEngine) -> MailTemplate:
 def user_invitation_mail_template(template_engine: TemplateEngine) -> MailTemplate:
     """Returns a template for the user invitation mail."""
     return MailTemplate(
-        template_engine.create("identity/invitation_html"),
-        template_engine.create("identity/invitation_txt"),
+        template_engine.create("mail/identity/invitation_html"),
+        template_engine.create("mail/identity/invitation_txt"),
     )
 
 

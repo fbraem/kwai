@@ -62,8 +62,8 @@ async def email_user_recovery_task(
                     )
                 ),
                 MailTemplate(
-                    template_engine.create("identity/recover_html"),
-                    template_engine.create("identity/recover_txt"),
+                    template_engine.create("mail/identity/recover_html"),
+                    template_engine.create("mail/identity/recover_txt"),
                 ),
             ).execute(command)
     except UnprocessableException as ex:

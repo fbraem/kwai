@@ -58,8 +58,8 @@ async def email_user_invitation_task(
                     )
                 ),
                 MailTemplate(
-                    template_engine.create("identity/invitation_html"),
-                    template_engine.create("identity/invitation_txt"),
+                    template_engine.create("mail/identity/invitation_html"),
+                    template_engine.create("mail/identity/invitation_txt"),
                 ),
             ).execute(command)
     except UnprocessableException as ex:
