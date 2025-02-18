@@ -37,7 +37,11 @@ login:
   invalid_email: This is not a valid email address.
   failed: Login failed. Please check your email and/or password.
   error: Login failed. Try again.
-  google: Google
+  google:
+    description: |
+      Do you have a Google account and are you known to us? Then you can
+      use your Google account to login.
+    button: Google
   notifications:
     logged_in: You are successfully logged in.
 recover_password:
