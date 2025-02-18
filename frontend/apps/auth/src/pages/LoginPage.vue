@@ -97,11 +97,14 @@ const closeNotification = () => {
       <h6 class="text-gray-900 text-2xl font-bold">
         {{ t('login.title') }}
       </h6>
-      <p class="text-sm text-gray-500">
+      <p
+        v-if="$kwai.admin"
+        class="text-sm text-gray-500"
+      >
         {{ t('login.need_account') }}
         <a
           class="text-blue-400 font-medium"
-          href="#"
+          :href="`mailto:${$kwai.admin.email}`"
         >
           {{ t('login.contact_us') }}
         </a>
@@ -160,8 +163,7 @@ const closeNotification = () => {
     <KwaiCard class="mt-10">
       <div class="flex flex-col sm:flex-row gap-2 items-center">
         <div class="text-sm">
-          Wanneer jouw email adres bij ons gekend is, dan kan je ook
-          via uw Google account inloggen.
+          {{ t('login.google.description') }}
         </div>
         <KwaiButton
           :href="googleUrl"
@@ -170,7 +172,7 @@ const closeNotification = () => {
           <template #icon>
             <GoogleIcon class="w-4 fill-current" />
           </template>
-          {{ t('login.google') }}
+          {{ t('login.google.button') }}
         </KwaiButton>
       </div>
     </KwaiCard>
