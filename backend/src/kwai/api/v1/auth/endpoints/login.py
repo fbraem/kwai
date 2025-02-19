@@ -4,7 +4,16 @@ from typing import Annotated
 
 import jwt
 
-from fastapi import APIRouter, Cookie, Depends, Form, HTTPException, status
+from fastapi import (
+    APIRouter,
+    Cookie,
+    Depends,
+    Form,
+    Header,
+    HTTPException,
+    Request,
+    status,
+)
 from fastapi.responses import Response
 from fastapi.security import OAuth2PasswordRequestForm
 from loguru import logger
@@ -33,6 +42,7 @@ from kwai.modules.identity.reset_password import ResetPassword, ResetPasswordCom
 from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
 )
+from kwai.modules.identity.tokens.log_user_login_db_service import LogUserLoginDbService
 from kwai.modules.identity.tokens.refresh_token_db_repository import (
     RefreshTokenDbRepository,
 )
@@ -67,10 +77,13 @@ router = APIRouter()
     },
 )
 async def login(
+    request: Request,
     settings: Annotated[Settings, Depends(get_settings)],
     db: Annotated[Database, Depends(create_database)],
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     response: Response,
+    x_forwarded_for: Annotated[str | None, Header()] = None,
+    user_agent: Annotated[str | None, Header()] = "",
 ):
     """Login a user.
 
@@ -88,11 +101,19 @@ async def login(
     )
 
     try:
-        async with UnitOfWork(db):
+        async with UnitOfWork(db, always_commit=True):
             refresh_token = await AuthenticateUser(
                 UserAccountDbRepository(db),
                 AccessTokenDbRepository(db),
                 RefreshTokenDbRepository(db),
+                LogUserLoginDbService(
+                    db,
+                    email=form_data.username,
+                    user_agent=user_agent,
+                    client_ip=request.client.host
+                    if x_forwarded_for is None
+                    else x_forwarded_for,
+                ),
             ).execute(command)
     except InvalidEmailException as exc:
         raise HTTPException(

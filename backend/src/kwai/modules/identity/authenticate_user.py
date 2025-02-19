@@ -7,6 +7,7 @@ from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.identity.exceptions import AuthenticationException
 from kwai.modules.identity.tokens.access_token import AccessTokenEntity
 from kwai.modules.identity.tokens.access_token_repository import AccessTokenRepository
+from kwai.modules.identity.tokens.log_user_login_service import LogUserLoginService
 from kwai.modules.identity.tokens.refresh_token import RefreshTokenEntity
 from kwai.modules.identity.tokens.refresh_token_repository import RefreshTokenRepository
 from kwai.modules.identity.users.user_account_repository import UserAccountRepository
@@ -39,10 +40,12 @@ class AuthenticateUser:
         user_account_repo: UserAccountRepository,
         access_token_repo: AccessTokenRepository,
         refresh_token_repo: RefreshTokenRepository,
+        log_user_login_service: LogUserLoginService,
     ):
         self._user_account_repo = user_account_repo
         self._access_token_repo = access_token_repo
         self._refresh_token_repo = refresh_token_repo
+        self._log_user_login_service = log_user_login_service
 
     async def execute(self, command: AuthenticateUserCommand) -> RefreshTokenEntity:
         """Execute the use case.
@@ -63,16 +66,21 @@ class AuthenticateUser:
             EmailAddress(command.username)
         )
         if user_account.revoked:
-            raise AuthenticationException("User account is revoked")
+            # save the last unsuccessful login
+            await self._user_account_repo.update(user_account)
+
+            message = "User account is revoked"
+            await self._log_user_login_service.notify_failure(message)
+            raise AuthenticationException(message)
 
         user_account = user_account.login(command.password)
         if not user_account.logged_in:
             # save the last unsuccessful login
             await self._user_account_repo.update(user_account)
-            raise AuthenticationException("Invalid password")
 
-        # save the last successful login
-        await self._user_account_repo.update(user_account)
+            message = "Invalid password"
+            await self._log_user_login_service.notify_failure(message)
+            raise AuthenticationException(message)
 
         access_token = await self._access_token_repo.create(
             AccessTokenEntity(
@@ -91,5 +99,10 @@ class AuthenticateUser:
                 access_token=access_token,
             )
         )
+
+        # save the last successful login
+        await self._user_account_repo.update(user_account)
+
+        await self._log_user_login_service.notify_success(refresh_token)
 
         return refresh_token

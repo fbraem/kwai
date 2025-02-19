@@ -3,7 +3,7 @@
 from typing import Annotated
 
 from fastapi import APIRouter, HTTPException, Request, status
-from fastapi.params import Depends
+from fastapi.params import Depends, Header
 from fastapi.responses import RedirectResponse
 from fastapi_sso import GoogleSSO
 
@@ -19,6 +19,7 @@ from kwai.modules.identity.authenticate_user import (
 from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
 )
+from kwai.modules.identity.tokens.log_user_login_db_service import LogUserLoginDbService
 from kwai.modules.identity.tokens.refresh_token_db_repository import (
     RefreshTokenDbRepository,
 )
@@ -68,6 +69,8 @@ async def google_callback(
     db: Annotated[Database, Depends(create_database)],
     settings: Annotated[Settings, Depends(get_settings)],
     state: str | None = None,
+    x_forwarded_for: Annotated[str | None, Header()] = None,
+    user_agent: Annotated[str | None, Header()] = "",
 ):
     """Implement the Google login callback."""
     async with google_sso:
@@ -77,12 +80,22 @@ async def google_callback(
                 status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication failed"
             )
 
-    async with UnitOfWork(db):
+    async with UnitOfWork(db, always_commit=True):
         try:
             refresh_token = await AuthenticateUser(
                 UserAccountDbRepository(db),
                 AccessTokenDbRepository(db),
                 RefreshTokenDbRepository(db),
+                LogUserLoginDbService(
+                    db,
+                    email=str(openid.email),
+                    user_agent=user_agent,
+                    client_ip=request.client.host
+                    if x_forwarded_for is None
+                    else x_forwarded_for,
+                    open_id_sub=openid.id if openid.id else "",
+                    open_id_provider=openid.provider,
+                ),
             ).execute(AuthenticateUserCommand(username=str(openid.email)))
         except UserAccountNotFoundException as exc:
             raise HTTPException(

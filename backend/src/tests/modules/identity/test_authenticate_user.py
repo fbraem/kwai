@@ -11,6 +11,7 @@ from kwai.modules.identity.authenticate_user import (
 from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
 )
+from kwai.modules.identity.tokens.log_user_login_db_service import LogUserLoginDbService
 from kwai.modules.identity.tokens.refresh_token_db_repository import (
     RefreshTokenDbRepository,
 )
@@ -37,6 +38,12 @@ async def test_authenticate_user(
         UserAccountDbRepository(database),
         AccessTokenDbRepository(database),
         RefreshTokenDbRepository(database),
+        LogUserLoginDbService(
+            database,
+            user_agent="pytest",
+            client_ip="127.0.0.1",
+            email=str(user_account.user.email),
+        ),
     ).execute(command)
 
     assert refresh_token is not None, "There should be a refresh token"
