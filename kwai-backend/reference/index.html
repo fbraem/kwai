@@ -13402,7 +13402,27 @@ table.</p>
     <div class="doc doc-contents ">
 
         <p>Exit the unit of work.</p>
-<p>When an exception occurred, the transaction will be rollbacked.</p>
+<p>When an exception occurred and always_commit is False, the transaction will
+be rollbacked.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.core.db.uow.UnitOfWork.__init__" class="doc doc-heading">
+            <code class=" language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">database</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">always_commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#kwai.core.db.uow.UnitOfWork.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the unit of work.</p>
+<p>When always_commit is True, the unit of work will always be committed, even
+when an exception occurred.</p>
 
     </div>
 
@@ -38367,6 +38387,171 @@ when there are still pending invitations for the email address.</p>
 
 
 
+<h5 id="kwai.modules.identity.log_user_login" class="doc doc-heading">
+            <code>log_user_login</code>
+
+
+<a href="#kwai.modules.identity.log_user_login" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
+        <p>Module for a use case that logs a user login.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.identity.log_user_login.LogUserLogin" class="doc doc-heading">
+            <code>LogUserLogin</code>
+
+
+<a href="#kwai.modules.identity.log_user_login.LogUserLogin" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Use case for logging the login of a user.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.modules.identity.log_user_login.LogUserLogin.__init__" class="doc doc-heading">
+            <code class=" language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">user_log_repository</span><span class="p">,</span> <span class="n">refresh_token</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.identity.log_user_login.LogUserLogin.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the use case.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.modules.identity.log_user_login.LogUserLogin.execute" class="doc doc-heading">
+            <code class=" language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.log_user_login.LogUserLogin.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Execute the use case.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.identity.log_user_login.LogUserLoginCommand" class="doc doc-heading">
+            <code>LogUserLoginCommand</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.log_user_login.LogUserLoginCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Input for the use case.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h5 id="kwai.modules.identity.logout" class="doc doc-heading">
             <code>logout</code>
 
@@ -41235,6 +41420,216 @@ that belongs to the user recovery, does not exist.</p>
 
 
 
+<h6 id="kwai.modules.identity.tokens.log_user_login_db_service" class="doc doc-heading">
+            <code>log_user_login_db_service</code>
+
+
+<a href="#kwai.modules.identity.tokens.log_user_login_db_service" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that defines a LogUserLoginService with a database.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.identity.tokens.log_user_login_db_service.LogUserLoginDbService" class="doc doc-heading">
+            <code>LogUserLoginDbService</code>
+
+
+<a href="#kwai.modules.identity.tokens.log_user_login_db_service.LogUserLoginDbService" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.tokens.log_user_login_service.LogUserLoginService" href="#kwai.modules.identity.tokens.log_user_login_service.LogUserLoginService">LogUserLoginService</a></code></p>
+
+
+        <p>Logs a login user request to the database.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.identity.tokens.log_user_login_service" class="doc doc-heading">
+            <code>log_user_login_service</code>
+
+
+<a href="#kwai.modules.identity.tokens.log_user_login_service" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that defines an interface for a service that logs a user login request.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.identity.tokens.log_user_login_service.LogUserLoginService" class="doc doc-heading">
+            <code>LogUserLoginService</code>
+
+
+<a href="#kwai.modules.identity.tokens.log_user_login_service.LogUserLoginService" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="abc.ABC">ABC</span></code></p>
+
+
+        <p>Abstract interface for a service that logs a user login request.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.tokens.log_user_login_service.LogUserLoginService.notify_failure" class="doc doc-heading">
+            <code class=" language-python"><span class="n">notify_failure</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.tokens.log_user_login_service.LogUserLoginService.notify_failure" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Register a failed user login request.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.tokens.log_user_login_service.LogUserLoginService.notify_success" class="doc doc-heading">
+            <code class=" language-python"><span class="n">notify_success</span><span class="p">(</span><span class="n">refresh_token</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.tokens.log_user_login_service.LogUserLoginService.notify_success" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Register a successful user login request.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h6 id="kwai.modules.identity.tokens.refresh_token" class="doc doc-heading">
             <code>refresh_token</code>
 
@@ -42446,6 +42841,491 @@ that belongs to the user recovery, does not exist.</p>
 
 </div>
 
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.identity.tokens.token_tables.UserLogRow" class="doc doc-heading">
+            <code>UserLogRow</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.tokens.token_tables.UserLogRow" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.db.table_row.TableRow" href="#kwai.core.db.table_row.TableRow">TableRow</a></code></p>
+
+
+        <p>Represent a table row in the user logs table.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.tokens.token_tables.UserLogRow.create_entity" class="doc doc-heading">
+            <code class=" language-python"><span class="n">create_entity</span><span class="p">(</span><span class="n">refresh_token</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.identity.tokens.token_tables.UserLogRow.create_entity" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Create a User Log entity from the table row.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.tokens.token_tables.UserLogRow.persist" class="doc doc-heading">
+            <code class=" language-python"><span class="n">persist</span><span class="p">(</span><span class="n">user_log</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.tokens.token_tables.UserLogRow.persist" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Transform a user log entity into a table record.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.identity.tokens.user_log" class="doc doc-heading">
+            <code>user_log</code>
+
+
+<a href="#kwai.modules.identity.tokens.user_log" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that defines the UserLog entity.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.identity.tokens.user_log.UserLogEntity" class="doc doc-heading">
+            <code>UserLogEntity</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.tokens.user_log.UserLogEntity" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.entity.DataclassEntity" href="#kwai.core.domain.entity.DataclassEntity">DataclassEntity</a></code></p>
+
+
+        <p>A UserLog entity.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.tokens.user_log.UserLogEntity.success">success</span></code></td>
+            <td>
+                  <code>bool</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Was this user logged in successfully?</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.tokens.user_log.UserLogEntity.client_ip">client_ip</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.tokens.value_objects.IpAddress" href="#kwai.modules.identity.tokens.value_objects.IpAddress">IpAddress</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Client IP address</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.tokens.user_log.UserLogEntity.user_agent">user_agent</span></code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>User agent string</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.tokens.user_log.UserLogEntity.openid">openid</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.tokens.value_objects.OpenId" href="#kwai.modules.identity.tokens.value_objects.OpenId">OpenId</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>OpenId information</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.tokens.user_log.UserLogEntity.remark">remark</span></code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A remark</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.tokens.user_log.UserLogEntity.created_at">created_at</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.timestamp.Timestamp" href="#kwai.core.domain.value_objects.timestamp.Timestamp">Timestamp</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Timestamp of login</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.identity.tokens.user_log.UserLogIdentifier" class="doc doc-heading">
+            <code>UserLogIdentifier</code>
+
+
+<a href="#kwai.modules.identity.tokens.user_log.UserLogIdentifier" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.identifier.IntIdentifier" href="#kwai.core.domain.value_objects.identifier.IntIdentifier">IntIdentifier</a></code></p>
+
+
+        <p>Identifier for a UserLog entity.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.identity.tokens.user_log_db_repository" class="doc doc-heading">
+            <code>user_log_db_repository</code>
+
+
+<a href="#kwai.modules.identity.tokens.user_log_db_repository" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that defines a User Log repository for a database.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.identity.tokens.user_log_db_repository.UserLogDbRepository" class="doc doc-heading">
+            <code>UserLogDbRepository</code>
+
+
+<a href="#kwai.modules.identity.tokens.user_log_db_repository.UserLogDbRepository" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.tokens.user_log_repository.UserLogRepository" href="#kwai.modules.identity.tokens.user_log_repository.UserLogRepository">UserLogRepository</a></code></p>
+
+
+        <p>Class that represents a User Log repository for a database.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.identity.tokens.user_log_repository" class="doc doc-heading">
+            <code>user_log_repository</code>
+
+
+<a href="#kwai.modules.identity.tokens.user_log_repository" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that defines an interface for a UserLog repository.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.identity.tokens.user_log_repository.UserLogRepository" class="doc doc-heading">
+            <code>UserLogRepository</code>
+
+
+<a href="#kwai.modules.identity.tokens.user_log_repository.UserLogRepository" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="abc.ABC">ABC</span></code></p>
+
+
+        <p>Interface for UserLog repository.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.tokens.user_log_repository.UserLogRepository.create" class="doc doc-heading">
+            <code class=" language-python"><span class="n">create</span><span class="p">(</span><span class="n">user_log</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.tokens.user_log_repository.UserLogRepository.create" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Create a new UserLog entity.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
 
 
 
@@ -42626,6 +43506,178 @@ that belongs to the user recovery, does not exist.</p>
     </div>
 
 </div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.identity.tokens.value_objects" class="doc doc-heading">
+            <code>value_objects</code>
+
+
+<a href="#kwai.modules.identity.tokens.value_objects" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that defines value objects used with token entities.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.identity.tokens.value_objects.IpAddress" class="doc doc-heading">
+            <code>IpAddress</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.tokens.value_objects.IpAddress" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>An IP address.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.tokens.value_objects.IpAddress.__str__" class="doc doc-heading">
+            <code class=" language-python"><span class="fm">__str__</span><span class="p">()</span></code>
+
+<a href="#kwai.modules.identity.tokens.value_objects.IpAddress.__str__" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return string representation of an IP address.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.tokens.value_objects.IpAddress.create" class="doc doc-heading">
+            <code class=" language-python"><span class="n">create</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.tokens.value_objects.IpAddress.create" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Create an IpAddress instance from a string.</p>
+<p>A ValueError will be raised if the ip address is invalid.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.identity.tokens.value_objects.OpenId" class="doc doc-heading">
+            <code>OpenId</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.tokens.value_objects.OpenId" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>OpenID information.</p>
+<p>sub: The subject identifier of the OpenID object.
+provider: The provider of the OpenID object.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
 
 
 
