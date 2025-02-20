@@ -10,7 +10,7 @@ create table user_logs
     user_agent       varchar (512) not null,
     openid_sub       varchar (255) default '',
     openid_provider  varchar (255) default '',
-    remark           text default '',
+    remark           text,
     created_at       datetime default CURRENT_TIMESTAMP not null
 ) charset = utf8mb3;
 create index user_logs_refresh_token
