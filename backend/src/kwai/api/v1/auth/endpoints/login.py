@@ -184,10 +184,13 @@ async def logout(
     },
 )
 async def renew_access_token(
+    request: Request,
     settings: Annotated[Settings, Depends(get_settings)],
     db: Annotated[Database, Depends(create_database)],
     refresh_token: Annotated[str, Cookie()],
     response: Response,
+    x_forwarded_for: Annotated[str | None, Header()] = None,
+    user_agent: Annotated[str | None, Header()] = "",
 ):
     """Refresh the access token.
 
@@ -215,7 +218,16 @@ async def renew_access_token(
     try:
         async with UnitOfWork(db, always_commit=True):
             new_refresh_token = await RefreshAccessToken(
-                RefreshTokenDbRepository(db), AccessTokenDbRepository(db)
+                RefreshTokenDbRepository(db),
+                AccessTokenDbRepository(db),
+                LogUserLoginDbService(
+                    db,
+                    email="",
+                    user_agent=user_agent,
+                    client_ip=request.client.host
+                    if x_forwarded_for is None
+                    else x_forwarded_for,
+                ),
             ).execute(command)
     except AuthenticationException as exc:
         raise HTTPException(

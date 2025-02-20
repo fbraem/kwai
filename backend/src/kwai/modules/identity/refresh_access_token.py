@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 from kwai.modules.identity.authenticate_user import AuthenticationException
 from kwai.modules.identity.tokens.access_token_repository import AccessTokenRepository
+from kwai.modules.identity.tokens.log_user_login_service import LogUserLoginService
 from kwai.modules.identity.tokens.refresh_token import RefreshTokenEntity
 from kwai.modules.identity.tokens.refresh_token_repository import RefreshTokenRepository
 from kwai.modules.identity.tokens.token_identifier import TokenIdentifier
@@ -43,9 +44,11 @@ class RefreshAccessToken:
         self,
         refresh_token_repo: RefreshTokenRepository,
         access_token_repo: AccessTokenRepository,
+        log_user_login_service: LogUserLoginService,
     ):
         self._refresh_token_repo = refresh_token_repo
         self._access_token_repo = access_token_repo
+        self._log_user_login_service = log_user_login_service
 
     async def execute(self, command: RefreshAccessTokenCommand) -> RefreshTokenEntity:
         """Execute the use case.
@@ -63,10 +66,22 @@ class RefreshAccessToken:
         )
 
         if refresh_token.expired:
-            raise AuthenticationException("Refresh token is expired")
+            message = "Refresh token is expired"
+            await self._log_user_login_service.notify_failure(
+                message,
+                user_account=refresh_token.access_token.user_account,
+                refresh_token=refresh_token,
+            )
+            raise AuthenticationException(message)
 
         if refresh_token.revoked:
-            raise AuthenticationException("Refresh token is revoked")
+            message = "Refresh token is revoked"
+            await self._log_user_login_service.notify_failure(
+                message,
+                user_account=refresh_token.access_token.user_account,
+                refresh_token=refresh_token,
+            )
+            raise AuthenticationException(message)
 
         # When the user is revoked, revoke the access and refresh tokens.
         if refresh_token.access_token.user_account.revoked:
@@ -75,7 +90,13 @@ class RefreshAccessToken:
             # The access token is also revoked, so update it
             await self._access_token_repo.update(refresh_token.access_token)
 
-            raise AuthenticationException("User is revoked")
+            message = "User is revoked"
+            await self._log_user_login_service.notify_failure(
+                message,
+                user_account=refresh_token.access_token.user_account,
+                refresh_token=refresh_token,
+            )
+            raise AuthenticationException(message)
 
         # Renew the refresh token
         refresh_token = refresh_token.renew(
