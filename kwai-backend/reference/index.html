@@ -41569,7 +41569,7 @@ that belongs to the user recovery, does not exist.</p>
 
 
 <h8 id="kwai.modules.identity.tokens.log_user_login_service.LogUserLoginService.notify_failure" class="doc doc-heading">
-            <code class=" language-python"><span class="n">notify_failure</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">notify_failure</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">user_account</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">refresh_token</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
@@ -41591,7 +41591,7 @@ that belongs to the user recovery, does not exist.</p>
 
 
 <h8 id="kwai.modules.identity.tokens.log_user_login_service.LogUserLoginService.notify_success" class="doc doc-heading">
-            <code class=" language-python"><span class="n">notify_success</span><span class="p">(</span><span class="n">refresh_token</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">notify_success</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">user_account</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">refresh_token</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
@@ -42885,7 +42885,7 @@ that belongs to the user recovery, does not exist.</p>
 
 
 <h8 id="kwai.modules.identity.tokens.token_tables.UserLogRow.create_entity" class="doc doc-heading">
-            <code class=" language-python"><span class="n">create_entity</span><span class="p">(</span><span class="n">refresh_token</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">create_entity</span><span class="p">(</span><span class="n">user_account</span><span class="p">,</span> <span class="n">refresh_token</span><span class="p">)</span></code>
 
 <a href="#kwai.modules.identity.tokens.token_tables.UserLogRow.create_entity" class="headerlink" title="Permanent link">&para;</a></h8>
 
@@ -43007,6 +43007,39 @@ that belongs to the user recovery, does not exist.</p>
             <td>
               <div class="doc-md-description">
                 <p>Was this user logged in successfully?</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.tokens.user_log.UserLogEntity.email">email</span></code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Email used to log in.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.tokens.user_log.UserLogEntity.user_account">user_account</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account.UserAccountEntity" href="#kwai.modules.identity.users.user_account.UserAccountEntity">UserAccountEntity</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>User account used to log in.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.tokens.user_log.UserLogEntity.refresh_token">refresh_token</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity" href="#kwai.modules.identity.tokens.refresh_token.RefreshTokenEntity">RefreshTokenEntity</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Refresh token created for the login.</p>
               </div>
             </td>
           </tr>
