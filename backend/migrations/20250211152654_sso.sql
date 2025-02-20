@@ -4,6 +4,7 @@ create table user_logs
 (
     id               int unsigned auto_increment primary key,
     email            varchar (255) default '',
+    user_id          int unsigned,
     refresh_token_id int unsigned,
     success          tinyint(1) default 0 not null,
     client_ip        varchar (45) not null,

@@ -114,6 +114,7 @@ class UserLogRow(TableRow):
     id: int
     success: int
     email: str
+    user_id: int | None
     refresh_token_id: int | None
     client_ip: str
     user_agent: str
@@ -122,11 +123,16 @@ class UserLogRow(TableRow):
     remark: str
     created_at: datetime
 
-    def create_entity(self, refresh_token: RefreshTokenEntity | None) -> UserLogEntity:
+    def create_entity(
+        self,
+        user_account: UserAccountEntity | None,
+        refresh_token: RefreshTokenEntity | None,
+    ) -> UserLogEntity:
         """Create a User Log entity from the table row."""
         return UserLogEntity(
             id=UserLogIdentifier(self.id),
             email=self.email,
+            user_account=user_account,
             refresh_token=refresh_token,
             client_ip=IpAddress.create(self.client_ip),
             user_agent=self.user_agent,
@@ -142,6 +148,9 @@ class UserLogRow(TableRow):
             id=user_log.id.value,
             success=1 if user_log.success else 0,
             email=user_log.email,
+            user_id=None
+            if user_log.user_account is None
+            else user_log.user_account.id.value,
             refresh_token_id=None
             if user_log.refresh_token is None
             else user_log.refresh_token.id.value,
