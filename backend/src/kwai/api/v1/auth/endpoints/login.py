@@ -213,7 +213,7 @@ async def renew_access_token(
     )
 
     try:
-        async with UnitOfWork(db):
+        async with UnitOfWork(db, always_commit=True):
             new_refresh_token = await RefreshAccessToken(
                 RefreshTokenDbRepository(db), AccessTokenDbRepository(db)
             ).execute(command)
