@@ -70,7 +70,9 @@ class AuthenticateUser:
             await self._user_account_repo.update(user_account)
 
             message = "User account is revoked"
-            await self._log_user_login_service.notify_failure(message)
+            await self._log_user_login_service.notify_failure(
+                message, user_account=user_account
+            )
             raise AuthenticationException(message)
 
         user_account = user_account.login(command.password)
@@ -79,7 +81,9 @@ class AuthenticateUser:
             await self._user_account_repo.update(user_account)
 
             message = "Invalid password"
-            await self._log_user_login_service.notify_failure(message)
+            await self._log_user_login_service.notify_failure(
+                message, user_account=user_account
+            )
             raise AuthenticationException(message)
 
         access_token = await self._access_token_repo.create(
@@ -103,6 +107,8 @@ class AuthenticateUser:
         # save the last successful login
         await self._user_account_repo.update(user_account)
 
-        await self._log_user_login_service.notify_success(refresh_token)
+        await self._log_user_login_service.notify_success(
+            user_account=user_account, refresh_token=refresh_token
+        )
 
         return refresh_token
