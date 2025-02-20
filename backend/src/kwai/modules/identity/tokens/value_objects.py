@@ -34,5 +34,5 @@ class OpenId:
     provider: The provider of the OpenID object.
     """
 
-    sub: str
-    provider: str
+    sub: str = ""
+    provider: str = ""
