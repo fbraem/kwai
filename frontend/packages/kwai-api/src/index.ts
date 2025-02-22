@@ -161,6 +161,19 @@ export const useHttpApi = () =>
   useHttpWithAuthCatcher().accept('application/vnd.api+json');
 //  .content('application/vnd.api+json')
 
+export interface Pagination {
+  offset?: number
+  limit?: number
+}
+
+export const useHttpPaginationApi = ({ offset = 0, limit = 0 }: Pagination) => {
+  return useHttpApi()
+    .query({
+      'page[offset]': offset,
+      'page[limit]': limit,
+    });
+};
+
 export const useHttpLogout = async() => {
   await useHttp()
     .url('/v1/auth/logout')
