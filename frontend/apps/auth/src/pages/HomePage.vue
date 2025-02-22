@@ -1,3 +1,16 @@
+<script setup lang="ts">
+import {
+  isLoggedIn, useHttpLogout,
+} from '@kwai/api';
+import { useI18n } from 'vue-i18n';
+import ActionPanel from '@root/components/ActionPanel.vue';
+const { t } = useI18n({ useScope: 'global' });
+
+const logout = () => {
+  useHttpLogout();
+};
+</script>
+
 <template>
   <div class="flex-grow">
     <div class="mb-6">
@@ -19,7 +32,7 @@
         Welke actie wil je uitvoeren?
       </h2>
       <ul>
-        <li v-if="isLoggedIn">
+        <li v-if="isLoggedIn()">
           <ActionPanel :method="logout">
             <template #title>
               {{ t('home.logout.title') }}
@@ -39,7 +52,7 @@
             </template>
           </ActionPanel>
         </li>
-        <li v-if="isLoggedIn">
+        <li v-if="isLoggedIn()">
           <ActionPanel :route="{ name: 'change' }">
             <template #title>
               {{ t('home.change_password.title') }}
@@ -63,14 +76,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { isLoggedIn, useHttpLogout } from '@kwai/api';
-import { useI18n } from 'vue-i18n';
-import ActionPanel from '@root/components/ActionPanel.vue';
-const { t } = useI18n({ useScope: 'global' });
-
-const logout = () => {
-  useHttpLogout();
-};
-</script>
