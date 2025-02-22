@@ -16,3 +16,4 @@ export { default as DeleteIcon } from './DeleteIcon.vue';
 export { default as SaveIcon } from './SaveIcon.vue';
 export { default as LoginIcon } from './LoginIcon.vue';
 export { default as LogoutIcon } from './LogoutIcon.vue';
+export { default as ExpandIcon } from './ExpandIcon.vue';
