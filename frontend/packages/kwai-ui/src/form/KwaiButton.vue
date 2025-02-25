@@ -1,7 +1,7 @@
 <!-- A wrapper around PrimeVue Button -->
 <script setup lang="ts">
 import Button from 'primevue/button';
-import {
+import type {
   LocationAsRelativeRaw, RouteRecord,
 } from 'vue-router';
 import {

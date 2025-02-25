@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import FileUpload, { FileUploadUploaderEvent } from 'primevue/fileupload';
+import FileUpload, { type FileUploadUploaderEvent } from 'primevue/fileupload';
 import { DeleteIcon } from '../icons';
 import KwaiButton from './KwaiButton.vue';
 import { ref } from 'vue';

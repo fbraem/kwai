@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Menubar from 'primevue/menubar';
-import { MenuItem } from '../types';
+import { type MenuItem } from '../types';
 import { computed } from 'vue';
 
 interface Props {
