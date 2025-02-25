@@ -6,15 +6,10 @@ import CollapseIcon from '../icons/CollapseIcon.vue';
 import {
   computed, ref,
 } from 'vue';
-
-interface ApiError {
-  status: string
-  message: string
-  url: string
-}
+import type { ApiError } from '../types';
 
 interface Props {
-  error?: ApiError
+  error: ApiError | Error
   email?: string
 }
 const props = defineProps<Props>();
@@ -24,7 +19,7 @@ const toggleDetails = () => {
   showDetails.value = !showDetails.value;
 };
 
-const serverError = computed(() => props.error && 'status' in props.error);
+const serverError = computed(() => 'status' in props.error);
 </script>
 
 <template>
@@ -63,7 +58,7 @@ const serverError = computed(() => props.error && 'status' in props.error);
           Status
         </dt>
         <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-3 sm:mt-0">
-          {{ error!.status }}
+          {{ (error as ApiError).status }}
         </dd>
       </div>
       <div class="px-2 py-3 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
@@ -71,7 +66,7 @@ const serverError = computed(() => props.error && 'status' in props.error);
           Error
         </dt>
         <dd class="mt-1 text-sm text-gray-700 sm:col-span-3 sm:mt-0">
-          {{ error!.message }}
+          {{ (error as ApiError).message }}
         </dd>
       </div>
       <div class="px-2 py-3 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
@@ -79,10 +74,13 @@ const serverError = computed(() => props.error && 'status' in props.error);
           URL
         </dt>
         <dd class="mt-1 text-sm text-gray-700 sm:col-span-3 sm:mt-0">
-          {{ error!.url }}
+          {{ (error as ApiError).url }}
         </dd>
       </div>
     </dl>
+    <div v-else>
+      {{ error.message }}
+    </div>
     <div
       class="py-2"
       v-if="email"

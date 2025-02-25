@@ -2,7 +2,7 @@ import { App } from 'vue';
 import PrimeVue from 'primevue/config';
 import './index.css';
 
-export type { MenuItem } from './types';
+export type { ApiError, MenuItem } from './types';
 export * from './alerts';
 export * from './badges';
 export * from './card';
