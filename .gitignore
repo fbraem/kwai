@@ -7,7 +7,6 @@
 .ruff_cache
 .mypy_cache
 /_site/
-/backend/src/.venv/
 /backend/src/.coverage
 dist
 node_modules
@@ -24,7 +23,7 @@ __pycache__
 /frontend/apps/portal/images/*.jpg
 *.tsbuildinfo
 stats.html
-/backend/.venv/
 .task
 /frontend/.env.test
 /backend/db/schema.sql
+frontend/.vscode/settings.json
