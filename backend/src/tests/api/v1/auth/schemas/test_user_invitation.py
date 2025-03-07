@@ -41,6 +41,7 @@ def test_create_user_invitation_document(user_invitation: UserInvitationEntity):
                 "first_name": "Ichiro",
                 "last_name": "Abe",
                 "remark": "",
+                "mailed_at": None,
                 "expired_at": str(user_invitation.expired_at),
                 "confirmed_at": None,
             },

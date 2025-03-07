@@ -16,6 +16,7 @@ class UserInvitationAttributes(BaseModel):
     first_name: str
     last_name: str
     remark: str = ""
+    mailed_at: str | None = None
     expired_at: str | None = None
     confirmed_at: str | None = None
 
@@ -41,6 +42,11 @@ class UserInvitationDocument(Document[UserInvitationResource, None]):
                     first_name=user_invitation.name.first_name or "",
                     last_name=user_invitation.name.last_name or "",
                     remark=user_invitation.remark,
+                    mailed_at=(
+                        str(user_invitation.mailed_at)
+                        if user_invitation.mailed
+                        else None
+                    ),
                     expired_at=str(user_invitation.expired_at),
                     confirmed_at=(
                         str(user_invitation.confirmed_at)
