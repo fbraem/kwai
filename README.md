@@ -25,7 +25,3 @@ The code of the [backend](./backend)
 
 At the moment there is no release available yet, but the code is already used by our
 judo club: [Judokwai Kemzeke](https://www.judokwaikemzeke.be)
-
-## Acknowledgments
-
-Thanks to [JetBrains](https://www.jetbrains.com/), Kwai is developed using [PyCharm](https://www.jetbrains.com/pycharm/).
