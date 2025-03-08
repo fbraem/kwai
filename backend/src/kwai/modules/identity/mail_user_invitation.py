@@ -79,7 +79,7 @@ class MailUserInvitation:
             user_invitation,
         ).send()
 
-        user_invitation.mail_sent()
+        user_invitation = user_invitation.mail_sent()
         await self._user_invitation_repo.update(user_invitation)
 
         return user_invitation
