@@ -10,7 +10,7 @@ import {
 
 interface Props {
   to?: RouteRecord | LocationAsRelativeRaw
-  method?: (event: Event | undefined) => void
+  method?: (event: Event) => void
   small?: boolean
   severity?: string
   variant?: 'text' | 'link'
