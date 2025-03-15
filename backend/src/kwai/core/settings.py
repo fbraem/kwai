@@ -6,6 +6,7 @@ import tomllib
 from functools import lru_cache
 from typing import Annotated, Any, Literal, Optional, Union
 
+from anyio import Path
 from pydantic import BaseModel, Field
 
 
@@ -133,7 +134,7 @@ class CORSSettings(BaseModel):
 class LoggerSettings(BaseModel):
     """Settings for the logger."""
 
-    file: str = "kwai.log"
+    file: os.PathLike[str] = Field(default=Path("kwai.log"))
     level: str = "DEBUG"
     retention: str = "7 days"
     rotation: str = "1 day"
