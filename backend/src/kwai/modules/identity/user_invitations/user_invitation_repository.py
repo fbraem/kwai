@@ -30,7 +30,7 @@ class UserInvitationRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def get_all(
+    def get_all(
         self,
         query: UserInvitationQuery,
         limit: int | None = None,
