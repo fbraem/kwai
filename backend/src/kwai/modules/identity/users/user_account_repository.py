@@ -13,7 +13,7 @@ class UserAccountRepository:
     """Interface for a user account repository."""
 
     @abstractmethod
-    async def get_all(
+    def get_all(
         self,
         query: UserAccountQuery | None = None,
         limit: int | None = None,
