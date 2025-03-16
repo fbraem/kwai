@@ -44,6 +44,7 @@ def test_create_user_invitation_document(user_invitation: UserInvitationEntity):
                 "mailed_at": None,
                 "expired_at": str(user_invitation.expired_at),
                 "confirmed_at": None,
+                "revoked": False,
             },
         }
     }

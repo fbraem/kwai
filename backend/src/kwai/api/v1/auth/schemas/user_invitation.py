@@ -19,6 +19,7 @@ class UserInvitationAttributes(BaseModel):
     mailed_at: str | None = None
     expired_at: str | None = None
     confirmed_at: str | None = None
+    revoked: bool
 
 
 class UserInvitationResource(
@@ -53,6 +54,7 @@ class UserInvitationDocument(Document[UserInvitationResource, None]):
                         if user_invitation.confirmed
                         else None
                     ),
+                    revoked=user_invitation.revoked,
                 ),
             )
         )
