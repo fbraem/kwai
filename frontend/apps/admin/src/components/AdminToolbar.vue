@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import {
-  KwaiAuthenticateButton, KwaiMenubar, ToolbarLogo, useMenu,
+  KwaiAuthenticateButton,
+  KwaiMenubar,
+  ToolbarLogo,
 } from '@kwai/ui';
+import { useMenu } from '@kwai/ui';
 
 import logoUrl from '/logo.png';
 import {
