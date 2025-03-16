@@ -41,7 +41,7 @@ def make_user_invitation_in_db(
         user_invitation: UserInvitationEntity | None = None,
         user_account: UserAccountEntity | None = None,
     ) -> UserInvitationEntity:
-        if user_invitation is None:
+        if user_account is None:
             user_account = await make_user_account_in_db()
         user_invitation = user_invitation or make_user_invitation(
             user=user_account.user
