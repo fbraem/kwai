@@ -43,8 +43,8 @@ class GetUserAccounts:
         await self._presenter.present(
             IterableResult(
                 count=await query.count(),
-                limit=command.limit,
-                offset=command.offset,
+                limit=command.limit or 0,
+                offset=command.offset or 0,
                 iterator=self._user_account_repo.get_all(
                     query, command.limit, command.offset
                 ),
