@@ -1,13 +1,17 @@
 """Module that implements invitations endpoints."""
 
+from typing import Annotated
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from loguru import logger
 
 from kwai.api.dependencies import create_database, get_current_user, get_publisher
 from kwai.api.v1.auth.schemas.user_invitation import UserInvitationDocument
+from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import InvalidEmailException
+from kwai.core.events.publisher import Publisher
 from kwai.core.json_api import Meta, PaginationModel
 from kwai.modules.identity.delete_user_invitation import (
     DeleteUserInvitation,
@@ -19,6 +23,10 @@ from kwai.modules.identity.get_user_invitation import (
     GetUserInvitationCommand,
 )
 from kwai.modules.identity.invite_user import InviteUser, InviteUserCommand
+from kwai.modules.identity.recreate_user_invitation import (
+    RecreateUserInvitation,
+    RecreateUserInvitationCommand,
+)
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
     UserInvitationDbRepository,
 )
@@ -30,6 +38,42 @@ from kwai.modules.identity.users.user_db_repository import UserDbRepository
 
 
 router = APIRouter()
+
+
+@router.post(
+    "/invitations/{uuid}",
+    summary="Recreate a user invitation",
+    status_code=status.HTTP_201_CREATED,
+    responses={
+        201: {"description": "User invitation is created"},
+        401: {"description": "Not authorized."},
+        422: {"description": "User invitation could not be created"},
+    },
+)
+async def recreate_user_invitation(
+    uuid: str,
+    db: Annotated[Database, Depends(create_database)],
+    user: Annotated[UserEntity, Depends(get_current_user)],
+    publisher: Annotated[Publisher, Depends(get_publisher)],
+) -> UserInvitationDocument:
+    """Recreate a user invitation.
+
+    Use this API for resending a user invitation. The existing invitation
+    will expire.
+    """
+    command = RecreateUserInvitationCommand(uuid=uuid)
+    try:
+        async with UnitOfWork(db):
+            invitation = await RecreateUserInvitation(
+                user, UserDbRepository(db), UserInvitationDbRepository(db), publisher
+            ).execute(command)
+    except UnprocessableException as ex:
+        logger.warning(f"User invitation could not be processed: {ex}")
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(ex)
+        ) from ex
+
+    return UserInvitationDocument.create(invitation)
 
 
 @router.post(
