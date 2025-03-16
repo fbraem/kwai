@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import Popover from 'primevue/popover';
-import { ref } from 'vue';
+import {
+  useSlots, ref,
+} from 'vue';
 
 const op = ref();
 const toggle = (event: Event) => {
@@ -18,6 +20,8 @@ defineExpose({
   hide,
 });
 defineOptions({ inheritAttrs: false });
+
+const slots = useSlots();
 </script>
 
 <template>
@@ -29,6 +33,7 @@ defineOptions({ inheritAttrs: false });
     <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
       <div class="sm:flex sm:items-start">
         <div
+          v-if="slots.icon"
           class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full sm:mx-0 sm:size-10"
         >
           <slot name="icon" />
