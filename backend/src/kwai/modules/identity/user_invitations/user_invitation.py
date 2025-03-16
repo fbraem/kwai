@@ -86,3 +86,11 @@ class UserInvitationEntity(DataclassEntity):
             mailed_at=Timestamp.create_now(),
             traceable_time=self.traceable_time.mark_for_update(),
         )
+
+    def revoke(self) -> Self:
+        """Revoke the user invitation."""
+        return replace(
+            self,
+            revoked=True,
+            traceable_time=self.traceable_time.mark_for_update(),
+        )
