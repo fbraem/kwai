@@ -39560,6 +39560,296 @@ address does not exist.</p>
 
 
 
+<h5 id="kwai.modules.identity.recreate_user_invitation" class="doc doc-heading">
+            <code>recreate_user_invitation</code>
+
+
+<a href="#kwai.modules.identity.recreate_user_invitation" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
+        <p>Module for implementing the use case of recreating a user invitation.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.identity.recreate_user_invitation.RecreateUserInvitation" class="doc doc-heading">
+            <code>RecreateUserInvitation</code>
+
+
+<a href="#kwai.modules.identity.recreate_user_invitation.RecreateUserInvitation" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Use case for recreating a user invitation.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.modules.identity.recreate_user_invitation.RecreateUserInvitation.__init__" class="doc doc-heading">
+            <code class=" language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">user_repo</span><span class="p">,</span> <span class="n">user_invitation_repo</span><span class="p">,</span> <span class="n">publisher</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.identity.recreate_user_invitation.RecreateUserInvitation.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the use case.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.modules.identity.recreate_user_invitation.RecreateUserInvitation.execute" class="doc doc-heading">
+            <code class=" language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.recreate_user_invitation.RecreateUserInvitation.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Execute the use case.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>command</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.recreate_user_invitation.RecreateUserInvitationCommand" href="#kwai.modules.identity.recreate_user_invitation.RecreateUserInvitationCommand">RecreateUserInvitationCommand</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The input for this use case.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity" href="#kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity">UserInvitationEntity</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A user invitation.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.exceptions.UnprocessableException" href="#kwai.core.domain.exceptions.UnprocessableException">UnprocessableException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>raised when the email address is already in use.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.identity.recreate_user_invitation.RecreateUserInvitationCommand" class="doc doc-heading">
+            <code>RecreateUserInvitationCommand</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.recreate_user_invitation.RecreateUserInvitationCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Input for the use case 'Recreate User Invitation'.</p>
+<p>[RecreateUserInvitation][kwai.modules.identity.invite_user.RecreateUserInvitation]</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.recreate_user_invitation.RecreateUserInvitationCommand.uuid">uuid</span></code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The unique id of the original invitation.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.recreate_user_invitation.RecreateUserInvitationCommand.expiration_in_days">expiration_in_days</span></code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>When does the invitation expires (in days)</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.recreate_user_invitation.RecreateUserInvitationCommand.remark">remark</span></code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A remark for this user invitation</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h5 id="kwai.modules.identity.refresh_access_token" class="doc doc-heading">
             <code>refresh_access_token</code>
 
@@ -44090,6 +44380,23 @@ provider: The provider of the OpenID object.</p>
           </tr>
       </tbody>
     </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.revoke" class="doc doc-heading">
+            <code class=" language-python"><span class="n">revoke</span><span class="p">()</span></code>
+
+<a href="#kwai.modules.identity.user_invitations.user_invitation.UserInvitationEntity.revoke" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Revoke the user invitation.</p>
 
     </div>
 
