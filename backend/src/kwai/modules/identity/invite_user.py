@@ -92,7 +92,8 @@ class InviteUser:
         query = (
             self._user_invitation_repo.create_query()
             .filter_by_email(email_address)
-            .filter_active(Timestamp.create_now())
+            .filter_active()
+            .filter_not_expired(Timestamp.create_now())
         )
         if await query.count() > 0:
             raise UnprocessableException(
