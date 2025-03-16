@@ -47,10 +47,26 @@ class UserInvitationQuery(Query, ABC):
         """
         raise NotImplementedError
 
-    def filter_active(self, timestamp: Timestamp) -> "UserInvitationQuery":
+    def filter_active(self) -> "UserInvitationQuery":
         """Add a filter to only return the active invitations at the given time.
 
         Returns:
             The active query
+        """
+        raise NotImplementedError
+
+    def filter_not_expired(self, timestamp: Timestamp) -> "UserInvitationQuery":
+        """Add a filter to only return not expired invitations.
+
+        Returns:
+            The active query.
+        """
+        raise NotImplementedError
+
+    def filter_not_confirmed(self) -> "UserInvitationQuery":
+        """Add a filter to only return not confirmed invitations.
+
+        Returns:
+            The active query.
         """
         raise NotImplementedError

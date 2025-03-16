@@ -47,14 +47,14 @@ class UserInvitationDbQuery(UserInvitationQuery, DatabaseQuery):
         self._query.and_where(UserInvitationRow.field("email").eq(str(email)))
         return self
 
-    def filter_active(self, timestamp: Timestamp) -> "UserInvitationQuery":
-        self._query.and_where(
-            UserInvitationRow.field("expired_at")
-            .gt(str(timestamp))
-            .and_(
-                UserInvitationRow.field("confirmed_at")
-                .is_null()
-                .and_(UserInvitationRow.field("revoked").not_eq(1))
-            )
-        )
+    def filter_active(self) -> "UserInvitationQuery":
+        self._query.and_where(UserInvitationRow.field("revoked").not_eq(1))
+        return self
+
+    def filter_not_expired(self, timestamp: Timestamp) -> "UserInvitationQuery":
+        self._query.and_where(UserInvitationRow.field("expired_at").gt(str(timestamp)))
+        return self
+
+    def filter_not_confirmed(self) -> "UserInvitationQuery":
+        self._query.and_where(UserInvitationRow.field("confirmed_at").is_null())
         return self
