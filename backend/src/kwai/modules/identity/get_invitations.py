@@ -22,6 +22,7 @@ class GetInvitationsCommand:
 
     offset: int | None = None
     limit: int | None = None
+    active: bool = True
 
 
 class GetInvitations:
@@ -50,6 +51,9 @@ class GetInvitations:
             A tuple with the number of entities and an iterator for invitation entities.
         """
         query = self._user_invitation_repo.create_query()
+        if command.active:
+            query = query.filter_active()
+
         return (
             await query.count(),
             self._user_invitation_repo.get_all(
