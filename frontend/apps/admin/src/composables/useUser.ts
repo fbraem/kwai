@@ -67,6 +67,14 @@ const getAllUsers = ({
   return api
     .get()
     .json()
+    .catch((error) => {
+      throw {
+        status: error.response.status,
+        message: error.json.detail,
+        url: error.response.url,
+      };
+    })
+
     .then((data): ResourceItems<UserAccount> => {
       const result = v.safeParse(JsonApiUserDocumentSchema, data);
       if (result.success) {
@@ -89,7 +97,7 @@ const getAllUsers = ({
           })),
         };
       }
-      throw result.issues;
+      throw result;
     });
 };
 
