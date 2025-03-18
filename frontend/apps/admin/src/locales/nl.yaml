@@ -8,6 +8,7 @@ home:
     title: Gebruikers
     description: Beheer de gebruikers van de website.
     list: Overzicht
+  user_invitations: Uitnodigingen
 users:
   title: Gebruikers
   first_name: Voornaam
@@ -22,3 +23,62 @@ users:
   revoke: Deactiveren
   enact: Activeren
   cancel: Annuleren
+user_invitations:
+  toolbar:
+    title: Uitnodigingen
+    description: Beheer de uitnodigingen voor nieuwe gebruikers
+    button: Nieuwe Uitnodiging
+  create:
+    title: Maak een nieuwe uitnodiging
+  list:
+    send: Versturen
+    renew: Hernieuw
+    revoke: Intrekken
+    renew_popover:
+      title: Uitnodiging opnieuw sturen?
+      message: |
+        Ben je zeker om de uitnodiging voor {name} opnieuw te sturen naar
+        {email}? Deze oude uitnodiging zal geannuleerd worden.
+      notification: |
+        De uitnodiging voor {name} is opnieuw verstuurd.
+    revoke_popover:
+      title: Uitnodiging intrekken?
+      message: |
+        Ben je zeker om de uitnodiging voor {name} in te trekken?
+      notification: |
+        De uitnodiging voor {name} is geannuleerd.
+      error: |
+        Er is een fout opgetreden tijdens het intrekken van de uitnodiging.
+  form:
+    validations:
+      required: Dit veld is verplicht in te vullen
+      invalid_email: Ongeldig emailadres
+    sections:
+      user:
+        title: Uitnodiging
+        description: De gegevens van de nieuwe gebruiker
+        fields:
+          email:
+            placeholder: Geef het emailadres in
+            label: Email
+          firstname:
+            placeholder: Geef de voornaam in
+            label: Voornaam
+          lastname:
+            placeholder: Geef de familienaam in
+            label: Familienaam
+      remark:
+        title: Opmerking
+        description: |
+          Een opmerking voor deze uitnodiging.
+          De gebruiker zal deze opmerking niet te zien krijgen.
+        fields:
+          remark:
+            placeholder: Geef een opmerking in
+            label: Opmerking
+      submit:
+        help: De gebruiker zal een uitnodiging krijgen via email.
+        fields:
+          button:
+            label: Bewaar
+    error: Er ging iets fout tijdens het bewaren van de gegevens.
