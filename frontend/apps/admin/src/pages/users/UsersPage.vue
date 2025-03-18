@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import {
-  type UserAccount, useUsers,
+  type UserAccount,
+  useUsers,
 } from '@root/composables/useUser.ts';
 import {
-  Translation as i18n, useI18n,
+  Translation as i18n,
+  useI18n,
 } from 'vue-i18n';
+
 import {
   ContainerSection,
   ContainerSectionContent,
@@ -16,9 +19,11 @@ import {
   WarningIcon,
 } from '@kwai/ui';
 import RevokedIcon from '@root/components/icons/RevokedIcon.vue';
+
 import { ref } from 'vue';
 import {
-  useEnactUserMutation, useRevokedUserMutation,
+  useEnactUserMutation,
+  useRevokedUserMutation,
 } from '@root/composables/useRevokedUser.ts';
 import EnactIcon from '@root/components/icons/EnactIcon.vue';
 
