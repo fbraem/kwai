@@ -1,27 +1,19 @@
-"""Module for starting the event bus."""
+"""Module for defining the event application."""
 
 import asyncio
 import os
+import signal
 import sys
 
-from typing import Any
+import inject
 
-from faststream import BaseMiddleware, FastStream
-from faststream.redis import RedisBroker, RedisRouter
-from faststream.security import SASLPlaintext
 from loguru import logger
+from redis.asyncio import Redis
 
-from kwai.core.settings import LoggerSettings, get_settings
-from kwai.events.v1 import router as v1_router
-
-
-class LoggerMiddleware(BaseMiddleware):
-    """Middleware that adds logging to the event bus."""
-
-    async def on_consume(self, msg: Any) -> Any:
-        """Set up a context for the logger."""
-        with logger.contextualize():
-            return await super().on_consume(msg)
+from kwai.core.events import dependencies
+from kwai.core.events.redis_bus import RedisBus
+from kwai.core.settings import LoggerSettings, Settings
+from kwai.events.v1 import router
 
 
 def configure_logger(logger_settings: LoggerSettings):
@@ -33,12 +25,12 @@ def configure_logger(logger_settings: LoggerSettings):
 
     def log_format(record):
         """Change the format when a request_id is set in extra."""
-        if "event_id" in record["extra"]:
-            new_format = (
-                "{time} - {level} - ({extra[event_id]}) - {message}" + os.linesep
-            )
-        else:
-            new_format = "{time} - {level} - {message}" + os.linesep
+        new_format = "{time} - {level}"
+        if "stream" in record["extra"]:
+            new_format += " - {extra[stream]}"
+        if "message_id" in record["extra"]:
+            new_format += " - ({extra[message_id]})"
+        new_format += " - {message}" + os.linesep
         if record["exception"]:
             new_format += "{exception}" + os.linesep
         return new_format
@@ -55,25 +47,38 @@ def configure_logger(logger_settings: LoggerSettings):
     )
 
 
-settings = get_settings()
+def shutdown(sig, frame):
+    """A signal has been received to stop the application."""
+    print(f"Received exit signal {signal.Signals(sig).name}")
+    loop = asyncio.get_running_loop()
+    for task in asyncio.all_tasks(loop):
+        task.cancel()
 
-broker = RedisBroker(
-    url=f"redis://{settings.redis.host}:{settings.redis.port}",
-    middlewares=[LoggerMiddleware],
-    security=SASLPlaintext(
-        username="",
+
+@inject.autoparams()
+async def main(settings: Settings):
+    """Main program."""
+    redis = Redis(
+        host=settings.redis.host,
+        port=settings.redis.port,
         password=settings.redis.password,
-    ),
-)
-router = RedisRouter(prefix="kwai/")
-router.include_router(v1_router)
-broker.include_router(router)
+    )
+
+    if settings.redis.logger:
+        configure_logger(settings.redis.logger)
+
+    bus = RedisBus(redis)
+    for route_element in router:
+        bus.subscribe(route_element)
+
+    for sig in (signal.SIGINT, signal.SIGTERM):
+        asyncio.get_running_loop().add_signal_handler(sig, shutdown, sig, None)
+
+    logger.info("Starting the event bus.")
+    await bus.run()
 
 
-async def main():
-    """Start the event bus."""
-    app = FastStream(broker)
-    await app.run()
-
-
-asyncio.run(main())
+if __name__ == "__main__":
+    dependencies.configure()
+    asyncio.run(main())
+    logger.info("The bus has stopped!")

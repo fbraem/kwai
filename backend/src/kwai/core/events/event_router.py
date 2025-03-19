@@ -3,14 +3,14 @@
 import inspect
 
 from dataclasses import dataclass
-from typing import Any, Callable, Type
+from typing import Callable, Type
 
 from loguru import logger
 
 from kwai.core.events.event import Event
 
 
-EventCallbackType = Callable[[dict[str, Any]], Any]
+EventCallbackType = Callable[[Event], None]
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
@@ -20,7 +20,7 @@ class EventRouter:
     event: Type[Event]
     callback: EventCallbackType
 
-    async def execute(self, event_data: dict[str, Any]) -> bool:
+    async def execute(self, event_data: Event) -> bool:
         """Executes the callback."""
         try:
             if inspect.iscoroutinefunction(self.callback):

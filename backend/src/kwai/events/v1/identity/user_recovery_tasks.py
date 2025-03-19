@@ -2,21 +2,18 @@
 
 from typing import Any
 
-from fast_depends import Depends
-from faststream.redis import RedisRouter
+import inject
+
 from loguru import logger
 
 from kwai.core.db.database import Database
+from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.value_objects.email_address import EmailAddress
-from kwai.core.events.dependencies import (
-    create_database,
-    create_mailer,
-    create_template_engine,
-)
+from kwai.core.events.event_router import EventRouter
 from kwai.core.mail.mailer import Mailer
 from kwai.core.mail.recipient import Recipient, Recipients
-from kwai.core.settings import Settings, get_settings
+from kwai.core.settings import Settings
 from kwai.core.template.mail_template import MailTemplate
 from kwai.core.template.template_engine import TemplateEngine
 from kwai.modules.identity.mail_user_recovery import (
@@ -34,23 +31,18 @@ from kwai.modules.identity.user_recoveries.user_recovery_repository import (
 )
 
 
-router = RedisRouter()
-
-
-@router.subscriber(stream=UserRecoveryCreatedEvent.meta.name)
+@inject.autoparams()
 async def email_user_recovery_task(
     event: dict[str, Any],
-    settings: Settings = Depends(get_settings),
-    database: Database = Depends(create_database),
-    mailer: Mailer = Depends(create_mailer),
-    template_engine: TemplateEngine = Depends(create_template_engine),
+    settings: Settings,
+    database: Database,
+    mailer: Mailer,
+    template_engine: TemplateEngine,
 ):
     """Actor for sending a user recovery mail."""
     command = MailUserRecoveryCommand(uuid=event["data"]["uuid"])
 
     try:
-        from kwai.core.db.uow import UnitOfWork
-
         async with UnitOfWork(database):
             await MailUserRecovery(
                 UserRecoveryDbRepository(database),
@@ -73,3 +65,8 @@ async def email_user_recovery_task(
             f"Mail not send because user recovery does not exist "
             f"with uuid {command.uuid}"
         )
+
+
+router = (
+    EventRouter(event=UserRecoveryCreatedEvent, callback=email_user_recovery_task),
+)
