@@ -42,6 +42,7 @@ def test_create_user_invitation(secure_client: TestClient, invitation_data: list
                 "first_name": "Ichiro",
                 "last_name": "Abe",
                 "remark": "Invitation created in test_create_user_invitation",
+                "revoked": False,
             },
         }
     }
