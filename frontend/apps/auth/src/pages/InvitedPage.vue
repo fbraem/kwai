@@ -1,26 +1,30 @@
 <script setup lang="ts">
-import { KwaiButton, KwaiErrorAlert, InputField } from '@kwai/ui';
+import {
+  KwaiButton, KwaiErrorAlert, InputField,
+} from '@kwai/ui';
 import { useHttp } from '@kwai/api';
 import { useI18n } from 'vue-i18n';
 import { useTitle } from '@vueuse/core';
 import { useForm } from 'vee-validate';
 import type { Ref } from 'vue';
 import { ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import {
+  useRoute, useRouter,
+} from 'vue-router';
 
 const { t } = useI18n({ useScope: 'global' });
 useTitle(`Kwai | ${t('invited.title')}`);
 
 const uuid = ref(useRoute().query.uuid);
 
-function isRequired(value: string): string|boolean {
+function isRequired(value: string): string | boolean {
   if (value && value.trim()) {
     return true;
   }
   return t('invited.required');
 }
 
-function isSame(value: string, { form: { password } } : { form: { password: string }}): string|boolean {
+function isSame(value: string, { form: { password } }: { form: { password: string } }): string | boolean {
   if (value && value === password) {
     return true;
   }
@@ -65,8 +69,8 @@ const { handleSubmit } = useForm({
 
 const router = useRouter();
 const expired: Ref<boolean> = ref(false);
-const errorMessage: Ref<string|null> = ref(null);
-const onSubmitForm = handleSubmit(async values => {
+const errorMessage: Ref<string | null> = ref(null);
+const onSubmitForm = handleSubmit(async(values) => {
   errorMessage.value = null;
   await useHttp()
     .url(`/users/invitations/${values.uuid}`)
@@ -83,10 +87,8 @@ const onSubmitForm = handleSubmit(async values => {
       },
     })
     .post()
-    .res(() => router.push({
-      path: '/',
-    }))
-    .catch(error => {
+    .res(() => router.push({ path: '/' }))
+    .catch((error) => {
       if (error.response?.status === 401) {
         errorMessage.value = t('invited.expired');
         expired.value = true;
