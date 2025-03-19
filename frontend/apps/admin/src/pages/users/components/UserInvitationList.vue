@@ -183,7 +183,4 @@ const { t } = useI18n({ useScope: 'global' });
       </div>
     </template>
   </KwaiPopover>
-  <div>
-    {{ invitations }}
-  </div>
 </template>
