@@ -180,8 +180,7 @@ export const useUserInvitationMutation = ({ onSuccess }: MutationOptions = {}) =
 
   return useMutation({
     mutationFn: (data: UserInvitation) => mutateUserInvitation(data),
-    onSuccess: async(data: UserInvitation) => {
-      queryClient.setQueryData(['admin/user_invitations', data.id], data);
+    onSuccess: async() => {
       if (onSuccess) {
         if (onSuccess.constructor.name === 'AsyncFunction') {
           await onSuccess();
@@ -190,10 +189,7 @@ export const useUserInvitationMutation = ({ onSuccess }: MutationOptions = {}) =
         }
       }
     },
-    onSettled: () => queryClient.invalidateQueries({
-      queryKey: ['admin/user_invitations'],
-      exact: true,
-    }),
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ['admin/user_invitations'] }),
   });
 };
 
@@ -217,8 +213,7 @@ export const useRecreateUserInvitationMutation = ({ onSuccess }: MutationOptions
 
   return useMutation({
     mutationFn: (uuid: MaybeRef<string>) => recreateUserInvitation(unref(uuid)),
-    onSuccess: async(data: UserInvitation) => {
-      queryClient.setQueryData(['admin/user_invitations', data.id], data);
+    onSuccess: async() => {
       if (onSuccess) {
         if (onSuccess.constructor.name === 'AsyncFunction') {
           await onSuccess();
@@ -227,5 +222,6 @@ export const useRecreateUserInvitationMutation = ({ onSuccess }: MutationOptions
         }
       }
     },
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ['admin/user_invitations'] }),
   });
 };
