@@ -20534,6 +20534,88 @@ The default is $, which means to return only new entries.</p>
 
 
 
+<h5 id="kwai.core.json_api.BaseDocument" class="doc doc-heading">
+            <code>BaseDocument</code>
+
+
+<a href="#kwai.core.json_api.BaseDocument" class="headerlink" title="Permanent link">&para;</a></h5>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+
+        <p>A base model for a JSON:API document.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h6 id="kwai.core.json_api.BaseDocument.__get_pydantic_json_schema__" class="doc doc-heading">
+            <code class=" language-python"><span class="n">__get_pydantic_json_schema__</span><span class="p">(</span><span class="n">core_schema</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#kwai.core.json_api.BaseDocument.__get_pydantic_json_schema__" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Remove included when T_INCLUDE is NoneType.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h6 id="kwai.core.json_api.BaseDocument.serialize" class="doc doc-heading">
+            <code class=" language-python"><span class="n">serialize</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span></code>
+
+<a href="#kwai.core.json_api.BaseDocument.serialize" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Remove included and meta when the value is None.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
 <h5 id="kwai.core.json_api.Document" class="doc doc-heading">
             <code>Document</code>
 
@@ -20936,6 +21018,87 @@ meta is not merged.</p>
 
 
 
+<h5 id="kwai.core.json_api.MultipleDocument" class="doc doc-heading">
+            <code>MultipleDocument</code>
+
+
+<a href="#kwai.core.json_api.MultipleDocument" class="headerlink" title="Permanent link">&para;</a></h5>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.json_api.BaseDocument" href="#kwai.core.json_api.BaseDocument">BaseDocument</a>[I]</code></p>
+
+
+        <p>A document that contains a list of JSON:API resources.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h6 id="kwai.core.json_api.MultipleDocument.__repr__" class="doc doc-heading">
+            <code class=" language-python"><span class="fm">__repr__</span><span class="p">()</span></code>
+
+<a href="#kwai.core.json_api.MultipleDocument.__repr__" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return representation of the document.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h6 id="kwai.core.json_api.MultipleDocument.merge" class="doc doc-heading">
+            <code class=" language-python"><span class="n">merge</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></code>
+
+<a href="#kwai.core.json_api.MultipleDocument.merge" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Merge a document into this document.</p>
+<p>When data is not a list yet, it will be converted to a list. When there are
+included resources, they will be merged into this document.
+meta is not merged.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
 <h5 id="kwai.core.json_api.PaginationModel" class="doc doc-heading">
             <code>PaginationModel</code>
 
@@ -21215,6 +21378,67 @@ and page[limit] query parameters.</p>
 
 
 
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h5 id="kwai.core.json_api.SingleDocument" class="doc doc-heading">
+            <code>SingleDocument</code>
+
+
+<a href="#kwai.core.json_api.SingleDocument" class="headerlink" title="Permanent link">&para;</a></h5>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.json_api.BaseDocument" href="#kwai.core.json_api.BaseDocument">BaseDocument</a>[I]</code></p>
+
+
+        <p>A document that contains only one JSON:API resource.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h6 id="kwai.core.json_api.SingleDocument.__repr__" class="doc doc-heading">
+            <code class=" language-python"><span class="fm">__repr__</span><span class="p">()</span></code>
+
+<a href="#kwai.core.json_api.SingleDocument.__repr__" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return representation of a document.</p>
+
+    </div>
+
+</div>
 
 
 
