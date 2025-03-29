@@ -1,6 +1,6 @@
 """Module that defines some JSON:API related models."""
 
-from typing import Any, cast
+from typing import Any, Self, cast
 
 from fastapi import Query
 from pydantic import (
@@ -89,6 +89,81 @@ class Error(BaseModel):
     source: ErrorSource | None = None
     title: str = ""
     detail: str = ""
+
+
+class BaseDocument[I](BaseModel):
+    """A base model for a JSON:API document."""
+
+    meta: Meta | SkipJsonSchema[None] = None
+    included: set[I] | SkipJsonSchema[None] = None
+    errors: list[Error] | SkipJsonSchema[None] = None
+
+    @classmethod
+    def __get_pydantic_json_schema__(
+        cls,
+        core_schema: CoreSchema,
+        handler: GetJsonSchemaHandler,
+    ) -> JsonSchemaValue:
+        """Remove included when T_INCLUDE is NoneType."""
+        json_schema = handler(core_schema)
+        json_schema = handler.resolve_ref_schema(json_schema)
+        if "properties" in json_schema:
+            if "type" in json_schema["properties"]["included"]["items"]:
+                if json_schema["properties"]["included"]["items"]["type"] == "null":
+                    del json_schema["properties"]["included"]
+        return json_schema
+
+    @model_serializer(mode="wrap")
+    def serialize(self, handler) -> dict[str, Any]:
+        """Remove included and meta when the value is None."""
+        result = handler(self)
+        if self.included is None:
+            del result["included"]
+        if self.meta is None:
+            del result["meta"]
+        if not self.errors:
+            del result["errors"]
+        return result
+
+
+class SingleDocument[R, I](BaseDocument[I]):
+    """A document that contains only one JSON:API resource."""
+
+    data: R
+
+    def __repr__(self):
+        """Return representation of a document."""
+        return f"<{self.__class__.__name__} type={self.data.type}>"
+
+
+class MultipleDocument[R, I](BaseDocument[I]):
+    """A document that contains a list of JSON:API resources."""
+
+    data: list[R] = Field(default_factory=list)
+
+    def __repr__(self):
+        """Return representation of the document."""
+        if len(self.data) > 0:
+            return f"<{self.__class__.__name__} type={self.data[0].type}[]>"
+        else:
+            return f"<{self.__class__.__name__} type=[]>"
+
+    def merge(self, other: SingleDocument | Self):
+        """Merge a document into this document.
+
+        When data is not a list yet, it will be converted to a list. When there are
+        included resources, they will be merged into this document.
+        meta is not merged.
+        """
+        if isinstance(other, SingleDocument):
+            self.data.append(other.data)
+        else:
+            self.data += other.data
+        if other.included is not None:
+            if self.included is None:
+                self.included = other.included
+            else:
+                self.included = self.included.union(other.included)
 
 
 class Document[R, I](BaseModel):
@@ -186,12 +261,12 @@ class PaginationModel(BaseModel):
     limit: int | None = Field(Query(default=None, alias="page[limit]"))
 
 
-class JsonApiPresenter[Document]:
+class JsonApiPresenter[D]:
     """An interface for a presenter that generates a JSON:API document."""
 
-    def __init__(self):
-        self._document: Document = None
+    def __init__(self) -> None:
+        self._document: D | None = None
 
-    def get_document(self) -> Document:
+    def get_document(self) -> D | None:
         """Return the JSON:API document."""
         return self._document

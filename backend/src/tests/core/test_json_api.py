@@ -1,14 +1,19 @@
 """Module for testing the JSON:API models."""
 
-from types import NoneType
 from typing import Literal
 
 import pytest
 
+from kwai.core.json_api import (
+    Document,
+    Error,
+    MultipleDocument,
+    ResourceData,
+    ResourceIdentifier,
+    SingleDocument,
+)
 from pydantic import BaseModel
 from rich import json
-
-from kwai.core.json_api import Document, Error, ResourceData, ResourceIdentifier
 
 
 class JudokaResourceIdentifier(ResourceIdentifier):
@@ -30,9 +35,7 @@ class JudokaAttributes(BaseModel):
     birth_date: str
 
 
-class JudokaResource(
-    JudokaResourceIdentifier, ResourceData[JudokaAttributes, NoneType]
-):
+class JudokaResource(JudokaResourceIdentifier, ResourceData[JudokaAttributes, None]):
     """A JSON:API resource for a judokas."""
 
 
@@ -52,7 +55,7 @@ def test_resource_attributes(judoka_resource: JudokaResource):
     )
 
 
-class JudokaDocument(Document[JudokaResource, NoneType]):
+class JudokaDocument(Document[JudokaResource, None]):
     """A JSON:API document for a judoka."""
 
 
@@ -90,3 +93,45 @@ def test_error():
     json_doc = json.loads(json_doc.model_dump_json())
     assert "errors" in json_doc, "There should be a 'errors' in the document."
     assert json_doc["errors"][0]["title"] == "No judoka selected"
+
+
+def test_single_document(judoka_resource):
+    """Test a single JSON:API document."""
+    json_doc = SingleDocument[JudokaResource, None](data=judoka_resource)
+    json_doc = json.loads(json_doc.model_dump_json())
+    assert "data" in json_doc, "There should be a 'data' key"
+    assert "id" in json_doc["data"], "There should be an 'id' in the document."
+    assert json_doc["data"]["id"] == "1", "The id should be '1'."
+    assert "type" in json_doc["data"], "There should be a 'type' in the document."
+    assert json_doc["data"]["type"] == "judokas", "The type should be 'judoka'."
+    assert "attributes" in json_doc["data"], (
+        "There should be a 'attributes' in the document."
+    )
+    assert "name" in json_doc["data"]["attributes"], (
+        "There should be a 'name' in the attributes."
+    )
+    assert json_doc["data"]["attributes"]["name"] == "Jigoro Kano", (
+        "The judoka should have a name."
+    )
+
+
+def test_multiple_document(judoka_resource):
+    """Test a JSON:API document with multiple resources."""
+    json_doc = MultipleDocument[JudokaResource, None](data=[judoka_resource])
+    json_doc = json.loads(json_doc.model_dump_json())
+    assert "data" in json_doc, "There should be a 'data' key"
+    assert isinstance(json_doc["data"], list), "The 'data' property should be a list"
+    assert "id" in json_doc["data"][0], "There should be an 'id' in the document."
+    assert json_doc["data"][0]["id"] == "1", "The id should be '1'."
+
+
+def test_merge_document(judoka_resource):
+    """Test a merge of a single document into a multiple document."""
+    json_doc = SingleDocument[JudokaResource, None](data=judoka_resource)
+    multi_doc = MultipleDocument[JudokaResource, None]()
+    multi_doc.merge(json_doc)
+    multi_doc = json.loads(multi_doc.model_dump_json())
+    assert "data" in multi_doc, "There should be a 'data' key"
+    assert isinstance(multi_doc["data"], list), "The 'data' property should be a list"
+    assert "id" in multi_doc["data"][0], "There should be an 'id' in the document."
+    assert multi_doc["data"][0]["id"] == "1", "The id should be '1'."
