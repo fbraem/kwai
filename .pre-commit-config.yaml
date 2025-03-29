@@ -20,7 +20,7 @@ repos:
     hooks:
     -   id: ruff
         types: [python]
-        args: [--ignore=D102, --fix]
+        args: [--ignore=D102, --fix, --config=./backend/pyproject.toml]
     -   id: ruff-format
         types: [python]
 -   repo: https://github.com/gitleaks/gitleaks
