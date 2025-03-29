@@ -95,6 +95,7 @@ ignore = ["D107", "D203", "D213", "D406", "D407", "E501", "N818", "B008"]
 convention = "google"
 
 [tool.ruff.lint.isort]
+order-by-type = true
 lines-after-imports = 2
 lines-between-types = 1
 
