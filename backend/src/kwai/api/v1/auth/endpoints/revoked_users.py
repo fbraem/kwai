@@ -2,7 +2,7 @@
 
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, HTTPException, status
 
 from kwai.api.dependencies import create_database, get_current_user
 from kwai.api.v1.auth.presenters import JsonApiRevokedUserPresenter
@@ -27,27 +27,33 @@ router = APIRouter()
     status_code=status.HTTP_201_CREATED,
     responses={
         201: {"description": "User was successfully revoked"},
+        400: {"description": "An invalid request was made"},
         401: {"description": "Not authorized"},
     },
 )
 async def post(
-    resource: RevokedUserDocument,
+    document: RevokedUserDocument,
     database: Annotated[Database, Depends(create_database)],
     user: Annotated[UserEntity, Depends(get_current_user)],
 ) -> RevokedUserDocument:
     """(Un)revoke a user."""
+    if document.resource.id is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="The revoked user resource must have an id",
+        )
     presenter = JsonApiRevokedUserPresenter()
-    if resource.data.attributes.revoked:
+    if document.resource.attributes.revoked:
         async with UnitOfWork(database):
             await RevokeUser(
                 UserAccountDbRepository(database),
                 UserTokenDbRepository(database),
                 presenter,
-            ).execute(RevokeUserCommand(uuid=resource.data.id))
+            ).execute(RevokeUserCommand(uuid=document.resource.id))
     else:
         async with UnitOfWork(database):
             await EnactUser(UserAccountDbRepository(database), presenter).execute(
-                EnactUserCommand(uuid=resource.data.id)
+                EnactUserCommand(uuid=document.resource.id)
             )
     return presenter.get_document()
 
