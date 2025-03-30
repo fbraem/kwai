@@ -4,6 +4,9 @@ from typing import Literal
 
 import pytest
 
+from pydantic import BaseModel
+from rich import json
+
 from kwai.core.json_api import (
     Document,
     Error,
@@ -12,8 +15,6 @@ from kwai.core.json_api import (
     ResourceIdentifier,
     SingleDocument,
 )
-from pydantic import BaseModel
-from rich import json
 
 
 class JudokaResourceIdentifier(ResourceIdentifier):
