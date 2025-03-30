@@ -16,4 +16,4 @@ jobs:
         with:
           version: "latest"
           src: "${{ github.workspace }}/backend/src"
-          args: check --verbose --ignore D102 --config ${{ github.workspace }}/backend/pyproject.toml
+          args: check --verbose --ignore D102
