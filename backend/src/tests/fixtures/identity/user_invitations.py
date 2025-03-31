@@ -5,6 +5,7 @@ import pytest
 from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
+from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.modules.identity.user_invitations.user_invitation import UserInvitationEntity
 from kwai.modules.identity.user_invitations.user_invitation_db_repository import (
     UserInvitationDbRepository,
@@ -22,12 +23,16 @@ def make_user_invitation(make_user):
         name: Name | None = None,
         user: UserEntity | None = None,
         revoked: bool = False,
+        expired_at: Timestamp | None = None,
+        confirmed_at: Timestamp | None = None,
     ) -> UserInvitationEntity:
         return UserInvitationEntity(
             email=email or EmailAddress("ichiro.abe@kwai.com"),
             name=name or Name(first_name="Ichiro", last_name="Abe"),
             user=user or make_user(),
             revoked=revoked,
+            expired_at=expired_at or Timestamp.create_with_delta(days=7),
+            confirmed_at=confirmed_at or Timestamp(),
         )
 
     return _make_user_invitation
