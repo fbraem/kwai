@@ -1,5 +1,7 @@
 """Module for testing mail_user_recovery."""
 
+from typing import AsyncGenerator
+
 import pytest
 
 from kwai.core.db.database import Database
@@ -34,7 +36,7 @@ def repo(database: Database) -> UserRecoveryRepository:
 @pytest.fixture(scope="module")
 async def user_recovery(
     repo: UserRecoveryRepository, user: UserEntity
-) -> UserRecoveryEntity:
+) -> AsyncGenerator[UserRecoveryEntity, None]:
     """Create a user recovery."""
     user_recovery = UserRecoveryEntity(
         expiration=Timestamp.create_with_delta(hours=2),
