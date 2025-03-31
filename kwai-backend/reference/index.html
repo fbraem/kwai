@@ -3621,6 +3621,50 @@ will expire.</p>
 
 
 
+<h7 id="kwai.api.v1.auth.presenters.JsonApiUserAccountPresenter" class="doc doc-heading">
+            <code>JsonApiUserAccountPresenter</code>
+
+
+<a href="#kwai.api.v1.auth.presenters.JsonApiUserAccountPresenter" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.json_api.JsonApiPresenter" href="#kwai.core.json_api.JsonApiPresenter">JsonApiPresenter</a>[<span title="kwai.api.v1.auth.schemas.user_account.UserAccountDocument">UserAccountDocument</span>]</code>, <code><a class="autorefs autorefs-internal" title="kwai.core.domain.presenter.Presenter" href="#kwai.core.domain.presenter.Presenter">Presenter</a>[<a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account.UserAccountEntity" href="#kwai.modules.identity.users.user_account.UserAccountEntity">UserAccountEntity</a>]</code></p>
+
+
+        <p>A presenter that transforms a user account entity into a JSON:API document.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
 <h7 id="kwai.api.v1.auth.presenters.JsonApiUserAccountsPresenter" class="doc doc-heading">
             <code>JsonApiUserAccountsPresenter</code>
 
@@ -3630,10 +3674,10 @@ will expire.</p>
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.json_api.JsonApiPresenter" href="#kwai.core.json_api.JsonApiPresenter">JsonApiPresenter</a>[<a class="autorefs autorefs-internal" title="kwai.api.v1.auth.schemas.user_account.UserAccountDocument" href="#kwai.api.v1.auth.schemas.user_account.UserAccountDocument">UserAccountDocument</a>]</code>, <code><a class="autorefs autorefs-internal" title="kwai.core.domain.presenter.AsyncPresenter" href="#kwai.core.domain.presenter.AsyncPresenter">AsyncPresenter</a>[<a class="autorefs autorefs-internal" title="kwai.core.domain.presenter.IterableResult" href="#kwai.core.domain.presenter.IterableResult">IterableResult</a>[<a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account.UserAccountEntity" href="#kwai.modules.identity.users.user_account.UserAccountEntity">UserAccountEntity</a>]]</code></p>
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.json_api.JsonApiPresenter" href="#kwai.core.json_api.JsonApiPresenter">JsonApiPresenter</a>[<span title="kwai.api.v1.auth.schemas.user_account.UserAccountsDocument">UserAccountsDocument</span>]</code>, <code><a class="autorefs autorefs-internal" title="kwai.core.domain.presenter.AsyncPresenter" href="#kwai.core.domain.presenter.AsyncPresenter">AsyncPresenter</a>[<a class="autorefs autorefs-internal" title="kwai.core.domain.presenter.IterableResult" href="#kwai.core.domain.presenter.IterableResult">IterableResult</a>[<a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account.UserAccountEntity" href="#kwai.modules.identity.users.user_account.UserAccountEntity">UserAccountEntity</a>]]</code></p>
 
 
-        <p>A presenter that transform a user account entity into a JSON:API document.</p>
+        <p>A presenter that transform an iterable list of user account entities into a JSON:API document.</p>
 
 
 
@@ -4055,11 +4099,11 @@ will expire.</p>
 
 
 
-<h8 id="kwai.api.v1.auth.schemas.user_account.UserAccountAttributes" class="doc doc-heading">
-            <code>UserAccountAttributes</code>
+<h8 id="kwai.api.v1.auth.schemas.user_account.BaseUserAccountAttributes" class="doc doc-heading">
+            <code>BaseUserAccountAttributes</code>
 
 
-<a href="#kwai.api.v1.auth.schemas.user_account.UserAccountAttributes" class="headerlink" title="Permanent link">&para;</a></h8>
+<a href="#kwai.api.v1.auth.schemas.user_account.BaseUserAccountAttributes" class="headerlink" title="Permanent link">&para;</a></h8>
 
 
     <div class="doc doc-contents ">
@@ -4067,7 +4111,7 @@ will expire.</p>
               Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
 
 
-        <p>Attributes of a user account JSON:API resource.</p>
+        <p>Base attributes for a user account JSON:API resource.</p>
 
 
 
@@ -4099,19 +4143,19 @@ will expire.</p>
 
 
 
-<h8 id="kwai.api.v1.auth.schemas.user_account.UserAccountDocument" class="doc doc-heading">
-            <code>UserAccountDocument</code>
+<h8 id="kwai.api.v1.auth.schemas.user_account.CreateUserAccountAttributes" class="doc doc-heading">
+            <code>CreateUserAccountAttributes</code>
 
 
-<a href="#kwai.api.v1.auth.schemas.user_account.UserAccountDocument" class="headerlink" title="Permanent link">&para;</a></h8>
+<a href="#kwai.api.v1.auth.schemas.user_account.CreateUserAccountAttributes" class="headerlink" title="Permanent link">&para;</a></h8>
 
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.json_api.Document" href="#kwai.core.json_api.Document">Document</a>[<a class="autorefs autorefs-internal" title="kwai.api.v1.auth.schemas.user_account.UserAccountResource" href="#kwai.api.v1.auth.schemas.user_account.UserAccountResource">UserAccountResource</a>, None]</code></p>
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.api.v1.auth.schemas.user_account.BaseUserAccountAttributes" href="#kwai.api.v1.auth.schemas.user_account.BaseUserAccountAttributes">BaseUserAccountAttributes</a></code></p>
 
 
-        <p>A JSON:API document for a user account.</p>
+        <p>Attributes for creating a user account.</p>
 
 
 
@@ -4131,26 +4175,137 @@ will expire.</p>
 
 
 
-<div class="doc doc-object doc-function">
 
 
-<h9 id="kwai.api.v1.auth.schemas.user_account.UserAccountDocument.create" class="doc doc-heading">
-            <code class=" language-python"><span class="n">create</span><span class="p">(</span><span class="n">user_account</span><span class="p">)</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
-  </span>
-
-<a href="#kwai.api.v1.auth.schemas.user_account.UserAccountDocument.create" class="headerlink" title="Permanent link">&para;</a></h9>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Create a document for a user account.</p>
+  </div>
 
     </div>
 
 </div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.auth.schemas.user_account.CreateUserAccountRelationships" class="doc doc-heading">
+            <code>CreateUserAccountRelationships</code>
+
+
+<a href="#kwai.api.v1.auth.schemas.user_account.CreateUserAccountRelationships" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+
+        <p>Relationships needed for creating a user account.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.auth.schemas.user_account.CreateUserAccountResource" class="doc doc-heading">
+            <code>CreateUserAccountResource</code>
+
+
+<a href="#kwai.api.v1.auth.schemas.user_account.CreateUserAccountResource" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.api.v1.auth.schemas.resources.UserAccountResourceIdentifier" href="#kwai.api.v1.auth.schemas.resources.UserAccountResourceIdentifier">UserAccountResourceIdentifier</a></code>, <code><a class="autorefs autorefs-internal" title="kwai.core.json_api.ResourceData" href="#kwai.core.json_api.ResourceData">ResourceData</a>[<a class="autorefs autorefs-internal" title="kwai.api.v1.auth.schemas.user_account.CreateUserAccountAttributes" href="#kwai.api.v1.auth.schemas.user_account.CreateUserAccountAttributes">CreateUserAccountAttributes</a>, <a class="autorefs autorefs-internal" title="kwai.api.v1.auth.schemas.user_account.CreateUserAccountRelationships" href="#kwai.api.v1.auth.schemas.user_account.CreateUserAccountRelationships">CreateUserAccountRelationships</a>]</code></p>
+
+
+        <p>A JSON:API resource for creating a user account.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h8 id="kwai.api.v1.auth.schemas.user_account.UserAccountAttributes" class="doc doc-heading">
+            <code>UserAccountAttributes</code>
+
+
+<a href="#kwai.api.v1.auth.schemas.user_account.UserAccountAttributes" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.api.v1.auth.schemas.user_account.BaseUserAccountAttributes" href="#kwai.api.v1.auth.schemas.user_account.BaseUserAccountAttributes">BaseUserAccountAttributes</a></code></p>
+
+
+        <p>Attributes of a user account JSON:API resource.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
 
 
 
@@ -4195,6 +4350,27 @@ will expire.</p>
 
 
 
+
+<div class="doc doc-object doc-function">
+
+
+<h9 id="kwai.api.v1.auth.schemas.user_account.UserAccountResource.create" class="doc doc-heading">
+            <code class=" language-python"><span class="n">create</span><span class="p">(</span><span class="n">user_account</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#kwai.api.v1.auth.schemas.user_account.UserAccountResource.create" class="headerlink" title="Permanent link">&para;</a></h9>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Create a document for a user account.</p>
+
+    </div>
+
+</div>
 
 
 
