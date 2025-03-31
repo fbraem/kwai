@@ -21,11 +21,13 @@ def make_user_invitation(make_user):
         email: EmailAddress | None = None,
         name: Name | None = None,
         user: UserEntity | None = None,
+        revoked: bool = False,
     ) -> UserInvitationEntity:
         return UserInvitationEntity(
             email=email or EmailAddress("ichiro.abe@kwai.com"),
             name=name or Name(first_name="Ichiro", last_name="Abe"),
             user=user or make_user(),
+            revoked=revoked,
         )
 
     return _make_user_invitation
