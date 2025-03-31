@@ -36233,6 +36233,406 @@ that belongs to the user recovery, does not exist.</p>
 
 
 
+<h5 id="kwai.modules.identity.accept_user_invitation" class="doc doc-heading">
+            <code>accept_user_invitation</code>
+
+
+<a href="#kwai.modules.identity.accept_user_invitation" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that implements the use case for accepting a user invitation.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.identity.accept_user_invitation.AcceptUserInvitation" class="doc doc-heading">
+            <code>AcceptUserInvitation</code>
+
+
+<a href="#kwai.modules.identity.accept_user_invitation.AcceptUserInvitation" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Use case for accepting a user invitation.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.modules.identity.accept_user_invitation.AcceptUserInvitation.__init__" class="doc doc-heading">
+            <code class=" language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">user_invitation_repo</span><span class="p">,</span> <span class="n">user_account_repo</span><span class="p">,</span> <span class="n">presenter</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.identity.accept_user_invitation.AcceptUserInvitation.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Create the use case.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>user_invitation_repo</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.user_invitations.user_invitation_repository.UserInvitationRepository" href="#kwai.modules.identity.user_invitations.user_invitation_repository.UserInvitationRepository">UserInvitationRepository</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Repository for checking the user invitation.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>user_account_repo</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account_repository.UserAccountRepository" href="#kwai.modules.identity.users.user_account_repository.UserAccountRepository">UserAccountRepository</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Repository that creates a new user account.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>presenter</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.presenter.Presenter" href="#kwai.core.domain.presenter.Presenter">Presenter</a>[<a class="autorefs autorefs-internal" title="kwai.modules.identity.users.user_account.UserAccountEntity" href="#kwai.modules.identity.users.user_account.UserAccountEntity">UserAccountEntity</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A presenter for a user account entity.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.modules.identity.accept_user_invitation.AcceptUserInvitation.execute" class="doc doc-heading">
+            <code class=" language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.accept_user_invitation.AcceptUserInvitation.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Execute the use case.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>command</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.identity.accept_user_invitation.AcceptUserInvitationCommand" href="#kwai.modules.identity.accept_user_invitation.AcceptUserInvitationCommand">AcceptUserInvitationCommand</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The input for this use case.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>An entity for a user account.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="UserInvitationNotFoundExeption">UserInvitationNotFoundExeption</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>when the user invitation does not
+exist.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.exceptions.UnprocessableException" href="#kwai.core.domain.exceptions.UnprocessableException">UnprocessableException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>when the email address is already used by another
+user.
+When the user invitation is expired or was already accepted.
+When the user invitation is revoked.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.identity.accept_user_invitation.AcceptUserInvitationCommand" class="doc doc-heading">
+            <code>AcceptUserInvitationCommand</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.identity.accept_user_invitation.AcceptUserInvitationCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Input for the AcceptUserInvitation use case.</p>
+<p>See: <a class="autorefs autorefs-internal" href="#kwai.modules.identity.accept_user_invitation.AcceptUserInvitation">AcceptUserInvitation</a></p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.accept_user_invitation.AcceptUserInvitationCommand.uuid">uuid</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The unique id of the user invitation.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.accept_user_invitation.AcceptUserInvitationCommand.email">email</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The email address for the new user.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.accept_user_invitation.AcceptUserInvitationCommand.first_name">first_name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The first name of the new user.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.accept_user_invitation.AcceptUserInvitationCommand.last_name">last_name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The last name of the new user.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.accept_user_invitation.AcceptUserInvitationCommand.password">password</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The password for the new user.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="kwai.modules.identity.accept_user_invitation.AcceptUserInvitationCommand.remark">remark</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A remark about the new user.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h5 id="kwai.modules.identity.authenticate_user" class="doc doc-heading">
             <code>authenticate_user</code>
 
