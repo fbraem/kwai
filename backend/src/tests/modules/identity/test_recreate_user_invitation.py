@@ -1,5 +1,7 @@
 """Module for testing the recreate user invitation use case."""
 
+import pytest
+
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
 from kwai.core.domain.value_objects.email_address import EmailAddress
@@ -13,6 +15,9 @@ from kwai.modules.identity.user_invitations.user_invitation_db_repository import
 )
 from kwai.modules.identity.users.user import UserEntity
 from kwai.modules.identity.users.user_db_repository import UserDbRepository
+
+
+pytestmark = [pytest.mark.db, pytest.mark.bus]
 
 
 async def test_recreate_user_invitation(
