@@ -4,13 +4,18 @@ import json
 
 from deepdiff import DeepDiff
 
-from kwai.api.v1.auth.schemas.user_account import UserAccountDocument
+from kwai.api.v1.auth.schemas.user_account import (
+    UserAccountDocument,
+    UserAccountResource,
+)
 
 
 def test_create_user_invitation_document(make_user_account):
     """Test creation of a user invitation JSON:API document."""
     user_account = make_user_account()
-    user_account_document = UserAccountDocument.create(user_account)
+    user_account_document = UserAccountDocument(
+        data=UserAccountResource.create(user_account)
+    )
     json_resource = json.loads(user_account_document.model_dump_json())
 
     expected_user_account_json = {
