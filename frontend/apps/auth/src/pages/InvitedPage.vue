@@ -24,7 +24,10 @@ function isRequired(value: string): string | boolean {
   return t('invited.required');
 }
 
-function isSame(value: string, { form: { password } }: { form: { password: string } }): string | boolean {
+function isSame(
+  value: string,
+  { form: { password } }: { form: { password: string } }
+): string | boolean {
   if (value && value === password) {
     return true;
   }
@@ -73,23 +76,30 @@ const errorMessage: Ref<string | null> = ref(null);
 const onSubmitForm = handleSubmit(async(values) => {
   errorMessage.value = null;
   await useHttp()
-    .url(`/users/invitations/${values.uuid}`)
+    .url('/v1/auth/users')
     .json({
       data: {
-        type: 'user_invitations',
-        id: values.uuid,
+        type: 'user_accounts',
         attributes: {
           first_name: values.firstName,
           last_name: values.lastName,
           password: values.password,
           remark: '',
         },
+        relationships: {
+          user_invitation: {
+            data: {
+              id: values.uuid,
+              type: 'user_invitations',
+            },
+          },
+        },
       },
     })
     .post()
     .res(() => router.push({ path: '/' }))
     .catch((error) => {
-      if (error.response?.status === 401) {
+      if (error.response?.status === 422) {
         errorMessage.value = t('invited.expired');
         expired.value = true;
       } else if (error.response?.status !== 200) {
@@ -106,10 +116,13 @@ const onSubmitForm = handleSubmit(async(values) => {
         {{ t('invited.title') }}
       </h6>
       <p class="text-sm text-gray-500">
-        {{ t('invited.problem') }} <a
+        {{ t('invited.problem') }}
+        <a
           class="text-blue-400 font-medium"
           href="#"
-        >{{ t('invited.contact_us') }}</a>
+        >{{
+          t('invited.contact_us')
+        }}</a>
       </p>
     </div>
   </div>
@@ -179,24 +192,14 @@ const onSubmitForm = handleSubmit(async(values) => {
         {{ t('invited.form.repeat_password.label') }}
       </template>
     </InputField>
-    <div
+    <KwaiErrorAlert
       v-if="errorMessage"
-      class="flex items-center gap-3"
+      class="w-full mt-4"
     >
-      <KwaiErrorAlert class="w-full">
-        <div class="text-sm">
-          {{ errorMessage }}
-        </div>
-      </KwaiErrorAlert>
-      <div v-if="expired">
-        <router-link
-          :to="{ name: 'recover' }"
-          class="text-blue-400 text-sm font-medium"
-        >
-          {{ t('invited.generate_code') }}
-        </router-link>
+      <div class="text-sm">
+        {{ errorMessage }}
       </div>
-    </div>
+    </KwaiErrorAlert>
     <div class="flex flex-col items-end mt-6">
       <KwaiButton
         id="submit"

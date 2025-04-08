@@ -117,7 +117,7 @@ invited:
   failed: |
     Er is iets misgelopen bij de registratie. Probeer opnieuw of
     contacteer onze webmaster.
-  expired: De uitnodiging is vervallen. Neem contact op met onze webmaster.
+  expired: De uitnodiging is vervallen of reeds gebruikt. Neem contact op met onze webmaster.
 change_password:
   title: Wijzigen paswoord
   problem: Lukt het niet om jouw paswoord te wijzigen?
