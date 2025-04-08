@@ -18,7 +18,6 @@ from kwai.modules.identity.users.user_account import UserAccountEntity
 class BaseUserAccountAttributes(BaseModel):
     """Base attributes for a user account JSON:API resource."""
 
-    email: str
     first_name: str
     last_name: str
     remark: str
@@ -27,6 +26,7 @@ class BaseUserAccountAttributes(BaseModel):
 class UserAccountAttributes(BaseUserAccountAttributes):
     """Attributes of a user account JSON:API resource."""
 
+    email: str
     last_login: str | None
     last_unsuccessful_login: str | None
     revoked: bool
