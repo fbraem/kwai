@@ -3497,6 +3497,48 @@ will expire.</p>
 
 <div class="doc doc-object doc-function">
 
+<h8 id="post_" class="doc doc-heading">        <span class="doc doc-object-name doc-function-name"></span>
+        <span class="badge badge-post">post</span>
+<a href="#post_" class="headerlink" title="Permanent link">&para;</a></h8>
+    <div class="doc doc-contents">
+
+        <p>Create a new user account.</p>
+<p>A user account can only be created when a related user invitation
+is not yet expired.</p>
+        <p>This api can return the following HTTP codes:</p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td>User account created</td>
+</tr>
+<tr>
+<td>400</td>
+<td>Wrong or missing user invitation relationship</td>
+</tr>
+<tr>
+<td>404</td>
+<td>User invitation does not exist</td>
+</tr>
+<tr>
+<td>422</td>
+<td>Invalid email address or user invitation was invalid</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
 <h8 id="get_" class="doc doc-heading">        <span class="doc doc-object-name doc-function-name"></span>
         <span class="badge badge-get">get</span>
 <a href="#get_" class="headerlink" title="Permanent link">&para;</a></h8>
@@ -36533,17 +36575,6 @@ When the user invitation is revoked.</p>
             <td>
               <div class="doc-md-description">
                 <p>The unique id of the user invitation.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td><code><span title="kwai.modules.identity.accept_user_invitation.AcceptUserInvitationCommand.email">email</span></code></td>
-            <td>
-                  <code><span title="str">str</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The email address for the new user.</p>
               </div>
             </td>
           </tr>
