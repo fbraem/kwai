@@ -4,7 +4,6 @@ from dataclasses import dataclass
 
 from kwai.core.domain.exceptions import UnprocessableException
 from kwai.core.domain.presenter import Presenter
-from kwai.core.domain.value_objects.email_address import EmailAddress
 from kwai.core.domain.value_objects.name import Name
 from kwai.core.domain.value_objects.password import Password
 from kwai.core.domain.value_objects.unique_id import UniqueId
@@ -24,7 +23,6 @@ class AcceptUserInvitationCommand:
 
     Attributes:
         uuid: The unique id of the user invitation.
-        email: The email address for the new user.
         first_name: The first name of the new user.
         last_name: The last name of the new user.
         password: The password for the new user.
@@ -32,7 +30,6 @@ class AcceptUserInvitationCommand:
     """
 
     uuid: str
-    email: str
     first_name: str
     last_name: str
     password: str
@@ -91,15 +88,14 @@ class AcceptUserInvitation:
                 f"The user invitation with id {uuid} was already accepted."
             )
 
-        email = EmailAddress(command.email)
-        if await self._user_account_repo.exists_with_email(email):
+        if await self._user_account_repo.exists_with_email(user_invitation.email):
             raise UnprocessableException(
-                f"A user with email {command.email} already exists."
+                f"A user with email {user_invitation.email} already exists."
             )
 
         user_account = UserAccountEntity(
             user=UserEntity(
-                email=email,
+                email=user_invitation.email,
                 remark=command.remark,
                 name=Name(first_name=command.first_name, last_name=command.last_name),
             ),

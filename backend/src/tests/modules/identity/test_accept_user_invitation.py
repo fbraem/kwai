@@ -59,7 +59,6 @@ async def test_accept_user_invitation(
     presenter = DummyPresenter()
     command = AcceptUserInvitationCommand(
         uuid=str(user_invitation.uuid),
-        email=str(user_invitation.email),
         first_name=user_invitation.name.first_name,
         last_name=user_invitation.name.last_name,
         remark="Created with test_accept_user_invitation",
@@ -101,7 +100,6 @@ async def test_dont_accept_revoked_user_invitation(
     presenter = DummyPresenter()
     command = AcceptUserInvitationCommand(
         uuid=str(user_invitation.uuid),
-        email=str(user_invitation.email),
         first_name=user_invitation.name.first_name,
         last_name=user_invitation.name.last_name,
         remark="Created with test_dont_accept_revoked_user_invitation",
@@ -141,7 +139,6 @@ async def test_dont_accept_expired_user_invitation(
     presenter = DummyPresenter()
     command = AcceptUserInvitationCommand(
         uuid=str(user_invitation.uuid),
-        email=str(user_invitation.email),
         first_name=user_invitation.name.first_name,
         last_name=user_invitation.name.last_name,
         remark="Created with test_dont_accept_expired_user_invitation",
@@ -181,7 +178,6 @@ async def test_dont_accept_already_accepted_user_invitation(
     presenter = DummyPresenter()
     command = AcceptUserInvitationCommand(
         uuid=str(user_invitation.uuid),
-        email=str(user_invitation.email),
         first_name=user_invitation.name.first_name,
         last_name=user_invitation.name.last_name,
         remark="Created with test_dont_accept_already_accepted_user_invitation",
@@ -226,7 +222,6 @@ async def test_dont_accept_user_invitation_with_used_email(
     presenter = DummyPresenter()
     command = AcceptUserInvitationCommand(
         uuid=str(user_invitation.uuid),
-        email=str(user_invitation.email),
         first_name=user_invitation.name.first_name,
         last_name=user_invitation.name.last_name,
         remark="Created with test_dont_accept_user_invitation_with_used_email",
