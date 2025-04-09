@@ -15,6 +15,7 @@ export * from './nav';
 export * from './section';
 export * from './table';
 export * from './validations';
+export { default as KwaiLoadBoundary } from './KwaiLoadBoundary.vue';
 
 export const init = (app: App) => {
   app.use(PrimeVue, { theme: 'none' });
