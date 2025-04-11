@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
-  KwaiButton, KwaiErrorAlert, InputField,
+  KwaiButton, KwaiErrorAlert, InputField, KwaiLoadBoundary,
+  KwaiApiErrorBoundary,
 } from '@kwai/ui';
 import { useHttp } from '@kwai/api';
 import { useI18n } from 'vue-i18n';
@@ -11,11 +12,15 @@ import { ref } from 'vue';
 import {
   useRoute, useRouter,
 } from 'vue-router';
+import { useUserInvitation } from '../composables/useUserInvitations';
+import { now } from '@kwai/date';
 
 const { t } = useI18n({ useScope: 'global' });
 useTitle(`Kwai | ${t('invited.title')}`);
 
 const uuid = ref(useRoute().query.uuid);
+
+const { data: userInvitation, isLoading, error } = useUserInvitation({ id: uuid });
 
 function isRequired(value: string): string | boolean {
   if (value && value.trim()) {
@@ -126,88 +131,104 @@ const onSubmitForm = handleSubmit(async(values) => {
       </p>
     </div>
   </div>
-  <form class="flex-auto">
-    <div
-      v-if="uuid === undefined"
-      class="mb-6"
+  <KwaiLoadBoundary :loading="isLoading">
+    <KwaiApiErrorBoundary
+      :error="error"
+      :email="$kwai.admin?.email"
     >
-      <InputField
-        name="uuid"
-        type="text"
-        :placeholder="t('invited.form.uuid.placeholder')"
-        :required="true"
-      >
-        <template #label>
-          {{ t('invited.form.uuid.label') }}
-        </template>
-      </InputField>
-      <p class="text-xs text-gray-500 mt-2">
-        {{ t('invited.form.uuid.help') }}
-      </p>
-    </div>
-    <div class="grid grid-cols-2 mb-6 gap-4">
-      <InputField
-        id="first_name"
-        name="firstName"
-        type="text"
-        :placeholder="t('invited.form.first_name.placeholder')"
-        :required="true"
-      >
-        <template #label>
-          {{ t('invited.form.first_name.label') }}
-        </template>
-      </InputField>
-      <InputField
-        id="last_name"
-        name="lastName"
-        type="text"
-        :placeholder="t('invited.form.last_name.placeholder')"
-        :required="true"
-      >
-        <template #label>
-          {{ t('invited.form.last_name.label') }}
-        </template>
-      </InputField>
-    </div>
-    <InputField
-      name="password"
-      type="password"
-      :placeholder="t('invited.form.password.placeholder')"
-      :required="true"
-    >
-      <template #label>
-        {{ t('invited.form.password.label') }}
+      <template #message>
+        {{ t('invited.error_loading_invitation') }}
       </template>
-    </InputField>
-    <p class="text-xs text-gray-500 mt-2 mb-6">
-      {{ t('invited.form.password.help') }}
-    </p>
-    <InputField
-      name="repeat_password"
-      type="password"
-      :placeholder="t('invited.form.repeat_password.placeholder')"
-      :required="true"
-    >
-      <template #label>
-        {{ t('invited.form.repeat_password.label') }}
-      </template>
-    </InputField>
-    <KwaiErrorAlert
-      v-if="errorMessage"
-      class="w-full mt-4"
-    >
-      <div class="text-sm">
-        {{ errorMessage }}
-      </div>
-    </KwaiErrorAlert>
-    <div class="flex flex-col items-end mt-6">
-      <KwaiButton
-        id="submit"
-        class="bg-gray-700 text-white"
-        :method="onSubmitForm"
+      <KwaiErrorAlert v-if="userInvitation && (userInvitation.expiredAt.isBefore(now()) || userInvitation.confirmedAt)">
+        {{ t('invited.expired') }}
+      </KwaiErrorAlert>
+      <form
+        v-else
+        class="flex-auto"
       >
-        {{ t('invited.form.submit.label') }}
-      </KwaiButton>
-    </div>
-  </form>
+        <div
+          v-if="uuid === undefined"
+          class="mb-6"
+        >
+          <InputField
+            name="uuid"
+            type="text"
+            :placeholder="t('invited.form.uuid.placeholder')"
+            :required="true"
+          >
+            <template #label>
+              {{ t('invited.form.uuid.label') }}
+            </template>
+          </InputField>
+          <p class="text-xs text-gray-500 mt-2">
+            {{ t('invited.form.uuid.help') }}
+          </p>
+        </div>
+        <div class="grid grid-cols-2 mb-6 gap-4">
+          <InputField
+            id="first_name"
+            name="firstName"
+            type="text"
+            :placeholder="t('invited.form.first_name.placeholder')"
+            :required="true"
+          >
+            <template #label>
+              {{ t('invited.form.first_name.label') }}
+            </template>
+          </InputField>
+          <InputField
+            id="last_name"
+            name="lastName"
+            type="text"
+            :placeholder="t('invited.form.last_name.placeholder')"
+            :required="true"
+          >
+            <template #label>
+              {{ t('invited.form.last_name.label') }}
+            </template>
+          </InputField>
+        </div>
+        <InputField
+          name="password"
+          type="password"
+          :placeholder="t('invited.form.password.placeholder')"
+          :required="true"
+        >
+          <template #label>
+            {{ t('invited.form.password.label') }}
+          </template>
+        </InputField>
+        <p class="text-xs text-gray-500 mt-2 mb-6">
+          {{ t('invited.form.password.help') }}
+        </p>
+        <InputField
+          name="repeat_password"
+          type="password"
+          :placeholder="t('invited.form.repeat_password.placeholder')"
+          :required="true"
+        >
+          <template #label>
+            {{ t('invited.form.repeat_password.label') }}
+          </template>
+        </InputField>
+        <KwaiErrorAlert
+          v-if="errorMessage"
+          class="w-full mt-4"
+        >
+          <div class="text-sm">
+            {{ errorMessage }}
+          </div>
+        </KwaiErrorAlert>
+        <div class="flex flex-col items-end mt-6">
+          <KwaiButton
+            id="submit"
+            class="bg-gray-700 text-white"
+            :method="onSubmitForm"
+          >
+            {{ t('invited.form.submit.label') }}
+          </KwaiButton>
+        </div>
+      </form>
+    </KwaiApiErrorBoundary>
+  </kwailoadboundary>
 </template>

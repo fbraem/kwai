@@ -1,21 +1,24 @@
 import { createApp } from 'vue';
-// Create app
+
 import App from './App.vue';
 import '@root/index.css';
 
-// Setup i18n
 import { createI18n } from 'vue-i18n';
 import messages from '@intlify/unplugin-vue-i18n/messages';
 
 import { init } from '@kwai/ui';
 
-// Setup router
 import {
   createRouter, createWebHistory,
 } from 'vue-router';
 import { routes } from './routes';
 
+import { VueQueryPlugin } from '@tanstack/vue-query';
+
 const app = createApp(App);
+
+app.use(VueQueryPlugin);
+
 const i18n = createI18n({
   legacy: false,
   locale: 'nl',

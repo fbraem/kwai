@@ -89,6 +89,7 @@ invited:
   title: Registration
   problem: Problems with the registration?
   contact_us: Contact us
+  error_loading_invitation: The invitation could not be loaded.
   form:
     uuid:
       label: Code
@@ -116,7 +117,7 @@ invited:
   not_same: The passwords are not the same
   failed: |
     Something went wrong with the registration. Try again or contact our webmaster.
-  expired: The invitation is expired. Contact our webmaster.
+  expired: The invitation is expired or already used.
 change_password:
   title: Change password
   problem: Are you unable to change your password?

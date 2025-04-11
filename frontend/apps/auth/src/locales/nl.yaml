@@ -89,6 +89,7 @@ invited:
   title: Registratie
   problem: Lukt het niet om te registreren?
   contact_us: Contacteer ons
+  error_loading_invitation: De uitnodiging kon niet worden geladen.
   form:
     uuid:
       label: Code
@@ -117,7 +118,7 @@ invited:
   failed: |
     Er is iets misgelopen bij de registratie. Probeer opnieuw of
     contacteer onze webmaster.
-  expired: De uitnodiging is vervallen of reeds gebruikt. Neem contact op met onze webmaster.
+  expired: De uitnodiging is vervallen of reeds gebruikt.
 change_password:
   title: Wijzigen paswoord
   problem: Lukt het niet om jouw paswoord te wijzigen?
