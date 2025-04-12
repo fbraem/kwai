@@ -101,6 +101,10 @@ async def login(
     )
 
     try:
+        if x_forwarded_for:
+            client_ip = x_forwarded_for
+        else:
+            client_ip = request.client.host if request.client else ""
         async with UnitOfWork(db, always_commit=True):
             refresh_token = await AuthenticateUser(
                 UserAccountDbRepository(db),
@@ -109,10 +113,8 @@ async def login(
                 LogUserLoginDbService(
                     db,
                     email=form_data.username,
-                    user_agent=user_agent,
-                    client_ip=request.client.host
-                    if x_forwarded_for is None
-                    else x_forwarded_for,
+                    user_agent=user_agent or "",
+                    client_ip=client_ip,
                 ),
             ).execute(command)
     except InvalidEmailException as exc:
@@ -216,6 +218,11 @@ async def renew_access_token(
     )
 
     try:
+        if x_forwarded_for:
+            client_ip = x_forwarded_for
+        else:
+            client_ip = request.client.host if request.client else ""
+
         async with UnitOfWork(db, always_commit=True):
             new_refresh_token = await RefreshAccessToken(
                 RefreshTokenDbRepository(db),
@@ -223,10 +230,8 @@ async def renew_access_token(
                 LogUserLoginDbService(
                     db,
                     email="",
-                    user_agent=user_agent,
-                    client_ip=request.client.host
-                    if x_forwarded_for is None
-                    else x_forwarded_for,
+                    user_agent=user_agent or "",
+                    client_ip=client_ip,
                 ),
             ).execute(command)
     except AuthenticationException as exc:
