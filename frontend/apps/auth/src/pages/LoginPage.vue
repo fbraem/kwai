@@ -40,7 +40,6 @@ const { handleSubmit } = useForm({
 const redirect = useLocalStorage('login_redirect', null);
 const googleUrl = computed(() => {
   const url = '/api/v1/auth/sso/google/login?return_url=';
-  console.log(redirect.value);
   if (redirect.value) {
     return `${url}${redirect.value}`;
   }
