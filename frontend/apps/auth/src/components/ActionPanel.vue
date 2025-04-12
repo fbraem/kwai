@@ -1,3 +1,17 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+import type { LocationQuery } from 'vue-router';
+
+const props = defineProps<{
+  route?: LocationQuery
+  method?: Function
+}>();
+
+const tag = computed(() => props.route ? 'router-link' : 'a');
+const to = computed(() => props.route ? 'to' : '');
+const click = computed(() => props.method ? 'click' : '');
+</script>
+
 <template>
   <component
     :is="tag"
@@ -13,17 +27,3 @@
     </span>
   </component>
 </template>
-
-<script setup lang="ts">
-import { computed } from 'vue';
-import type { LocationQuery } from 'vue-router';
-
-const props = defineProps<{
-  route?: LocationQuery,
-  method?: Function
-}>();
-
-const tag = computed(() => props.route ? 'router-link' : 'a');
-const to = computed(() => props.route ? 'to' : '');
-const click = computed(() => props.method ? 'click' : '');
-</script>
