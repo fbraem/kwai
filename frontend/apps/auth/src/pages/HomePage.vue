@@ -17,11 +17,14 @@ const logout = () => {
       <h6 class="text-gray-900 text-2xl font-bold">
         {{ t('home.title') }}
       </h6>
-      <p class="text-sm text-gray-500">
+      <p
+        class="text-sm text-gray-500"
+        v-if="$kwai.admin?.email"
+      >
         {{ t('home.problem') }}
         <a
           class="text-blue-400 font-medium"
-          href="#"
+          :href="`mailto:${$kwai.admin.email}`"
         >
           {{ t('home.contact_us') }}
         </a>
@@ -29,7 +32,7 @@ const logout = () => {
     </div>
     <div>
       <h2 class="text-2xl text-gray-800 mb-3">
-        Welke actie wil je uitvoeren?
+        {{ t('home.which_action') }}
       </h2>
       <ul>
         <li v-if="isLoggedIn()">

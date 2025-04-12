@@ -2,6 +2,7 @@ home:
   title: Authenticatie
   problem: Heb je problemen met authenticatie?
   contact_us: Contacteer ons
+  which_action: Welke actie wil je uitvoeren?
   login:
     title: Inloggen
     description: Je wil inloggen op onze website.

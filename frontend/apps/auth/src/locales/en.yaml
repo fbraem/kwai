@@ -2,6 +2,7 @@ home:
   title: Authentication
   problem: Having problems with authentication?
   contact_us: Contact us
+  which_action: What do you want to do?
   login:
     title: Login
     description: You want to login in our website.
