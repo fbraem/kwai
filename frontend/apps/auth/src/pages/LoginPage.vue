@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  CheckIcon, InputField, KwaiButton, KwaiCard, KwaiErrorAlert,
+  CheckIcon, KwaiInputField, KwaiButton, KwaiCard, KwaiErrorAlert,
 } from '@kwai/ui';
 import { useForm } from 'vee-validate';
 import { useHttpLogin } from '@kwai/api';
@@ -115,7 +115,7 @@ const closeNotification = () => {
     class="flex-auto"
     @submit="onSubmitForm"
   >
-    <InputField
+    <KwaiInputField
       name="email"
       :placeholder="t('login.form.email.placeholder')"
       class="mb-6"
@@ -124,8 +124,8 @@ const closeNotification = () => {
       <template #label>
         {{ t('login.form.email.label') }}
       </template>
-    </InputField>
-    <InputField
+    </KwaiInputField>
+    <KwaiInputField
       name="password"
       type="password"
       :placeholder="t('login.form.password.placeholder')"
@@ -134,7 +134,7 @@ const closeNotification = () => {
       <template #label>
         {{ t('login.form.password.label') }}
       </template>
-    </InputField>
+    </KwaiInputField>
     <p class="text-right text-sm mt-1">
       <router-link
         class="text-blue-400"

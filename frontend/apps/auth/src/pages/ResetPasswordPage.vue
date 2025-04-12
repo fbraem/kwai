@@ -1,26 +1,30 @@
 <script setup lang="ts">
 import { useHttp } from '@kwai/api';
-import { KwaiButton, KwaiErrorAlert, InputField } from '@kwai/ui';
+import {
+  KwaiButton, KwaiErrorAlert, KwaiInputField,
+} from '@kwai/ui';
 import { useI18n } from 'vue-i18n';
 import { useTitle } from '@vueuse/core';
 import { useForm } from 'vee-validate';
 import type { Ref } from 'vue';
 import { ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import {
+  useRoute, useRouter,
+} from 'vue-router';
 
 const { t } = useI18n({ useScope: 'global' });
 useTitle(`Kwai | ${t('reset_password.title')}`);
 
 const uuid = ref(useRoute().query.uuid);
 
-function isRequired(value: string): string|boolean {
+function isRequired(value: string): string | boolean {
   if (value && value.trim()) {
     return true;
   }
   return t('reset_password.required');
 }
 
-function isSame(value: string, { form: { password } } : { form: { password: string }}): string|boolean {
+function isSame(value: string, { form: { password } }: { form: { password: string } }): string | boolean {
   if (value && value === password) {
     return true;
   }
@@ -61,8 +65,8 @@ const { handleSubmit } = useForm({
 
 const router = useRouter();
 const expired: Ref<boolean> = ref(false);
-const errorMessage: Ref<string|null> = ref(null);
-const onSubmitForm = handleSubmit(async values => {
+const errorMessage: Ref<string | null> = ref(null);
+const onSubmitForm = handleSubmit(async(values) => {
   errorMessage.value = null;
   const formData = {
     uuid: values.uuid,
@@ -72,10 +76,8 @@ const onSubmitForm = handleSubmit(async values => {
     .url('/auth/reset')
     .formData(formData)
     .post()
-    .res(() => router.push({
-      path: '/',
-    }))
-    .catch(error => {
+    .res(() => router.push({ path: '/' }))
+    .catch((error) => {
       if (error.response?.status === 401) {
         errorMessage.value = t('reset_password.expired');
         expired.value = true;
@@ -105,7 +107,7 @@ const onSubmitForm = handleSubmit(async values => {
       v-if="uuid === undefined"
       class="mb-6"
     >
-      <InputField
+      <KwaiInputField
         name="uuid"
         type="text"
         :placeholder="t('reset_password.form.uuid.placeholder')"
@@ -114,7 +116,7 @@ const onSubmitForm = handleSubmit(async values => {
         <template #label>
           {{ t('reset_password.form.uuid.label') }}
         </template>
-      </InputField>
+      </KwaiInputField>
       <p class="text-xs text-gray-500 mt-2">
         {{ t('reset_password.form.uuid.help') }}
         <router-link
@@ -125,7 +127,7 @@ const onSubmitForm = handleSubmit(async values => {
         </router-link>
       </p>
     </div>
-    <InputField
+    <KwaiInputField
       name="password"
       type="password"
       :placeholder="t('reset_password.form.password.placeholder')"
@@ -134,11 +136,11 @@ const onSubmitForm = handleSubmit(async values => {
       <template #label>
         {{ t('reset_password.form.password.label') }}
       </template>
-    </InputField>
+    </KwaiInputField>
     <p class="text-xs text-gray-500 mt-2 mb-6">
       {{ t('reset_password.form.password.help') }}
     </p>
-    <InputField
+    <KwaiInputField
       name="repeat_password"
       type="password"
       :placeholder="t('reset_password.form.repeat_password.placeholder')"
@@ -148,7 +150,7 @@ const onSubmitForm = handleSubmit(async values => {
       <template #label>
         {{ t('reset_password.form.repeat_password.label') }}
       </template>
-    </InputField>
+    </KwaiInputField>
     <div
       v-if="errorMessage"
       class="flex items-center gap-3"

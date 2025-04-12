@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  KwaiButton, KwaiErrorAlert, InputField, KwaiLoadBoundary,
+  KwaiButton, KwaiErrorAlert, KwaiInputField, KwaiLoadBoundary,
   KwaiApiErrorBoundary,
 } from '@kwai/ui';
 import { useHttp } from '@kwai/api';
@@ -150,7 +150,7 @@ const onSubmitForm = handleSubmit(async(values) => {
           v-if="uuid === undefined"
           class="mb-6"
         >
-          <InputField
+          <KwaiInputField
             name="uuid"
             type="text"
             :placeholder="t('invited.form.uuid.placeholder')"
@@ -159,13 +159,13 @@ const onSubmitForm = handleSubmit(async(values) => {
             <template #label>
               {{ t('invited.form.uuid.label') }}
             </template>
-          </InputField>
+          </KwaiInputField>
           <p class="text-xs text-gray-500 mt-2">
             {{ t('invited.form.uuid.help') }}
           </p>
         </div>
         <div class="grid grid-cols-2 mb-6 gap-4">
-          <InputField
+          <KwaiInputField
             id="first_name"
             name="firstName"
             type="text"
@@ -175,8 +175,8 @@ const onSubmitForm = handleSubmit(async(values) => {
             <template #label>
               {{ t('invited.form.first_name.label') }}
             </template>
-          </InputField>
-          <InputField
+          </KwaiInputField>
+          <KwaiInputField
             id="last_name"
             name="lastName"
             type="text"
@@ -186,9 +186,9 @@ const onSubmitForm = handleSubmit(async(values) => {
             <template #label>
               {{ t('invited.form.last_name.label') }}
             </template>
-          </InputField>
+          </KwaiInputField>
         </div>
-        <InputField
+        <KwaiInputField
           name="password"
           type="password"
           :placeholder="t('invited.form.password.placeholder')"
@@ -197,11 +197,11 @@ const onSubmitForm = handleSubmit(async(values) => {
           <template #label>
             {{ t('invited.form.password.label') }}
           </template>
-        </InputField>
+        </KwaiInputField>
         <p class="text-xs text-gray-500 mt-2 mb-6">
           {{ t('invited.form.password.help') }}
         </p>
-        <InputField
+        <KwaiInputField
           name="repeat_password"
           type="password"
           :placeholder="t('invited.form.repeat_password.placeholder')"
@@ -210,7 +210,7 @@ const onSubmitForm = handleSubmit(async(values) => {
           <template #label>
             {{ t('invited.form.repeat_password.label') }}
           </template>
-        </InputField>
+        </KwaiInputField>
         <KwaiErrorAlert
           v-if="errorMessage"
           class="w-full mt-4"
