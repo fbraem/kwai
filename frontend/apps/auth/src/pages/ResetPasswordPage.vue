@@ -73,7 +73,7 @@ const onSubmitForm = handleSubmit(async(values) => {
     password: values.password,
   };
   await useHttp()
-    .url('/auth/reset')
+    .url('/v1/auth/reset')
     .formData(formData)
     .post()
     .res(() => router.push({ path: '/' }))
