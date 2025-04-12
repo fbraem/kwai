@@ -1,21 +1,23 @@
 <script setup lang="ts">
-import { toRef, useSlots } from 'vue';
+import {
+  toRef, useSlots,
+} from 'vue';
 import { useField } from 'vee-validate';
 import RequiredIcon from '../icons/RequiredIcon.vue';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 
 const props = defineProps<{
-  name: string,
-  type?: string,
-  id?: string,
+  name: string
+  type?: string
+  id?: string
   placeholder?: string
   required?: boolean
 }>();
 const slots = useSlots();
 
 const nameRef = toRef(props, 'name');
-const { value, errorMessage } = useField<string|null>(nameRef);
+const { value, errorMessage } = useField<string | null>(nameRef);
 </script>
 
 <template>
