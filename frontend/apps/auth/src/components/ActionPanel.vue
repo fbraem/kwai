@@ -4,7 +4,7 @@ import type { LocationQuery } from 'vue-router';
 
 const props = defineProps<{
   route?: LocationQuery
-  method?: Function
+  method?: () => void
 }>();
 
 const tag = computed(() => props.route ? 'router-link' : 'a');
