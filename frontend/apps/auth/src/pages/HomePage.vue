@@ -65,7 +65,7 @@ const logout = () => {
             </template>
           </ActionPanel>
         </li>
-        <li v-if="!isLoggedIn">
+        <li v-if="!isLoggedIn()">
           <ActionPanel :route="{ name: 'recover' }">
             <template #title>
               {{ t('home.forgot_password.title') }}
