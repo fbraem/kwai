@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { KwaiButton, KwaiErrorAlert, InputField } from '@kwai/ui';
+import {
+  KwaiButton, KwaiErrorAlert, InputField,
+} from '@kwai/ui';
 import { useForm } from 'vee-validate';
 import { useHttp } from '@kwai/api';
 import type { Ref } from 'vue';
@@ -10,14 +12,14 @@ import { useTitle } from '@vueuse/core';
 const { t } = useI18n({ useScope: 'global' });
 useTitle(`Kwai | ${t('recover_password.title')}`);
 
-function isRequired(value: string): string|boolean {
+function isRequired(value: string): string | boolean {
   if (value && value.trim()) {
     return true;
   }
   return t('recover_password.required');
 }
 
-function isEmail(value: string): string|boolean {
+function isEmail(value: string): string | boolean {
   const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
   if (!regex.test(value)) {
     return t('recover_password.invalid_email');
@@ -25,24 +27,18 @@ function isEmail(value: string): string|boolean {
   return true;
 }
 
-const { handleSubmit } = useForm({
-  validationSchema: {
-    email: [isRequired, isEmail],
-  },
-});
+const { handleSubmit } = useForm({ validationSchema: { email: [isRequired, isEmail] } });
 
-const errorMessage: Ref<string|null> = ref(null);
-const onSubmitForm = handleSubmit(async values => {
+const errorMessage: Ref<string | null> = ref(null);
+const onSubmitForm = handleSubmit(async(values) => {
   errorMessage.value = null;
-  const formData = {
-    email: values.email,
-  };
+  const formData = { email: values.email };
   await useHttp()
     .url('/auth/recover')
     .formData(formData)
     .post()
     .json()
-    .catch(error => {
+    .catch((error) => {
       if (error.response?.status === 401) {
         errorMessage.value = t('recover_password.failed');
       } else {
