@@ -64,7 +64,7 @@ const onSubmitForm = handleSubmit(async(values) => {
   errorMessage.value = null;
   const formData = { password: values.password };
   await useHttpWithAuthCatcher()
-    .url('/auth/change')
+    .url('/v1/auth/change')
     .formData(formData)
     .post()
     .res(() => {
