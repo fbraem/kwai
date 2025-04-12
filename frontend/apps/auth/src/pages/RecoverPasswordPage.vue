@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {
-  KwaiButton, KwaiErrorAlert, InputField,
+  KwaiButton, KwaiApiErrorBoundary,
+  type ApiError,
+  KwaiInputField,
 } from '@kwai/ui';
 import { useForm } from 'vee-validate';
 import { useHttp } from '@kwai/api';
@@ -29,20 +31,24 @@ function isEmail(value: string): string | boolean {
 
 const { handleSubmit } = useForm({ validationSchema: { email: [isRequired, isEmail] } });
 
-const errorMessage: Ref<string | null> = ref(null);
+const errorMessage: Ref<Error | ApiError | null> = ref(null);
 const onSubmitForm = handleSubmit(async(values) => {
   errorMessage.value = null;
   const formData = { email: values.email };
   await useHttp()
-    .url('/auth/recover')
+    .url('/v1/auth/recover')
     .formData(formData)
     .post()
     .json()
     .catch((error) => {
-      if (error.response?.status === 401) {
-        errorMessage.value = t('recover_password.failed');
+      if (error.response) {
+        errorMessage.value = {
+          status: error.response.status,
+          message: error.json.detail,
+          url: error.response.url,
+        };
       } else {
-        console.log(error);
+        errorMessage.value = error;
       }
     });
 });
@@ -63,7 +69,7 @@ const onSubmitForm = handleSubmit(async(values) => {
     </div>
   </div>
   <form class="flex-auto">
-    <InputField
+    <KwaiInputField
       name="email"
       :placeholder="t('recover_password.form.email.placeholder')"
       class="mb-6"
@@ -72,15 +78,25 @@ const onSubmitForm = handleSubmit(async(values) => {
       <template #label>
         {{ t('recover_password.form.email.label') }}
       </template>
-    </InputField>
+    </KwaiInputField>
     <p class="text-xs text-gray-500">
       {{ t('recover_password.form.email.help') }}
     </p>
-    <KwaiErrorAlert v-if="errorMessage">
-      <div class="text-sm">
-        {{ errorMessage }}
-      </div>
-    </KwaiErrorAlert>
+    <div
+      v-if="errorMessage"
+      class="m-2"
+    >
+      <KwaiApiErrorBoundary
+        :error="errorMessage"
+        :email="$kwai.admin?.email"
+      >
+        <template #message>
+          <div>
+            {{ errorMessage }}
+          </div>
+        </template>
+      </KwaiApiErrorBoundary>
+    </div>
     <div class="flex flex-col items-end mt-6">
       <KwaiButton
         id="submit"
