@@ -60,11 +60,17 @@ const onSubmitForm = handleSubmit(async(values) => {
       <h6 class="text-gray-900 text-2xl font-bold">
         {{ t('recover_password.title') }}
       </h6>
-      <p class="text-sm text-gray-500">
-        {{ t('recover_password.problem') }} <a
+      <p
+        v-if="$kwai.admin?.email"
+        class="text-sm text-gray-500"
+      >
+        {{ t('recover_password.problem') }}
+        <a
           class="text-blue-400 font-medium"
-          href="#"
-        >{{ t('recover_password.contact_us') }}</a>
+          :href="`mailto:${$kwai.admin.email}`"
+        >
+          {{ t('recover_password.contact_us') }}
+        </a>
       </p>
     </div>
   </div>

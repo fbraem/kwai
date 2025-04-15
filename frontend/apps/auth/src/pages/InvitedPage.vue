@@ -120,11 +120,14 @@ const onSubmitForm = handleSubmit(async(values) => {
       <h6 class="text-gray-900 text-2xl font-bold">
         {{ t('invited.title') }}
       </h6>
-      <p class="text-sm text-gray-500">
+      <p
+        v-if="$kwai.admin?.email"
+        class="text-sm text-gray-500"
+      >
         {{ t('invited.problem') }}
         <a
           class="text-blue-400 font-medium"
-          href="#"
+          :href="`mailto:${$kwai.admin.email}`"
         >{{
           t('invited.contact_us')
         }}</a>
