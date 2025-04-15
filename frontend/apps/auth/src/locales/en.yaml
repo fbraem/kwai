@@ -49,6 +49,7 @@ recover_password:
   title: Password forgotten?
   problem: Can't solve the problem?
   contact_us: Contact us
+  notification: An email with a recovery code is send.
   form:
     email:
       label: Email

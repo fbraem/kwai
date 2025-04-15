@@ -49,6 +49,7 @@ recover_password:
   title: Paswoord vergeten?
   problem: Kan het probleem niet opgelost worden?
   contact_us: Contacteer ons
+  notification: Een email is verstuurd met de herstel code.
   form:
     email:
       label: Email

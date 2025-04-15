@@ -3,6 +3,7 @@ import {
   KwaiButton, KwaiApiErrorBoundary,
   type ApiError,
   KwaiInputField,
+  CheckIcon,
 } from '@kwai/ui';
 import { useForm } from 'vee-validate';
 import { useHttp } from '@kwai/api';
@@ -10,6 +11,7 @@ import type { Ref } from 'vue';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useTitle } from '@vueuse/core';
+import NotificationMessage from '../components/NotificationMessage.vue';
 
 const { t } = useI18n({ useScope: 'global' });
 useTitle(`Kwai | ${t('recover_password.title')}`);
@@ -50,11 +52,31 @@ const onSubmitForm = handleSubmit(async(values) => {
       } else {
         errorMessage.value = error;
       }
+    })
+    .then(() => {
+      showNotification.value = true;
+      setTimeout(() => {
+        showNotification.value = false;
+        window.location.replace('/');
+      }, 3000);
     });
 });
+
+const showNotification = ref(false);
+const closeNotification = () => {
+  showNotification.value = false;
+};
 </script>
 
 <template>
+  <NotificationMessage
+    v-if="showNotification"
+    :can-be-closed="true"
+    @close="closeNotification"
+  >
+    <CheckIcon class="w-8 h-8 mr-2 fill-green-600" />
+    {{ t('recover_password.notification') }}
+  </NotificationMessage>
   <div class="mb-6">
     <div class="mb-3">
       <h6 class="text-gray-900 text-2xl font-bold">
