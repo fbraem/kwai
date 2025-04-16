@@ -82,8 +82,10 @@ class ResetPassword:
             user_recovery.user.email
         )
 
-        user_account.reset_password(Password.create_from_string(command.password))
+        user_account = user_account.reset_password(
+            Password.create_from_string(command.password)
+        )
         await self._user_account_repo.update(user_account)
 
-        user_recovery.confirm()
+        user_recovery = user_recovery.confirm()
         await self._user_recovery_repo.update(user_recovery)
