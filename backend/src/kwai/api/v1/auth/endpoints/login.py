@@ -38,7 +38,11 @@ from kwai.modules.identity.refresh_access_token import (
     RefreshAccessToken,
     RefreshAccessTokenCommand,
 )
-from kwai.modules.identity.reset_password import ResetPassword, ResetPasswordCommand
+from kwai.modules.identity.reset_password import (
+    ResetPassword,
+    ResetPasswordCommand,
+    UserRecoveryConfirmedException,
+)
 from kwai.modules.identity.tokens.access_token_db_repository import (
     AccessTokenDbRepository,
 )
@@ -282,6 +286,7 @@ async def recover_user(
     summary="Reset the password of a user.",
     responses={  # noqa B006
         200: {"description": "The password is reset successfully."},
+        400: {"description": "The reset code was already used."},
         403: {"description": "This request is forbidden."},
         404: {"description": "The uniqued id of the recovery could not be found."},
         422: {"description": "The user could not be found."},
@@ -312,5 +317,10 @@ async def reset_password(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND) from exc
     except UserAccountNotFoundException as exc:
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY) from exc
+    except UserRecoveryConfirmedException as exc:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Reset code was already used.",
+        ) from exc
     except NotAllowedException as exc:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN) from exc
