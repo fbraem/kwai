@@ -18,6 +18,8 @@ from kwai.modules.portal.news.news_item_repository import NewsItemRepository
 from kwai.modules.portal.pages.page import PageEntity
 from kwai.modules.portal.pages.page_db_repository import PageDbRepository
 from kwai.modules.portal.pages.page_repository import PageRepository
+from tests.fixtures.identity.users import *  # noqa
+from tests.fixtures.portal.authors import *  # noqa
 
 
 @pytest.fixture(scope="module")
