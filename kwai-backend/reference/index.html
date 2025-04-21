@@ -11446,7 +11446,7 @@ future it can provide other engines.</p>
 
 
 <h7 id="kwai.core.db.database.Database.delete" class="doc doc-heading">
-            <code class=" language-python"><span class="n">delete</span><span class="p">(</span><span class="n">id_</span><span class="p">,</span> <span class="n">table_name</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">delete</span><span class="p">(</span><span class="n">id_</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">id_column</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -11501,6 +11501,22 @@ future it can provide other engines.</p>
             </td>
             <td>
                 <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>id_column</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the id column (default is 'id')</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;id&#39;</code>
             </td>
           </tr>
       </tbody>
@@ -11855,7 +11871,7 @@ as key and the column values as value.</p>
 
 
 <h7 id="kwai.core.db.database.Database.insert" class="doc doc-heading">
-            <code class=" language-python"><span class="n">insert</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="o">*</span><span class="n">table_data</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">insert</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="o">*</span><span class="n">table_data</span><span class="p">,</span> <span class="n">id_column</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -11910,6 +11926,22 @@ as key and the column values as value.</p>
             </td>
             <td>
                   <code>()</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>id_column</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the id column (default is 'id')</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;id&#39;</code>
             </td>
           </tr>
       </tbody>
@@ -12108,7 +12140,7 @@ be the id of the last executed insert.</p>
 
 
 <h7 id="kwai.core.db.database.Database.update" class="doc doc-heading">
-            <code class=" language-python"><span class="n">update</span><span class="p">(</span><span class="n">id_</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">table_data</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">update</span><span class="p">(</span><span class="n">id_</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">table_data</span><span class="p">,</span> <span class="n">id_column</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -12179,6 +12211,22 @@ be the id of the last executed insert.</p>
             </td>
             <td>
                 <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>id_column</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the id column (default is 'id').</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;id&#39;</code>
             </td>
           </tr>
       </tbody>
@@ -53196,6 +53244,132 @@ does not exist.</p>
 
 
 
+<h5 id="kwai.modules.portal.domain" class="doc doc-heading">
+            <code>domain</code>
+
+
+<a href="#kwai.modules.portal.domain" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
+        <p>Package with domain classes for the bounded context 'portal'.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.portal.domain.author" class="doc doc-heading">
+            <code>author</code>
+
+
+<a href="#kwai.modules.portal.domain.author" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module for defining the Author entity.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.portal.domain.author.AuthorEntity" class="doc doc-heading">
+            <code>AuthorEntity</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.domain.author.AuthorEntity" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.entity.DataclassEntity" href="#kwai.core.domain.entity.DataclassEntity">DataclassEntity</a></code></p>
+
+
+        <p>An author entity.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h5 id="kwai.modules.portal.get_application" class="doc doc-heading">
             <code>get_application</code>
 
@@ -58313,6 +58487,305 @@ returned.</p>
           </tr>
       </tbody>
     </table>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h5 id="kwai.modules.portal.repositories" class="doc doc-heading">
+            <code>repositories</code>
+
+
+<a href="#kwai.modules.portal.repositories" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
+        <p>Package with repositories for the bounded context 'portal'.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.portal.repositories.author_db_repository" class="doc doc-heading">
+            <code>author_db_repository</code>
+
+
+<a href="#kwai.modules.portal.repositories.author_db_repository" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that implements an AuthorRepository for a database.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.portal.repositories.author_db_repository.AuthorDbRepository" class="doc doc-heading">
+            <code>AuthorDbRepository</code>
+
+
+<a href="#kwai.modules.portal.repositories.author_db_repository.AuthorDbRepository" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.repositories.author_repository.AuthorRepository" href="#kwai.modules.portal.repositories.author_repository.AuthorRepository">AuthorRepository</a></code></p>
+
+
+        <p>A author repository for a database.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.portal.repositories.author_repository" class="doc doc-heading">
+            <code>author_repository</code>
+
+
+<a href="#kwai.modules.portal.repositories.author_repository" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that defines an interface for an Author repository.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.portal.repositories.author_repository.AuthorNotFoundException" class="doc doc-heading">
+            <code>AuthorNotFoundException</code>
+
+
+<a href="#kwai.modules.portal.repositories.author_repository.AuthorNotFoundException" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="Exception">Exception</span></code></p>
+
+
+        <p>Raised when an author cannot be found.</p>
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.portal.repositories.author_repository.AuthorRepository" class="doc doc-heading">
+            <code>AuthorRepository</code>
+
+
+<a href="#kwai.modules.portal.repositories.author_repository.AuthorRepository" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="abc.ABC">ABC</span></code></p>
+
+
+        <p>An interface for an author repository.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.portal.repositories.author_repository.AuthorRepository.create" class="doc doc-heading">
+            <code class=" language-python"><span class="n">create</span><span class="p">(</span><span class="n">author</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.repositories.author_repository.AuthorRepository.create" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Save an author entity to the database.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.portal.repositories.author_repository.AuthorRepository.delete" class="doc doc-heading">
+            <code class=" language-python"><span class="n">delete</span><span class="p">(</span><span class="n">author</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.repositories.author_repository.AuthorRepository.delete" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Delete an author entity from the dabase.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.portal.repositories.author_repository.AuthorRepository.get" class="doc doc-heading">
+            <code class=" language-python"><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.repositories.author_repository.AuthorRepository.get" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the author with the given user identifier.</p>
 
     </div>
 

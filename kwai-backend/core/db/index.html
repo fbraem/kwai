@@ -1278,7 +1278,7 @@ future it can provide other engines.</p>
 
 
 <h4 id="kwai.core.db.database.Database.delete" class="doc doc-heading">
-            <code class=" language-python"><span class="n">delete</span><span class="p">(</span><span class="n">id_</span><span class="p">,</span> <span class="n">table_name</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">delete</span><span class="p">(</span><span class="n">id_</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">id_column</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -1333,6 +1333,22 @@ future it can provide other engines.</p>
             </td>
             <td>
                 <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>id_column</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the id column (default is 'id')</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;id&#39;</code>
             </td>
           </tr>
       </tbody>
@@ -1687,7 +1703,7 @@ as key and the column values as value.</p>
 
 
 <h4 id="kwai.core.db.database.Database.insert" class="doc doc-heading">
-            <code class=" language-python"><span class="n">insert</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="o">*</span><span class="n">table_data</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">insert</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="o">*</span><span class="n">table_data</span><span class="p">,</span> <span class="n">id_column</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -1742,6 +1758,22 @@ as key and the column values as value.</p>
             </td>
             <td>
                   <code>()</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>id_column</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the id column (default is 'id')</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;id&#39;</code>
             </td>
           </tr>
       </tbody>
@@ -1940,7 +1972,7 @@ be the id of the last executed insert.</p>
 
 
 <h4 id="kwai.core.db.database.Database.update" class="doc doc-heading">
-            <code class=" language-python"><span class="n">update</span><span class="p">(</span><span class="n">id_</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">table_data</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">update</span><span class="p">(</span><span class="n">id_</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">table_data</span><span class="p">,</span> <span class="n">id_column</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -2011,6 +2043,22 @@ be the id of the last executed insert.</p>
             </td>
             <td>
                 <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>id_column</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the id column (default is 'id').</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;id&#39;</code>
             </td>
           </tr>
       </tbody>
