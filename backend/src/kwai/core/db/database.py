@@ -172,12 +172,15 @@ class Database:
         except Exception as exc:
             raise QueryException(compiled_query.sql) from exc
 
-    async def insert(self, table_name: str, *table_data: Any) -> int:
+    async def insert(
+        self, table_name: str, *table_data: Any, id_column: str = "id"
+    ) -> int:
         """Insert one or more instances of a dataclass into the given table.
 
         Args:
-            table_name (str): The name of the table
-            table_data (Any): One or more instances of a dataclass containing the values
+            table_name: The name of the table
+            table_data: One or more instances of a dataclass containing the values
+            id_column: The name of the id column (default is 'id')
 
         Returns:
             (int): The last inserted id. When multiple inserts are performed, this will
@@ -191,27 +194,30 @@ class Database:
         )
 
         record = dataclasses.asdict(table_data[0])
-        if "id" in record:
-            del record["id"]
+        if id_column in record:
+            del record[id_column]
         query = self.create_query_factory().insert(table_name).columns(*record.keys())
 
         for data in table_data:
             assert dataclasses.is_dataclass(data), "table_data should be a dataclass"
             record = dataclasses.asdict(data)
-            if "id" in record:
-                del record["id"]
+            if id_column in record:
+                del record[id_column]
             query = query.values(*record.values())
 
         execute_result = await self.execute(query)
         return execute_result.last_insert_id
 
-    async def update(self, id_: Any, table_name: str, table_data: Any) -> int:
+    async def update(
+        self, id_: Any, table_name: str, table_data: Any, id_column: str = "id"
+    ) -> int:
         """Update a dataclass in the given table.
 
         Args:
-            id_ (Any): The id of the data to update.
+            id_: The id of the data to update.
             table_name: The name of the table.
             table_data: The dataclass containing the data.
+            id_column: The name of the id column (default is 'id').
 
         Raises:
             (QueryException): Raised when the query contains an error.
@@ -222,28 +228,31 @@ class Database:
         assert dataclasses.is_dataclass(table_data), "table_data should be a dataclass"
 
         record = dataclasses.asdict(table_data)
-        del record["id"]
+        del record[id_column]
         query = (
             self.create_query_factory()
             .update(table_name)
             .set(record)
-            .where(field("id").eq(id_))
+            .where(field(id_column).eq(id_))
         )
         execute_result = await self.execute(query)
         return execute_result.rowcount
 
-    async def delete(self, id_: Any, table_name: str):
+    async def delete(self, id_: Any, table_name: str, id_column: str = "id"):
         """Delete a row from the table using the id field.
 
         Args:
             id_ (Any): The id of the row to delete.
             table_name (str): The name of the table.
+            id_column (str): The name of the id column (default is 'id')
 
         Raises:
             (QueryException): Raised when the query results in an error.
         """
         query = (
-            self.create_query_factory().delete(table_name).where(field("id").eq(id_))
+            self.create_query_factory()
+            .delete(table_name)
+            .where(field(id_column).eq(id_))
         )
         await self.execute(query)
 
