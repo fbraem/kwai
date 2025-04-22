@@ -14,9 +14,11 @@ class Identifier[T](ABC):
         """Return the id."""
         return self._id
 
-    def __eq__(self, other: "Identifier"):
+    def __eq__(self, other: object):
         """Check the equality of identifiers."""
-        return self._id == other._id
+        if isinstance(object, Identifier):
+            return self._id == other._id
+        return False
 
     def __hash__(self):
         """Create a hash for an identifier."""
