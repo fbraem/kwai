@@ -2,6 +2,8 @@
 
 from abc import ABC, abstractmethod
 
+from kwai.core.domain.value_objects.unique_id import UniqueId
+
 
 class Identifier[T](ABC):
     """Abstract and generic class for an identifier."""
@@ -47,3 +49,18 @@ class IntIdentifier(Identifier[int]):
     def __repr__(self):
         """Return a string representation of the identifier."""
         return f"IntIdentifier={self.value}"
+
+
+class UniqueIdIdentifier(Identifier[UniqueId]):
+    """Class that implements an identifier with a UniqueId."""
+
+    def __init__(self, id_: UniqueId | None = None):
+        super().__init__(id_ or UniqueId.generate())
+
+    def is_empty(self) -> bool:
+        """This identifier type is never empty."""
+        return False
+
+    def __repr__(self):
+        """Return a string representation of the identifier."""
+        return f"UniqueIdIdentifier={self.value}"
