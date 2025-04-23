@@ -15873,6 +15873,84 @@ See: https://pendulum.eustace.io</p>
 
 </div>
 
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.core.domain.value_objects.identifier.UniqueIdIdentifier" class="doc doc-heading">
+            <code>UniqueIdIdentifier</code>
+
+
+<a href="#kwai.core.domain.value_objects.identifier.UniqueIdIdentifier" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.identifier.Identifier" href="#kwai.core.domain.value_objects.identifier.Identifier">Identifier</a>[<a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.unique_id.UniqueId" href="#kwai.core.domain.value_objects.unique_id.UniqueId">UniqueId</a>]</code></p>
+
+
+        <p>Class that implements an identifier with a UniqueId.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.core.domain.value_objects.identifier.UniqueIdIdentifier.__repr__" class="doc doc-heading">
+            <code class=" language-python"><span class="fm">__repr__</span><span class="p">()</span></code>
+
+<a href="#kwai.core.domain.value_objects.identifier.UniqueIdIdentifier.__repr__" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return a string representation of the identifier.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.core.domain.value_objects.identifier.UniqueIdIdentifier.is_empty" class="doc doc-heading">
+            <code class=" language-python"><span class="n">is_empty</span><span class="p">()</span></code>
+
+<a href="#kwai.core.domain.value_objects.identifier.UniqueIdIdentifier.is_empty" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>This identifier type is never empty.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
 
 
 
@@ -53350,6 +53428,50 @@ does not exist.</p>
 
 </div>
 
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.portal.domain.author.AuthorIdentifier" class="doc doc-heading">
+            <code>AuthorIdentifier</code>
+
+
+<a href="#kwai.modules.portal.domain.author.AuthorIdentifier" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.value_objects.identifier.IntIdentifier" href="#kwai.core.domain.value_objects.identifier.IntIdentifier">IntIdentifier</a></code></p>
+
+
+        <p>Identifier for an author entity.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
 
 
 
@@ -58786,6 +58908,28 @@ returned.</p>
     <div class="doc doc-contents ">
 
         <p>Get the author with the given user identifier.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.portal.repositories.author_repository.AuthorRepository.get_by_uuid" class="doc doc-heading">
+            <code class=" language-python"><span class="n">get_by_uuid</span><span class="p">(</span><span class="n">uuid</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.repositories.author_repository.AuthorRepository.get_by_uuid" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the author that is linked to the user with the given uuid.</p>
 
     </div>
 
