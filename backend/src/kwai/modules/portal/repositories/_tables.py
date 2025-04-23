@@ -7,8 +7,18 @@ from typing import Self
 from kwai.core.db.table_row import TableRow
 from kwai.core.domain.value_objects.timestamp import Timestamp
 from kwai.core.domain.value_objects.traceable_time import TraceableTime
-from kwai.modules.portal.domain.author import AuthorEntity
-from tests.core.domain.test_entity import UserIdentifier
+from kwai.core.domain.value_objects.unique_id import UniqueId
+from kwai.modules.portal.domain.author import AuthorEntity, AuthorIdentifier
+
+
+@dataclass(kw_only=True, frozen=True, slots=True)
+class UserRow(TableRow):
+    """Represent a row in the users table."""
+
+    __table_name__ = "users"
+
+    id: int
+    uuid: str
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
@@ -24,10 +34,11 @@ class AuthorRow(TableRow):
     created_at: datetime
     updated_at: datetime | None
 
-    def create_entity(self) -> AuthorEntity:
+    def create_entity(self, uuid: UniqueId) -> AuthorEntity:
         """Create an author entity from a table row."""
         return AuthorEntity(
-            id=UserIdentifier(self.user_id),
+            id=AuthorIdentifier(self.user_id),
+            uuid=uuid,
             name=self.name,
             remark=self.remark,
             active=self.active == 1,
