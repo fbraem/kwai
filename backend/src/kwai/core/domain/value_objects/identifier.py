@@ -18,7 +18,7 @@ class Identifier[T](ABC):
 
     def __eq__(self, other: object):
         """Check the equality of identifiers."""
-        if isinstance(object, Identifier):
+        if isinstance(other, Identifier):
             return self._id == other._id
         return False
 
