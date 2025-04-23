@@ -19,5 +19,17 @@ async def test_create_author(database: Database, make_author, make_user_account_
 async def test_get_author(database: Database, make_author_in_db):
     """Test fetching an author."""
     author = await make_author_in_db()
+    uuid = author.uuid
     author = await AuthorDbRepository(database).get(author.id)
     assert author is not None, "There should be an author"
+    assert author.uuid == uuid, "The unique id should be the same"
+
+
+async def test_get_author_by_uuid(
+    database: Database, make_author_in_db, make_user_account_in_db
+):
+    """Test fetching an author."""
+    user_account = await make_user_account_in_db()
+    author = await make_author_in_db(user_account=user_account)
+    author = await AuthorDbRepository(database).get_by_uuid(user_account.user.uuid)
+    assert author is not None, "There should be an author with the given uuid"
