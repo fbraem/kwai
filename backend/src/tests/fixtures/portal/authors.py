@@ -5,7 +5,7 @@ import pytest
 from kwai.core.db.database import Database
 from kwai.core.db.uow import UnitOfWork
 from kwai.modules.identity.users.user_account import UserAccountEntity
-from kwai.modules.portal.domain.author import AuthorEntity
+from kwai.modules.portal.domain.author import AuthorEntity, AuthorIdentifier
 from kwai.modules.portal.repositories.author_db_repository import AuthorDbRepository
 
 
@@ -21,7 +21,11 @@ def make_author(make_user_account):
     ) -> AuthorEntity:
         the_user_account = user_account or make_user_account()
         return AuthorEntity(
-            id=the_user_account.id, name=name, active=active, remark=remark
+            id=AuthorIdentifier(the_user_account.id),
+            uuid=the_user_account.user.uuid,
+            name=name,
+            active=active,
+            remark=remark,
         )
 
     return _make_author
