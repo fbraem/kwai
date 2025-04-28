@@ -14,7 +14,7 @@ def make_author(make_user_account):
     """A factory fixture for creating an author."""
 
     def _make_author(
-        user_account: UserAccountEntity | None,
+        user_account: UserAccountEntity | None = None,
         name: str = "",
         active: bool = True,
         remark: str = "",
