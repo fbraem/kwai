@@ -34,6 +34,24 @@ CREATE TABLE `applications` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `authors`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `authors` (
+  `user_id` int unsigned NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `remark` text,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `editor` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `coaches`
 --
 
@@ -631,5 +649,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20240502185700'),
   ('20240525191900'),
   ('20240601194900'),
-  ('20250211152654');
+  ('20250211152654'),
+  ('20250418203100');
 UNLOCK TABLES;
