@@ -58988,6 +58988,154 @@ returned.</p>
 
 
 
+<h6 id="kwai.modules.portal.repositories.author_db_query" class="doc doc-heading">
+            <code>author_db_query</code>
+
+
+<a href="#kwai.modules.portal.repositories.author_db_query" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that implements an AuthorQuery for a database.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.portal.repositories.author_db_query.AuthorDbQuery" class="doc doc-heading">
+            <code>AuthorDbQuery</code>
+
+
+<a href="#kwai.modules.portal.repositories.author_db_query.AuthorDbQuery" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.repositories.author_query.AuthorQuery" href="#kwai.modules.portal.repositories.author_query.AuthorQuery">AuthorQuery</a></code>, <code><a class="autorefs autorefs-internal" title="kwai.core.db.database_query.DatabaseQuery" href="#kwai.core.db.database_query.DatabaseQuery">DatabaseQuery</a></code></p>
+
+
+        <p>An author query using a database.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.portal.repositories.author_db_query.AuthorQueryRow" class="doc doc-heading">
+            <code>AuthorQueryRow</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.repositories.author_db_query.AuthorQueryRow" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.db.table_row.JoinedTableRow" href="#kwai.core.db.table_row.JoinedTableRow">JoinedTableRow</a></code></p>
+
+
+        <p>A data transfer object for the author query.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.portal.repositories.author_db_query.AuthorQueryRow.create_entity" class="doc doc-heading">
+            <code class=" language-python"><span class="n">create_entity</span><span class="p">()</span></code>
+
+<a href="#kwai.modules.portal.repositories.author_db_query.AuthorQueryRow.create_entity" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Create an Author entity from a row.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
 <h6 id="kwai.modules.portal.repositories.author_db_repository" class="doc doc-heading">
             <code>author_db_repository</code>
 
@@ -59049,6 +59197,148 @@ returned.</p>
 
 
 
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.portal.repositories.author_db_repository.AuthorDbRepository.create_query" class="doc doc-heading">
+            <code class=" language-python"><span class="n">create_query</span><span class="p">()</span></code>
+
+<a href="#kwai.modules.portal.repositories.author_db_repository.AuthorDbRepository.create_query" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Create a base query.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h6 id="kwai.modules.portal.repositories.author_query" class="doc doc-heading">
+            <code>author_query</code>
+
+
+<a href="#kwai.modules.portal.repositories.author_query" class="headerlink" title="Permanent link">&para;</a></h6>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that defines an interface for an Author query.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h7 id="kwai.modules.portal.repositories.author_query.AuthorQuery" class="doc doc-heading">
+            <code>AuthorQuery</code>
+
+
+<a href="#kwai.modules.portal.repositories.author_query.AuthorQuery" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.repository.query.Query" href="#kwai.core.domain.repository.query.Query">Query</a></code>, <code><span title="abc.ABC">ABC</span></code></p>
+
+
+        <p>An interface for an author query.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.portal.repositories.author_query.AuthorQuery.filter_by_id" class="doc doc-heading">
+            <code class=" language-python"><span class="n">filter_by_id</span><span class="p">(</span><span class="n">id_</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.repositories.author_query.AuthorQuery.filter_by_id" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Filter an author on its id.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.portal.repositories.author_query.AuthorQuery.filter_by_uuid" class="doc doc-heading">
+            <code class=" language-python"><span class="n">filter_by_uuid</span><span class="p">(</span><span class="n">uuid</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.repositories.author_query.AuthorQuery.filter_by_uuid" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Filter an author on its unique user id.</p>
+
+    </div>
+
+</div>
 
 
 
@@ -59186,6 +59476,27 @@ returned.</p>
 <div class="doc doc-object doc-function">
 
 
+<h8 id="kwai.modules.portal.repositories.author_repository.AuthorRepository.create_query" class="doc doc-heading">
+            <code class=" language-python"><span class="n">create_query</span><span class="p">()</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.repositories.author_repository.AuthorRepository.create_query" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Create a query for quering authors.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
 <h8 id="kwai.modules.portal.repositories.author_repository.AuthorRepository.delete" class="doc doc-heading">
             <code class=" language-python"><span class="n">delete</span><span class="p">(</span><span class="n">author</span><span class="p">)</span></code>
 
@@ -59222,6 +59533,90 @@ returned.</p>
     <div class="doc doc-contents ">
 
         <p>Get the author with the given user identifier.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h8 id="kwai.modules.portal.repositories.author_repository.AuthorRepository.get_all" class="doc doc-heading">
+            <code class=" language-python"><span class="n">get_all</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.repositories.author_repository.AuthorRepository.get_all" class="headerlink" title="Permanent link">&para;</a></h8>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Yield all authors of a given query.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>query</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.repositories.author_query.AuthorQuery" href="#kwai.modules.portal.repositories.author_query.AuthorQuery">AuthorQuery</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The query to use for selecting the authors.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>limit</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The maximum number of entities to return.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Skip the offset rows before beginning to return entities.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
     </div>
 
