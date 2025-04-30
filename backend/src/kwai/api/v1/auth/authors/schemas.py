@@ -26,6 +26,7 @@ class AuthorAttributes(BaseModel):
     name: str
     remark: str
     active: bool
+    editor: bool
 
 
 class AuthorResource(AuthorResourceIdentifier, ResourceData[AuthorAttributes, None]):
@@ -37,7 +38,10 @@ class AuthorResource(AuthorResourceIdentifier, ResourceData[AuthorAttributes, No
         return cls(
             id=str(author.uuid),
             attributes=AuthorAttributes(
-                name=author.name, remark=author.remark, active=author.active
+                name=author.name,
+                remark=author.remark,
+                active=author.active,
+                editor=author.editor,
             ),
             meta=ResourceMeta(
                 created_at=str(author.traceable_time.created_at),

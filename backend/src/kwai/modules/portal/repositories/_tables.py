@@ -31,6 +31,7 @@ class AuthorRow(TableRow):
     name: str
     remark: str
     active: int
+    editor: int
     created_at: datetime
     updated_at: datetime | None
 
@@ -42,6 +43,7 @@ class AuthorRow(TableRow):
             name=self.name,
             remark=self.remark,
             active=self.active == 1,
+            editor=self.editor == 1,
             traceable_time=TraceableTime(
                 created_at=Timestamp.create_utc(timestamp=self.created_at),
                 updated_at=Timestamp.create_utc(timestamp=self.updated_at),
@@ -56,6 +58,7 @@ class AuthorRow(TableRow):
             name=author.name,
             remark=author.remark,
             active=1 if author.active else 0,
+            editor=1 if author.editor else 0,
             created_at=author.traceable_time.created_at.timestamp,  # type: ignore
             updated_at=author.traceable_time.updated_at.timestamp,
         )

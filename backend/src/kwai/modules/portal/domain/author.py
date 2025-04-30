@@ -22,3 +22,4 @@ class AuthorEntity(DataclassEntity):
     name: str = ""
     active: bool = True
     remark: str = ""
+    editor: bool = False

@@ -35,6 +35,7 @@ def test_author_schema(author):
                 "name": "Jigoro Kano",
                 "remark": "Test author",
                 "active": True,
+                "editor": False,
             },
             "meta": {
                 "created_at": str(author.traceable_time.created_at),
