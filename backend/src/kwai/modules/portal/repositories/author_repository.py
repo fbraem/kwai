@@ -16,7 +16,7 @@ class AuthorRepository(ABC):
     """An interface for an author repository."""
 
     @abstractmethod
-    def create_query() -> AuthorQuery:
+    def create_query(self) -> AuthorQuery:
         """Create a query for quering authors."""
         raise NotImplementedError
 
