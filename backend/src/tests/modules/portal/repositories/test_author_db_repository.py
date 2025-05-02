@@ -33,3 +33,10 @@ async def test_get_author_by_uuid(
     author = await make_author_in_db(user_account=user_account)
     author = await AuthorDbRepository(database).get_by_uuid(user_account.user.uuid)
     assert author is not None, "There should be an author with the given uuid"
+
+
+async def test_get_all(database: Database, make_author_in_db):
+    """Test fetching all authors."""
+    await make_author_in_db()
+    result = AuthorDbRepository(database).get_all()
+    assert anext(result) is not None, "There should be an author."
