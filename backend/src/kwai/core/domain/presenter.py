@@ -49,3 +49,24 @@ class AsyncPresenter[T](ABC):
 
         This method is responsible for converting the entity.
         """
+
+
+class CountIterableAsyncPresenter[T](AsyncPresenter[IterableResult[T]]):
+    """A presenter that counts the number of entries in the use case result.
+
+    This presenter can be used in tests.
+    """
+
+    def __init__(self):
+        super().__init__()
+        self._count = 0
+
+    @property
+    def count(self):
+        """Return count."""
+        return self._count
+
+    async def present(self, use_case_result: IterableResult[T]) -> None:
+        """Process the result of the use case."""
+        async for _ in use_case_result.iterator:
+            self._count += 1
