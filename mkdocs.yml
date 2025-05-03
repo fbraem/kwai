@@ -40,10 +40,11 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: format: !!python/name:mermaid2.fence_mermaid
+          format: !!python/name:mermaid2.fence_mermaid
 
 plugins:
   - monorepo
+  - mermaid2
   - autorefs:
       resolve_closest: true
   - mkdocstrings:
