@@ -14795,6 +14795,93 @@ API.</p>
 
 
 
+<h6 id="kwai.core.domain.presenter.CountIterableAsyncPresenter" class="doc doc-heading">
+            <code>CountIterableAsyncPresenter</code>
+
+
+<a href="#kwai.core.domain.presenter.CountIterableAsyncPresenter" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="kwai.core.domain.presenter.AsyncPresenter" href="#kwai.core.domain.presenter.AsyncPresenter">AsyncPresenter</a>[<a class="autorefs autorefs-internal" title="kwai.core.domain.presenter.IterableResult" href="#kwai.core.domain.presenter.IterableResult">IterableResult</a>[<span title="T">T</span>]]</code></p>
+
+
+        <p>A presenter that counts the number of entries in the use case result.</p>
+<p>This presenter can be used in tests.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h7 id="kwai.core.domain.presenter.CountIterableAsyncPresenter.count" class="doc doc-heading">
+            <code class=" language-python"><span class="n">count</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#kwai.core.domain.presenter.CountIterableAsyncPresenter.count" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return count.</p>
+    </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.core.domain.presenter.CountIterableAsyncPresenter.present" class="doc doc-heading">
+            <code class=" language-python"><span class="n">present</span><span class="p">(</span><span class="n">use_case_result</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.core.domain.presenter.CountIterableAsyncPresenter.present" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Process the result of the use case.</p>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
 <h6 id="kwai.core.domain.presenter.IterableResult" class="doc doc-heading">
             <code>IterableResult</code>
 
@@ -54303,6 +54390,249 @@ does not exist.</p>
           </tr>
       </tbody>
     </table>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h5 id="kwai.modules.portal.get_authors" class="doc doc-heading">
+            <code>get_authors</code>
+
+
+<a href="#kwai.modules.portal.get_authors" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
+        <p>Module that implements the 'get authors' use case.</p>
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.portal.get_authors.GetAuthors" class="doc doc-heading">
+            <code>GetAuthors</code>
+
+
+<a href="#kwai.modules.portal.get_authors.GetAuthors" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Use case for getting authors.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.modules.portal.get_authors.GetAuthors.__init__" class="doc doc-heading">
+            <code class=" language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">author_repo</span><span class="p">,</span> <span class="n">presenter</span><span class="p">)</span></code>
+
+<a href="#kwai.modules.portal.get_authors.GetAuthors.__init__" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Initialize the use case.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>author_repo</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.repositories.author_repository.AuthorRepository" href="#kwai.modules.portal.repositories.author_repository.AuthorRepository">AuthorRepository</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The repository for getting the authors.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>presenter</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.core.domain.presenter.AsyncPresenter" href="#kwai.core.domain.presenter.AsyncPresenter">AsyncPresenter</a>[<a class="autorefs autorefs-internal" title="kwai.core.domain.presenter.IterableResult" href="#kwai.core.domain.presenter.IterableResult">IterableResult</a>[<a class="autorefs autorefs-internal" title="kwai.modules.portal.domain.author.AuthorEntity" href="#kwai.modules.portal.domain.author.AuthorEntity">AuthorEntity</a>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The presenter for authors.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h7 id="kwai.modules.portal.get_authors.GetAuthors.execute" class="doc doc-heading">
+            <code class=" language-python"><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.get_authors.GetAuthors.execute" class="headerlink" title="Permanent link">&para;</a></h7>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Execute the use case.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>command</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="kwai.modules.portal.get_authors.GetAuthorsCommand" href="#kwai.modules.portal.get_authors.GetAuthorsCommand">GetAuthorsCommand</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Input for the use case.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h6 id="kwai.modules.portal.get_authors.GetAuthorsCommand" class="doc doc-heading">
+            <code>GetAuthorsCommand</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#kwai.modules.portal.get_authors.GetAuthorsCommand" class="headerlink" title="Permanent link">&para;</a></h6>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Input for the use case.</p>
 
 
 
